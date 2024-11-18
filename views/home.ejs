@@ -4,20 +4,7 @@
             <strong>Your email has not been verified. Click here to visit your profile and update your email address and/or resend the verification message.</strong>
         </p>
     </div>
-    <!--<div class="top-banner-flex">
-        <div class="top-banner">
-            <!-- <p>
-                We are pleased to welcome our PATRIC users to the release of the new Bacterial and Viral Bioinformatics Resource Center (BV-BRC). BV-BRC combines the data, tools, and technologies from the bacterial BRC (<a href="https://legacy.patricbrc.org" class="navigationLinkOut">Legacy PATRIC</a>) and the viral BRCs (<a href="https://www.fludb.org/brc/home.spg?decorator=influenza" class="navigationLinkOut">IRD</a> and <a href="https://www.viprbrc.org/brc/home.spg?decorator=vipr" class="navigationLinkOut">ViPR</a>) and will be replacing them entirely in the near future. You can learn more about the transition <a href="https://www.bv-brc.org/docs/news/2022/20220816-bv-brc-patric-redirect.html" class="navigationLinkOut">here</a>.
-            </p>
-            <!-- <p>
-                Dear <a href="https://legacy.fludb.org" class="navigationLinkOut" style="font-weight: bold;">IRD</a> and <a href="https://legacy.viprbrc.org" class="navigationLinkOut" style="font-weight: bold;">ViPR</a> users, welcome to <a href="https://www.bv-brc.org/docs/overview.html" class="navigationLinkOut" style="font-weight: bold;">BV-BRC</a>. The migration of the data, tools, and services from the legacy IRD and ViPR applications to BV-BRC is now <strong>complete</strong>. All web traffic from the <strong>IRD</strong> and <strong>ViPR</strong> resources is also being forwarded to the BV-BRC home page. Please refer to this <a href="https://www.bv-brc.org/docs/quick_start/index.html" class="navigationLinkOut" style="font-weight: bold;">Quick Start Guide</a> to learn how to start using <strong>BV-BRC</strong>.
-                <br>
-                <br>
-                If you have questions or need assistance, please contact us at <a href="mailto:help@bv-brc.org" style="font-weight: bold;">help@bv-brc.org</a>.
-            </p>
-        </div>
 
-    </div> -->
     <div id="bv-brc-home-container">
         <div class="grid-container">
             <div class="bv-brc-info">
@@ -29,6 +16,7 @@
                     to learn how to get started and <a href="mailto:help@bv-brc.org" style="font-weight: bold;">contact us</a>
                     if you have any questions.
                 </p>
+                <%#-
                 <div class="search" style="display: flex; align-items: center; justify-content: space-between;">
                     <h3>SEARCH</h3>
                     <div class="global-search" style="flex-grow: 5;">
@@ -37,8 +25,10 @@
                         </div>
                     </div>
                 </div>
+                %>
             </div>
 
+            <%#-
             <div class="bv-brc-mid"><!-- style="grid-row: 3/6"-->
                 <div class="bv-brc-mid-content">
                     <h2>ANALYZE DATA IN MAAGE</h2>
@@ -85,7 +75,9 @@
                     </div>
                 </div>
             </div>
+            %>
 
+            <%#-
             <div class="announcements">
                 <h2>NEWS &amp; ANNOUNCEMENTS</h2>
                 <ul class="slides" id="announcements-slides"></ul>
@@ -97,11 +89,12 @@
                 <ul class="slides" id="linkedin-slides" style="height: 84%;"></ul>
                 <div class="dot-navigation" id="linkedin-dot-navigation" style="margin-top: 15px;"></div>
             </div>
+            %>
         </div>
     </div>
 </div>
 
-<%- include('bv-brc-footer') %>
+<%#- include('bv-brc-footer') %>
 
 <style>
     body.patric {
