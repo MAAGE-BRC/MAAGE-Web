@@ -284,3 +284,7 @@ div.bv-brc-mid>div.mid-content-bottom {
 .bv-brc-mid .bv-brc-mid-content-links a:hover {
   color: #5B9579;
 }
+
+div#announcements-dot-navigation {
+  display: none;
+}
