@@ -5,6 +5,6 @@
     "public/js/release/": true
   },
   "githubPullRequests.ignoredPullRequestBranches": ["master"],
-  "editor.wordWrap": "on",
+  "editor.wordWrap": "off",
   "editor.wordWrapColumn": 120
 }

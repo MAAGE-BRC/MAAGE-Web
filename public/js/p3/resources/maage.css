@@ -51,8 +51,7 @@ div#bv-brc-home p {
   font-weight: 300;
 }
 
-div.HideWithAuth.authLinks.showOnLoad
-  > a.LoginButton.navigationLink:nth-child(1) {
+div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(1) {
   align-items: center;
   align-self: center;
   background-color: #f0ebe5;
@@ -70,18 +69,15 @@ div.HideWithAuth.authLinks.showOnLoad
   text-decoration: none;
 }
 
-div.HideWithAuth.authLinks.showOnLoad
-  > a.LoginButton.navigationLink:nth-child(1):hover {
+div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(1):hover {
   color: #02193b;
 }
 
-div.HideWithAuth.authLinks.showOnLoad
-  > a.LoginButton.navigationLink:nth-child(1):visited {
+div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(1):visited {
   color: #64a69d;
 }
 
-div.HideWithAuth.authLinks.showOnLoad
-  > a.LoginButton.navigationLink:nth-child(2) {
+div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(2) {
   align-items: center;
   align-self: center;
   background-color: #f0ebe5;
@@ -99,18 +95,16 @@ div.HideWithAuth.authLinks.showOnLoad
   text-decoration: none;
 }
 
-div.HideWithAuth.authLinks.showOnLoad
-  > a.LoginButton.navigationLink:nth-child(2):hover {
+div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(2):hover {
   color: #02193b;
 }
 
-div.HideWithAuth.authLinks.showOnLoad
-  > a.LoginButton.navigationLink:nth-child(2):visited {
+div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(2):visited {
   color: #64a69d;
 }
 
 @media (min-width: 992px) {
-  div.grid-container > div.bv-brc-info {
+  div.grid-container>div.bv-brc-info {
     grid-column-end: 3;
     grid-column-start: 1;
     grid-row-end: 3;
@@ -127,10 +121,9 @@ div.bv-brc-info {
   border-right-width: 0;
   border-top-color: initial;
   border-top-width: 0;
-  height: 175px !important;
 }
 
-div.bv-brc-info > h1 {
+div.bv-brc-info>h1 {
   border-style: initial;
   border-width: 0;
   color: #27303f;
@@ -140,7 +133,7 @@ div.bv-brc-info > h1 {
   padding: 0;
 }
 
-div.bv-brc-info > p {
+div.bv-brc-info>p {
   border-style: initial;
   border-width: 0;
   color: #272a2a;
@@ -150,7 +143,7 @@ div.bv-brc-info > p {
   padding: 0;
 }
 
-div.bv-brc-info > p > a.navigationLinkOut {
+div.bv-brc-info>p>a.navigationLinkOut {
   border-style: initial;
   border-width: 0;
   color: #3a5f4d;
@@ -165,12 +158,12 @@ div.bv-brc-info > p > a.navigationLinkOut {
   text-decoration: none;
 }
 
-div.bv-brc-info > p > a.navigationLinkOut:hover {
+div.bv-brc-info>p>a.navigationLinkOut:hover {
   color: #21362c;
   text-decoration-line: underline;
 }
 
-div.bv-brc-info > p > a {
+div.bv-brc-info>p>a {
   border-style: initial;
   border-width: 0;
   color: #3a5f4d !important;
@@ -185,7 +178,7 @@ div.bv-brc-info > p > a {
   text-decoration: none;
 }
 
-div.bv-brc-info > p > a:hover {
+div.bv-brc-info>p>a:hover {
   color: #21362c;
   text-decoration-line: underline;
 }
