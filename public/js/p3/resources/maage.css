@@ -13,8 +13,7 @@ div#bv-brc-header {
   overflow: hidden;
   padding: 0;
   width: 100%;
-  background-color: #81b29a;
-  background-repeat: initial;
+  background-color: #81B29A;
 }
 
 div#bv-brc-home {
@@ -68,6 +67,8 @@ div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(1) 
   padding: 2px 12px 4px;
   text-decoration: none;
 }
+
+
 
 div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(1):hover {
   color: #02193b;
@@ -181,4 +182,105 @@ div.bv-brc-info>p>a {
 div.bv-brc-info>p>a:hover {
   color: #21362c;
   text-decoration-line: underline;
+}
+
+div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(1) {
+  border-radius: 5rem;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size-adjust: none;
+  padding: .5rem .75rem;
+  text-align: center;
+  text-decoration: none;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  white-space-collapse: collapse;
+  text-wrap-mode: nowrap;
+  line-height: 1.5;
+  user-select: none;
+  vertical-align: middle;
+  transition-behavior: normal, normal, normal, normal, normal;
+  border-style: none;
+  color: #FFFFFF;
+  font-size: .9rem;
+  font-weight: 400;
+  margin: 5px 0;
+  width: 125px;
+  background-color: #566376;
+  background-repeat: initial;
+}
+
+div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(2) {
+  border-radius: 5rem;
+  cursor: pointer;
+  font-size-adjust: none;
+  text-decoration: none;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  transition-behavior: normal, normal, normal, normal, normal;
+  line-height: 1.5;
+  user-select: none;
+  vertical-align: middle;
+  text-wrap-mode: nowrap;
+  white-space-collapse: collapse;
+  border-style: none;
+  color: #FFFFFF;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .9rem;
+  font-weight: 400;
+  margin: 5px 0;
+  padding: .5rem .75rem;
+  text-align: center;
+  width: 150px;
+  background-color: #566376;
+  background-repeat: initial;
+}
+
+div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(3) {
+  border-radius: 5rem;
+  cursor: pointer;
+  font-size-adjust: none;
+  text-decoration: none;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  transition-behavior: normal, normal, normal, normal, normal;
+  line-height: 1.5;
+  user-select: none;
+  vertical-align: middle;
+  text-wrap-mode: nowrap;
+  white-space-collapse: collapse;
+  border-style: none;
+  color: #FFFFFF;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .9rem;
+  font-weight: 400;
+  margin: 5px 0;
+  padding: .5rem .75rem;
+  text-align: center;
+  width: 125px;
+  background-color: #566376;
+  background-repeat: initial;
+}
+
+div.bv-brc-mid>div.mid-content-bottom {
+  background-color: #ffffff;
+  border-style: initial;
+  border-width: 0;
+  color: #333333;
+  font-family: "Noto Sans", sans-serif;
+  font-size-adjust: none;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: -1px 0 0;
+  padding: 5px 0;
+  position: relative;
+  width: 100%;
+}
+
+.bv-brc-mid .bv-brc-mid-content-links a {
+  color: #426C58;
+}
+
+.bv-brc-mid .bv-brc-mid-content-links a:hover {
+  color: #5B9579;
 }
