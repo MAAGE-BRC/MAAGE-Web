@@ -592,3 +592,39 @@ div#bv-brc-header-container>div.nav-logo {
   font-size: 22px;
   font-weight: 500;
 }
+
+#bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(1) {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: .5rem .75rem;
+  text-align: center;
+  white-space-collapse: collapse;
+  text-wrap-mode: nowrap;
+  transition-behavior: normal, normal, normal, normal, normal;
+  background: #015994;
+  color: #26292C;
+}
+
+#bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(2) {
+  transition-behavior: normal, normal, normal, normal, normal;
+  text-wrap-mode: nowrap;
+  white-space-collapse: collapse;
+  background-repeat: repeat;
+  color: #26292C;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: .5rem .75rem;
+  text-align: center;
+}
+
+#bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(3) {
+  transition-behavior: normal, normal, normal, normal, normal;
+  text-wrap-mode: nowrap;
+  white-space-collapse: collapse;
+  background-repeat: repeat;
+  color: #26292C;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: .5rem .75rem;
+  text-align: center;
+}
