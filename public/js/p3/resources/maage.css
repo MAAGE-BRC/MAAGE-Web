@@ -330,7 +330,6 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(1) {
-  background: #015994;
   background-color: #9CC2AF;
   border-style: none;
   border: 1px solid #26292C;
@@ -344,7 +343,6 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(2) {
-  background: #015994;
   background-color: #9CC2AF;
   border-style: none;
   border: 1px solid #26292C;
@@ -358,7 +356,6 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(3) {
-  background: #015994;
   background-color: #9CC2AF;
   border-style: none;
   border: 1px solid #26292C;
@@ -601,7 +598,6 @@ div#bv-brc-header-container>div.nav-logo {
   white-space-collapse: collapse;
   text-wrap-mode: nowrap;
   transition-behavior: normal, normal, normal, normal, normal;
-  background: #015994;
   color: #26292C;
 }
 
@@ -627,4 +623,34 @@ div#bv-brc-header-container>div.nav-logo {
   font-family: Arial, Helvetica, sans-serif;
   padding: .5rem .75rem;
   text-align: center;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5) {
+  color: #436D58;
+  text-decoration: underline;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5):nth-child(5):hover {}
+
+#bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5):nth-child(5) {}
+
+#bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5):hover {}
+
+#bv-brc-home-container div.mid-links:nth-child(2)>a:nth-child(5) {
+  color: #436D58;
+  text-decoration: underline;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(2)>a:nth-child(5):nth-child(5) {}
+
+#bv-brc-home-container div.mid-links:nth-child(2)>a:nth-child(5):nth-child(5):hover {}
+
+#bv-brc-home-container div.mid-links:nth-child(2)>a:nth-child(5):hover {}
+
+#bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(5) {
+  color: #436D58;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(4) {
+  color: #436D58;
 }
