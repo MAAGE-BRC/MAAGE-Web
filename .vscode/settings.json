@@ -1,7 +1,10 @@
 // vscode (https://code.visualstudio.com) config file for p3_web
 {
-	"files.trimTrailingWhitespace": true,
-    "search.exclude": {
-        "public/js/release/": true
-    }
+  "files.trimTrailingWhitespace": true,
+  "search.exclude": {
+    "public/js/release/": true
+  },
+  "githubPullRequests.ignoredPullRequestBranches": ["master"],
+  "editor.wordWrap": "off",
+  "editor.wordWrapColumn": 120
 }
