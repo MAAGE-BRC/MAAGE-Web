@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-        <title>Bacterial and Viral Bioinformatics Resource Center | BV-BRC</title>
+		<title>Midwest Alliance for Applied Genomic Epidemiology | MAAGE</title>
 		<%- include('header') %>
-	</head>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+		<script src="https://cdn.tailwindcss.com"></script>
+	  </head>
 	<body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
 		<div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
 			<%- include('bv-brc-header') %>

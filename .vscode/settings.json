@@ -3,5 +3,8 @@
 	"files.trimTrailingWhitespace": true,
     "search.exclude": {
         "public/js/release/": true
-    }
+    },
+    "workbench.editor.splitInGroupLayout": "vertical",
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 120
 }
