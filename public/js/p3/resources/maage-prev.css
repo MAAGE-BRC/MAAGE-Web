@@ -1,17 +1,22 @@
 div#bv-brc-header-container>div:nth-child(2) {
   flex: 1 1 0;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: 400;
   margin: -4px 0 0;
 }
 
 div#bv-brc-header {
-  background-color: #9CC2AF;
-  font-family: 'Noto Sans', sans-serif !important;
+  background-color: #9cc2af;
+  height: 55px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+div#bv-brc-header a {
+  font-family: 'Poppins', sans-serif !important;
   font-weight: 300 !important;
   font-size: 14px;
-  height: 55px;
 }
 
 div#bv-brc-header-container>div.HideWithAuth.authLinks.showOnLoad {
@@ -327,11 +332,11 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.bv-brc-mid>div.mid-content-bottom {
-  background-color: #F0F0F0;
+  background-color: #dfdfdf;
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(1) {
-  background-color: #9CC2AF;
+  background-color: #9cc2af;
   border-style: none;
   border: 1px solid #26292C;
   color: #26292C;
@@ -344,7 +349,7 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(2) {
-  background-color: #9CC2AF;
+  background-color: #9cc2af;
   border-style: none;
   border: 1px solid #26292C;
   color: #26292C;
@@ -357,7 +362,7 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(3) {
-  background-color: #9CC2AF;
+  background-color: #9cc2af;
   border-style: none;
   border: 1px solid #26292C;
   color: #26292C;
@@ -657,10 +662,7 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-header #bv-brc-header-container #maage-logo-link {
-  font: 'Roboto Slab', serif !important;
-  font-size: 20px !important;
-  font-weight: bold !important;
-  color: #26292c !important;
+
 }
 
 span#maage-logo-link {
@@ -668,8 +670,8 @@ span#maage-logo-link {
   border-width: 0;
   color: #26292C;
   cursor: pointer;
-  font-family: 'Roboto Slab', serif;
-  font-size: 20px;
+  font-family: 'Roboto Slab';
+  font-size: 32px;
   font-size-adjust: none;
   font-weight: 700;
   line-height: 1.5;
@@ -677,4 +679,234 @@ span#maage-logo-link {
   text-decoration: none;
   margin: 0 4px 0 0;
   letter-spacing: 0.5px;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5) {
+  border-style: initial;
+  border-width: 0;
+  color: #436d58 !important;
+  cursor: pointer;
+  font-family: "Noto Serif", sans-serif;
+  font-size: 1.1em;
+  font-size-adjust: none;
+  font-weight: 400;
+  line-height: 1.4em;
+  margin: 0 0 5px;
+  padding: 0;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(2)>a:nth-child(5) {
+  border-style: initial;
+  border-width: 0;
+  color: #436d58 !important;
+  cursor: pointer;
+  font-family: "Noto Serif", sans-serif;
+  font-size: 1.1em;
+  font-size-adjust: none;
+  font-weight: 400;
+  line-height: 1.4em;
+  margin: 0 0 5px;
+  padding: 0;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(5) {
+  border-style: initial;
+  border-width: 0;
+  color: #436d58 !important;
+  cursor: pointer;
+  font-family: "Noto Serif", sans-serif;
+  font-size: 1.1em;
+  font-size-adjust: none;
+  font-weight: 400;
+  line-height: 1.4em;
+  margin: 0 0 5px;
+  padding: 0;
+  text-decoration: none;
+}
+
+#bv-brc-home-container div.mid-links:nth-child(4)>a.navigationLinkOut:nth-child(3) {
+  border-style: initial;
+  border-width: 0;
+  color: #436d58 !important;
+  cursor: pointer;
+  font-family: "Noto Serif", sans-serif;
+  font-size: 1.1em;
+  font-size-adjust: none;
+  font-weight: 400;
+  line-height: 1.4em;
+  margin: 0 0 5px;
+  padding: 0;
+  text-decoration: none;
+}
+
+#bv-brc-header #bv-brc-header-container div .menuHeader {
+  border-radius: 0;
+  border-style: initial;
+  border-width: 0;
+  box-shadow: none;
+  color: #EEEEEE;
+  font-family: Arial, sans-serif;
+  font-size-adjust: none;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 12px 0 0;
+  padding: 0 0 0 4px;
+  text-align: left;
+  visibility: visible;
+  background-color: #9cc2af !important;
+}
+
+#bv-brc-header #bv-brc-header-container .menuItems .menuItemsM a {
+  color: #9cc2af !important;
+}
+
+footer#bv-brc-footer {
+  border-style: initial;
+  border-width: 0;
+  color: #333333;
+  font-family: Arial, sans-serif;
+  font-size-adjust: none;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 0 20px;
+  background-color: initial;
+  background-image: linear-gradient(180deg, #9cc2af 0%, #436D58 100%);
+}
+
+div.PerspectiveHeader>i.fa.PerspectiveIcon.icon-selection-Taxonomy {
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  color: #609c7e;
+}
+
+span.PerspectiveQuery>a.navigationLink.current {
+  color: #436d58;
+}
+
+span.PerspectiveQuery>a.navigationLink:nth-child(1) {
+  color: #436d58;
+}
+
+span.PerspectiveQuery>a.navigationLink:nth-child(2) {
+  color: #26292c;
+}
+
+span.PerspectiveQuery>a.navigationLink:nth-child(3) {
+  color: #26292c;
+}
+
+span.PerspectiveQuery>a.navigationLink:nth-child(4) {
+  color: #26292c;
+}
+
+span.PerspectiveQuery>a.navigationLink:nth-child(5) {
+  color: #26292c;
+}
+
+span.PerspectiveQuery>a.navigationLink:nth-child(6) {
+  color: #26292c;
+}
+
+span.PerspectiveQuery>a.navigationLink:nth-child(7) {
+  color: #26292c;
+}
+
+div.PerspectiveHeader>span.PerspectiveTotalCount {
+  color: #c15749;
+}
+
+div#dijit_layout_TabContainer_0_tablist>div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
+  z-index: 3;
+  text-wrap-mode: nowrap;
+  white-space-collapse: collapse;
+  border-color: #c15749 #b5bcc7 #b5bcc7;
+  position: relative;
+}
+
+div.column-sub>div.section:nth-child(n)>h3.section-title.close {
+  background-color: #9cc2af;
+}
+
+div.column-prime>div.section:nth-child(n)>h3.section-title.close {
+  background-color: #9cc2af;
+}
+
+
+div.column-opt>div.section:nth-child(n)>h3.close.section-title {
+  background-color: #9cc2af;
+}
+
+div.section:nth-child(3)>h3.section-title.close2x {
+  background-color: #9cc2af;
+  ;
+}
+
+div.column-sub a,
+div.column-prime a,
+div.column-opt a {
+  color: #436d58;
+}
+
+div.column-sub a:hover,
+div.column-prime a:hover,
+div.column-opt a:hover {
+  color: #609c7e;
+}
+
+div.ActionButtonWrapper>div.ActionButton.fa.icon-info-circle.fa-2x {
+  color: #609C7E;
+  cursor: pointer;
+  font-family: icomoon;
+  font-size: 2em;
+  margin: 2px 5px;
+  border-style: initial;
+  border-width: 0;
+  font-size-adjust: none;
+  padding: 0;
+  text-align: center;
+  visibility: visible;
+}
+
+div.ActionButtonWrapper>div.ActionButtonText {
+  text-wrap-mode: wrap;
+  color: #436d58;
+  font-size: .6em;
+  margin: 0;
+  text-align: center;
+}
+
+div.ActionBar.dijitBorderContainerNoGutter-child.dijitBorderContainerNoGutter-ActionBar.dijitBorderContainerNoGutterPane.dijitAlignRight {
+  background-color: #a35f5d;
+}
+
+div.selectedList {
+  background-color: #ecc187;
+  color: #333333;
+  margin: 0 0 2px;
+  min-height: 21px;
+  text-align: center;
+  text-wrap-mode: nowrap;
+  padding: 0;
+}
+
+.ActionBar .ActionButtonWrapper {
+  border: 2px solid white;
+}
+
+footer.maage-footer {
+  display:flex;
+  flex-direction: column;
+}
+
+.mf-container{
+  position: static;
+}
+
+div#dijit_layout_ContentPane_1 {
+  padding: 0!important;
 }

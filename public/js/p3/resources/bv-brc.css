@@ -398,7 +398,7 @@
 
 #bv-brc-home .btn-blue {
   background: var(--blue);
-  color: #FFFFFF !important;
+  color: #FFFFFF;
   text-decoration: none;
   border: none;
   width: 75px;
