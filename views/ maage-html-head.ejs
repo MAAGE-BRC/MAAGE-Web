@@ -1,0 +1,28 @@
+	<%
+	const load_css = [
+		"p3/resources/p3.css",
+		"molstar/mol-bvbrc/molstar.css",
+		"mauve_viewer/dist/mauve-viewer.css",
+		"heatmap/dist/hotmap.css",
+	]
+	%>
+
+	<% if (request && request.production){ %>
+	<% load_css.forEach(function(url){ %>
+		<link rel='stylesheet' href="/js/<%- request.package.version %>/<%- url %>" />
+	<% }) %>
+	<% } else { %>
+	<% load_css.forEach(function(url){ %>
+		<link rel='stylesheet' href="/js/<%- url %>" />
+	<% }) %>
+	<% } %>
+
+
+	<meta charset="UTF-8"/>
+	<meta name="Keywords" content="MAAGE, Midwest Alliance for Applied Genomic Epidemiology, Epidemiology, Bioinformatics, Bioinformatics Resource Center, BRC"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<link rel="manifest" href="/public/manifest.json"/>
+	<link rel="icon" sizes="16x16 32x32" href="/favicon.ico"/>
+
+

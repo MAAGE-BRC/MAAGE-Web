@@ -1,0 +1,54 @@
+:root {
+--maage-primary-50: #fcfdfc;
+--maage-primary-100: #f7faf8;
+--maage-primary-200: #eff5f1;
+--maage-primary-300: #e6eeea;
+--maage-primary-400: #c6d6ce;
+--maage-primary-500: #9cc2af;
+--maage-primary-600: #67a789;
+--maage-primary-700: #50886e;
+--maage-primary-800: #436d5a;
+--maage-primary-900: #385a4d;
+--maage-primary-950: #1e322b;
+
+--maage-secondary-50: #f5f9f9;
+--maage-secondary-100: #e6eeef;
+--maage-secondary-200: #cfe0e1;
+--maage-secondary-300: #afc8cb;
+--maage-secondary-400: #7aa1a6;
+--maage-secondary-500: #63949a;
+--maage-secondary-600: #547b83;
+--maage-secondary-700: #4b666c;
+--maage-secondary-800: #44575c;
+--maage-secondary-900: #3c4b50;
+--maage-secondary-950: #242f34;
+
+--maage-tertiary-50: #fefcf5;
+--maage-tertiary-100: #fcf7e8;
+--maage-tertiary-200: #f8eccf;
+--maage-tertiary-300: #f4dfb2;
+--maage-tertiary-400: #efca91;
+--maage-tertiary-500: #ecc187;
+--maage-tertiary-600: #e5aa6c;
+--maage-tertiary-700: #da8740;
+--maage-tertiary-800: #be6a2e;
+--maage-tertiary-900: #9a5928;
+--maage-tertiary-950: #522b14;
+
+--color-neutral-50: #fafafa;
+--color-neutral-100: #fafafa;
+--color-neutral-200: #fafafa;
+--color-neutral-300: #fafafa;
+--color-neutral-400: #fafafa;
+--color-neutral-500: #fafafa;
+--color-neutral-600: #fafafa;
+
+
+--color-neutral-700: #fafafa;
+--color-neutral-800: #fafafa;
+--color-neutral-900: #fafafa;
+
+--primary-text: #1c1f21;
+
+}
+
