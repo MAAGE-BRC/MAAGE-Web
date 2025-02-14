@@ -30,9 +30,15 @@
         <div id="bv-brc-header-container">
             <div class="nav-logo">
 
-                <a class="nav-logo-link" href="/">
+                <!-- <a class="nav-logo-link" href="/">
                     <span id="maage-logo-link">MAAGE</span>
                     <span><i style="color: #ffffff; font-size: 12px; padding-left: 2px;"><i>DEV</i></i></i></span>
+                </a> -->
+
+                <a class="nav-logo-link" href="/">
+                    <span id="maage-logo-link">MAAGE</span>
+                    <span><i style="color: #ffffff; font-size: 12px; padding-left: 2px;"><i>v.</i><%- request.package.version %><%- request.applicationOptions.appLabel || " " %></i></i></span>
+                    <span><i style="font-size: 14px; padding-left: 6px;"><%- request.applicationOptions.appLabel || " " %></i></i></span>
                 </a>
 
 
