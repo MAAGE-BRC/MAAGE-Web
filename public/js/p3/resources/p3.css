@@ -23,8 +23,7 @@
 @import url("./DataItemFormatter.css");
 @import url("./D3StackedBarChart.css");
 @import url("bv-brc.css");
-@import url("maage-shim.css");
-@import url("maage-prev.css");
+@import url("design-vars.css");
 @import url("maage.css");
 @import url("./dlp.css");
 @import url("./help.css");
@@ -35,4 +34,4 @@
 @import url("./D3BarLineChart.css");
 @import url("../../cytoscape-context-menus/cytoscape-context-menus.css");
 @import url("./archaeopteryx/jquery-ui.css");
-@import url("p3-cap.css");
+@import url("end.css");
