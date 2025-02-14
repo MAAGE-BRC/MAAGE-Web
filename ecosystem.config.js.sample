@@ -2,8 +2,8 @@ module.exports = {
     apps: [
       {
         name: "app1",
-        script: "app.js",
-        cwd: "/absolute/path/to/app1",
+        script: "/app-web",
+        cwd: "/absolute/path/to/app1/bin",
         env: {
           NODE_ENV: "development",
           PORT: 3000
@@ -11,17 +11,17 @@ module.exports = {
       },
       {
         name: "app2",
-        script: "./app.js",
-        cwd: "/absolute/path/to/app2",
-        eenv: {
+        script: "./app-web",
+        cwd: "/absolute/path/to/app2/bin",
+        env: {
           NODE_ENV: "development",
           PORT: 3001
         }
       },
       {
         name: "app3",
-        script: "./app.js",
-        cwd: "/absolute/path/to/ap3",
+        script: "./app-web",
+        cwd: "/absolute/path/to/ap3/bin",
         env: {
           NODE_ENV: "production",
           PORT: 3002
