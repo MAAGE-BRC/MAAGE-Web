@@ -21,6 +21,12 @@ dump.rdb
 .env.*
 !.env.example
 
+# PM2
+ecosystem.config.js
+
+# BRC configs
+p3-web.conf
+
 # Editor & IDE settings
 .vscode/
 .idea/
@@ -123,7 +129,6 @@ out/
 node_repl_history
 
 # Miscellaneous
-p3-web.conf
 gulpfile.js
 gulpified
 test/
