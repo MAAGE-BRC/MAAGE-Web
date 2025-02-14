@@ -1,0 +1,25 @@
+{
+    "short_name": "MAAGE",
+    "name": "Midwest Alliance for Applied Genomic Epidemiology",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#9cc2af",
+    "description": "MAAGE is a genomic surveillance and epidemiology platform that enables state and local public health agencies to detect and track the spread of infectious diseases with greater sensitivity. The platform also provides educational material to help the public health and healthcare community to use it's tools and services for their everyday work",
+    "scope": "/",
+    "orientation": "any",
+    "lang": "en",
+    "dir": "ltr"
+}
