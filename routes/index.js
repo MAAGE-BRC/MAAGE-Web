@@ -2,21 +2,45 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res) {
-  req.applicationModule = 'p3/app/p3app';
-  res.render('index', { title: 'PATRIC', request: req, response: res });
+router.get("/", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("index", { title: "PATRIC", request: req, response: res });
 });
 
 /* GET about page. */
-router.get('/about', function (req, res) {
-  req.applicationModule = 'p3/app/p3app';
-  res.render('pages/about', { title: 'PATRIC', request: req, response: res });
+router.get("/about", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/about", { title: "PATRIC", request: req, response: res });
+});
+
+/* GET advisory board page. */
+router.get("/advisory-board", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/advisory-board", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
+
+/* GET devpage. */
+router.get("/devpage", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/devpage", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
 });
 
 /* GET announcements page. */
-router.get('/announcements', function (req, res) {
-  req.applicationModule = 'p3/app/p3app';
-  res.render('pages/announcements', { title: 'PATRIC', request: req, response: res });
+router.get("/announcements", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/announcements", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
 });
 
 /* GET citation page. */
@@ -41,6 +65,12 @@ router.get('/related-resources', function (req, res) {
 router.get('/team', function (req, res) {
   req.applicationModule = 'p3/app/p3app';
   res.render('pages/team', { title: 'PATRIC', request: req, response: res });
+});
+
+/* GET maage team page. */
+router.get('/maage-team', function (req, res) {
+  req.applicationModule = 'p3/app/p3app';
+  res.render('pages/maage-team', { title: 'PATRIC', request: req, response: res });
 });
 
 /* SARS-CoV-2 */
