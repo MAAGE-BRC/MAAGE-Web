@@ -1,29 +1,29 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* Home. */
 router.get("/", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("index", { title: "PATRIC", request: req, response: res });
 });
 
-/* GET about page. */
-router.get("/about", function (req, res) {
+/* About MAAGE */
+router.get("/about-maage", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("pages/about", { title: "PATRIC", request: req, response: res });
+  res.render("pages/about-maage", { title: "PATRIC", request: req, response: res });
 });
 
-/* GET advisory board page. */
-router.get("/advisory-board", function (req, res) {
+/* Advisory Boards. */
+router.get("/advisory-boards", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("pages/advisory-board", {
+  res.render("pages/advisory-boards", {
     title: "PATRIC",
     request: req,
     response: res,
   });
 });
 
-/* GET devpage. */
+/* devpage */
 router.get("/devpage", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("pages/devpage", {
@@ -33,7 +33,7 @@ router.get("/devpage", function (req, res) {
   });
 });
 
-/* GET announcements page. */
+/* Announcements. */
 router.get("/announcements", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("pages/announcements", {
@@ -43,7 +43,7 @@ router.get("/announcements", function (req, res) {
   });
 });
 
-/* GET citation page. */
+/* Citations */
 router.get('/citation', function (req, res) {
   req.applicationModule = 'p3/app/p3app';
   res.render('pages/citation', { title: 'PATRIC', request: req, response: res });
@@ -61,16 +61,10 @@ router.get('/related-resources', function (req, res) {
   res.render('pages/related-resources', { title: 'PATRIC', request: req, response: res });
 });
 
-/* GET team page. */
-router.get('/team', function (req, res) {
+/* Team Members */
+router.get('/team-members', function (req, res) {
   req.applicationModule = 'p3/app/p3app';
-  res.render('pages/team', { title: 'PATRIC', request: req, response: res });
-});
-
-/* GET maage team page. */
-router.get('/maage-team', function (req, res) {
-  req.applicationModule = 'p3/app/p3app';
-  res.render('pages/maage-team', { title: 'PATRIC', request: req, response: res });
+  res.render('pages/team-members', { title: 'PATRIC', request: req, response: res });
 });
 
 /* SARS-CoV-2 */
