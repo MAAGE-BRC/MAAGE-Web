@@ -7,163 +7,190 @@
 	<body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
 		<div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
 			<%- include('../maage-header') %>
+
+            <script>
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            colors: {
+                                background: '#f7f4ed',
+                                primary: '#9cc2af',
+                                secondary: '#528ca3',
+                            },
+                        },
+                    },
+                }
+            </script>
+            <style>
+                body {
+                    background-color: #f7f4ed;
+                }
+            </style>
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;">
                 <div id="maage-page">
                     <div id="maage-container">
                         <div class="page-content">
+
+                                <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#f7f4ed',
+                        primary: '#9cc2af',
+                        secondary: '#528ca3',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f7f4ed;
+        }
+    </style>
+
                             <main class="container mx-auto px-4 py-8">
-                                <h1 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Teams</h1>
+                                <h1 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Advisory Boards</h1>
+
+                                <!-- Clinical Advisory Board -->
                                 <section class="mb-16">
                                     <h2 class="text-3xl font-semibold text-left mb-8 text-primary">Clinical Advisory Board</h2>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Ashley Ceniceros</h3>
-                                            <p class="text-gray-600">Infectious diseases, wound care, and outpatient internal medicine physician, Clinical Assistant Professor</p>
-                                            <p class="text-sm text-gray-500">Carle Foundation Hospital</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Marielle Fricchione</h3>
-                                            <p class="text-gray-600">Associate Professor of Pediatrics, Pediatric Infectious Diseases Attending</p>
-                                            <p class="text-sm text-gray-500">Rush University Medical Center</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Rajinder Grewal</h3>
-                                            <p class="text-gray-600">Medical Director</p>
-                                            <p class="text-sm text-gray-500">Centene Corporation</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Mary Hayden</h3>
-                                            <p class="text-gray-600">Director, Division of Infectious Diseases; Director of Clinical Microbiology Lab</p>
-                                            <p class="text-sm text-gray-500">Rush University Medical Center</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Hend Jadalla</h3>
-                                            <p class="text-gray-600">Graduate Assistant at the Center for Rural Health and Social Services Development</p>
-                                            <p class="text-sm text-gray-500"> Southern Illinois University School of Medicine</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Harish Kempegowda</h3>
-                                            <p class="text-gray-600">Attending Physician, Orthopedic and Spide Surgery</p>
-                                            <p class="text-sm text-gray-500">Horizon Health</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Larry Kociolik</h3>
-                                            <p class="text-gray-600">                                        <br>Associate Professor of Pediatrics, Vice President, System Preparedness, Prevention, and Response, Attending Physician, Division of Infectious Diseases, Northwestern University Feinberg School of Medicine,</p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Anum Niazi</h3>
-                                            <p class="text-gray-600">Hospitalist, National Hospital Medical Lead Advocacy Coordinator, Vituity</p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Lorna O'Young</h3>
-                                            <p class="text-gray-600">Owner/Solo practitioner of Ob/Gyn practice; retired, Woman to Woman, P.C.</p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Egon Ozer</h3>
-                                            <p class="text-gray-600">Assistant Professor of Medicine, Infectious Diseases and Director, Center for Pathogen Genomics and Microbial Evolution, Northwestern University Feinberg School of Medicine</p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Sarah Sansom</h3>
-                                            <p class="text-gray-600">Assistant Professor, Division of Infectious Diseases, Rush University Medical Center</p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Jitendra Kumar Sodvadiya</h3>
-                                            <p class="text-gray-600">Horizon Health</p>
-                                            <p class="text-sm text-gray-500">Horizon Health</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-primary">
-                                            <h3 class="text-xl font-semibold text-primary">Jayme Walker</h3>
-                                            <p class="text-gray-600">Hospitalist Practitioner</p>
-                                            <p class="text-sm text-gray-500">Rush Copley</p>
-                                        </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="clinical-board">
+                                        <!-- Team members will be dynamically inserted here -->
                                     </div>
                                 </section>
+
+                                <!-- Public Health Advisory Board -->
                                 <section>
                                     <h2 class="text-3xl font-semibold text-left mb-8 text-secondary">Public Health Advisory Board</h2>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Chloe Cavida</h3>
-                                            <p class="text-gray-600">Epidemiologist</p>
-                                            <p class="text-sm text-gray-500">McHenry County Department of Health</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Robert Davies</h3>
-                                            <p class="text-gray-600">Director of Planning and Research</p>
-                                            <p class="text-sm text-gray-500">Champaign-Urbana Public Health District</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Prince Danso-Odei</h3>
-                                            <p class="text-gray-600">Administrator and Health Officer</p>
-                                            <p class="text-sm text-gray-500">Vermilion County Health Department</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Lauren Eckberg</h3>
-                                            <p class="text-gray-600"></p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Katy Endress</h3>
-                                            <p class="text-gray-600"></p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Brenda Fedak</h3>
-                                            <p class="text-gray-600">Organizational Communications Manager/PIO/HR</p>
-                                            <p class="text-sm text-gray-500">Health Department St. Clair County</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Sarah Franks</h3>
-                                            <p class="text-gray-600">RN Communicable Disease Surveillance Specialist High Risk Populations</p>
-                                            <p class="text-sm text-gray-500">Evanston Health and Human Services</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Megan Hanley</h3>
-                                            <p class="text-gray-600">Epidemiologist</p>
-                                            <p class="text-sm text-gray-500">Tazewell County Health Department</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Heidi Heerdt</h3>
-                                            <p class="text-gray-600">Registered Nurse</p>
-                                            <p class="text-sm text-gray-500">Bureau County Health Department</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Monica Hendrickson</h3>
-                                            <p class="text-gray-600"></p>
-                                            <p class="text-sm text-gray-500"></p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Chris Hoff</h3>
-                                            <p class="text-gray-600">Deputy Director, Public Health</p>
-                                            <p class="text-sm text-gray-500">DuPage County Health Department</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Christine Pate</h3>
-                                            <p class="text-gray-600">Hektoen Institute of Medicine (IDPH)</p>
-                                            <p class="text-sm text-gray-500">Hektoen Institute of Medicine (IDPH)</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Tracy Terlinde</h3>
-                                            <p class="text-gray-600">Peoria City/County Health Department</p>
-                                            <p class="text-sm text-gray-500">Peoria City/County Health Department</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Yvonne Overton</h3>
-                                            <p class="text-gray-600">Chae Li Yong</p>
-                                            <p class="text-sm text-gray-500">Illinois Department of Public Health</p>
-                                        </div>
-                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 border-secondary">
-                                            <h3 class="text-xl font-semibold text-secondary">Chae Li Yong</h3>
-                                            <p class="text-gray-600">Epidemiology</p>
-                                            <p class="text-sm text-gray-500">Madison County Health Department</p>
-                                        </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="public-health-board">
+                                        <!-- Team members will be dynamically inserted here -->
                                     </div>
                                 </section>
                             </main>
+
+
+                            <script>
+                                const clinicalAdvisoryBoard = [
+                                    {
+                                        name: "Ashley Ceniceros",
+                                        title: "Infectious diseases, wound care, and outpatient internal medicine physician, Clinical Assistant Professor",
+                                        company: "Carle Foundation Hospital",
+                                    },
+                                    {
+                                        name: "Marielle Fricchione",
+                                        title: "Associate Professor of Pediatrics, Pediatric Infectious Diseases Attending",
+                                        company: "Rush University Medical Center",
+                                    },
+                                    { name: "Rajinder Grewal", title: "Medical Director", company: "Centene Corporation" },
+                                    {
+                                        name: "Mary Hayden",
+                                        title: "Director, Division of Infectious Diseases; Director of Clinical Microbiology Lab",
+                                        company: "Rush University Medical Center",
+                                    },
+                                    {
+                                        name: "Hend Jadalla",
+                                        title: "Graduate Assistant at the Center for Rural Health and Social Services Development",
+                                        company: "Southern Illinois University School of Medicine",
+                                    },
+                                    { name: "Harish Kempegowda", title: "Attending Physician, Orthopedic and Spide Surgery", company: "Horizon Health" },
+                                    {
+                                        name: "Larry Kociolik",
+                                        title: "Associate Professor of Pediatrics, Vice President, System Preparedness, Prevention, and Response, Attending Physician, Division of Infectious Diseases, Northwestern University Feinberg School of Medicine,",
+                                        company: "",
+                                    },
+                                    {
+                                        name: "Anum Niazi",
+                                        title: "Hospitalist, National Hospital Medical Lead Advocacy Coordinator, Vituity",
+                                        company: "",
+                                    },
+                                    {
+                                        name: "Lorna O'Young",
+                                        title: "Owner/Solo practitioner of Ob/Gyn practice; retired, Woman to Woman, P.C.",
+                                        company: "",
+                                    },
+                                    {
+                                        name: "Egon Ozer",
+                                        title: "Assistant Professor of Medicine, Infectious Diseases and Director, Center for Pathogen Genomics and Microbial Evolution, Northwestern University Feinberg School of Medicine",
+                                        company: "",
+                                    },
+                                    {
+                                        name: "Sarah Sansom",
+                                        title: "Assistant Professor, Division of Infectious Diseases, Rush University Medical Center",
+                                        company: "",
+                                    },
+                                    { name: "Jitendra Kumar Sodvadiya", title: "Horizon Health", company: "Horizon Health" },
+                                    { name: "Jayme Walker", title: "Hospitalist Practitioner", company: "Rush Copley" },
+                                ];
+
+                                const publicHealthAdvisoryBoard = [
+                                    { name: "Chloe Cavida", title: "Epidemiologist", company: "McHenry County Department of Health" },
+                                    {
+                                        name: "Robert Davies",
+                                        title: "Director of Planning and Research",
+                                        company: "Champaign-Urbana Public Health District",
+                                    },
+                                    {
+                                        name: "Prince Danso-Odei",
+                                        title: "Administrator and Health Officer",
+                                        company: "Vermilion County Health Department",
+                                    },
+                                    { name: "Lauren Eckberg", title: "", company: "" },
+                                    { name: "Katy Endress", title: "", company: "" },
+                                    {
+                                        name: "Brenda Fedak",
+                                        title: "Organizational Communications Manager/PIO/HR",
+                                        company: "Health Department St. Clair County",
+                                    },
+                                    {
+                                        name: "Sarah Franks",
+                                        title: "RN Communicable Disease Surveillance Specialist High Risk Populations",
+                                        company: "Evanston Health and Human Services",
+                                    },
+                                    { name: "Megan Hanley", title: "Epidemiologist", company: "Tazewell County Health Department" },
+                                    { name: "Heidi Heerdt", title: "Registered Nurse", company: "Bureau County Health Department" },
+                                    { name: "Monica Hendrickson", title: "", company: "" },
+                                    { name: "Chris Hoff", title: "Deputy Director, Public Health", company: "DuPage County Health Department" },
+                                    {
+                                        name: "Christine Pate",
+                                        title: "Hektoen Institute of Medicine (IDPH)",
+                                        company: "Hektoen Institute of Medicine (IDPH)",
+                                    },
+                                    {
+                                        name: "Tracy Terlinde",
+                                        title: "Peoria City/County Health Department",
+                                        company: "Peoria City/County Health Department",
+                                    },
+                                    { name: "Yvonne Overton", title: "Chae Li Yong", company: "Illinois Department of Public Health" },
+                                    { name: "Chae Li Yong", title: "Epidemiology", company: "Madison County Health Department" },
+                                ];
+
+                                function createTeamMember(name, title, company, borderColor, textColor, titleFontWeight) {
+                                    return `
+                                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 border-t-4 ${borderColor} flex items-start">
+                                            <img src="https://via.placeholder.com/80" alt="${name}'s profile" class="rounded-full mr-4 flex-shrink-0 w-20 h-20">
+                                            <div>
+                                                <h3 class="text-xl font-semibold ${textColor}">${name}</h3>
+                                                <p class="text-gray-600 ${titleFontWeight}">${title}</p>
+                                                ${company ? `<p class="text-sm text-gray-500">${company}</p>` : ''}
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+
+                                function renderTeamMembers(teamData, containerId, borderColor, textColor, titleFontWeight) {
+                                    const container = document.getElementById(containerId);
+                                    teamData.forEach(member => {
+                                        container.innerHTML += createTeamMember(member.name, member.title, member.company, borderColor, textColor, titleFontWeight);
+                                    });
+                                }
+
+                                renderTeamMembers(clinicalAdvisoryBoard, 'clinical-board', 'border-primary', 'text-secondary', 'font-medium');
+                                renderTeamMembers(publicHealthAdvisoryBoard, 'public-health-board', 'border-secondary', 'text-secondary', 'font-medium');
+                            </script>
+
+                        </div>
                     </div>
                 </div>
                 <%- include('../maage-footer') %>
