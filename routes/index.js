@@ -1,25 +1,49 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function (req, res) {
-  req.applicationModule = 'p3/app/p3app';
-  res.render('index', { title: 'PATRIC', request: req, response: res });
+/* Home. */
+router.get("/", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("index", { title: "PATRIC", request: req, response: res });
 });
 
-/* GET about page. */
-router.get('/about', function (req, res) {
-  req.applicationModule = 'p3/app/p3app';
-  res.render('pages/about', { title: 'PATRIC', request: req, response: res });
+/* About MAAGE */
+router.get("/about-maage", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/about-maage", { title: "PATRIC", request: req, response: res });
 });
 
-/* GET announcements page. */
-router.get('/announcements', function (req, res) {
-  req.applicationModule = 'p3/app/p3app';
-  res.render('pages/announcements', { title: 'PATRIC', request: req, response: res });
+/* Advisory Boards. */
+router.get("/advisory-boards", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/advisory-boards", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
 });
 
-/* GET citation page. */
+/* devpage */
+router.get("/devpage", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/devpage", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
+
+/* Announcements. */
+router.get("/announcements", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/announcements", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
+
+/* Citations */
 router.get('/citation', function (req, res) {
   req.applicationModule = 'p3/app/p3app';
   res.render('pages/citation', { title: 'PATRIC', request: req, response: res });
@@ -37,10 +61,10 @@ router.get('/related-resources', function (req, res) {
   res.render('pages/related-resources', { title: 'PATRIC', request: req, response: res });
 });
 
-/* GET team page. */
-router.get('/team', function (req, res) {
+/* Team Members */
+router.get('/team-members', function (req, res) {
   req.applicationModule = 'p3/app/p3app';
-  res.render('pages/team', { title: 'PATRIC', request: req, response: res });
+  res.render('pages/team-members', { title: 'PATRIC', request: req, response: res });
 });
 
 /* SARS-CoV-2 */

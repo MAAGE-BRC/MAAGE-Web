@@ -1854,3 +1854,34 @@ div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(3) {
   border-radius: 6px;
   background: #ffffff;
 }
+
+#maage-page {
+
+}
+
+#maage-page h1 {
+  font-family: 'Poppins', sans-serif;
+  color: #1c1f21;
+}
+
+#maage-page h2 {
+  font-family: 'Poppins', sans-serif;
+  color: #1c1f21;
+}
+
+#maage-page h3 {
+  font-family: 'Poppins', sans-serif;
+  color: #34383c;
+}
+
+#maage-page p {
+  font-family: 'Manrope', sans-serif;
+  padding-top:2px;
+  color: #1c1f21;
+}
+
+#maage-page .advisor-card {
+  border-top-width: 4px;
+  border-top-style: solid;
+  border-color: #9cc2af;
+}
