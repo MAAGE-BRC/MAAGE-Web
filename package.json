@@ -46,10 +46,12 @@
     "pug": "^3.0.3",
     "rql": "^0.3.3",
     "serve-favicon": "^2.5.0",
+    "sitemap": "^8.0.0",
     "underscore": "^1.13.6",
     "webcola": "^3.4.0"
   },
   "devDependencies": {
+    "autochangelog": "^3.0.3",
     "cross-env": "^7.0.3",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
