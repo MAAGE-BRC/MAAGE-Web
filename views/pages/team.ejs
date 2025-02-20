@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Team Members | MAAGE</title>
+    <title>About Us | BV-BRC</title>
     <%- include('../head') %>
   </head>
   <body
     class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>"
   >
+
     <div
       id="ApplicationContainer"
       data-dojo-type="dijit/layout/BorderContainer"
@@ -19,14 +20,26 @@
         data-dojo-props="region:'center'"
         style="padding: 0px; border: 0px solid #ddd; background: inherit"
       >
-        <div id="bv-brc-page">
-          <div id="bv-brc-page-container">
-            <div class="page-content">
+      <div id="bv-brc-page bg-[#F7F7F7]">
+        <div id="bv-brc-page-container bg-[#F7F7F7]">
+          <div class="page-content bg-[#F7F7F7]">
+            <div id="about-maage" class="min-h-screen bg-[#F7F7F7]">
+              <main class="container mx-auto px-4 py-8 bg-[#F7F7F7]">
+                <style>
+                  body {
+                    background-color: red;
+                  }
+                </style>
+                  <h2
+                    class="font-poppins text-4xl font-semibold mb-6 text-dark-text pl-6 pr-6"
+                  >
+                    Our Team
+                  </h2>
 
 
 
-              <main>
-                <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                  <section>
+
                     <!-- Argonne National Laboratory -->
                     <div class="bg-white overflow-hidden shadow-lg rounded-lg mb-8">
                         <div class="px-4 py-5 sm:p-6">
@@ -45,56 +58,56 @@
                             <h3 class="text-xl font-semibold text-gray-900 mb-4">Team Members</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Thomas Brettin" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Thomas Brettin" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Thomas Brettin (PI)</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: leads science initiatives and program development....</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Nicole Bowers" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Nicole Bowers" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Nicole Bowers</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: researches science ....</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Clark Cucinell" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Clark Cucinell" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Clark Cucinell</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: researches science ....</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="James Davis" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="James Davis" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">James Davis</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: researches science ....</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Marcus Nguyen" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Marcus Nguyen" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Marcus Nguyen</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: researches science ....</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Robert Olson" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Robert Olson" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Robert Olson</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: researches science ....</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Maulik Shukla" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Maulik Shukla" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Maulik Shukla</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: researches science ....</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Christopher Thomas" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Christopher Thomas" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Christopher Thomas</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb: researches science ....</p>
@@ -124,35 +137,35 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Charles Williams" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Charles Williams" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Charles Williams (PI)</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ...</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Vineet Dhiman" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Vineet Dhiman" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Vineet Dhiman</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ...</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Matthew Leslie" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Matthew Leslie" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Matthew Leslie</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ...</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Lori Saathoff-Huber" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Lori Saathoff-Huber" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Lori Saathoff-Huber</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ...</p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Ryan Welch" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Ryan Welch" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Ryan Welch</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ...</p>
@@ -209,42 +222,42 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Rebecca Smith" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Rebecca Smith" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Rebecca Smith (PI)</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ... </p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Corinne Campbell" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Corinne Campbell" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Corinne Campbell</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ... </p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Jacinda Dariotis" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Jacinda Dariotis" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Jacinda Dariotis</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ... </p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Dana Eldreth" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Dana Eldreth" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Dana Eldreth</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ... </p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Claudia Lutz" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Claudia Lutz" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Claudia Lutz</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ... </p>
                                 </div>
 
                                 <div class="bg-white rounded-lg p-4 flex flex-col items-center text-center shadow-md transition-all duration-300 hover:shadow-lg">
-                                    <img src="/placeholder.svg?height=200&width=200" alt="Iffat Noor" class="rounded-full mb-2 w-[100px] h-[100px]">
+                                    <img src="https://avatar.iran.liara.run/public" alt="Iffat Noor" class="rounded-full mb-2 w-[100px] h-[100px]">
                                     <h4 class="font-semibold text-gray-900 text-[18px] font-poppins">Iffat Noor</h4>
                                     <p class="text-[16px] text-[#76a2a7] font-poppins">Title</p>
                                     <p class="text-[16px] text-gray-500 mt-2 font-noto-sans font-light">blurb ... </p>
@@ -253,14 +266,20 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
+                    </section>
 
-
-
+                </main>
+              </div>
+              <%- include('../footer') %>
+            </div>
           </div>
         </div>
-        <%- include('../maage-footer') %>
+
+</div>
+</div>
+
+        </div>
+
         <style>
           body.patric {
             min-width: 830px;

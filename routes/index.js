@@ -23,16 +23,6 @@ router.get("/advisory-boards", function (req, res) {
   });
 });
 
-/* devpage */
-router.get("/devpage", function (req, res) {
-  req.applicationModule = "p3/app/p3app";
-  res.render("pages/devpage", {
-    title: "PATRIC",
-    request: req,
-    response: res,
-  });
-});
-
 /* Announcements. */
 router.get("/announcements", function (req, res) {
   req.applicationModule = "p3/app/p3app";
