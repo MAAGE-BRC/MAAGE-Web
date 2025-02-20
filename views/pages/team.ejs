@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Team Members | MAAGE</title>
-    <%- include('../header') %>
+    <%- include('../head') %>
   </head>
   <body
     class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>"
@@ -13,7 +13,7 @@
       class="layoutContainer"
       data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false"
     >
-      <%- include('../maage-header') %>
+      <%- include('../navbar') %>
       <div
         data-dojo-type="dijit/layout/ContentPane"
         data-dojo-props="region:'center'"

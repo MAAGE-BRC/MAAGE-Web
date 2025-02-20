@@ -4,7 +4,7 @@
     <title>
       SARS-CoV-2 Genome Assembly &amp; Annotation Service User Guide | BV-BRC
     </title>
-    <% include ../../header %>
+    <% include('../header') %>
   </head>
   <body
     class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>"
@@ -15,7 +15,7 @@
       class="layoutContainer"
       data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false"
     >
-      <%- include('../maage-header') %>
+      <%- include('../navbar') %>
       <div
         data-dojo-type="dijit/layout/ContentPane"
         data-dojo-props="region:'center'"

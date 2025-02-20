@@ -216,7 +216,7 @@ span#dijit_form_DropDownButton_0>span.dijitReset.dijitInline.dijitArrowButtonInn
 
 
 div#bv-brc-home {
-  background-color: #F7F4ED;
+  background-color: var(--maage-bg);
   background-repeat: initial;
 }
 
@@ -1117,6 +1117,17 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
     font-weight: normal;
   }
 
+  span#dijit_form_DropDownButton_6 {
+    font-weight: normal;
+    text-wrap-mode: nowrap;
+    background-repeat: repeat-x;
+  }
+
+  span#dijit_form_DropDownButton_6_label {
+    cursor: pointer;
+    font-weight: normal;
+  }
+
   @media (min-width: 1024px) {
     #maage-home div#bv-brc-header-container > div.HideWithAuth.authLinks.showOnLoad {
       margin-right: 25px;
@@ -1885,3 +1896,4 @@ div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(3) {
   border-top-style: solid;
   border-color: #9cc2af;
 }
+

@@ -1,216 +1,318 @@
-<div id="bv-brc-home">
-    <div id="maage-home">
-        <div id="bv-brc-home-container">
-            <div class="verification_message home-banner">
+<div id="bv-brc-home" class="bg-[var(--maage-bg)]">
+  <div id="maage-home" class="bg-[var(--maage-bg)]">
+    <div id="bv-brc-home-container" class="bg-[var(--maage-bg)]">
+      <div class="verification_message home-banner">
+        <p>
+          <strong
+            >Your email has not been verified. Click here to visit your profile
+            and update your email address and/or resend the verification
+            message.</strong
+          >
+        </p>
+      </div>
+
+      <div class="grid-container" class="bg-[var(--maage-bg)]">
+        <div class="home-main home-main-left">
+          <div class="bv-brc-info card shadow-2xl rounded-xl">
+            <h1>Midwest Alliance for Applied Genomic Epidemiology</h1>
+            <p>
+              The Midwest Alliance for Applied Genomic Epidemiology (MAAGE) is a
+              collaboration of IDPH, the University of Illinois, and Argonne
+              National Laboratory. The goal of the MAAGE is to develop a genomic
+              surveillance and epidemiology platform to enable state and local
+              public health agencies to detect and track the spread of
+              infectious diseases with greater sensitivity and to provide
+              educational material to help the public health and healthcare
+              community to use this platform for their everyday work.
+              <br /><br />Please refer to the
+              <a
+                href="https://www.bv-brc.org/docs/quick_start/index.html"
+                class="navigationLinkOut"
+                style="font-weight: 500"
+                >quick start guide</a
+              >
+              to learn how to get started and
+              <a
+                href="mailto:help@bv-brc.org"
+                style="font-weight: 500; color: #436d58"
+                >contact us</a
+              >
+              if you have any questions.
+            </p>
+            <div class="search">
+              <h3>SEARCH</h3>
+              <div class="global-search">
+                <div style="padding: 6px 0px 2px 2px; flex-grow: 1">
+                  <input
+                    style="width: 100%; font-size: 1em"
+                    class="showOnLoad dijitHidden"
+                    data-dojo-type="p3/widget/GlobalSearch"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bv-brc-mid shadow-2xl rounded-xl">
+            <!-- style="grid-row: 3/6"-->
+
+            <div id="analyze-section">
+              <div class="analyze bv-brc-mid-content card">
+                <h2>Analyze Data with MAAGE</h2>
                 <p>
-                    <strong>Your email has not been verified. Click here to visit your profile and update your email address
-                        and/or resend the verification message.</strong>
+                  Upload and analyze your data in the private workspace.
+                  <span class="HideWithAuth"
+                    ><a href="/register" style="font-weight: bold">Register</a>
+                    or <a href="/login" style="font-weight: bold">Login</a> to
+                    get started.</span
+                  >
                 </p>
+
+                <div class="bv-brc-mid-content-links">
+                  <div class="mid-content-section">
+                    <h3>Search</h3>
+                    <div class="mid-links">
+                      <a href="/searches/TaxaSearch" class="navigationLink"
+                        >Taxa</a
+                      >
+                      <a href="/searches/GenomeSearch" class="navigationLink"
+                        >Genomes</a
+                      >
+                      <a href="/searches/ProteinSearch" class="navigationLink"
+                        >Proteins</a
+                      >
+                      <a
+                        href="/searches/SpecialtyGeneSearch"
+                        class="navigationLink"
+                        >Specialty Genes</a
+                      >
+                      <a href="/searches" style="text-decoration: underline"
+                        >All Searches...</a
+                      >
+                    </div>
+                  </div>
+                  <div class="mid-content-section">
+                    <h3>Analyze</h3>
+                    <div class="mid-links">
+                      <a href="/app/Assembly2" class="navigationLink"
+                        >Assembly</a
+                      >
+                      <a href="/app/Annotation" class="navigationLink"
+                        >Annotation</a
+                      >
+                      <a href="/app/Homology" class="navigationLink">BLAST</a>
+                      <a href="/app/MSA" class="navigationLink">MSA</a>
+                      <a href="/tools" style="text-decoration: underline"
+                        >All Tools &amp; Services...</a
+                      >
+                    </div>
+                  </div>
+                  <div class="mid-content-section">
+                    <h3>Manage Data</h3>
+                    <div class="mid-links">
+                      <a
+                        href="https://bv-brc.org/docs/quick_references/workspaces/workspace.html"
+                        target="=_blank"
+                        >Access Private Workspace</a
+                      >
+                      <a
+                        href="https://bv-brc.org/docs/quick_references/workspaces/groups.html"
+                        target="=_blank"
+                        >Save Search Results</a
+                      >
+                      <a
+                        href="https://bv-brc.org/docs/quick_references/workspaces/data_upload.html"
+                        target="=_blank"
+                        >Upload Data</a
+                      >
+                      <a
+                        href="https://bv-brc.org/docs/quick_references/workspaces/jobs.html"
+                        target="=_blank"
+                        >Access Analysis Jobs</a
+                      >
+                      <a
+                        href="https://bv-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces"
+                        target="=_blank"
+                        >Share and Publish</a
+                      >
+                    </div>
+                  </div>
+                  <div class="mid-content-section">
+                    <h3>Batch Access</h3>
+                    <div class="mid-links">
+                      <a
+                        href="https://bv-brc.org/docs/cli_tutorial/index.html"
+                        target="=_blank"
+                        >Command-Line Interface</a
+                      >
+                      <a href="https://bv-brc.org/api/doc/" target="=_blank"
+                        >Data API</a
+                      >
+                      <a
+                        href="https://bv-brc.org/docs/quick_references/ftp.html"
+                        target="=_blank"
+                        >FTP</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mid-content-bottom">
+                <div class="mid-content-buttons">
+                  <a
+                    href="https://bv-brc.org/docs/quick_start/index.html"
+                    class="btn btn-blue navigationLinkOut"
+                    >Quick Start</a
+                  >
+                  <a
+                    href="https://bv-brc.org/docs/quick_references/index.html"
+                    class="btn btn-blue navigationLinkOut"
+                    id="referenceGuides"
+                    >Reference Guides</a
+                  >
+                  <a
+                    href="https://bv-brc.org/docs/tutorial/index.html"
+                    class="btn btn-blue navigationLinkOut"
+                    >Tutorials</a
+                  >
+                </div>
+              </div>
             </div>
+          </div>
 
-            <div class="grid-container">
-                <div class="home-main home-main-left">
-                    <div class="bv-brc-info card shadow-2xl rounded-xl">
-                        <h1>Midwest Alliance for Applied Genomic Epidemiology</h1>
-                        <p>
-                            The Midwest Alliance for Applied Genomic Epidemiology (MAAGE) is a collaboration of IDPH, the
-                            University of Illinois, and Argonne National Laboratory. The goal of the MAAGE is to develop a
-                            genomic surveillance and epidemiology platform to enable state and local public health agencies
-                            to detect and track the spread of infectious diseases with greater sensitivity and to provide
-                            educational material to help the public health and healthcare community to use this platform for
-                            their everyday work.
-                            <br><br>Please refer to the
-                            <a href="https://www.bv-brc.org/docs/quick_start/index.html" class="navigationLinkOut"
-                                style="font-weight: 500;">quick start guide</a>
-                            to learn how to get started and <a href="mailto:help@bv-brc.org"
-                                style="font-weight: 500; color: #436d58;">contact us</a>
-                            if you have any questions.
-                        </p>
-                        <div class="search">
-                            <h3>SEARCH</h3>
-                            <div class="global-search">
-                                <div style="padding: 6px 0px 2px 2px; flex-grow: 1">
-                                    <input style="width:100%;font-size:1em;" class="showOnLoad dijitHidden"
-                                        data-dojo-type="p3/widget/GlobalSearch" />
-                                </div>
-                            </div>
-                        </div>
+          <div class="bv-brc-bottom">
+            <div class="dashboard-section">
+              <div class="title">
+                <h2>Dashboards</h2>
+              </div>
+              <div class="outbreaks">
+                <div
+                  class="bv-brc-bottom-left card shadow-2xl rounded-xl"
+                  style="flex-basis: 100%"
+                >
+                  <div class="content">
+                    <h2>
+                      <a href="/outbreaks/Mpox/#view_tab=overview">Mpox 2024</a>
+                    </h2>
+                    <div class="content-description">
+                      <div class="content-image">
+                        <img
+                          src="https://placehold.co/240x120"
+                          alt="Influenza Virion"
+                        />
+                      </div>
                     </div>
-
-                    <div class="bv-brc-mid shadow-2xl rounded-xl"><!-- style="grid-row: 3/6"-->
-
-                        <div id="analyze-section">
-
-                            <div class="analyze bv-brc-mid-content card">
-                                <h2>Analyze Data with MAAGE</h2>
-                                <p>Upload and analyze your data in the private workspace. <span class="HideWithAuth"><a
-                                            href="/register" style="font-weight: bold;">Register</a> or <a href="/login"
-                                            style="font-weight: bold;">Login</a> to get started.</span>
-                                </p>
-
-                                <div class="bv-brc-mid-content-links">
-                                    <div class="mid-content-section">
-                                        <h3>Search</h3>
-                                        <div class="mid-links">
-                                            <a href="/searches/TaxaSearch" class="navigationLink">Taxa</a>
-                                            <a href="/searches/GenomeSearch" class="navigationLink">Genomes</a>
-                                            <a href="/searches/ProteinSearch" class="navigationLink">Proteins</a>
-                                            <a href="/searches/SpecialtyGeneSearch" class="navigationLink">Specialty
-                                                Genes</a>
-                                            <a href="/searches" style="text-decoration: underline;">All Searches...</a>
-                                        </div>
-                                    </div>
-                                    <div class="mid-content-section">
-                                        <h3>Analyze</h3>
-                                        <div class="mid-links">
-                                            <a href="/app/Assembly2" class="navigationLink">Assembly</a>
-                                            <a href="/app/Annotation" class="navigationLink">Annotation</a>
-                                            <a href="/app/Homology" class="navigationLink">BLAST</a>
-                                            <a href="/app/MSA" class="navigationLink">MSA</a>
-                                            <a href="/tools" style="text-decoration: underline;">All Tools &amp;
-                                                Services...</a>
-                                        </div>
-                                    </div>
-                                    <div class="mid-content-section">
-                                        <h3>Manage Data</h3>
-                                        <div class="mid-links">
-                                            <a href="https://bv-brc.org/docs/quick_references/workspaces/workspace.html"
-                                                target="=_blank">Access Private Workspace</a>
-                                            <a href="https://bv-brc.org/docs/quick_references/workspaces/groups.html"
-                                                target="=_blank">Save Search Results</a>
-                                            <a href="https://bv-brc.org/docs/quick_references/workspaces/data_upload.html"
-                                                target="=_blank">Upload Data</a>
-                                            <a href="https://bv-brc.org/docs/quick_references/workspaces/jobs.html"
-                                                target="=_blank">Access Analysis Jobs</a>
-                                            <a href="https://bv-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces"
-                                                target="=_blank">Share and Publish</a>
-                                        </div>
-                                    </div>
-                                    <div class="mid-content-section">
-                                        <h3>Batch Access</h3>
-                                        <div class="mid-links">
-                                            <a href="https://bv-brc.org/docs/cli_tutorial/index.html"
-                                                target="=_blank">Command-Line
-                                                Interface</a>
-                                            <a href="https://bv-brc.org/api/doc/" target="=_blank">Data API</a>
-                                            <a href="https://bv-brc.org/docs/quick_references/ftp.html"
-                                                target="=_blank">FTP</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mid-content-bottom">
-                                <div class="mid-content-buttons">
-                                    <a href="https://bv-brc.org/docs/quick_start/index.html"
-                                        class="btn btn-blue navigationLinkOut">Quick Start</a>
-                                    <a href="https://bv-brc.org/docs/quick_references/index.html"
-                                        class="btn btn-blue navigationLinkOut" id="referenceGuides">Reference Guides</a>
-                                    <a href="https://bv-brc.org/docs/tutorial/index.html"
-                                        class="btn btn-blue navigationLinkOut">Tutorials</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                      <div class="bv-brc-bottom">
-                        <div class="dashboard-section">
-                            <div class="title">
-                                <h2>Dashboards</h2>
-                            </div>
-                            <div class="outbreaks">
-                                <div class="bv-brc-bottom-left card shadow-2xl rounded-xl" style="flex-basis: 100% ">
-                                    <div class="content">
-                                        <h2><a href="/outbreaks/Mpox/#view_tab=overview">Mpox 2024</a></h2>
-                                        <div class="content-description">
-                                            <div class="content-image">
-                                                <img src="https://placehold.co/240x120"
-                                                    alt="Influenza Virion">
-                                            </div>
-
-                                        </div>
-                                        <p>
-                                            Monkeypox virus .... lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        </p>
-                                        <span class="maage-dashboard-link"><a href="">View Dashbaord</a></span>
-                                    </div>
-                                </div>
-
-                                <div class="bv-brc-bottom-right card shadow-2xl rounded-xl" style="flex-basis: 100% ">
-                                    <div class="content">
-                                        <h2><a href="/outbreaks/H5N1/#view_tab=overview">Influenza H5N1 2024</a></h2>
-                                        <div class="content-description">
-                                            <div class="content-image">
-                                                <img src="https://placehold.co/240x120"
-                                                    alt="Influenza Virion">
-                                            </div>
-
-                                        </div>
-                                        <p>
-                                            The H5N1 virus .... lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        </p>
-                                        <span class="maage-dashboard-link"><a href="">View Dashbaord</a></span>
-                                    </div>
-                                </div>
-
-                                <div class="bv-brc-bottom-left card shadow-2xl rounded-xl" style="flex-basis: 100% ">
-                                    <div class="content">
-                                        <h2><a href="/outbreaks/Mpox/#view_tab=overview">SARS-CoV-2</a></h2>
-                                        <div class="content-description">
-                                            <div class="content-image">
-                                                <img src="https://placehold.co/240x120"
-                                                    alt="Influenza Virion">
-                                            </div>
-                                            <br>
-
-                                        </div>
-                                        <p style="padding-top: 6px; padding-bottom: 6px;">
-                                            SARS-CoV-2 virus .... lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        </p>
-                                        <span class="maage-dashboard-link"><a href="">View Dashbaord</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <p>
+                      Monkeypox virus .... lorem ipsum dolor sit amet,
+                      consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <span class="maage-dashboard-link"
+                      ><a href="">View Dashbaord</a></span
+                    >
+                  </div>
                 </div>
 
-                <div class="home-main home-main-right">
-                    <div class="announcements shadow-2xl rounded-xl">
-                        <h2 style="font-family: 'Poppins'; font-weight: 500;">Outbreak News</h2>
-
+                <div
+                  class="bv-brc-bottom-right card shadow-2xl rounded-xl"
+                  style="flex-basis: 100%"
+                >
+                  <div class="content">
+                    <h2>
+                      <a href="/outbreaks/H5N1/#view_tab=overview"
+                        >Influenza H5N1 2024</a
+                      >
+                    </h2>
+                    <div class="content-description">
+                      <div class="content-image">
+                        <img
+                          src="https://placehold.co/240x120"
+                          alt="Influenza Virion"
+                        />
+                      </div>
                     </div>
-
-                    <div class="announcements shadow-2xl rounded-xl">
-                        <h2 style="font-family: 'Poppins'; font-weight: 500;">Upcoming Events</h2>
-
-                    </div>
-                    <div class="announcements shadow-2xl rounded-xl">
-                        <h2 style="font-family: 'Poppins'; font-weight: 500;">Community Outreach</h2>
-
-
-                    </div>
+                    <p>
+                      The H5N1 virus .... lorem ipsum dolor sit amet,
+                      consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <span class="maage-dashboard-link"
+                      ><a href="">View Dashbaord</a></span
+                    >
+                  </div>
                 </div>
+
+                <div
+                  class="bv-brc-bottom-left card shadow-2xl rounded-xl"
+                  style="flex-basis: 100%"
+                >
+                  <div class="content">
+                    <h2>
+                      <a href="/outbreaks/Mpox/#view_tab=overview"
+                        >SARS-CoV-2</a
+                      >
+                    </h2>
+                    <div class="content-description">
+                      <div class="content-image">
+                        <img
+                          src="https://placehold.co/240x120"
+                          alt="Influenza Virion"
+                        />
+                      </div>
+                      <br />
+                    </div>
+                    <p style="padding-top: 6px; padding-bottom: 6px">
+                      SARS-CoV-2 virus .... lorem ipsum dolor sit amet,
+                      consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <span class="maage-dashboard-link"
+                      ><a href="">View Dashbaord</a></span
+                    >
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
 
+        <div class="home-main home-main-right">
+          <div class="announcements shadow-2xl rounded-xl">
+            <h2 style="font-family: &quot;Poppins&quot;; font-weight: 500">
+              Outbreak News
+            </h2>
+          </div>
+
+          <div class="announcements shadow-2xl rounded-xl">
+            <h2 style="font-family: &quot;Poppins&quot;; font-weight: 500">
+              Upcoming Events
+            </h2>
+          </div>
+          <div class="announcements shadow-2xl rounded-xl">
+            <h2 style="font-family: &quot;Poppins&quot;; font-weight: 500">
+              Community Outreach
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <%- include('maage-footer') %>
 
-    <style>
-        body.patric {
-            min-width: 320px;
-        }
+<style>
+  body.patric {
+    min-width: 320px;
+  }
 
-        #p3header-search,
-        #mobile-search-icon {
-            display: none;
-        }
+  #p3header-search,
+  #mobile-search-icon {
+    display: none;
+  }
 
-        .home-main-left h1,
-        .home-main-left h2 {
-            margin-bottom: 0;
-        }
-    </style>
+  .home-main-left h1,
+  .home-main-left h2 {
+    margin-bottom: 0;
+  }
+</style>

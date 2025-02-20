@@ -2,12 +2,12 @@
 <html lang="en">
 	<head>
 		<title>Midwest Alliance for Applied Genomic Epidemiology | MAAGE</title>
-		<%- include('header') %>
+		<%- include('head') %>
 	  </head>
 	<body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
 		<div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
-			<%- include('maage-header') %>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;">
+			<%- include('navbar') %>
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;" class="bg-[var(--maage-bg)]">
                 <%- include('maage-home') %>
             </div>
 		</div>
