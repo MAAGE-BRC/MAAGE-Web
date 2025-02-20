@@ -1,7 +1,7 @@
 div#bv-brc-header-container>div:nth-child(2) {
   flex: 1 1 0;
   font-family: "Poppins", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   margin: -4px 0 0;
 }
@@ -16,7 +16,7 @@ div#bv-brc-header {
 div#bv-brc-header a {
   font-family: 'Poppins', sans-serif !important;
   font-weight: 300 !important;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 div#bv-brc-header-container>div.HideWithAuth.authLinks.showOnLoad {
@@ -28,8 +28,7 @@ div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(1) 
   border: 1px solid #1c1f21 !important;
   border-radius: 20px;
   color: #1C1F21;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   padding: 2px 10px 4px;
 }
@@ -48,8 +47,7 @@ div.HideWithAuth.authLinks.showOnLoad>a.LoginButton.navigationLink:nth-child(2) 
   border-radius: 20px;
   border-style: initial;
   color: #1C1F21 !important;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   padding: 2px 14px 4px;
 }
@@ -68,7 +66,7 @@ a.nav-logo-link>span>i {
 
 div#bv-brc-header-container>div:nth-child(2)>span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1) {
   background-repeat: repeat;
-  font-size: 15px;
+  font-size: 16px;
   padding: 0 4px;
 }
 
@@ -76,7 +74,7 @@ span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:n
   transition: background-color .3s;
   text-wrap-mode: nowrap;
   white-space-collapse: collapse;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 span#dijit_form_DropDownButton_0 {
@@ -92,12 +90,11 @@ span#dijit_form_DropDownButton_0 {
   background-repeat: repeat-x;
   border-style: initial;
   border-width: 0;
-  font-family: "Noto Sans", sans-serif;
   font-size-adjust: none;
 }
 
 div#bv-brc-header-container {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 
   padding: 0 10px;
 }
@@ -106,13 +103,12 @@ div#dijit_layout_ContentPane_1 {
   border-left-width: 0;
   border-right-width: 0;
   border-top-width: 0;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 div#bv-brc-header-container>div:nth-child(2)>span.dijit.dijitReset.dijitInline.topMenuButton.showOnLoad.dijitDropDownButton:nth-child(2) {
   background-repeat: repeat;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   padding: 0 4px;
 }
 
@@ -126,8 +122,7 @@ span#dijit_form_DropDownButton_1 {
 
 div#bv-brc-header-container>div:nth-child(2)>span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(3) {
   background-repeat: repeat;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   padding: 0 4px;
 }
 
@@ -141,8 +136,7 @@ span#dijit_form_DropDownButton_2 {
 
 div#bv-brc-header-container>div:nth-child(2)>span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) {
   background-repeat: repeat;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
 }
 
@@ -156,8 +150,7 @@ span#dijit_form_DropDownButton_3 {
 
 div#bv-brc-header-container>div:nth-child(2)>span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(5) {
   background-repeat: repeat;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   padding: 0 4px;
 }
 
@@ -171,8 +164,7 @@ span#dijit_form_DropDownButton_4 {
 
 div#bv-brc-header-container>div:nth-child(2)>span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(6) {
   background-repeat: repeat;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   padding: 0 4px;
 }
 
@@ -237,7 +229,7 @@ div#bv-brc-home {
   border-right-width: 0;
   border-top-width: 0;
   color: #333333;
-  font-family: 'Noto Serif', Roboto, sans-serif;
+  font-family: 'Inter', Roboto, sans-serif;
   line-height: 1.5;
   margin: 0;
   padding: 15px 10px;
@@ -249,24 +241,18 @@ div#bv-brc-home {
   border-bottom: 4px solid #436D58;
   border-right-width: 0;
   border-top-width: 0;
-  font-family: 'Noto Serif', Roboto, sans-serif;
+  font-family: 'Inter', Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.bv-brc-info>h1 {
   color: #26292C;
-  font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
   font-size: 30px;
 }
 
-#bv-brc-home-container div.search>h3 {
-  color: #26292C;
-  font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
-}
 
 #bv-brc-home-container div.bv-brc-info>p {
   color: #26292C;
-  font-family: "Noto Serif", Arial, Helvetica, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 #bv-brc-home-container div.bv-brc-info>div.search {
@@ -375,7 +361,7 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.bv-brc-mid>div.bv-brc-mid-content {
-  font-family: 'Noto Serif', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 #bv-brc-home-container div.grid-container>div.bv-brc-mid {
@@ -385,10 +371,6 @@ div#bv-brc-header-container>div.nav-logo {
   border-top-width: 0;
 }
 
-#bv-brc-home-container div.mid-links:nth-child(1)>h3 {
-  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
-  font-weight: 400;
-}
 
 #bv-brc-home-container div.bv-brc-mid-content-links>div.mid-links:nth-child(1)>a.navigationLink:nth-child(1):hover {
   color: #609C7E;
@@ -396,7 +378,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.bv-brc-mid-content-links>div.mid-links:nth-child(1)>a.navigationLink:nth-child(1) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a.navigationLink:nth-child(2):hover {
@@ -405,7 +387,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a.navigationLink:nth-child(2) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a.navigationLink:nth-child(3):hover {
@@ -414,7 +396,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a.navigationLink:nth-child(3) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a.navigationLink:nth-child(4):hover {
@@ -423,7 +405,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a.navigationLink:nth-child(4) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5):hover {
@@ -433,13 +415,13 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
   text-decoration: underline;
 }
 
 #bv-brc-home-container div.bv-brc-mid-content-links>div.mid-links:nth-child(2)>a.navigationLink:nth-child(1) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.bv-brc-mid-content-links>div.mid-links:nth-child(2)>a.navigationLink:nth-child(1):hover {
@@ -448,7 +430,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(2)>a.navigationLink:nth-child(2) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(2)>a.navigationLink:nth-child(2):hover {
@@ -457,7 +439,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(2)>a.navigationLink:nth-child(3) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(2)>a.navigationLink:nth-child(3):hover {
@@ -466,7 +448,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(2)>a.navigationLink:nth-child(4) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(2)>a.navigationLink:nth-child(4):hover {
@@ -475,7 +457,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(2)>a:nth-child(5) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
   text-decoration: underline;
 }
 
@@ -486,7 +468,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.bv-brc-mid-content-links>div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(1) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.bv-brc-mid-content-links>div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(1):hover {
@@ -495,7 +477,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(2) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(2):hover {
@@ -504,7 +486,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(3) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(3):hover {
@@ -513,7 +495,7 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(4) {
   color: #436D58;
-  font-family: "Noto Serif", Roboto, sans-serif;
+  font-family: "Inter", Roboto, sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(4):hover {
@@ -522,28 +504,13 @@ div#bv-brc-header-container>div.nav-logo {
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(5) {
   color: #436D58;
-  font-family: "Noto Serif", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 #bv-brc-home-container div.mid-links:nth-child(3)>a.navigationLinkOut:nth-child(5):hover {
   color: #609C7E;
 }
 
-#bv-brc-home-container div.mid-links:nth-child(2)>h3 {
-  font-family: 'Roboto Slab';
-  font-weight: 400;
-}
-
-#bv-brc-home-container div.mid-links:nth-child(3)>h3 {
-  font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
-  font-weight: 400;
-}
-
-#bv-brc-home-container div.mid-links:nth-child(4)>h3 {
-  color: #26292C;
-  font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
-  font-weight: 400;
-}
 
 #bv-brc-home-container div.bv-brc-mid-content-links>div.mid-links:nth-child(4)>a.navigationLinkOut:nth-child(1) {
   color: #436D58;
@@ -570,8 +537,8 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.bv-brc-mid-content>p {
-  font-family: "Noto Serif", Arial, Helvetica, sans-serif;
-  font-size: 15px;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 16px;
 }
 
 #bv-brc-home-container span.HideWithAuth>a:nth-child(1) {
@@ -686,7 +653,7 @@ span#maage-logo-link {
   border-width: 0;
   color: #436d58 !important;
   cursor: pointer;
-  font-family: "Noto Serif", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.1em;
   font-size-adjust: none;
   font-weight: 400;
@@ -702,7 +669,7 @@ span#maage-logo-link {
   border-width: 0;
   color: #436d58 !important;
   cursor: pointer;
-  font-family: "Noto Serif", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.1em;
   font-size-adjust: none;
   font-weight: 400;
@@ -718,7 +685,7 @@ span#maage-logo-link {
   border-width: 0;
   color: #436d58 !important;
   cursor: pointer;
-  font-family: "Noto Serif", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.1em;
   font-size-adjust: none;
   font-weight: 400;
@@ -733,7 +700,7 @@ span#maage-logo-link {
   border-width: 0;
   color: #436d58 !important;
   cursor: pointer;
-  font-family: "Noto Serif", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.1em;
   font-size-adjust: none;
   font-weight: 400;
@@ -961,11 +928,6 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
     text-align: left;
   }
 
-  #maage-home div.search > h3 {
-    color: #1c1f21;
-    font-size: 18px;
-    font-weight: 500;
-  }
 
   @media (min-width: 1024px) {
     div.home-main.home-main-left > div.bv-brc-info.card {
@@ -975,12 +937,6 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
 
   #maage-home div#analyze-section > div.mid-content-bottom {
     background-color: #f5f5f5;
-  }
-  #maage-home div.mid-content-section h3 {
-    font-size 16px;
-    font-family: 'Roboto Slab', serif;
-    font-weight: 500;;
-    color: #1C1F21
   }
 
   #maage-home #bv-brc-header-container .topMenuButton
@@ -1102,7 +1058,7 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
     color: #EFEFEF;
     cursor: pointer;
     font-family: Poppins;
-    font-size: 15px;
+    font-size: 16px;
     padding: 0 5px;
   }
 
@@ -1135,18 +1091,13 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
   }
 
   #maage-home div.bv-brc-info.card > h1 {
-  font-family: Roboto Slab;
 }
 
 #maage-home div.bv-brc-info.card > p {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-size: 16px;
 }
 
-#maage-home div.search > h3 {
-  color: #1C1F21;
-  font-family: Roboto Slab;
-}
 
 #maage-home div.bv-brc-info.card > p > a.navigationLinkOut {
   font-weight: 600;
@@ -1162,36 +1113,8 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
 }
 
 #maage-home div.analyze.bv-brc-mid-content.card > p {
-  font-family: Noto Sans;
-  font-size: 16px;
-}
-
-#maage-home div.mid-content-section:nth-child(1) > h3 {
   font-family: Poppins;
   font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 10px;
-}
-
-#maage-home div.mid-content-section:nth-child(2) > h3 {
-  font-family: Poppins;
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 10px;
-}
-
-#maage-home div.mid-content-section:nth-child(3) > h3 {
-  font-family: Poppins;
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 10px;
-}
-
-#maage-home div.mid-content-section:nth-child(4) > h3 {
-  font-family: Poppins;
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 10px;
 }
 
 #maage-home div.mid-content-section:nth-child(1) > div.mid-links {
@@ -1201,7 +1124,7 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
 #maage-home div.mid-content-section:nth-child(3) > div.mid-links {
   color: #436D5A;
   cursor: pointer;
-  font-family: "Noto Sans";
+  font-family: "Poppins";
   font-size: 1.1em;
   line-height: 1.4em;
   text-decoration: inherit;
@@ -1209,92 +1132,92 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
 
 #maage-home div.mid-content-section:nth-child(3) > div.mid-links > a:nth-child(1) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(3) > div.mid-links > a:nth-child(2) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(3) > div.mid-links > a:nth-child(3) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(3) > div.mid-links > a:nth-child(4) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(3) > div.mid-links > a:nth-child(5) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(1) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(2) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(3) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(1) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(2) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(3) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(4) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(2) > div.mid-links > a:nth-child(5) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(1) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(2) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(3) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(4) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 #maage-home div.mid-content-section:nth-child(1) > div.mid-links > a:nth-child(5) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
   border: 0 initial;
   border-color: #67a789;
 }
@@ -1312,64 +1235,64 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
 
 #maage-home #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(1) {
   color: var(--primary-text);
-  background-color: #F7F4ED!important;
+  background-color: #F9F7F2!important;
 }
 
 #maage-home #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(2) {
   color: var(--primary-text);
-  font-family: 'Noto Sans';
-  font-weight: 500;
-  font-size: 14px;
-  background-color: #F7F4ED!important;
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 16px;
+  background-color: #F9F7F2!important;
 }
 
 #maage-home #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(3) {
   color: var(--primary-text);
-  font-family: 'Noto Sans';
-  font-weight: 500;
-  font-size: 14px;
-  background-color: #F7F4ED!important;
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 16px;
+  background-color: #F9F7F2!important;
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(1) {
   color: var(--primary-text);
-  font-family: 'Noto Sans';
-  font-weight: 500!important;
-  font-size: 14px;
-  background-color: #F7F4ED;
+  font-family: 'Poppins';
+  font-weight: 400!important;
+  font-size: 16px;
+  background-color: #F9F7F2;
 }
 
 #maage-home div.mid-content-buttons > a.btn.btn-blue.navigationLinkOut:nth-child(1) {
-  font-family: 'Noto Sans'!important;
+  font-family: 'Poppins'!important;
   text-align: center!important;
   color: var(--primary-text)!important;
   font-size: 14px!important;
-  font-weight: 500!important;
+  font-weight: 400!important;
 }
 #maage-home div.mid-content-buttons > a.btn.btn-blue.navigationLinkOut:nth-child(2) {
-  font-family: 'Noto Sans'!important;
+  font-family: 'Poppins'!important;
   text-align: center!important;
   color: var(--primary-text)!important;
   font-size: 14px!important;
-  font-weight: 500!important;
+  font-weight: 400!important;
 }
 #maage-home div.mid-content-buttons > a.btn.btn-blue.navigationLinkOut:nth-child(3) {
-  font-family: 'Noto Sans'!important;
+  font-family: 'Poppins'!important;
   text-align: center!important;
   color: var(--primary-text)!important;
   font-size: 14px!important;
-  font-weight: 500!important;
+  font-weight: 400!important;
 }
 
 .maage-dashboard-link {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 16px;
   color: var(--maage-primary-800);
 }
 
 #maage-footer body {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
   color: #1c1f21;
@@ -1428,7 +1351,7 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
 }
 
 #maage-footer .footer-text {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
 }
 
@@ -1778,13 +1701,13 @@ div.mid-content-section:nth-child(3) > div.mid-links > a:nth-child(5) {
 }
 
 div.mid-content-section:nth-child(2) > div.mid-links > a:nth-child(5) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   text-decoration: underline;
 }
 
 div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(4) {
   color: #436D5A;
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
   text-decoration: underline;
   text-decoration: underline;
@@ -1793,62 +1716,62 @@ div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-chil
 }
 
 div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(1) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(2) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(2) > div.mid-links > a.navigationLink:nth-child(3) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(1) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(1) > div.mid-links > a:nth-child(5) {
-  font-family: Noto Sans;
+  font-family: Poppins;
 }
 
 div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(4) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(3) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(1) > div.mid-links > a.navigationLink:nth-child(2) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(1) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(2) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(3) {
-  font-family: Noto Sans;
+  font-family: Poppins;
   font-weight: 300;
 }
 
 .bv-brc-mid-content-links .mid-content-section .mid-links a {
-  font-family: Noto Sans!important;
-  font-weight: 300!important;
+  font-family: Poppins!important;
+  font-weight: 400!important;
   font-size: 14px!important;
 }
 

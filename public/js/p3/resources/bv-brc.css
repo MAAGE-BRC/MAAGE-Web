@@ -113,38 +113,10 @@
   margin: 0 auto;
 }
 
-#bv-brc-home h1,
-#bv-brc-page h1,
-#bv-brc-home h2,
-#bv-brc-page h2,
-#bv-brc-home h3,
-#bv-brc-page h3 {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: var(--main-text);
-}
 
-#bv-brc-home h1,
-#bv-brc-page h1 {
-  font-size: 1.5rem;
-}
 
-#bv-brc-home h2,
-#bv-brc-page h2 {
-  font-size: 1.25rem;
-}
 
-#bv-brc-home h3,
-#bv-brc-page h3 {
-  font-size: 1rem;
-}
 
-#bv-brc-home p,
-#bv-brc-page p {
-  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
-  font-weight: 300;
-  color: var(--main-text);
-}
 
 @media only screen and (min-width: 768px) {
   #bv-brc-home p,

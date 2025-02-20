@@ -1120,9 +1120,7 @@ a.icon-left {
 }
 
 
-h1,h2,h3,h4,h5,h6 {
-	font-weight: 100;
-}
+
 
 h1 {
   font-size: 3em;
@@ -1133,10 +1131,7 @@ h2 {
   font-size: 2em;
   margin-bottom: 0.75em; }
 
-h3 {
-  font-size: 1.5em;
-  line-height: 1;
-  margin-bottom: 1.00em; }
+
 
 h4 {
   font-size: 1.2em;
@@ -1164,9 +1159,6 @@ h2.xxl {
 h1.xl {
   font-size: 26px; }
 
-h2.xl,
-h3.xl {
-  font-size: 20px; }
 
 .upper {
     text-transform: uppercase;
