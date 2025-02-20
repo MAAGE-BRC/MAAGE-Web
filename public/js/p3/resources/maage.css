@@ -1442,8 +1442,10 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
 }
 
 
- #maage-home div.home-main.home-main-left > div.bv-brc-info.card {
-    color: #E2E9DF;
+ #maage-home div.home-main.home-main-left > div.bv-brc-info.card h3 {
+    color: var(--maage-dark-text);
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
   }
 
 

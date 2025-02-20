@@ -42,15 +42,7 @@ body.patric {
     min-width: 320px;
 }
 
-A, A:visited {
-    text-decoration: none;
-    color: #09456f;
-    cursor: pointer;
-}
-A:hover {
-    text-decoration: underline;
-    color: #34698e;
-}
+
 
 body.patric *:focus {
     outline: 0;
