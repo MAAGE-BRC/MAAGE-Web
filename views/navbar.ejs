@@ -17,7 +17,7 @@
               <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
                 <span class="hover:text-[var(--maage-primary-800)] font-normal text-[16px]">Organisms</span>
                 <div data-dojo-type="p3/widget/TooltipDialog">
-                  <div class="menuHeader mb-1 p-0.5 font-poppins text-md text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Bacterial Pathogens</div>
+                  <div class="menuHeader mb-1 p-0.5 font-poppins text-lg text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Bacterial Pathogens</div>
                     <div>
                       <a class="navigationLink text-[var(--maage-secondary-700)] text-lg font-poppins" href="/view/Taxonomy/194#view_tab=overview">Campylobacter</a>
                     </div>
@@ -156,23 +156,23 @@
                             <a style="color: var(--maage-secondary-800);" class="navigationLink text-lg font-poppins" href="/app/ComprehensiveSARS2Analysis">SARS-CoV-2 Genome Analysis</a>
                           </div>
                           <div>
-                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-md font-poppins" href="/app/SARS2Wastewater">SARS-CoV-2 Wastewater Analysis</a>
+                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-lg font-poppins" href="/app/SARS2Wastewater">SARS-CoV-2 Wastewater Analysis</a>
                           </div>
                           <div>
-                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-md font-poppins" href="/app/SubspeciesClassification">Subspecies Classification</a>
+                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-lg font-poppins" href="/app/SubspeciesClassification">Subspecies Classification</a>
                           </div>
                           </div>
                           <p></p>
-                          <div class="menuHeader mb-1 p-0.5 font-poppins text-md text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Outbreak Tracker </div>
+                          <div class="menuHeader mb-1 p-0.5 font-poppins text-lg text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Outbreak Tracker </div>
                           <div class="menuItems">
                           <div>
                             <b>
-                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-md font-poppins font-medium underline" href="/outbreaks/H5N1/#view_tab=overview">Influenza H5N1 2024</a>
+                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-lg font-poppins font-medium underline" href="/outbreaks/H5N1/#view_tab=overview">Influenza H5N1 2024</a>
                             </b>
                           </div>
                           <div>
                             <b>
-                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-md font-poppins font-medium underline" href="/outbreaks/SARSCoV2/#view_tab=overview">SARS-CoV-2</a>
+                            <a style="color: var(--maage-secondary-800);" class="navigationLink text-lg font-poppins font-medium underline" href="/outbreaks/SARSCoV2/#view_tab=overview">SARS-CoV-2</a>
                             </b>
                           </div>
                           </div>
@@ -187,8 +187,8 @@
                     <div data-dojo-type="p3/widget/TooltipDialog">
                         <div>
                             <div style="vertical-align: top;width:175px;display:inline-block">
-                                <div class="HideWithAuth">
-                                    Please <a style="color: #436d58;" class="loginLink">sign in</a> to view your workspaces.
+                                <div class="HideWithAuth font-poppins text-lg text-[var(--maage-dark-text)]">
+                                    Please <a style="color: #436d58;" class="loginLink font-semibold">sign in</a> to view your workspaces.
                                 </div>
                                 <div class="ShowWithAuth">
                                     <div><i class="fa icon-caret-down fa-1x noHoverIcon"
@@ -202,13 +202,18 @@
                                 </div>
                             </div>
                             <div style="vertical-align:top;display:inline-block" class="ShowWithAuth">
-                                <div>
-                                    <a style="color: #436d58;" class="navigationLink" href="/job/">My Jobs</a>
+                                <div class="text-lg font-poppins text-[var(--maage-dark-text)]">
+                                    <a style="color: #436d58;" class="navigationLink text-lg font-poppins text-[var(--maage-dark-text)]" href="/job/">My Jobs</a>
                                 </div>
-                                <div>
-                                    <a style="color: #436d58;" class="navigationLink"
-                                        href="/view/BioprojectList/?eq(public,false)&eq(bioproject_accession,PRJNA218110)">My
-                                        Bioprojects</a>
+                                <div class="text-lg font-poppins text-[var(--maage-dark-text)]">
+                                  <a style="color: #436d58;" class="navigationLink text-lg font-poppins text-[var(--maage-dark-text)]"
+                                      href="#">My
+                                      Genomes</a>
+                                </div>
+                                <div class="text-lg font-poppins text-[var(--maage-dark-text)]">
+                                    <a style="color: #436d58;" class="navigationLink text-lg font-poppins text-[var(--maage-dark-text)]"
+                                        href="#">My
+                                        BioProjects</a>
                                 </div>
                             </div>
                         </div>
@@ -271,10 +276,10 @@
                     <span class="hover:text-[var(--maage-primary-800)] font-normal text-[16px]">About</span>
 
                     <div data-dojo-type="p3/widget/TooltipDialog">
-                        <div><a style="color: #436d58;" class="TopMenuLink" href="/about">About Us</a></div>
-                        <div><a style="color: #436d58;" class="TopMenuLink" href="/team">Our Team</a></div>
-                        <div><a style="color: #436d58;" class="TopMenuLink" href="/advisory-boards">Advisory Boards</a></div>
-                        <div><a style="color: #436d58;" class="DialogButton" rel="reportProblem:">Contact MAAGE</a></div>
+                        <div><a style="color: #436d58;" class="TopMenuLink text-lg font-poppins text-[var(--maage-dark-text)]" href="/about">About Us</a></div>
+                        <div><a style="color: #436d58;" class="TopMenuLink text-lg font-poppins text-[var(--maage-dark-text)]" href="/team">Our Team</a></div>
+                        <div><a style="color: #436d58;" class="TopMenuLink text-lg font-poppins text-[var(--maage-dark-text)]" href="/advisory-boards">Advisory Boards</a></div>
+                        <div><a style="color: #436d58;" class="DialogButton text-lg font-poppins text-[var(--maage-dark-text)]" rel="reportProblem:">Contact MAAGE</a></div>
                     </div>
                 </div>
             </div>
