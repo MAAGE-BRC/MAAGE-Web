@@ -399,7 +399,7 @@ define([
       this.viewer.addChild(this.amr);
       // this.viewer.addChild(this.phylogeny);
       this.viewer.addChild(this.browser);
-      this.viewer.addChild(this.circular);
+      // this.viewer.addChild(this.circular);
       // this.viewer.addChild(this.sequences);
       this.viewer.addChild(this.features);
       // this.viewer.addChild(this.proteins);
