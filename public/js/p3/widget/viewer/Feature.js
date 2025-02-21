@@ -292,11 +292,11 @@ define([
       this.viewer.addChild(this.overview);
       this.viewer.addChild(this.genomeBrowser);
       this.viewer.addChild(this.compareRegionViewer);
-      this.viewer.addChild(this.transcriptomics);
+      // this.viewer.addChild(this.transcriptomics);
       // this.viewer.addChild(this.correlatedGenes);
-      this.viewer.addChild(this.interactions);
-      this.viewer.addChild(this.proteinFeatures)
-      this.viewer.addChild(this.structures);
+      // this.viewer.addChild(this.interactions);
+      // this.viewer.addChild(this.proteinFeatures)
+      // this.viewer.addChild(this.structures);
     }
   });
 });
