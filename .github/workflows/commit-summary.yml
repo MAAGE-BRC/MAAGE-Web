@@ -1,0 +1,44 @@
+name: Commit Summary From Specific Commit
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_commit:
+        description: "Start commit SHA (leave empty for last 250 commits)"
+        required: false
+        default: ""
+
+jobs:
+  summarize-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for proper commit range
+
+      - name: Determine commit range
+        id: commit-range
+        run: |
+          if [[ -n "${{ github.event.inputs.start_commit }}" ]]; then
+            START_COMMIT="${{ github.event.inputs.start_commit }}"
+          else
+            START_COMMIT="$(git rev-parse HEAD~250)"  # Default: last 250 commits
+          fi
+          echo "Using start commit: $START_COMMIT"
+          echo "START_COMMIT=$START_COMMIT" >> $GITHUB_ENV
+
+      - name: Generate commit summary
+        run: |
+          echo "Generating commit summary from $START_COMMIT to HEAD..."
+          git log $START_COMMIT..HEAD --name-status --pretty=format:"%h %s" > commit-summary.txt
+          echo -e "\nSummary Generated! Preview:\n"
+          head -n 20 commit-summary.txt  # Show first 20 lines in logs
+
+      - name: Upload commit summary as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: commit-summary
+          path: commit-summary.txt
+          retention-days: 7  # Keep the artifact for 7 days
