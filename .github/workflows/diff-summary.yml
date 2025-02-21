@@ -9,7 +9,7 @@ on:
         type: string
   push: # Optional: Trigger on pushes to main (or your main branch)
     branches:
-      - main
+      - dev
 
 jobs:
   generate-summary:
