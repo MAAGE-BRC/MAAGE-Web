@@ -247,22 +247,22 @@ define([
         id: this.viewer.id + '_proteins',
         disabled: false
       });
-      this.structures = new ProteinStructureGridContainer({
-        title: 'Protein Structures',
-        id: this.viewer.id + '_structures',
-        disabled: false
-      });
+      // this.structures = new ProteinStructureGridContainer({
+      //   title: 'Protein Structures',
+      //   id: this.viewer.id + '_structures',
+      //   disabled: false
+      // });
       this.specialtyGenes = new SpecialtyGeneGridContainer({
         title: 'Specialty Genes',
         id: this.viewer.id + '_specialtyGenes',
         disabled: false,
         state: this.state
       });
-      this.proteinFeatures = new ProteinFeaturesGridContainer({
-        title: 'Domains and Motifs',
-        id: this.viewer.id + '_proteinFeatures',
-        disabled: false
-      });
+      // this.proteinFeatures = new ProteinFeaturesGridContainer({
+      //   title: 'Domains and Motifs',
+      //   id: this.viewer.id + '_proteinFeatures',
+      //   disabled: false
+      // });
       this.pathways = new PathwayGridContainer({
         title: 'Pathways',
         id: this.viewer.id + '_pathways',
@@ -273,16 +273,16 @@ define([
         id: this.viewer.id + '_subsystems',
         disabled: false
       });
-      this.experiments = new ExperimentsContainer({
-        title: 'Experiments',
-        id: this.viewer.id + '_experiments'
-      });
+      // this.experiments = new ExperimentsContainer({
+      //   title: 'Experiments',
+      //   id: this.viewer.id + '_experiments'
+      // });
 
-      this.interactions = new InteractionsContainer({
-        title: 'Interactions',
-        id: this.viewer.id + '_interactions',
-        state: this.state
-      });
+      // this.interactions = new InteractionsContainer({
+      //   title: 'Interactions',
+      //   id: this.viewer.id + '_interactions',
+      //   state: this.state
+      // });
 
       this.surveillance = new SurveillanceGridContainer({
         title: 'Surveillance',
@@ -294,11 +294,11 @@ define([
         id: this.viewer.id + '_serology',
         state: this.state
       });
-      this.epitope = new EpitopeGridContainer({
-        title: 'Epitopes',
-        id: this.viewer.id + '_epitope',
-        state: this.state
-      });
+      // this.epitope = new EpitopeGridContainer({
+      //   title: 'Epitopes',
+      //   id: this.viewer.id + '_epitope',
+      //   state: this.state
+      // });
 
       this.sfvt = new SFVTGridContainer({
         title: 'Sequence Feature Variant Types',
@@ -311,15 +311,15 @@ define([
       this.viewer.addChild(this.amr);
       this.viewer.addChild(this.sequences);
       this.viewer.addChild(this.features);
-      this.viewer.addChild(this.proteins);
-      this.viewer.addChild(this.structures);
+      // this.viewer.addChild(this.proteins);
+      // this.viewer.addChild(this.structures);
       this.viewer.addChild(this.specialtyGenes);
-      this.viewer.addChild(this.proteinFeatures);
-      this.viewer.addChild(this.epitope);
+      // this.viewer.addChild(this.proteinFeatures);
+      // this.viewer.addChild(this.epitope);
       this.viewer.addChild(this.pathways);
       this.viewer.addChild(this.subsystems);
-      this.viewer.addChild(this.experiments);
-      this.viewer.addChild(this.interactions);
+      // this.viewer.addChild(this.experiments);
+      // this.viewer.addChild(this.interactions);
       this.viewer.addChild(this.surveillance);
       this.viewer.addChild(this.serology);
       this.viewer.addChild(this.sfvt);
