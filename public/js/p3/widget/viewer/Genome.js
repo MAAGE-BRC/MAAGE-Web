@@ -201,14 +201,14 @@ define([
     changeToVirusContext: function () {
       this.overview.set('context', 'virus');
 
-      this.viewer.removeChild(this.phylogeny);
-      this.viewer.removeChild(this.sequences);
+      // this.viewer.removeChild(this.phylogeny);
+      // this.viewer.removeChild(this.sequences);
       this.viewer.removeChild(this.amr);
-      this.viewer.removeChild(this.circular);
-      this.viewer.removeChild(this.specialtyGenes);
-      this.viewer.removeChild(this.proteinFamilies);
-      this.viewer.removeChild(this.pathways);
-      this.viewer.removeChild(this.subsystems);
+      // this.viewer.removeChild(this.circular);
+      // this.viewer.removeChild(this.specialtyGenes);
+      // this.viewer.removeChild(this.proteinFamilies);
+      // this.viewer.removeChild(this.pathways);
+      // this.viewer.removeChild(this.subsystems);
       // this.viewer.removeChild(this.experiments);
       // this.viewer.removeChild(this.interactions);
     },
@@ -397,20 +397,20 @@ define([
 
       this.viewer.addChild(this.overview);
       this.viewer.addChild(this.amr);
-      this.viewer.addChild(this.phylogeny);
+      // this.viewer.addChild(this.phylogeny);
       this.viewer.addChild(this.browser);
       this.viewer.addChild(this.circular);
-      this.viewer.addChild(this.sequences);
+      // this.viewer.addChild(this.sequences);
       this.viewer.addChild(this.features);
-      this.viewer.addChild(this.proteins);
-      this.viewer.addChild(this.structures);
-      this.viewer.addChild(this.specialtyGenes);
-      this.viewer.addChild(this.proteinFeatures);
-      this.viewer.addChild(this.proteinFamilies);
-      this.viewer.addChild(this.pathways);
-      this.viewer.addChild(this.subsystems);
-      this.viewer.addChild(this.experiments);
-      this.viewer.addChild(this.interactions);
+      // this.viewer.addChild(this.proteins);
+      // this.viewer.addChild(this.structures);
+      // this.viewer.addChild(this.specialtyGenes);
+      // this.viewer.addChild(this.proteinFeatures);
+      // this.viewer.addChild(this.proteinFamilies);
+      // this.viewer.addChild(this.pathways);
+      // this.viewer.addChild(this.subsystems);
+      // this.viewer.addChild(this.experiments);
+      // this.viewer.addChild(this.interactions);
     }
   });
 });
