@@ -5,14 +5,17 @@
 
         <div id="bv-brc-header-container">
             <div class="nav-logo">
-                <a class="nav-logo-link" href="/">
-                    <span class="font-poppins font-semibold text-4xl text-[var(--maage-dark-text)]">MAAGE</span>
+                <a class="nav-logo-link min-x-50" href="/">
+                    <img class="h-[46px] mt-[6px]" src="/patric/images/maage/maage-logo.svg" alt="MAAGE Logo">
+                    <span class="font-poppins font-light text-[42px] text-[var(--maage-dark-text)]">MA</span>
+                    <span class="font-poppins font-semibold text-[42px] text-[var(--maage-dark-text)]">AGE</span>
                     <span><i style="color: #fafafa; font-size: 12px; padding-left: 2px;" class="text-[var(--maage-tertiary-500)]"><i>v.</i><%- request.package.version %><%- request.applicationOptions.appLabel || " " %></i></i></span>
                     <span><i style="font-size: 14px; padding-left: 6px;"><%- request.applicationOptions.appLabel || " " %></i></i></span>
                 </a>
             </div>
 
-            <div style="min-width: 435px; flex: 1">
+
+            <div class="pl-6" style="min-width: 435px; flex: 1">
               <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton"></div>
               <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
                 <span class="font-poppins hover:text-[var(--maage-primary-800)] font-normal text-[16px]">Organisms</span>
