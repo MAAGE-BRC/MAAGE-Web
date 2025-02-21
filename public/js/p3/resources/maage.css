@@ -632,22 +632,6 @@ div#bv-brc-header-container>div.nav-logo {
 
 }
 
-span#maage-logo-link {
-  border-style: initial;
-  border-width: 0;
-  color: #26292C;
-  cursor: pointer;
-  font-family: 'Roboto Slab';
-  font-size: 32px;
-  font-size-adjust: none;
-  font-weight: 700;
-  line-height: 1.5;
-  padding: 0;
-  text-decoration: none;
-  margin: 0 4px 0 0;
-  letter-spacing: 0.5px;
-}
-
 #bv-brc-home-container div.mid-links:nth-child(1)>a:nth-child(5) {
   border-style: initial;
   border-width: 0;
