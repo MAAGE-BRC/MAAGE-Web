@@ -54,3 +54,8 @@ body {
 .ActionBar .ActionButtonText {
   color: var(--maage-light-text)!important;
 }
+
+.DataItemHeader,
+.DataItemHeader .fa {
+  color: var(--maage-secondary-500);
+}
