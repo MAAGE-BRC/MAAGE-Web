@@ -1,3 +1,5 @@
+
+
 h1,
 h2,
 h3,
@@ -9,11 +11,6 @@ h6 {
   color: var(--maage-dark-text);
 }
 
-p, a, li, span {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  color: var(--maage-dark-text);
-}
 
 body {
   font-family: 'Inter', sans-serif;
@@ -50,6 +47,15 @@ body {
   text-decoration: underline;
 }
 
-.DataItemHeader {
-  color: var(--maage-secondary-500);
+.ActionBar {
+background-color: var(--maage-secondary-500)!important;
+}
+
+.ActionBar .ActionButtonText {
+color: var(--maage-light-text)!important;
+}
+
+.DataItemHeader,
+.DataItemHeader .fa {
+color: var(--maage-secondary-500);
 }

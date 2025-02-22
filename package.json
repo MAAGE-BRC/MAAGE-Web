@@ -1,6 +1,6 @@
 {
   "name": "p3-web",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "scripts": {
     "start": "node ./bin/p3-web",
@@ -44,6 +44,7 @@
     "phyloxml": "^1.0.0",
     "promised-io": "^0.3.6",
     "pug": "^3.0.3",
+    "readme-md-generator": "^1.0.0",
     "rql": "^0.3.3",
     "serve-favicon": "^2.5.0",
     "sitemap": "^8.0.0",

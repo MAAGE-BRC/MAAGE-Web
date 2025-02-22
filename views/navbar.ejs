@@ -5,17 +5,20 @@
 
         <div id="bv-brc-header-container">
             <div class="nav-logo">
-                <a class="nav-logo-link" href="/">
-                    <span class="font-poppins font-semibold text-4xl text-[var(--maage-dark-text)]">MAAGE</span>
+                <a class="nav-logo-link min-x-50" href="/">
+                    <img class="h-[40px] mt-[10px] text-[var(--maage-secondary-500)]" src="/patric/images/maage/maage-logo.svg" alt="Midwest Alliance for Applied Genomic Epidemiology (MAAGE) Logo">
+                    <span class="font-poppins font-light text-[42px] text-[var(--maage-secondary-700)]">MA</span>
+                    <span class="font-poppins font-semibold text-[42px] text-[var(--maage-secondary-500)]">AGE</span>
                     <span><i style="color: #fafafa; font-size: 12px; padding-left: 2px;" class="text-[var(--maage-tertiary-500)]"><i>v.</i><%- request.package.version %><%- request.applicationOptions.appLabel || " " %></i></i></span>
                     <span><i style="font-size: 14px; padding-left: 6px;"><%- request.applicationOptions.appLabel || " " %></i></i></span>
                 </a>
             </div>
 
-            <div style="min-width: 435px; flex: 1">
+
+            <div class="pl-6" style="min-width: 435px; flex: 1">
               <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton"></div>
               <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                <span class="font-poppins hover:text-[var(--maage-primary-800)] font-normal text-[16px]">Organisms</span>
+                <span class="font-poppins hover:opacity-75 font-normal text-[16px]">Organisms</span>
                 <div data-dojo-type="p3/widget/TooltipDialog">
                   <div class="menuHeader mb-1 p-0.5 font-poppins text-[15px] text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Bacterial Pathogens</div>
                     <div>
@@ -308,7 +311,7 @@
             <div class="HideWithAuth authLinks showOnLoad dijitHidden">
                 <div class="">
                   <button type="button" class="rounded-[8px] bg-[var(--maage-bg)] px-10 py-1.5 text-[14px] font-normal text-[var(--maage-dark-text)] ring-1 ring-inset ring-[var(--maage-dark-text)] hover:opacity-85 no-underline font-poppins mr-2" onclick="window.location.href='/register'">Register</button>
-                  <button type="button" class="rounded-[8px] bg-[var(--maage-secondary-400)] px-10 py-1.5 text-[14px] font-normal text-[var(--maage-light-text)] ring-1 ring-inset ring-gray-800 hover:opacity-85 no-underline font-poppins mr-2" onclick="window.location.href='/login'">Login</button>
+                  <button type="button" class="rounded-[8px] bg-[var(--maage-secondary-500)] px-10 py-1.5 text-[14px] font-normal text-[var(--maage-light-text)] ring-1 ring-inset ring-gray-800 hover:opacity-85 no-underline font-poppins mr-2" onclick="window.location.href='/login'">Login</button>
                 </div>
             </div>
 

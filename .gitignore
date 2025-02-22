@@ -134,3 +134,6 @@ gulpified
 test/
 src/
 /public/js/p3/widget/UserDetails.js
+
+# TEMP - TO BE REMOVED
+package-lock.json
