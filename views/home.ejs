@@ -1,317 +1,121 @@
 <div id="bv-brc-home" class="bg-[var(--maage-bg)]">
-    <div id="maage-home" class="bg-[var(--maage-bg)]">
-      <div id="bv-brc-home-container" class="bg-[var(--maage-bg)]">
-        <div class="verification_message home-banner">
-          <p>
-            <strong
-              >Your email has not been verified. Click here to visit your profile
-              and update your email address and/or resend the verification
-              message.</strong
-            >
-          </p>
+  <div class="maage-home">
+    <div id="bv-brc-home-container">
+      <div class="maage-home-container mt-[15px]">
+      <!-- Banner -->
+      <div id="maage-banner"
+        class="flex items-center gap-x-6 bg-[var(--maage-secondary-600)] rounded-lg px-6 py-2.5 sm:px-3.5 sm:before:flex-1 mb-[5px] ml-auto mr-auto relative"
+        style="max-width: 1350px;">
+        <p class="text-sm/6 text-[#ffffff] font-normal text-md font-poppins" style="color:#ffffff;">
+          The MAAGE platform is currently under development. Expect frequent updates with occasional downtime.
+        </p>
+        <div class="flex flex-1 justify-end">
+          <button id="close-banner"
+            class="ml-auto text-white text-2xl font-bold hover:text-gray-200 transition absolute right-3 top-1/2 transform -translate-y-1/2">
+            &times;
+          </button>
         </div>
-
-        <div class="grid-container" class="bg-[var(--maage-bg)]">
-          <div class="home-main home-main-left">
-            <div class="bv-brc-info card shadow-2xl rounded-xl">
-              <h1 class="text-libre-baskerville text-semibold">Midwest Alliance for Applied Genomic Epidemiology</h1>
-              <p class="text-inter text-light">
-                The Midwest Alliance for Applied Genomic Epidemiology (MAAGE) is a
-                collaboration of IDPH, the University of Illinois, and Argonne
-                National Laboratory. The goal of the MAAGE is to develop a genomic
-                surveillance and epidemiology platform to enable state and local
-                public health agencies to detect and track the spread of
-                infectious diseases with greater sensitivity and to provide
-                educational material to help the public health and healthcare
-                community to use this platform for their everyday work.
-                <br /><br />Please refer to the
-                <a
-                  href="https://www.bv-brc.org/docs/quick_start/index.html"
-                  class="navigationLinkOut"
-                  style="font-weight: 500"
-                  >quick start guide</a
-                >
-                to learn how to get started and
-                <a
-                  href="mailto:help@bv-brc.org"
-                  style="font-weight: 500; color: #436d58"
-                  >contact us</a
-                >
-                if you have any questions.
-              </p>
-              <div class="search">
-                <h3 class="text-2xl font-poppins text-semibold text-dark-text">SEARCH</h3>
-                <div class="global-search">
-                  <div style="padding: 6px 0px 2px 2px; flex-grow: 1">
-                    <input
-                      style="width: 100%; font-size: 1em"
-                      class="showOnLoad dijitHidden"
-                      data-dojo-type="p3/widget/GlobalSearch"
-                    />
-                  </div>
-                </div>
+      </div>
+        <main class="flex-grow container mx-auto p-4 md:p-6">
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div class="lg:col-span-3 space-y-6 flex flex-col">
+              <section
+              class="bg-gradient-to-r from-primary-100 to-secondary-100 p-8 md:p-12 rounded-xl shadow-md overflow-hidden relative">
+              <div class="absolute right-0 top-0 w-64 h-64 md:w-96 md:h-96 opacity-10">
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDIuNUwzNy41IDEwVjMwTDIwIDM3LjVMMi41IDMwVjEwTDIwIDIuNVoiIGZpbGw9IiNhNmM5YjgiIC8+CjxwYXRoIGQ9Ik0yMCAyLjVMMzcuNSAxMFYzMEwyMCAzNy41VjIuNVoiIGZpbGw9IiM2NDliYWYiIC8+CjxwYXRoIGQ9Ik0yMCAxNUMyMi43NjE0IDE1IDI1IDE3LjIzODYgMjUgMjBDMjUgMjIuNzYxNCAyMi43NjE0IDI1IDIwIDI1QzE3LjIzODYgMjUgMTUgMjIuNzYxNCAxNSAyMEMxNSAxNy4yMzg2IDE3LjIzODYgMTUgMjAgMTVaIiBmaWxsPSIjODI3OWExIiAvPgo8cGF0aCBkPSJNMjAgMThDMjEuMTA0NiAxOCAyMiAxOC44OTU0IDIyIDIwQzIyIDIxLjEwNDYgMjEuMTA0NiAyMiAyMCAyMkMxOC44OTU0IDIyIDE4IDIxLjEwNDYgMTggMjBDMTggMTguODk1NCAxOC44OTU0IDE4IDIwIDE4WiIgZmlsbD0iIzZlNmI4YSIgLz4KPHBhdGggZD0iTTIzIDEzLjVDMjQuMzgwNyAxMy41IDI1LjUgMTQuNjE5MyAyNS41IDE2QzI1LjUgMTcuMzgwNyAyNC4zODA3IDE4LjUgMjMgMTguNUMyMS42MTkzIDE4LjUgMjAuNSAxNy4zODA3IDIwLjUgMTZDMjAuNSAxNC42MTkzIDIxLjYxOTMgMTMuNSAyMyAxMy41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPHBhdGggZD0iTTE3IDEzLjVDMTguMzgwNyAxMy41IDE5LjUgMTQuNjE5MyAxOS41IDE2QzE5LjUgMTcuMzgwNyAxOC4zODA3IDE4LjUgMTcgMTguNUMxNS42MTkzIDE4LjUgMTQuNSAxNy4zODA3IDE0LjUgMTZDMTQuNSAxNC42MTkzIDE1LjYxOTMgMTMuNSAxNyAxMy41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPHBhdGggZD0iTTIzIDIxLjVDMjQuMzgwNyAyMS41IDI1LjUgMjIuNjE5MyAyNS41IDI0QzI1LjUgMjUuMzgwNyAyNC4zODA3IDI2LjUgMjMgMjYuNUMyMS42MTkzIDI2LjUgMjAuNSAyNS4zODA3IDIwLjUgMjRDMjAuNSAyMi42MTkzIDIxLjYxOTMgMjEuNSAyMyAyMS41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPHBhdGggZD0iTTE3IDIxLjVDMTguMzgwNyAyMS41IDE5LjUgMjIuNjE5MyAxOS41IDI0QzE5LjUgMjUuMzgwNyAxOC4zODA3IDI2LjUgMTcgMjYuNUMxNS42MTkzIDI2LjUgMTQuNSAyNS4zODA3IDE0LjUgMjRDMTQuNSAyMi42MTkzIDE1LjYxOTMgMjEuNSAxNyAyMS41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPC9zdmc+Cg=="
+                  alt="MAAGE Background" width="400" height="400" class="object-contain">
               </div>
-            </div>
-
-            <div class="bv-brc-mid shadow-2xl rounded-xl">
-              <!-- style="grid-row: 3/6"-->
-
-              <div id="analyze-section">
-                <div class="analyze bv-brc-mid-content card">
-                  <h2 class="font-poppins">Analyze Data with MAAGE</h2>
-                  <p>
-                    Upload and analyze your data in the private workspace.
-                    <span class="HideWithAuth"
-                      ><a href="/register" style="font-weight: bold" class="font-inter">Register</a>
-                      or <a href="/login" style="font-weight: bold" class="font-inter">Login</a> to
-                      get started.</span
-                    >
+              <div class="relative z-10 space-y-6">
+                <div>
+                  <h1
+                    class="text-3xl md:text-4xl lg:text-5xl font-semibold text-secondary-900 mb-4 font-poppins leading-tight">
+                    Midwest Alliance for Applied<br /> Genomic Epidemiology
+                  </h1>
+                  <p class="text-gray-700 mb-6 text-lg max-w-3xl">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    nisi ut aliquip ex ea commodo consequat.
                   </p>
-
-                  <div class="bv-brc-mid-content-links font-inter">
-                    <div class="mid-content-section font-inter">
-                      <h3 class="font-poppins text-lg">Search</h3>
-                      <div class="mid-links">
-                        <a href="/searches/TaxaSearch" class="navigationLink"
-                          >Taxa</a
-                        >
-                        <a href="/searches/GenomeSearch" class="navigationLink"
-                          >Genomes</a
-                        >
-                        <a href="/searches/ProteinSearch" class="navigationLink"
-                          >Proteins</a
-                        >
-                        <a
-                          href="/searches/SpecialtyGeneSearch"
-                          class="navigationLink"
-                          >Specialty Genes</a
-                        >
-                        <a href="/searches" style="text-decoration: underline"
-                          >All Searches...</a
-                        >
-                      </div>
-                    </div>
-                    <div class="mid-content-section">
-                      <h3 class="font-poppins text-lg">Analyze</h3>
-                      <div class="mid-links">
-                        <a href="/app/Assembly2" class="navigationLink"
-                          >Assembly</a
-                        >
-                        <a href="/app/Annotation" class="navigationLink"
-                          >Annotation</a
-                        >
-                        <a href="/app/Homology" class="navigationLink">BLAST</a>
-                        <a href="/app/MSA" class="navigationLink">MSA</a>
-                        <a href="/tools" style="text-decoration: underline"
-                          >All Tools &amp; Services...</a
-                        >
-                      </div>
-                    </div>
-                    <div class="mid-content-section">
-                      <h3 class="font-poppins text-lg">Manage Data</h3>
-                      <div class="mid-links">
-                        <a
-                          href="https://bv-brc.org/docs/quick_references/workspaces/workspace.html"
-                          target="=_blank"
-                          >Access Private Workspace</a
-                        >
-                        <a
-                          href="https://bv-brc.org/docs/quick_references/workspaces/groups.html"
-                          target="=_blank"
-                          >Save Search Results</a
-                        >
-                        <a
-                          href="https://bv-brc.org/docs/quick_references/workspaces/data_upload.html"
-                          target="=_blank"
-                          >Upload Data</a
-                        >
-                        <a
-                          href="https://bv-brc.org/docs/quick_references/workspaces/jobs.html"
-                          target="=_blank"
-                          >Access Analysis Jobs</a
-                        >
-                        <a
-                          href="https://bv-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces"
-                          target="=_blank"
-                          >Share and Publish</a
-                        >
-                      </div>
-                    </div>
-                    <div class="mid-content-section">
-                      <h3 class="font-poppins text-lg">Batch Access</h3>
-                      <div class="mid-links">
-                        <a
-                          href="https://bv-brc.org/docs/cli_tutorial/index.html"
-                          target="=_blank"
-                          >Command-Line Interface</a
-                        >
-                        <a href="https://bv-brc.org/api/doc/" target="=_blank"
-                          >Data API</a
-                        >
-                        <a
-                          href="https://bv-brc.org/docs/quick_references/ftp.html"
-                          target="=_blank"
-                          >FTP</a
-                        >
-                      </div>
-                    </div>
-                  </div>
                 </div>
-                <div class="mid-content-bottom">
-                  <div class="mid-content-buttons">
-                    <a
-                      href="https://bv-brc.org/docs/quick_start/index.html"
-                      class="btn btn-blue navigationLinkOut"
-                      >Quick Start</a
-                    >
-                    <a
-                      href="https://bv-brc.org/docs/quick_references/index.html"
-                      class="btn btn-blue navigationLinkOut"
-                      id="referenceGuides"
-                      >Reference Guides</a
-                    >
-                    <a
-                      href="https://bv-brc.org/docs/tutorial/index.html"
-                      class="btn btn-blue navigationLinkOut"
-                      >Tutorials</a
-                    >
+
+                <!-- Integrated Search -->
+                <div class="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-md border border-primary-200">
+                  <div class="flex items-center mb-4">
+                    <?xml version="1.0"?>
+                    <svg class="h-7 w-7 fill-secondary-600 mr-2 xmlns=" http://www.w3.org/2000/svg"
+                      viewBox="1.799 -24.6 11.666 11.666">
+                      <path
+                        d="M7.2-13.42q-.75 0-1.7-.13t-1.78-.41q-.84-.29-1.41-.74 -.58-.46-.58-1.07v0q0 .61.57 1.06 .57.45 1.4.73 .83.28 1.77.4 .94.12 1.69.12v0q0 0 0 0t0 0Zm-1.04-3.07q-.56-.03-1.03-.11 -.48-.08-.9-.19 -.43-.12-.79-.27 -.37-.15-.69-.34v0q.32.18.68.33 .36.14.78.26 .42.11.89.18 .47.07 1.02.1 0 0 0 0t0 0 0 0 0 0Zm.83-4q1.25 0 2.58-.38 1.32-.38 1.6-.84 -.28-.44-1.6-.83 -1.32-.39-2.59-.39 -1.3 0-2.59.37 -1.3.37-1.6.83 .32.46 1.61.83 1.29.37 2.57.37Zm-.53 6q.13.29.31.55 .18.26.41.49 -.75 0-1.7-.13t-1.78-.41q-.84-.29-1.41-.74 -.58-.46-.58-1.07v-5.94q0-.44.43-.84 .43-.41 1.15-.72 .72-.32 1.67-.5 .95-.19 1.97-.19 .99 0 1.93.18t1.68.51q.74.32 1.18.72 .44.4.44.82 0 .42-.44.82 -.44.4-1.18.7 -.74.3-1.68.49 -.95.18-1.97.18 -1.2 0-2.29-.25t-1.95-.71v1.86q.67.49 1.65.75 .98.25 2.03.31v0q-.11.18-.18.44 -.08.25-.12.54v0q-1.1-.08-1.92-.3 -.83-.22-1.49-.6v1.64q.17.42 1.29.8 1.12.37 2.4.45Zm6.22 2.21l-1.59-1.59q-.31.21-.68.32 -.37.1-.75.1 -1.07 0-1.81-.75 -.75-.75-.75-1.81 0-1.07.74-1.81 .74-.75 1.8-.75t1.8.74q.74.74.74 1.8 0 .37-.11.74 -.11.36-.33.67l1.58 1.58Zm-3.01-2.19q.64 0 1.08-.45 .44-.45.44-1.09 0-.65-.45-1.09 -.45-.45-1.09-.45 -.65 0-1.09.44 -.45.44-.45 1.08 0 .64.44 1.08 .44.44 1.08.44Z">
+                      </path>
+                    </svg>
+                    <h2 class="text-2xl font-semibold text-gray-800 font-poppins">Search Data</h2>
                   </div>
+
+            <div class="relative">
+              <div class="flex items-center">
+                <div class="relative w-full">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i data-lucide="search" class="h-4 w-4 text-gray-500"></i>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search genes, genomes, proteins, pathways..."
+                    class="pl-10 pr-20 py-3 h-12 border border-gray-300 focus:ring-2 focus:ring-secondary-400 focus:border-secondary-400 rounded-lg w-full"
+                  />
+                  <button class="absolute right-0 top-0 h-12 px-4 bg-secondary-600 hover:bg-secondary-700 text-white rounded-r-lg transition-colors duration-200 flex items-center justify-center">
+                    <span class="mr-2 hidden sm:inline">Search</span>
+                    <i data-lucide="search" class="h-4 w-4"></i>
+                  </button>
                 </div>
               </div>
             </div>
 
-            <div class="bv-brc-bottom">
-              <div class="dashboard-section">
-                <div class="title">
-                  <h2>Dashboards</h2>
-                </div>
-                <div class="outbreaks">
-                  <div
-                    class="bv-brc-bottom-left card shadow-2xl rounded-xl"
-                    style="flex-basis: 100%"
-                  >
-                    <div class="content bg-[var(--maage-primary-200)]">
-                      <h2 class="font-poppins text-xl font-semibold text-[var(--maage-secondary-600)] hover:opacity-75">
-                        <a href="#">Mpox 2024</a>
-                      </h2>
-                      <div class="content-description">
-                        <div class="content-image">
-                          <img
-                            src="https://placehold.co/240x120"
-                            alt="Influenza Virion"
-                          />
-                        </div>
-                      </div>
-                      <p class="font-inter text-[15px] font-normal" style="padding-top: 6px; padding-bottom: 6px">
-                        Monkeypox virus lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua.
-                      </p>
-                      <span class="maage-dashboard-link"
-                        ><a class="font-poppins text-lg font-semibold text-[var(--maage-secondary-600)] hover:opacity-75" href="#">View Dashbaord</a></span
-                      >
-                    </div>
-                  </div>
-
-                  <div
-                    class="bv-brc-bottom-right card shadow-2xl rounded-xl"
-                    style="flex-basis: 100%"
-                  >
-                    <div class="content bg-[var(--maage-primary-200)]">
-                      <h2 class="font-poppins text-xl font-semibold text-[var(--maage-secondary-600)] hover:opacity-75">
-                        <a href="/outbreaks/H5N1/#view_tab=overview"
-                          >Influenza H5N1 2024</a
-                        >
-                      </h2>
-                      <div class="content-description">
-                        <div class="content-image">
-                          <img
-                            src="https://placehold.co/240x120"
-                            alt="Influenza Virion"
-                          />
-                        </div>
-                      </div>
-                      <p class="font-inter text-[15px] font-normal" style="padding-top: 6px; padding-bottom: 6px">
-                        The H5N1 virus .... lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua.
-                      </p>
-                      <span class="maage-dashboard-link"
-                        ><a class="font-poppins text-lg font-semibold text-[var(--maage-secondary-600)] hover:opacity-75" href="#">View Dashbaord</a></span
-                      >
-                    </div>
-                  </div>
-
-                  <div
-                    class="bv-brc-bottom-left card shadow-2xl rounded-xl"
-                    style="flex-basis: 100%"
-                  >
-                    <div class="content bg-[var(--maage-primary-200)]">
-                      <h2 class="font-poppins text-xl font-medium text-[var(--maage-secondary-600)] hover:opacity-75">
-                        <a href="/outbreaks/Mpox/#view_tab=overview"
-                          >SARS-CoV-2</a
-                        >
-                      </h2>
-                      <div class="content-description">
-                        <div class="content-image">
-                          <img
-                            src="https://placehold.co/240x120"
-                            alt="Influenza Virion"
-                          />
-                        </div>
-                        <br />
-                      </div>
-                      <p class="font-inter text-[15px] font-semibold" style="padding-top: 6px; padding-bottom: 6px">
-                        SARS-CoV-2 virus .... lorem ipsum sit amet,
-                        consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua.
-                      </p>
-                      <span class="maage-dashboard-link"
-                        ><a class="font-poppins text-lg font-semibold text-[var(--maage-secondary-600)] hover:opacity-75" href="#">View Dashbaord</a></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="home-main home-main-right">
-            <div class="announcements shadow-2xl rounded-xl">
-              <h2 style="font-family: Poppins; font-weight: 500">
-                News
-              </h2>
-            </div>
-
-            <div class="announcements shadow-2xl rounded-xl">
-              <h2 style="font-family: Poppins; font-weight: 500">
-                Events
-              </h2>
-            </div>
-            <div class="announcements shadow-2xl rounded-xl">
-              <h2 style="font-family: Poppins; font-weight: 500">
-                Outreach
-              </h2>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <div class="text-xs text-gray-500 flex items-center mr-1">Popular:</div>
+              <a
+                href="#"
+                class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded-full transition-colors"
+              >
+                SARS-CoV-2
+              </a>
+              <a
+                href="#"
+                class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded-full transition-colors"
+              >
+                Mpox
+              </a>
+              <a
+                href="#"
+                class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded-full transition-colors"
+              >
+                H5N1
+              </a>
+              <a
+                href="#"
+                class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded-full transition-colors"
+              >
+                Flu Surveillance
+              </a>
             </div>
           </div>
         </div>
+      </section>
+
+
+
+
+
+
+
+        </main>
+
+
+
+
+
+
       </div>
     </div>
   </div>
-
-  <%- include('footer') %>
-
-  <style>
-    body.patric {
-      min-width: 320px;
-    }
-
-    #p3header-search,
-    #mobile-search-icon {
-      display: none;
-    }
-
-    .home-main-left h1,
-    .home-main-left h2 {
-      margin-bottom: 0;
-    }
-  </style>
+</div

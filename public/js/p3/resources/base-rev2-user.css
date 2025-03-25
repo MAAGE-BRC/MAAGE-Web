@@ -1,0 +1,267 @@
+/* ".inherited-styles-for-exported-element" is a generated class for the inherited styles of the exported element, feel free to rename it. */
+
+:root {
+    --maage-secondary-500: #528ca3;
+    --maage-secondary-700: #385666;
+    --maage-tertiary-500: #ecc187;
+  }
+
+  *, ::after, ::before {
+    border: 0 solid #e5e7eb;
+    box-sizing: border-box;
+  }
+
+  .inherited-styles-for-exported-element {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    tab-size: 4;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  :disabled {
+    cursor: default;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+
+  .mt-\[10px\] {
+    margin-top: 10px;
+  }
+
+  .h-\[40px\] {
+    height: 40px;
+  }
+
+  .font-poppins {
+    font-family: Poppins, sans-serif;
+  }
+
+  .text-\[42px\] {
+    font-size: 42px;
+  }
+
+  .font-light {
+    font-weight: 300;
+  }
+
+  .font-semibold {
+    font-weight: 600;
+  }
+
+  .text-\[var\(--maage-secondary-500\)\] {
+    color: var(--maage-secondary-500);
+  }
+
+  .text-\[var\(--maage-secondary-700\)\] {
+    color: var(--maage-secondary-700);
+  }
+
+  .text-\[var\(--maage-tertiary-500\)\] {
+    color: var(--maage-tertiary-500);
+  }
+
+  /* ".inherited-styles-for-exported-element" is a generated class for the inherited styles of the exported element, feel free to rename it. */
+
+:root {
+    --maage-bg: #F9F7F2;
+    --maage-dark-text: #1a1a1a;
+    --maage-secondary-500: #528ca3;
+    --maage-light-text: #fafafa;
+  }
+
+  *, ::after, ::before {
+    --tw-ring-inset: ;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-shadow: 0 0 #0000;
+  }
+
+  ::after, ::before {
+    --tw-ring-inset: inset;
+  }
+
+  *, ::after, ::before {
+    border: 0 solid #e5e7eb;
+    box-sizing: border-box;
+  }
+
+  .inherited-styles-for-exported-element {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    tab-size: 4;
+  }
+
+  button {
+    appearance: button;
+    background-image: none;
+    cursor: pointer;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-top: 0;
+    text-transform: none;
+  }
+
+  :disabled {
+    cursor: default;
+  }
+
+  .mr-2 {
+    margin-right: .5rem;
+  }
+
+  .rounded-\[8px\] {
+    border-radius: 8px;
+  }
+
+  .bg-\[var\(--maage-bg\)\] {
+    background-color: var(--maage-bg);
+  }
+
+  .bg-\[var\(--maage-secondary-500\)\] {
+    background-color: var(--maage-secondary-500);
+  }
+
+  .px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .py-1\.5 {
+    padding-bottom: .375rem;
+    padding-top: .375rem;
+  }
+
+  .font-poppins {
+    font-family: Poppins, sans-serif;
+  }
+
+  .text-\[14px\] {
+    font-size: 14px;
+  }
+
+  .font-normal {
+    font-weight: 400;
+  }
+
+  .text-\[var\(--maage-dark-text\)\] {
+    color: var(--maage-dark-text);
+  }
+
+  .text-\[var\(--maage-light-text\)\] {
+    color: var(--maage-light-text);
+  }
+
+  .no-underline {
+    text-decoration-line: none;
+  }
+
+  .ring-1 {
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  }
+
+  .ring-inset {
+    --tw-ring-inset: inset;
+  }
+
+  .ring-\[var\(--maage-dark-text\)\] {
+    --tw-ring-color: var(--maage-dark-text);
+  }
+
+  .ring-gray-800 {
+    --tw-ring-color: rgb(31 41 55 / var(--tw-ring-opacity, 1));
+    --tw-ring-opacity: 1;
+  }
+
+  .hover\:opacity-85:hover {
+    opacity: .85;
+  }
+
+  /* ".inherited-styles-for-exported-element" is a generated class for the inherited styles of the exported element, feel free to rename it. */
+
+:root {
+    --fa-style: ;
+    --fa-style-family: ;
+    --fa-display: ;
+    --fa: ;
+  }
+
+  .fa {
+    -webkit-font-smoothing: antialiased;
+    display: var(--fa-display, inline-block);
+    font-family: var(--fa-style-family, "Font Awesome 6 Pro");
+    font-variant: normal;
+    font-variant-emoji: normal;
+    font-weight: var(--fa-style, 900);
+    line-height: 1;
+    text-rendering: auto;
+  }
+
+  .fa::before {
+    content: var(--fa);
+  }
+
+  .fa-1x {
+    font-size: 1em;
+  }
+
+  .fa-2x {
+    font-size: 2em;
+  }
+
+  *, ::after, ::before {
+    border: 0 solid #e5e7eb;
+    box-sizing: border-box;
+  }
+
+  .inherited-styles-for-exported-element {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    tab-size: 4;
+  }
+
+  input {
+    color: inherit;
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-size: 100%;
+    font-variation-settings: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  input:where([type="button"]), input:where([type="reset"]), input:where([type="submit"]) {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+
+  input::placeholder {
+    color: #9ca3af;
+    opacity: 1;
+  }
+
+  [role=button] {
+    cursor: pointer;
+  }
+
+  :disabled {
+    cursor: default;
+  }
+
