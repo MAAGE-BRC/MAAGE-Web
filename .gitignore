@@ -26,6 +26,7 @@ ecosystem.config.js
 
 # BRC configs
 p3-web.conf
+p3-web.conf-dev.maage
 
 # Editor & IDE settings
 .vscode/
@@ -33,6 +34,9 @@ p3-web.conf
 .zed/
 .fleet/
 *.swp
+.qodo
+CLAUDE.md
+
 
 # macOS
 .DS_Store
