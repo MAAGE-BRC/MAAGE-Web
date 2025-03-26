@@ -40,81 +40,31 @@
             </div>
 
             <div id="header-menu">
+                <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton"></div>
+
+
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
                     <span>Organisms</span>
+
                     <div data-dojo-type="p3/widget/TooltipDialog">
-                        <div style="vertical-align: top;width:225px;display:inline-block;margin-right: 5px;">
-                            <div class="menuHeader">Bacterial Pathogens</div>
-                            <div class="menuItems">
-                                <% for (var i = 0; i < servicesMiddle;i++){ %>
-                                <div>
-                                    <span class="menuItem half">
-                                        <a class="" href="<%- services[i].href %>" title="<%- services[i].name %> overview"><%- services[i].name %></a>
-                                    </span>
-                                    <span class="menuItem half">
-                                        <% if (services[servicesMiddle + i]) { %>
-                                        <a class="" title="<%- services[servicesMiddle + i].name %> overview"
-                                           href="<%- services[servicesMiddle + i].href %>"><%- services[servicesMiddle + i].name %></a>
-                                        <% } %>
-                                    </span>
-                                </div>
-                                <% } %>
-                                <br>
-                                <div>
-                                    <span class="menuItem half">
-                                        <a class="navigationLink" href="/view/Bacteria/2" title="Overview page for all Bacteria genomes">All Bacteria</a>
-                                    </span>
-                                    <span class="menuItem half">
-                                        <a class="navigationLink" href="/view/Taxonomy/2157" title="Overview page for all Archea genomes">All Archaea</a>
-                                    </span>
-                                    <span class="menuItem half">
-                                        <a class="navigationLink" href="/view/Taxonomy/10239" title="Overview page for all Viruses">All Viruses</a>
-                                    </span>
-                                    <span class="menuItem half">
-                                        <a class="navigationLink" href="/view/Host/?eq(taxon_lineage_ids,2759)#view_tab=genomes"
-                                            title="Overview page for all Eukaryotic host genomes">Eukaryotic Hosts</a></span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="menuHeader" style="padding-right: 20px;">Bacterial Pathogens</div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/194#view_tab=overview">Campylobacter</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/1637#view_tab=overview">Listeria</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/561#view_tab=overview">Escherichia</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/590#view_tab=overview">Salmonella</a></div>
+                        <div><a class="navigationLink" href="/Bacteria">All Bacteria</a></div>
 
-                        <div style="vertical-align: top;width:341px;display:inline-block;margin-right: 5px;">
-                            <div class="menuHeader">Viral Families</div>
+                        <div class="menuHeader" style="padding-right: 20px;">Featured Viruses</div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/11320#view_tab=overview">Influenza A virus</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/2697049#view_tab=overview">SARS-CoV-2</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/10244#view_tab=overview">Monkeypox virus</a></div>
+                        <div><a class="navigationLink" href="/Virus2">All Viruses</a></div>
 
-                            <div class="menuItems">
-                                <% for (var i = 0; i < virusMiddle;i++){ %>
-                                <div>
-                                    <span class="menuItem half">
-                                        <a class="navigationLink" href="<%- virus[i].href %>" title="<%- virus[i].name %> overview"><%- virus[i].name %></a>
-                                    </span>
-                                    <span class="menuItem half">
-                                        <% if (virus[virusMiddle + i]) { %>
-                                        <a class="navigationLink" title="<%- virus[virusMiddle + i].name %> overview"
-                                           href="<%- virus[virusMiddle + i].href %>"><%- virus[virusMiddle + i].name %></a>
-                                        <% } %>
-                                    </span>
-                                </div>
-                                <% } %>
-                            </div>
-
-                            <div class="menuHeader">Featured Viruses</div>
-
-                            <div class="menuItems">
-                                <% for (var i = 0; i < featuredVirusMiddle;i++){ %>
-                                <div>
-                                    <span class="menuItem half">
-                                        <a class="navigationLink" href="<%- featured_virus[i].href %>" title="<%- featured_virus[i].name %> overview"><%- featured_virus[i].name %></a>
-                                    </span>
-                                    <span class="menuItem half">
-                                        <% if (featured_virus[featuredVirusMiddle + i]) { %>
-                                        <a class="navigationLink" title="<%- featured_virus[featuredVirusMiddle + i].name %> overview"
-                                           href="<%- featured_virus[featuredVirusMiddle + i].href %>"><%- featured_virus[featuredVirusMiddle + i].name %></a>
-                                        <% } %>
-                                    </span>
-                                </div>
-                                <% } %>
-                            </div>
-
-                        </div>
+                        <div class="menuHeader" style="padding-right: 20px;">Metagenomes</div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/1637#view_tab=overview">SARS-CoV-2 Wastewater</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/2697049#view_tab=overview">H5N1 Wastewater</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/10244#view_tab=overview">All Metagenomes</a></div>
+                        <div><a class="navigationLink" href="/Metagenomes">All Metagenomes</a></div>
                     </div>
                 </div>
 
@@ -229,7 +179,6 @@
                         <div><a class="TopMenuLink" href="/about">About MAAGE</a></div>
                         <div><a class="TopMenuLink" href="/team">Our Team</a></div>
                         <div><a class="TopMenuLink" href="/advisory-boards">Advisory Boards</a></div>
-                        <hr>
                         <div><a class="TopMenuLink navigationLinkOut" href="https://github.com/MAAGE-BRC" target="_blank" rel="noopener">GitHub</a></div>
                         <div><a class="DialogButton" rel="reportProblem:">Contact Us</a></div>
                     </div>
