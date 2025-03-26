@@ -5,12 +5,15 @@
 
         <div id="bv-brc-header-container">
             <div class="nav-logo">
-                <a class="nav-logo-link min-x-50" href="/">
-                    <img class="h-[40px] mt-[10px] text-[var(--maage-secondary-500)]" src="/patric/images/maage/logos/maage-logo.png" alt="Midwest Alliance for Applied Genomic Epidemiology (MAAGE) Logo">
-                    <span class="font-poppins font-light text-[42px] text-[var(--maage-secondary-700)]">MA</span>
-                    <span class="font-poppins font-semibold text-[42px] text-[var(--maage-secondary-500)]">AGE</span>
-                    <span><i style="color: #fafafa; font-size: 12px; padding-left: 2px;" class="text-[var(--maage-tertiary-500)]"><i>v.</i><%- request.package.version %><%- request.applicationOptions.appLabel || " " %></i></i></span>
-                    <span><i style="font-size: 14px; padding-left: 6px;"><%- request.applicationOptions.appLabel || " " %></i></i></span>
+                <a class="nav-logo-link min-x-50 flex items-center space-x-2" href="/">
+                    <img class="h-[40px] mt-[10px]" src="/patric/images/maage/logos/maage-logo.png" alt="MAAGE Logo">
+                    <div class="flex items-baseline space-x-1">
+                        <span class="font-poppins font-light text-[42px] text-[var(--maage-secondary-700)]">MA</span>
+                        <span class="font-poppins font-semibold text-[42px] text-[var(--maage-secondary-500)]">AGE</span>
+                    </div>
+                    <span class="text-xs text-[var(--maage-tertiary-500)] pl-2 font-poppins">
+                        v.<%- request.package.version %><%- request.applicationOptions.appLabel || " " %>
+                    </span>
                 </a>
             </div>
 
@@ -33,7 +36,7 @@
                       <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="/view/Taxonomy/590#view_tab=overview">Salmonella</a>
                     </div>
                     <div>
-                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="#">All Bacteria</a>
+                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="/bacteria">All Bacteria</a>
                     </div>
 
                     <div class="menuHeader mb-1 p-0.5 font-poppins text-[15px] text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Featured Viruses</div>
@@ -47,18 +50,18 @@
                       <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="/view/Taxonomy/2697049#view_tab=overview">SARS-CoV-2</a>
                     </div>
                     <div>
-                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="#">All Viruses</a>
+                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="/virus">All Viruses</a>
                     </div>
 
                     <div class="menuHeader mb-1 p-0.5 font-poppins text-[15px] text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Metagenomes</div>
                     <div>
-                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="#">SARS-CoV-2 Wastewater</a>
+                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="/wastewater">SARS-CoV-2 Wastewater</a>
                     </div>
                     <div>
-                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="#">H5N1 Wasterwater</a>
+                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="/wastewater">H5N1 Wastewater</a>
                     </div>
                     <div>
-                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="#">All Metagenomes</a>
+                      <a class="navigationLink navbar-menu-link hover:opacity-75 hover:underline text-[var(--maage-dark-text)] text-[15px] font-poppins" href="/metagenomes">All Metagenomes</a>
                     </div>
                 </div>
               </div>
@@ -107,7 +110,7 @@
                         <div style="vertical-align: top;width:250px;margin-right:5px;display:inline-block">
                           <div class="menuHeader mb-1 p-0.5 font-poppins text-[15px] text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Genomics</div>
                           <div class="menuItems">
-                          <a style="color: var(--maage-dark-text);" class="navigationLink navbar-menu-link text-[15px] font-poppins hover:opacity-75 hover:underline" href="/app/Assembly2">Genome Assembly </span>
+                          <a style="color: var(--maage-dark-text);" class="navigationLink navbar-menu-link text-[15px] font-poppins hover:opacity-75 hover:underline" href="/app/Assembly2">Genome Assembly
                           </a>
                           <div>
                             <a style="color: var(--maage-dark-text);" class="navigationLink navbar-menu-link text-[15px] font-poppins hover:opacity-75 hover:underline" href="/app/Annotation">Genome Annotation</a>
@@ -120,7 +123,7 @@
                             <a style="color: var(--maage-dark-text);" class="navigationLink navbar-menu-link text-[15px] font-poppins hover:opacity-75 hover:underline" href="/app/Homology">BLAST</a>
                           </div>
                           <div>
-                            <a style="color: var(--maage-dark-text);" class="navigationLink navbar-menu-link text-[15px] font-poppins hover:opacity-75 hover:underline" href="/app/GenomeDistance">Similar Genome Finder
+                            <a style="color: var(--maage-dark-text);" class="navigationLink navbar-menu-link text-[15px] font-poppins hover:opacity-75 hover:underline" href="/app/GenomeDistance">Similar Genome Finder</a>
                           </div>
                           </div>
                           <div class="menuHeader mb-1 p-0.5 font-poppins text-[15px] text-[var(--maage-light-text)] bg-[var(--maage-primary-600)]">Phylogenomics </div>
@@ -224,12 +227,12 @@
                                 </div>
                                 <div class="text-[15px] font-poppins text-[var(--maage-dark-text)]">
                                   <a style="color: #50886e;" class="navigationLink navbar-menu-link text-[15px] font-poppins text-[var(--maage-dark-text)] hover:opacity-75 hover:underline"
-                                      href="#">My
+                                      href="/job/">My
                                       Genomes</a>
                                 </div>
                                 <div class="text-[15px] font-poppins text-[var(--maage-dark-text)]">
                                     <a style="color: #50886e;" class="navigationLink navbar-menu-link text-[15px] font-poppins text-[var(--maage-dark-text)] hover:opacity-75 hover:underline"
-                                        href="#">My
+                                        href="/job/">My
                                         BioProjects</a>
                                 </div>
                             </div>
@@ -237,57 +240,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                    <span>Help</span>
-
-                    <div data-dojo-type="p3/widget/TooltipDialog">
-                        <div style="font-weight: bold; font-size: 14px; color: #50886e;"><a style="color: #50886e;"
-                                class="navigationLink navbar-menu-linkOut" href="https://www.bv-brc.org/docs/">Documentation Website</a>
-                        </div>
-
-                        <div style="margin-top: 5px; margin-bottom: 5px; background-color: #9cc2af; color: #26292c; margin-bottom: 4px;"
-                            class="menuHeader">Updates and Reports</div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/news/index.html">News and Announcements</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/reports_and_analysis/index.html">Reports and Analysis</a>
-                        </div>
-
-                        <div style="margin-top: 5px; margin-bottom: 5px; background-color: #9cc2af; color: #26292c; margin-bottom: 4px;"
-                            class="menuHeader">Help Resources</div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/overview.html">Overview</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/quick_start/index.html">Quick Start</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/data_protocols/index.html">Data Sources &amp;
-                                Protocols</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/quick_references/index.html">Quick Reference Guides</a>
-                        </div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/tutorial/index.html">Tutorials</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/common_tasks/index.html">Common Tasks</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/cli_tutorial/index.html">Command Line Interface</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/videos/index.html">Instructional Videos</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/webinar/index.html">Webinars</a></div>
-
-                        <div style="margin-bottom: 5px; background-color: #9cc2af; color: #26292c; margin-bottom: 4px;"
-                            class="menuHeader">System Documentation</div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/system_documentation/system_architecture.html">System
-                                Architecture</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/test_procedures/index.html">Test Procedures</a></div>
-                        <div style="margin-left: 10px;"><a style="color: #50886e;" class="navigationLinkOut"
-                                href="https://www.bv-brc.org/docs/usage_metrics.html">Usage Metrics</a></div>
-
-                    </div>
-                </div> -->
 
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
                     <span class="font-poppins hover:text-[var(--maage-primary-800)] font-normal text-[16px]">About</span>
