@@ -808,8 +808,8 @@
   .bg-\[var\(--maage-bg\)\] {
     background-color: var(--maage-bg);
   }
-  .bg-\[var\(--maage-harvest-500\)\] {
-    background-color: var(--maage-harvest-500);
+  .bg-\[var\(--maage-tertiary-500\)\] {
+    background-color: var(--maage-tertiary-500);
   }
   .bg-\[var\(--maage-primary-400\)\] {
     background-color: var(--maage-primary-400);
