@@ -9,39 +9,13 @@
     ]
 
     var virus = [
-        {name: "Adenoviridae", href: "/view/Taxonomy/10508#view_tab=overview"},
-        {name: "Asfarviridae", href: "/view/Taxonomy/137992#view_tab=overview"},
-        {name: "Bunyavirales", href: "/view/Taxonomy/1980410#view_tab=overview"},
-        {name: "Caliciviridae", href: "/view/Taxonomy/11974#view_tab=overview"},
-        {name: "Coronaviridae", href: "/view/Taxonomy/11118#view_tab=overview"},
-        {name: "Filoviridae", href: "/view/Taxonomy/11266#view_tab=overview"},
-        {name: "Flaviviridae", href: "/view/Taxonomy/11050#view_tab=overview"},
-        {name: "Hepadnaviridae", href: "/view/Taxonomy/10404#view_tab=overview"},
-        {name: "Hepeviridae", href: "/view/Taxonomy/291484#view_tab=overview"},
-        {name: "Herpesvirales", href: "/view/Taxonomy/548681#view_tab=overview"},
-        {name: "Orthomyxoviridae", href: "/view/Taxonomy/11308#view_tab=overview"},
-        {name: "Paramyxoviridae", href: "/view/Taxonomy/11158#view_tab=overview"},
-        {name: "Parvoviridae", href: "/view/Taxonomy/10780#view_tab=overview"},
-        {name: "Picornaviridae", href: "/view/Taxonomy/12058#view_tab=overview"},
-        {name: "Pneumoviridae", href: "/view/Taxonomy/11244#view_tab=overview"},
-        {name: "Polyomaviridae", href: "/view/Taxonomy/151341#view_tab=overview"},
-        {name: "Poxviridae", href: "/view/Taxonomy/10240#view_tab=overview"},
-        {name: "Reovirales", href: "/view/Taxonomy/2732541#view_tab=overview"},
-        {name: "Rhabdoviridae", href: "/view/Taxonomy/11270#view_tab=overview"},
-        {name: "Togaviridae", href: "/view/Taxonomy/11018#view_tab=overview"},
+        {name: "Adenoviridae", href: "/view/Taxonomy/10508#view_tab=overview"}
     ]
 
     var featured_virus = [
-        {name: "Bacteriophages", href: "/view/GenomeList/?eq(genome_name,phage)"},
-        {name: "Dengue virus", href: "/view/Taxonomy/12637#view_tab=overview"},
-        {name: "Ebolavirus", href: "/view/Taxonomy/186536#view_tab=overview"},
-        {name: "Enterovirus", href: "/view/Taxonomy/12059#view_tab=overview"},
-        {name: "Hepacivirus", href: "/view/Taxonomy/11102#view_tab=overview"},
         {name: "Influenza A virus", href: "/view/Taxonomy/11320#view_tab=overview"},
-        {name: "Mammarenavirus lassaense", href: "/view/Taxonomy/3052310#view_tab=overview"},
         {name: "Monkeypox virus", href: "/view/Taxonomy/10244#view_tab=overview"},
-        {name: "SARS-CoV-2", href: "/view/Taxonomy/2697049#view_tab=overview"},
-        {name: "Zika virus", href: "/view/Taxonomy/64320#view_tab=overview"},
+        {name: "SARS-CoV-2", href: "/view/Taxonomy/2697049#view_tab=overview"}
     ]
 
 
@@ -57,23 +31,17 @@
         <div id="bv-brc-header-container">
             <div class="nav-logo">
                 <a class="nav-logo-link" href="/">
-                    <!-- <img class="bv-brc-logo" src="/patric/images/maage/logos/maage-logo.png" alt="BV-BRC Logo" style="height: 28px;"/>
-                    <span><i style="color: #ffffff; font-size: 12px; padding-left: 2px;"><%- request.package.version %><%- request.applicationOptions.appLabel || " " %></i></span>
-                    <span class="maage-header-title">MAAGE</span> -->
-
                     <a class="nav-logo-link min-x-50" href="/">
                         <img class="h-[40px] mt-[10px] text-[var(--maage-secondary-500)]" src="/patric/images/maage/logos/maage-logo.png" alt="Midwest Alliance for Applied Genomic Epidemiology (MAAGE) Logo">
                         <span class="font-poppins font-light text-[42px] text-[var(--maage-secondary-700)]">MA</span>
                         <span class="font-poppins font-semibold text-[42px] text-[var(--maage-secondary-500)]">AGE</span>
-                        <span><i style="color: #fafafa; font-size: 12px; padding-left: 2px;" class="text-[var(--maage-tertiary-500)]"><i>v.</i><%- request.package.version %><%- request.applicationOptions.appLabel || " " %></i></i></span>
-                        <span><i style="font-size: 14px; padding-left: 6px;"><%- request.applicationOptions.appLabel || " " %></i></i></span>
                     </a>
                 </a>
             </div>
 
             <div id="header-menu">
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                    <span>ORGANISMS</span>
+                    <span>Organisms</span>
                     <div data-dojo-type="p3/widget/TooltipDialog">
                         <div style="vertical-align: top;width:225px;display:inline-block;margin-right: 5px;">
                             <div class="menuHeader">Bacterial Pathogens</div>
@@ -151,29 +119,23 @@
                 </div>
 
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                    <span>SEARCHES</span>
+                    <span>Searches</span>
 
                     <div data-dojo-type="p3/widget/TooltipDialog">
                         <div class="menuHeader" style="padding-right: 20px;">Advanced Search</div>
                         <div><a class="navigationLink" href="/searches/TaxaSearch">Taxa</a></div>
                         <div><a class="navigationLink" href="/searches/GenomeSearch">Genomes</a></div>
-                        <div><a class="navigationLink" href="/searches/StrainSearch">Strains</a></div>
                         <div><a class="navigationLink" href="/searches/GenomicFeatureSearch">Features</a></div>
                         <div><a class="navigationLink" href="/searches/ProteinSearch">Proteins</a></div>
                         <div><a class="navigationLink" href="/searches/SpecialtyGeneSearch">Specialty Genes</a></div>
-                        <div><a class="navigationLink" href="/searches/DomainAndMotifSearch">Domains and Motifs</a></div>
-                        <div><a class="navigationLink" href="/searches/EpitopeSearch">Epitopes</a></div>
                         <div><a class="navigationLink" href="/searches/ProteinStructureSearch">Protein Structures</a></div>
                         <div><a class="navigationLink" href="/searches/PathwaySearch">Pathways</a></div>
                         <div><a class="navigationLink" href="/searches/SubsystemSearch">Subsystems</a></div>
-                        <div><a class="navigationLink" href="/searches/SurveillanceSearch">Surveillance</a></div>
-                        <div><a class="navigationLink" href="/searches/SerologySearch">Serology</a></div>
-                        <div><a class="navigationLink" href="/searches/SFVTSearch">Sequence Feature Variant Types</a></div>
                     </div>
                 </div>
 
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                    <span>TOOLS</span>
+                    <span>Tools</span>
 
                     <div data-dojo-type="p3/widget/TooltipDialog">
                         <div>
@@ -184,11 +146,7 @@
                                     <div><a class="navigationLink" href="/app/Annotation">Genome Annotation</a></div>
                                     <div><a class="navigationLink" href="/app/ComprehensiveGenomeAnalysis">Comprehensive Genome Analysis <span style="font-style: italic;">(B)</span></a></div>
                                     <div><a class="navigationLink" href="/app/Homology">BLAST</a></div>
-                                    <div><a class="navigationLink" href="/app/PrimerDesign">Primer Design</a></div>
                                     <div><a class="navigationLink" href="/app/GenomeDistance">Similar Genome Finder</a></div>
-                                    <div><a class="navigationLink" href="/app/GenomeAlignment">Genome Alignment</a></div>
-                                    <div><a class="navigationLink" href="/app/Variation">Variation Analysis</a></div>
-                                    <div><a class="navigationLink" href="/app/Tnseq">Tn-Seq Analysis</a></div>
                                 </div>
                                 <div class="menuHeader">Phylogenomics</div>
                                 <div class="menuItems">
@@ -199,9 +157,7 @@
                                 <div class="menuHeader">Protein Tools</div>
                                 <div class="menuItems">
                                     <div><a class="navigationLink" href="/app/MSA">MSA and SNP Analysis</a></div>
-                                    <div><a class="navigationLink" href="/app/MetaCATS">Meta-CATS</a></div>
                                     <div><a class="navigationLink" href="/app/SeqComparison">Proteome Comparison</a></div>
-                                    <div><a class="navigationLink" href="/app/ComparativeSystems">Protein Family Sorter</a></div>
                                     <div><a class="navigationLink" href="/app/ComparativeSystems">Comparative Systems</a></div>
                                     <div><a class="navigationLink" href="/app/Docking">Docking</a></div>
                                 </div>
@@ -214,17 +170,6 @@
                                     <div><a class="navigationLink" href="/app/MetagenomicBinning">Metagenomic Binning</a></div>
                                     <div><a class="navigationLink" href="/app/MetagenomicReadMapping">Metagenomic Read Mapping</a></div>
                                 </div>
-                              <div class="menuHeader">Transcriptomics</div>
-                              <div class="menuItems">
-                                  <div><a class="navigationLink" href="/app/Rnaseq">RNA-Seq Analysis</a></div>
-                                  <div><a class="navigationLink" href="/app/Expression">Expression Import</a></div>
-                              </div>
-                              <p></p>
-                              <div class="menuHeader">Utilities</div>
-                              <div class="menuItems">
-                                <div><a class="navigationLink" href="/app/FastqUtil">Fastq Utilities</a></div>
-                                <div><a class="navigationLink" href="/app/IDMapper">ID Mapper</a></div>
-                              </div>
                               <p></p>
                               <div class="menuHeader">Viral Tools</div>
                               <div class="menuItems">
@@ -233,7 +178,6 @@
                                 <div><a class="navigationLink" href="/app/SequenceSubmission">Influenza Sequence Submission</a></div>
                                 <div><a class="navigationLink" href="/app/HASubtypeNumberingConversion">Influenza HA Subtype Conversion</a></div>
                                 <div><a class="navigationLink" href="/app/SubspeciesClassification">Subspecies Classification</a></div>
-                                <div><a class="navigationLink" href="/app/ViralAssembly">Viral Assembly</a></div>
                               </div>
                               <p></p>
                               <div class="menuHeader">Outbreak Tracker</div>
@@ -248,7 +192,7 @@
                 </div>
 
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                    <span>WORKSPACES</span>
+                    <span>Workspaces</span>
 
                     <div data-dojo-type="p3/widget/TooltipDialog">
                         <div>
@@ -277,52 +221,17 @@
                     </div>
                 </div>
 
-                <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                    <span>HELP</span>
-
-                    <div data-dojo-type="p3/widget/TooltipDialog">
-                        <div style="font-weight: bold; font-size: 14px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/">Documentation Website</a></div>
-
-                        <div style="margin-top: 5px; margin-bottom: 5px;" class="menuHeader">Updates and Reports</div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/news/index.html">News and Announcements</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/reports_and_analysis/index.html">Reports and Analysis</a></div>
-
-                        <div style="margin-top: 5px; margin-bottom: 5px;" class="menuHeader">Help Resources</div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/overview.html">Overview</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/quick_start/index.html">Quick Start</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/data_protocols/index.html">Data Sources &amp; Protocols</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/quick_references/index.html">Quick Reference Guides</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/tutorial/index.html">Tutorials</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/common_tasks/index.html">Common Tasks</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/cli_tutorial/index.html">Command Line Interface</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/videos/index.html">Instructional Videos</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/webinar/index.html">Webinars</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/quick_start/data_functionality_overview.html">Information for PATRIC Users</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/quick_start/ird-vipr_bv-brc_mapping.html">Information for IRD/ViPR Users</a></div>
-
-                        <div style="margin-bottom: 5px;" class="menuHeader">System Documentation</div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/system_documentation/system_architecture.html">System Architecture</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/test_procedures/index.html">Test Procedures</a></div>
-                        <div style="margin-left: 10px;"><a class="navigationLinkOut" href="https://www.bv-brc.org/docs/usage_metrics.html">Usage Metrics</a></div>
-
-                    </div>
-                </div>
 
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
-                    <span>ABOUT</span>
+                    <span>About</span>
 
                     <div data-dojo-type="p3/widget/TooltipDialog">
-                        <div><a class="TopMenuLink" href="/about">About BV-BRC</a></div>
-                        <div><a class="DialogButton" rel="reportProblem:">Contact Us</a></div>
+                        <div><a class="TopMenuLink" href="/about">About MAAGE</a></div>
                         <div><a class="TopMenuLink" href="/team">Our Team</a></div>
-                        <div><a class="TopMenuLink" href="https://www.bv-brc.org/docs/news/index.html" target="_blank">Announcements</a></div>
-                        <div><a class="TopMenuLink" href="/brc-calendar">BRC Calendar</a></div>
+                        <div><a class="TopMenuLink" href="/advisory-boards">Advisory Boards</a></div>
                         <hr>
-                        <div><a class="TopMenuLink" href="/publications">Publications</a></div>
-                        <div><a class="TopMenuLink" href="/citation">Citation</a></div>
-                        <div><a class="TopMenuLink" href="/related-resources">Related Resources</a></div>
-                        <div><a class="TopMenuLink navigationLinkOut" href="https://github.com/BV-BRC" target="_blank" rel="noopener">BV-BRC GitHub</a></div>
-                        <div><a class="TopMenuLink" href="/privacy-policy">Privacy Policy</a></div>
+                        <div><a class="TopMenuLink navigationLinkOut" href="https://github.com/MAAGE-BRC" target="_blank" rel="noopener">GitHub</a></div>
+                        <div><a class="DialogButton" rel="reportProblem:">Contact Us</a></div>
                     </div>
                 </div>
             </div>
@@ -337,7 +246,7 @@
             <div id="bv-brc-right-header">
                 <div class="HideWithAuth authLinks showOnLoad dijitHidden">
                     <a class="auth-button navigationLink" href="/register">Register</a>
-                    <a class="auth-button navigationLink" href="/login">Sign In</a>
+                    <a class="auth-button navigationLink" href="/login">Login</a>
                 </div>
 
                 <div id="mobile-search-icon">
@@ -370,6 +279,12 @@
             </div>
         </div>
 
+
+
+
+
+
+        <!-- Mobile -->
         <div id="mobile-searchbar" class="hidden">
             <div id="mobile-search-div">
                 <input style="width:100%;font-size:1em;" data-dojo-type="p3/widget/GlobalSearch"/>
@@ -470,9 +385,11 @@
                             </div>
                             <div class="menuHeader">Phylogenomics</div>
                             <div class="sub-menu">
-                                <div><a href="/app/PhylogeneticTree">Bacterial Genome Tree</a></div>
-                                <div><a href="/app/ViralGenomeTree">Viral Genome Tree</a></div>
-                                <div><a href="/app/GeneTree">Gene/Protein Tree</a></div>
+                                <div><a class="navigationLink" href="/app/PhylogeneticTree">Bacterial Genome Tree</a></div>
+                                <div><a class="navigationLink" href="/app/ViralGenomeTree">Viral Genome Tree</a></div>
+                                <div><a class="navigationLink" href="/app/GeneTree">Gene/Protein Tree</a></div>
+                                <div><a class="navigationLink" href="/app/CoreGenomeMLST">Core Genome MLST</a></div>
+                                <div><a class="navigationLink" href="/app/WholeGenomeSNPAnalysis">Whole Genome SNP Analysis</a></div>
                             </div>
                             <div class="menuHeader">Protein Tools</div>
                             <div class="sub-menu">
@@ -489,16 +406,6 @@
                                 <div><a href="/app/MetagenomicBinning">Metagenomic Binning</a></div>
                                 <div><a href="/app/MetagenomicReadMapping">Metagenomic Read Mapping</a></div>
                             </div>
-                            <div class="menuHeader">Transcriptomics</div>
-                            <div class="sub-menu">
-                                <div><a href="/app/Rnaseq">RNA-Seq Analysis</a></div>
-                                <div><a href="/app/Expression">Expression Import</a></div>
-                            </div>
-                            <div class="menuHeader">Utilities</div>
-                            <div class="sub-menu">
-                                <div><a href="/app/FastqUtil">Fastq Utilities</a></div>
-                                <div><a href="/app/IDMapper">ID Mapper</a></div>
-                            </div>
                             <div class="menuHeader">Viral Tools</div>
                             <div class="sub-menu">
                                 <div><a href="/app/ComprehensiveSARS2Analysis">SARS-CoV-2 Genome Analysis</a></div>
@@ -508,7 +415,7 @@
                                 <div><a href="/app/SubspeciesClassification">Subspecies Classification</a></div>
                                 <div><a href="/app/ViralAssembly">Viral Assembly</a></div>
                             </div>
-                            <div class="menuHeader">OUTBREAK TRACKER</div>
+                            <div class="menuHeader">Outbreak Trackers</div>
                             <div class="sub-menu">
                                 <div><a href="/outbreaks/Mpox/#view_tab=overview">Mpox 2024</a></div>
                                 <div><a href="/outbreaks/H5N1/#view_tab=overview">Influenza H5N1 2024</a></div>
@@ -611,8 +518,4 @@
             </div>
         </nav>
     </div>
-    <!-- -->
-    <!-- <div class="msg-box-below-topnav"><strong>The BV-BRC scheduler will be undergoing maintenance on June 6, from 9:00AM-Noon (Chicago Time). Already running jobs will not be affected but job status and submission of new jobs will be unavailable. We are sorry for the inconvenience. -- BV-BRC Team</strong></div> -->
-    <!-- <div class="msg-box-below-topnav"><strong>Welcome to the BV-BRC Alpha website. This site is used for active development and testing of the BV-BRC resource. Hence, the data and functionality may change frequently and without notice.</strong></div> -->
-    <!-- <div class="msg-box-below-topnav"><strong>Welcome to the BV-BRC Beta website. This site is used to seek early community feedback for the BV-BRC resource, which is still under development. Please note that the data and functionality on this site may change frequently and without notice.</strong></div> -->
 </div>
