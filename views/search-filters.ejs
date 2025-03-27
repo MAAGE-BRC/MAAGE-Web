@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Data Component</title>
+  <style>
+    /* Base styles */
+    .search-container {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+
+    .search-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .search-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    /* Search form */
+    .search-form {
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input-container {
+      display: flex;
+      width: 100%;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      flex-grow: 1;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 0.75rem;
+      transform: translateY(-50%);
+      color: #94a3b8;
+    }
+
+    .search-input {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      padding-left: 2.5rem;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem 0 0 0.5rem;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .search-input:focus {
+      border-color: #cbd5e1;
+      box-shadow: 0 0 0 1px #cbd5e1;
+    }
+
+    .search-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background-color: #475569;
+      color: white;
+      font-weight: 500;
+      border: none;
+      border-radius: 0 0.5rem 0.5rem 0;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .search-button:hover {
+      background-color: #334155;
+    }
+
+    /* Advanced search toggle */
+    .advanced-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #475569;
+      font-weight: 500;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .advanced-toggle:hover {
+      color: #1e293b;
+    }
+
+    .advanced-panel {
+      background-color: #f8fafc;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .advanced-section {
+      margin-bottom: 1rem;
+    }
+
+    .advanced-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .advanced-heading {
+      font-weight: 500;
+      color: #334155;
+      margin-bottom: 0.5rem;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .options-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .option-input {
+      height: 1rem;
+      width: 1rem;
+      color: #475569;
+      border-color: #cbd5e1;
+    }
+
+    .option-input[type="checkbox"] {
+      border-radius: 0.25rem;
+    }
+
+    .option-label {
+      margin-left: 0.5rem;
+      font-size: 0.875rem;
+      color: #334155;
+    }
+
+    /* Icons */
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .search-button .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="search-container">
+    <div class="search-header">
+      <h1 class="search-title">Search Data</h1>
+    </div>
+
+    <form class="search-form" id="searchForm">
+      <div class="search-input-container">
+        <div class="search-input-wrapper">
+          <div class="search-icon">
+            <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input
+            type="text"
+            class="search-input"
+            name="searchQuery"
+            id="searchQuery"
+            placeholder="Search genes, genomes, proteins, pathways..."
+          >
+        </div>
+        <button type="submit" class="search-button">
+          Search
+          <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <div>
+      <button type="button" class="advanced-toggle" id="advancedToggle">
+        <svg class="icon chevron-down" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        <svg class="icon chevron-up" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+        Advanced Search Options
+      </button>
+
+      <div class="advanced-panel" id="advancedPanel">
+        <div class="advanced-section">
+          <h3 class="advanced-heading">Search Type</h3>
+          <div class="options-grid">
+            <div class="option-item">
+              <input
+                type="radio"
+                id="all-terms"
+                name="searchType"
+                value="all-terms"
+                class="option-input"
+                checked
+              >
+              <label for="all-terms" class="option-label">All Terms</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="radio"
+                id="any-terms"
+                name="searchType"
+                value="any-terms"
+                class="option-input"
+              >
+              <label for="any-terms" class="option-label">Any Terms</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="radio"
+                id="exact-terms"
+                name="searchType"
+                value="exact-terms"
+                class="option-input"
+              >
+              <label for="exact-terms" class="option-label">Exact Terms</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="radio"
+                id="all-exact-terms"
+                name="searchType"
+                value="all-exact-terms"
+                class="option-input"
+              >
+              <label for="all-exact-terms" class="option-label">All Exact Terms</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="advanced-section">
+          <h3 class="advanced-heading">Data Types</h3>
+          <div class="options-grid">
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="taxa"
+                name="dataType"
+                value="taxa"
+                class="option-input"
+              >
+              <label for="taxa" class="option-label">Taxa</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="genomes"
+                name="dataType"
+                value="genomes"
+                class="option-input"
+              >
+              <label for="genomes" class="option-label">Genomes</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="features"
+                name="dataType"
+                value="features"
+                class="option-input"
+              >
+              <label for="features" class="option-label">Features</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="proteins"
+                name="dataType"
+                value="proteins"
+                class="option-input"
+              >
+              <label for="proteins" class="option-label">Proteins</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="specialty-genes"
+                name="dataType"
+                value="specialty-genes"
+                class="option-input"
+              >
+              <label for="specialty-genes" class="option-label">Specialty Genes</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="protein-structures"
+                name="dataType"
+                value="protein-structures"
+                class="option-input"
+              >
+              <label for="protein-structures" class="option-label">Protein Structures</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="pathways"
+                name="dataType"
+                value="pathways"
+                class="option-input"
+              >
+              <label for="pathways" class="option-label">Pathways</label>
+            </div>
+            <div class="option-item">
+              <input
+                type="checkbox"
+                id="subsystems"
+                name="dataType"
+                value="subsystems"
+                class="option-input"
+              >
+              <label for="subsystems" class="option-label">Subsystems</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle advanced search panel
+    const advancedToggle = document.getElementById('advancedToggle');
+    const advancedPanel = document.getElementById('advancedPanel');
+    const chevronDown = document.querySelector('.chevron-down');
+    const chevronUp = document.querySelector('.chevron-up');
+
+    advancedToggle.addEventListener('click', function() {
+      const isVisible = advancedPanel.style.display === 'block';
+
+      if (isVisible) {
+        advancedPanel.style.display = 'none';
+        chevronDown.style.display = 'block';
+        chevronUp.style.display = 'none';
+      } else {
+        advancedPanel.style.display = 'block';
+        chevronDown.style.display = 'none';
+        chevronUp.style.display = 'block';
+      }
+    });
+
+
+  </script>
+</body>
+</html>
