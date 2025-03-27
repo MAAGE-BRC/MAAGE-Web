@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>About MAAGE | Midwest Alliance for Applied Genomic Epideiology</title>
-
+	<head>
+		<title>About MAAGE | Midwest Alliance for Applied Genomic Epidemiology</title>
+		<%- include('../head') %>
     <style>
       body {
   background: #eee;
@@ -578,223 +578,358 @@ html {
 
 }
     </style>
-  </head>
-  <body
-    class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>"
-  >
 
+	</head>
 
-  <main class="min-h-screen bg-white inherited-styles-for-exported-element" spellcheck="false" data-ms-editor="true">
-    <div class="bg-gradient-to-r from-[#e8f0ec] to-[#e8f0ec]/70 py-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="max-w-4xl">
-          <h1 class="text-4xl md:text-5xl font-bold text-[#2c3e50] mb-6 font-poppins" spellcheck="false" data-ms-editor="true">About MAAGE</h1>
-          <p class="text-xl text-[#4a5568] mb-8 font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">The Midwest Alliance for Applied Genomic Epidemiology is a ... lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <div class="flex flex-wrap gap-4 mt-8"><a class="inline-flex items-center px-6 py-3 bg-[#548fa6] text-white rounded-md hover:bg-[#3d677d] transition-colors font-medium font-inter" href="http://localhost:3000/about/team">Meet Our Team<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-2 h-4 w-4">
-                <path d="m9 18 6-6-6-6"></path>
-              </svg></a><a class="inline-flex items-center px-6 py-3 border border-[#548fa6] text-[#548fa6] rounded-md hover:bg-[#f0f5f7] transition-colors font-medium font-inter" href="http://localhost:3000/about/contact">Contact Us<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-2 h-4 w-4">
-                <path d="m9 18 6-6-6-6"></path>
-              </svg></a></div><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-            <style>
-              @media print {
-                .ms-editor-squiggler {
-                  display: none !important;
-                }
-              }
+	<body class="claro patric bg-maage-bg <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+		<div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+			<%- include('../navbar-fix') %>
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;" class="bg-[var(--maage-bg)]">
 
-              .ms-editor-squiggler {
-                all: initial;
-                display: block !important;
-                height: 0px !important;
-                width: 0px !important;
-              }
-            </style>
-            <div class="ms-editor-squiggler"></div>
-          </editor-squiggler>
-        </div>
-      </div>
-    </div>
-    <div class="py-12 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-2xl font-semibold text-[#2c3e50] mb-8 text-center font-poppins">A Collaborative Initiative Between</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
-            <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img alt="Argonne National Laboratory" loading="lazy" width="200" height="80" decoding="async" data-nimg="1" class="max-h-16 w-auto" style="color:transparent" src="http://localhost:3000/placeholder.svg?height=80&amp;width=200"></div>
-            <div class="p-6 flex-grow">
-              <h3 class="text-xl font-semibold text-[#2c3e50] mb-2 font-poppins">Argonne National Laboratory</h3>
-              <p class="text-[#4a5568] mb-4 font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
-
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler>
-            </div>
-            <div class="px-6 pb-6" spellcheck="false" data-ms-editor="true"><a href="https://www.anl.gov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#548fa6] hover:text-[#3d677d] font-medium font-inter">Visit ANL.gov<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
-                  <path d="M15 3h6v6"></path>
-                  <path d="M10 14 21 3"></path>
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                </svg></a></div>
-          </div>
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
-            <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img alt="Illinois Department of Public Health" loading="lazy" width="200" height="80" decoding="async" data-nimg="1" class="max-h-16 w-auto" style="color:transparent" src="http://localhost:3000/placeholder.svg?height=80&amp;width=200"></div>
-            <div class="p-6 flex-grow">
-              <h3 class="css_pro-edited-element-1" spellcheck="false" data-ms-editor="true">Illinois Department of Public Health</h3>
-              <p class="css_pro-edited-element-0" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" spellcheck="false" data-ms-editor="true">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
-
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler>
-            </div>
-            <div class="px-6 pb-6" spellcheck="false" data-ms-editor="true"><a href="https://dph.illinois.gov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#548fa6] hover:text-[#3d677d] font-medium font-inter">Visit dph.illinois.gov<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
-                  <path d="M15 3h6v6"></path>
-                  <path d="M10 14 21 3"></path>
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                </svg></a></div>
-          </div>
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
-            <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img alt="University of Illinois" loading="lazy" width="200" height="80" decoding="async" data-nimg="1" class="max-h-16 w-auto" style="color:transparent" src="http://localhost:3000/placeholder.svg?height=80&amp;width=200"></div>
-            <div class="p-6 flex-grow">
-              <h3 class="text-xl font-semibold text-[#2c3e50] mb-2 font-poppins">University of Illinois</h3>
-              <p class="text-[#4a5568] mb-4 font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
-
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler>
-            </div>
-            <div class="px-6 pb-6"><a href="https://www.illinois.edu" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#548fa6] hover:text-[#3d677d] font-medium font-inter" spellcheck="false" data-ms-editor="true">Visit Illinois.edu<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
-                  <path d="M15 3h6v6"></path>
-                  <path d="M10 14 21 3"></path>
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                </svg></a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="py-16 bg-[#f8faf9]">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row gap-12">
-          <div class="md:w-1/2">
-            <div class="sticky top-8">
-              <h2 class="text-3xl font-bold text-[#2c3e50] mb-6 font-poppins">Our Mission</h2>
-              <p class="text-lg text-[#4a5568] mb-6 font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <p class="text-lg text-[#4a5568] mb-6 font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <p class="text-lg text-[#4a5568] font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">It aliquip ex ea commodo consequat.orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
-
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
-
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
-
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler>
+        <main class="min-h-screen bg-white inherited-styles-for-exported-element" spellcheck="false" data-ms-editor="true">
+          <div class="bg-gradient-to-r from-[#e8f0ec] to-[#e8f0ec]/70 py-16">
+            <div class="max-w-7xl mx-auto px-4">
+              <div class="max-w-4xl">
+                <h1 class="text-4xl md:text-5xl font-bold text-[#2c3e50] mb-6 font-poppins" spellcheck="false" data-ms-editor="true">About MAAGE</h1>
+                <p class="text-xl text-[#4a5568] mb-8 font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">The Midwest Alliance for Applied Genomic Epidemiology is a ... lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <div class="flex flex-wrap gap-4 mt-8">
+                    <a class="inline-flex items-center px-6 py-3 bg-[#548fa6] rounded-md hover:bg-[#3d677d] transition-colors font-medium font-inter" href="/team" style="color: white;">
+                    Meet Our Team
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-2 h-4 w-4">
+                      <path d="M9 18l6-6-6-6"></path>
+                    </svg>
+                    </a>
+                    <a class="inline-flex items-center px-6 py-3 text-[#548fa6] rounded-md hover:bg-[#f0f5f7] transition-colors font-medium font-inter" href="/contact" style="border: 1px solid #548fa6;">Contact Us</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="md:w-1/2">
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-              <div class="aspect-w-16 aspect-h-9 bg-[#e8f0ec] relative"><img alt="MAAGE researchers collaborating" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=400&amp;width=800"></div>
-              <div class="p-6">
-                <h3 class="text-xl font-semibold text-[#2c3e50] mb-4 font-poppins">Our Vision</h3>
-                <p class="text-[#4a5568] mb-4 font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                  <div class="flex items-start">
-                    <div class="bg-[#a6c9b8]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-5 w-5 text-[#a6c9b8]">
-                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-                      </svg></div>
-                    <div>
-                      <h4 class="font-medium text-[#2c3e50] font-poppins">Protection</h4>
-                      <p class="text-sm text-[#4a5568] font-inter">Safeguarding public health through early detection</p>
+          <div class="py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+              <h2 class="text-2xl font-semibold text-[#2c3e50] mb-8 text-center font-poppins">A Collaborative Initiative Between</h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+                  <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img alt="Argonne National Laboratory" loading="lazy" width="200" height="80" decoding="async" data-nimg="1" class="max-h-16 w-auto" style="color:transparent" src="http://localhost:3000/placeholder.svg?height=80&amp;width=200"></div>
+                  <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-semibold text-[#2c3e50] mb-2 font-poppins">Argonne National Laboratory</h3>
+                    <p class="text-[#4a5568] mb-4 font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler>
+                  </div>
+                  <div class="px-6 pb-6" spellcheck="false" data-ms-editor="true"><a href="https://www.anl.gov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#548fa6] hover:text-[#3d677d] font-medium font-inter">Visit ANL.gov<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14 21 3"></path>
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      </svg></a></div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+                  <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img alt="Illinois Department of Public Health" loading="lazy" width="200" height="80" decoding="async" data-nimg="1" class="max-h-16 w-auto" style="color:transparent" src="http://localhost:3000/placeholder.svg?height=80&amp;width=200"></div>
+                  <div class="p-6 flex-grow">
+                    <h3 class="css_pro-edited-element-1" spellcheck="false" data-ms-editor="true">Illinois Department of Public Health</h3>
+                    <p class="css_pro-edited-element-0" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" spellcheck="false" data-ms-editor="true">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler>
+                  </div>
+                  <div class="px-6 pb-6" spellcheck="false" data-ms-editor="true"><a href="https://dph.illinois.gov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#548fa6] hover:text-[#3d677d] font-medium font-inter">Visit dph.illinois.gov<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14 21 3"></path>
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      </svg></a></div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+                  <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img alt="University of Illinois" loading="lazy" width="200" height="80" decoding="async" data-nimg="1" class="max-h-16 w-auto" style="color:transparent" src="http://localhost:3000/placeholder.svg?height=80&amp;width=200"></div>
+                  <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-semibold text-[#2c3e50] mb-2 font-poppins">University of Illinois</h3>
+                    <p class="text-[#4a5568] mb-4 font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler>
+                  </div>
+                  <div class="px-6 pb-6"><a href="https://www.illinois.edu" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#548fa6] hover:text-[#3d677d] font-medium font-inter" spellcheck="false" data-ms-editor="true">Visit Illinois.edu<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14 21 3"></path>
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      </svg></a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="py-16 bg-[#f8faf9]">
+            <div class="max-w-7xl mx-auto px-4">
+              <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                  <div class="sticky top-8">
+                    <h2 class="text-3xl font-bold text-[#2c3e50] mb-6 font-poppins">Our Mission</h2>
+                    <p class="text-lg text-[#4a5568] mb-6 font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p class="text-lg text-[#4a5568] mb-6 font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p class="text-lg text-[#4a5568] font-inter leading-relaxed" spellcheck="false" data-ms-editor="true">It aliquip ex ea commodo consequat.orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler>
+                  </div>
+                </div>
+                <div class="md:w-1/2">
+                  <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="aspect-w-16 aspect-h-9 bg-[#e8f0ec] relative"><img alt="MAAGE researchers collaborating" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=400&amp;width=800"></div>
+                    <div class="p-6">
+                      <h3 class="text-xl font-semibold text-[#2c3e50] mb-4 font-poppins">Our Vision</h3>
+                      <p class="text-[#4a5568] mb-4 font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="flex items-start">
+                          <div class="bg-[#a6c9b8]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-5 w-5 text-[#a6c9b8]">
+                              <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                            </svg></div>
+                          <div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Protection</h4>
+                            <p class="text-sm text-[#4a5568] font-inter">Safeguarding public health through early detection</p>
+                          </div>
+                        </div>
+                        <div class="flex items-start">
+                          <div class="bg-[#548fa6]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-network h-5 w-5 text-[#548fa6]">
+                              <rect x="16" y="16" width="6" height="6" rx="1"></rect>
+                              <rect x="2" y="16" width="6" height="6" rx="1"></rect>
+                              <rect x="9" y="2" width="6" height="6" rx="1"></rect>
+                              <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path>
+                              <path d="M12 12V8"></path>
+                            </svg></div>
+                          <div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Collaboration</h4>
+                            <p class="text-sm text-[#4a5568] font-inter">Uniting expertise across disciplines</p>
+                          </div>
+                        </div>
+                        <div class="flex items-start">
+                          <div class="bg-[#ecc187]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microscope h-5 w-5 text-[#ecc187]">
+                              <path d="M6 18h8"></path>
+                              <path d="M3 22h18"></path>
+                              <path d="M14 22a7 7 0 1 0 0-14h-1"></path>
+                              <path d="M9 14h2"></path>
+                              <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"></path>
+                              <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"></path>
+                            </svg></div>
+                          <div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Innovation</h4>
+                            <p class="text-sm text-[#4a5568] font-inter">Advancing genomic surveillance methods</p>
+                          </div>
+                        </div>
+                        <div class="flex items-start">
+                          <div class="bg-[#c57c80]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 h-5 w-5 text-[#c57c80]">
+                              <circle cx="18" cy="5" r="3"></circle>
+                              <circle cx="6" cy="12" r="3"></circle>
+                              <circle cx="18" cy="19" r="3"></circle>
+                              <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+                              <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+                            </svg></div>
+                          <div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Knowledge Sharing</h4>
+                            <p class="text-sm text-[#4a5568] font-inter">Disseminating insights to stakeholders</p>
+                          </div>
+                        </div>
+                      </div><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
+                        <style>
+                          @media print {
+                            .ms-editor-squiggler {
+                              display: none !important;
+                            }
+                          }
+
+                          .ms-editor-squiggler {
+                            all: initial;
+                            display: block !important;
+                            height: 0px !important;
+                            width: 0px !important;
+                          }
+                        </style>
+                        <div class="ms-editor-squiggler"></div>
+                      </editor-squiggler>
                     </div>
                   </div>
-                  <div class="flex items-start">
-                    <div class="bg-[#548fa6]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-network h-5 w-5 text-[#548fa6]">
-                        <rect x="16" y="16" width="6" height="6" rx="1"></rect>
-                        <rect x="2" y="16" width="6" height="6" rx="1"></rect>
-                        <rect x="9" y="2" width="6" height="6" rx="1"></rect>
-                        <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path>
-                        <path d="M12 12V8"></path>
-                      </svg></div>
-                    <div>
-                      <h4 class="font-medium text-[#2c3e50] font-poppins">Collaboration</h4>
-                      <p class="text-sm text-[#4a5568] font-inter">Uniting expertise across disciplines</p>
-                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+              <h2 class="text-3xl font-bold text-[#2c3e50] mb-4 font-poppins text-center">Our Leadership</h2>
+              <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto" spellcheck="false" data-ms-editor="true">MAAGE is led by a team of distinguished principal investigators from each of our organizations. They bring unique expertise to our collaborative initiative.</p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                  <div class="aspect-w-1 aspect-h-1 relative"><img alt="Charles Williams" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=300&amp;width=300">
+                    <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#a6c9b8"></div>
                   </div>
-                  <div class="flex items-start">
-                    <div class="bg-[#ecc187]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microscope h-5 w-5 text-[#ecc187]">
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Charles Williams</h3>
+                    <p class="text-[#548fa6] mb-1 font-inter">Chief of Testing</p>
+                    <p class="text-sm text-[#4a5568] mb-4 font-inter">Illinois Department of Public Health</p>
+                    <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler>
+                  </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                  <div class="aspect-w-1 aspect-h-1 relative"><img alt="Rebecca Smith, Ph.D." loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=300&amp;width=300">
+                    <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#548fa6"></div>
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Rebecca Smith, Ph.D.</h3>
+                    <p class="text-[#548fa6] mb-1 font-inter">Associate Professor of Pathology</p>
+                    <p class="text-sm text-[#4a5568] mb-4 font-inter">University of Illinois</p>
+                    <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler>
+                  </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                  <div class="aspect-w-1 aspect-h-1 relative"><img alt="Tom Brettin" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=300&amp;width=300">
+                    <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#ecc187"></div>
+                  </div>
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Tom Brettin</h3>
+                    <p class="text-[#548fa6] mb-1 font-inter">Strategic Program Manager</p>
+                    <p class="text-sm text-[#4a5568] mb-4 font-inter">Argonne National Laboratory</p>
+                    <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
+                      <style>
+                        @media print {
+                          .ms-editor-squiggler {
+                            display: none !important;
+                          }
+                        }
+
+                        .ms-editor-squiggler {
+                          all: initial;
+                          display: block !important;
+                          height: 0px !important;
+                          width: 0px !important;
+                        }
+                      </style>
+                      <div class="ms-editor-squiggler"></div>
+                    </editor-squiggler>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="py-16 bg-[#f8faf9]">
+            <div class="max-w-7xl mx-auto px-4">
+              <h2 class="text-3xl font-bold text-[#2c3e50] mb-4 font-poppins text-center">Platform Features</h2>
+              <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto">MAAGE offers a comprehensive suite of tools and resources for genomic surveillance and epidemiological research.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#a6c9b820">
+                    <div class="text-white rounded-full p-2" style="background-color:#a6c9b8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microscope h-6 w-6">
                         <path d="M6 18h8"></path>
                         <path d="M3 22h18"></path>
                         <path d="M14 22a7 7 0 1 0 0-14h-1"></path>
@@ -802,877 +937,971 @@ html {
                         <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"></path>
                         <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"></path>
                       </svg></div>
-                    <div>
-                      <h4 class="font-medium text-[#2c3e50] font-poppins">Innovation</h4>
-                      <p class="text-sm text-[#4a5568] font-inter">Advancing genomic surveillance methods</p>
-                    </div>
                   </div>
-                  <div class="flex items-start">
-                    <div class="bg-[#c57c80]/20 p-2 rounded-full mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 h-5 w-5 text-[#c57c80]">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
-                        <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
-                      </svg></div>
-                    <div>
-                      <h4 class="font-medium text-[#2c3e50] font-poppins">Knowledge Sharing</h4>
-                      <p class="text-sm text-[#4a5568] font-inter">Disseminating insights to stakeholders</p>
-                    </div>
-                  </div>
-                </div><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
-                  <style>
-                    @media print {
-                      .ms-editor-squiggler {
-                        display: none !important;
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins" spellcheck="false" data-ms-editor="true">Advanced Genomics</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
                       }
-                    }
 
-                    .ms-editor-squiggler {
-                      all: initial;
-                      display: block !important;
-                      height: 0px !important;
-                      width: 0px !important;
-                    }
-                  </style>
-                  <div class="ms-editor-squiggler"></div>
-                </editor-squiggler>
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#548fa620">
+                    <div class="text-white rounded-full p-2" style="background-color:#548fa6"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-6 w-6">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                        <path d="M2 12h20"></path>
+                      </svg></div>
+                  </div>
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Real-time Surveillance</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
+                      }
+
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#ecc18720">
+                    <div class="text-white rounded-full p-2" style="background-color:#ecc187"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-6 w-6">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg></div>
+                  </div>
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Collaborative Workspaces</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
+                      }
+
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#c57c8020">
+                    <div class="text-white rounded-full p-2" style="background-color:#c57c80"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse h-6 w-6">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                        <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path>
+                      </svg></div>
+                  </div>
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Outbreak Detection</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
+                      }
+
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#978fb520">
+                    <div class="text-white rounded-full p-2" style="background-color:#978fb5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-network h-6 w-6">
+                        <rect x="16" y="16" width="6" height="6" rx="1"></rect>
+                        <rect x="2" y="16" width="6" height="6" rx="1"></rect>
+                        <rect x="9" y="2" width="6" height="6" rx="1"></rect>
+                        <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path>
+                        <path d="M12 12V8"></path>
+                      </svg></div>
+                  </div>
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Data Integration</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
+                      }
+
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#a6c9b820">
+                    <div class="text-white rounded-full p-2" style="background-color:#a6c9b8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-round h-6 w-6">
+                        <path d="M10 2v7.31"></path>
+                        <path d="M14 9.3V1.99"></path>
+                        <path d="M8.5 2h7"></path>
+                        <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+                        <path d="M5.52 16h12.96"></path>
+                      </svg></div>
+                  </div>
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Research Tools</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
+                      }
+
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#548fa620">
+                    <div class="text-white rounded-full p-2" style="background-color:#548fa6"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 h-6 w-6">
+                        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+                        <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+                        <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+                        <path d="M10 6h4"></path>
+                        <path d="M10 10h4"></path>
+                        <path d="M10 14h4"></path>
+                        <path d="M10 18h4"></path>
+                      </svg></div>
+                  </div>
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Knowledge Repository</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
+                      }
+
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                  <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#ecc18720">
+                    <div class="text-white rounded-full p-2" style="background-color:#ecc187"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-6 w-6">
+                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                      </svg></div>
+                  </div>
+                  <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Public Health Interface</h3>
+                  <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
+                    <style>
+                      @media print {
+                        .ms-editor-squiggler {
+                          display: none !important;
+                        }
+                      }
+
+                      .ms-editor-squiggler {
+                        all: initial;
+                        display: block !important;
+                        height: 0px !important;
+                        width: 0px !important;
+                      }
+                    </style>
+                    <div class="ms-editor-squiggler"></div>
+                  </editor-squiggler>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-[#2c3e50] mb-4 font-poppins text-center">Our Leadership</h2>
-        <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto" spellcheck="false" data-ms-editor="true">MAAGE is led by a team of distinguished principal investigators from each of our organizations. They bring unique expertise to our collaborative initiative.</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-            <div class="aspect-w-1 aspect-h-1 relative"><img alt="Charles Williams" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=300&amp;width=300">
-              <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#a6c9b8"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Charles Williams</h3>
-              <p class="text-[#548fa6] mb-1 font-inter">Chief of Testing</p>
-              <p class="text-sm text-[#4a5568] mb-4 font-inter">Illinois Department of Public Health</p>
-              <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
-
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler>
+          <div class="py-16 bg-white" spellcheck="false" data-ms-editor="true">
+            <div class="max-w-7xl mx-auto px-4">
+              <h2 class="text-3xl font-bold text-[#2c3e50] mb-4 font-poppins text-center">Funding</h2>
+              <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto" spellcheck="false" data-ms-editor="true">MAAGE is made possible ...</p>
             </div>
           </div>
-          <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-            <div class="aspect-w-1 aspect-h-1 relative"><img alt="Rebecca Smith, Ph.D." loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=300&amp;width=300">
-              <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#548fa6"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Rebecca Smith, Ph.D.</h3>
-              <p class="text-[#548fa6] mb-1 font-inter">Associate Professor of Pathology</p>
-              <p class="text-sm text-[#4a5568] mb-4 font-inter">University of Illinois</p>
-              <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
+        </main>
+        <section style="overflow:hidden;border-color:rgb(228, 228, 231);box-sizing:border-box;border-width:0px;border-style:solid;">
+          <%- include('../footer') %>
+        </section>
 
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-            <div class="aspect-w-1 aspect-h-1 relative"><img alt="Tom Brettin" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" src="http://localhost:3000/placeholder.svg?height=300&amp;width=300">
-              <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#ecc187"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Tom Brettin</h3>
-              <p class="text-[#548fa6] mb-1 font-inter">Strategic Program Manager</p>
-              <p class="text-sm text-[#4a5568] mb-4 font-inter">Argonne National Laboratory</p>
-              <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
-                <style>
-                  @media print {
-                    .ms-editor-squiggler {
-                      display: none !important;
-                    }
-                  }
 
-                  .ms-editor-squiggler {
-                    all: initial;
-                    display: block !important;
-                    height: 0px !important;
-                    width: 0px !important;
-                  }
-                </style>
-                <div class="ms-editor-squiggler"></div>
-              </editor-squiggler>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="py-16 bg-[#f8faf9]">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-[#2c3e50] mb-4 font-poppins text-center">Platform Features</h2>
-        <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto">MAAGE offers a comprehensive suite of tools and resources for genomic surveillance and epidemiological research.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#a6c9b820">
-              <div class="text-white rounded-full p-2" style="background-color:#a6c9b8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microscope h-6 w-6">
-                  <path d="M6 18h8"></path>
-                  <path d="M3 22h18"></path>
-                  <path d="M14 22a7 7 0 1 0 0-14h-1"></path>
-                  <path d="M9 14h2"></path>
-                  <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"></path>
-                  <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins" spellcheck="false" data-ms-editor="true">Advanced Genomics</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
+        <style>
+          *, ::before, ::after {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
+            --tw-contain-size: ;
+            --tw-contain-layout: ;
+            --tw-contain-paint: ;
+            --tw-contain-style: ;
+          }
+          ::backdrop {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
+            --tw-contain-size: ;
+            --tw-contain-layout: ;
+            --tw-contain-paint: ;
+            --tw-contain-style: ;
+          }
+          /*
+          ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
+          */
+          /*
+          1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+          2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+          */
+          *,
+          ::before,
+          ::after {
+            box-sizing: border-box;
+            /* 1 */
+            border-width: 0;
+            /* 2 */
+            border-style: solid;
+            /* 2 */
+            border-color: #e5e7eb;
+            /* 2 */
+          }
+          ::before,
+          ::after {
+            --tw-content: '';
+          }
+          /*
+          1. Use a consistent sensible line-height in all browsers.
+          2. Prevent adjustments of font size after orientation changes in iOS.
+          3. Use a more readable tab size.
+          4. Use the user's configured `sans` font-family by default.
+          5. Use the user's configured `sans` font-feature-settings by default.
+          6. Use the user's configured `sans` font-variation-settings by default.
+          7. Disable tap highlights on iOS
+          */
+          html,
+          :host {
+            line-height: 1.5;
+            /* 1 */
+            -webkit-text-size-adjust: 100%;
+            /* 2 */
+            -moz-tab-size: 4;
+            /* 3 */
+            tab-size: 4;
+            /* 3 */
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            /* 4 */
+            font-feature-settings: normal;
+            /* 5 */
+            font-variation-settings: normal;
+            /* 6 */
+            -webkit-tap-highlight-color: transparent;
+            /* 7 */
+          }
+          /*
+          1. Remove the margin in all browsers.
+          2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+          */
+          body {
+            margin: 0;
+            /* 1 */
+            line-height: inherit;
+            /* 2 */
+          }
+          /*
+          1. Add the correct height in Firefox.
+          2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+          3. Ensure horizontal rules are visible by default.
+          */
+          hr {
+            height: 0;
+            /* 1 */
+            color: inherit;
+            /* 2 */
+            border-top-width: 1px;
+            /* 3 */
+          }
+          /*
+          Add the correct text decoration in Chrome, Edge, and Safari.
+          */
+          abbr:where([title]) {
+            text-decoration: underline dotted;
+          }
+          /*
+          Remove the default font size and weight for headings.
+          */
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-size: inherit;
+            font-weight: inherit;
+          }
+          /*
+          Reset links to optimize for opt-in styling instead of opt-out.
+          */
+          a {
+            color: inherit;
+            text-decoration: inherit;
+          }
+          /*
+          Add the correct font weight in Edge and Safari.
+          */
+          b,
+          strong {
+            font-weight: bolder;
+          }
+          /*
+          1. Use the user's configured `mono` font-family by default.
+          2. Use the user's configured `mono` font-feature-settings by default.
+          3. Use the user's configured `mono` font-variation-settings by default.
+          4. Correct the odd `em` font sizing in all browsers.
+          */
+          code,
+          kbd,
+          samp,
+          pre {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            /* 1 */
+            font-feature-settings: normal;
+            /* 2 */
+            font-variation-settings: normal;
+            /* 3 */
+            font-size: 1em;
+            /* 4 */
+          }
+          /*
+          Add the correct font size in all browsers.
+          */
+          small {
+            font-size: 80%;
+          }
+          /*
+          Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+          */
+          sub,
+          sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+          }
+          sub {
+            bottom: -0.25em;
+          }
+          sup {
+            top: -0.5em;
+          }
+          /*
+          1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+          2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+          3. Remove gaps between table borders by default.
+          */
+          table {
+            text-indent: 0;
+            /* 1 */
+            border-color: inherit;
+            /* 2 */
+            border-collapse: collapse;
+            /* 3 */
+          }
+          /*
+          1. Change the font styles in all browsers.
+          2. Remove the margin in Firefox and Safari.
+          3. Remove default padding in all browsers.
+          */
+          button,
+          input,
+          optgroup,
+          select,
+          textarea {
+            font-family: inherit;
+            /* 1 */
+            font-feature-settings: inherit;
+            /* 1 */
+            font-variation-settings: inherit;
+            /* 1 */
+            font-size: 100%;
+            /* 1 */
+            font-weight: inherit;
+            /* 1 */
+            line-height: inherit;
+            /* 1 */
+            letter-spacing: inherit;
+            /* 1 */
+            color: inherit;
+            /* 1 */
+            margin: 0;
+            /* 2 */
+            padding: 0;
+            /* 3 */
+          }
+          /*
+          Remove the inheritance of text transform in Edge and Firefox.
+          */
+          button,
+          select {
+            text-transform: none;
+          }
+          /*
+          1. Correct the inability to style clickable types in iOS and Safari.
+          2. Remove default button styles.
+          */
+          button,
+          input:where([type='button']),
+          input:where([type='reset']),
+          input:where([type='submit']) {
+            -webkit-appearance: button;
+            /* 1 */
+            background-color: transparent;
+            /* 2 */
+            background-image: none;
+            /* 2 */
+          }
+          /*
+          Use the modern Firefox focus style for all focusable elements.
+          */
+          :-moz-focusring {
+            outline: auto;
+          }
+          /*
+          Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+          */
+          :-moz-ui-invalid {
+            box-shadow: none;
+          }
+          /*
+          Add the correct vertical alignment in Chrome and Firefox.
+          */
+          progress {
+            vertical-align: baseline;
+          }
+          /*
+          Correct the cursor style of increment and decrement buttons in Safari.
+          */
+          ::-webkit-inner-spin-button,
+          ::-webkit-outer-spin-button {
+            height: auto;
+          }
+          /*
+          1. Correct the odd appearance in Chrome and Safari.
+          2. Correct the outline style in Safari.
+          */
+          [type='search'] {
+            -webkit-appearance: textfield;
+            /* 1 */
+            outline-offset: -2px;
+            /* 2 */
+          }
+          /*
+          Remove the inner padding in Chrome and Safari on macOS.
+          */
+          ::-webkit-search-decoration {
+            -webkit-appearance: none;
+          }
+          /*
+          1. Correct the inability to style clickable types in iOS and Safari.
+          2. Change font properties to `inherit` in Safari.
+          */
+          ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            /* 1 */
+            font: inherit;
+            /* 2 */
+          }
+          /*
+          Add the correct display in Chrome and Safari.
+          */
+          summary {
+            display: list-item;
+          }
+          /*
+          Removes the default spacing and border for appropriate elements.
+          */
+          blockquote,
+          dl,
+          dd,
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6,
+          hr,
+          figure,
+          p,
+          pre {
+            margin: 0;
+          }
+          fieldset {
+            margin: 0;
+            padding: 0;
+          }
+          legend {
+            padding: 0;
+          }
+          ol,
+          ul,
+          menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+          }
+          /*
+          Reset default styling for dialogs.
+          */
+          dialog {
+            padding: 0;
+          }
+          /*
+          Prevent resizing textareas horizontally by default.
+          */
+          textarea {
+            resize: vertical;
+          }
+          /*
+          1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+          2. Set the default placeholder color to the user's configured gray 400 color.
+          */
+          input::placeholder,
+          textarea::placeholder {
+            opacity: 1;
+            /* 1 */
+            color: #9ca3af;
+            /* 2 */
+          }
+          /*
+          Set the default cursor for buttons.
+          */
+          button,
+          [role="button"] {
+            cursor: pointer;
+          }
+          /*
+          Make sure disabled buttons don't get the pointer cursor.
+          */
+          :disabled {
+            cursor: default;
+          }
+          /*
+          1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+          2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+             This can trigger a poorly considered lint error in some tools but is included by design.
+          */
+          img,
+          svg,
+          video,
+          canvas,
+          audio,
+          iframe,
+          embed,
+          object {
+            display: block;
+            /* 1 */
+            vertical-align: middle;
+            /* 2 */
+          }
+          /*
+          Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+          */
+          img,
+          video {
+            max-width: 100%;
+            height: auto;
+          }
+          /* Make elements with the HTML hidden attribute stay hidden by default */
+          [hidden]:where(:not([hidden="until-found"])) {
+            display: none;
+          }
+          @layer __play_components__;
+          .h-\[200px\] {
+            height: 200px;
+          }
+          .bg-\[\#467d94\] {
+            --tw-bg-opacity: 1;
+            background-color: rgb(70 125 148 / var(--tw-bg-opacity, 1));
+          }
+          .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+          }
+          .text-white {
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+          }
+          @theme {
+            /* ... */
+          }
 
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#548fa620">
-              <div class="text-white rounded-full p-2" style="background-color:#548fa6"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-6 w-6">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-                  <path d="M2 12h20"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Real-time Surveillance</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
+          /* ".inherited-styles-for-exported-element" is a generated class for the inherited styles of the exported element, feel free to rename it. */
 
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#ecc18720">
-              <div class="text-white rounded-full p-2" style="background-color:#ecc187"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-6 w-6">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Collaborative Workspaces</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
-
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#c57c8020">
-              <div class="text-white rounded-full p-2" style="background-color:#c57c80"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse h-6 w-6">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-                  <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Outbreak Detection</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
-
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#978fb520">
-              <div class="text-white rounded-full p-2" style="background-color:#978fb5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-network h-6 w-6">
-                  <rect x="16" y="16" width="6" height="6" rx="1"></rect>
-                  <rect x="2" y="16" width="6" height="6" rx="1"></rect>
-                  <rect x="9" y="2" width="6" height="6" rx="1"></rect>
-                  <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path>
-                  <path d="M12 12V8"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Data Integration</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
-
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#a6c9b820">
-              <div class="text-white rounded-full p-2" style="background-color:#a6c9b8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-round h-6 w-6">
-                  <path d="M10 2v7.31"></path>
-                  <path d="M14 9.3V1.99"></path>
-                  <path d="M8.5 2h7"></path>
-                  <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
-                  <path d="M5.52 16h12.96"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Research Tools</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
-
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#548fa620">
-              <div class="text-white rounded-full p-2" style="background-color:#548fa6"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 h-6 w-6">
-                  <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
-                  <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
-                  <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
-                  <path d="M10 6h4"></path>
-                  <path d="M10 10h4"></path>
-                  <path d="M10 14h4"></path>
-                  <path d="M10 18h4"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Knowledge Repository</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;" class="">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
-
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-          <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#ecc18720">
-              <div class="text-white rounded-full p-2" style="background-color:#ecc187"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-6 w-6">
-                  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-                </svg></div>
-            </div>
-            <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Public Health Interface</h3>
-            <p class="text-[#4a5568] font-inter" spellcheck="false" data-ms-editor="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><editor-squiggler aria-hidden="false" tabindex="-1" style="height: 0px; width: 0px;">
-              <style>
-                @media print {
-                  .ms-editor-squiggler {
-                    display: none !important;
-                  }
-                }
-
-                .ms-editor-squiggler {
-                  all: initial;
-                  display: block !important;
-                  height: 0px !important;
-                  width: 0px !important;
-                }
-              </style>
-              <div class="ms-editor-squiggler"></div>
-            </editor-squiggler>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="py-16 bg-white" spellcheck="false" data-ms-editor="true">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-[#2c3e50] mb-4 font-poppins text-center">Funding</h2>
-        <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto" spellcheck="false" data-ms-editor="true">MAAGE is made possible ...</p>
-      </div>
-    </div>
-  </main>
-  <style>
-*, ::before, ::after {
-  --tw-border-spacing-x: 0;
-  --tw-border-spacing-y: 0;
-  --tw-translate-x: 0;
-  --tw-translate-y: 0;
-  --tw-rotate: 0;
-  --tw-skew-x: 0;
-  --tw-skew-y: 0;
-  --tw-scale-x: 1;
-  --tw-scale-y: 1;
-  --tw-pan-x: ;
-  --tw-pan-y: ;
-  --tw-pinch-zoom: ;
-  --tw-scroll-snap-strictness: proximity;
-  --tw-gradient-from-position: ;
-  --tw-gradient-via-position: ;
-  --tw-gradient-to-position: ;
-  --tw-ordinal: ;
-  --tw-slashed-zero: ;
-  --tw-numeric-figure: ;
-  --tw-numeric-spacing: ;
-  --tw-numeric-fraction: ;
-  --tw-ring-inset: ;
-  --tw-ring-offset-width: 0px;
-  --tw-ring-offset-color: #fff;
-  --tw-ring-color: rgb(59 130 246 / 0.5);
-  --tw-ring-offset-shadow: 0 0 #0000;
-  --tw-ring-shadow: 0 0 #0000;
-  --tw-shadow: 0 0 #0000;
-  --tw-shadow-colored: 0 0 #0000;
-  --tw-blur: ;
-  --tw-brightness: ;
-  --tw-contrast: ;
-  --tw-grayscale: ;
-  --tw-hue-rotate: ;
-  --tw-invert: ;
-  --tw-saturate: ;
-  --tw-sepia: ;
-  --tw-drop-shadow: ;
-  --tw-backdrop-blur: ;
-  --tw-backdrop-brightness: ;
-  --tw-backdrop-contrast: ;
-  --tw-backdrop-grayscale: ;
-  --tw-backdrop-hue-rotate: ;
-  --tw-backdrop-invert: ;
-  --tw-backdrop-opacity: ;
-  --tw-backdrop-saturate: ;
-  --tw-backdrop-sepia: ;
-  --tw-contain-size: ;
-  --tw-contain-layout: ;
-  --tw-contain-paint: ;
-  --tw-contain-style: ;
+:root {
+  --radius: 0.5rem;
+  --font-inter: 'Inter', 'Inter Fallback';
 }
-::backdrop {
-  --tw-border-spacing-x: 0;
-  --tw-border-spacing-y: 0;
-  --tw-translate-x: 0;
-  --tw-translate-y: 0;
-  --tw-rotate: 0;
-  --tw-skew-x: 0;
-  --tw-skew-y: 0;
-  --tw-scale-x: 1;
-  --tw-scale-y: 1;
-  --tw-pan-x: ;
-  --tw-pan-y: ;
-  --tw-pinch-zoom: ;
-  --tw-scroll-snap-strictness: proximity;
-  --tw-gradient-from-position: ;
-  --tw-gradient-via-position: ;
-  --tw-gradient-to-position: ;
-  --tw-ordinal: ;
-  --tw-slashed-zero: ;
-  --tw-numeric-figure: ;
-  --tw-numeric-spacing: ;
-  --tw-numeric-fraction: ;
-  --tw-ring-inset: ;
-  --tw-ring-offset-width: 0px;
-  --tw-ring-offset-color: #fff;
-  --tw-ring-color: rgb(59 130 246 / 0.5);
-  --tw-ring-offset-shadow: 0 0 #0000;
-  --tw-ring-shadow: 0 0 #0000;
-  --tw-shadow: 0 0 #0000;
-  --tw-shadow-colored: 0 0 #0000;
-  --tw-blur: ;
-  --tw-brightness: ;
-  --tw-contrast: ;
-  --tw-grayscale: ;
-  --tw-hue-rotate: ;
-  --tw-invert: ;
-  --tw-saturate: ;
-  --tw-sepia: ;
-  --tw-drop-shadow: ;
-  --tw-backdrop-blur: ;
-  --tw-backdrop-brightness: ;
-  --tw-backdrop-contrast: ;
-  --tw-backdrop-grayscale: ;
-  --tw-backdrop-hue-rotate: ;
-  --tw-backdrop-invert: ;
-  --tw-backdrop-opacity: ;
-  --tw-backdrop-saturate: ;
-  --tw-backdrop-sepia: ;
-  --tw-contain-size: ;
-  --tw-contain-layout: ;
-  --tw-contain-paint: ;
-  --tw-contain-style: ;
+
+.ml-2 {
+  margin-left: .5rem;
 }
-/*
-! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
-*/
-/*
-1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
-2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
-*/
-*,
-::before,
-::after {
-  box-sizing: border-box;
-  /* 1 */
-  border-width: 0;
-  /* 2 */
-  border-style: solid;
-  /* 2 */
-  border-color: #e5e7eb;
-  /* 2 */
+
+.mt-8 {
+  margin-top: 2rem;
 }
-::before,
-::after {
-  --tw-content: '';
+
+.flex {
+  display: flex;
 }
-/*
-1. Use a consistent sensible line-height in all browsers.
-2. Prevent adjustments of font size after orientation changes in iOS.
-3. Use a more readable tab size.
-4. Use the user's configured `sans` font-family by default.
-5. Use the user's configured `sans` font-feature-settings by default.
-6. Use the user's configured `sans` font-variation-settings by default.
-7. Disable tap highlights on iOS
-*/
-html,
-:host {
-  line-height: 1.5;
-  /* 1 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
-  -moz-tab-size: 4;
-  /* 3 */
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.w-4 {
+  width: 1rem;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-4 {
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+.rounded-md {
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-\[\#548fa6\] {
+  border-color: #548fa6;
+}
+
+.bg-\[\#548fa6\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(84 143 166/var(--tw-bg-opacity, 1));
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-3 {
+  padding-bottom: .75rem;
+  padding-top: .75rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-\[\#548fa6\] {
+  --tw-text-opacity: 1;
+  color: rgb(84 143 166/var(--tw-text-opacity, 1));
+}
+
+.transition-colors {
+  transition-duration: 150ms;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.font-inter {
+  font-family: var(--font-inter), sans-serif;
+}
+
+.hover\:bg-\[\#3d677d\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(61 103 125/var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-\[\#f0f5f7\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 245 247/var(--tw-bg-opacity, 1));
+}
+
+.inherited-styles-for-exported-element {
+  color: #111827;
+  font-family: Inter, "Inter Fallback", sans-serif;
+  font-size: 16px;
   tab-size: 4;
-  /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  /* 4 */
-  font-feature-settings: normal;
-  /* 5 */
-  font-variation-settings: normal;
-  /* 6 */
-  -webkit-tap-highlight-color: transparent;
-  /* 7 */
 }
-/*
-1. Remove the margin in all browsers.
-2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
-*/
-body {
-  margin: 0;
-  /* 1 */
-  line-height: inherit;
-  /* 2 */
+
+*, ::after, ::before {
+  border: 0 solid #e5e7eb;
+  box-sizing: border-box;
 }
-/*
-1. Add the correct height in Firefox.
-2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
-3. Ensure horizontal rules are visible by default.
-*/
-hr {
-  height: 0;
-  /* 1 */
-  color: inherit;
-  /* 2 */
-  border-top-width: 1px;
-  /* 3 */
-}
-/*
-Add the correct text decoration in Chrome, Edge, and Safari.
-*/
-abbr:where([title]) {
-  text-decoration: underline dotted;
-}
-/*
-Remove the default font size and weight for headings.
-*/
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: inherit;
-}
-/*
-Reset links to optimize for opt-in styling instead of opt-out.
-*/
+
 a {
-  color: inherit;
   text-decoration: inherit;
 }
-/*
-Add the correct font weight in Edge and Safari.
-*/
-b,
-strong {
-  font-weight: bolder;
-}
-/*
-1. Use the user's configured `mono` font-family by default.
-2. Use the user's configured `mono` font-feature-settings by default.
-3. Use the user's configured `mono` font-variation-settings by default.
-4. Correct the odd `em` font sizing in all browsers.
-*/
-code,
-kbd,
-samp,
-pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  /* 1 */
-  font-feature-settings: normal;
-  /* 2 */
-  font-variation-settings: normal;
-  /* 3 */
-  font-size: 1em;
-  /* 4 */
-}
-/*
-Add the correct font size in all browsers.
-*/
-small {
-  font-size: 80%;
-}
-/*
-Prevent `sub` and `sup` elements from affecting the line height in all browsers.
-*/
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sub {
-  bottom: -0.25em;
-}
-sup {
-  top: -0.5em;
-}
-/*
-1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
-2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
-3. Remove gaps between table borders by default.
-*/
-table {
-  text-indent: 0;
-  /* 1 */
-  border-color: inherit;
-  /* 2 */
-  border-collapse: collapse;
-  /* 3 */
-}
-/*
-1. Change the font styles in all browsers.
-2. Remove the margin in Firefox and Safari.
-3. Remove default padding in all browsers.
-*/
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  /* 1 */
-  font-feature-settings: inherit;
-  /* 1 */
-  font-variation-settings: inherit;
-  /* 1 */
-  font-size: 100%;
-  /* 1 */
-  font-weight: inherit;
-  /* 1 */
-  line-height: inherit;
-  /* 1 */
-  letter-spacing: inherit;
-  /* 1 */
-  color: inherit;
-  /* 1 */
-  margin: 0;
-  /* 2 */
-  padding: 0;
-  /* 3 */
-}
-/*
-Remove the inheritance of text transform in Edge and Firefox.
-*/
-button,
-select {
-  text-transform: none;
-}
-/*
-1. Correct the inability to style clickable types in iOS and Safari.
-2. Remove default button styles.
-*/
-button,
-input:where([type='button']),
-input:where([type='reset']),
-input:where([type='submit']) {
-  -webkit-appearance: button;
-  /* 1 */
-  background-color: transparent;
-  /* 2 */
-  background-image: none;
-  /* 2 */
-}
-/*
-Use the modern Firefox focus style for all focusable elements.
-*/
-:-moz-focusring {
-  outline: auto;
-}
-/*
-Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
-*/
-:-moz-ui-invalid {
-  box-shadow: none;
-}
-/*
-Add the correct vertical alignment in Chrome and Firefox.
-*/
-progress {
-  vertical-align: baseline;
-}
-/*
-Correct the cursor style of increment and decrement buttons in Safari.
-*/
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
-  height: auto;
-}
-/*
-1. Correct the odd appearance in Chrome and Safari.
-2. Correct the outline style in Safari.
-*/
-[type='search'] {
-  -webkit-appearance: textfield;
-  /* 1 */
-  outline-offset: -2px;
-  /* 2 */
-}
-/*
-Remove the inner padding in Chrome and Safari on macOS.
-*/
-::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-/*
-1. Correct the inability to style clickable types in iOS and Safari.
-2. Change font properties to `inherit` in Safari.
-*/
-::-webkit-file-upload-button {
-  -webkit-appearance: button;
-  /* 1 */
-  font: inherit;
-  /* 2 */
-}
-/*
-Add the correct display in Chrome and Safari.
-*/
-summary {
-  display: list-item;
-}
-/*
-Removes the default spacing and border for appropriate elements.
-*/
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-pre {
-  margin: 0;
-}
-fieldset {
-  margin: 0;
-  padding: 0;
-}
-legend {
-  padding: 0;
-}
-ol,
-ul,
-menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-/*
-Reset default styling for dialogs.
-*/
-dialog {
-  padding: 0;
-}
-/*
-Prevent resizing textareas horizontally by default.
-*/
-textarea {
-  resize: vertical;
-}
-/*
-1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
-2. Set the default placeholder color to the user's configured gray 400 color.
-*/
-input::placeholder,
-textarea::placeholder {
-  opacity: 1;
-  /* 1 */
-  color: #9ca3af;
-  /* 2 */
-}
-/*
-Set the default cursor for buttons.
-*/
-button,
-[role="button"] {
-  cursor: pointer;
-}
-/*
-Make sure disabled buttons don't get the pointer cursor.
-*/
+
 :disabled {
   cursor: default;
 }
-/*
-1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
-2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
-   This can trigger a poorly considered lint error in some tools but is included by design.
-*/
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
+
+svg {
   display: block;
-  /* 1 */
   vertical-align: middle;
-  /* 2 */
 }
-/*
-Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
-*/
-img,
-video {
-  max-width: 100%;
-  height: auto;
-}
-/* Make elements with the HTML hidden attribute stay hidden by default */
-[hidden]:where(:not([hidden="until-found"])) {
-  display: none;
-}
-@layer __play_components__;
-.h-\[200px\] {
-  height: 200px;
-}
-.bg-\[\#467d94\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(70 125 148 / var(--tw-bg-opacity, 1));
-}
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
+
 .text-white {
+  color: rgb(255 255 255/var(--tw-text-opacity, 1));
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-@theme {
-  /* ... */
 }
 
+/* ".inherited-styles-for-exported-element" is a generated class for the inherited styles of the exported element, feel free to rename it. */
 
-  </style>
-  <header class="bg-[#a6c9b8] text-white h-[60px]"></header>
-  <footer class="bg-[#467d94] text-white h-[200px] py-8">
+:root {
+  --radius: 0.5rem;
+  --font-inter: 'Inter', 'Inter Fallback';
+}
+
+.ml-2 {
+  margin-left: .5rem;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.w-4 {
+  width: 1rem;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.rounded-md {
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-\[\#548fa6\] {
+  border-color: #548fa6;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-3 {
+  padding-bottom: .75rem;
+  padding-top: .75rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-\[\#548fa6\] {
+  --tw-text-opacity: 1;
+  color: rgb(84 143 166/var(--tw-text-opacity, 1));
+}
+
+.transition-colors {
+  transition-duration: 150ms;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.font-inter {
+  font-family: var(--font-inter), sans-serif;
+}
+
+.hover\:bg-\[\#f0f5f7\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 245 247/var(--tw-bg-opacity, 1));
+}
+
+.inherited-styles-for-exported-element {
+  font-size: 16px;
+  tab-size: 4;
+}
+
+*, ::after, ::before {
+  border: 0 solid #e5e7eb;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: inherit;
+}
+
+:disabled {
+  cursor: default;
+}
+
+svg {
+  display: block;
+  vertical-align: middle;
+}
+
+div.flex.flex-wrap.gap-4.mt-8 > a.inline-flex.items-center.px-6.py-3.border.border-\[\#548fa6\].text-\[\#548fa6\].rounded-md.hover\:bg-\[\#f0f5f7\].transition-colors.font-medium.font-inter {
+  border-width: 1px;
+}
 
 
-    <%- include('../javascript') %>
-  </body>
+            </style>
+
+            </div>
+		</div>
+		<%- include('../javascript') %>
+	</body>
+	<style>
+		#bv-brc-header {
+    padding: 0!important;
+  }
+	</style>
 </html>
