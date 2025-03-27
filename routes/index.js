@@ -30,9 +30,9 @@ router.get("/advisory-boards", function (req, res) {
 });
 
 /* Dashboard Demo 1. */
-router.get("/dashboard-demo-1", function (req, res) {
+router.get("/dev/dashboard/demo-1", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("dashboard/demo-1", {
+  res.render("dev/dashboard/demo-1", {
     title: "PATRIC",
     request: req,
     response: res,
@@ -40,9 +40,9 @@ router.get("/dashboard-demo-1", function (req, res) {
 });
 
 /* Dashboard Demo 2. */
-router.get("/dashboard-demo-2", function (req, res) {
+router.get("/dev/dashboard/demo-2", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("dashboard/demo-2", {
+  res.render("dev/dashboard/demo-2", {
     title: "PATRIC",
     request: req,
     response: res,
@@ -50,9 +50,29 @@ router.get("/dashboard-demo-2", function (req, res) {
 });
 
 /* Dashboard Demo 3. */
-router.get("/dashboard-demo-3", function (req, res) {
+router.get("/dev/dashboard/demo-3", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("dashboard/demo-3", {
+  res.render("dev/dashboard/demo-3", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
+
+/* Page Demo 1. */
+router.get("/dev/page/demo-1", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("dev/page/demo-1", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
+
+/* Page Demo 2. */
+router.get("/dev/page/demo-2", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("dev/page/demo-2", {
     title: "PATRIC",
     request: req,
     response: res,
