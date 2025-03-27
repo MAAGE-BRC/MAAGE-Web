@@ -1,0 +1,26 @@
+div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-100 > div.flex-shrink-0.w-10.h-10.bg-primary-200.rounded-lg.flex.items-center.justify-center.text-primary-700 {
+    color: #365668;
+    background-color: #F2F8F5;
+  }
+
+  div.flex.items-start.gap-3.p-3.rounded-lg.hover/:bg-gray-50.transition-colors:nth-child(2) > div.flex-shrink-0.w-10.h-10.bg-primary-100.rounded-lg.flex.items-center.justify-center.text-primary-700 {
+    color: #365668;
+    background-color: #FFFFFF;
+  }
+
+  div.flex-shrink-0.w-10.h-10.bg-primary-100.rounded-lg.flex.items-center.justify-center.text-primary-700 > div.text-center.leading-none > div.text-lg.font-bold {
+    color: #334A57;
+  }
+
+  div.flex.items-start.gap-3.p-3.rounded-lg.hover/:bg-gray-50.transition-colors:nth-child(3) > div.flex-shrink-0.w-10.h-10.bg-primary-100.rounded-lg.flex.items-center.justify-center.text-primary-700 > div.text-center.leading-none {
+    color: #334A57;
+  }
+
+  div.flex.items-start.gap-3.p-3.rounded-lg.hover/:bg-gray-50.transition-colors:nth-child(3) > div.flex-shrink-0.w-10.h-10.bg-primary-100.rounded-lg.flex.items-center.justify-center.text-primary-700 {
+    color: #334A57;
+    background-color: #FFFFFF;
+  }
+
+  div.space-y-4 > div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-100 {
+    background-color: #F2F8F5;
+  }
