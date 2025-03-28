@@ -1,64 +1,399 @@
-<footer style="border:0px solid rgb(229, 231, 235);box-sizing:border-box;background-color:rgb(60, 103, 126);padding-top:43.2px;border-color:rgb(229, 231, 235);margin:0px;padding:43.2px 0px 0px;min-height:275px;border-width:0px;border-style:solid;">
-    <div style="max-width:1280px;border:0px solid rgb(229, 231, 235);box-sizing:border-box;margin-left: auto;margin-right: auto;padding-left:14.4px;padding-right:14.4px;width: 100%;border-color:rgb(229, 231, 235);margin:0px 43px;padding:0px 14.4px;border-width:0px;border-style:solid;">
-        <div style="grid-template-columns:227.203px 227.203px 227.203px 227.203px 227.203px;border:0px solid rgb(229, 231, 235);box-sizing:border-box;gap:28.8px;display:grid;border-color:rgb(229, 231, 235);margin:20px 0px;padding:0px;margin-top:20px;margin-bottom:20px;border-width:0px;border-style:solid;">
-            <div style="grid-column:span 2 / span 2;border:0px solid rgb(229, 231, 235);box-sizing:border-box;border-color:rgb(229, 231, 235);margin:0px;padding:0px;border-width:0px;border-style:solid;">
-                <div style="display:flex;margin-bottom:14.4px;align-items:center;border:0px solid rgb(229, 231, 235);box-sizing:border-box;border-color:rgb(229, 231, 235);margin:0px 0px 14.4px;padding:0px;border-width:0px;border-style:solid;">
-                    <a href="/" aria-label="MAAGE" style="color:rgb(44, 44, 44);gap:7.2px;display:flex;text-decoration:none solid rgb(44, 44, 44);align-items:center;border:0px solid rgb(229, 231, 235);box-sizing:border-box;border-color:rgb(229, 231, 235);font-family:Inter, sans-serif;margin:0px;padding:0px;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);border-width:0px;border-style:solid;">
-                        <img src="/patric/images/maage/logos/maage-logo.png" alt="MAAGE Logo" style="border:0px solid rgb(229, 231, 235);box-sizing:border-box;display:block;height:50.3984px;max-width:100%;border-color:rgb(229, 231, 235);margin:0px;padding:0px;vertical-align:middle;border-width:0px;border-style:solid;" />
-                        <div style="border:0px solid rgb(229, 231, 235);box-sizing:border-box;border-color:rgb(229, 231, 235);margin:0px;padding:0px;border-width:0px;border-style:solid;">
-                            <span style="font-size:43.2px;line-height:43.2px;color:rgb(113, 163, 183);font-weight:600;border:0px solid rgb(229, 231, 235);box-sizing:border-box;border-color:rgb(229, 231, 235);margin:0px;padding:0px;border-width:0px;border-style:solid;">MA</span> <span style="font-size:43.2px;line-height:43.2px;border:0px solid rgb(229, 231, 235);box-sizing:border-box;color:rgb(194, 217, 224);font-weight:300;margin-left:-3px;border-color:rgb(229, 231, 235);margin:0px 0px 0px -3px;padding:0px;border-width:0px;border-style:solid;">AGE</span>
+<style>
+    /* Footer styles with scoped selectors to avoid inheritance issues */
+.footer-wrapper {
+  /* Reset base styles */
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+.footer-wrapper * {
+  box-sizing: border-box;
+}
+
+.footer-wrapper .footer {
+  background-color: rgb(60, 103, 126);
+  padding-top: 43.2px;
+  min-height: 275px;
+  border: 0;
+  margin: 0;
+}
+
+.footer-wrapper .footer-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14.4px;
+  padding-right: 14.4px;
+  width: 100%;
+  margin: 0 43px;
+  border: 0;
+}
+
+.footer-wrapper .footer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 227.203px);
+  gap: 28.8px;
+  margin: 20px 0;
+  padding: 0;
+  border: 0;
+}
+
+.footer-wrapper .footer-logo-section {
+  grid-column: span 2 / span 2;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-wrapper .footer-logo-container {
+  display: flex;
+  margin-bottom: 14.4px;
+  align-items: center;
+  border: 0;
+}
+
+.footer-wrapper .footer-logo-link {
+  color: rgb(44, 44, 44);
+  gap: 7.2px;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  border: 0;
+  font-family: Inter, sans-serif;
+  transition-duration: 0.3s;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  padding: 0;
+}
+
+.footer-wrapper .footer-logo {
+  display: block;
+  height: 50.3984px;
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-wrapper .footer-logo-text {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-wrapper .logo-first {
+  font-size: 43.2px;
+  line-height: 43.2px;
+  color: rgb(113, 163, 183);
+  font-weight: 600;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-wrapper .logo-last {
+  font-size: 43.2px;
+  line-height: 43.2px;
+  color: rgb(194, 217, 224);
+  font-weight: 300;
+  margin-left: -3px;
+  border: 0;
+  padding: 0;
+}
+
+.footer-wrapper .divider {
+  background-color: rgb(166, 201, 184);
+  width: 50px;
+  height: 4px;
+  margin-top: -4px;
+  margin-bottom: 25px;
+  border: 0;
+}
+
+.footer-wrapper .connect-section {
+  margin-top: 12px;
+  border: 0;
+  padding: 0;
+}
+
+.footer-wrapper .connect-heading {
+  font-weight: 600;
+  font-size: 12.6px;
+  line-height: 18px;
+  font-family: Poppins, sans-serif;
+  margin: 0 0 15.75px;
+  padding: 0;
+  color: rgb(219, 219, 219);
+  border: 0;
+}
+
+.footer-wrapper .social-links {
+  display: flex;
+  margin-top: 5px;
+  padding: 0;
+  border: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.footer-wrapper .social-link {
+  font-family: Inter, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition-duration: 0.3s;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgb(44, 44, 44);
+  text-decoration: none;
+  border: 0;
+}
+
+.footer-wrapper .social-link:not(:first-child) {
+  margin-left: 14.4px;
+}
+
+.footer-wrapper .social-icon {
+  font-family: 'Font Awesome 6 Brands';
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 27px;
+  text-rendering: auto;
+  transition-duration: 0.3s;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgb(219, 219, 219);
+  font-size: 27px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-wrapper .email-icon {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+.footer-wrapper .footer-nav-section {
+  grid-column: span 1 / span 1;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-wrapper .footer-heading {
+  font-weight: 600;
+  font-family: Poppins, sans-serif;
+  font-size: 14.4px;
+  margin: 0;
+  padding: 0;
+  color: rgb(194, 217, 224);
+  line-height: 25.2px;
+  border: 0;
+}
+
+.footer-wrapper .section-divider {
+  background-color: rgb(166, 201, 184);
+  height: 4px;
+  margin: 6px 0;
+  border: 0;
+}
+
+.footer-wrapper .divider-maage {
+  width: 55px;
+}
+
+.footer-wrapper .divider-resources {
+  width: 95px;
+}
+
+.footer-wrapper .divider-policies {
+  width: 70px;
+}
+
+.footer-wrapper .footer-nav-list {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+  list-style: none;
+  border: 0;
+}
+
+.footer-wrapper .footer-nav-item {
+  margin: 0;
+  padding: 3.6px 0 0;
+  font-size: 12.96px;
+  line-height: 19.44px;
+  border: 0;
+}
+
+.footer-wrapper .footer-nav-link {
+  font-family: Inter, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition-duration: 0.3s;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgb(219, 219, 219);
+  font-weight: 400;
+  font-size: 15px;
+  text-decoration: none;
+  border: 0;
+}
+
+.footer-wrapper .copyright {
+  display: block;
+  background-color: rgb(49, 70, 84);
+  z-index: 1026;
+  color: rgb(255, 255, 255);
+  padding: 14.4px;
+  text-align: center;
+  border: 0;
+  margin: 0;
+}
+
+.footer-wrapper .copyright-content {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  gap: 10.8px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 0;
+  justify-content: start;
+}
+
+.footer-wrapper .copyright-text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.footer-wrapper .copyright-divider {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.footer-wrapper .copyright-link {
+  font-size: 12.6px;
+  line-height: 18px;
+  font-family: Inter, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition-duration: 0.3s;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgb(250, 250, 250);
+  font-weight: 300;
+  text-decoration: none;
+  border: 0;
+}
+</style>
+
+
+<div class="footer-wrapper">
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-logo-section">
+                    <div class="footer-logo-container">
+                        <a href="/" aria-label="MAAGE" class="footer-logo-link">
+                            <img src="/public/maage/logos/maage-logo-temp.png" alt="MAAGE Logo" class="footer-logo" />
+                            <div class="footer-logo-text">
+                                <span class="logo-first">MA</span>
+                                <span class="logo-last">AGE</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="connect-section">
+                        <h4 class="connect-heading">Connect with MAAGE</h4>
+                        <div class="social-links">
+                            <a href="https://github.com/MAAGE-BRC" aria-label="Github" class="social-link">
+                                <span class="social-icon"></span>
+                            </a>
+                            <a href="https://www.twitter.com/maage_brc" aria-label="Twitter" class="social-link">
+                                <span class="social-icon"></span>
+                            </a>
+                            <a href="https://www.linkedin.com/company/maage-brc" aria-label="LinkedIn" class="social-link">
+                                <span class="social-icon"></span>
+                            </a>
+                            <a href="mailto:help@maage-brc.org" aria-label="Email" class="social-link">
+                                <span class="social-icon email-icon"></span>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div style="border-color:rgb(44, 44, 44);margin:-4px 0px 25px;padding:0px;box-sizing:border-box;background-color:rgb(166, 201, 184);width: 50px;height:4px;margin-top:-4px;margin-bottom:25px;border-width:0px;border-style:none;"></div>
-                <div style="border-color:rgb(44, 44, 44);margin:12px 0px 0px;padding:0px;box-sizing:border-box;margin-top:12px;border-width:0px;border-style:none;">
-                    <h4 style="font-weight:600;font-size:12.6px;line-height:18px;border-color:rgb(219, 219, 219);font-family:Poppins, sans-serif;margin:0px 0px 15.75px;padding:0px;box-sizing:border-box;color:rgb(219, 219, 219);margin-bottom:15.75px;border:0px none rgb(219, 219, 219);margin-top:0px;border-width:0px;border-style:none;">Connect with MAAGE</h4>
-                    <div style="display:flex;border-color:rgb(44, 44, 44);margin:5px 0px 0px;padding:0px;box-sizing:border-box;border:0px none rgb(44, 44, 44);margin-top:5px;border-width:0px;border-style:none;">
-                        <a href="https://github.com/MAAGE-BRC" aria-label="Github" style="border-color:rgb(44, 44, 44);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(44, 44, 44);text-decoration:none solid rgb(44, 44, 44);border-width:0px;border-style:none;">
-                            <span style="border-color:rgb(219, 219, 219);margin:0px;padding:0px;box-sizing:border-box;font-family:'Font Awesome 6 Brands';font-weight:400;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;line-height:27px;text-rendering: auto;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-size:27px;border-width:0px;border-style:none;"></span> </a> <a href="https://www.twitter.com/maage_brc" aria-label="Twitter" style="border-color:rgb(44, 44, 44);font-family:Inter, sans-serif;margin:0px 0px 0px 14.4px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);margin-right:0px;margin-left:14.4px;color:rgb(44, 44, 44);text-decoration:none solid rgb(44, 44, 44);border-width:0px;border-style:none;">
-                            <span style="border-color:rgb(219, 219, 219);margin:0px;padding:0px;box-sizing:border-box;font-family:'Font Awesome 6 Brands';font-weight:400;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;line-height:27px;text-rendering: auto;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-size:27px;border-width:0px;border-style:none;"></span> </a> <a href="https://www.linkedin.com/company/maage-brc" aria-label="LinkedIn" style="border-color:rgb(44, 44, 44);font-family:Inter, sans-serif;margin:0px 0px 0px 14.4px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);margin-right:0px;margin-left:14.4px;color:rgb(44, 44, 44);text-decoration:none solid rgb(44, 44, 44);border-width:0px;border-style:none;">
-                            <span style="border-color:rgb(219, 219, 219);margin:0px;padding:0px;box-sizing:border-box;font-family:'Font Awesome 6 Brands';font-weight:400;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;line-height:27px;text-rendering: auto;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-size:27px;border-width:0px;border-style:none;"></span> </a> <a href="mailto:help@maage-brc.org" aria-label="Email" style="border-color:rgb(44, 44, 44);font-family:Inter, sans-serif;margin:0px 0px 0px 14.4px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);margin-right:0px;margin-left:14.4px;color:rgb(44, 44, 44);text-decoration:none solid rgb(44, 44, 44);border-width:0px;border-style:none;">
-                            <span style="border-color:rgb(219, 219, 219);margin:0px;padding:0px;box-sizing:border-box;font-family:'Font Awesome 6 Free';font-weight:900;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;line-height:27px;text-rendering: auto;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-size:27px;border-width:0px;border-style:none;"></span> </a>
                     </div>
                 </div>
-            </div>
-            <div style="border-color:rgb(44, 44, 44);margin:0px;padding:0px;box-sizing:border-box;grid-column:span 1 / span 1;border-width:0px;border-style:none;">
-                <h3 style="font-weight:600;border-color:rgb(194, 217, 224);font-family:Poppins, sans-serif;font-size:14.4px;margin:0px;padding:0px;box-sizing:border-box;color:rgb(194, 217, 224);border:0px none rgb(194, 217, 224);line-height:25.2px;margin-top:0px;margin-bottom:0px;border-width:0px;border-style:none;">MAAGE</h3>
-                <div style="border-color:rgb(44, 44, 44);margin:6px 0px;padding:0px;box-sizing:border-box;background-color:rgb(166, 201, 184);width: 55px;height:4px;margin-top:6px;margin-bottom:6px;border-width:0px;border-style:none;"></div>
-                <ul style="border-color:rgb(44, 44, 44);margin:0px;padding:0px;box-sizing:border-box;list-style-position:inside;list-style:inside none none;border-width:0px;border-style:none;">
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/about" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">About Us</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/team" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Our Team</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/advisory-boards" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Advisory Boards</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/contact" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Contact Us</a></li>
-                </ul>
-            </div>
-            <div style="border-color:rgb(44, 44, 44);margin:0px;padding:0px;box-sizing:border-box;grid-column:span 1 / span 1;border-width:0px;border-style:none;">
-                <h3 style="font-weight:600;border-color:rgb(194, 217, 224);font-family:Poppins, sans-serif;font-size:14.4px;margin:0px;padding:0px;box-sizing:border-box;color:rgb(194, 217, 224);border:0px none rgb(194, 217, 224);line-height:25.2px;margin-top:0px;margin-bottom:0px;border-width:0px;border-style:none;">Resources</h3>
-                <div style="border-color:rgb(44, 44, 44);margin:6px 0px;padding:0px;box-sizing:border-box;background-color:rgb(166, 201, 184);width: 95px;height:4px;margin-top:6px;margin-bottom:6px;border-width:0px;border-style:none;"></div>
-                <ul style="border-color:rgb(44, 44, 44);margin:0px;padding:0px;box-sizing:border-box;list-style-position:inside;list-style:inside none none;border-width:0px;border-style:none;">
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/docs/" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Documentation</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/reports" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Analysis Reports</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/publications" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Publications</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/citations" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Citations</a></li>
-                </ul>
-            </div>
-            <div style="border-color:rgb(44, 44, 44);margin:0px;padding:0px;box-sizing:border-box;grid-column:span 1 / span 1;border-width:0px;border-style:none;">
-                <h3 style="font-weight:600;border-color:rgb(194, 217, 224);font-family:Poppins, sans-serif;font-size:14.4px;margin:0px;padding:0px;box-sizing:border-box;color:rgb(194, 217, 224);border:0px none rgb(194, 217, 224);line-height:25.2px;margin-top:0px;margin-bottom:0px;border-width:0px;border-style:none;">Policies</h3>
-                <div style="border-color:rgb(44, 44, 44);margin:6px 0px;padding:0px;box-sizing:border-box;background-color:rgb(166, 201, 184);width: 70px;height:4px;margin-top:6px;margin-bottom:6px;border-width:0px;border-style:none;"></div>
-                <ul style="border-color:rgb(44, 44, 44);margin:0px;padding:0px;box-sizing:border-box;list-style-position:inside;list-style:inside none none;border-width:0px;border-style:none;">
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/privacy-policy" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Privacy Policy</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/tos" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Terms of Use</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/data-policy" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Data Usage Policy</a></li>
-                    <li style="border-color:rgb(44, 44, 44);margin:0px;padding:3.6px 0px 0px;box-sizing:border-box;font-size:12.96px;line-height:19.44px;padding-top:3.6px;border-width:0px;border-style:none;"><a href="/accessibility" style="border-color:rgb(219, 219, 219);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(219, 219, 219);font-weight:400;font-size:15px;text-decoration:none solid rgb(219, 219, 219);border-width:0px;border-style:none;">Accessibility</a></li>
-                </ul>
+                <div class="footer-nav-section">
+                    <h3 class="footer-heading">MAAGE</h3>
+                    <div class="section-divider divider-maage"></div>
+                    <ul class="footer-nav-list">
+                        <li class="footer-nav-item">
+                            <a href="/about" class="footer-nav-link">About Us</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/team" class="footer-nav-link">Our Team</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/advisory-boards" class="footer-nav-link">Advisory Boards</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/contact" class="footer-nav-link">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-nav-section">
+                    <h3 class="footer-heading">Resources</h3>
+                    <div class="section-divider divider-resources"></div>
+                    <ul class="footer-nav-list">
+                        <li class="footer-nav-item">
+                            <a href="/docs/" class="footer-nav-link">Documentation</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/reports" class="footer-nav-link">Analysis Reports</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/publications" class="footer-nav-link">Publications</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/citations" class="footer-nav-link">Citations</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-nav-section">
+                    <h3 class="footer-heading">Policies</h3>
+                    <div class="section-divider divider-policies"></div>
+                    <ul class="footer-nav-list">
+                        <li class="footer-nav-item">
+                            <a href="/privacy-policy" class="footer-nav-link">Privacy Policy</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/tos" class="footer-nav-link">Terms of Use</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/data-policy" class="footer-nav-link">Data Usage Policy</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="/accessibility" class="footer-nav-link">Accessibility</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-  </footer>
+    </footer>
 
-  <div style="display:block;background-color:rgb(49, 70, 84);z-index:1026;color:rgb(255, 255, 255);padding:14.4px;text-align:center;border-color:rgb(255, 255, 255);margin:0px;box-sizing:border-box;border:0px none rgb(255, 255, 255);border-width:0px;border-style:none;">
-    <div style="display:flex;border-color:rgb(255, 255, 255);margin:0px;padding:0px;box-sizing:border-box;border:0px none rgb(255, 255, 255);font-weight:300;gap:10.8px;margin-right: auto;margin-left: auto;border-width:0px;border-style:none;">
-        <span style="border-color:rgb(255, 255, 255);margin:0px;padding:0px;box-sizing:border-box;border-width:0px;border-style:none;">MAAGE v0.3.5</span> <span style="border-color:rgb(255, 255, 255);margin:0px;padding:0px;box-sizing:border-box;border-width:0px;border-style:none;">|</span> <a href="/sitemap.xml" style="font-size:12.6px;line-height:18px;border-color:rgb(250, 250, 250);font-family:Inter, sans-serif;margin:0px;padding:0px;box-sizing:border-box;border:0px none rgb(250, 250, 250);transition-duration:0.3s;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);color:rgb(250, 250, 250);font-weight:300;text-decoration:none solid rgb(250, 250, 250);border-width:0px;border-style:none;">
-            sitemap</a>
+    <div class="copyright">
+        <div class="copyright-content">
+            <span class="copyright-text">MAAGE v0.3.5</span>
+            <span class="copyright-divider">|</span>
+            <a href="/sitemap.xml" class="copyright-link">sitemap</a>
+        </div>
     </div>
-  </div>
+</div>
