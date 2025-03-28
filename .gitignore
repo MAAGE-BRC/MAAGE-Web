@@ -1,9 +1,11 @@
-# Dependency directories
+# gitignore for https://github.com/maage-brc/maage
+
+# deps & packages
 node_modules/
 .yarn/
 .pnp/
 
-# Logs & Debugging
+# logs & debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -12,7 +14,7 @@ lerna-debug.log*
 dump.rdb
 *.log
 
-# Environment variables
+# environment variables
 .env
 .env.local
 .env.development
@@ -21,14 +23,14 @@ dump.rdb
 .env.*
 !.env.example
 
-# PM2
+# pm2
 ecosystem.config.js
 
-# BRC configs
+# brc configs
 p3-web.conf
 p3-web.conf-dev.maage
 
-# Editor & IDE settings
+# editor & ide
 .vscode/
 .idea/
 .zed/
@@ -43,7 +45,7 @@ CLAUDE.md
 .AppleDouble
 .LSOverride
 
-# Windows
+# windows
 Thumbs.db
 ehthumbs.db
 *.sublime-workspace
@@ -54,16 +56,16 @@ ntuser.dat
 NTUSER.DAT*
 NTUSER.INI
 
-# WSL
+# wsl
 .wslconfig
 .wslg/
 
-# Linux
+# linux
 *~
 .nfs*
 .lost+found/
 
-# Shell configs, history, etc
+# shell configs, history, etc
 .bash_history
 .bash_logout
 .bash_profile
@@ -88,7 +90,7 @@ NTUSER.INI
 .mkshrc
 .sh_history
 
-# Other terminal related files
+# other terminal
 .screenrc
 .tmux.conf
 .terminfo
@@ -97,19 +99,19 @@ NTUSER.INI
 .Xresources
 .Xdefaults
 
-# Build output
+# build
 dist/
 build/
 public/js/release/
 public/video/
 public/js/release/build-report.txt
 
-# Testing & Coverage
+# testing & coverage
 coverage/
 jest.config.js
 intern.js
 
-# Linting & Formatting Configs
+# linting & formatting
 # .eslintrc.json
 # .eslintignore
 #.prettierrc
@@ -119,7 +121,7 @@ intern.js
 .jshintrc
 .editorconfig
 
-# Temporary files & caches
+# temp files & caches
 .pnp.*
 .pnpm-store/
 .cache/
@@ -132,12 +134,14 @@ out/
 .nyc_output/
 node_repl_history
 
-# Miscellaneous
+# misc
 gulpfile.js
 gulpified
 test/
 src/
 /public/js/p3/widget/UserDetails.js
 
-# TEMP - TO BE REMOVED
+# lock files - ignored only when testing!
 package-lock.json
+# pnpm-lock.yaml
+# yarn.lock
