@@ -8,14 +8,12 @@ div#bv-brc-header-container>div:nth-child(2) {
 
 div#bv-brc-header {
   background-color: #9cc2af;
-  height: 55px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 60px;
   z-index: 1000;
 }
 
 div#bv-brc-header a {
   font-family: 'Poppins', sans-serif !important;
-  font-weight: 300 !important;
   font-size: 16px;
 }
 
@@ -695,11 +693,6 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-header #bv-brc-header-container div .menuHeader {
-  border-radius: 0;
-  border-style: initial;
-  border-width: 0;
-  box-shadow: none;
-  color: #EEEEEE;
   font-family: Arial, sans-serif;
   font-size-adjust: none;
   font-weight: 600;
@@ -708,11 +701,6 @@ div#bv-brc-header-container>div.nav-logo {
   padding: 0 0 0 4px;
   text-align: left;
   visibility: visible;
-  background-color: #9cc2af !important;
-}
-
-#bv-brc-header #bv-brc-header-container .menuItems .menuItemsM a {
-  color: #9cc2af !important;
 }
 
 
@@ -1030,7 +1018,6 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
     background-size: inherit;
     border-style: initial;
     border-width: 0;
-    box-shadow: 0 0 0;
     color: #EFEFEF;
     cursor: pointer;
     font-family: Poppins;

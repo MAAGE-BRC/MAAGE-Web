@@ -87,7 +87,7 @@
   --maage-light-text: #fafafa;
   --maage-dark-text: #1a1a1a;
 
-  --maage-bg: #F9F7F2;
+  --maage-bg: #fdfafc;
 
   --color-neutral-50: #fafafa;
   --color-neutral-100: #fafafa;
@@ -194,6 +194,7 @@
     border: 0 solid #e5e7eb;
     box-sizing: border-box;
   }
+
 
   .inherited-styles-for-exported-element {
     font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
