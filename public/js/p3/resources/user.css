@@ -35,7 +35,6 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   font-size: 14px!important;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
   min-width: 125px;
@@ -62,13 +61,13 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
 .login-btn {
   color: #fafafa;
   background-color: var(--maage-bg);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .login-btn:hover {
   color: #fafafa;
   background-color: #477e93;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .register-btn {
