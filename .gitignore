@@ -142,6 +142,6 @@ src/
 /public/js/p3/widget/UserDetails.js
 
 # lock files - ignored only when testing!
-package-lock.json
+# package-lock.json
 # pnpm-lock.yaml
 # yarn.lock
