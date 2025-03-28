@@ -1,71 +1,234 @@
-<style></style>
+<style>
+  .maage-home-container {
+    margin-top: 15px;
+  }
+
+  .intro-description {
+    font-size: 16px;
+  }
+
+  .search-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    font-size: 16px;
+  }
+
+  .search-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+
+  .search-form {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    flex-grow: 1;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: #94a3b8;
+  }
+
+  .search-input {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    padding-left: 2.5rem;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem 0 0 0.5rem;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .search-input:focus {
+    border-color: #cbd5e1;
+    box-shadow: 0 0 0 1px #cbd5e1;
+  }
+
+  .search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background-color: #467d94;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .search-button:hover {
+    background-color: #548fa6;
+  }
+
+  .advanced-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #3c677e;
+    font-weight: 500;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .advanced-toggle:hover {
+    color: #548fa6;
+  }
+
+  .advanced-panel {
+    background-color: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: none;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .advanced-section {
+    margin-bottom: 1rem;
+  }
+
+  .advanced-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .advanced-heading {
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 0.5rem;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .options-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .option-input {
+    height: 1rem;
+    width: 1rem;
+    color: #475569;
+    border-color: #cbd5e1;
+  }
+
+  .option-input[type="checkbox"] {
+    border-radius: 0.25rem;
+  }
+
+  .option-label {
+    margin-left: 0.5rem;
+    font-size: 0.875rem;
+    color: #334155;
+  }
+
+  .icon {
+    width: 1rem;
+    height: 1rem;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .search-button .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .card-heading {
+    font-size: 18px;
+  }
+
+  .card-list {
+    font-size: 14px;
+  }
+
+  .card-header {
+    font-size: 1.4rem;
+  }
+
+  .btn-guide-links {
+    border: 1px solid var(--maage-gray-200);
+    padding: 8px 26px;
+    border-radius: 6px;
+    color: #2c2c2c;
+    font-size: 14px;
+  }
+
+  .maage-banner {
+    max-width: 1350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .event-date {
+    background-color: #f2f7f5;
+    color: #334a57;
+  }
+
+  .event-date-default {
+    background-color: #ffffff;
+    color: #334a57;
+  }
+
+  .covid-card-header {
+    background-color: #a6c9b8;
+  }
+</style>
 
 <div id="bv-brc-home" class="bg-[var(--maage-bg)]">
   <div class="maage-home">
     <div id="bv-brc-home-container">
-      <div class="maage-home-container mt-[15px]">
-<style>
-  div.relative.z-10.space-y-6 > div:nth-child(1) > p.text-gray-700.mb-6.text-lg.max-w-3xl {
-  font-size: 16px;
-}
-
-div.relative.z-10.space-y-6 > div.search-container > div:nth-child(2) {
-  font-size: 16px;
-}
-
-div.bg-primary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(1) > div.flex.items-center.mb-3 {
-  font-size: 1.4rem;
-}
-
-div.bg-primary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(1) > div.flex.items-center.mb-3 > h3.font-semibold.text-secondary-800.text-lg {
-  font-size: 18px;
-}
-
-div.bg-primary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(1) > ul.space-y-2\.5 {
-  font-size: 14px;
-}
-
-div.bg-secondary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(2) > ul.space-y-2\.5 {
-  font-size: 14px;
-}
-
-div.bg-secondary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(2) > div.flex.items-center.mb-3 > h3.font-semibold.text-secondary-800.text-lg {
-  font-size: 18px;
-}
-
-div.bg-primary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(3) > ul.space-y-2\.5 {
-  font-size: 14px;
-}
-
-div.bg-primary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(3) > div.flex.items-center.mb-3 > h3.font-semibold.text-secondary-800.text-lg {
-  font-size: 18px;
-}
-
-div.bg-secondary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(4) > ul.space-y-2\.5 {
-  font-size: 14px;
-}
-
-div.bg-secondary-50.rounded-lg.p-5.shadow-md.border.border-gray-100.hover/:border-secondary-200.transition-colors:nth-child(4) > div.flex.items-center.mb-3 > h3.font-semibold.text-secondary-800.text-lg {
-  font-size: 18px;
-}
-
-div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-secondary-700.px-5.py-2/.5.hover\:bg-gray-100.shadow-sm.text-sm.font-medium.flex.items-center:nth-child(1) {
-  font-size: 14px;
-}
-
-div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-secondary-700.px-5.py-2/.5.hover\:bg-gray-100.shadow-sm.text-sm.font-medium.flex.items-center:nth-child(3) {
-  font-size: 14px;
-}
-
-div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-secondary-700.px-5.py-2/.5.hover\:bg-gray-100.shadow-sm.text-sm.font-medium.flex.items-center:nth-child(2) {
-  font-size: 14px;
-}
-</style>
+      <div class="maage-home-container">
       <!-- Banner -->
       <div id="maage-banner"
-        class="flex items-center gap-x-6 bg-[var(--maage-secondary-600)] rounded-lg px-6 py-2.5 sm:px-3.5 sm:before:flex-1 mb-[5px] ml-auto mr-auto relative"
-        style="max-width: 1350px;">
-        <p class="text-sm/6 text-[#ffffff] font-normal text-md font-poppins" style="color:#ffffff;">
+        class="maage-banner flex items-center gap-x-6 bg-[var(--maage-secondary-600)] rounded-lg px-6 py-2.5 sm:px-3.5 sm:before:flex-1 mb-[5px] relative">
+        <p class="text-sm/6 text-[#ffffff] font-normal text-md font-poppins">
           The MAAGE platform is currently under development. Expect frequent updates with occasional downtime.
         </p>
         <div class="flex flex-1 justify-end">
@@ -76,17 +239,13 @@ div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-s
         </div>
       </div>
 
-
       <main class="flex-grow container mx-auto p-4 md:p-6">
-
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div class="lg:col-span-3 space-y-6 flex flex-col">
             <section
               class="bg-gradient-to-r from-primary-100 to-secondary-100 p-8 md:p-12 rounded-xl shadow-md overflow-hidden relative">
               <div class="absolute right-0 top-0 w-64 h-64 md:w-96 md:h-96 opacity-10">
-                <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDIuNUwzNy41IDEwVjMwTDIwIDM3LjVMMi41IDMwVjEwTDIwIDIuNVoiIGZpbGw9IiNhNmM5YjgiIC8+CjxwYXRoIGQ9Ik0yMCAyLjVMMzcuNSAxMFYzMEwyMCAzNy41VjIuNVoiIGZpbGw9IiM2NDliYWYiIC8+CjxwYXRoIGQ9Ik0yMCAxNUMyMi43NjE0IDE1IDI1IDE3LjIzODYgMjUgMjBDMjUgMjIuNzYxNCAyMi43NjE0IDI1IDIwIDI1QzE3LjIzODYgMjUgMTUgMjIuNzYxNCAxNSAyMEMxNSAxNy4yMzg2IDE3LjIzODYgMTUgMjAgMTVaIiBmaWxsPSIjODI3OWExIiAvPgo8cGF0aCBkPSJNMjAgMThDMjEuMTA0NiAxOCAyMiAxOC44OTU0IDIyIDIwQzIyIDIxLjEwNDYgMjEuMTA0NiAyMiAyMCAyMkMxOC44OTU0IDIyIDE4IDIxLjEwNDYgMTggMjBDMTggMTguODk1NCAxOC44OTU0IDE4IDIwIDE4WiIgZmlsbD0iIzZlNmI4YSIgLz4KPHBhdGggZD0iTTIzIDEzLjVDMjQuMzgwNyAxMy41IDI1LjUgMTQuNjE5MyAyNS41IDE2QzI1LjUgMTcuMzgwNyAyNC4zODA3IDE4LjUgMjMgMTguNUMyMS42MTkzIDE4LjUgMjAuNSAxNy4zODA3IDIwLjUgMTZDMjAuNSAxNC42MTkzIDIxLjYxOTMgMTMuNSAyMyAxMy41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPHBhdGggZD0iTTE3IDEzLjVDMTguMzgwNyAxMy41IDE5LjUgMTQuNjE5MyAxOS41IDE2QzE5LjUgMTcuMzgwNyAxOC4zODA3IDE4LjUgMTcgMTguNUMxNS42MTkzIDE4LjUgMTQuNSAxNy4zODA3IDE0LjUgMTZDMTQuNSAxNC42MTkzIDE1LjYxOTMgMTMuNSAxNyAxMy41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPHBhdGggZD0iTTIzIDIxLjVDMjQuMzgwNyAyMS41IDI1LjUgMjIuNjE5MyAyNS41IDI0QzI1LjUgMjUuMzgwNyAyNC4zODA3IDI2LjUgMjMgMjYuNUMyMS42MTkzIDI2LjUgMjAuNSAyNS4zODA3IDIwLjUgMjRDMjAuNSAyMi42MTkzIDIxLjYxOTMgMjEuNSAyMyAyMS41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPHBhdGggZD0iTTE3IDIxLjVDMTguMzgwNyAyMS41IDE5LjUgMjIuNjE5MyAxOS41IDI0QzE5LjUgMjUuMzgwNyAxOC4zODA3IDI2LjUgMTcgMjYuNUMxNS42MTkzIDI2LjUgMTQuNSAyNS4zODA3IDE0LjUgMjRDMTQuNSAyMi42MTkzIDE1LjYxOTMgMjEuNSAxNyAyMS41WiIgZmlsbD0iIzgyNzlhMSIgLz4KPC9zdmc+Cg=="
-                  alt="MAAGE Background" width="400" height="400" class="object-contain">
+                <img src="/public/maage/img/home/hero-bg.svg" alt="MAAGE Background" width="400" height="400" class="object-contain">
               </div>
               <div class="relative z-10 space-y-6">
                 <div>
@@ -94,703 +253,511 @@ div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-s
                     class="text-3xl md:text-4xl lg:text-5xl font-semibold text-secondary-900 mb-4 font-poppins leading-tight">
                     Midwest Alliance for Applied<br /> Genomic Epidemiology
                   </h1>
-                  <p class="text-gray-700 mb-6 text-lg max-w-3xl">
+                  <p class="intro-description text-gray-700 mb-6 text-lg max-w-3xl">
                     The Midwest Alliance for Applied Genomic Epidemiology (MAAGE) aims to develop a genomic surveillance platform to enhance infectious disease detection and tracking while providing educational resources for public health and
                   </p>
                 </div>
 
-                <style>
-                  .search-container {
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                    max-width: 1000px;
-                    margin: 0 auto;
-                    background-color: white;
-                    border-radius: 0.75rem;
-                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                    padding: 2rem;
-                  }
-
-                  .search-header {
-                    margin-bottom: 1.5rem;
-                  }
-
-                  .search-title {
-                    font-size: 1.875rem;
-                    font-weight: 700;
-                    color: #1e293b;
-                    margin: 0;
-                  }
-
-                  /* Search form */
-                  .search-form {
-                    margin-bottom: 1.5rem;
-                  }
-
-                  .search-input-container {
-                    display: flex;
-                    width: 100%;
-                  }
-
-                  .search-input-wrapper {
-                    position: relative;
-                    flex-grow: 1;
-                  }
-
-                  .search-icon {
-                    position: absolute;
-                    top: 50%;
-                    left: 0.75rem;
-                    transform: translateY(-50%);
-                    color: #94a3b8;
-                  }
-
-                  .search-input {
-                    display: block;
-                    width: 100%;
-                    padding: 1rem;
-                    padding-left: 2.5rem;
-                    color: #475569;
-                    border: 1px solid #e2e8f0;
-                    border-radius: 0.5rem 0 0 0.5rem;
-                    outline: none;
-                    font-size: 1rem;
-                  }
-
-                  .search-input:focus {
-                    border-color: #cbd5e1;
-                    box-shadow: 0 0 0 1px #cbd5e1;
-                  }
-
-                  .search-button {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 0.5rem;
-                    padding: 1rem 2rem;
-                    background-color: #467d94;
-                    color: white;
-                    font-weight: 500;
-                    border: none;
-                    border-radius: 0 0.5rem 0.5rem 0;
-                    cursor: pointer;
-                    transition: background-color 0.2s;
-                  }
-
-                  .search-button:hover {
-                    background-color: #548fa6;
-                  }
-
-                  /* Advanced search toggle */
-                  .advanced-toggle {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    color: #3c677e;
-                    font-weight: 500;
-                    background: none;
-                    border: none;
-                    padding: 0;
-                    cursor: pointer;
-                    margin-bottom: 0.5rem;
-                    transition: color 0.2s;
-                  }
-
-                  .advanced-toggle:hover {
-                    color: #548fa6;
-                  }
-
-                  .advanced-panel {
-                    background-color: #f8fafc;
-                    padding: 1rem;
-                    border-radius: 0.5rem;
-                    margin-bottom: 1rem;
-                    display: none;
-                    animation: fadeIn 0.2s ease-in-out;
-                  }
-
-                  @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                  }
-
-                  .advanced-section {
-                    margin-bottom: 1rem;
-                  }
-
-                  .advanced-section:last-child {
-                    margin-bottom: 0;
-                  }
-
-                  .advanced-heading {
-                    font-weight: 500;
-                    color: #334155;
-                    margin-bottom: 0.5rem;
-                  }
-
-                  .options-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 0.5rem;
-                  }
-
-                  @media (min-width: 768px) {
-                    .options-grid {
-                      grid-template-columns: repeat(4, 1fr);
-                    }
-                  }
-
-                  .option-item {
-                    display: flex;
-                    align-items: center;
-                  }
-
-                  .option-input {
-                    height: 1rem;
-                    width: 1rem;
-                    color: #475569;
-                    border-color: #cbd5e1;
-                  }
-
-                  .option-input[type="checkbox"] {
-                    border-radius: 0.25rem;
-                  }
-
-                  .option-label {
-                    margin-left: 0.5rem;
-                    font-size: 0.875rem;
-                    color: #334155;
-                  }
-
-                  /* Icons */
-                  .icon {
-                    width: 1rem;
-                    height: 1rem;
-                    stroke: currentColor;
-                    stroke-width: 2;
-                    fill: none;
-                  }
-
-                  .search-button .icon {
-                    width: 1.25rem;
-                    height: 1.25rem;
-                  }
-                </style>
-
-
-          <div id="maage-home-search" class="search-container">
-            <div class="search-header">
-              <h2 class="text-2xl font-semibold text-secondary-800 font-poppins">Search Data</h1>
-            </div>
-
-            <form class="search-form" id="searchForm">
-              <div class="search-input-container">
-                <div class="search-input-wrapper">
-                  <div class="search-icon">
-                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
+                <div id="maage-home-search" class="search-container">
+                  <div class="search-header">
+                    <h2 class="text-2xl font-semibold text-secondary-800 font-poppins">Search Data</h2>
                   </div>
-                  <input
-                    type="text"
-                    class="search-input"
-                    name="searchQuery"
-                    id="searchQuery"
-                    placeholder="Search genes, genomes, proteins, pathways..."
-                  >
+
+                  <form class="search-form" id="searchForm">
+                    <div class="search-input-container">
+                      <div class="search-input-wrapper">
+                        <div class="search-icon">
+                          <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                          </svg>
+                        </div>
+                        <input
+                          type="text"
+                          class="search-input"
+                          name="searchQuery"
+                          id="searchQuery"
+                          placeholder="Search genes, genomes, proteins, pathways..."
+                        >
+                      </div>
+                      <button type="submit" class="search-button">
+                        Search
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  </form>
+
+                  <div>
+                    <button type="button" class="advanced-toggle" id="advancedToggle">
+                      <svg class="icon chevron-down" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                      <svg class="icon chevron-up" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <polyline points="18 15 12 9 6 15"></polyline>
+                      </svg>
+                      Advanced Search Options
+                    </button>
+
+                    <div class="advanced-panel" id="advancedPanel">
+                      <div class="advanced-section">
+                        <h3 class="advanced-heading">Search Type</h3>
+                        <div class="options-grid">
+                          <div class="option-item">
+                            <input
+                              type="radio"
+                              id="all-terms"
+                              name="searchType"
+                              value="all-terms"
+                              class="option-input"
+                              checked
+                            >
+                            <label for="all-terms" class="option-label">All Terms</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="radio"
+                              id="any-terms"
+                              name="searchType"
+                              value="any-terms"
+                              class="option-input"
+                            >
+                            <label for="any-terms" class="option-label">Any Terms</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="radio"
+                              id="exact-terms"
+                              name="searchType"
+                              value="exact-terms"
+                              class="option-input"
+                            >
+                            <label for="exact-terms" class="option-label">Exact Terms</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="radio"
+                              id="all-exact-terms"
+                              name="searchType"
+                              value="all-exact-terms"
+                              class="option-input"
+                            >
+                            <label for="all-exact-terms" class="option-label">All Exact Terms</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="advanced-section">
+                        <h3 class="advanced-heading">Data Types</h3>
+                        <div class="options-grid">
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="taxa"
+                              name="dataType"
+                              value="taxa"
+                              class="option-input"
+                            >
+                            <label for="taxa" class="option-label">Taxa</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="genomes"
+                              name="dataType"
+                              value="genomes"
+                              class="option-input"
+                            >
+                            <label for="genomes" class="option-label">Genomes</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="features"
+                              name="dataType"
+                              value="features"
+                              class="option-input"
+                            >
+                            <label for="features" class="option-label">Features</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="proteins"
+                              name="dataType"
+                              value="proteins"
+                              class="option-input"
+                            >
+                            <label for="proteins" class="option-label">Proteins</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="specialty-genes"
+                              name="dataType"
+                              value="specialty-genes"
+                              class="option-input"
+                            >
+                            <label for="specialty-genes" class="option-label">Specialty Genes</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="protein-structures"
+                              name="dataType"
+                              value="protein-structures"
+                              class="option-input"
+                            >
+                            <label for="protein-structures" class="option-label">Protein Structures</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="pathways"
+                              name="dataType"
+                              value="pathways"
+                              class="option-input"
+                            >
+                            <label for="pathways" class="option-label">Pathways</label>
+                          </div>
+                          <div class="option-item">
+                            <input
+                              type="checkbox"
+                              id="subsystems"
+                              name="dataType"
+                              value="subsystems"
+                              class="option-input"
+                            >
+                            <label for="subsystems" class="option-label">Subsystems</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <button type="submit" class="search-button">
-                  Search
-                  <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </div>
+            </section>
+
+            <script>
+              const advancedToggle = document.getElementById('advancedToggle');
+              const advancedPanel = document.getElementById('advancedPanel');
+              const chevronDown = document.querySelector('.chevron-down');
+              const chevronUp = document.querySelector('.chevron-up');
+
+              advancedToggle.addEventListener('click', function() {
+                const isVisible = advancedPanel.style.display === 'block';
+
+                if (isVisible) {
+                  advancedPanel.style.display = 'none';
+                  chevronDown.style.display = 'block';
+                  chevronUp.style.display = 'none';
+                } else {
+                  advancedPanel.style.display = 'block';
+                  chevronDown.style.display = 'none';
+                  chevronUp.style.display = 'block';
+                }
+              });
+            </script>
+
+            <!-- Analyze Data -->
+            <section class="bg-white p-6 rounded-lg shadow-md border border-primary-100">
+              <div class="flex items-center mb-6">
+                <i data-lucide="microscope" class="h-8 w-8 text-secondary-600 mr-2"></i>
+                <h2 class="text-2xl font-semibold text-secondary-800 font-poppins">Analyze Data</h2>
+              </div>
+              <p class="text-gray-700 mb-4 text-lg">
+                Upload and analyze your genomic data in a secure private workspace with our comprehensive suite of tools.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Search Column -->
+                <div class="bg-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
+                  <div class="card-header flex items-center mb-3">
+                    <i data-lucide="search" class="h-5 w-5 text-secondary-600 mr-2"></i>
+                    <h3 class="card-heading font-semibold text-secondary-800">Search</h3>
+                  </div>
+                  <ul class="card-list space-y-2.5">
+                    <li class="flex items-center">
+                      <i data-lucide="bug" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/searches/TaxaSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Taxa
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="dna" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/searches/GenomeSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Genomes
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="leaf" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/searches/GenomicFeatureSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Features
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="zap" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/searches/SpecialtyGeneSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Specialty Genes
+                      </a>
+                    </li>
+                    <li class="flex items-center mt-5 font-medium">
+                      <a href="/searches" class="inline-flex items-center text-gray-700 text-md hover:text-secondary-600 transition-colors">
+                        View All Searchs
+                        <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Analyze Column -->
+                <div class="bg-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
+                  <div class="card-header flex items-center mb-3">
+                    <i data-lucide="microscope" class="h-5 w-5 text-secondary-600 mr-2"></i>
+                    <h3 class="card-heading font-semibold text-secondary-800">Analyze</h3>
+                  </div>
+                  <ul class="card-list space-y-2.5">
+                    <li class="flex items-center">
+                      <i data-lucide="dna" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/app/Assembly2" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
+                        Assembly
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="leaf" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/app/Annotation" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
+                        Annotation
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="search" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/app/Homology" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
+                        BLAST
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="bug" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/app/MSA" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
+                        MSA
+                      </a>
+                    </li>
+                    <li class="flex items-center mt-5 text-secondary-600 text-md font-medium">
+                      <a href="/tools" class="inline-flex items-center text-gray-700 text-md hover:text-secondary-600 transition-colors">
+                        View All Tools
+                        <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Data Column -->
+                <div class="bg-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
+                  <div class="card-header flex items-center mb-3">
+                    <i data-lucide="server" class="h-5 w-5 text-secondary-600 mr-2"></i>
+                    <h3 class="card-heading font-semibold text-secondary-800">Data</h3>
+                  </div>
+                  <ul class="card-list space-y-2.5">
+                    <li class="flex items-center">
+                      <i data-lucide="server" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspace/" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Workspace
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="save" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspace/groups" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Genome Groups
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="upload" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspaces/jobs" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Analysis Jobs
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="clock" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspace/bioprojects" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        BioProjects
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Access Column -->
+                <div class="bg-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
+                  <div class="card-header flex items-center mb-3">
+                    <i data-lucide="server" class="h-5 w-5 text-secondary-600 mr-2"></i>
+                    <h3 class="card-heading font-semibold text-secondary-800">Access</h3>
+                  </div>
+                  <ul class="card-list space-y-2.5">
+                    <li class="flex items-center">
+                      <i data-lucide="terminal" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="#" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        CLI
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="code" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="#" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        API
+                      </a>
+                    </li>
+                    <li class="flex items-center">
+                      <i data-lucide="download" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="#" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        FTP
+                      </a>
+                    </li>
+                    <!-- <li class="flex items-center mt-4 text-secondary-600 font-medium">
+                      <a href="#" class="inline-flex items-center hover:underline">
+                        View All
+                        <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+                      </a>
+                    </li> -->
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-8 flex flex-wrap gap-4 justify-center">
+                <a href="#"
+                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                  <i data-lucide="zap" class="mr-1.5 h-4 w-4"></i>
+                  Quick Start
+                </a>
+
+                <a href="#"
+                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                  <i data-lucide="database" class="mr-1.5 h-4 w-4"></i>
+                  Reference Guides
+                </a>
+
+                <a href="#"
+                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                  <i data-lucide="microscope" class="mr-1.5 h-4 w-4"></i>
+                  Tutorials
+                </a>
+              </div>
+            </section>
+
+            <!-- Active Outbreaks -->
+            <section class="home-active-outbreaks bg-gradient-to-br from-white to-primary-50 p-6 rounded-lg shadow-md border border-primary-100">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                  <?xml version="1.0"?>
+                  <svg class="h-8 w-8 m-[6px] fill-[var(--maage-secondary-600)]" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512">
+                    <path
+                      d="M216 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h24v40.7c-38.8 3.3-74.1 18.7-102.3 42.4l-28.8-28.8s0 0 0 0l17-17c6.2-6.2 6.2-16.4 0-22.6 -6.2-6.2-16.4-6.2-22.6 0l-56.6 56.6c-6.2 6.2-6.2 16.4 0 22.6 6.2 6.2 16.4 6.2 22.6 0l17-17s0 0 0 0l28.8 28.8C91.4 165.9 76 201.2 72.7 240H32v-24c0-8.8-7.2-16-16-16s-16 7.2-16 16v80c0 8.8 7.2 16 16 16s16-7.2 16-16v-24h40.7c3.3 38.8 18.7 74.1 42.4 102.3l-28.8 28.8s0 0 0 0l-17-17c-6.2-6.2-16.4-6.2-22.6 0 -6.2 6.2-6.2 16.4 0 22.6l56.6 56.6c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6l-17-17s0 0 0 0l28.8-28.8c28.2 23.7 63.5 39 102.3 42.4V480h-24c-8.8 0-16 7.2-16 16s7.2 16 16 16h80c8.8 0 16-7.2 16-16s-7.2-16-16-16h-24v-40.7c38.8-3.3 74.1-18.7 102.3-42.4l28.8 28.8s0 0 0 0l-17 17c-6.2 6.2-6.2 16.4 0 22.6 6.2 6.2 16.4 6.2 22.6 0l56.6-56.6c6.2-6.2 6.2-16.4 0-22.6 -6.2-6.2-16.4-6.2-22.6 0l-17 17s0 0 0 0l-28.8-28.8c23.7-28.2 39-63.5 42.4-102.3H480v24c0 8.8 7.2 16 16 16s16-7.2 16-16v-80c0-8.8-7.2-16-16-16s-16 7.2-16 16v24h-40.7c-3.3-38.8-18.7-74.1-42.4-102.3l28.8-28.8s0 0 0 0l17 17c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6l-56.6-56.6c-6.2-6.2-16.4-6.2-22.6 0 -6.2 6.2-6.2 16.4 0 22.6l17 17s0 0 0 0l-28.8 28.8C346.1 91.4 310.8 76 272 72.7V32h24c8.8 0 16-7.2 16-16s-7.2-16-16-16h-80Zm40 104v0c83.94 0 152 68.05 152 152 0 83.94-68.06 152-152 152v0c-83.95 0-152-68.06-152-152 0-83.95 68.05-152 152-152Zm-64 104v0c8.83 0 16 7.16 16 16 0 8.83-7.17 16-16 16v0c-8.84 0-16-7.17-16-16 0-8.84 7.16-16 16-16Zm0 64v0c26.5 0 48-21.5 48-48 0-26.51-21.5-48-48-48v0c-26.51 0-48 21.49-48 48 0 26.5 21.49 48 48 48Zm112 56v0c13.25 0 24-10.75 24-24 0-13.26-10.75-24-24-24v0c-13.26 0-24 10.74-24 24 0 13.25 10.74 24 24 24Z">
+                    </path>
                   </svg>
-                </button>
-              </div>
-            </form>
-
-            <div>
-              <button type="button" class="advanced-toggle" id="advancedToggle">
-                <svg class="icon chevron-down" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-                <svg class="icon chevron-up" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                  <polyline points="18 15 12 9 6 15"></polyline>
-                </svg>
-                Advanced Search Options
-              </button>
-
-              <div class="advanced-panel" id="advancedPanel">
-                <div class="advanced-section">
-                  <h3 class="advanced-heading">Search Type</h3>
-                  <div class="options-grid">
-                    <div class="option-item">
-                      <input
-                        type="radio"
-                        id="all-terms"
-                        name="searchType"
-                        value="all-terms"
-                        class="option-input"
-                        checked
-                      >
-                      <label for="all-terms" class="option-label">All Terms</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="radio"
-                        id="any-terms"
-                        name="searchType"
-                        value="any-terms"
-                        class="option-input"
-                      >
-                      <label for="any-terms" class="option-label">Any Terms</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="radio"
-                        id="exact-terms"
-                        name="searchType"
-                        value="exact-terms"
-                        class="option-input"
-                      >
-                      <label for="exact-terms" class="option-label">Exact Terms</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="radio"
-                        id="all-exact-terms"
-                        name="searchType"
-                        value="all-exact-terms"
-                        class="option-input"
-                      >
-                      <label for="all-exact-terms" class="option-label">All Exact Terms</label>
-                    </div>
-                  </div>
+                  <h2 class="text-2xl font-semibold text-[var(--maage-gray-800)] font-poppins">Active Outbreaks</h2>
                 </div>
-
-                <div class="advanced-section">
-                  <h3 class="advanced-heading">Data Types</h3>
-                  <div class="options-grid">
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="taxa"
-                        name="dataType"
-                        value="taxa"
-                        class="option-input"
-                      >
-                      <label for="taxa" class="option-label">Taxa</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="genomes"
-                        name="dataType"
-                        value="genomes"
-                        class="option-input"
-                      >
-                      <label for="genomes" class="option-label">Genomes</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="features"
-                        name="dataType"
-                        value="features"
-                        class="option-input"
-                      >
-                      <label for="features" class="option-label">Features</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="proteins"
-                        name="dataType"
-                        value="proteins"
-                        class="option-input"
-                      >
-                      <label for="proteins" class="option-label">Proteins</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="specialty-genes"
-                        name="dataType"
-                        value="specialty-genes"
-                        class="option-input"
-                      >
-                      <label for="specialty-genes" class="option-label">Specialty Genes</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="protein-structures"
-                        name="dataType"
-                        value="protein-structures"
-                        class="option-input"
-                      >
-                      <label for="protein-structures" class="option-label">Protein Structures</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="pathways"
-                        name="dataType"
-                        value="pathways"
-                        class="option-input"
-                      >
-                      <label for="pathways" class="option-label">Pathways</label>
-                    </div>
-                    <div class="option-item">
-                      <input
-                        type="checkbox"
-                        id="subsystems"
-                        name="dataType"
-                        value="subsystems"
-                        class="option-input"
-                      >
-                      <label for="subsystems" class="option-label">Subsystems</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <script>
-        const advancedToggle = document.getElementById('advancedToggle');
-        const advancedPanel = document.getElementById('advancedPanel');
-        const chevronDown = document.querySelector('.chevron-down');
-        const chevronUp = document.querySelector('.chevron-up');
-
-        advancedToggle.addEventListener('click', function() {
-          const isVisible = advancedPanel.style.display === 'block';
-
-          if (isVisible) {
-            advancedPanel.style.display = 'none';
-            chevronDown.style.display = 'block';
-            chevronUp.style.display = 'none';
-          } else {
-            advancedPanel.style.display = 'block';
-            chevronDown.style.display = 'none';
-            chevronUp.style.display = 'block';
-          }
-        });
-
-
-      </script>
-
-      <!-- Analyze Data -->
-      <section class="bg-white p-6 rounded-lg shadow-md border border-primary-100">
-        <div class="flex items-center mb-6">
-          <i data-lucide="microscope" class="h-8 w-8 text-secondary-600 mr-2"></i>
-          <h2 class="text-2xl font-semibold text-secondary-800 font-poppins">Analyze Data</h2>
-        </div>
-        <p class="text-gray-700 mb-4 text-lg">
-          Upload and analyze your genomic data in a secure private workspace with our comprehensive suite of tools.
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          <!-- Search Column -->
-          <div class="bg-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
-            <div class="flex items-center mb-3">
-              <i data-lucide="search" class="h-5 w-5 text-secondary-600 mr-2"></i>
-              <h3 class="font-semibold text-secondary-800 text-lg">Search</h3>
-            </div>
-            <ul class="space-y-2.5">
-              <li class="flex items-center">
-                <i data-lucide="bug" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/searches/TaxaSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  Taxa
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="dna" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/searches/GenomeSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  Genomes
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="leaf" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/searches/GenomicFeatureSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  Features
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="zap" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/searches/SpecialtyGeneSearch" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  Specialty Genes
-                </a>
-              </li>
-              <li class="flex items-center mt-5 font-medium">
-                <a href="/searches" class="inline-flex items-center text-gray-700 text-md hover:text-secondary-600 transition-colors">
-                  View All Searchs
-                  <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Analyze Column -->
-          <div class="bg-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
-            <div class="flex items-center mb-3">
-              <i data-lucide="microscope" class="h-5 w-5 text-secondary-600 mr-2"></i>
-              <h3 class="font-semibold text-secondary-800 text-lg">Analyze</h3>
-            </div>
-            <ul class="space-y-2.5">
-              <li class="flex items-center">
-                <i data-lucide="dna" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/app/Assembly2" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
-                  Assembly
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="leaf" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/app/Annotation" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
-                  Annotation
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="search" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/app/Homology" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
-                  BLAST
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="bug" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/app/MSA" class="text-gray-700 text-md hover:text-secondary-600 transition-colors">
-                  MSA
-                </a>
-              </li>
-              <li class="flex items-center mt-5 text-secondary-600 text-md font-medium">
-                <a href="/tools" class="inline-flex items-center text-gray-700 text-md hover:text-secondary-600 transition-colors">
-                  View All Tools
-                  <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Data Column -->
-          <div class="bg-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
-            <div class="flex items-center mb-3">
-              <i data-lucide="server" class="h-5 w-5 text-secondary-600 mr-2"></i>
-              <h3 class="font-semibold text-secondary-800 text-lg">Data</h3>
-            </div>
-            <ul class="space-y-2.5">
-              <li class="flex items-center">
-                <i data-lucide="server" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/workspace/" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  Workspace
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="save" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/workspace/groups" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  Genome Groups
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="upload" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/workspaces/jobs" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  Analysis Jobs
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="clock" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="/workspace/bioprojects" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  BioProjects
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Access Column -->
-          <div class="bg-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
-            <div class="flex items-center mb-3">
-              <i data-lucide="server" class="h-5 w-5 text-secondary-600 mr-2"></i>
-              <h3 class="font-semibold text-secondary-800 text-lg">Access</h3>
-            </div>
-            <ul class="space-y-2.5">
-              <li class="flex items-center">
-                <i data-lucide="terminal" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="#" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  CLI
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="code" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="#" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  API
-                </a>
-              </li>
-              <li class="flex items-center">
-                <i data-lucide="download" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
-                <a href="#" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                  FTP
-                </a>
-              </li>
-              <!-- <li class="flex items-center mt-4 text-secondary-600 font-medium">
-                <a href="#" class="inline-flex items-center hover:underline">
+                <a href="#" class="text-sm text-secondary-600 hover:text-secondary-800 flex items-center">
                   View All
                   <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
                 </a>
-              </li> -->
-            </ul>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Mpox Card -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
+                  <div class="bg-[var(--maage-secondary-500)] p-4 text-white">
+                    <div class="flex justify-between items-center">
+                      <h3 class="text-lg font-semibold text-[#fafafa]">Mpox</h3>
+                      <span class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">High Alert</span>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <div class="flex items-center justify-between mb-3">
+                      <div>
+                        <p class="text-xs text-gray-500">New Cases</p>
+                        <p class="text-sm font-semibold">
+                          +124 <span class="text-[#978fb5] text-xs">↑15%</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-xs text-gray-500">Regions</p>
+                        <p class="text-sm font-semibold">12 states</p>
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="text-[#978fb5] hover:text-[#7a7394] text-sm font-medium flex items-center mt-2"
+                    >
+                      View Dashboard
+                      <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- H5N1 Card - using #ecc187 (amber) -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
+                  <div class="bg-[var(--maage-tertiary-500)] p-4 text-white">
+                    <div class="flex justify-between items-center">
+                      <h3 class="text-lg font-semibold text-[#fafafa]">A/H5N1</h3>
+                      <span class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Moderate</span>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <div class="flex items-center justify-between mb-3">
+                      <div>
+                        <p class="text-xs text-gray-500">New Cases</p>
+                        <p class="text-sm font-semibold">
+                          +87 <span class="text-[#ecc187] text-xs">↑8%</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-xs text-gray-500">Regions</p>
+                        <p class="text-sm font-semibold">9 states</p>
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="text-[#ecc187] hover:text-[#d9a966] text-sm font-medium flex items-center mt-2"
+                    >
+                      View Dashboard
+                      <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- SARS-CoV-2 Card -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
+                  <div class="covid-card-header p-4 text-white">
+                    <div class="flex justify-between items-center">
+                      <h3 class="text-lg font-semibold text-[#fafafa]">SARS-CoV-2</h3>
+                      <span class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Ongoing</span>
+                    </div>
+                  </div>
+                  <div class="p-4">
+                    <div class="flex items-center justify-between mb-3">
+                      <div>
+                        <p class="text-xs text-gray-500">New Cases</p>
+                        <p class="text-sm font-semibold">
+                          +215 <span class="text-[#a6c9b8] text-xs">↓3%</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-xs text-gray-500">Regions</p>
+                        <p class="text-sm font-semibold">All states</p>
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="text-[#548fa6] hover:text-[#3a7085] text-sm font-medium flex items-center mt-2"
+                    >
+                      View Dashboard
+                      <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
-        </div>
-
-        <style>
-          .btn-guide-links {
-            border: 1px solid var(--maage-gray-200);
-            padding: 8px 26px;
-            border-radius: 6px;
-            color: #2c2c2c;
-          }
-        </style>
-
-        <div class="mt-8 flex flex-wrap gap-4 justify-center">
-          <a href="#"
-            class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
-            <i data-lucide="zap" class="mr-1.5 h-4 w-4"></i>
-            Quick Start
-          </a>
-
-
-          <a href="#"
-            class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
-            <i data-lucide="database" class="mr-1.5 h-4 w-4"></i>
-            Reference Guides
-          </a>
-
-          <a href="#"
-            class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
-            <i data-lucide="microscope" class="mr-1.5 h-4 w-4"></i>
-            Tutorials
-          </a>
-
-        </div>
-      </section>
-
-              <!-- Active Outbreaks -->
-              <section class="home-active-outbreaks bg-gradient-to-br from-white to-primary-50 p-6 rounded-lg shadow-md border border-primary-100">
-                <div class="flex items-center justify-between mb-6">
-                  <div class="flex items-center">
-                    <?xml version="1.0"?>
-                    <svg class="h-8 w-8 m-[6px] fill-[var(--maage-secondary-600)]" xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 512 512">
-                      <path
-                        d="M216 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h24v40.7c-38.8 3.3-74.1 18.7-102.3 42.4l-28.8-28.8s0 0 0 0l17-17c6.2-6.2 6.2-16.4 0-22.6 -6.2-6.2-16.4-6.2-22.6 0l-56.6 56.6c-6.2 6.2-6.2 16.4 0 22.6 6.2 6.2 16.4 6.2 22.6 0l17-17s0 0 0 0l28.8 28.8C91.4 165.9 76 201.2 72.7 240H32v-24c0-8.8-7.2-16-16-16s-16 7.2-16 16v80c0 8.8 7.2 16 16 16s16-7.2 16-16v-24h40.7c3.3 38.8 18.7 74.1 42.4 102.3l-28.8 28.8s0 0 0 0l-17-17c-6.2-6.2-16.4-6.2-22.6 0 -6.2 6.2-6.2 16.4 0 22.6l56.6 56.6c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6l-17-17s0 0 0 0l28.8-28.8c28.2 23.7 63.5 39 102.3 42.4V480h-24c-8.8 0-16 7.2-16 16s7.2 16 16 16h80c8.8 0 16-7.2 16-16s-7.2-16-16-16h-24v-40.7c38.8-3.3 74.1-18.7 102.3-42.4l28.8 28.8s0 0 0 0l-17 17c-6.2 6.2-6.2 16.4 0 22.6 6.2 6.2 16.4 6.2 22.6 0l56.6-56.6c6.2-6.2 6.2-16.4 0-22.6 -6.2-6.2-16.4-6.2-22.6 0l-17 17s0 0 0 0l-28.8-28.8c23.7-28.2 39-63.5 42.4-102.3H480v24c0 8.8 7.2 16 16 16s16-7.2 16-16v-80c0-8.8-7.2-16-16-16s-16 7.2-16 16v24h-40.7c-3.3-38.8-18.7-74.1-42.4-102.3l28.8-28.8s0 0 0 0l17 17c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6l-56.6-56.6c-6.2-6.2-16.4-6.2-22.6 0 -6.2 6.2-6.2 16.4 0 22.6l17 17s0 0 0 0l-28.8 28.8C346.1 91.4 310.8 76 272 72.7V32h24c8.8 0 16-7.2 16-16s-7.2-16-16-16h-80Zm40 104v0c83.94 0 152 68.05 152 152 0 83.94-68.06 152-152 152v0c-83.95 0-152-68.06-152-152 0-83.95 68.05-152 152-152Zm-64 104v0c8.83 0 16 7.16 16 16 0 8.83-7.17 16-16 16v0c-8.84 0-16-7.17-16-16 0-8.84 7.16-16 16-16Zm0 64v0c26.5 0 48-21.5 48-48 0-26.51-21.5-48-48-48v0c-26.51 0-48 21.49-48 48 0 26.5 21.49 48 48 48Zm112 56v0c13.25 0 24-10.75 24-24 0-13.26-10.75-24-24-24v0c-13.26 0-24 10.74-24 24 0 13.25 10.74 24 24 24Z">
-                      </path>
-                    </svg>
-                    <h2 class="text-2xl font-semibold text-[var(--maage-gray-800)] font-poppins">Active Outbreaks</h2>
-                  </div>
-                  <a href="#" class="text-sm text-secondary-600 hover:text-secondary-800 flex items-center">
-                    View All
-                    <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-                  </a>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <!-- Mpox Card -->
-                  <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
-                    <div class="bg-[var(--maage-secondary-500)] p-4 text-white">
-                      <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-[#fafafa]">Mpox</h3>
-                        <span class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">High Alert</span>
-                      </div>
-                    </div>
-                    <div class="p-4">
-                      <div class="flex items-center justify-between mb-3">
-                        <div>
-                          <p class="text-xs text-gray-500">New Cases</p>
-                          <p class="text-sm font-semibold">
-                            +124 <span class="text-[#978fb5] text-xs">↑15%</span>
-                          </p>
-                        </div>
-                        <div>
-                          <p class="text-xs text-gray-500">Regions</p>
-                          <p class="text-sm font-semibold">12 states</p>
-                        </div>
-                      </div>
-                      <a
-                        href="#"
-                        class="text-[#978fb5] hover:text-[#7a7394] text-sm font-medium flex items-center mt-2"
-                      >
-                        View Dashboard
-                        <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-                      </a>
-                    </div>
-                  </div>
-
-                  <!-- H5N1 Card - using #ecc187 (amber) -->
-                  <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
-                    <div class="bg-[var(--maage-tertiary-500)] p-4 text-white">
-                      <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-[#fafafa]">A/H5N1</h3>
-                        <span class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Moderate</span>
-                      </div>
-                    </div>
-                    <div class="p-4">
-                      <div class="flex items-center justify-between mb-3">
-                        <div>
-                          <p class="text-xs text-gray-500">New Cases</p>
-                          <p class="text-sm font-semibold">
-                            +87 <span class="text-[#ecc187] text-xs">↑8%</span>
-                          </p>
-                        </div>
-                        <div>
-                          <p class="text-xs text-gray-500">Regions</p>
-                          <p class="text-sm font-semibold">9 states</p>
-                        </div>
-                      </div>
-                      <a
-                        href="#"
-                        class="text-[#ecc187] hover:text-[#d9a966] text-sm font-medium flex items-center mt-2"
-                      >
-                        View Dashboard
-                        <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-                      </a>
-                    </div>
-                  </div>
-
-                  <!-- SARS-CoV-2 Card - using #548fa6 (blue) -->
-                  <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
-                    <div class="p-4 text-white" style="background-color:#a6c9b8;">
-                      <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-[#fafafa]">SARS-CoV-2</h3>
-                        <span class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Ongoing</span>
-                      </div>
-                    </div>
-                    <div class="p-4">
-                      <div class="flex items-center justify-between mb-3">
-                        <div>
-                          <p class="text-xs text-gray-500">New Cases</p>
-                          <p class="text-sm font-semibold">
-                            +215 <span class="text-[#a6c9b8] text-xs">↓3%</span>
-                          </p>
-                        </div>
-                        <div>
-                          <p class="text-xs text-gray-500">Regions</p>
-                          <p class="text-sm font-semibold">All states</p>
-                        </div>
-                      </div>
-                      <a
-                        href="#"
-                        class="text-[#548fa6] hover:text-[#3a7085] text-sm font-medium flex items-center mt-2"
-                      >
-                        View Dashboard
-                        <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </section>
-    </div>
-    <!-- End Left Main Content -->
-
+          <!-- End Left Main Content -->
 
           <!-- Sidebar -->
           <div class="space-y-6 flex flex-col h-full">
@@ -805,9 +772,9 @@ div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-s
               <div class="space-y-4">
                 <div class="flex items-start gap-3 p-3 rounded-lg bg-primary-50 border border-primary-100">
                   <div class="flex-shrink-0 w-10 h-10 bg-primary-200 rounded-lg flex items-center justify-center text-primary-700">
-                    <div class="text-center leading-none">
-                      <div class="text-xs font-bold" style="background-color: #f2f7f5; color: #334a57;">APR</div>
-                      <div class="text-lg font-bold" style="background-color: #f2f7f5; color: #334a57;">10</div>
+                    <div class="text-center leading-none event-date">
+                      <div class="text-xs font-bold">APR</div>
+                      <div class="text-lg font-bold">10</div>
                     </div>
                   </div>
                   <div>
@@ -817,23 +784,23 @@ div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-s
                 </div>
 
                 <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div class="flex-shrink-0 w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-700" style="background-color: #ffffff; color: #334a57;">
-                    <div class="text-center leading-none" style="background-color: #ffffff; color: #334a57;">
-                      <div class="text-xs font-bold" style="background-color: #ffffff; color: #334a57;">APR</div>
-                      <div class="text-lg font-bold" style="background-color: #ffffff; color: #334a57;">15</div>
+                  <div class="flex-shrink-0 w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-700 event-date-default">
+                    <div class="text-center leading-none event-date-default">
+                      <div class="text-xs font-bold">APR</div>
+                      <div class="text-lg font-bold">15</div>
                     </div>
                   </div>
-                  <div style="background-color: #ffffff;">
-                    <h4 class="font-medium text-secondary-800" style="background-color: #ffffff;">MAAGE Monthly Webinar</h4>
-                    <p class="text-xs text-gray-600 mt-1" style="background-color: #ffffff;">1:00 PM - 2:30 PM • Online</p>
+                  <div>
+                    <h4 class="font-medium text-secondary-800">MAAGE Monthly Webinar</h4>
+                    <p class="text-xs text-gray-600 mt-1">1:00 PM - 2:30 PM • Online</p>
                   </div>
                 </div>
 
                 <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div class="flex-shrink-0 w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-700" style="background-color: #ffffff; color: #334a57;">
-                    <div class="text-center leading-none" style="background-color: #ffffff; color: #334a57;">
-                      <div class="text-xs font-bold" style="background-color: #ffffff; color: #334a57;">APR</div>
-                      <div class="text-lg font-bold" style="background-color: #ffffff; color: #334a57;">22</div>
+                  <div class="flex-shrink-0 w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-700 event-date-default">
+                    <div class="text-center leading-none event-date-default">
+                      <div class="text-xs font-bold">APR</div>
+                      <div class="text-lg font-bold">22</div>
                     </div>
                   </div>
                   <div>
@@ -914,7 +881,6 @@ div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-s
                       </p>
                     </div>
                   </div>
-
                 </div>
               </div>
 
@@ -927,7 +893,6 @@ div.mt-8.flex.flex-wrap.gap-4.justify-center > a.btn-guide-links.bg-white.text-s
           </div>
         </div>
       </main>
-
 
       </div>
     </div>
