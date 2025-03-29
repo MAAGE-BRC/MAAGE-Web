@@ -39,6 +39,64 @@
                 </a>
             </div>
 
+            <style>
+                .login-btn,
+.register-btn {
+  text-decoration: none;;
+  padding: 8px 28px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px!important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 125px;
+  text-align: center;
+}
+
+.login-btn::before,
+.register-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s ease;
+}
+
+.login-btn:hover::before,
+.register-btn:hover::before {
+  left: 100%;
+}
+
+.login-btn {
+  color: #fafafa;
+  background-color: var(--maage-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-btn:hover {
+  color: #fafafa;
+  background-color: #477e93;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.register-btn {
+  color: #fafafa!important;
+  font-weight: 500;
+  font-size: 14px!important;
+  background-color: var(--maage-secondary-600);
+}
+
+.register-btn:hover {
+  background-color: #477e93;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+            </style>
+
             <div id="header-menu">
                 <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton"></div>
 
@@ -189,18 +247,18 @@
                         <div><a class="DialogButton" rel="reportProblem:">Contact Us</a></div>
                         <hr>
                         <div class="menuHeader">For Devs</div>
-                        <div><a class="TopMenuLink" href="/dev/page/demo-1">Modal Replacement: Login</a></div>
-                        <div><a class="TopMenuLink" href="/dev/paage/demo-2">Modal Replacement: Registration</a></div>
-                        <div><a class="TopMenuLink" href="/dev/page/demo-3">Modal Replacement: Password Reset</a></div>
-                        <div><a class="TopMenuLink" href="/dev/page/demo-4">Modal Replacement: Profile</a></div>
-                        <div><a class="TopMenuLink" href="/dev">Dashboard: Dojo Widget</a></div>
-                        <div><a class="TopMenuLink" href="/dev/dashboard/demo-1">Dashboard: SPA</a></div>
-                        <div><a class="TopMenuLink" href="/dashboard-demos">Dashboard: App/Admin UI - 1</a></div>
-                        <div><a class="TopMenuLink" href="/dashboard-demos">Dashboard: App/Admin UI - 2</a></div>
-                        <div><a class="TopMenuLink" href="/dashboard-demos">Charts: Foundational</a></div>
-                        <div><a class="TopMenuLink" href="/dashboard-demos">Charts: </a></div>
-                        <div><a class="TopMenuLink" href="/dashboard-demos">Charts: </a></div>
-
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Login</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Registration</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Password Reset</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Profile</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dojo Widget: Genome Overview</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dashboard: SPA</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dashboard: App/Admin UI - 1</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dashboard: App/Admin UI - 2</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Charts: </a></div>
+                        <div><a class="TopMenuLink" href="/dev">Charts: </a></div>
+                        <div><a class="TopMenuLink" href="/dev">Charts: </a></div>
+                        <div><a class="TopMenuLink" href="/dev">Reports: </a></div>
 
                     </div>
                 </div>
