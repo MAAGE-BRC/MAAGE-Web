@@ -33,9 +33,8 @@
 #bv-brc-page {
   box-sizing: border-box;
   margin: 0;
-  padding: 20px;
+  padding: 10px;
   background: var(--main-bg);
-  font-family: 'Roboto', sans-serif;
 }
 
 #bv-brc-header {
@@ -497,7 +496,6 @@
 }
 
 #bv-brc-home .slides .slide .feed-title {
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
   font-size: 11pt;
   font-weight: 400;
   color: var(--main-link);
@@ -507,7 +505,6 @@
 }
 
 #bv-brc-home .slides .slide .feed-description {
-  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
   font-size: 10pt !important;
   padding: 5px 0px;
 }
@@ -670,7 +667,7 @@
 
   #bv-brc-home #bv-brc-home-container,
   #bv-brc-footer-container {
-    max-width: 90%;
+    max-width: 95%;
   }
 
   #bv-brc-home .grid-container {
@@ -705,7 +702,7 @@
 @media (min-width: 1400px) {
   #bv-brc-home #bv-brc-home-container,
   #bv-brc-footer-container {
-    max-width: 90%;
+    max-width: 100%;
   }
 }
 
@@ -849,7 +846,6 @@
 #bv-brc-page .publications-content a,
 #bv-brc-page .citation-content a,
 #bv-brc-page .related-resources-content a {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 #bv-brc-page .contact-content a,
