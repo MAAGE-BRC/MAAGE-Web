@@ -225,9 +225,7 @@
   }
 </style>
 
-
-
-
+<div id="maage-homepage">
 <div id="bv-brc-home" class="maage-background">
   <div class="maage-home">
     <div id="bv-brc-home-container">
@@ -251,7 +249,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div class="lg:col-span-3 space-y-6 flex flex-col">
             <section
-              class="bg-gradient-to-r from-primary-100 to-secondary-100 p-8 md:p-12 rounded-xl shadow-md overflow-hidden relative">
+              class="bg-gradient-to-r from-primary-100 to-secondary-100 p-8 md:p-12 rounded-xl shadow-md overflow-hidden relative home-card">
               <div class="absolute right-0 top-0 w-64 h-64 md:w-96 md:h-96 opacity-10">
                 <img src="/public/maage/img/home/hero-bg.svg" alt="MAAGE Background" width="400" height="400" class="object-contain">
               </div>
@@ -476,7 +474,7 @@
               });
             </script>
 
-            <section class="bg-white p-6 rounded-lg shadow-md border border-primary-100">
+            <section class="bg-white p-6 rounded-lg shadow-md border border-primary-100 home-card">
               <div class="flex items-center mb-6">
                 <i data-lucide="microscope" class="h-8 w-8 text-secondary-600 mr-2"></i>
                 <h2 class="text-2xl font-semibold text-secondary-800 font-poppins">Analyze Data</h2>
@@ -526,7 +524,6 @@
                   </ul>
                 </div>
 
-                <!-- Analyze Column -->
                 <div class="bg-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
                   <div class="card-header flex items-center mb-3">
                     <i data-lucide="microscope" class="h-5 w-5 text-secondary-600 mr-2"></i>
@@ -566,17 +563,17 @@
                   </ul>
                 </div>
 
-                <!-- Data Column -->
                 <div class="bg-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
                   <div class="card-header flex items-center mb-3">
                     <i data-lucide="server" class="h-5 w-5 text-secondary-600 mr-2"></i>
                     <h3 class="card-heading font-semibold text-secondary-800">Data</h3>
                   </div>
                   <ul class="card-list space-y-2.5">
+
                     <li class="flex items-center">
                       <i data-lucide="server" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
                       <a href="/workspace/" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                        Workspace
+                        My Workspace
                       </a>
                     </li>
                     <li class="flex items-center">
@@ -591,16 +588,28 @@
                         Analysis Jobs
                       </a>
                     </li>
+                    <hr>
                     <li class="flex items-center">
+                      <i data-lucide="server" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspace/" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        MAAGE Workspace
+                      </a>
+                    </li>
+                    <!-- <li class="flex items-center">
+                      <i data-lucide="server" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspace/" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Public Workspaces
+                      </a>
+                    </li> -->
+                    <!-- <li class="flex items-center">
                       <i data-lucide="clock" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
                       <a href="/workspace/bioprojects" class="text-gray-700 hover:text-secondary-600 transition-colors">
                         BioProjects
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
 
-                <!-- Access Column -->
                 <div class="bg-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-secondary-200 transition-colors">
                   <div class="card-header flex items-center mb-3">
                     <i data-lucide="server" class="h-5 w-5 text-secondary-600 mr-2"></i>
@@ -625,12 +634,6 @@
                         FTP
                       </a>
                     </li>
-                    <!-- <li class="flex items-center mt-4 text-secondary-600 font-medium">
-                      <a href="#" class="inline-flex items-center hover:underline">
-                        View All
-                        <i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-                      </a>
-                    </li> -->
                   </ul>
                 </div>
               </div>
@@ -656,8 +659,7 @@
               </div>
             </section>
 
-            <!-- Active Outbreaks -->
-            <section class="home-active-outbreaks bg-gradient-to-br from-white to-primary-50 p-6 rounded-lg shadow-md border border-primary-100">
+            <section class="home-active-outbreaks bg-gradient-to-br from-white to-primary-50 p-6 rounded-lg shadow-md border border-primary-100 home-card">
               <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center">
                   <?xml version="1.0"?>
@@ -676,7 +678,6 @@
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Mpox Card -->
                 <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
                   <div class="bg-[var(--maage-secondary-500)] p-4 text-white">
                     <div class="flex justify-between items-center">
@@ -707,7 +708,6 @@
                   </div>
                 </div>
 
-                <!-- H5N1 Card - using #ecc187 (amber) -->
                 <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
                   <div class="bg-[var(--maage-tertiary-500)] p-4 text-white">
                     <div class="flex justify-between items-center">
@@ -738,7 +738,6 @@
                   </div>
                 </div>
 
-                <!-- SARS-CoV-2 Card -->
                 <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
                   <div class="covid-card-header p-4 text-white">
                     <div class="flex justify-between items-center">
@@ -775,14 +774,12 @@
 
           <!-- Sidebar -->
           <div class="space-y-6 flex flex-col h-full">
-            <!-- Upcoming Events -->
-            <section class="bg-white p-6 rounded-lg shadow-sm flex-grow">
+            <section class="bg-white p-6 rounded-lg shadow-sm flex-grow home-card">
               <div class="flex items-center mb-5">
                 <i data-lucide="calendar" class="h-5 w-5 text-secondary-600 mr-2"></i>
                 <h2 class="text-xl font-bold text-gray-800 font-poppins">Upcoming Events</h2>
               </div>
 
-              <!-- Upcoming Events List -->
               <div class="space-y-4">
                 <div class="flex items-start gap-3 p-3 rounded-lg bg-primary-50 border border-primary-100">
                   <div class="flex-shrink-0 w-10 h-10 bg-primary-200 rounded-lg flex items-center justify-center text-primary-700">
@@ -832,15 +829,13 @@
               </div>
             </section>
 
-            <!-- Latest News -->
-            <section class="bg-white p-6 rounded-lg shadow-sm flex-grow">
+            <section class="bg-white p-6 rounded-lg shadow-sm flex-grow home-card">
               <div class="flex items-center mb-6">
                 <i data-lucide="newspaper" class="h-5 w-5 text-secondary-600 mr-2"></i>
                 <h2 class="text-xl font-bold text-gray-800 font-poppins">Latest News</h2>
               </div>
 
               <div class="space-y-5">
-                <!-- Featured news item -->
                 <div class="border-l-4 border-secondary-400 pl-4 py-1">
                   <div class="flex items-center text-xs text-gray-500 mb-1.5">
                     <span>March 15, 2024</span>
@@ -862,7 +857,6 @@
 
                 <div class="h-px bg-gray-100 my-4"></div>
 
-                <!-- Regular news items -->
                 <div class="space-y-4">
                   <div class="flex items-start">
                     <div class="flex-shrink-0 w-16 text-center mr-4">
@@ -905,12 +899,15 @@
               </div>
             </section>
           </div>
+          <!-- End Sidebar -->
+
         </div>
       </main>
 
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <section style="overflow:hidden;border-color:rgb(228, 228, 231);box-sizing:border-box;border-width:0px;border-style:solid;">

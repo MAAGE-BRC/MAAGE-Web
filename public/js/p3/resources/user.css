@@ -83,6 +83,8 @@
   --maage-natural-900: #927f60;
   --maage-natural-950: #4d4031;
 
+  --maage-bg: #F8F9FA
+
 }
 
 div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-100 > div.flex-shrink-0.w-10.h-10.bg-primary-200.rounded-lg.flex.items-center.justify-center.text-primary-700 {
@@ -172,9 +174,10 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
 }
 
 .maage-background {
-  background-color: blue!important;
+  background-color: #F8F9FA!important;
 }
 
-#maage-homepage {
-  display: none;
+.maage-home .home-card {
+  box-shadow: 0 3px 10px rgb(0,0,0,0.15);
 }
+
