@@ -1,5 +1,10 @@
 # gitignore for https://github.com/maage-brc/maage
 
+# lock files - ignored only when testing!
+# package-lock.json
+# pnpm-lock.yaml
+# yarn.lock
+
 # deps & packages
 node_modules/
 .yarn/
@@ -24,21 +29,33 @@ dump.rdb
 !.env.example
 
 # pm2
+# ecosystem.config.sample.js
 ecosystem.config.js
+ecosystem.config.local.js
+ecosystem.config.dev.js
+ecosystem.config.test.js
+ecosystem.config.prod.js
 
 # brc configs
+# p3-web.sample.conf
 p3-web.conf
-p3-web.conf-dev.maage
+p3-web.local.conf
+p3-web.dev.conf
+p3-web.test.conf
+p3-web.www.conf
+
 
 # editor & ide
 .vscode/
 .idea/
 .zed/
 .fleet/
-*.swp
 .qodo
-CLAUDE.md
+*.swp
+*.sublime-workspace
 
+# AI
+CLAUDE.md
 
 # macOS
 .DS_Store
@@ -48,7 +65,6 @@ CLAUDE.md
 # windows
 Thumbs.db
 ehthumbs.db
-*.sublime-workspace
 desktop.ini
 $RECYCLE.BIN/
 System Volume Information/
@@ -102,9 +118,10 @@ NTUSER.INI
 # build
 dist/
 build/
-public/js/release/
-public/video/
-public/js/release/build-report.txt
+test/
+src/
+coverage/
+
 
 # testing & coverage
 coverage/
@@ -137,11 +154,9 @@ node_repl_history
 # misc
 gulpfile.js
 gulpified
-test/
-src/
-/public/js/p3/widget/UserDetails.js
 
-# lock files - ignored only when testing!
-# package-lock.json
-# pnpm-lock.yaml
-# yarn.lock
+# p3 specific
+public/js/p3/widget/UserDetails.js
+public/js/release/
+public/video/
+public/js/release/build-report.txt
