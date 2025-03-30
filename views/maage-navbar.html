@@ -1,386 +1,216 @@
 <style>
-.dijitReset, input {
-  color: inherit;
-  font-family: inherit;
-  font-feature-settings: inherit;
-  font-variation-settings: inherit;
-  font-weight: inherit;
-  margin: 0;
-  padding: 0;
-}
+    /* MAAGE Navbar Dropdown Styling */
 
-.dijitInline, .dijitReset {
-  border-style: initial;
-  border-width: 0;
-}
+    /* Target dropdowns specifically */
+    #maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] {
+      background-color: #fff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 8px !important;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+      padding: 4px 0 !important;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Poppins', Roboto, sans-serif !important;
+      animation: menuAppear 0.2s ease-out forwards !important;
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
 
-.dijitReset {
-  font-kerning: inherit;
-  font-optical-sizing: inherit;
-  font-size: inherit;
-  font-size-adjust: inherit;
-  font-stretch: inherit;
-  font-style: inherit;
-  font-variant: inherit;
-  font-variant-emoji: inherit;
-  font-variant-position: inherit;
-  line-height: normal;
-}
+    @keyframes menuAppear {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-.dijitInline {
-  display: inline-block;
-  padding: 0;
-}
+    /* Menu Headers */
+    #maage-navbar .menuHeader {
+      background-color: #689f86 !important;
+      color: white !important;
+      font-weight: 600 !important;
+      text-align: left !important;
+      padding: 6px 12px !important;
+      margin-top: 6px !important;
+      margin-bottom: 2px !important;
+      font-size: 13px !important;
+      letter-spacing: 0.5px !important;
+      border-left: 3px solid #4d7d65 !important;
+      display: flex !important;
+      align-items: center !important;
+    }
 
-.dijitOffScreen {
-  left: -10000px !important;
-  position: absolute !important;
-  top: -10000px !important;
-}
+    /* Add icons to headers using ::before */
+    #maage-navbar .menuHeader::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.9;
+    }
 
-.dijitButtonNode * {
-  vertical-align: middle;
-}
+    /* Menu Items */
+    #maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div > div:not(.menuHeader):not([style*="display:inline-block"]):not([style*="display: inline-block"]),
+    #maage-navbar .menuItems > div {
+      margin: 1px 0 !important;
+      padding: 0 6px !important;
+    }
 
-.dijitButtonNode .dijitArrowButtonInner {
-  background-color: initial;
-  direction: ltr;
-}
+    /* Links styling */
+    #maage-navbar .navigationLink,
+    #maage-navbar .TopMenuLink,
+    #maage-navbar .DialogButton,
+    #maage-navbar .loginLink {
+      display: block !important;
+      padding: 5px 10px !important;
+      color: #2c2c2c !important;
+      text-decoration: none !important;
+      font-size: 13px !important;
+      border-radius: 4px !important;
+      transition: all 0.2s ease-in-out !important;
+      position: relative !important;
+      cursor: pointer !important;
+    }
 
-.dijitStretch {
-  white-space-collapse: collapse;
-}
+    #maage-navbar .navigationLink:hover,
+    #maage-navbar .TopMenuLink:hover,
+    #maage-navbar .DialogButton:hover,
+    #maage-navbar .loginLink:hover {
+      background-color: #c0dacc !important;
+      color: #2c2c2c !important;
+      transform: translateX(2px) !important;
+    }
 
-.dijitDropDownButton {
-  vertical-align: middle;
-}
+    #maage-navbar .navigationLink:active,
+    #maage-navbar .TopMenuLink:active,
+    #maage-navbar .DialogButton:active,
+    #maage-navbar .loginLink:active {
+      background-color: #aecfbc !important;
+    }
 
-.dijitButtonContents {
-  display: block;
-}
+    /* Special styling for "All" items */
+    #maage-navbar .navigationLink[href="/Bacteria"],
+    #maage-navbar .navigationLink[href="/Virus2"],
+    #maage-navbar .navigationLink[href*="All Metagenomes"],
+    #maage-navbar .navigationLink[href="/job/"],
+    #maage-navbar .navigationLink[href="/workspace/public"]:contains("Public Workspaces") {
+      color: #4d7d65 !important;
+      font-weight: 500 !important;
+      margin-top: 2px !important;
+      margin-bottom: 6px !important;
+    }
 
-.dijitButtonNode, .dijitButtonNode * {
-  -webkit-tap-highlight-color: transparent;
-}
+    #maage-navbar .navigationLink[href="/Bacteria"]::after,
+    #maage-navbar .navigationLink[href="/Virus2"]::after,
+    #maage-navbar .navigationLink[href*="All Metagenomes"]::after,
+    #maage-navbar .navigationLink[href="/job/"]::after,
+    #maage-navbar .navigationLink[href="/workspace/public"]:contains("Public Workspaces")::after {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16'%3E%3Cpath fill='%23689f86' d='M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
 
-.dijitButtonNode {
-  line-height: normal;
-  text-align: center;
-  text-wrap-mode: nowrap;
-  vertical-align: middle;
-  white-space-collapse: collapse;
-}
+    #maage-navbar .navigationLink[href="/Bacteria"]:hover::after,
+    #maage-navbar .navigationLink[href="/Virus2"]:hover::after,
+    #maage-navbar .navigationLink[href*="All Metagenomes"]:hover::after,
+    #maage-navbar .navigationLink[href="/job/"]:hover::after,
+    #maage-navbar .navigationLink[href="/workspace/public"]:contains("Public Workspaces"):hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(3px);
+    }
 
-.dijitButtonNode * {
-  cursor: pointer;
-}
+    /* External links */
+    #maage-navbar .navigationLinkOut::after {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-left: 5px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='12' height='12'%3E%3Cpath fill='%23689f86' d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      vertical-align: middle;
+    }
 
-.dijitNoIcon {
-  display: none;
-}
+    /* Accessibility focus styles */
+    #maage-navbar .navigationLink:focus,
+    #maage-navbar .TopMenuLink:focus,
+    #maage-navbar .DialogButton:focus,
+    #maage-navbar .loginLink:focus {
+      outline: 2px solid #689f86 !important;
+      outline-offset: 1px !important;
+    }
 
-.dijitArrowButtonChar {
-  display: none !important;
-}
+    /* Multi-column layouts */
+    #maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="display:inline-block"],
+    #maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="display: inline-block"] {
+      vertical-align: top !important;
+      padding: 0 8px !important;
+    }
 
-.dijitButtonNode {
-  transition: background-color .3s;
-}
+    /* Outbreak links */
+    #maage-navbar .navigationLink[href^="/outbreaks/"] {
+      position: relative !important;
+    }
 
-.dijitDropDownButton .dijitButtonNode {
-  border-radius: 4px;
-}
+    #maage-navbar .navigationLink[href^="/outbreaks/"]::before {
+      content: '🔔';
+      margin-right: 5px;
+      font-size: 12px;
+    }
 
-.dijitArrowButtonInner {
-  background-image: url(../form/images/buttonArrows.png);
-  background-position: -51px 53%;
-  background-repeat: no-repeat;
-  height: 15px;
-  width: 15px;
-}
+    /* Remove paragraph spacing */
+    #maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] p {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
 
-.dijitButtonText {
-  padding: 0 .3em;
-  text-align: center;
-}
+    /* HR styling */
+    #maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] hr {
+      border: 0 !important;
+      height: 1px !important;
+      background-color: #e2e8f0 !important;
+      margin: 6px 8px !important;
+    }
 
-#maage-navbar {
-  color: #333;
-  font-size: .9em;
-  font-size-adjust: none;
-  font-weight: 400;
-  line-height: 1.5;
-  tab-size: 4;
-}
+    /* Make Tools dropdown wider */
+    #maage-navbar span:contains("Tools") + [data-dojo-type="p3/widget/TooltipDialog"] {
+      min-width: 520px !important;
+    }
 
-input {
-  font-size: 100%;
-  letter-spacing: inherit;
-  line-height: inherit;
-}
+    /* Support future Organisms dropdown width */
+    #maage-navbar span:contains("Organisms") + [data-dojo-type="p3/widget/TooltipDialog"] {
+      min-width: 280px !important;
+    }
 
-input:where([type="button"]), input:where([type="reset"]), input:where([type="submit"]) {
-  appearance: button;
-  background-color: transparent;
-  background-image: none;
-}
+    /* Make Resources dropdown wider */
+    #maage-navbar span:contains("Resources") + [data-dojo-type="p3/widget/TooltipDialog"] {
+      min-width: 280px !important;
+    }
 
-input::placeholder {
-  color: #9ca3af;
-  opacity: 1;
-}
+    /* Fix FontAwesome icons */
+    #maage-navbar .fa {
+      margin-right: 5px !important;
+    }
 
-*, ::after, ::before {
-  border: 0 solid #e5e7eb;
-  box-sizing: border-box;
-}
+    /* Empty links in Resources */
+    #maage-navbar .TopMenuLink[href="/dev"]:empty::after {
+      content: 'Coming Soon';
+      font-style: italic;
+      color: #999;
+    }
 
-:disabled {
-  cursor: default;
-}
-
-div, span {
-  border-style: initial;
-  border-width: 0;
-}
-
-div {
-  margin-bottom: 0 !important;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0 !important;
-}
-
-span {
-  margin: 0;
-  padding: 0;
-}
-
-:focus {
-  outline: 0;
-}
-
-.maage-navbar {
-  padding: 0 !important;
-  z-index: 1000;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad {
-  font-family: Poppins;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-div:nth-child(2) {
-  flex: 1 1 0;
-  font-family: Poppins, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  margin: -4px 0 0;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1) {
-  background-repeat: repeat;
-  font-size: 16px;
-}
-
-span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1) > span.dijitReset.dijitInline.dijitButtonNode {
-  font-family: Poppins;
-  font-weight: 400;
-  text-wrap-mode: nowrap;
-  transition: background-color .3s;
-  transition-behavior: normal;
-  white-space-collapse: collapse;
-}
-
-span#dijit_form_DropDownButton_0 {
-  background-repeat: repeat-x;
-  border-style: initial;
-  border-width: 0;
-  display: block;
-  font-size-adjust: none;
-  text-align: center;
-  text-wrap-mode: nowrap;
-  white-space-collapse: collapse;
-  -webkit-tap-highlight-color: transparent;
-  color: #26292c;
-  cursor: pointer;
-  font-weight: 500 !important;
-  user-select: none;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.topMenuButton.showOnLoad.dijitDropDownButton:nth-child(2) {
-  background-repeat: repeat;
-  font-size: 16px;
-  padding: 0 4px;
-}
-
-span#dijit_form_DropDownButton_1 {
-  color: #26292c;
-  cursor: pointer;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(3) {
-  background-repeat: repeat;
-  font-size: 16px;
-}
-
-span#dijit_form_DropDownButton_2 {
-  background-repeat: repeat-x;
-  color: #26292c;
-  cursor: pointer;
-  font-weight: 500;
-  text-wrap-mode: nowrap;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) {
-  background-repeat: repeat;
-  font-size: 16px;
-}
-
-span#dijit_form_DropDownButton_3 {
-  color: #34383c;
-  cursor: pointer;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(5) {
-  background-repeat: repeat;
-  font-size: 16px;
-  padding: 0 4px;
-}
-
-span#dijit_form_DropDownButton_4 {
-  background-repeat: repeat-x;
-  color: #26292c;
-  cursor: pointer;
-  font-weight: 500;
-  text-wrap-mode: nowrap;
-}
-
-span#dijit_form_DropDownButton_5 {
-  color: #26292c;
-  cursor: pointer;
-}
-
-span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_1 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_2 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_3 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_4 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_5 > span.dijitReset.dijitInline.dijitArrowButtonInner {
-  cursor: pointer;
-  display: none;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1), div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(3) {
-  font-family: Poppins;
-  padding: 0 5px;
-}
-
-span#dijit_form_DropDownButton_1 {
-  background-repeat: repeat-x;
-  font-family: Poppins;
-  font-weight: 400;
-  text-wrap-mode: nowrap;
-}
-
-span#dijit_form_DropDownButton_2 > span.dijitReset.dijitInline.dijitArrowButtonChar, span#dijit_form_DropDownButton_2_label {
-  cursor: pointer;
-  font-weight: 400;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) {
-  font-family: Poppins;
-  font-weight: 400;
-  padding: 0 5px;
-}
-
-span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) > span.dijitReset.dijitInline.dijitButtonNode {
-  font-weight: 400;
-  text-wrap-mode: nowrap;
-  transition: background-color .3s;
-  transition-behavior: normal;
-  white-space-collapse: collapse;
-}
-
-span#dijit_form_DropDownButton_3 {
-  background-repeat: repeat-x;
-  font-weight: 400;
-  text-wrap-mode: nowrap;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(5) {
-  font-family: Poppins;
-}
-
-span#dijit_form_DropDownButton_4_label {
-  cursor: pointer;
-  font-weight: 400;
-}
-
-div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(6) {
-  background-position: inherit;
-  border-radius: 4px;
-  line-height: normal;
-  text-align: center;
-  text-wrap-mode: nowrap;
-  transition: background-color .3s;
-  transition-behavior: normal;
-  vertical-align: middle;
-  white-space-collapse: collapse;
-  -webkit-tap-highlight-color: transparent;
-  background-attachment: inherit;
-  background-clip: inherit;
-  background-color: inherit;
-  background-image: inherit;
-  background-origin: inherit;
-  background-repeat: repeat;
-  background-size: inherit;
-  border-style: initial;
-  border-width: 0;
-  color: #efefef;
-  cursor: pointer;
-  font-family: Poppins;
-  font-size: 16px;
-  font-size-adjust: inherit;
-  padding: 0 5px;
-}
-
-span#dijit_form_DropDownButton_5 {
-  background-repeat: repeat-x;
-  font-weight: 400;
-  text-wrap-mode: nowrap;
-}
-
-span#dijit_form_DropDownButton_5_label {
-  cursor: pointer;
-  font-weight: 400;
-}
-
-.topMenuButton, .topMenuButton.dijitDropDownButton .dijitButtonNode {
-  background-attachment: inherit;
-  background-clip: inherit;
-  background-color: inherit;
-  background-image: inherit;
-  background-origin: inherit;
-  background-position: inherit;
-  background-repeat: inherit;
-  background-size: inherit;
-  border-style: initial;
-  border-width: 0;
-  box-shadow: 0 0 0;
-  color: #efefef;
-  cursor: pointer;
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-}
-
-#header-menu {
-  align-items: center;
-  display: flex;
-  flex: 1 1 0;
-}
-
-.topMenuButton .dijitArrowButtonInner {
-  margin: 0;
-}
-</style>
+    /* Fix tool column widths */
+    #maage-navbar span:contains("Tools") + [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="width:250px"] {
+      width: 240px !important;
+    }
+  </style>
 
 
 <div id="maage-navbar">
