@@ -1,222 +1,221 @@
 <!-- maage-navbar-header -->
-  <div id="maage-navbar-header">
+<div id="maage-navbar-header">
 
-    <!-- header -->
-    <header class="header">
+  <!-- header -->
+  <header class="header">
+    <div class="container">
+      <div class="navbar">
 
-        <div class="container">
-          <div class="navbar">
-            <!-- navbar-left -->
-            <div class="navbar-left">
-              <a href="/" class="logo">MAAGE</a>
-              
-              <nav class="nav-items" id="nav-items">
-                <!-- Data Dropdown (renamed from Organisms) -->
-                <div class="nav-item">
-                  <a href="#" class="nav-link">
-                    Data
-                    <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </a>
-                  <div class="dropdown-content">
-                    <div class="dropdown-section">
-                      <h3>Bacteria</h3>
-                      <a href="/view/Taxonomy/194" class="navigationLink">Campylobacter</a>
-                      <a href="/view/Taxonomy/1637" class="navigationLink">Listeria</a>
-                      <a href="/view/Taxonomy/561" class="navigationLink">Escherichia</a>
-                      <a href="/view/Taxonomy/590" class="navigationLink">Salmonella</a>
-                      <a href="/bacteria" class="navigationLink">All Bacteria</a>
-                    </div>
-                    <div class="dropdown-section">
-                      <h3>Viruses</h3>
-                      <a href="/view/Taxonomy/11320" class="navigationLink">Influenza A virus</a>
-                      <a href="/view/Taxonomy/2697049" class="navigationLink">SARS-CoV-2</a>
-                      <a href="/view/Taxonomy/10244" class="navigationLink">Monkeypox virus</a>
-                      <a href="/viruses" class="navigationLink">All Viruses</a>
-                    </div>
-                    <div class="dropdown-section">
-                      <h3>Metagenomes</h3>
-                      <a href="/view/Taxonomy/1637#view_tab=overview" class="navigationLink">SARS-CoV-2 Wastewater</a>
-                      <a href="/view/Taxonomy/1637#view_tab=overview" class="navigationLink">H5N1 Wastewater</a>
-                      <a href="/metagenomes" class="navigationLink">All Metagenomes</a>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Tools Dropdown (Updated with three columns) -->
-                <div class="nav-item">
-                  <a href="#" class="nav-link">
-                    Tools
-                    <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </a>
-                  <div class="dropdown-content three-columns">
-                    <!-- Column 1 -->
-                    <div>
-                      <div class="dropdown-section">
-                        <h3>Genomics</h3>
-                        <a href="/app/Assembly2" class="navigationLink">Genome Assembly</a>
-                        <a href="/app/Annotation" class="navigationLink">Genome Annotation</a>
-                        <a href="/app/ComprehensiveGenomeAnalysis" class="navigationLink">Comprehensive Genome Analysis</a>
-                        <a href="/app/GenomeDistance" class="navigationLink">Similar Genome Finder</a>
-                        <a href="/app/Homology" class="navigationLink">BLAST</a>
-                      </div>
-                      <div class="dropdown-section">
-                        <h3>Phylogenomics</h3>
-                        <a href="/app/PhylogeneticTree" class="navigationLink">Bacterial Genome Tree</a>
-                        <a href="/app/ViralGenomeTree" class="navigationLink">Viral Genome Tree</a>
-                        <a href="/app/GeneTree" class="navigationLink">Gene Protein Tree</a>
-                      </div>
-                    </div>
-                    
-                    <!-- Column 2 -->
-                    <div>
-                      <div class="dropdown-section">
-                        <h3>Metagenomics</h3>
-                        <a href="/app/TaxonomicClassification" class="navigationLink">Taxonomic Classification</a>
-                        <a href="/app/MetagenomicBinning" class="navigationLink">Metagenomic Binning</a>
-                        <a href="/app/MetagenomicReadMapping" class="navigationLink">Metagenomic Read Mapping</a>
-                        <a href="/app/CoreGenomeMLST" class="navigationLink">Core Genome MLST</a>
-                        <a href="/app/WholeGenomeSNPAnalysis" class="navigationLink">Whole Genome SNP Analysis</a>
-                      </div>
-                      <div class="dropdown-section">
-                        <h3>Protein Tools</h3>
-                        <a href="/app/MSA" class="navigationLink">MSA and SNP Analysis</a>
-                        <a href="/app/SeqComparison" class="navigationLink">Proteome Comparison</a>
-                        <a href="/app/ComparativeSystems" class="navigationLink">Comparative Systems</a>
-                      </div>
-                    </div>
-                    
-                    <!-- Column 3 -->
-                    <div>
-                      <div class="dropdown-section">
-                        <h3>Viral Tools</h3>
-                        <a href="/app/ComprehensiveSARS2Analysis" class="navigationLink">SARS-COV-2 Genome Analysis</a>
-                        <a href="/app/SARS2Wastewater" class="navigationLink">SARS-CoV-2 Wastewater Analysis</a>
-                        <a href="/app/SubspeciesClassification" class="navigationLink">Subspecies Classification</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Workspaces Dropdown (New) -->
-                <div class="nav-item">
-                  <a href="#" class="nav-link">
-                    Workspaces
-                    <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </a>
-                  <div class="dropdown-content">
-                    <div class="dropdown-section">
-                      <h3>My Workspaces</h3>
-                      <a href="/workspaces/recent" class="navigationLink">Recent Workspaces</a>
-                      <a href="/workspaces/shared" class="navigationLink">Shared With Me</a>
-                      <a href="/workspaces/create" class="navigationLink">Create Workspace</a>
-                    </div>
-                    <div class="dropdown-section">
-                      <h3>Templates</h3>
-                      <a href="/workspaces/templates/outbreak" class="navigationLink">Outbreak Investigation</a>
-                      <a href="/workspaces/templates/surveillance" class="navigationLink">Surveillance</a>
-                      <a href="/workspaces/templates/research" class="navigationLink">Research Project</a>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Resources Dropdown (Kept as is) -->
-                <div class="nav-item">
-                  <a href="#" class="nav-link">
-                    Resources
-                    <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </a>
-                  <div class="dropdown-content two-columns">
-                    <div class="dropdown-section">
-                      <h3>Analysis Tools</h3>
-                      <a href="/tools/genome-browser" class="navigationLink">Genome Browser</a>
-                      <a href="/tools/sequence-analysis" class="navigationLink">Sequence Analysis</a>
-                      <a href="/tools/phylogenetic-trees" class="navigationLink">Phylogenetic Trees</a>
-                      <a href="/tools/variant-calling" class="navigationLink">Variant Calling</a>
-                      <a href="/tools/comparative-genomics" class="navigationLink">Comparative Genomics</a>
-                    </div>
-                    <div class="dropdown-section">
-                      <h3>Data Resources</h3>
-                      <a href="/resources/datasets" class="navigationLink">Datasets</a>
-                      <a href="/resources/reference-genomes" class="navigationLink">Reference Genomes</a>
-                      <a href="/resources/surveillance" class="navigationLink">Surveillance Data</a>
-                      <a href="/resources/outbreaks" class="navigationLink">Outbreak Reports</a>
-                    </div>
-                    <div class="dropdown-section">
-                      <h3>Knowledge Base</h3>
-                      <a href="/resources/publications" class="navigationLink">Publications</a>
-                      <a href="/resources/documentation" class="navigationLink">Documentation</a>
-                      <a href="/resources/tutorials" class="navigationLink">Tutorials</a>
-                      <a href="/resources/faqs" class="navigationLink">FAQs</a>
-                    </div>
-                    <div class="dropdown-section">
-                      <h3>Community</h3>
-                      <a href="/community/forums" class="navigationLink">Forums</a>
-                      <a href="/community/webinars" class="navigationLink">Webinars</a>
-                      <a href="/community/events" class="navigationLink">Events</a>
-                      <a href="/community/newsletter" class="navigationLink">Newsletter</a>
-                    </div>
-                  </div>
-                </div>
-              </nav>
-            </div>
-            
-            <!-- navbar-right -->
-            <div class="navbar-right">
-              <button class="search-button" id="search-button" aria-label="Search">
-                <svg class="icon" viewBox="0 0 24 24">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <!-- navbar-left -->
+        <div class="navbar-left">
+          <a href="/" class="logo">MAAGE</a>
+
+          <nav class="nav-items" id="nav-items">
+            <div class="nav-item">
+              <a href="#" class="nav-link">
+                Data
+                <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
-              </button>
-              
-              <div class="auth-buttons">
-                <button class="login-button">Login</button>
-                <button class="register-button">Register</button>
+              </a>
+              <div class="dropdown-content">
+                <div class="dropdown-section">
+                  <h3>Bacteria</h3>
+                  <a href="/view/Taxonomy/194" class="navigationLink">Campylobacter</a>
+                  <a href="/view/Taxonomy/1637" class="navigationLink">Listeria</a>
+                  <a href="/view/Taxonomy/561" class="navigationLink">Escherichia</a>
+                  <a href="/view/Taxonomy/590" class="navigationLink">Salmonella</a>
+                  <a href="/bacteria" class="navigationLink">All Bacteria</a>
+                </div>
+                <div class="dropdown-section">
+                  <h3>Viruses</h3>
+                  <a href="/view/Taxonomy/11320" class="navigationLink">Influenza A virus</a>
+                  <a href="/view/Taxonomy/2697049" class="navigationLink">SARS-CoV-2</a>
+                  <a href="/view/Taxonomy/10244" class="navigationLink">Monkeypox virus</a>
+                  <a href="/viruses" class="navigationLink">All Viruses</a>
+                </div>
+                <div class="dropdown-section">
+                  <h3>Metagenomes</h3>
+                  <a href="/view/Taxonomy/1637#view_tab=overview" class="navigationLink">SARS-CoV-2 Wastewater</a>
+                  <a href="/view/Taxonomy/1637#view_tab=overview" class="navigationLink">H5N1 Wastewater</a>
+                  <a href="/metagenomes" class="navigationLink">All Metagenomes</a>
+                </div>
               </div>
-              
-              <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
-                <svg class="icon" id="menu-icon" viewBox="0 0 24 24">
-                  <line x1="3" y1="12" x2="21" y2="12"></line>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-                <svg class="icon" id="close-icon" viewBox="0 0 24 24" style="display: none;">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
             </div>
-          </div>
+
+            <div class="nav-item">
+              <a href="#" class="nav-link">
+                Tools
+                <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </a>
+              <div class="dropdown-content three-columns">
+                <div>
+                  <div class="dropdown-section">
+                    <h3>Genomics</h3>
+                    <a href="/app/Assembly2" class="navigationLink">Genome Assembly</a>
+                    <a href="/app/Annotation" class="navigationLink">Genome Annotation</a>
+                    <a href="/app/ComprehensiveGenomeAnalysis" class="navigationLink">Comprehensive Genome Analysis</a>
+                    <a href="/app/GenomeDistance" class="navigationLink">Similar Genome Finder</a>
+                    <a href="/app/Homology" class="navigationLink">BLAST</a>
+                  </div>
+                  <div class="dropdown-section">
+                    <h3>Phylogenomics</h3>
+                    <a href="/app/PhylogeneticTree" class="navigationLink">Bacterial Genome Tree</a>
+                    <a href="/app/ViralGenomeTree" class="navigationLink">Viral Genome Tree</a>
+                    <a href="/app/GeneTree" class="navigationLink">Gene Protein Tree</a>
+                  </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                  <div class="dropdown-section">
+                    <h3>Metagenomics</h3>
+                    <a href="/app/TaxonomicClassification" class="navigationLink">Taxonomic Classification</a>
+                    <a href="/app/MetagenomicBinning" class="navigationLink">Metagenomic Binning</a>
+                    <a href="/app/MetagenomicReadMapping" class="navigationLink">Metagenomic Read Mapping</a>
+                    <a href="/app/CoreGenomeMLST" class="navigationLink">Core Genome MLST</a>
+                    <a href="/app/WholeGenomeSNPAnalysis" class="navigationLink">Whole Genome SNP Analysis</a>
+                  </div>
+                  <div class="dropdown-section">
+                    <h3>Protein Tools</h3>
+                    <a href="/app/MSA" class="navigationLink">MSA and SNP Analysis</a>
+                    <a href="/app/SeqComparison" class="navigationLink">Proteome Comparison</a>
+                    <a href="/app/ComparativeSystems" class="navigationLink">Comparative Systems</a>
+                  </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div>
+                  <div class="dropdown-section">
+                    <h3>Viral Tools</h3>
+                    <a href="/app/ComprehensiveSARS2Analysis" class="navigationLink">SARS-COV-2 Genome Analysis</a>
+                    <a href="/app/SARS2Wastewater" class="navigationLink">SARS-CoV-2 Wastewater Analysis</a>
+                    <a href="/app/SubspeciesClassification" class="navigationLink">Subspecies Classification</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workspaces Dropdown (New) -->
+            <div class="nav-item">
+              <a href="#" class="nav-link">
+                Workspaces
+                <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </a>
+              <div class="dropdown-content">
+                <div class="dropdown-section">
+                  <h3>My Workspaces</h3>
+                  <a href="/workspaces/recent" class="navigationLink">Recent Workspaces</a>
+                  <a href="/workspaces/shared" class="navigationLink">Shared With Me</a>
+                  <a href="/workspaces/create" class="navigationLink">Create Workspace</a>
+                </div>
+                <div class="dropdown-section">
+                  <h3>Templates</h3>
+                  <a href="/workspaces/templates/outbreak" class="navigationLink">Outbreak Investigation</a>
+                  <a href="/workspaces/templates/surveillance" class="navigationLink">Surveillance</a>
+                  <a href="/workspaces/templates/research" class="navigationLink">Research Project</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resources Dropdown (Kept as is) -->
+            <div class="nav-item">
+              <a href="#" class="nav-link">
+                Resources
+                <svg class="icon icon-sm dropdown-icon" viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </a>
+              <div class="dropdown-content two-columns">
+                <div class="dropdown-section">
+                  <h3>Analysis Tools</h3>
+                  <a href="/tools/genome-browser" class="navigationLink">Genome Browser</a>
+                  <a href="/tools/sequence-analysis" class="navigationLink">Sequence Analysis</a>
+                  <a href="/tools/phylogenetic-trees" class="navigationLink">Phylogenetic Trees</a>
+                  <a href="/tools/variant-calling" class="navigationLink">Variant Calling</a>
+                  <a href="/tools/comparative-genomics" class="navigationLink">Comparative Genomics</a>
+                </div>
+                <div class="dropdown-section">
+                  <h3>Data Resources</h3>
+                  <a href="/resources/datasets" class="navigationLink">Datasets</a>
+                  <a href="/resources/reference-genomes" class="navigationLink">Reference Genomes</a>
+                  <a href="/resources/surveillance" class="navigationLink">Surveillance Data</a>
+                  <a href="/resources/outbreaks" class="navigationLink">Outbreak Reports</a>
+                </div>
+                <div class="dropdown-section">
+                  <h3>Knowledge Base</h3>
+                  <a href="/resources/publications" class="navigationLink">Publications</a>
+                  <a href="/resources/documentation" class="navigationLink">Documentation</a>
+                  <a href="/resources/tutorials" class="navigationLink">Tutorials</a>
+                  <a href="/resources/faqs" class="navigationLink">FAQs</a>
+                </div>
+                <div class="dropdown-section">
+                  <h3>Community</h3>
+                  <a href="/community/forums" class="navigationLink">Forums</a>
+                  <a href="/community/webinars" class="navigationLink">Webinars</a>
+                  <a href="/community/events" class="navigationLink">Events</a>
+                  <a href="/community/newsletter" class="navigationLink">Newsletter</a>
+                </div>
+              </div>
+            </div>
+          </nav>
         </div>
-      </header>
-      <!-- navbar-header-->
-    
-      <!-- search-overlay -->
-      <div class="search-overlay" id="search-overlay">
-        <div class="search-container">
-          <div class="search-input-container">
-            <svg class="icon search-icon" viewBox="0 0 24 24">
+
+        <!-- navbar-right -->
+        <div class="navbar-right">
+          <button class="search-button" id="search-button" aria-label="Search">
+            <svg class="icon" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="search" class="search-input" id="search-input" placeholder="Search organisms, genomes, pathways...">
-            <button class="search-close" id="search-close">
-              <svg class="icon" viewBox="0 0 24 24">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
+          </button>
+
+          <div class="auth-buttons">
+            <button class="login-button">Login</button>
+            <button class="register-button">Register</button>
           </div>
+
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
+            <svg class="icon" id="menu-icon" viewBox="0 0 24 24">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <svg class="icon" id="close-icon" viewBox="0 0 24 24" style="display: none;">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
       </div>
-     <!-- search-overlay --> 
+    </div>
+  </header>
+  <!-- navbar-header-->
+
+  <!-- search-overlay -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-container">
+      <div class="search-input-container">
+        <svg class="icon search-icon" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" class="search-input" id="search-input"
+          placeholder="Search organisms, genomes, pathways...">
+        <button class="search-close" id="search-close">
+          <svg class="icon" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
+  <!-- search-overlay -->
+
+</div>
 <!-- end #maage-navbar-header -->
