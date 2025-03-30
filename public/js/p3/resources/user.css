@@ -181,3 +181,219 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   box-shadow: 0 3px 10px rgb(0,0,0,0.15);
 }
 
+
+.maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] {
+  background-color: #fff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  padding: 4px 0 !important;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  animation: menuAppear 0.2s ease-out forwards !important;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+
+@keyframes menuAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Menu Headers */
+.maage-navbar .menuHeader {
+  background-color: #689f86 !important; /* Updated to requested green */
+  color: white !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+  padding: 6px 12px !important;
+  margin-top: 6px !important;
+  margin-bottom: 2px !important;
+  font-size: 13px !important;
+  letter-spacing: 0.5px !important;
+  border-left: 3px solid #4d7d65 !important; /* Darker shade for the accent */
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Add icons to section headers */
+.maage-navbar .menuHeader::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9;
+}
+
+/* Menu Items */
+.maage-navbar .menuItems > div,
+.maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div:not(.menuHeader):not([style*="display:inline-block"]):not([style*="display: inline-block"]) {
+  margin: 1px 0 !important;
+  padding: 0 6px !important;
+}
+
+/* Navigation Links */
+.maage-navbar .navigationLink,
+.maage-navbar .TopMenuLink,
+.maage-navbar .DialogButton,
+.maage-navbar .loginLink {
+  display: block !important;
+  padding: 5px 10px !important;
+  color: #2c2c2c !important; /* Updated to requested dark gray */
+  text-decoration: none !important;
+  font-size: 13px !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease-in-out !important;
+  position: relative !important;
+  cursor: pointer !important;
+}
+
+.maage-navbar .navigationLink:hover,
+.maage-navbar .TopMenuLink:hover,
+.maage-navbar .DialogButton:hover,
+.maage-navbar .loginLink:hover {
+  background-color: #c0dacc !important; /* Updated to requested light green */
+  color: #2c2c2c !important;
+  transform: translateX(2px) !important;
+}
+
+.maage-navbar .navigationLink:active,
+.maage-navbar .TopMenuLink:active,
+.maage-navbar .DialogButton:active,
+.maage-navbar .loginLink:active {
+  background-color: #aecfbc !important; /* Slightly darker for active state */
+}
+
+/* "All" items styling with arrow */
+.maage-navbar .navigationLink[href="/Bacteria"],
+.maage-navbar .navigationLink[href="/Virus2"],
+.maage-navbar .navigationLink[href^="/view/Taxonomy/10244"][href$="overview"]:contains("All Metagenomes"),
+.maage-navbar .navigationLink[href="/job/"],
+.maage-navbar .navigationLink[href="/workspace/public"]:contains("Public Workspaces") {
+  color: #4d7d65 !important; /* Darker green */
+  font-weight: 500 !important;
+  margin-top: 2px !important;
+  margin-bottom: 6px !important;
+}
+
+.maage-navbar .navigationLink[href="/Bacteria"]::after,
+.maage-navbar .navigationLink[href="/Virus2"]::after,
+.maage-navbar .navigationLink[href^="/view/Taxonomy/10244"][href$="overview"]:contains("All Metagenomes")::after,
+.maage-navbar .navigationLink[href="/job/"]::after,
+.maage-navbar .navigationLink[href="/workspace/public"]:contains("Public Workspaces")::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16'%3E%3Cpath fill='%23689f86' d='M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.maage-navbar .navigationLink[href="/Bacteria"]:hover::after,
+.maage-navbar .navigationLink[href="/Virus2"]:hover::after,
+.maage-navbar .navigationLink[href^="/view/Taxonomy/10244"][href$="overview"]:contains("All Metagenomes"):hover::after,
+.maage-navbar .navigationLink[href="/job/"]:hover::after,
+.maage-navbar .navigationLink[href="/workspace/public"]:contains("Public Workspaces"):hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(3px);
+}
+
+/* External links */
+.maage-navbar .navigationLinkOut::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='12' height='12'%3E%3Cpath fill='%23689f86' d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+/* Focus styles for accessibility */
+.maage-navbar .navigationLink:focus,
+.maage-navbar .TopMenuLink:focus,
+.maage-navbar .DialogButton:focus,
+.maage-navbar .loginLink:focus {
+  outline: 2px solid #689f86 !important;
+  outline-offset: 1px !important;
+}
+
+/* Specific styles for two-column layouts */
+.maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="display:inline-block"],
+.maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="display: inline-block"] {
+  vertical-align: top !important;
+  padding: 0 8px !important;
+}
+
+/* Enhance outbreak links */
+.maage-navbar .navigationLink[href^="/outbreaks/"] {
+  position: relative !important;
+}
+
+.maage-navbar .navigationLink[href^="/outbreaks/"]::before {
+  content: '🔔';
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+/* Remove extra paragraph spacing */
+.maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Horizontal rule styling */
+.maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] hr {
+  border: 0 !important;
+  height: 1px !important;
+  background-color: #e2e8f0 !important;
+  margin: 6px 8px !important;
+}
+
+/* Make the Tools dropdown wider to accommodate two columns */
+.maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Tools") + [data-dojo-type="p3/widget/TooltipDialog"] {
+  min-width: 520px !important;
+}
+
+/* Support potential two-column layout for Organisms dropdown */
+.maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Organisms") + [data-dojo-type="p3/widget/TooltipDialog"] {
+  min-width: 280px !important; /* Can be increased for two columns later */
+}
+
+/* Make sure columns in Tools are properly sized */
+.maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Tools") + [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="width:250px"] {
+  width: 240px !important; /* Slightly adjusted to fit better */
+}
+
+/* Make the Resources dropdown wider to fit all the dev links */
+.maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Resources") + [data-dojo-type="p3/widget/TooltipDialog"] {
+  min-width: 280px !important;
+}
+
+/* Fix any FontAwesome icons */
+.maage-navbar .fa {
+  margin-right: 5px !important;
+}
+
+/* For incomplete links in Resources */
+.maage-navbar .TopMenuLink[href="/dev"]:empty::after {
+  content: 'Coming Soon';
+  font-style: italic;
+  color: #999;
+}

@@ -1,0 +1,551 @@
+<style>
+.dijitReset, input {
+  color: inherit;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-weight: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.dijitInline, .dijitReset {
+  border-style: initial;
+  border-width: 0;
+}
+
+.dijitReset {
+  font-kerning: inherit;
+  font-optical-sizing: inherit;
+  font-size: inherit;
+  font-size-adjust: inherit;
+  font-stretch: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-variant-emoji: inherit;
+  font-variant-position: inherit;
+  line-height: normal;
+}
+
+.dijitInline {
+  display: inline-block;
+  padding: 0;
+}
+
+.dijitOffScreen {
+  left: -10000px !important;
+  position: absolute !important;
+  top: -10000px !important;
+}
+
+.dijitButtonNode * {
+  vertical-align: middle;
+}
+
+.dijitButtonNode .dijitArrowButtonInner {
+  background-color: initial;
+  direction: ltr;
+}
+
+.dijitStretch {
+  white-space-collapse: collapse;
+}
+
+.dijitDropDownButton {
+  vertical-align: middle;
+}
+
+.dijitButtonContents {
+  display: block;
+}
+
+.dijitButtonNode, .dijitButtonNode * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dijitButtonNode {
+  line-height: normal;
+  text-align: center;
+  text-wrap-mode: nowrap;
+  vertical-align: middle;
+  white-space-collapse: collapse;
+}
+
+.dijitButtonNode * {
+  cursor: pointer;
+}
+
+.dijitNoIcon {
+  display: none;
+}
+
+.dijitArrowButtonChar {
+  display: none !important;
+}
+
+.dijitButtonNode {
+  transition: background-color .3s;
+}
+
+.dijitDropDownButton .dijitButtonNode {
+  border-radius: 4px;
+}
+
+.dijitArrowButtonInner {
+  background-image: url(../form/images/buttonArrows.png);
+  background-position: -51px 53%;
+  background-repeat: no-repeat;
+  height: 15px;
+  width: 15px;
+}
+
+.dijitButtonText {
+  padding: 0 .3em;
+  text-align: center;
+}
+
+#maage-navbar {
+  color: #333;
+  font-size: .9em;
+  font-size-adjust: none;
+  font-weight: 400;
+  line-height: 1.5;
+  tab-size: 4;
+}
+
+input {
+  font-size: 100%;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+input:where([type="button"]), input:where([type="reset"]), input:where([type="submit"]) {
+  appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+
+input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+*, ::after, ::before {
+  border: 0 solid #e5e7eb;
+  box-sizing: border-box;
+}
+
+:disabled {
+  cursor: default;
+}
+
+div, span {
+  border-style: initial;
+  border-width: 0;
+}
+
+div {
+  margin-bottom: 0 !important;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0 !important;
+}
+
+span {
+  margin: 0;
+  padding: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+.maage-navbar {
+  padding: 0 !important;
+  z-index: 1000;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad {
+  font-family: Poppins;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+div:nth-child(2) {
+  flex: 1 1 0;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: -4px 0 0;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1) {
+  background-repeat: repeat;
+  font-size: 16px;
+}
+
+span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1) > span.dijitReset.dijitInline.dijitButtonNode {
+  font-family: Poppins;
+  font-weight: 400;
+  text-wrap-mode: nowrap;
+  transition: background-color .3s;
+  transition-behavior: normal;
+  white-space-collapse: collapse;
+}
+
+span#dijit_form_DropDownButton_0 {
+  background-repeat: repeat-x;
+  border-style: initial;
+  border-width: 0;
+  display: block;
+  font-size-adjust: none;
+  text-align: center;
+  text-wrap-mode: nowrap;
+  white-space-collapse: collapse;
+  -webkit-tap-highlight-color: transparent;
+  color: #26292c;
+  cursor: pointer;
+  font-weight: 500 !important;
+  user-select: none;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.topMenuButton.showOnLoad.dijitDropDownButton:nth-child(2) {
+  background-repeat: repeat;
+  font-size: 16px;
+  padding: 0 4px;
+}
+
+span#dijit_form_DropDownButton_1 {
+  color: #26292c;
+  cursor: pointer;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(3) {
+  background-repeat: repeat;
+  font-size: 16px;
+}
+
+span#dijit_form_DropDownButton_2 {
+  background-repeat: repeat-x;
+  color: #26292c;
+  cursor: pointer;
+  font-weight: 500;
+  text-wrap-mode: nowrap;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) {
+  background-repeat: repeat;
+  font-size: 16px;
+}
+
+span#dijit_form_DropDownButton_3 {
+  color: #34383c;
+  cursor: pointer;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(5) {
+  background-repeat: repeat;
+  font-size: 16px;
+  padding: 0 4px;
+}
+
+span#dijit_form_DropDownButton_4 {
+  background-repeat: repeat-x;
+  color: #26292c;
+  cursor: pointer;
+  font-weight: 500;
+  text-wrap-mode: nowrap;
+}
+
+span#dijit_form_DropDownButton_5 {
+  color: #26292c;
+  cursor: pointer;
+}
+
+span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_1 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_2 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_3 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_4 > span.dijitReset.dijitInline.dijitArrowButtonInner, span#dijit_form_DropDownButton_5 > span.dijitReset.dijitInline.dijitArrowButtonInner {
+  cursor: pointer;
+  display: none;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1), div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(3) {
+  font-family: Poppins;
+  padding: 0 5px;
+}
+
+span#dijit_form_DropDownButton_1 {
+  background-repeat: repeat-x;
+  font-family: Poppins;
+  font-weight: 400;
+  text-wrap-mode: nowrap;
+}
+
+span#dijit_form_DropDownButton_2 > span.dijitReset.dijitInline.dijitArrowButtonChar, span#dijit_form_DropDownButton_2_label {
+  cursor: pointer;
+  font-weight: 400;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) {
+  font-family: Poppins;
+  font-weight: 400;
+  padding: 0 5px;
+}
+
+span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) > span.dijitReset.dijitInline.dijitButtonNode {
+  font-weight: 400;
+  text-wrap-mode: nowrap;
+  transition: background-color .3s;
+  transition-behavior: normal;
+  white-space-collapse: collapse;
+}
+
+span#dijit_form_DropDownButton_3 {
+  background-repeat: repeat-x;
+  font-weight: 400;
+  text-wrap-mode: nowrap;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(5) {
+  font-family: Poppins;
+}
+
+span#dijit_form_DropDownButton_4_label {
+  cursor: pointer;
+  font-weight: 400;
+}
+
+div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(6) {
+  background-position: inherit;
+  border-radius: 4px;
+  line-height: normal;
+  text-align: center;
+  text-wrap-mode: nowrap;
+  transition: background-color .3s;
+  transition-behavior: normal;
+  vertical-align: middle;
+  white-space-collapse: collapse;
+  -webkit-tap-highlight-color: transparent;
+  background-attachment: inherit;
+  background-clip: inherit;
+  background-color: inherit;
+  background-image: inherit;
+  background-origin: inherit;
+  background-repeat: repeat;
+  background-size: inherit;
+  border-style: initial;
+  border-width: 0;
+  color: #efefef;
+  cursor: pointer;
+  font-family: Poppins;
+  font-size: 16px;
+  font-size-adjust: inherit;
+  padding: 0 5px;
+}
+
+span#dijit_form_DropDownButton_5 {
+  background-repeat: repeat-x;
+  font-weight: 400;
+  text-wrap-mode: nowrap;
+}
+
+span#dijit_form_DropDownButton_5_label {
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.topMenuButton, .topMenuButton.dijitDropDownButton .dijitButtonNode {
+  background-attachment: inherit;
+  background-clip: inherit;
+  background-color: inherit;
+  background-image: inherit;
+  background-origin: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
+  background-size: inherit;
+  border-style: initial;
+  border-width: 0;
+  box-shadow: 0 0 0;
+  color: #efefef;
+  cursor: pointer;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+#header-menu {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0;
+}
+
+.topMenuButton .dijitArrowButtonInner {
+  margin: 0;
+}
+</style>
+
+
+<div id="maage-navbar">
+    <div id="header-menu">
+        <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton"></div>
+
+
+                <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
+                    <span>Organisms</span>
+
+                    <div data-dojo-type="p3/widget/TooltipDialog">
+                        <div class="menuHeader" style="padding-right: 20px;">Bacterial Pathogens</div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/194#view_tab=overview">Campylobacter</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/1637#view_tab=overview">Listeria</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/561#view_tab=overview">Escherichia</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/590#view_tab=overview">Salmonella</a></div>
+                        <div><a class="navigationLink" href="/Bacteria">All Bacteria</a></div>
+
+                        <div class="menuHeader" style="padding-right: 20px;">Featured Viruses</div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/11320#view_tab=overview">Influenza A virus</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/2697049#view_tab=overview">SARS-CoV-2</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/10244#view_tab=overview">Monkeypox virus</a></div>
+                        <div><a class="navigationLink" href="/Virus2">All Viruses</a></div>
+
+                        <div class="menuHeader" style="padding-right: 20px;">Metagenomes</div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/1637#view_tab=overview">SARS-CoV-2 Wastewater</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/2697049#view_tab=overview">H5N1 Wastewater</a></div>
+                        <div><a class="navigationLink" href="/view/Taxonomy/10244#view_tab=overview">All Metagenomes</a></div>
+                    </div>
+                </div>
+
+                <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
+                    <span>Searches</span>
+
+                    <div data-dojo-type="p3/widget/TooltipDialog">
+                        <div class="menuHeader" style="padding-right: 20px;">Advanced Search</div>
+                        <div><a class="navigationLink" href="/searches/TaxaSearch">Taxa</a></div>
+                        <div><a class="navigationLink" href="/searches/GenomeSearch">Genomes</a></div>
+                        <div><a class="navigationLink" href="/searches/GenomicFeatureSearch">Features</a></div>
+                        <div><a class="navigationLink" href="/searches/ProteinSearch">Proteins</a></div>
+                        <div><a class="navigationLink" href="/searches/SpecialtyGeneSearch">Specialty Genes</a></div>
+                        <div><a class="navigationLink" href="/searches/ProteinStructureSearch">Protein Structures</a></div>
+                        <div><a class="navigationLink" href="/searches/PathwaySearch">Pathways</a></div>
+                        <div><a class="navigationLink" href="/searches/SubsystemSearch">Subsystems</a></div>
+                    </div>
+                </div>
+
+                <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
+                    <span>Tools</span>
+
+                    <div data-dojo-type="p3/widget/TooltipDialog">
+                        <div>
+                            <div style="vertical-align: top;width:250px;margin-right:5px;display:inline-block">
+                                <div class="menuHeader">Genomics</div>
+                                <div class="menuItems">
+                                    <div><a class="navigationLink" href="/app/Assembly2">Genome Assembly</a></div>
+                                    <div><a class="navigationLink" href="/app/Annotation">Genome Annotation</a></div>
+                                    <div><a class="navigationLink" href="/app/ComprehensiveGenomeAnalysis">Comprehensive Genome Analysis <span style="font-style: italic;">(B)</span></a></div>
+                                    <div><a class="navigationLink" href="/app/Homology">BLAST</a></div>
+                                    <div><a class="navigationLink" href="/app/GenomeDistance">Similar Genome Finder</a></div>
+                                </div>
+                                <div class="menuHeader">Phylogenomics</div>
+                                <div class="menuItems">
+                                    <div><a class="navigationLink" href="/app/PhylogeneticTree">Bacterial Genome Tree</a></div>
+                                    <div><a class="navigationLink" href="/app/ViralGenomeTree">Viral Genome Tree</a></div>
+                                    <div><a class="navigationLink" href="/app/GeneTree">Gene/Protein Tree</a></div>
+                                </div>
+                                <div class="menuHeader">Protein Tools</div>
+                                <div class="menuItems">
+                                    <div><a class="navigationLink" href="/app/MSA">MSA and SNP Analysis</a></div>
+                                    <div><a class="navigationLink" href="/app/SeqComparison">Proteome Comparison</a></div>
+                                    <div><a class="navigationLink" href="/app/ComparativeSystems">Comparative Systems</a></div>
+                                    <div><a class="navigationLink" href="/app/Docking">Docking</a></div>
+                                </div>
+                            </div>
+
+                            <div style="vertical-align:top;width:250px;display:inline-block">
+                                <div class="menuHeader">Metagenomics</div>
+                                <div class="menuItems">
+                                    <div><a class="navigationLink" href="/app/TaxonomicClassification">Taxonomic Classification</a></div>
+                                    <div><a class="navigationLink" href="/app/MetagenomicBinning">Metagenomic Binning</a></div>
+                                    <div><a class="navigationLink" href="/app/MetagenomicReadMapping">Metagenomic Read Mapping</a></div>
+                                    <div><a class="navigationLink" href="/app/CoreGenomeMLST">Core Genome MLST</a></div>
+                                    <div><a class="navigationLink" href="/app/WholeGenomeSNPAnalysis">Whole Genome SNP Analysis</a></div>
+                                </div>
+                              <p></p>
+                              <div class="menuHeader">Viral Tools</div>
+                              <div class="menuItems">
+                                <div><a class="navigationLink" href="/app/ComprehensiveSARS2Analysis">SARS-CoV-2 Genome Analysis</a></div>
+                                <div><a class="navigationLink" href="/app/SARS2Wastewater">SARS-CoV-2 Wastewater Analysis</a></div>
+                                <div><a class="navigationLink" href="/app/SequenceSubmission">Influenza Sequence Submission</a></div>
+                                <div><a class="navigationLink" href="/app/HASubtypeNumberingConversion">Influenza HA Subtype Conversion</a></div>
+                                <div><a class="navigationLink" href="/app/SubspeciesClassification">Subspecies Classification</a></div>
+                              </div>
+                              <p></p>
+                              <div class="menuHeader">Outbreak Tracker</div>
+                              <div class="menuItems">
+                                <div><b><a class="navigationLink" href="/outbreaks/Mpox/#view_tab=overview">Mpox 2024</a></b></div>
+                                <div><b><a class="navigationLink" href="/outbreaks/H5N1/#view_tab=overview">Influenza H5N1 2024</a></b></div>
+                                <div><b><a class="navigationLink" href="/outbreaks/SARSCoV2/#view_tab=overview">SARS-CoV-2</a></b></div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
+                    <span>Workspaces</span>
+
+                    <div data-dojo-type="p3/widget/TooltipDialog">
+                        <div>
+                            <div style="vertical-align: top;width:175px;display:inline-block">
+                                <div class="HideWithAuth">
+                                    Please <a class="loginLink">sign in</a> to view your workspaces.
+                                </div>
+                                <div class="ShowWithAuth">
+                                    <div><i class="fa icon-caret-down fa-1x noHoverIcon"
+                                            style="color:#333;cursor:normal;"></i>&nbsp;<a
+                                                class="navigationLink" id="YourWorkspaceLink">Workspaces</a></div>
+                                    <div id="YourWorkspaces"></div>
+                                    <div><a class="navigationLink" href="/workspace/public">My Workspace</a></div>
+                                    <div><a class="navigationLink" href="/workspace/public/ARWattam@patricbrc.org/BV-BRC%20Workshop">BV-BRC Workspace</a></div>
+                                    <div><a class="navigationLink" href="/workspace/public/ARWattam@patricbrc.org/BV-BRC%20Workshop">MAAGE Workspace</a></div>
+                                    <div><a class="navigationLink" href="/workspace/public">Public Workspaces</a></div>
+                                </div>
+                            </div>
+                            <div style="vertical-align:top;display:inline-block" class="ShowWithAuth">
+                                <div>
+                                    <a class="navigationLink" href="/job/">My Jobs</a>
+                                </div>
+                                <div>
+                                    <a class="navigationLink" href="/view/GenomeList/?eq(public,false)">My Genomes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
+                    <span>Resources</span>
+
+                    <div data-dojo-type="p3/widget/TooltipDialog">
+                        <div class="menuHeader">MAAGE</div>
+                        <div><a class="TopMenuLink" href="/about">About Us</a></div>
+                        <div><a class="TopMenuLink" href="/team">Our Team</a></div>
+                        <div><a class="TopMenuLink" href="/advisory-boards">Advisory Boards</a></div>
+                        <hr>
+                        <div class="menuHeader">Related Resources</div>
+                        <div><a class="TopMenuLink navigationLinkOut" href="https://github.com/MAAGE-BRC" target="_blank" rel="noopener">GitHub</a></div>
+                        <div><a class="DialogButton" rel="reportProblem:">Contact Us</a></div>
+                        <hr>
+                        <div class="menuHeader">For Devs</div>
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Login</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Registration</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Password Reset</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Modal Replacement: Profile</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dojo Widget: Genome Overview</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dashboard: SPA</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dashboard: App/Admin UI - 1</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Dashboard: App/Admin UI - 2</a></div>
+                        <div><a class="TopMenuLink" href="/dev">Charts: </a></div>
+                        <div><a class="TopMenuLink" href="/dev">Charts: </a></div>
+                        <div><a class="TopMenuLink" href="/dev">Charts: </a></div>
+                        <div><a class="TopMenuLink" href="/dev">Reports: </a></div>
+                    </div>
+                </div>
+            </div>
