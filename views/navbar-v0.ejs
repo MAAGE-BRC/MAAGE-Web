@@ -1,0 +1,899 @@
+
+  <style>
+    /* Reset and base styles */
+    .maage-wrapper *,
+    .maage-wrapper *::before,
+    .maage-wrapper *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* MAAGE Colors */
+      --maage-primary-50: #f2f8f5;
+      --maage-primary-100: #deede4;
+      --maage-primary-200: #bfd9cb;
+      --maage-primary-300: #a6c9b8;
+      --maage-primary-400: #89b8a3;
+      --maage-primary-500: #65a48a;
+      --maage-primary-600: #488970;
+      --maage-primary-700: #3e7561;
+      --maage-primary-800: #376755;
+      --maage-primary-900: #305a4c;
+      --maage-primary-950: #24423a;
+
+      --maage-secondary-50: #f1f7f9;
+      --maage-secondary-100: #dceaef;
+      --maage-secondary-200: #c2d9e0;
+      --maage-secondary-300: #a0c3cf;
+      --maage-secondary-400: #71a3b7;
+      --maage-secondary-500: #548fa6;
+      --maage-secondary-600: #649baf;
+      --maage-secondary-700: #406477;
+      --maage-secondary-800: #395160;
+      --maage-secondary-900: #314654;
+      --maage-secondary-950: #24333d;
+
+      /* Other UI colors */
+      --maage-background: #ffffff;
+      --maage-foreground: #0f172a;
+      --maage-muted: #f1f5f9;
+      --maage-muted-foreground: #64748b;
+      --maage-border: #e2e8f0;
+      --maage-input: #e2e8f0;
+      --maage-shadow: rgba(0, 0, 0, 0.1);
+      --maage-shadow-lg: rgba(0, 0, 0, 0.15);
+
+      /* Fonts */
+      --maage-font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --maage-font-heading: 'Poppins', var(--maage-font-sans);
+    }
+
+    .maage-wrapper {
+      font-family: var(--maage-font-sans);
+      color: var(--maage-foreground);
+      line-height: 1.5;
+      background-color: var(--maage-background);
+    }
+
+    .maage-wrapper h1,
+    .maage-wrapper h2,
+    .maage-wrapper h3,
+    .maage-wrapper h4,
+    .maage-wrapper h5,
+    .maage-wrapper h6 {
+      font-family: var(--maage-font-heading);
+    }
+
+    .maage-wrapper a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .maage-wrapper button {
+      font: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Container */
+    .maage-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .maage-container {
+        padding: 0 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .maage-container {
+        padding: 0 2rem;
+      }
+    }
+
+    /* Header and Navbar */
+    .maage-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      width: 100%;
+      height: 4rem; /* 64px */
+      border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+    }
+
+    .maage-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      padding: 0.75rem 0; /* Added vertical padding */
+    }
+
+    .maage-navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 100%;
+    }
+
+    .maage-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: var(--maage-font-heading);
+      color: var(--maage-secondary-800);
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .maage-nav-items {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .maage-nav-items {
+        position: fixed;
+        top: 4rem;
+        left: 0;
+        width: 100%;
+        background-color: var(--maage-background);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 4px 6px -1px var(--maage-shadow);
+        z-index: 40;
+        height: auto;
+      }
+
+      .maage-nav-items.show {
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
+      }
+    }
+
+    /* Nav Item and Dropdown */
+    .maage-nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .maage-nav-item {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        border-bottom: 1px solid var(--maage-border);
+        height: auto;
+      }
+    }
+
+    .maage-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-weight: 500;
+      color: var(--maage-secondary-800);
+      transition: color 0.2s;
+      padding: 0.5rem 0;
+      height: 100%;
+    }
+
+    .maage-nav-link:hover {
+      color: var(--maage-secondary-900);
+    }
+
+    .maage-dropdown-icon {
+      width: 1rem;
+      height: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .maage-nav-item.active .maage-dropdown-icon {
+      transform: rotate(180deg);
+    }
+
+    .maage-dropdown-content {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 50;
+      min-width: 280px;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 15px -3px var(--maage-shadow-lg), 0 4px 6px -4px var(--maage-shadow);
+      padding: 1rem;
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .maage-dropdown-content.two-columns {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      min-width: 560px;
+      left: -25%;
+    }
+
+    .maage-dropdown-content.three-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      min-width: 800px;
+      left: -50%;
+    }
+
+    .maage-nav-item.active .maage-dropdown-content {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .maage-nav-item.active .maage-dropdown-content.two-columns {
+      display: grid;
+    }
+
+    .maage-nav-item.active .maage-dropdown-content.three-columns {
+      display: grid;
+    }
+
+    @media (max-width: 768px) {
+      .maage-dropdown-content,
+      .maage-dropdown-content.two-columns,
+      .maage-dropdown-content.three-columns {
+        position: static;
+        width: 100%;
+        min-width: auto;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0.5rem 0 0.5rem 1rem;
+        margin-top: 0.5rem;
+        display: none;
+        grid-template-columns: 1fr;
+      }
+
+      .maage-nav-item.active .maage-dropdown-content,
+      .maage-nav-item.active .maage-dropdown-content.two-columns,
+      .maage-nav-item.active .maage-dropdown-content.three-columns {
+        display: block;
+      }
+    }
+
+    .maage-dropdown-section {
+      margin-bottom: 1rem;
+    }
+
+    .maage-dropdown-section h3 {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--maage-secondary-600);
+      margin-bottom: 0.375rem;
+      padding-bottom: 0.375rem;
+      border-bottom: 1px solid var(--maage-secondary-100);
+    }
+
+    .maage-dropdown-section a {
+      display: block;
+      font-size: 0.875rem;
+      padding: 0.25rem 0.5rem;
+      color: var(--maage-secondary-800);
+      border-radius: 0.375rem;
+      transition: all 0.2s;
+    }
+
+    .maage-dropdown-section a:hover {
+      color: var(--maage-secondary-900);
+      background-color: var(--maage-secondary-50);
+    }
+
+    /* Navbar Right */
+    .maage-navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      height: 100%;
+    }
+
+    .maage-search-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      color: var(--maage-secondary-700);
+      transition: background-color 0.2s;
+    }
+
+    .maage-search-button:hover {
+      background-color: var(--maage-secondary-100);
+    }
+
+    .maage-auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      height: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .maage-auth-buttons {
+        display: none;
+      }
+    }
+
+    .maage-login-button {
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: var(--maage-secondary-700);
+      border-radius: 0.375rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      height: 2.5rem;
+    }
+
+    .maage-login-button:hover {
+      color: var(--maage-secondary-900);
+      background-color: var(--maage-secondary-100);
+    }
+
+    .maage-register-button {
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: white;
+      background-color: var(--maage-secondary-600);
+      border-radius: 0.375rem;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      height: 2.5rem;
+    }
+
+    .maage-register-button:hover {
+      background-color: var(--maage-secondary-700);
+    }
+
+    .maage-mobile-menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      color: var(--maage-secondary-700);
+      transition: background-color 0.2s;
+    }
+
+    @media (max-width: 768px) {
+      .maage-mobile-menu-toggle {
+        display: flex;
+      }
+    }
+
+    .maage-mobile-menu-toggle:hover {
+      background-color: var(--maage-secondary-100);
+    }
+
+    /* Search Overlay */
+    .maage-search-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 60;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      display: none;
+    }
+
+    .maage-search-overlay.show {
+      display: block;
+    }
+
+    .maage-search-container {
+      display: flex;
+      align-items: center;
+      height: 4rem;
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .maage-search-input-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .maage-search-input {
+      width: 100%;
+      padding: 0.5rem 2.5rem;
+      font-size: 0.875rem;
+      border: 1px solid var(--maage-input);
+      border-radius: 0.375rem;
+      background-color: var(--maage-background);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .maage-search-input:focus {
+      border-color: var(--maage-secondary-400);
+      box-shadow: 0 0 0 2px rgba(100, 155, 175, 0.2);
+    }
+
+    .maage-search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--maage-muted-foreground);
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .maage-search-close {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--maage-muted-foreground);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Main Content */
+    .maage-main {
+      padding: 3rem 0;
+    }
+
+    .maage-hero {
+      max-width: 48rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .maage-hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--maage-secondary-900);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .maage-hero-description {
+      font-size: 1.125rem;
+      color: var(--maage-secondary-700);
+      margin-bottom: 2.5rem;
+    }
+
+    .maage-hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .maage-primary-button {
+      padding: 0.625rem 1.25rem;
+      font-weight: 500;
+      color: white;
+      background-color: var(--maage-primary-600);
+      border-radius: 0.375rem;
+      transition: background-color 0.2s;
+    }
+
+    .maage-primary-button:hover {
+      background-color: var(--maage-primary-700);
+    }
+
+    .maage-secondary-button {
+      padding: 0.625rem 1.25rem;
+      font-weight: 500;
+      color: var(--maage-secondary-700);
+      background-color: transparent;
+      border: 1px solid var(--maage-secondary-300);
+      border-radius: 0.375rem;
+      transition: all 0.2s;
+    }
+
+    .maage-secondary-button:hover {
+      background-color: var(--maage-secondary-50);
+    }
+
+    /* Icons */
+    .maage-icon {
+      display: inline-block;
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .maage-icon-sm {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    /* Mobile menu sections */
+    .maage-mobile-section {
+      border-bottom: 1px solid var(--maage-border);
+      padding-bottom: 1rem;
+    }
+
+    .maage-mobile-section h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .maage-mobile-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .maage-mobile-links a {
+      font-size: 0.875rem;
+      padding: 0.375rem 0;
+      color: var(--maage-secondary-800);
+    }
+
+    .maage-mobile-auth {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .maage-mobile-auth button {
+      width: 100%;
+      padding: 0.75rem;
+      font-weight: 500;
+      text-align: center;
+      border-radius: 0.375rem;
+    }
+
+    .maage-mobile-login {
+      color: var(--maage-secondary-800);
+      background-color: transparent;
+      border: 1px solid var(--maage-border);
+    }
+
+    .maage-mobile-register {
+      color: white;
+      background-color: var(--maage-secondary-600);
+    }
+
+    .maage-mobile-register:hover {
+      background-color: var(--maage-secondary-700);
+    }
+  </style>
+
+  <div class="maage-wrapper">
+    <header class="maage-header">
+      <div class="maage-container">
+        <div class="maage-navbar">
+          <div class="maage-navbar-left">
+            <a href="/" class="maage-logo">MAAGE</a>
+
+            <nav class="maage-nav-items" id="maage-nav-items">
+              <!-- Data Dropdown (renamed from Organisms) -->
+              <div class="maage-nav-item">
+                <a href="#" class="maage-nav-link">
+                  Data
+                  <svg class="maage-icon maage-icon-sm maage-dropdown-icon" viewBox="0 0 24 24">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </a>
+                <div class="maage-dropdown-content">
+                  <div class="maage-dropdown-section">
+                    <h3>Bacteria</h3>
+                    <a href="/view/Taxonomy/194">Campylobacter</a>
+                    <a href="/view/Taxonomy/1637">Listeria</a>
+                    <a href="/view/Taxonomy/561">Escherichia</a>
+                    <a href="/view/Taxonomy/590">Salmonella</a>
+                    <a href="/bacteria">All Bacteria</a>
+                  </div>
+                  <div class="maage-dropdown-section">
+                    <h3>Viruses</h3>
+                    <a href="/view/Taxonomy/11320">Influenza A virus</a>
+                    <a href="/view/Taxonomy/2697049">SARS-CoV-2</a>
+                    <a href="/view/Taxonomy/10244">Monkeypox virus</a>
+                    <a href="/viruses">All Viruses</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tools Dropdown (Updated with three columns) -->
+              <div class="maage-nav-item">
+                <a href="#" class="maage-nav-link">
+                  Tools
+                  <svg class="maage-icon maage-icon-sm maage-dropdown-icon" viewBox="0 0 24 24">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </a>
+                <div class="maage-dropdown-content three-columns">
+                  <!-- Column 1 -->
+                  <div>
+                    <div class="maage-dropdown-section">
+                      <h3>Genomics</h3>
+                      <a href="/app/Assembly2">Genome Assembly</a>
+                      <a href="/app/Annotation">Genome Annotation</a>
+                      <a href="/app/ComprehensiveGenomeAnalysis">Comprehensive Genome Analysis (B)</a>
+                      <a href="/app/Homology">BLAST</a>
+                      <a href="/app/GenomeDistance">Similar Genome Finder</a>
+                    </div>
+                  </div>
+
+                  <!-- Column 2 -->
+                  <div>
+                    <div class="maage-dropdown-section">
+                      <h3>Phylogenomics</h3>
+                      <a href="/app/PhylogeneticTree">Bacterial Genome Tree</a>
+                      <a href="/app/ViralGenomeTree">Viral Genome Tree</a>
+                      <a href="/app/GeneTree">Gene Protein Tree</a>
+                    </div>
+                    <div class="maage-dropdown-section">
+                      <h3>Protein Tools</h3>
+                      <a href="/app/MSA">MSA and SNP Analysis</a>
+                      <a href="/app/SeqComparison">Proteome Comparison</a>
+                      <a href="/app/ComparativeSystems">Comparative Systems</a>
+                    </div>
+                  </div>
+
+                  <!-- Column 3 -->
+                  <div>
+                    <div class="maage-dropdown-section">
+                      <h3>Metagenomics</h3>
+                      <a href="/app/TaxonomicClassification">Taxonomic Classification</a>
+                      <a href="/app/MetagenomicBinning">Metagenomic Binning</a>
+                      <a href="/app/MetagenomicReadMapping">Metagenomic Read Mapping</a>
+                      <a href="/app/CoreGenomeMLST">Core Genome MLST</a>
+                      <a href="/app/WholeGenomeSNPAnalysis">Whole Genome SNP Analysis</a>
+                    </div>
+                    <div class="maage-dropdown-section">
+                      <h3>Viral Tools</h3>
+                      <a href="/app/ComprehensiveSARS2Analysis">SARS-COV-2 Genome Analysis</a>
+                      <a href="/app/SARS2Wastewater">SARS-CoV-2 Wastewater Analysis</a>
+                      <a href="/app/SubspeciesClassification">Subspecies Classification</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Workspaces Dropdown (New) -->
+              <div class="maage-nav-item">
+                <a href="#" class="maage-nav-link">
+                  Workspaces
+                  <svg class="maage-icon maage-icon-sm maage-dropdown-icon" viewBox="0 0 24 24">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </a>
+                <div class="maage-dropdown-content">
+                  <div class="maage-dropdown-section">
+                    <h3>My Workspaces</h3>
+                    <a href="/workspaces/recent">Recent Workspaces</a>
+                    <a href="/workspaces/shared">Shared With Me</a>
+                    <a href="/workspaces/create">Create Workspace</a>
+                  </div>
+                  <div class="maage-dropdown-section">
+                    <h3>Templates</h3>
+                    <a href="/workspaces/templates/outbreak">Outbreak Investigation</a>
+                    <a href="/workspaces/templates/surveillance">Surveillance</a>
+                    <a href="/workspaces/templates/research">Research Project</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Resources Dropdown (Kept as is) -->
+              <div class="maage-nav-item">
+                <a href="#" class="maage-nav-link">
+                  Resources
+                  <svg class="maage-icon maage-icon-sm maage-dropdown-icon" viewBox="0 0 24 24">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </a>
+                <div class="maage-dropdown-content two-columns">
+                  <div class="maage-dropdown-section">
+                    <h3>Analysis Tools</h3>
+                    <a href="/tools/genome-browser">Genome Browser</a>
+                    <a href="/tools/sequence-analysis">Sequence Analysis</a>
+                    <a href="/tools/phylogenetic-trees">Phylogenetic Trees</a>
+                    <a href="/tools/variant-calling">Variant Calling</a>
+                    <a href="/tools/comparative-genomics">Comparative Genomics</a>
+                  </div>
+                  <div class="maage-dropdown-section">
+                    <h3>Data Resources</h3>
+                    <a href="/resources/datasets">Datasets</a>
+                    <a href="/resources/reference-genomes">Reference Genomes</a>
+                    <a href="/resources/surveillance">Surveillance Data</a>
+                    <a href="/resources/outbreaks">Outbreak Reports</a>
+                  </div>
+                  <div class="maage-dropdown-section">
+                    <h3>Knowledge Base</h3>
+                    <a href="/resources/publications">Publications</a>
+                    <a href="/resources/documentation">Documentation</a>
+                    <a href="/resources/tutorials">Tutorials</a>
+                    <a href="/resources/faqs">FAQs</a>
+                  </div>
+                  <div class="maage-dropdown-section">
+                    <h3>Community</h3>
+                    <a href="/community/forums">Forums</a>
+                    <a href="/community/webinars">Webinars</a>
+                    <a href="/community/events">Events</a>
+                    <a href="/community/newsletter">Newsletter</a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          <div class="maage-navbar-right">
+            <button class="maage-search-button" id="maage-search-button" aria-label="Search">
+              <svg class="maage-icon" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+
+            <div class="maage-auth-buttons">
+              <button class="maage-login-button">Login</button>
+              <button class="maage-register-button">Register</button>
+            </div>
+
+            <button class="maage-mobile-menu-toggle" id="maage-mobile-menu-toggle" aria-label="Menu">
+              <svg class="maage-icon" id="maage-menu-icon" viewBox="0 0 24 24">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+              <svg class="maage-icon" id="maage-close-icon" viewBox="0 0 24 24" style="display: none;">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="maage-search-overlay" id="maage-search-overlay">
+      <div class="maage-search-container">
+        <div class="maage-search-input-container">
+          <svg class="maage-icon maage-search-icon" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="search" class="maage-search-input" id="maage-search-input" placeholder="Search organisms, genomes, pathways...">
+          <button class="maage-search-close" id="maage-search-close">
+            <svg class="maage-icon" viewBox="0 0 24 24">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="maage-main">
+      <div class="maage-container">
+        <div class="maage-hero">
+          <h1 class="maage-hero-title">MAAGE Dropdown Menu Demo</h1>
+          <p class="maage-hero-description">
+            Explore the sleek dropdown menu in the navigation bar above. Try hovering over "Data", "Tools", "Workspaces", or "Resources" to see the dropdown in action.
+          </p>
+          <div class="maage-hero-buttons">
+            <button class="maage-primary-button">Learn More</button>
+            <button class="maage-secondary-button">Documentation</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // DOM Elements
+    const navItems = document.querySelectorAll('.maage-nav-item');
+    const mobileMenuToggle = document.getElementById('maage-mobile-menu-toggle');
+    const navItemsContainer = document.getElementById('maage-nav-items');
+    const menuIcon = document.getElementById('maage-menu-icon');
+    const closeIcon = document.getElementById('maage-close-icon');
+    const searchButton = document.getElementById('maage-search-button');
+    const searchOverlay = document.getElementById('maage-search-overlay');
+    const searchInput = document.getElementById('maage-search-input');
+    const searchClose = document.getElementById('maage-search-close');
+
+    // Dropdown Menu Functionality
+    navItems.forEach(item => {
+      const link = item.querySelector('.maage-nav-link');
+
+      // Toggle dropdown on click
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Close other dropdowns
+        navItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+          }
+        });
+
+        // Toggle current dropdown
+        item.classList.toggle('active');
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.maage-nav-item')) {
+        navItems.forEach(item => {
+          item.classList.remove('active');
+        });
+      }
+    });
+
+    // Mobile Menu Toggle
+    mobileMenuToggle.addEventListener('click', function() {
+      navItemsContainer.classList.toggle('show');
+
+      // Toggle icons
+      if (navItemsContainer.classList.contains('show')) {
+        menuIcon.style.display = 'none';
+        closeIcon.style.display = 'block';
+      } else {
+        menuIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    });
+
+    // Search Functionality
+    searchButton.addEventListener('click', function() {
+      searchOverlay.classList.add('show');
+      searchInput.focus();
+    });
+
+    searchClose.addEventListener('click', function() {
+      searchOverlay.classList.remove('show');
+    });
+
+    // Close search on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && searchOverlay.classList.contains('show')) {
+        searchOverlay.classList.remove('show');
+      }
+    });
+
+    // Close mobile menu when window is resized to desktop size
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768 && navItemsContainer.classList.contains('show')) {
+        navItemsContainer.classList.remove('show');
+        menuIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    });
+  </script>
