@@ -347,7 +347,6 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
 }
 
 .maage-navbar .navigationLink[href^="/outbreaks/"]::before {
-  content: '🔔';
   margin-right: 5px;
   font-size: 12px;
 }
