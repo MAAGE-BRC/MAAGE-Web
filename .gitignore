@@ -117,7 +117,7 @@ build/
 test/
 src/
 coverage/
-
+public/js/release/
 
 # testing & coverage
 coverage/
@@ -133,6 +133,8 @@ intern.js
 .htmlhintrc
 .jshintrc
 .editorconfig
+gulpfile.js
+gulpified
 
 # temp files & caches
 .pnp.*
@@ -146,10 +148,6 @@ out/
 *.gz
 .nyc_output/
 node_repl_history
-
-# misc
-gulpfile.js
-gulpified
 
 # TEMP - TO BE REMOVED
 package-lock.json
