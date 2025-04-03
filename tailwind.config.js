@@ -1,7 +1,6 @@
-// tailwind-maage-config.js
-// Standalone Tailwind config (Option 1)
+// tailwind.config.js
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,html}'],
+  content: ['./views/**/*.{js,jsx,ts,tsx,ejs,html}'],
   theme: {
     extend: {
       fontFamily: {
