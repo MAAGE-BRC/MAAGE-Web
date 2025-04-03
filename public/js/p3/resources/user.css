@@ -208,7 +208,7 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
 
 /* Menu Headers */
 .maage-navbar .menuHeader {
-  background-color: #689f86 !important; /* Updated to requested green */
+  background-color: #92baa8 !important;
   color: white !important;
   font-weight: 600 !important;
   text-align: left !important;
@@ -217,7 +217,7 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   margin-bottom: 2px !important;
   font-size: 13px !important;
   letter-spacing: 0.5px !important;
-  border-left: 3px solid #4d7d65 !important; /* Darker shade for the accent */
+  border-left: 3px solid #4d7d65 !important;
   display: flex !important;
   align-items: center !important;
 }
