@@ -1,0 +1,1031 @@
+<style>
+    :root {
+  --primary-color: #a6c9b8;
+  --primary-50: #f2f8f5;
+  --primary-100: #4e514f;
+  --primary-200: #bfd9cb;
+  --primary-300: #a6c9b8;
+  --primary-400: #89b8a3;
+  --primary-500: #65a48a;
+  --primary-600: #488970;
+  --primary-700: #3e7561;
+  --primary-800: #376755;
+  --primary-900: #305a4c;
+  --primary-950: #24423a;
+
+  --secondary-color: #548fa6;
+  --secondary-50: #f1f7f9;
+  --secondary-100: #dceaef;
+  --secondary-200: #c2d9e0;
+  --secondary-300: #a0c3cf;
+  --secondary-400: #71a3b7;
+  --secondary-500: #548fa6;
+  --secondary-600: #447188;
+  --secondary-700: #406477;
+  --secondary-800: #395160;
+  --secondary-900: #314654;
+  --secondary-950: #24333d;
+
+  --maage-primary-50: #f2f8f5;
+  --maage-primary-100: #deede4;
+  --maage-primary-200: #bfd9cb;
+  --maage-primary-300: #a6c9b8;
+  --maage-primary-400: #89b8a3;
+  --maage-primary-500: #65a48a;
+  --maage-primary-600: #488970;
+  --maage-primary-700: #3e7561;
+  --maage-primary-800: #376755;
+  --maage-primary-900: #305a4c;
+  --maage-primary-950: #24423a;
+
+  --maage-secondary-50: #f1f7f9;
+  --maage-secondary-100: #dceaef;
+  --maage-secondary-200: #c2d9e0;
+  --maage-secondary-300: #a0c3cf;
+  --maage-secondary-400: #71a3b7;
+  --maage-secondary-500: #548fa6;
+  --maage-secondary-600: #447188;
+  --maage-secondary-700: #406477;
+  --maage-secondary-800: #395160;
+  --maage-secondary-900: #314654;
+  --maage-secondary-950: #24333d;
+
+  --maage-tertiary-50: #f9f9fb;
+  --maage-tertiary-100: #f1f1f6;
+  --maage-tertiary-200: #e6e5ef;
+  --maage-tertiary-300: #d2d0e2;
+  --maage-tertiary-400: #b4b0cf;
+  --maage-tertiary-500: #a19ac1;
+  --maage-tertiary-600: #897daa;
+  --maage-tertiary-700: #766a95;
+  --maage-tertiary-800: #675d83;
+  --maage-tertiary-900: #574e6e;
+  --maage-tertiary-950: #3b364e;
+
+  --maage-gray-50: #f6f6f6;
+  --maage-gray-100: #ededed;
+  --maage-gray-200: #dbdbdb;
+  --maage-gray-300: #c9c9c9;
+  --maage-gray-400: #adadad;
+  --maage-gray-500: #8f8f8f;
+  --maage-gray-600: #757575;
+  --maage-gray-700: #595959;
+  --maage-gray-800: #454545;
+  --maage-gray-900: #333333;
+  --maage-gray-950: #262626;
+
+  --dove-gray-50: #f6f6f6;
+  --dove-gray-100: #e7e7e7;
+  --dove-gray-200: #dedede;
+  --dove-gray-300: #b0b0b0;
+  --dove-gray-400: #888888;
+  --dove-gray-500: #737373;
+  --dove-gray-600: #5d5d5d;
+  --dove-gray-700: #4f4f4f;
+  --dove-gray-800: #454545;
+  --dove-gray-900: #3d3d3d;
+  --dove-gray-950: #262626;
+
+  --accent-color: #8279a1;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --light-color: #ecf0f1;
+  --dark-color: #2c3e50;
+  --text-color: #2c2c2c;
+  --text-color-alt: #7f8c8d;
+  --text-color-dark-mode: #ecf0f1;
+  --text-color-dark-mode-alt: #bdc3c7;
+  --heading-color: #2c2c2c;
+  --heading-color-alt: #7f8c8d;
+  --heading-color-dark-mode: #ecf0f1;
+  --heading-color-dark-mode-alt: #bdc3c7;
+  --text-light: #7f8c8d;
+  --background-color: #F8F6F4;
+  --bg-ui-color: #F8F6F4;
+  --card-color: #fafafa;
+  --viz-placeholder: #e7e7e7;
+  --sidebar-width: 240px;
+  --header-height: 60px;
+  --border-radius: 8px;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --ma-color: #477e93;
+  --age-color: #375767;
+  --viz-bg: #fafafa;
+}
+
+[data-theme="dark"] {
+  --primary-color: #3d677d;
+  --secondary-color: #305a6a;
+  --accent-color: #6e6b8a;
+  --success-color: #27ae60;
+  --warning-color: #e67e22;
+  --light-color: #2c3e50;
+  --dark-color: #ecf0f1;
+  --text-color: #ecf0f1;
+  --text-light: #bdc3c7;
+  --background-color: #2e3f4b;
+  --card-color: #2c3e50;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --ma-color: #5b9eb8;
+  --age-color: #7c91a3;
+}
+
+.maage-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--primary-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  z-index: 20;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.navbar-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--primary-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 20;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  margin-right: 20px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo img {
+  min-width: 32px;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+.nav-items {
+  display: flex;
+  gap: 20px;
+  margin-left: 15px;
+}
+
+.nav-item {
+  position: relative;
+  padding: 0 6px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--secondary-800);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+  transform: scale(1.1);
+}
+
+.nav-item > a {
+  color: var(--secondary-800);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-item > a:hover {
+  color: var(--secondary-900);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item > a:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--secondary-700);
+  transition: width 0.3s ease;
+}
+
+.nav-item > a:hover:after {
+  width: 100%;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px;
+  display: none;
+  z-index: 30;
+}
+
+.dropdown-content.two-columns {
+  display: none;
+  flex-direction: row !important;
+  min-width: 600px;
+  left: -150px;
+  width: auto;
+}
+
+.dropdown-column {
+  flex: 1;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.nav-item .dropdown-content.two-columns.show {
+  display: flex !important;
+}
+
+.nav-item .dropdown-content.show {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item > a .dropdown-icon {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.nav-item.active > a .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.dropdown-section {
+  margin-bottom: 10px;
+}
+
+.dropdown-section h3 {
+  font-size: 14px;
+  color: var(--secondary-color);
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-section a {
+  display: block;
+  padding: 5px 0;
+  color: var(--text-color);
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.dropdown-section a:hover {
+  color: var(--secondary-color);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-icon,
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--dark-color);
+  margin-right: 10px;
+  transition: transform 0.2s ease;
+}
+
+.search-icon:hover {
+  transform: scale(1.1);
+}
+
+.search-flyout {
+  background-color: #fafafa;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  display: none;
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.search-flyout.active {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.search-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 20px;
+}
+
+.search-container i.fa-search {
+  position: absolute;
+  left: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  font-size: 18px;
+}
+
+.search-container input {
+  color: var(--text-color);
+  background-color: #fafafa;
+  border: 1px solid var(--light-color);
+  border-radius: var(--border-radius);
+  padding: 12px 15px 12px 45px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-container .search-close {
+  position: absolute;
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.search-container .search-close:hover {
+  color: var(--text-color);
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px rgba(61, 103, 125, 0.2);
+}
+
+.search-message {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background-color: var(--card-color);
+  color: var(--text-color);
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 110;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.search-message.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.login-btn,
+.register-btn {
+  text-decoration: none;
+  padding: 8px 32px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-btn::before,
+.register-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s ease;
+}
+
+.login-btn:hover::before,
+.register-btn:hover::before {
+  left: 100%;
+}
+
+.login-btn {
+  background-color: var(--bg-ui-color);
+  color: #262626;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.login-btn:hover {
+  color: #fafafa;
+  background-color: #477e93;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.register-btn {
+  color: #fafafa;
+  background-color: var(--secondary-color);
+}
+
+.register-btn:hover {
+  background-color: #477e93;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile styles */
+@media (max-width: 1023px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .nav-items {
+    display: none;
+  }
+
+  .nav-items.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--primary-color);
+    padding: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Dojo compatibility classes */
+.dijitReset, button {
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-weight: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.dijitInline, .dijitReset {
+  border-style: initial;
+  border-width: 0;
+}
+
+.dijitReset {
+  color: inherit;
+  font-kerning: inherit;
+  font-optical-sizing: inherit;
+  font-size: inherit;
+  font-size-adjust: inherit;
+  font-stretch: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-variant-emoji: inherit;
+  font-variant-position: inherit;
+  line-height: normal;
+}
+
+.dijitInline {
+  display: inline-block;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.dijitSelect .dijitArrowButtonContainer {
+  border: 1px solid #fff;
+}
+
+.dijitSelect .dijitArrowButton {
+  background-color: #efefef;
+  background-repeat: repeat-x;
+  padding: 0;
+}
+
+.dijitContentPane {
+  display: block;
+}
+
+.dijitHidden {
+  display: none;
+}
+
+.topMenuButton, .topMenuButton.dijitDropDownButton .dijitButtonNode, .topMenuButtonIcon, .topMenuButtonIcon.dijitDropDownButton .dijitButtonNode {
+  background-attachment: inherit;
+  background-clip: inherit;
+  background-color: inherit;
+  background-image: inherit;
+  background-origin: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
+  background-size: inherit;
+  border-style: initial;
+  border-width: 0;
+  box-shadow: 0 0 0;
+  color: #efefef;
+  cursor: pointer;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.HeaderBar {
+  border-bottom-width: 0;
+  border-style: initial;
+  margin: 0;
+  overflow: visible;
+  top: 0;
+  width: 100%;
+}
+
+/* Original compatibility classes */
+#header-menu {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0;
+}
+
+.showOnLoad {
+  transition: opacity 0.3s ease;
+}
+
+/* Custom styles for tooltip dialogs */
+.p3/widget/TooltipDialog {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.menuHeader {
+  font-size: 14px;
+  color: var(--secondary-color);
+  margin: 8px 0 5px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.menuItems a, .navigationLink {
+  display: block;
+  padding: 5px 0;
+  color: var(--text-color);
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.menuItems a:hover, .navigationLink:hover {
+  color: var(--secondary-color);
+}
+
+/* Mobile navbar styles */
+.mobile-menu {
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  top: 60px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.menu-header {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.menu-items {
+  display: none;
+}
+
+.menu-items.open {
+  display: block;
+}
+
+/* Override for compatibility */
+.navigationLinkOut {
+  text-decoration: none;
+  display: block;
+}
+
+.TopMenuLink {
+  display: block;
+  text-decoration: none;
+}
+
+#bv-brc-header-container {
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+.transition-transform {
+  transition-property: transform;
+}
+
+.duration-200 {
+  transition-duration: 200ms;
+}
+
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.ml-\[2px\] {
+  margin-left: 2px;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.text-\[38px\] {
+  font-size: 38px;
+}
+
+.auth-button {
+  align-self: center;
+  background-color: #e5eef4;
+  background-image: none;
+  border: 1px solid #759dc0;
+  border-radius: 4px;
+  color: #000;
+  padding: 2px 4px;
+  text-align: center;
+}
+
+.auth-links {
+  display: flex;
+  gap: 10px;
+}
+
+.dropdown-section hr {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: 12px 0;
+  padding: 0;
+}
+
+.dropdown-section .TopMenuLink {
+  display: block;
+  padding: 4px 8px;
+  margin: 0;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: #222;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-section .TopMenuLink:hover {
+  background-color: #deede4;
+  color: #2a2a2a;
+}
+
+.dropdown-section h3 {
+  margin: 6px 0 4px;
+  padding: 4px 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2a2a2a;
+  background-color: #a6c9b8;
+  border: none;
+}
+
+</style>
+
+<div data-dojo-type="dijit/layout/ContentPane" class="HeaderBar maage-navbar" data-dojo-props="region:'top'">
+
+    <div class="navbar-wrapper">
+      <div class="maage-nav navbar">
+          <div class="navbar-left">
+              <div class="logo cursor-pointer">
+                <a href="/" class="nav-logo-link hover:scale-110 transition-transform duration-200 hover:cursor-pointer">
+                    <span><img src="/public/maage/logos/maage-logo-temp.png" alt="MAAGE Logo" style="width: 40px; height: auto; margin-right: 10px;" /></span>
+                    <span class="font-poppins font-medium text-[38px] text-[var(--maage-secondary-600)]">MA</span>
+                    <span class="font-poppins font-light ml-[2px] text-[38px] text-[var(--maage-secondary-800)]">AGE</span>
+                </a>
+              </div>
+              <div class="nav-items" id="nav-items">
+                  <div class="nav-item">
+                      <a href="#">Organisms<i class="fas fa-chevron-down dropdown-icon"></i></a>
+                      <div class="dropdown-content">
+                          <div class="dropdown-section">
+                              <h3>Bacteria</h3>
+                              <a class="navigationLink" href="/view/Taxonomy/194#view_tab=overview">Campylobacter</a>
+                              <a class="navigationLink" href="/view/Taxonomy/1637#view_tab=overview">Listeria</a>
+                              <a class="navigationLink" href="/view/Taxonomy/561#view_tab=overview">Escherichia</a>
+                              <a class="navigationLink" href="/view/Taxonomy/590#view_tab=overview">Salmonella</a>
+                              <a class="navigationLink" href="/view/Bacteria/2">All Bacteria</a>
+                          </div>
+                          <div class="dropdown-section">
+                              <h3>Viruses</h3>
+                              <a class="navigationLink" href="/view/Taxonomy/11320#view_tab=overview">Influenza A virus</a>
+                              <a class="navigationLink" href="/view/Taxonomy/2697049#view_tab=overview">SARS-CoV-2</a>
+                              <a class="navigationLink" href="/view/Taxonomy/10244#view_tab=overview">Monkeypox virus</a>
+                              <a class="navigationLink" href="/view/Taxonomy/10239">All Viruses</a>
+                          </div>
+                          <div class="dropdown-section">
+                              <h3>Metagenomes</h3>
+                              <a class="navigationLink" href="/view/Taxonomy/1637#view_tab=overview">SARS-CoV-2 Wastewater</a>
+                              <a class="navigationLink" href="#">H5N1 Wastewater</a>
+                              <a class="navigationLink" href="#">All Metagenomes</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="nav-item">
+                      <a href="#">Searches <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                      <div class="dropdown-content">
+                          <div class="dropdown-section">
+                              <h3>Advanced Search</h3>
+                              <a class="navigationLink" href="/searches/TaxaSearch">Taxa</a>
+                              <a class="navigationLink" href="/searches/GenomeSearch">Genomes</a>
+                              <a class="navigationLink" href="/searches/GenomicFeatureSearch">Features</a>
+                              <a class="navigationLink" href="/searches/ProteinSearch">Proteins</a>
+                              <a class="navigationLink" href="/searches/SpecialtyGeneSearch">Specialty Genes</a>
+                              <a class="navigationLink" href="/searches/PathwaySearch">Pathways</a>
+                              <a class="navigationLink" href="/searches/SubsystemSearch">Subsystems</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="nav-item">
+                      <a href="#">Tools <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                      <div class="dropdown-content two-columns">
+                          <div class="dropdown-column" style="flex: 1; min-width: 280px;">
+                              <div class="dropdown-section">
+                                  <h3>Genomics</h3>
+                                  <a class="navigationLink" href="/app/Assembly2">Genome Assembly</a>
+                                  <a class="navigationLink" href="/app/Annotation">Genome Annotation</a>
+                                  <a class="navigationLink" href="/app/ComprehensiveGenomeAnalysis">Comprehensive Genome Analysis (B)</a>
+                                  <a class="navigationLink" href="/app/Homology">BLAST</a>
+                                  <a class="navigationLink" href="/app/GenomeDistance">Similar Genome Finder</a>
+                              </div>
+                              <div class="dropdown-section">
+                                  <h3>Phylogenomics</h3>
+                                  <a class="navigationLink" href="/app/PhylogeneticTree">Bacterial Genome Tree</a>
+                                  <a class="navigationLink" href="/app/ViralGenomeTree">Viral Genome Tree</a>
+                                  <a class="navigationLink" href="/app/GeneTree">Gene Protein Tree</a>
+                              </div>
+                              <div class="dropdown-section">
+                                  <h3>Protein Tools</h3>
+                                  <a class="navigationLink" href="/app/MSA">MSA and SNP Analysis</a>
+                                  <a class="navigationLink" href="/app/SeqComparison">Proteome Comparison</a>
+                                  <a class="navigationLink" href="/app/ComparativeSystems">Comparative Systems</a>
+                              </div>
+                          </div>
+                          <div class="dropdown-column" style="flex: 1; min-width: 280px;">
+                              <div class="dropdown-section">
+                                  <h3>Metagenomics</h3>
+                                  <a class="navigationLink" href="/app/TaxonomicClassification">Taxonomic Classification</a>
+                                  <a class="navigationLink" href="/app/MetagenomicBinning">Metagenomic Binning</a>
+                                  <a class="navigationLink" href="/app/MetagenomicReadMapping">Metagenomic Read Mapping</a>
+                              </div>
+                              <div class="dropdown-section">
+                                  <h3>Viral Tools</h3>
+                                  <a class="navigationLink" href="/app/ComprehensiveSARS2Analysis">SARS-COV-2 Genome Analysis</a>
+                                  <a class="navigationLink" href="/app/SARS2Wastewater">SARS-CoV-2 Wastewater Analysis</a>
+                                  <a class="navigationLink" href="/app/SubspeciesClassification">Subspecies Classification</a>
+                              </div>
+                              <div class="dropdown-section">
+                                  <h3>Outbreak Tracker</h3>
+                                  <a class="navigationLink" href="/outbreaks/Mpox/#view_tab=overview">Monkeypox virus</a>
+                                  <a class="navigationLink" href="/outbreaks/H5N1/#view_tab=overview">Influenza A/H5N1</a>
+                                  <a class="navigationLink" href="/outbreaks/SARSCoV2/#view_tab=overview">SARS-COV-2</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="nav-item">
+                      <a href="#">Workspaces <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                      <div class="dropdown-content">
+                          <div class="dropdown-section">
+                              <h3>My Data</h3>
+                              <a class="navigationLink" href="/job">My Jobs</a>
+                              <a class="navigationLink" href="view/GenomeList/?eq(public,false)">My Genomes</a>
+                              <a class="navigationLink" href="view/GenomeList/?eq(public,false)">My BioProjects</a>
+                          </div>
+                          <div class="dropdown-section">
+                              <h3>Public Data</h3>
+                              <a class="navigationLink" href="#">MAAGE Genomes</a>
+                              <a class="navigationLink" href="#">MAAGE BioProjects</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="nav-item">
+                      <a href="#">Resources <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                      <div class="dropdown-content">
+                          <div class="dropdown-section">
+                            <h3>MAAGE</h3>
+                            <a class="TopMenuLink" href="/about">About Us</a>
+                            <a class="TopMenuLink" href="/team">Our Team</a>
+                            <a class="TopMenuLink" href="/advisory-boards">Advisory Boards</a>
+                            <h3>Related Resources</h3>
+                            <a class="TopMenuLink navigationLinkOut" href="https://github.com/MAAGE-BRC" target="_blank" rel="noopener">GitHub</a>
+                            <a class="DialogButton" rel="reportProblem:">Contact Us</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="nav-item">
+                    <a href="#">For Devs <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                          <h3>Links</h3>
+                          <a class="TopMenuLink" href="https://github.com/maage-brc">GitHub</a>
+                          <a class="TopMenuLink" href="https://github.com/maage-brc">Wiki</a>
+                          <a class="TopMenuLink" href="https://github.com/maage-brc">Project</a>
+                          <a class="TopMenuLink" href="https://github.com/maage-brc">Issues</a>
+                          <a class="TopMenuLink" href="https://storybook.maage-brc.org">Storybook</a>
+                          <a class="TopMenuLink" href="https://github.com/maage-brc">Dev Site</a>
+                          <a class="TopMenuLink" href="https://github.com/maage-brc">Testing Site</a>
+                          <a class="TopMenuLink" href="https://github.com/maage-brc">Production Site</a>
+                          <h3>Components</h3>
+                          <a class="TopMenuLink" href="/dashboard-demos">Charts: Foundational</a>
+                          <a class="TopMenuLink" href="/dashboard-demos">Charts: </a>
+                          <a class="TopMenuLink" href="/dashboard-demos">Charts: </a>
+                          <h3>Pages</h3>
+                          <a class="TopMenuLink" href="/dev/page/demo-1">Login</a>
+                          <a class="TopMenuLink" href="/dev/paage/demo-2">Registration</a>
+                          <a class="TopMenuLink" href="/dev/page/demo-3">Password Reset</a>
+                          <a class="TopMenuLink" href="/dev/page/demo-4">Profile</a>
+                          <h3>Dashboards</h3>
+                          <a class="TopMenuLink" href="/dev">Dash Dojo Widget</a>
+                          <a class="TopMenuLink" href="/dev/dashboard/demo-1">Dash: SPA</a>
+                          <a class="TopMenuLink" href="/dashboard-demos">Dash: App/Admin UI - 1</a>
+                          <a class="TopMenuLink" href="/dashboard-demos">Dash: App/Admin UI - 2</a>
+                        </div>
+                    </div>
+                </div>
+
+
+              </div>
+          </div>
+
+          <div class="navbar-right">
+              <div class="HideWithAuth authLinks showOnLoad dijitHidden">
+                  <a class="auth-button navigationLink register-btn" href="/register">Register</a>
+                  <a class="auth-button navigationLink login-btn" href="/login">Login</a>
+              </div>
+
+              <div class="showOnLoad ShowWithAuth dijitHidden">
+                  <div class="showOnLoad ShowWithAuth dijitHidden topMenuButtonIcon"
+                       data-dojo-type="dijit/form/DropDownButton" data-dojo-props="iconClass:'icon-user fa-2x login-btn'">
+                      <span></span>
+                      <div class="warning_icon user_warning_icon icon-warning fa fa-1x"> </div>
+                      <div data-dojo-type="p3/widget/TooltipDialog">
+                          <div>Signed in as <span id="signedInAs" style="font-weight:bold;"></span></div>
+                          <hr>
+                          <div><a class="userProfile">Account Settings <i class="warning_icon account-settings-warning icon-warning fa fa-1x" style="vertical-align:middle;"> </i></a></div>
+                          <div><a class="sulogin">SU Login</a></div>
+                          <div><a class="suSwitchBack" onclick="window.App.suSwitchBack()" style="display:none">SU Switch Back</a></div>
+                          <div><a class="logoutLink" onclick="window.App.logout()">Logout</a></div>
+                      </div>
+                  </div>
+              </div>
+
+
+          </div>
+      </div>
+    </div>
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const navItems = document.querySelectorAll('.nav-item');
+
+        navItems.forEach(item => {
+          const link = item.querySelector('a');
+
+          link.addEventListener('click', function(e) {
+            if (item.querySelector('.dropdown-content')) {
+              e.preventDefault();
+
+              item.classList.toggle('active');
+
+              const dropdown = item.querySelector('.dropdown-content');
+              dropdown.classList.toggle('show');
+
+              navItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                  otherItem.classList.remove('active');
+                  const otherDropdown = otherItem.querySelector('.dropdown-content');
+                  if (otherDropdown) {
+                    otherDropdown.classList.remove('show');
+                  }
+                }
+              });
+            }
+          });
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.nav-item')) {
+            navItems.forEach(item => {
+              item.classList.remove('active');
+              const dropdown = item.querySelector('.dropdown-content');
+              if (dropdown) {
+                dropdown.classList.remove('show');
+              }
+            });
+          }
+        });
+      });
+
+      function toggleMenu() {
+        const mobileNavbar = document.getElementById('mobile-navbar');
+        mobileNavbar.classList.toggle('hidden');
+      }
+
+      function toggleSubMenu(element) {
+        const menuItems = element.nextElementSibling;
+        menuItems.style.display = menuItems.style.display === 'none' ? 'block' : 'none';
+
+        const chevron = element.querySelector('.icon-chevron-down');
+        chevron.style.transform = menuItems.style.display === 'none' ? 'rotate(0deg)' : 'rotate(180deg)';
+      }
+    </script>
+</div>

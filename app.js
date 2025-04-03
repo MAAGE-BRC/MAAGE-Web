@@ -28,6 +28,7 @@ var help = require('./routes/help');
 var app = express();
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
+var maintenanceMode = config.get('maintenanceMode') || process.env.MAINTENANCE_MODE === 'true';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -120,7 +121,18 @@ app.use('/public/pdfs/', [
     res.redirect('https://docs.patricbrc.org/tutorial/');
   }
 ]);
+
+app.use((req, res, next) => {
+  if (maintenanceMode && !req.url.startsWith('/admin')) {
+  res.status(503).render('503', { title: '503 Service Unavailable' });
+  } else {
+  next();
+  }
+});
+
+
 app.use('/patric/', express.static(path.join(__dirname, 'public/patric/')));
+app.use('/maage/', express.static(path.join(__dirname, 'public/maage/')));
 app.use('/public/', express.static(path.join(__dirname, 'public/')));
 app.use('/', routes);
 // app.use('/home-prev', prevHome);
@@ -148,6 +160,10 @@ app.use('/status', systemStatus);  // system status page
 app.use('/help', help);
 app.use('/uploads', uploads);
 app.use('/users', users);
+app.get('/error/403', (req, res) => res.status(403).render('403', { title: '403 Forbidden' }));
+app.get('/error/404', (req, res) => res.status(404).render('404', { title: '404 Not Found' }));
+app.get('/error/500', (req, res) => res.status(500).render('500', { title: '500 Internal Error' }));
+app.get('/error/503', (req, res) => res.status(503).render('503', { title: '503 Unavailable' }));
 
 // MTB Taxon Overview Route
 app.use('/pathogens/mtb', [
@@ -156,33 +172,29 @@ app.use('/pathogens/mtb', [
   }
 ]);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use((req, res, next) => {
+  res.status(404).render('404', { title: '404 Not Found' });
 });
 
 // error handlers
-
-// development error handler
-// will print stacktrace
+// development error handler (stacktrace visible)
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
     res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
+    res.render('500', {
+      title: '500 Internal Server Error',
       error: err
     });
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+// production error handler (no stacktrace shown)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
   res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
+  res.render('500', {
+    title: '500 Internal Server Error',
     error: {}
   });
 });

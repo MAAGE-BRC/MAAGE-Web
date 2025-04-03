@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Dashboard | Midwest Alliance for Applied Epidemiology</title>
+        <%- include('../head') %>
+
+    </head>
+    <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>"></body>
+		<div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+			<%- include('../navbar') %>
+            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;">
+            <link rel="stylesheet" href="https://pub-ba218250867d474d821912776238a6c4.r2.dev/maage-dashboard.css">
+
+
+
+
+
+
+<!-- MAAGE Dashboard Template - Self-contained HTML for embedding into Dojo applications -->
+<!-- This template includes the main structure needed for the dashboard -->
+
+<div class="maage-dashboard-container">
+    <!-- Dashboard Header -->
+    <div class="platform-header">
+      <h1 class="text-3xl inline">Outbreak Sentinal<span class="text-sm font-medium text-gray-600"> by MAAGE</span></h1>
+      <span>
+        <button id="disclaimer-toggle" class="disclaimer-toggle text-[var(--secondary-600)]" title="View disclaimer"><i class="fas fa-info-circle"></i></button>
+        <br>
+        <div id="disclaimer-container" class="disclaimer-container hidden">
+          <p class="pb-2">The Outbreak Sentinal monitoring application provides intelligent real-time surveillance data for infectious
+            disease outbreaks around the world</p>
+          <p class="section-disclaimer">
+            <span>- Information seen on these pages should not be trusted or used in the real world. The MAAGE Outbreak Sentinal belongs to the BRCBot&trade; initiative and is completely fictious... for now.</span><span style="font-style: normal; font-size: 18px;">😏</span>
+            <br>
+            <br>
+            - Also, on the lookout soon for the Contagion Cartographer&trade;, the Bacterial Bodyguard&trade;, the Microbial
+            Maestro&trade;, the Pathogen
+            Prognosticator&trade;, the Viral Vanguard&trade;, the Genomic Gardener&trade; and the
+            Bard of Bioinformatics&trade; for more BRCBot&trade; shenanigans.
+          </p>
+        </div>
+      </span>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <!-- Overview Section -->
+      <section id="overview" class="section active">
+        <h2 class="text-xl font-semibold">Surveillance Monitor</h2>
+        <div class="map-container">
+
+          <div class="global-stats-container">
+            <h3 class="global-stats-title">World Health Report</h3>
+            <div class="global-stats-grid">
+              <!-- Stats panels here -->
+              <!-- Global statistics will be dynamically loaded -->
+            </div>
+          </div>
+
+          <div class="map-unified-container">
+            <div class="map-unified-header">
+              <h3 class="map-section-title">Global Distribution Map</h3>
+            </div>
+
+            <div class="map-controls">
+              <div class="map-diseases-selector">
+                <div class="disease-selection-title">Pathogens:</div>
+                <div id="map-disease-checkboxes" class="disease-checkboxes"></div>
+              </div>
+            </div>
+
+            <div class="map-visualization-container">
+              <div id="world-map"></div>
+            </div>
+          </div>
+
+          <div class="outbreak-summary-container">
+            <h3 class="outbreak-section-title">Active Pathogens</h3>
+            <div class="outbreak-cards">
+              <!-- Disease cards will be dynamically loaded -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diseases Section -->
+      <section id="diseases" class="section">
+        <h2 class="text-xl font-semibold">Pathogen Reports</h2>
+        <p class="section-description">
+          Comprehensive information on selected infectious disease outbreaks
+        </p>
+
+        <div class="disease-selector">
+          <!-- Disease buttons will be loaded dynamically -->
+        </div>
+
+        <div class="disease-alerts mb-6">
+          <div id="disease-alerts" class="border-l-4 border-yellow-500 bg-yellow-50 text-yellow-700">
+            Select a disease to view current alerts and warnings.
+          </div>
+        </div>
+
+        <div class="disease-details" id="disease-details">
+          <!-- Disease details will be loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Genomics Section -->
+      <section id="genomics" class="section">
+        <h2 class="text-xl font-semibold">Surveillance Data</h2>
+        <p class="section-description">
+          Analysis of genomic sequences, mutations, and phylogenetic relationships
+        </p>
+
+        <div class="genomics-selector">
+          <!-- Genomics buttons will be loaded dynamically -->
+        </div>
+
+        <div class="genomics-container">
+          <!-- Genomics data will be loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Predictions Section -->
+      <section id="predictions" class="section">
+        <h2 class="text-xl font-semibold">Predictive Analysis</h2>
+        <p class="section-description">
+          AI-powered forecasting of disease spread patterns and hotspot identification
+        </p>
+
+        <div class="predictions-controls">
+          <div class="predictions-controls-content">
+            <div class="predictions-controls-section">
+              <h4>Select Pathogen:</h4>
+              <div class="predictions-selector">
+                <!-- Prediction buttons will be loaded dynamically -->
+              </div>
+            </div>
+            <div class="predictions-controls-section">
+              <h4>Forecast Period:</h4>
+              <div class="predictions-timeframe">
+                <button class="timeframe-btn active" data-days="7">7 Days</button>
+                <button class="timeframe-btn" data-days="14">14 Days</button>
+                <button class="timeframe-btn" data-days="30">30 Days</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="predictions-container">
+          <div class="prediction-map-container">
+            <h3>Predicted Hotspots</h3>
+            <div id="prediction-map-container" class="prediction-map-container" style="min-height: 320px; position: relative; overflow: hidden;">
+              <div id="prediction-map" class="prediction-map" style="width: 100%; height: 320px;"></div>
+              <div class="map-loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; text-align: center; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <p style="margin: 0; padding: 0;">Loading map...</p>
+              </div>
+              <div class="map-error" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; text-align: center; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <p style="margin: 0; padding: 0;">Could not load map. <button id="retry-prediction-map" style="background: #6498ac; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-left: 10px;">Retry</button></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="prediction-charts">
+            <!-- Prediction charts will be loaded dynamically -->
+          </div>
+
+          <div class="prediction-metrics">
+            <!-- Prediction metrics will be loaded dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Datasets Section -->
+      <section id="datasets" class="section">
+        <h2 class="text-xl font-semibold">Datasets</h2>
+        <p class="section-description">
+          Search and import additional epidemiological and genomic datasets
+        </p>
+
+        <div class="datasets-search">
+          <input type="text" id="dataset-search" placeholder="Search for datasets..." />
+          <button id="search-datasets-btn">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </div>
+
+        <div class="datasets-filters">
+          <!-- Dataset filters will be loaded dynamically -->
+        </div>
+
+        <div class="datasets-container">
+          <!-- Dataset cards will be loaded dynamically -->
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    <%- include('../javascript') %>
+    </body>
+</html>

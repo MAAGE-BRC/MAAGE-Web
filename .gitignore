@@ -39,22 +39,18 @@ ecosystem.config.prod.js
 # brc configs
 # p3-web.sample.conf
 p3-web.conf
-p3-web.local.conf
-p3-web.dev.conf
-p3-web.test.conf
-p3-web.www.conf
+p3-web.conf-dev.maage
+p3-web.conf-test.maage
+p3-web.conf-prod.maage
 
-
-# editor & ide
+# Editors, IDEs, Terminals
 .vscode/
 .idea/
 .zed/
 .fleet/
-.qodo
 *.swp
-*.sublime-workspace
-
-# AI
+.project
+.warp
 CLAUDE.md
 
 # macOS
@@ -155,8 +151,6 @@ node_repl_history
 gulpfile.js
 gulpified
 
-# p3 specific
-public/js/p3/widget/UserDetails.js
-public/js/release/
-public/video/
-public/js/release/build-report.txt
+# TEMP - TO BE REMOVED
+package-lock.json
+.qodo

@@ -1,0 +1,1455 @@
+<!doctype html>
+<html lang="en" data-theme="">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        Active Outbreaks | Midwest Alliance for Applied Genomic Epidemiology
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="/public/js/maage/maage-web.js"></script>
+</head>
+
+<body>
+    <link rel="stylesheet" href="../../public/css/maage/maage-web.css" />
+    <div id="dashboard-wrapper" class="dashboard">
+        <!-- Navbar -->
+        <%- include('../navbar') %>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="menu">
+        <div class="menu-item active" data-section="overview">
+            <i class="fas fa-globe"></i>
+            <span>Overview</span>
+        </div>
+        <div class="menu-item" data-section="diseases">
+            <i class="fas fa-bacteria"></i>
+            <span>Outbreaks</span>
+        </div>
+        <div class="menu-item" data-section="genomics">
+            <i class="fas fa-dna"></i>
+            <span>Surveillance</span>
+        </div>
+        <div class="menu-item" data-section="predictions">
+            <i class="fas fa-chart-line"></i>
+            <span>Predictions</span>
+        </div>
+        <div class="menu-item" data-section="datasets">
+            <i class="fas fa-database"></i>
+            <span>Datasets</span>
+        </div>
+    </div>
+
+    <div class="menu-bottom">
+        <button id="dark-mode-toggle" class="sidebar-dark-mode-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</div>
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="platform-header">
+
+                <h1 class="text-3xl font-poppins inline">Active Outbreaks</h1>
+                <span class="bold font-poppins text-lg">demo 1</span>
+                            <span>
+                            <button id="disclaimer-toggle" class="disclaimer-toggle text-[var(--secondary-600)]" title="View disclaimer"><i class="fas fa-info-circle"></i></button>
+                        <br>
+                        <div id="disclaimer-container" class="disclaimer-container hidden">
+                            <p class="italic font-inter font-bold">The data is for demonstration purposes only!</p>
+                            <p>
+
+                            </p>
+                        </div>
+                    </span>
+
+            </div>
+
+            <!-- Overview Section -->
+            <section id="overview" class="section active">
+                <h2 class="text-xl font-semibold">Surveillance Monitor</h2>
+                <div class="map-container">
+
+                    <div class="global-stats-container">
+                        <h3 class="global-stats-title">World Health Report</h3>
+                        <div class="global-stats-grid">
+                            <div class="global-stat-panel">
+                                <div class="global-stat-header">
+                                    <h4>Overview</h4>
+                                </div>
+                                <div class="global-stat-content">
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Active Outbreaks</span>
+                                        <span class="global-stat-value">6</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Countries Affected</span>
+                                        <span class="global-stat-value">181</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Sequences Analyzed</span>
+                                        <span class="global-stat-value">219,847</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Hospitalization Rate</span>
+                                        <span class="global-stat-value">14.3%</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">ICU Utilization</span>
+                                        <span class="global-stat-value">54.3%</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Economic Impact</span>
+                                        <span class="global-stat-value">$2.7 Trillion</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="global-stat-panel">
+                                <div class="global-stat-header">
+                                    <h4>New Cases</h4>
+                                </div>
+                                <div class="global-stat-content">
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Last 24 hours</span>
+                                        <span class="global-stat-value">4,217</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Week</span>
+                                        <span class="global-stat-value">28,645</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Month</span>
+                                        <span class="global-stat-value">118,392</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">YTD</span>
+                                        <span class="global-stat-value">1,247,382</span>
+                                    </div>
+                                    <hr class="mt-2 mb-2">
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Deaths This Year</span>
+                                        <span class="global-stat-value">214,392</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="global-stat-panel">
+                                <div class="global-stat-header">
+                                    <h4>Vaccination Status</h4>
+                                </div>
+                                <div class="global-stat-content">
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Global Vaccination Rate</span>
+                                        <span class="global-stat-value">73.8%</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Low-Income Countries</span>
+                                        <span class="global-stat-value">38.5%</span>
+                                    </div>
+                                    <div class="global-stat-item">
+                                        <span class="global-stat-label">Doses Administered</span>
+                                        <span class="global-stat-value">14.3B</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="global-stat-panel">
+                                <div class="global-stat-header">
+                                    <h4>Latest Alerts</h4>
+                                </div>
+                                <div class="global-stat-alerts">
+                                    <div class="global-alert-item">
+                                        <span class="alert-badge high">High</span>
+                                        <span class="alert-text">H5N1 spread to new mammalian hosts detected</span>
+                                    </div>
+                                    <div class="global-alert-item">
+                                        <span class="alert-badge moderate">Moderate</span>
+                                        <span class="alert-text">Dengue expanding in previously unaffected regions</span>
+                                    </div>
+                                    <div class="global-alert-item">
+                                        <span class="alert-badge low">Low</span>
+                                        <span class="alert-text">Measles outbreaks in under-vaccinated areas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="map-unified-container">
+                        <div class="map-unified-header">
+                            <h3 class="map-section-title">Global Distribution Map</h3>
+                        </div>
+
+                        <div class="map-controls">
+                            <div class="map-diseases-selector">
+                                <div class="disease-selection-title">Pathogens:</div>
+                                <div id="map-disease-checkboxes" class="disease-checkboxes"></div>
+                            </div>
+                        </div>
+
+                        <div class="map-visualization-container">
+                            <div id="world-map"></div>
+                        </div>
+                    </div>
+
+                    <div class="outbreak-summary-container">
+                        <h3 class="outbreak-section-title">Active Pathogens</h3>
+                        <div class="outbreak-cards">
+                            <div class="outbreak-card" data-disease="mpox-2024">
+                                <div class="outbreak-header">
+                                    <h4>Monkeypox virus</h4>
+                                    <span class="severity high">High Concern</span>
+                                </div>
+                                <div class="outbreak-stats">
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Cases</span>
+                                        <span class="stat-value">8,743</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Fatalities</span>
+                                        <span class="stat-value">276</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Countries</span>
+                                        <span class="stat-value">43</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-details">View Details</button>
+                            </div>
+
+                            <div class="outbreak-card" data-disease="h5n1-2024">
+                                <div class="outbreak-header">
+                                    <h4>Influenza A/H5N1</h4>
+                                    <span class="severity critical">Critical Concern</span>
+                                </div>
+                                <div class="outbreak-stats">
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Cases</span>
+                                        <span class="stat-value">4,219</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Fatalities</span>
+                                        <span class="stat-value">381</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Countries</span>
+                                        <span class="stat-value">27</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-details">View Details</button>
+                            </div>
+
+                            <div class="outbreak-card" data-disease="sarscov2">
+                                <div class="outbreak-header">
+                                    <h4>SARS-CoV-2</h4>
+                                    <span class="severity moderate">Moderate Concern</span>
+                                </div>
+                                <div class="outbreak-stats">
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Cases</span>
+                                        <span class="stat-value">712.4M</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Fatalities</span>
+                                        <span class="stat-value">6.9M</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Countries</span>
+                                        <span class="stat-value">192</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-details">View Details</button>
+                            </div>
+
+                            <div class="outbreak-card" data-disease="ebolavirus">
+                                <div class="outbreak-header">
+                                    <h4>Ebolavirus</h4>
+                                    <span class="severity critical">Critical Concern</span>
+                                </div>
+                                <div class="outbreak-stats">
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Cases</span>
+                                        <span class="stat-value">3,476</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Fatalities</span>
+                                        <span class="stat-value">1,872</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Countries</span>
+                                        <span class="stat-value">12</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-details">View Details</button>
+                            </div>
+
+                            <div class="outbreak-card" data-disease="dengue">
+                                <div class="outbreak-header">
+                                    <h4>Dengue virus</h4>
+                                    <span class="severity high">High Concern</span>
+                                </div>
+                                <div class="outbreak-stats">
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Cases</span>
+                                        <span class="stat-value">128.8K</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Fatalities</span>
+                                        <span class="stat-value">1,432</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Countries</span>
+                                        <span class="stat-value">86</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-details">View Details</button>
+                            </div>
+
+                            <div class="outbreak-card" data-disease="zika">
+                                <div class="outbreak-header">
+                                    <h4>Zika virus</h4>
+                                    <span class="severity moderate">Moderate Concern</span>
+                                </div>
+                                <div class="outbreak-stats">
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Cases</span>
+                                        <span class="stat-value">6,874</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Fatalities</span>
+                                        <span class="stat-value">58</span>
+                                    </div>
+                                    <div class="outbreak-stat">
+                                        <span class="stat-label">Countries</span>
+                                        <span class="stat-value">31</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-details">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diseases Section -->
+            <section id="diseases" class="section">
+                <h2 class="text-xl font-semibold">Pathogen Reports</h2>
+                <p class="section-description">
+                    Comprehensive information on selected infectious disease outbreaks
+                </p>
+
+                <div class="disease-selector">
+                    <button class="disease-btn active" data-disease="mpox-2024">
+                        Monkeypox virus
+                    </button>
+                    <button class="disease-btn" data-disease="h5n1-2024">
+                        Influenza A/H5N1
+                    </button>
+                    <button class="disease-btn" data-disease="sarscov2">
+                        SARS-CoV-2
+                    </button>
+                    <button class="disease-btn" data-disease="ebolavirus">
+                        Ebolavirus
+                    </button>
+                    <button class="disease-btn" data-disease="dengue">
+                        Dengue virus
+                    </button>
+                    <button class="disease-btn" data-disease="zika">
+                        Zika virus
+                    </button>
+                </div>
+                <div class="disease-alerts mb-6">
+                    <div id="disease-alerts" class=" border-l-4 border-yellow-500 bg-yellow-50 text-yellow-700">
+                        Select a disease to view current alerts and warnings.
+                    </div>
+                </div>
+                <div class="disease-details" id="disease-details">
+
+
+                    <div class="disease-overview">
+
+
+
+                        <div class="disease-data-container">
+
+                            <div class="disease-stats">
+                                <div class="disease-stat-card">
+                                    <h4>Total Cases</h4>
+                                    <div class="disease-stat-value" id="disease-total-cases">
+                                        --
+                                    </div>
+                                </div>
+                                <div class="disease-stat-card">
+                                    <h4>Fatalities</h4>
+                                    <div class="disease-stat-value" id="disease-fatalities">
+                                        --
+                                    </div>
+                                </div>
+                                <div class="disease-stat-card">
+                                    <h4>Fatality Rate</h4>
+                                    <div class="disease-stat-value" id="disease-fatality-rate">
+                                        --
+                                    </div>
+                                </div>
+                                <div class="disease-stat-card">
+                                    <h4>R₀ Estimate</h4>
+                                    <div class="disease-stat-value" id="disease-r0">--</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="disease-info-container mt-6">
+                            <h3 class="mb-3">About <span class="disease-name-highlight">Monkeypox virus</span></h3>
+                            <div class="disease-info-content">
+                                <div class="disease-description" id="disease-description">
+                                    Monkeypox is a zoonotic disease caused by the monkeypox virus, belonging to the Orthopoxvirus genus. The 2024 outbreak represents a concerning evolution with increased human-to-human transmission compared to historical patterns.
+                                </div>
+
+                                <div class="disease-metadata mt-4 grid grid-cols-2 gap-4">
+                                    <div class="metadata-item">
+                                        <h4 class="text-sm font-semibold text-gray-500">Transmission</h4>
+                                        <p id="disease-transmission" class="mt-1">Direct contact with infected animals or humans, bodily fluids, contaminated materials, and respiratory droplets during prolonged face-to-face contact.</p>
+                                    </div>
+                                    <div class="metadata-item">
+                                        <h4 class="text-sm font-semibold text-gray-500">Incubation Period</h4>
+                                        <p id="disease-incubation" class="mt-1">5-21 days, typically 6-13 days</p>
+                                    </div>
+                                    <div class="metadata-item">
+                                        <h4 class="text-sm font-semibold text-gray-500">Symptoms</h4>
+                                        <p id="disease-symptoms" class="mt-1">Fever, headache, muscle aches, back pain, swollen lymph nodes, followed by a distinctive rash that evolves through several stages</p>
+                                    </div>
+                                    <div class="metadata-item">
+                                        <h4 class="text-sm font-semibold text-gray-500">Prevention</h4>
+                                        <p id="disease-prevention" class="mt-1">Avoid contact with infected animals or humans, practice good hand hygiene, use PPE when caring for patients, and vaccination for high-risk groups.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="disease-charts-container">
+                        <div class="disease-chart-wrapper">
+                            <h3>Cases Over Time</h3>
+                            <canvas id="disease-timeline-chart"></canvas>
+                        </div>
+                        <div class="disease-chart-wrapper">
+                            <h3>Geographic Distribution</h3>
+                            <canvas id="disease-geo-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Genomics Section -->
+            <section id="genomics" class="section">
+                <h2 class="text-xl font-semibold">Surveillance Data</h2>
+                <p class="section-description">
+                    Analysis of genomic sequences, mutations, and phylogenetic
+                    relationships
+                </p>
+
+                <div class="genomics-selector">
+                    <button class="genomics-btn active" data-disease="mpox-2024">
+                        Monkeypox virus
+                    </button>
+                    <button class="genomics-btn" data-disease="h5n1-2024">
+                        Influenza A/H5N1
+                    </button>
+                    <button class="genomics-btn" data-disease="sarscov2">
+                        SARS-CoV-2
+                    </button>
+                    <button class="genomics-btn" data-disease="ebolavirus">
+                        Ebolavirus
+                    </button>
+                    <button class="genomics-btn" data-disease="dengue">
+                        Dengue virus
+                    </button>
+                    <button class="genomics-btn" data-disease="zika">
+                        Zika virus
+                    </button>
+                </div>
+
+                <div class="genomics-container">
+                    <div class="variants-container">
+                        <h3>Variant Composition</h3>
+                        <div class="genomics-chart-container">
+                            <canvas id="variants-chart"></canvas>
+                        </div>
+                        <div class="variants-table-container">
+                            <table class="variants-table">
+                                <thead>
+                                    <tr>
+                                        <th>Variant</th>
+                                        <th>Prevalence</th>
+                                        <th>R₀ Value</th>
+                                        <th>Key Mutations</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="variants-table-body">
+                                    <!-- Will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="genomics-viz-container">
+                        <h3>Mutation Visualization</h3>
+                        <div id="mutation-viz" class="genomics-viz">
+                            <!-- D3.js will render a mutation visualization here -->
+                            <p class="genomics-placeholder">
+                                Select a variant to visualize key mutations
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Predictions Section -->
+            <section id="predictions" class="section">
+                <h2 class="text-xl font-semibold">Predictive Analysis</h2>
+                <p class="section-description">
+                    AI-powered forecasting of disease spread patterns and hotspot
+                    identification
+                </p>
+
+                <div class="predictions-controls">
+                    <div class="predictions-controls-content">
+                        <div class="predictions-controls-section">
+                            <h4>Select Pathogen:</h4>
+                            <div class="predictions-selector">
+                                <button class="prediction-btn active" data-disease="mpox-2024">
+                                    Monkeypox virus
+                                </button>
+                                <button class="prediction-btn" data-disease="h5n1-2024">
+                                    Influenza A/H5N1
+                                </button>
+                                <button class="prediction-btn" data-disease="sarscov2">
+                                    SARS-CoV-2
+                                </button>
+                                <button class="prediction-btn" data-disease="ebolavirus">
+                                    Ebolavirus
+                                </button>
+                                <button class="prediction-btn" data-disease="dengue">
+                                    Dengue virus
+                                </button>
+                                <button class="prediction-btn" data-disease="zika">
+                                    Zika virus
+                                </button>
+                            </div>
+                        </div>
+                        <div class="predictions-controls-section">
+                            <h4>Forecast Period:</h4>
+                            <div class="predictions-timeframe">
+                                <button class="timeframe-btn active" data-days="7">7 Days</button>
+                                <button class="timeframe-btn" data-days="14">14 Days</button>
+                                <button class="timeframe-btn" data-days="30">30 Days</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="predictions-container">
+                    <div class="prediction-map-container">
+                        <h3>Predicted Hotspots</h3>
+                        <div id="prediction-map" class="prediction-map">
+                            <!-- Map will be rendered here -->
+                        </div>
+                    </div>
+
+                    <div class="prediction-charts">
+                        <div class="prediction-chart-card">
+                            <h3>Projected Case Growth</h3>
+                            <canvas id="projection-chart"></canvas>
+                        </div>
+                        <div class="prediction-chart-card">
+                            <h3>Transmission Risk Assessment</h3>
+                            <div class="risk-matrix" id="risk-matrix">
+                                <!-- Risk matrix will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prediction-metrics">
+                        <div class="metric-card">
+                            <h4>Peak Date</h4>
+                            <div class="metric-value" id="peak-date">June 12, 2024</div>
+                        </div>
+                        <div class="metric-card">
+                            <h4>Peak Cases</h4>
+                            <div class="metric-value" id="peak-cases">~4,320</div>
+                        </div>
+                        <div class="metric-card">
+                            <h4>Growth Rate</h4>
+                            <div class="metric-value" id="growth-rate">1.42</div>
+                        </div>
+                        <div class="metric-card">
+                            <h4>Confidence</h4>
+                            <div class="metric-value" id="confidence">76%</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="datasets" class="section">
+                <h2 class="text-xl font-semibold">Datasets</h2>
+                <p class="section-description">
+                    Search and import additional epidemiological and genomic datasets
+                </p>
+
+                <div class="datasets-search">
+                    <input type="text" id="dataset-search" placeholder="Search for datasets..." />
+                    <button id="search-datasets-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+
+                <div class="datasets-filters">
+                    <div class="filter">
+                        <label>Data Type</label>
+                        <select id="data-type-filter">
+                            <option value="all">All Types</option>
+                            <option value="case-data">Case Data</option>
+                            <option value="genomic">Genomic</option>
+                            <option value="clinical">Clinical</option>
+                            <option value="travel">Travel & Movement</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <label>Region</label>
+                        <select id="region-filter">
+                            <option value="all">All Regions</option>
+                            <option value="africa">Africa</option>
+                            <option value="asia">Asia</option>
+                            <option value="europe">Europe</option>
+                            <option value="north-america">North America</option>
+                            <option value="south-america">South America</option>
+                            <option value="oceania">Oceania</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <label>Time Period</label>
+                        <select id="time-filter">
+                            <option value="all">All Time</option>
+                            <option value="last-week">Last Week</option>
+                            <option value="last-month">Last Month</option>
+                            <option value="last-6-months">Last 6 Months</option>
+                            <option value="last-year">Last Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="datasets-container">
+                    <div class="dataset-card">
+                        <div class="dataset-header">
+                            <h4>WHO Global Surveillance Database</h4>
+                            <span class="dataset-tag official">Official</span>
+                        </div>
+                        <p class="dataset-description">
+                            Official case counts and epidemiological data from the World
+                            Health Organization.
+                        </p>
+                        <div class="dataset-meta">
+                            <span><i class="fas fa-calendar"></i> Updated: Daily</span>
+                            <span><i class="fas fa-globe"></i> Global</span>
+                            <span><i class="fas fa-file"></i> CSV, JSON</span>
+                        </div>
+                        <button class="btn-import">Import Dataset</button>
+                    </div>
+
+                    <div class="dataset-card">
+                        <div class="dataset-header">
+                            <h4>GISAID EpiCoV Database</h4>
+                            <span class="dataset-tag genomic">Genomic</span>
+                        </div>
+                        <p class="dataset-description">
+                            Repository of genomic sequences for SARS-CoV-2, influenza and
+                            other pathogens.
+                        </p>
+                        <div class="dataset-meta">
+                            <span><i class="fas fa-calendar"></i> Updated: Daily</span>
+                            <span><i class="fas fa-globe"></i> Global</span>
+                            <span><i class="fas fa-file"></i> FASTA, JSON</span>
+                        </div>
+                        <button class="btn-import">Import Dataset</button>
+                    </div>
+
+                    <div class="dataset-card">
+                        <div class="dataset-header">
+                            <h4>CDC Outbreak Response Data</h4>
+                            <span class="dataset-tag official">Official</span>
+                        </div>
+                        <p class="dataset-description">
+                            US-specific outbreak data including regional spread and
+                            demographic details.
+                        </p>
+                        <div class="dataset-meta">
+                            <span><i class="fas fa-calendar"></i> Updated: Weekly</span>
+                            <span><i class="fas fa-map-marker-alt"></i> United States</span>
+                            <span><i class="fas fa-file"></i> CSV, API</span>
+                        </div>
+                        <button class="btn-import">Import Dataset</button>
+                    </div>
+
+                    <div class="dataset-card">
+                        <div class="dataset-header">
+                            <h4>NextStrain Open Dataset</h4>
+                            <span class="dataset-tag genomic">Genomic</span>
+                        </div>
+                        <p class="dataset-description">
+                            Pathogen phylogenetic analysis and visualization data for
+                            multiple diseases.
+                        </p>
+                        <div class="dataset-meta">
+                            <span><i class="fas fa-calendar"></i> Updated: Weekly</span>
+                            <span><i class="fas fa-globe"></i> Global</span>
+                            <span><i class="fas fa-file"></i> JSON, Newick</span>
+                        </div>
+                        <button class="btn-import">Import Dataset</button>
+                    </div>
+
+                    <div class="dataset-card">
+                        <div class="dataset-header">
+                            <h4>ECDC Surveillance Atlas</h4>
+                            <span class="dataset-tag official">Official</span>
+                        </div>
+                        <p class="dataset-description">
+                            European surveillance data on communicable diseases and
+                            outbreaks.
+                        </p>
+                        <div class="dataset-meta">
+                            <span><i class="fas fa-calendar"></i> Updated: Weekly</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Europe</span>
+                            <span><i class="fas fa-file"></i> CSV, XLSX</span>
+                        </div>
+                        <button class="btn-import">Import Dataset</button>
+                    </div>
+
+                    <div class="dataset-card">
+                        <div class="dataset-header">
+                            <h4>Global.health Dataset</h4>
+                            <span class="dataset-tag collaborative">Collaborative</span>
+                        </div>
+                        <p class="dataset-description">
+                            Line-list data of anonymized case records for emerging
+                            infectious diseases.
+                        </p>
+                        <div class="dataset-meta">
+                            <span><i class="fas fa-calendar"></i> Updated: Daily</span>
+                            <span><i class="fas fa-globe"></i> Global</span>
+                            <span><i class="fas fa-file"></i> CSV, JSON, API</span>
+                        </div>
+                        <button class="btn-import">Import Dataset</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <style>
+        #wrapper--footer {
+                  /* display: block;
+                  z-index: 1025;
+                  width: 100%;
+                  position: unset;
+                  display: block;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  color: #eeeeee;
+                  height: 300px; */
+        height: 350px;
+        background: #395160;
+              }
+        #wrapper-footer footer {
+
+        }
+
+        #wrapper-footer footer li a {
+          color: #eeeeee;
+        }
+
+        #wrapper-footer footer li a:visited {
+          color: #eeeeee!important;
+        }
+        </style>
+
+        <div id="wrapper--footer">
+          <footer
+            class="inherited-styles-for-exported-element footer-bg-var-maage-secondary-600-text-white-py-12 min-h-[300px]">
+            <div class="div-container-mx-auto-px-4">
+              <div class="div-grid-grid-cols-1-md-grid-cols-5-gap-8 my-[20px]">
+                <div class="div-col-span-2-md-col-span-2">
+                  <div class="div-flex-items-center-mb-4">
+                    <a href="/" class="a-inline-flex-items-center-gap-2 transition duration-300" aria-label="MAAGE">
+                      <img class="img-h-14" src="/patric/images/maage/maage-logo.png" alt="MAAGE Logo">
+                      <div class="css_pro-div-variation-1">
+                        <span class="span-style-1">MA</span>
+                        <span class="span-style-2">AGE</span>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="h-[4px] w-[50px] bg-[var(--maage-primary-300)] mt-[-4px] mb-[25px]"></div>
+                  <div class="mt-[12px]">
+                    <h4 class="font-poppins text-md font-semibold text-[var(--maage-gray-200)]">Connect With Us</h4>
+                    <div class="flex space-x-4 mt-[5px]">
+                      <a href="https://github.com/MAAGE-BRC" class="transition duration-300" aria-label="Github">
+                        <span
+                          class="fab fa-github text-3xl text-[var(--maage-gray-200)] hover:text-white transition duration-300 hover:scale-110"></span>
+                      </a>
+
+                      <a href="https://www.twitter.com/maage_brc" class="transition duration-300" aria-label="Twitter">
+                        <span
+                          class="fab fa-twitter text-3xl text-[var(--maage-gray-200)] hover:text-white transition duration-300 hover:scale-110"></span>
+                      </a>
+
+                      <a href="https://www.linkedin.com/company/maage-brc" class="transition duration-300"
+                        aria-label="LinkedIn">
+                        <span
+                          class="fab fa-linkedin text-3xl text-[var(--maage-gray-200)] hover:text-white transition duration-300 hover:scale-110"></span>
+                      </a>
+
+                      <a href="mailto:help@maage-brc.org" class="transition duration-300" aria-label="Email">
+                        <span
+                          class="fas fa-envelope text-3xl text-[var(--maage-gray-200)] hover:text-white transition duration-300 hover:scale-110"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-span-1">
+                  <h3 class="text-[var(--maage-secondary-200)] text-xl font-poppins font-medium">About</h3>
+                  <div class="h-[4px] w-[55px] bg-[var(--maage-primary-300)] mt-[6px] mb-[6px]"></div>
+                  <ul>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/about">About MAAGE</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/team">Our Team</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/advisory-boards">Advisory Boards</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/contact">Contact Us</a></li>
+                  </ul>
+                </div>
+
+                <div class="col-span-1">
+                  <h3 class="text-[var(--maage-secondary-200)] text-xl font-poppins font-medium">Resources</h3>
+                  <div class="h-[4px] w-[95px] bg-[var(--maage-primary-300)] mt-[6px] mb-[6px]"></div>
+                  <ul>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/docs/">Documentation</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/reports">Analysis Reports</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/publications">Publications</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/citations">Citations</a></li>
+                  </ul>
+                </div>
+
+                <div class="col-span-1">
+                  <h3 class="text-[var(--maage-secondary-200)] text-xl font-poppins font-medium">Policies</h3>
+                  <div class="h-[4px] w-[70px] bg-[var(--maage-primary-300)] mt-[6px] mb-[6px]"></div>
+                  <ul>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/privacy-policy">Privacy Policy</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/tos">Terms of Use</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/data-policy">Data Usage Policy</a></li>
+                    <li class="pt-1"><a
+                        class="hover:text-white visited:text-[var(--maage-gray-200)] text-[15px] font-poppins font-normal text-[var(--maage-gray-200)] transition duration-300"
+                        href="/accessibility">Accessibility</a></li>
+                  </ul>
+                </div>
+              </div>
+
+
+
+            </div>
+            <!-- <div
+            class="footer-cap h-[50px] bg-[var(--maage-secondary-800)] mt-[35px] font-poppins text-sm flex items-center justify-end pr-4 align-right">
+            <div class="flex"><a href="/sitemap.xml" class="ml-auto mr-[20px] font-poppins text-sm font-light hover:text-[var(--maage-primary-200)] transition duration-300">sitemap</a></div> -->
+            </div>
+
+          </footer>
+        </div>
+            <style>
+              .footer-bg-var-maage-secondary-600-text-white-py-12 {
+                background-color: #3c677e;
+                padding-top: 3rem;
+              }
+
+              .a-inline-flex-items-center-gap-2:after, .a-inline-flex-items-center-gap-2:before, .div-col-span-2-md-col-span-2:after, .div-col-span-2-md-col-span-2:before, .div-container-mx-auto-px-4:after, .div-container-mx-auto-px-4:before, .div-flex-items-center-mb-4:after, .div-flex-items-center-mb-4:before, .div-grid-grid-cols-1-md-grid-cols-5-gap-8:after, .div-grid-grid-cols-1-md-grid-cols-5-gap-8:before, .footer-bg-var-maage-secondary-600-text-white-py-12, .footer-bg-var-maage-secondary-600-text-white-py-12:after, .footer-bg-var-maage-secondary-600-text-white-py-12:before, .img-h-14:after, .img-h-14:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .a-inline-flex-items-center-gap-2:disabled, .a-style-1-unique-1:disabled, .css_pro-div-variation-1:disabled, .div-col-span-2-md-col-span-2:disabled, .div-container-mx-auto-px-4:disabled, .div-flex-items-center-mb-4:disabled, .div-flex-space-x-4:disabled, .div-grid-grid-cols-1-md-grid-cols-5-gap-8:disabled, .div-mt-6:disabled, .footer-bg-var-maage-secondary-600-text-white-py-12:disabled, .h4-text-md-font-medium-mb-3-text-gray-400:disabled, .img-h-14:disabled, .span-style-1:disabled, .span-style-2:disabled {
+                cursor: default;
+              }
+
+              .div-container-mx-auto-px-4 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                width: 100%;
+              }
+
+              @media (min-width: 640px) {
+                .div-container-mx-auto-px-4 {
+                  max-width: 640px;
+                }
+              }
+
+              @media (min-width: 768px) {
+                .div-container-mx-auto-px-4 {
+                  max-width: 768px;
+                }
+              }
+
+              @media (min-width: 1024px) {
+                .div-container-mx-auto-px-4 {
+                  max-width: 1024px;
+                }
+              }
+
+              @media (min-width: 1280px) {
+                .div-container-mx-auto-px-4 {
+                  max-width: 1280px;
+                }
+              }
+
+              @media (min-width: 1536px) {
+                .div-container-mx-auto-px-4 {
+                  max-width: 1536px;
+                }
+              }
+
+              .div-grid-grid-cols-1-md-grid-cols-5-gap-8 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                column-gap: 2rem;
+                display: grid;
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+                row-gap: 2rem;
+              }
+
+              @media (min-width: 768px) {
+                .div-grid-grid-cols-1-md-grid-cols-5-gap-8 {
+                  grid-template-columns: repeat(5, minmax(0, 1fr));
+                }
+              }
+
+              .div-col-span-2-md-col-span-2 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                grid-column-end: span 2;
+                grid-column-start: span 2;
+              }
+
+              @media (min-width: 768px) {
+                .div-col-span-2-md-col-span-2 {
+                  grid-column-end: span 2;
+                  grid-column-start: span 2;
+                }
+              }
+
+              .a-inline-flex-items-center-gap-2, .div-flex-items-center-mb-4 {
+                align-items: center;
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .div-flex-items-center-mb-4 {
+                display: flex;
+                margin-bottom: 1rem;
+              }
+
+              .a-inline-flex-items-center-gap-2 {
+                color: inherit;
+                column-gap: .5rem;
+                display: inline-flex;
+                row-gap: .5rem;
+                text-decoration: inherit;
+              }
+
+              .img-h-14 {
+                display: block;
+                height: 3.5rem;
+                max-width: 100%;
+              }
+
+              .a-style-1-unique-1:after, .a-style-1-unique-1:before, .css_pro-div-variation-1, .css_pro-div-variation-1:after, .css_pro-div-variation-1:before, .div-flex-space-x-4:after, .div-flex-space-x-4:before, .div-mt-6:after, .div-mt-6:before, .h4-text-md-font-medium-mb-3-text-gray-400:after, .h4-text-md-font-medium-mb-3-text-gray-400:before, .img-h-14, .span-style-1, .span-style-1:after, .span-style-1:before, .span-style-2:after, .span-style-2:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .span-style-1 {
+                color: #71a3b7;
+                font-size: 1.875rem;
+                font-weight: 600;
+                line-height: 2.25rem;
+              }
+
+              @media (min-width: 768px) {
+                .span-style-1 {
+                  font-size: 2.25rem;
+                  line-height: 2.5rem;
+                }
+              }
+
+              @media (min-width: 1024px) {
+                .span-style-1 {
+                  font-size: 3rem;
+                  line-height: 1;
+                }
+              }
+
+              .span-style-2 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                color: #c2d9e0;
+                font-size: 1.875rem;
+                font-weight: 300;
+                line-height: 2.25rem;
+                margin-left: -3px;
+              }
+
+              @media (min-width: 768px) {
+                .span-style-2 {
+                  font-size: 2.25rem;
+                  line-height: 2.5rem;
+                }
+              }
+
+              @media (min-width: 1024px) {
+                .span-style-2 {
+                  font-size: 3rem;
+                  line-height: 1;
+                }
+              }
+
+              .div-mt-6 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                margin-top: 1.5rem;
+              }
+
+              .h4-text-md-font-medium-mb-3-text-gray-400 {
+                color: rgb(156 163 175/1);
+                font-size: inherit;
+                font-weight: 500;
+                margin: 0 0 .75rem;
+              }
+
+              .a-style-1-unique-1, .div-flex-space-x-4, .h4-text-md-font-medium-mb-3-text-gray-400 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .div-flex-space-x-4 {
+                display: flex;
+              }
+
+              .a-style-1-unique-1 {
+                color: rgb(156 163 175/1);
+                text-decoration: inherit;
+                transition-duration: 150ms;
+                transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+              }
+
+              .a-style-1-unique-1:hover {
+                color: rgb(255 255 255/1);
+                transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+              }
+
+              .i-fab-fa-github-text-xl {
+                display: inline-block;
+                font-variant: normal;
+                font-variant-emoji: normal;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                font-family: "Font Awesome 6 Brands";
+                font-size: 1.25rem;
+                font-weight: 400;
+                line-height: 1.75rem;
+              }
+
+              .i-fab-fa-github-text-xl:before {
+                content: "";
+              }
+
+              .a-style-2-unique-2:after, .a-style-2-unique-2:before, .i-fab-fa-github-text-xl, .i-fab-fa-github-text-xl:after, .i-fab-fa-github-text-xl:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .a-style-2-unique-2:disabled, .i-fab-fa-github-text-xl:disabled {
+                cursor: default;
+              }
+
+              .a-style-2-unique-2 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                color: rgb(156 163 175/1);
+                text-decoration: inherit;
+                transition-duration: 150ms;
+                transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+              }
+
+              .a-style-2-unique-2:not([hidden]) {
+                margin-left: calc(1rem*calc(1 - 0));
+                margin-right: calc(1rem*0);
+              }
+
+              .a-style-2-unique-2:hover {
+                color: rgb(255 255 255/1);
+                transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+              }
+
+              .i-fab-fa-twitter-text-xl {
+                font-variant: normal;
+                -webkit-font-smoothing: antialiased;
+                display: inline-block;
+                font-family: "Font Awesome 6 Brands";
+                font-size: 1.25rem;
+                font-variant-emoji: normal;
+                font-weight: 400;
+                line-height: 1.75rem;
+                text-rendering: auto;
+              }
+
+              .i-fab-fa-twitter-text-xl:before {
+                content: "";
+              }
+
+              .a-style-3-unique-3:after, .a-style-3-unique-3:before, .i-fab-fa-twitter-text-xl, .i-fab-fa-twitter-text-xl:after, .i-fab-fa-twitter-text-xl:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .a-style-3-unique-3:disabled, .i-fab-fa-twitter-text-xl:disabled {
+                cursor: default;
+              }
+
+              .a-style-3-unique-3 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                color: rgb(156 163 175/1);
+                text-decoration: inherit;
+                transition-duration: 150ms;
+                transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+              }
+
+              .a-style-3-unique-3:not([hidden]) {
+                margin-left: calc(1rem*calc(1 - 0));
+                margin-right: calc(1rem*0);
+              }
+
+              .a-style-3-unique-3:hover {
+                color: rgb(255 255 255/1);
+                transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+              }
+
+              .i-fab-fa-linkedin-text-xl {
+                display: inline-block;
+                font-variant: normal;
+                font-variant-emoji: normal;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                font-family: "Font Awesome 6 Brands";
+                font-size: 1.25rem;
+                font-weight: 400;
+                line-height: 1.75rem;
+              }
+
+              .i-fab-fa-linkedin-text-xl:before {
+                content: "";
+              }
+
+              .i-fab-fa-linkedin-text-xl, .i-fab-fa-linkedin-text-xl:after, .i-fab-fa-linkedin-text-xl:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .a-style-4-unique-1:disabled, .css_pro-li-variation-2:disabled, .div-col-span-1-unique-1:disabled, .h3-style-1:disabled, .i-fab-fa-linkedin-text-xl:disabled, .i-fas-fa-envelope-text-xl:disabled, .ul-space-y-2-text-sm-unique-1:disabled {
+                cursor: default;
+              }
+
+              .i-fas-fa-envelope-text-xl, .i-fas-fa-envelope-text-xl:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .i-fas-fa-envelope-text-xl {
+                display: inline-block;
+                font-variant: normal;
+                font-variant-emoji: normal;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                font-family: "Font Awesome 6 Free";
+                font-size: 1.25rem;
+                font-weight: 900;
+                line-height: 1.75rem;
+              }
+
+              .i-fas-fa-envelope-text-xl:before {
+                content: "";
+              }
+
+              .a-style-4-unique-1:after, .a-style-4-unique-1:before, .css_pro-li-variation-2:after, .css_pro-li-variation-2:before, .div-col-span-1-unique-1, .div-col-span-1-unique-1:after, .div-col-span-1-unique-1:before, .h3-style-1, .h3-style-1:after, .h3-style-1:before, .i-fas-fa-envelope-text-xl:after, .ul-space-y-2-text-sm-unique-1:after, .ul-space-y-2-text-sm-unique-1:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .div-col-span-1-unique-1 {
+                grid-column-end: span 1;
+                grid-column-start: span 1;
+              }
+
+              .h3-style-1 {
+                color: #a0c3cf;
+                font-size: inherit;
+                font-weight: 600;
+                margin: 0 0 1rem;
+              }
+
+              .ul-space-y-2-text-sm-unique-1 {
+                font-size: .875rem;
+                line-height: 1.25rem;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+              }
+
+              .css_pro-li-variation-2, .ul-space-y-2-text-sm-unique-1 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .a-style-4-unique-1 {
+                color: rgb(209 213 219/1);
+                text-decoration: inherit;
+                transition-duration: 300ms;
+                transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+              }
+
+              .a-style-4-unique-1:hover {
+                color: rgb(255 255 255/1);
+              }
+
+              .a-style-4-unique-1, .a-style-5-unique-2:after, .a-style-5-unique-2:before, .css_pro-li-variation-3, .css_pro-li-variation-3:after, .css_pro-li-variation-3:before, .css_pro-li-variation-4:after, .css_pro-li-variation-4:before, .div-col-span-1-unique-2:after, .div-col-span-1-unique-2:before, .h3-style-2-unique-1:after, .h3-style-2-unique-1:before, .ul-space-y-2-text-sm-unique-2:after, .ul-space-y-2-text-sm-unique-2:before {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .css_pro-li-variation-3:disabled {
+                cursor: default;
+              }
+
+              .css_pro-li-variation-3:not([hidden]) {
+                margin-bottom: calc(.5rem*0);
+                margin-top: calc(.5rem*calc(1 - 0));
+              }
+
+              .a-style-5-unique-2 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                color: rgb(209 213 219/1);
+                text-decoration: inherit;
+                transition-duration: 300ms;
+                transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+                transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+              }
+
+              .a-style-5-unique-2:disabled {
+                cursor: default;
+              }
+
+              .a-style-5-unique-2:hover {
+                color: rgb(255 255 255/1);
+              }
+
+              .css_pro-li-variation-4 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .css_pro-li-variation-4:disabled {
+                cursor: default;
+              }
+
+              .css_pro-li-variation-4:not([hidden]) {
+                margin-bottom: calc(.5rem*0);
+                margin-top: calc(.5rem*calc(1 - 0));
+              }
+
+              .div-col-span-1-unique-2 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                grid-column-end: span 1;
+                grid-column-start: span 1;
+              }
+
+              .css_pro-li-variation-5:disabled, .div-col-span-1-unique-2:disabled, .h3-style-2-unique-1:disabled, .h3-style-3-unique-2:disabled, .ul-space-y-2-text-sm-unique-2:disabled {
+                cursor: default;
+              }
+
+              .h3-style-2-unique-1 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+                color: #a0c3cf;
+                font-size: 1.125rem;
+                font-weight: 600;
+                line-height: 1.75rem;
+                margin: 0 0 1rem;
+              }
+
+              .ul-space-y-2-text-sm-unique-2 {
+                font-size: .875rem;
+                line-height: 1.25rem;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+              }
+
+              .css_pro-li-variation-5, .css_pro-li-variation-5:after, .css_pro-li-variation-5:before, .h3-style-3-unique-2, .h3-style-3-unique-2:after, .h3-style-3-unique-2:before, .ul-space-y-2-text-sm-unique-2 {
+                border: 0 solid #e5e7eb;
+                box-sizing: border-box;
+              }
+
+              .h3-style-3-unique-2 {
+                color: #a0c3cf;
+                font-size: 1.125rem;
+                font-weight: 600;
+                line-height: 1.75rem;
+                margin: 0 0 1rem;
+              }
+
+              .inherited-styles--maage-footer {
+                font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                tab-size: 4;
+              }
+
+              .footer-cap {
+                display: block;
+                background-color: var(--maage-secondary-900);
+                z-index: 1026;
+                color: #fff;
+                padding: 1rem;
+                text-align: center;
+              }
+              div.div-col-span-1-unique-1:nth-child(2) > h3.h3-style-1 {
+          font-size: 1.25rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(2) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-2 {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(2) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-3:nth-child(2) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(2) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-4:nth-child(3) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(2) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-4:nth-child(5) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(2) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-3:nth-child(4) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-2 > h3.h3-style-2-unique-1 {
+          font-size: 1.25rem;
+        }
+
+        ul.ul-space-y-2-text-sm-unique-2 > li.css_pro-li-variation-5 {
+          font-size: 1rem;
+        }
+
+        ul.ul-space-y-2-text-sm-unique-2 > li.css_pro-li-variation-4:nth-child(2) {
+          font-size: 1rem;
+        }
+
+        ul.ul-space-y-2-text-sm-unique-2 > li.css_pro-li-variation-3:nth-child(3) {
+          font-size: 1rem;
+        }
+
+        ul.ul-space-y-2-text-sm-unique-2 > li.css_pro-li-variation-4:nth-child(4) {
+          font-size: 1rem;
+        }
+
+        ul.ul-space-y-2-text-sm-unique-2 > li.css_pro-li-variation-3:nth-child(5) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(4) > h3.h3-style-3-unique-2 {
+          font-size: 1.25rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(4) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-2 {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(4) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-3:nth-child(2) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(4) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-4:nth-child(3) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(4) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-3:nth-child(4) {
+          font-size: 1rem;
+        }
+
+        div.div-col-span-1-unique-1:nth-child(4) > ul.ul-space-y-2-text-sm-unique-1 > li.css_pro-li-variation-4:nth-child(5) {
+          font-size: 1rem;
+        }
+
+
+            </style>
+
+          </div>
+          <!-- end id=wrapper--footer -->
+</body>
+
+</html>
