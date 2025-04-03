@@ -6,7 +6,7 @@
             <div class="nav-logo">
                 <a class="nav-logo-link" href="/">
                     <a class="nav-logo-link min-x-50" href="/">
-                        <img class="h-[40px] mt-[10px] text-[var(--maage-secondary-500)]" src="/public/maage/logos/maage-logo-temp.png" alt="Midwest Alliance for Applied Genomic Epidemiology (MAAGE) Logo">
+                        <img class="h-[40px] mt-[10px] text-[var(--maage-secondary-500)]" src="/public/img/logos/maage-logo-temp.png" alt="Midwest Alliance for Applied Genomic Epidemiology (MAAGE) Logo">
                         <span class="font-poppins font-light text-[42px] text-[var(--maage-secondary-700)]">MA</span>
                         <span class="font-poppins font-semibold text-[42px] text-[var(--maage-secondary-500)]">AGE</span>
                     </a>
@@ -15,7 +15,6 @@
 
             <div id="maage-navbar">
                 <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton"></div>
-
 
                 <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
                   <span class="navigation-item">Organisms </span>
@@ -76,6 +75,8 @@
                                     <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/PhylogeneticTree">Bacterial Genome Tree</a></div>
                                     <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/ViralGenomeTree">Viral Genome Tree</a></div>
                                     <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/GeneTree">Gene/Protein Tree</a></div>
+                                    <div class="maage-nav-item"><a class="navigationLink" href="/app/CoreGenomeMLST">Core Genome MLST</a></div>
+                                    <div class="maage-nav-item"><a class="navigationLink" href="/app/WholeGenomeSNPAnalysis">Whole Genome SNP Analysis</a></div>
                                 </div>
                                 <div class="menuHeader maage-menu-header">Protein Tools</div>
                                 <div class="menuItems">
@@ -92,8 +93,6 @@
                                     <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/TaxonomicClassification">Taxonomic Classification</a></div>
                                     <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/MetagenomicBinning">Metagenomic Binning</a></div>
                                     <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/MetagenomicReadMapping">Metagenomic Read Mapping</a></div>
-                                    <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/CoreGenomeMLST">Core Genome MLST</a></div>
-                                    <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/app/WholeGenomeSNPAnalysis">Whole Genome SNP Analysis</a></div>
                                 </div>
                               <p></p>
                               <div class="menuHeader maage-menu-header">Viral Tools</div>
@@ -116,32 +115,30 @@
                     </div>
                 </div>
 
-                <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
-                    <span class="navigation-item">Workspaces </span>
+                <div class="topMenuButton showOnLoad dijitHidden" data-dojo-type="dijit/form/DropDownButton">
+                    <span>Workspaces</span>
                     <span class="fa-regular fa-chevron-down"></span>
                     <div data-dojo-type="p3/widget/TooltipDialog">
                         <div>
                             <div style="vertical-align: top;width:175px;display:inline-block">
                                 <div class="HideWithAuth">
-                                    Please <a class="loginLink">sign in</a> to view your workspaces.
+                                    Please <a class="loginLink workspaceMenuLink" style="color: #446c83; font-weight: bold; text-decoration: underline; cursor: pointer;">sign in</a> to view your workspaces.
                                 </div>
                                 <div class="ShowWithAuth">
                                     <div><i class="fa icon-caret-down fa-1x noHoverIcon"
                                             style="color:#333;cursor:normal;"></i>&nbsp;<a
-                                                class="navigationLink maage-nav-link" id="YourWorkspaceLink">Workspaces</a></div>
+                                                class="navigationLink" id="YourWorkspaceLink">Workspaces</a></div>
                                     <div id="YourWorkspaces"></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/workspace/public">My Workspace</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/workspace/public/ARWattam@patricbrc.org/BV-BRC%20Workshop">BV-BRC Workspace</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/workspace/public/ARWattam@patricbrc.org/BV-BRC%20Workshop">MAAGE Workspace</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/workspace/public">Public Workspaces</a></div>
+                                    <div><a class="navigationLink" href="/workspace/public">Public Workspaces</a></div>
+                                    <div><a class="navigationLink" href="/workspace/public/ARWattam@patricbrc.org/BV-BRC%20Workshop">MAAGE Workspace</a></div>
                                 </div>
                             </div>
                             <div style="vertical-align:top;display:inline-block" class="ShowWithAuth">
                                 <div>
-                                    <a class="navigationLink maage-nav-link" href="/job/">My Jobs</a>
+                                    <a class="navigationLink" href="/job/">My Jobs</a>
                                 </div>
                                 <div>
-                                    <a class="navigationLink maage-nav-link" href="/view/GenomeList/?eq(public,false)">My Genomes</a>
+                                    <a class="navigationLink" href="/view/GenomeList/?eq(public,false)">My Genomes</a>
                                 </div>
                             </div>
                         </div>
@@ -149,22 +146,19 @@
                 </div>
 
 
-                <!-- <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
+                <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
                     <span class="navigation-item">Resources </span>
                     <span class="fa-regular fa-chevron-down"></span>
                     <div data-dojo-type="p3/widget/TooltipDialog">
                         <div class="menuHeader">MAAGE</div>
-                        <div><a class="maage-nav-link" href="/about">About Us</a></div>
-                        <div><a class="maage-nav-link" href="/team">Our Team</a></div>
-                        <div><a class="maage-nav-link" href="/advisory-boards">Advisory Boards</a></div>
-                        <hr>
-                        <div class="menuHeader maage-menu-header">Related Resources</div>
-                        <div class="maage-nav-item"><a class="maage-nav-link" href="/resources">Help Docs</a></div>
+                        <div class="maage-nav-item"><a class="maage-nav-link" href="/about">About Us</a></div>
+                        <div class="maage-nav-item"><a class="maage-nav-link" href="/team">Our Team</a></div>
+                        <div class="maage-nav-item"><a class="maage-nav-link" href="/advisory-boards">Advisory Boards</a></div>
+                        <div class="maage-nav-item"><a class="maage-nav-link" href="/docs">Help Docs</a></div>
                         <div class="maage-nav-item"><a class="maage-nav-link navigationLinkOut" href="https://github.com/MAAGE-BRC" target="_blank" rel="noopener">GitHub</a></div>
                         <div class="maage-nav-item"><a class="maage-nav-link DialogButton" rel="reportProblem:">Contact Us</a></div>
-
                     </div>
-                </div> -->
+                </div>
 
 
                 <style>
@@ -194,7 +188,6 @@
                     color: #334a57 !important;
                   }
 
-                  /* Menu Headers */
                   .menuHeader {
                     background-color: #689f86 !important;
                     color: white !important;
@@ -227,7 +220,6 @@
                     background-repeat: no-repeat;
                   }
 
-                  /* Menu Items */
                   .menuItemWrapper {
                     margin: 1px 0 !important;
                     padding: 0 6px !important;
@@ -256,7 +248,6 @@
                     background-color: #deede4 !important;
                   }
 
-                  /* View All items styling */
                   .viewAll .maage-nav-link {
                     color: #365668 !important;
                     font-weight: 400 !important;
@@ -282,8 +273,6 @@
                     opacity: 1;
                     transform: translateY(-50%) translateX(3px);
                   }
-
-                  /* Animation for menu appearance */
                   @keyframes menuAppear {
                     from {
                       opacity: 0;
@@ -302,41 +291,7 @@
                 </style>
             </div>
 
-
-            <!-- <div id="p3header-search" style="width: 120px;flex-grow: 0.85;margin-right: 10px;">
-                <input style="width:100%;font-size:1em;" class="showOnLoad dijitHidden"
-                       data-dojo-type="p3/widget/GlobalSearch"/>
-            </div> -->
-
-            <!-- <div class="navbar-flex-space" style="flex-grow: 0.85;"></div> -->
-
-
             <div id="bv-brc-right-header">
-              <!-- <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
-                <span class="fa-duotone fa-solid fa-code" style="--fa-primary-color: #365666; --fa-secondary-color: #365666; --fa-secondary-opacity: 0.3; font-size: 26px;"></span>
-                <span class="navigation-item">Dev Menu</span>
-                <div data-dojo-type="p3/widget/TooltipDialog">
-                    <div class="menuHeader maage-menu-header">Pages</div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Modal Replacement: Login</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Modal Replacement: Registration</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Modal Replacement: Password Reset</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Modal Replacement: Profile</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Dojo Widget: Genome Overview</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Dashboard: SPA</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Dashboard: App/Admin UI - 1</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Dashboard: App/Admin UI - 2</a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Charts: </a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Charts: </a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Charts: </a></div>
-                    <div class="maage-nav-item"><a class="maage-nav-link" href="/dev">Reports: </a></div>
-                </div>
-              </div> -->
-
-              <style>
-
-              </style>
-
-                <i class="fa-regular fa-magnifying-glass" style="--fa-primary-color: #2e3f4b; --fa-secondary-color: #3c677e; --fa-secondary-opacity: 0.4; font-size: 26px; margin-right: 10px;"></i>
                 <div class="HideWithAuth authLinks showOnLoad dijitHidden">
                         <a class="navigationLink login-btn" href="/register">Register</a>
                         <a class="navigationLink register-btn" href="/login">Login</a>
@@ -359,190 +314,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div id="mobile-nav-icon">
-                    <button class="hamburger-icon" onclick="toggleMenu()">
-                        <span class="icon-bars fa-2x"></span>
-                    </button>
-                </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-        <!-- Mobile -->
-        <!-- <div id="mobile-searchbar" class="hidden">
-            <div id="mobile-search-div">
-                <input style="width:100%;font-size:1em;" data-dojo-type="p3/widget/GlobalSearch"/>
-            </div>
-        </div>
-
-        <nav id="mobile-navbar" class="hidden">
-            <div id="mobile-menu" class="mobile-menu">
-                <div class="menu-section">
-                    <div class="menu-header" onclick="toggleSubMenu(this)">Organisms <span
-                                class="icon-chevron-down"></span></div>
-                    <div class="menu-items" style="display: none;">
-                        <div style="column-count: 2;">
-                            <a href="/view/Bacteria/2"
-                               title="Overview page for all Bacteria genomes">All Bacteria</a>
-                            <a href="/view/Taxonomy/2157"
-                               title="Overview page for all Archea genomes">All Viruses</a>
-                            <a href="/view/Taxonomy/10239" title="Overview page for all Viruses">All Metagenomes</a>
-                        </div>
-
-                        <div>
-                            <div class="menuHeader">Bacterial Pathogens</div>
-                            <div class="sub-menu" style="column-count: 1;">
-
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="menuHeader">Viral Families</div>
-                            <div class="sub-menu" style="column-count: 1;">
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="menuHeader">Featured Viruses</div>
-                            <div class="sub-menu" style="column-count: 1;">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="searches-services" class="menu-section">
-                    <div class="menu-header" onclick="toggleSubMenu(this)">Searches <span
-                                class="icon-chevron-down"></span></div>
-                    <div class="menu-items" style="display: none;">
-                        <div class="menuHeader" style="padding-right: 20px;">Advanced Search</div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/TaxaSearch">Taxa</a></div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/GenomeSearch">Genomes</a></div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/GenomicFeatureSearch">Features</a></div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/ProteinSearch">Proteins</a></div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/SpecialtyGeneSearch">Specialty Genes</a></div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/ProteinStructureSearch">Protein Structures</a></div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/PathwaySearch">Pathways</a></div>
-                        <div><a class="navigationLink maage-nav-link" href="/searches/SubsystemSearch">Subsystems</a></div>
-                    </div>
-                </div>
-
-                <div id="tools-services" class="menu-section">
-                    <div class="menu-header" onclick="toggleSubMenu(this)">Tools <span
-                                class="icon-chevron-down"></span></div>
-                    <div class="menu-items" style="display: none">
-                        <div>
-                            <div style="vertical-align: top;width:250px;margin-right:5px;display:inline-block">
-                                <div class="menuHeader">Genomics</div>
-                                <div class="menuItems">
-                                    <div><a class="navigationLink maage-nav-link" href="/app/Assembly2">Genome Assembly</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/Annotation">Genome Annotation</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/ComprehensiveGenomeAnalysis">Comprehensive Genome Analysis <span style="font-style: italic;">(B)</span></a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/Homology">BLAST</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/GenomeDistance">Similar Genome Finder</a></div>
-                                </div>
-                                <div class="menuHeader">Phylogenomics</div>
-                                <div class="menuItems">
-                                    <div><a class="navigationLink maage-nav-link" href="/app/PhylogeneticTree">Bacterial Genome Tree</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/ViralGenomeTree">Viral Genome Tree</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/GeneTree">Gene/Protein Tree</a></div>
-                                </div>
-                                <div class="menuHeader">Protein Tools</div>
-                                <div class="menuItems">
-                                    <div><a class="navigationLink maage-nav-link" href="/app/MSA">MSA and SNP Analysis</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/SeqComparison">Proteome Comparison</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/ComparativeSystems">Comparative Systems</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/Docking">Docking</a></div>
-                                </div>
-                            </div>
-
-                            <div style="vertical-align:top;width:250px;display:inline-block">
-                                <div class="menuHeader">Metagenomics</div>
-                                <div class="menuItems">
-                                    <div><a class="navigationLink maage-nav-link" href="/app/TaxonomicClassification">Taxonomic Classification</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/MetagenomicBinning">Metagenomic Binning</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/MetagenomicReadMapping">Metagenomic Read Mapping</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/CoreGenomeMLST">Core Genome MLST</a></div>
-                                    <div><a class="navigationLink maage-nav-link" href="/app/WholeGenomeSNPAnalysis">Whole Genome SNP Analysis</a></div>
-                                </div>
-                              <p></p>
-                              <div class="menuHeader">Viral Tools</div>
-                              <div class="menuItems">
-                                <div><a class="navigationLink maage-nav-link" href="/app/ComprehensiveSARS2Analysis">SARS-CoV-2 Genome Analysis</a></div>
-                                <div><a class="navigationLink maage-nav-link" href="/app/SARS2Wastewater">SARS-CoV-2 Wastewater Analysis</a></div>
-                                <div><a class="navigationLink maage-nav-link" href="/app/SequenceSubmission">Influenza Sequence Submission</a></div>
-                                <div><a class="navigationLink maage-nav-link" href="/app/HASubtypeNumberingConversion">Influenza HA Subtype Conversion</a></div>
-                                <div><a class="navigationLink maage-nav-link" href="/app/SubspeciesClassification">Subspecies Classification</a></div>
-                              </div>
-                              <p></p>
-                              <div class="menuHeader">Outbreak Tracker</div>
-                              <div class="menuItems">
-                                <div><b><a class="navigationLink maage-nav-link" href="/outbreaks/Mpox/#view_tab=overview">Mpox 2024</a></b></div>
-                                <div><b><a class="navigationLink maage-nav-link" href="/outbreaks/H5N1/#view_tab=overview">Influenza H5N1 2024</a></b></div>
-                                <div><b><a class="navigationLink maage-nav-link" href="/outbreaks/SARSCoV2/#view_tab=overview">SARS-CoV-2</a></b></div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="menu-header" onclick="toggleSubMenu(this)">Workspaces <span
-                                class="icon-chevron-down"></span></div>
-                    <div class="menu-items" style="display: none">
-                        <div class="HideWithAuth">
-                            Please <a class="loginLink">sign in</a> to view your workspaces.
-                        </div>
-                        <div class="ShowWithAuth">
-                            <div id="YourWorkspaces-mobile"></div>
-                            <div><a href="/workspace/public">Public Workspaces</a></div>
-                            <div><a href="/workspace/public/ARWattam@patricbrc.org/BV-BRC%20Workshop">BV-BRC Workshop</a></div>
-                            <div><a href="/job/">My Jobs</a></div>
-                            <div><a href="/view/GenomeList/?eq(public,false)">My Genomes</a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="help-menu" class="menu-section">
-                    <div class="menu-header" onclick="toggleSubMenu(this)">Resources <span class="icon-chevron-down"></span></div>
-                    <div class="menu-items" style="display: none">
-                            <div class="menuHeader">MAAGE</div>
-                            <div><a class="maage-nav-link" href="/about">About Us</a></div>
-                            <div><a class="maage-nav-link" href="/team">Our Team</a></div>
-                            <div><a class="maage-nav-link" href="/advisory-boards">Advisory Boards</a></div>
-                            <hr>
-                            <div class="menuHeader">Related Resources</div>
-                            <div><a class="maage-nav-link navigationLinkOut" href="https://github.com/MAAGE-BRC" target="_blank" rel="noopener">GitHub</a></div>
-                            <div><a class="DialogButton" rel="reportProblem:">Contact Us</a></div>
-                            <hr>
-                            <div class="menuHeader">For Devs</div>
-                            <div><a class="maage-nav-link" href="/dev">Login</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Registration</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Password Reset</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Profile</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Dojo Widget: Genome Overview</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Dash: SPA</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Dash: App/Admin UI - 1</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Dash: App/Admin UI - 2</a></div>
-                            <div><a class="maage-nav-link" href="/dev">Charts: </a></div>
-                            <div><a class="maage-nav-link" href="/dev">Charts: </a></div>
-                            <div><a class="maage-nav-link" href="/dev">Charts: </a></div>
-                            <div><a class="maage-nav-link" href="/dev">Reports: </a></div>
-                    </div>
-                </div> -->
-
-
-            <!-- </div> -->
-        </nav>
-    </div>
+</div>
 </div>

@@ -313,7 +313,6 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   transform: translateY(-50%) translateX(3px);
 }
 
-/* External links */
 .maage-navbar .navigationLinkOut::after {
   content: '';
   display: inline-block;
@@ -325,7 +324,7 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   vertical-align: middle;
 }
 
-/* Focus styles for accessibility */
+
 .maage-navbar .navigationLink:focus,
 .maage-navbar .TopMenuLink:focus,
 .maage-navbar .DialogButton:focus,
@@ -334,14 +333,13 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   outline-offset: 1px !important;
 }
 
-/* Specific styles for two-column layouts */
+
 .maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="display:inline-block"],
 .maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="display: inline-block"] {
   vertical-align: top !important;
   padding: 0 8px !important;
 }
 
-/* Enhance outbreak links */
 .maage-navbar .navigationLink[href^="/outbreaks/"] {
   position: relative !important;
 }
@@ -351,13 +349,10 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   font-size: 12px;
 }
 
-/* Remove extra paragraph spacing */
 .maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] p {
   margin: 0 !important;
   padding: 0 !important;
 }
-
-/* Horizontal rule styling */
 .maage-navbar [data-dojo-type="p3/widget/TooltipDialog"] hr {
   border: 0 !important;
   height: 1px !important;
@@ -365,34 +360,39 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
   margin: 6px 8px !important;
 }
 
-/* Make the Tools dropdown wider to accommodate two columns */
 .maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Tools") + [data-dojo-type="p3/widget/TooltipDialog"] {
   min-width: 520px !important;
 }
 
-/* Support potential two-column layout for Organisms dropdown */
+
 .maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Organisms") + [data-dojo-type="p3/widget/TooltipDialog"] {
-  min-width: 280px !important; /* Can be increased for two columns later */
+  min-width: 280px !important;
 }
 
-/* Make sure columns in Tools are properly sized */
+
 .maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Tools") + [data-dojo-type="p3/widget/TooltipDialog"] > div > div[style*="width:250px"] {
   width: 240px !important; /* Slightly adjusted to fit better */
 }
 
-/* Make the Resources dropdown wider to fit all the dev links */
+
 .maage-navbar [data-dojo-type="dijit/form/DropDownButton"] > span:contains("Resources") + [data-dojo-type="p3/widget/TooltipDialog"] {
   min-width: 280px !important;
 }
 
-/* Fix any FontAwesome icons */
 .maage-navbar .fa {
   margin-right: 5px !important;
 }
 
-/* For incomplete links in Resources */
+
 .maage-navbar .TopMenuLink[href="/dev"]:empty::after {
   content: 'Coming Soon';
   font-style: italic;
   color: #999;
+}
+
+.maage-navbar .workspaceMenuLink {
+  color: #4d7d65 !important; /* Darker green */
+  font-weight: 500 !important;
+  margin-top: 2px !important;
+  margin-bottom: 6px !important;
 }
