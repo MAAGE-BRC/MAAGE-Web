@@ -1,4 +1,3 @@
-// tailwind.config.js
 module.exports = {
   content: ['./views/**/*.{js,jsx,ts,tsx,ejs,html}'],
   theme: {
