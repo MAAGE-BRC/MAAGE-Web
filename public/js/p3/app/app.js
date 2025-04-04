@@ -280,19 +280,25 @@ define([
       });
       /* istanbul ignore next */
       on(window, 'message', function (msg) {
-        // console.log('onMessage: ', msg);
-        if (msg && (msg.data === 'RemoteReady' || !msg.data || msg.origin=="https://syndication.twitter.com")) {
+        // Ignore anything not from this origin or known sources
+        if (
+          !msg ||
+          !msg.data ||
+          msg.origin === "https://syndication.twitter.com" || // legacy
+          typeof msg.data !== 'string' ||
+          !msg.data.trim().startsWith('{') // quick sniff test
+        ) {
           return;
         }
 
         try {
-          msg = JSON.parse(msg.data);
-          // console.log('Message From Remote: ', msg);
-          if (msg && msg.topic) {
-           Topic.publish(msg.topic, msg.payload);
+          const parsed = JSON.parse(msg.data);
+          if (parsed && parsed.topic) {
+            Topic.publish(parsed.topic, parsed.payload);
           }
-        } catch (err){
-          console.log("Error handling window message: ", msg,err)
+        } catch (err) {
+          // Comment this out or add a debug toggle if you're sick of the noise
+          // console.debug("Ignored window message error: ", err);
         }
       }, '*');
 

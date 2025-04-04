@@ -48,10 +48,8 @@ app.use(function (req, res, next) {
   // var userProf = "";
   req.applicationOptions = {
     version: '3.0',
-    maintenanceMode: config.get('maintenanceMode') || false,
     gaID: config.get('gaID') || false,
     uaID: config.get('uaID') || false,
-    MSClarityID: config.get('MSClarityID') || false,
     probModelSeedServiceURL: config.get('probModelSeedServiceURL'), // for dashboard
     shockServiceURL: config.get('shockServiceURL'), // for dashboard
     workspaceServiceURL: config.get('workspaceServiceURL'),
@@ -123,9 +121,9 @@ app.use('/public/pdfs/', [
     res.redirect('https://docs.patricbrc.org/tutorial/');
   }
  ]);
-
+ 
 app.use('/css', express.static(path.join(__dirname, 'public/css')));
-
+ 
 app.use((req, res, next) => {
   if (maintenanceMode && !req.url.startsWith('/admin')) {
   res.status(503).render('503', { title: '503 Service Unavailable' });
