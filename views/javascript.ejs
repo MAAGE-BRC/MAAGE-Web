@@ -27,6 +27,27 @@ lucide.createIcons();
   });
 </script>
 
+<script>
+  const advancedToggle = document.getElementById('advancedToggle');
+  const advancedPanel = document.getElementById('advancedPanel');
+  const chevronDown = document.querySelector('.chevron-down');
+  const chevronUp = document.querySelector('.chevron-up');
+
+  advancedToggle.addEventListener('click', function() {
+    const isVisible = advancedPanel.style.display === 'block';
+
+    if (isVisible) {
+      advancedPanel.style.display = 'none';
+      chevronDown.style.display = 'block';
+      chevronUp.style.display = 'none';
+    } else {
+      advancedPanel.style.display = 'block';
+      chevronDown.style.display = 'none';
+      chevronUp.style.display = 'block';
+    }
+  });
+</script>
+
 <!-- Scripts -->
 <%
 const load_scripts = [

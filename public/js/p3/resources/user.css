@@ -83,7 +83,7 @@
   --maage-natural-900: #927f60;
   --maage-natural-950: #4d4031;
 
-  --maage-bg: #F8F9FA
+  --maage-bg: #fffdf9
 
 }
 
@@ -174,7 +174,7 @@ div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.border-primary-10
 }
 
 .maage-background {
-  background-color: #F8F9FA!important;
+  background-color: #fafaf9!important;
 }
 
 .maage-home .home-card {
