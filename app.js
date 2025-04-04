@@ -48,8 +48,10 @@ app.use(function (req, res, next) {
   // var userProf = "";
   req.applicationOptions = {
     version: '3.0',
+    maintenanceMode: config.get('maintenanceMode') || false,
     gaID: config.get('gaID') || false,
     uaID: config.get('uaID') || false,
+    MSClarityID: config.get('MSClarityID') || false,
     probModelSeedServiceURL: config.get('probModelSeedServiceURL'), // for dashboard
     shockServiceURL: config.get('shockServiceURL'), // for dashboard
     workspaceServiceURL: config.get('workspaceServiceURL'),
