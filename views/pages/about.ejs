@@ -442,25 +442,6 @@ background-color: #e7f0f3;
             <p class="pl-5 pt-10 text-white">inject footer</p>
             </section>
 
-            <script>
-              // Smooth scrolling for anchor links
-              document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                  e.preventDefault();
-
-                  const targetId = this.getAttribute('href');
-                  const targetElement = document.querySelector(targetId);
-
-                  if (targetElement) {
-                    window.scrollTo({
-                      top: targetElement.offsetTop - 20,
-                      behavior: 'smooth'
-                    });
-                  }
-                });
-              });
-            </script>
-
           <script>
             document.addEventListener('DOMContentLoaded', function() {
               const animatedElements = document.querySelectorAll('.animate-on-scroll');
