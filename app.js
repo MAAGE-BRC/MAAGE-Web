@@ -120,7 +120,9 @@ app.use('/public/pdfs/', [
   function (req, res, next) {
     res.redirect('https://docs.patricbrc.org/tutorial/');
   }
-]);
+ ]);
+
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
 
 app.use((req, res, next) => {
   if (maintenanceMode && !req.url.startsWith('/admin')) {
