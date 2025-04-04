@@ -48,7 +48,6 @@ lucide.createIcons();
   });
 </script>
 
-<!-- Scripts -->
 <%
 const load_scripts = [
   "msa/dist/msa.min.js",
@@ -104,22 +103,3 @@ const load_scripts = [
         });
         </script>
         <% } %>
-
-<!-- Tailwind Core -->
-<link rel="stylesheet" href="/css/tailwind.css" />
-
-<%
-const load_css = [
-	"p3/resources/p3.css",
-	"heatmap/dist/hotmap.css"
-]
-%>
-<% if (request && request.production) { %>
-	<% load_css.forEach(function(url) { %>
-		<link rel='stylesheet' href="/js/<%- request.package.version %>/<%- url %>" />
-	<% }) %>
-<% } else { %>
-	<% load_css.forEach(function(url) { %>
-		<link rel='stylesheet' href="/js/<%- url %>" />
-	<% }) %>
-<% } %>
