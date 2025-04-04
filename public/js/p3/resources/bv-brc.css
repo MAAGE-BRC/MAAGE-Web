@@ -702,7 +702,7 @@
 @media (min-width: 1400px) {
   #bv-brc-home #bv-brc-home-container,
   #bv-brc-footer-container {
-    max-width: 100%;
+    max-width: 90%;
   }
 }
 

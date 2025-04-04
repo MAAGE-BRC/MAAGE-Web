@@ -16,7 +16,7 @@
 
 #maage-navbar .navigation-item {
   color: #334a57 !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   font-family: 'Poppins', sans-serif !important;
 }
 
@@ -126,7 +126,7 @@
   animation: menuAppear 0.2s ease-out forwards !important;
 }
 
-<style>
+
 
   .maage-home-container {
     margin-top: 15px;
@@ -351,7 +351,6 @@
   #maage-home-container {
     font-size: 16px;
   }
-</style>
 
 
 

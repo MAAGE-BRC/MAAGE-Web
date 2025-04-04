@@ -1,0 +1,28 @@
+<style>
+    .maage-scope {
+      all: initial;
+      font-family: system-ui, sans-serif;
+      line-height: 1.5;
+      color: #1f2937; /* Tailwind's gray-800 */
+      background: #ffffff;
+      padding: 1.5rem;
+      display: block;
+    }
+
+    .maage-scope *, .maage-scope *::before, .maage-scope *::after {
+      all: unset;
+      display: revert;
+      box-sizing: border-box;
+    }
+
+    /* Re-apply Tailwind-friendly flow basics */
+    .maage-scope p {
+      margin-bottom: 1rem;
+    }
+
+    .maage-scope h1 {
+      font-size: 1.875rem; /* text-3xl */
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  </style>
