@@ -29,12 +29,6 @@ router.get("/advisory-boards", function (req, res) {
   });
 });
 
-/* About MAAGE */
-router.get("/about-2", function (req, res) {
-  req.applicationModule = "p3/app/p3app";
-  res.render("pages/about-2", { title: "PATRIC", request: req, response: res });
-});
-
 /* Team Members */
 router.get("/team-2", function (req, res) {
   req.applicationModule = "p3/app/p3app";
