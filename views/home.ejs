@@ -4,7 +4,6 @@
     <div id="bv-brc-home-container">
       <div id="maage-home-container" class="maage-home-container">
 
-      <!-- Banner -->
       <div id="maage-banner"
         class="maage-banner flex items-center gap-x-6 bg-[var(--maage-secondary-600)] rounded-lg px-6 py-2.5 sm:px-3.5 sm:before:flex-1 mb-[5px] relative">
         <p class="text-[#ffffff] font-light text-md font-inter">
@@ -22,11 +21,12 @@
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div class="lg:col-span-3 space-y-6 flex flex-col">
             <section class="bg-gradient-to-r from-primary-100 to-secondary-100 p-8 md:p-12 rounded-xl shadow-md overflow-hidden relative">
+
               <div class="absolute right-0 top-0 w-64 h-64 md:w-96 md:h-96 opacity-10"> </div>
 
               <div class="relative z-10 space-y-6">
                 <div>
-                  <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary-900 mb-4 font-poppins leading-tight">
+                  <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-maage-text-default mb-4 font-poppins leading-tight">
                     Midwest Alliance for Applied <br>
                     Genomic Epidemiology
                   </h1>
@@ -39,11 +39,23 @@
 
                 <div class="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-md border border-primary-200">
                   <div class="flex items-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="database" class="lucide lucide-database h-5 w-5 text-secondary-600 mr-2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
-                    <h2 class="text-xl font-bold text-gray-800 font-poppins">Search MAAGE</h2>
+                    <i class="fa-regular fa-database" style="color: #4d85a2; font-size: 26px;"></i>
+                    <h2 class="text-2xl font-semibold text-gray-800 font-poppins pl-2">Search</h2>
+
                   </div>
 
-                  <div class="relative">
+                  <div class="search-wrapper">
+                  <div class="search" style="border: 2px solid #4d85a2">
+                    <div class="global-search">
+                        <div style="padding: 6px 0px 2px 2px; flex-grow: 1">
+                            <input style="width:100%;font-size:1em;" class="showOnLoad dijitHidden"
+                                   data-dojo-type="p3/widget/GlobalSearch"/>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <!-- <div class="relative">
                     <div class="flex items-center">
                       <div class="relative w-full" data-protonpass-form="">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -56,9 +68,9 @@
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <div class="mt-4">
+                  <!-- <div class="mt-4">
                     <button type="button" class="advanced-toggle" id="advancedToggle">
                       <svg class="icon chevron-down" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <polyline points="6 9 12 15 18 9"></polyline>
@@ -203,7 +215,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </section>
@@ -361,20 +373,20 @@
               </div>
 
               <div class="mt-8 flex flex-wrap gap-4 justify-center">
-                <a href="#"
-                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                <a href="https://bv-brc.org/docs/quick_start/index.html"
+                  class="navigationLinkOut btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
                   <i data-lucide="zap" class="mr-1.5 h-4 w-4"></i>
                   Quick Start
                 </a>
 
-                <a href="#"
-                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                <a href="https://bv-brc.org/docs/quick_references/index.html"
+                  class="navigationLinkOut btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
                   <i data-lucide="database" class="mr-1.5 h-4 w-4"></i>
                   Reference Guides
                 </a>
 
-                <a href="#"
-                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                <a href="https://bv-brc.org/docs/tutorial/index.html"
+                  class="navigationLinkOut btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
                   <i data-lucide="microscope" class="mr-1.5 h-4 w-4"></i>
                   Tutorials
                 </a>
@@ -421,7 +433,7 @@
                       </div>
                     </div>
                     <a
-                      href="#"
+                      href="/dashboard"
                       class="text-[#978fb5] hover:text-[#7a7394] text-sm font-medium flex items-center mt-2"
                     >
                       View Dashboard
@@ -451,7 +463,7 @@
                       </div>
                     </div>
                     <a
-                      href="#"
+                      href="/dashboard"
                       class="text-[#ecc187] hover:text-[#d9a966] text-sm font-medium flex items-center mt-2"
                     >
                       View Dashboard
@@ -481,7 +493,7 @@
                       </div>
                     </div>
                     <a
-                      href="#"
+                      href="/dashboard"
                       class="text-[#548fa6] hover:text-[#3a7085] text-sm font-medium flex items-center mt-2"
                     >
                       View Dashboard

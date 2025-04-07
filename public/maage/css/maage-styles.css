@@ -1,0 +1,54 @@
+div#maage-page {
+    width: 100%;
+}
+
+#maage-page .about-logo {
+  width: 55%;
+  height: auto;
+}
+
+.topMenuButton .workspace-nav-links {
+    color: #344855;
+    font-size: 14px;
+}
+
+.topMenuButton .workspace-nav-links:hover {
+    opacity: 75%;
+    text-decoration: underline;
+}
+
+div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:text-5xl.font-bold.text-secondary-900.mb-4.font-poppins.leading-tight {
+      font-weight: 600!important;
+      color: #212529!important;
+    }
+
+  div.flex.items-center.mb-6 > h2.text-2xl.font-semibold.text-secondary-800.font-poppins {
+    color: #212529;
+  }
+  div.flex.items-center > h2.text-2xl.font-semibold.text-/[var\(--maage-gray-800\)\].font-poppins {
+    color: #212529;
+  }
+  div.flex.items-center.mb-5 > h2.text-xl.font-bold.text-gray-800.font-poppins {
+    color: #212529;
+    font-weight: 600;
+  }
+  div.flex.items-center.mb-6 > h2.text-xl.font-bold.text-gray-800.font-poppins {
+    color: #212529;
+    font-weight: 600;
+  }
+  div.flex.items-center.mb-4 > h2.text-xl.font-bold.text-gray-800.font-poppins {
+    color: #212529;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  @media (min-width: 1024px) {
+    div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:text-5xl.font-bold.text-secondary-900.mb-4.font-poppins.leading-tight {
+      color: #212529;
+      font-weight: 600;
+    }
+  }
+  @media (min-width: 1024px) {
+    div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:text-5xl.font-bold.text-secondary-900.mb-4.font-poppins.leading-tight {
+      color: #212529;
+    }
+  }

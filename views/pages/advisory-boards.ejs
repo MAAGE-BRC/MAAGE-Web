@@ -1,1230 +1,986 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About MAAGE | Midwest Alliance for Applied Genomic Epidemiology</title>
-    <meta name="description" content="Pioneering genomic surveillance for a healthier tomorrow">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        maage: {
-                            50: '#f0f7f4',
-                            100: '#d9ebe3',
-                            200: '#a6c9b8',
-                            300: '#8ab5a1',
-                            400: '#649c82',
-                            500: '#457d65',
-                            600: '#376452',
-                            700: '#2e5243',
-                            800: '#274338',
-                            900: '#223831',
-                        },
-                        ocean: {
-                            50: '#f0f7fa',
-                            100: '#daeaf2',
-                            200: '#b0d1e3',
-                            300: '#8bbad5',
-                            400: '#649baf',
-                            500: '#4a7d91',
-                            600: '#3b6275',
-                            700: '#325161',
-                            800: '#2b4350',
-                            900: '#263a44',
-                        },
-                    },
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-</head>
-
-<body>
-    <div class="h-20 bg-[#92baa8] pl-5 pt-5">inject navbar</div>
-    <div class="bg-gradient-to-r from-[#e8f0ec] to-[#e8f0ec]/70 py-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="max-w-4xl">
-                <h1 class="text-4xl md:text-5xl font-bold text-[#2c3e50] mb-6 font-poppins">Advisory Boards</h1>
-                <p class="text-xl text-[#4a5568] font-inter leading-relaxed">MAAGE is guided by expert advisory boards
-                    that provide strategic direction, scientific oversight, and ensure our work remains at the forefront
-                    of genomic epidemiology and public health practice.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex overflow-x-auto py-4 gap-4"><a href="#clinical"
-                    class="px-4 py-2 whitespace-nowrap rounded-md bg-[#a6c9b8]/10 text-[#2c3e50] hover:bg-[#a6c9b8]/20 font-medium font-inter">Clinical
-                    Advisory Board</a><a href="#public-health"
-                    class="px-4 py-2 whitespace-nowrap rounded-md bg-[#548fa6]/10 text-[#2c3e50] hover:bg-[#548fa6]/20 font-medium font-inter">Public
-                    Health Advisory Board</a></div>
-        </div>
-    </div>
-
-    <section id="clinical" class="py-16">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex items-center mb-6">
-                <div class="w-12 h-12 bg-[#a6c9b8]/20 rounded-full flex items-center justify-center mr-4"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-award h-6 w-6 text-[#a6c9b8]">
-                        <path
-                            d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526">
-                        </path>
-                        <circle cx="12" cy="8" r="6"></circle>
-                    </svg></div>
-                <div>
-                    <h2 class="text-3xl font-bold text-[#2c3e50] font-poppins">Clinical Advisory Board</h2>
+  <head>
+    <title>Advisory Boards | MAAGE</title>
+    <%- include('../head') %>
+  </head>
+  <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+    <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+      <%- include('../navbar') %>
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;">
+        <div id="bv-brc-page">
+          <div id="bv-brc-page-container">
+            <div id="maage-page" class="maage-content">
+              <div class="bg-gradient-to-r from-[#e8f0ec] to-[#e8f0ec]/70 py-12">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="max-w-4xl">
+                    <h1 class="text-4xl md:text-5xl font-bold text-[#2c3e50] mb-6 font-poppins">Advisory Boards</h1>
+                    <p class="text-xl text-[#4a5568] font-inter leading-relaxed">MAAGE is guided by expert advisory boards
+                                                                  that provide strategic direction, scientific oversight, and ensure our work remains at the forefront
+                                                                  of genomic epidemiology and public health practice.</p>
+                  </div>
                 </div>
-            </div>
-            <div class="mb-10 max-w-4xl">
-                <p class="text-[#4a5568] font-inter leading-relaxed">Our Clinical Advisory Board consists of leading
-                    medical professionals, researchers, and healthcare administrators who provide guidance on clinical
-                    applications of genomic surveillance, ensuring our work translates effectively to patient care and
-                    clinical practice.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Elizabeth Chen" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-0.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-                        </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
+              </div>
+              <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="flex overflow-x-auto py-4 gap-4">
+                    <a href="#clinical" class="px-4 py-2 whitespace-nowrap rounded-md bg-[#a6c9b8]/10 text-[#2c3e50] hover:bg-[#a6c9b8]/20 font-medium font-inter">Clinical
+                                                                  Advisory Board</a>
+                    <a href="#public-health" class="px-4 py-2 whitespace-nowrap rounded-md bg-[#548fa6]/10 text-[#2c3e50] hover:bg-[#548fa6]/20 font-medium font-inter">Public
+                                                                  Health Advisory Board</a>
+                  </div>
+                </div>
+              </div>
+              <section id="clinical" class="py-16">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-[#a6c9b8]/20 rounded-full flex items-center justify-center mr-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award h-6 w-6 text-[#a6c9b8]">
+                        <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+                        <circle cx="12" cy="8" r="6"></circle>
+                      </svg>
                     </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
-                        <div class="mb-1"><span class="text-xs font-medium px-2 py-1 rounded-full"
-                                style="background-color: rgba(166, 201, 184, 0.125); color: rgb(166, 201, 184);">Board
-                                Chair</span></div>
+                    <div>
+                      <h2 class="text-3xl font-bold text-[#2c3e50] font-poppins">Clinical Advisory Board</h2>
+                    </div>
+                  </div>
+                  <div class="mb-10 max-w-4xl">
+                    <p class="text-[#4a5568] font-inter leading-relaxed">Our Clinical Advisory Board consists of leading
+                                                                  medical professionals, researchers, and healthcare administrators who provide guidance on clinical
+                                                                  applications of genomic surveillance, ensuring our work translates effectively to patient care and
+                                                                  clinical practice.</p>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Elizabeth Chen" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-0.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                        </div>
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="mb-1">
+                          <span class="text-xs font-medium px-2 py-1 rounded-full" style="background-color: rgba(166, 201, 184, 0.125); color: rgb(166, 201, 184);">Board
+                                                                                    Chair</span>
+                        </div>
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Elizabeth Chen</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Chief Medical Officer</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Midwest Medical Center</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Midwest Medical Center</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. James Wilson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-2.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. James Wilson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-2.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. James Wilson</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Director of Infectious
-                            Diseases</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>University Hospital</div>
+                                                                              Diseases</p>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>University Hospital</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Maria Rodriguez" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-3.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Maria Rodriguez" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-3.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Maria Rodriguez</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Clinical Microbiologist</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Regional Health Partners</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Regional Health Partners</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Robert Kim" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-4.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Robert Kim" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-4.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Robert Kim</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Professor of Medicine</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Midwest University School of Medicine</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Midwest University School of Medicine</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Sarah Johnson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-5.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Sarah Johnson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-5.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Sarah Johnson</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Infectious Disease Specialist
                         </p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Central Hospital Network</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Central Hospital Network</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Michael Chang" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-6.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Michael Chang" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-6.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Michael Chang</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Chief of Laboratory Medicine
                         </p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>State University Medical Center</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>State University Medical Center</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Jennifer Lee" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-7.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Jennifer Lee" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-7.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Jennifer Lee</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Molecular Diagnostics Director
                         </p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Precision Diagnostics Laboratory</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Precision Diagnostics Laboratory</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. David Patel" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-8.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. David Patel" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-8.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. David Patel</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Hospital Epidemiologist</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Metropolitan Medical Center</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Metropolitan Medical Center</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Lisa Thompson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-9.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Lisa Thompson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-9.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Lisa Thompson</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Clinical Research Director</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Infectious Disease Research Institute</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Infectious Disease Research Institute</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Thomas Wright" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-10.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Thomas Wright" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-10.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Thomas Wright</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Chief Innovation Officer</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Healthcare Technology Solutions</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Healthcare Technology Solutions</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Sophia Martinez" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-1.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Sophia Martinez" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-1.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Sophia Martinez</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Pathology Department Chair</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Regional Medical School</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Regional Medical School</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. John Anderson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-12.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. John Anderson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-12.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. John Anderson</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Medical Director</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Community Health Network</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Community Health Network</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Emily Nguyen" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-13.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Emily Nguyen" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-13.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(166, 201, 184);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Emily Nguyen</h3>
                         <p class="text-sm font-medium" style="color: rgb(166, 201, 184);">Clinical Genomics Specialist
                         </p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Genomic Medicine Institute</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Genomic Medicine Institute</div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="public-health" class="py-16 bg-[#f8faf9]">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex items-center mb-6">
-                <div class="w-12 h-12 bg-[#548fa6]/20 rounded-full flex items-center justify-center mr-4"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-users h-6 w-6 text-[#548fa6]">
+              </section>
+              <section id="public-health" class="py-16 bg-[#f8faf9]">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-[#548fa6]/20 rounded-full flex items-center justify-center mr-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-6 w-6 text-[#548fa6]">
                         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
                         <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg></div>
-                <div>
-                    <h2 class="text-3xl font-bold text-[#2c3e50] font-poppins">Public Health Advisory Board</h2>
-                </div>
-            </div>
-            <div class="mb-10 max-w-4xl">
-                <p class="text-[#4a5568] font-inter leading-relaxed">Our Public Health Advisory Board brings together
-                    experts from state and local health departments, community organizations, and policy institutions to
-                    ensure our work addresses real-world public health needs and effectively supports disease prevention
-                    and control efforts.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Richard Martinez" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-14.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-                        </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
+                      </svg>
                     </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
-                        <div class="mb-1"><span class="text-xs font-medium px-2 py-1 rounded-full"
-                                style="background-color: rgba(84, 143, 166, 0.125); color: rgb(84, 143, 166);">Board
-                                Chair</span></div>
+                    <div>
+                      <h2 class="text-3xl font-bold text-[#2c3e50] font-poppins">Public Health Advisory Board</h2>
+                    </div>
+                  </div>
+                  <div class="mb-10 max-w-4xl">
+                    <p class="text-[#4a5568] font-inter leading-relaxed">Our Public Health Advisory Board brings together
+                                                                  experts from state and local health departments, community organizations, and policy institutions to
+                                                                  ensure our work addresses real-world public health needs and effectively supports disease prevention
+                                                                  and control efforts.</p>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Richard Martinez" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-14.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                        </div>
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="mb-1">
+                          <span class="text-xs font-medium px-2 py-1 rounded-full" style="background-color: rgba(84, 143, 166, 0.125); color: rgb(84, 143, 166);">Board
+                                                                                    Chair</span>
+                        </div>
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Richard Martinez</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">State Epidemiologist</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Department of Public Health</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Department of Public Health</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Karen Johnson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-15.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Karen Johnson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-15.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Karen Johnson</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Director of Communicable
-                            Diseases</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>State Health Department</div>
+                                                                              Diseases</p>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>State Health Department</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. William Chen" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-16.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. William Chen" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-16.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. William Chen</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Public Health Laboratory
-                            Director</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Regional Public Health Laboratory</div>
+                                                                              Director</p>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Regional Public Health Laboratory</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Patricia Lee" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-17.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Patricia Lee" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-17.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Patricia Lee</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Health Policy Director</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Public Health Policy Institute</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Public Health Policy Institute</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Robert Wilson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-18.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Robert Wilson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-18.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Robert Wilson</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Community Health Director</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Urban Health Initiative</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Urban Health Initiative</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Susan Kim" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-19.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Susan Kim" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-19.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Susan Kim</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Surveillance Systems Manager
                         </p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Disease Control Division</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Disease Control Division</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. James Thompson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-20.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. James Thompson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-20.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. James Thompson</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Emergency Preparedness
-                            Coordinator</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Emergency Response Agency</div>
+                                                                              Coordinator</p>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Emergency Response Agency</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Maria Garcia" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-21.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Maria Garcia" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-21.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Maria Garcia</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Minority Health Director</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Health Equity Coalition</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Health Equity Coalition</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. David Johnson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-22.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. David Johnson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-22.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. David Johnson</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Rural Health Specialist</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Rural Health Association</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Rural Health Association</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Jennifer Smith" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-23.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Jennifer Smith" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-23.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Jennifer Smith</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Environmental Health Director
                         </p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Environmental Health Department</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Environmental Health Department</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Michael Brown" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-24.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Michael Brown" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-24.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Michael Brown</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Health Information Systems
-                            Director</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>Health Informatics Center</div>
+                                                                              Director</p>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>Health Informatics Center</div>
+                      </div>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
-                    <div class="md:w-1/3 relative">
-                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Lisa Anderson" loading="lazy"
-                                decoding="async" data-nimg="fill" class="object-cover"
-                                src="/public/img/profile-placeholders/prof-pic-25.svg"
-                                style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row">
+                      <div class="md:w-1/3 relative">
+                        <div class="aspect-w-1 aspect-h-1 md:h-full"><img alt="Dr. Lisa Anderson" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" src="/public/img/profile-placeholders/prof-pic-25.svg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                         </div>
-                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);">
-                        </div>
-                    </div>
-                    <div class="p-4 md:w-2/3 flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 right-0 h-1" style="background-color: rgb(84, 143, 166);"></div>
+                      </div>
+                      <div class="p-4 md:w-2/3 flex flex-col justify-center">
                         <h3 class="text-lg font-semibold text-[#2c3e50] font-poppins">Dr. Lisa Anderson</h3>
                         <p class="text-sm font-medium" style="color: rgb(84, 143, 166);">Global Health Specialist</p>
-                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                                <path d="M9 22v-4h6v4"></path>
-                                <path d="M8 6h.01"></path>
-                                <path d="M16 6h.01"></path>
-                                <path d="M12 6h.01"></path>
-                                <path d="M12 10h.01"></path>
-                                <path d="M12 14h.01"></path>
-                                <path d="M16 10h.01"></path>
-                                <path d="M16 14h.01"></path>
-                                <path d="M8 10h.01"></path>
-                                <path d="M8 14h.01"></path>
-                            </svg>International Health Institute</div>
+                        <div class="flex items-center mt-1 text-xs text-gray-500 font-inter">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building h-3 w-3 mr-1">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                          </svg>International Health Institute</div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-[#2c3e50] mb-8 font-poppins text-center">Board Meetings</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="p-6">
+              </section>
+              <section class="py-16">
+                <div class="max-w-7xl mx-auto px-4">
+                  <h2 class="text-3xl font-bold text-[#2c3e50] mb-8 font-poppins text-center">Board Meetings</h2>
+                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                      <div class="p-6">
                         <h3 class="text-xl font-semibold text-[#2c3e50] mb-4 font-poppins">Clinical Advisory Board</h3>
                         <p class="text-[#4a5568] mb-6 font-inter">The Clinical Advisory Board meets quarterly to review
-                            MAAGE's progress and provide guidance on clinical applications of genomic surveillance
-                            technologies.</p>
+                                                                              MAAGE's progress and provide guidance on clinical applications of genomic surveillance
+                                                                              technologies.</p>
                         <div class="space-y-4">
-                            <div class="border-l-4 pl-4 py-1 border-gray-300">
-                                <div class="flex items-center mb-1"><span
-                                        class="text-sm font-medium text-gray-500">March 15, 2024</span><span
-                                        class="ml-2 text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Past</span>
-                                </div>
-                                <h4 class="font-medium text-gray-600 font-poppins">Q1 Clinical Advisory Board Meeting
-                                </h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>Virtual</span><span class="sm:ml-4 flex items-center"><svg
-                                            class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>1:00 PM - 3:00 PM CT</span></div>
+                          <div class="border-l-4 pl-4 py-1 border-gray-300">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-gray-500">March 15, 2024</span>
+                              <span class="ml-2 text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Past</span>
                             </div>
-                            <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
-                                <div class="flex items-center mb-1"><span
-                                        class="text-sm font-medium text-[#c57c80]">June 14, 2024</span><span
-                                        class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
-                                </div>
-                                <h4 class="font-medium text-[#2c3e50] font-poppins">Q2 Clinical Advisory Board Meeting
-                                </h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>Midwest Medical Center, Chicago</span><span
-                                        class="sm:ml-4 flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>9:00 AM - 12:00 PM CT</span></div>
+                            <h4 class="font-medium text-gray-600 font-poppins">Q1 Clinical Advisory Board Meeting
+                            </h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>Virtual</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>1:00 PM - 3:00 PM CT</span>
                             </div>
-                            <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
-                                <div class="flex items-center mb-1"><span
-                                        class="text-sm font-medium text-[#c57c80]">September 13, 2024</span><span
-                                        class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
-                                </div>
-                                <h4 class="font-medium text-[#2c3e50] font-poppins">Q3 Clinical Advisory Board Meeting
-                                </h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>Virtual</span><span class="sm:ml-4 flex items-center"><svg
-                                            class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>1:00 PM - 3:00 PM CT</span></div>
+                          </div>
+                          <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-[#c57c80]">June 14, 2024</span>
+                              <span class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
                             </div>
-                            <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
-                                <div class="flex items-center mb-1"><span
-                                        class="text-sm font-medium text-[#c57c80]">December 6, 2024</span><span
-                                        class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
-                                </div>
-                                <h4 class="font-medium text-[#2c3e50] font-poppins">Q4 Clinical Advisory Board Meeting
-                                </h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>University Hospital, Urbana</span><span
-                                        class="sm:ml-4 flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>9:00 AM - 12:00 PM CT</span></div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Q2 Clinical Advisory Board Meeting
+                            </h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>Midwest Medical Center, Chicago</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>9:00 AM - 12:00 PM CT</span>
                             </div>
+                          </div>
+                          <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-[#c57c80]">September 13, 2024</span>
+                              <span class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
+                            </div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Q3 Clinical Advisory Board Meeting
+                            </h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>Virtual</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>1:00 PM - 3:00 PM CT</span>
+                            </div>
+                          </div>
+                          <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-[#c57c80]">December 6, 2024</span>
+                              <span class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
+                            </div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Q4 Clinical Advisory Board Meeting
+                            </h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>University Hospital, Urbana</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>9:00 AM - 12:00 PM CT</span>
+                            </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="p-6">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                      <div class="p-6">
                         <h3 class="text-xl font-semibold text-[#2c3e50] mb-4 font-poppins">Public Health Advisory Board
                         </h3>
                         <p class="text-[#4a5568] mb-6 font-inter">The Public Health Advisory Board meets quarterly to
-                            ensure MAAGE's work aligns with public health priorities and effectively supports disease
-                            prevention and control efforts.</p>
+                                                                              ensure MAAGE's work aligns with public health priorities and effectively supports disease
+                                                                              prevention and control efforts.</p>
                         <div class="space-y-4">
-                            <div class="border-l-4 pl-4 py-1 border-gray-300">
-                                <div class="flex items-center mb-1"><span
-                                        class="text-sm font-medium text-gray-500">February 23, 2024</span><span
-                                        class="ml-2 text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Past</span>
-                                </div>
-                                <h4 class="font-medium text-gray-600 font-poppins">Q1 Public Health Advisory Board
-                                    Meeting</h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>Department of Public Health, Springfield</span><span
-                                        class="sm:ml-4 flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>10:00 AM - 12:30 PM CT</span></div>
+                          <div class="border-l-4 pl-4 py-1 border-gray-300">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-gray-500">February 23, 2024</span>
+                              <span class="ml-2 text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Past</span>
                             </div>
-                            <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
-                                <div class="flex items-center mb-1"><span class="text-sm font-medium text-[#c57c80]">May
-                                        24, 2024</span><span
-                                        class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
-                                </div>
-                                <h4 class="font-medium text-[#2c3e50] font-poppins">Q2 Public Health Advisory Board
-                                    Meeting</h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>Virtual</span><span class="sm:ml-4 flex items-center"><svg
-                                            class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>1:00 PM - 3:30 PM CT</span></div>
+                            <h4 class="font-medium text-gray-600 font-poppins">Q1 Public Health Advisory Board
+                                                                                          Meeting</h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>Department of Public Health, Springfield</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>10:00 AM - 12:30 PM CT</span>
                             </div>
-                            <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
-                                <div class="flex items-center mb-1"><span
-                                        class="text-sm font-medium text-[#c57c80]">August 23, 2024</span><span
-                                        class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
-                                </div>
-                                <h4 class="font-medium text-[#2c3e50] font-poppins">Q3 Public Health Advisory Board
-                                    Meeting</h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>Regional Public Health Laboratory, Chicago</span><span
-                                        class="sm:ml-4 flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>10:00 AM - 12:30 PM CT</span></div>
+                          </div>
+                          <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-[#c57c80]">May
+                                                                                                24, 2024</span>
+                              <span class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
                             </div>
-                            <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
-                                <div class="flex items-center mb-1"><span
-                                        class="text-sm font-medium text-[#c57c80]">November 15, 2024</span><span
-                                        class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
-                                </div>
-                                <h4 class="font-medium text-[#2c3e50] font-poppins">Q4 Public Health Advisory Board
-                                    Meeting</h4>
-                                <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
-                                    <span class="flex items-center"><svg class="h-3 w-3 mr-1"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                            <circle cx="12" cy="10" r="3"></circle>
-                                        </svg>Virtual</span><span class="sm:ml-4 flex items-center"><svg
-                                            class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>1:00 PM - 3:30 PM CT</span></div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Q2 Public Health Advisory Board
+                                                                                          Meeting</h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>Virtual</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>1:00 PM - 3:30 PM CT</span>
                             </div>
+                          </div>
+                          <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-[#c57c80]">August 23, 2024</span>
+                              <span class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
+                            </div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Q3 Public Health Advisory Board
+                                                                                          Meeting</h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>Regional Public Health Laboratory, Chicago</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>10:00 AM - 12:30 PM CT</span>
+                            </div>
+                          </div>
+                          <div class="border-l-4 pl-4 py-1 border-[#c57c80]">
+                            <div class="flex items-center mb-1">
+                              <span class="text-sm font-medium text-[#c57c80]">November 15, 2024</span>
+                              <span class="ml-2 text-xs bg-[#c57c80]/20 text-[#c57c80] px-2 py-0.5 rounded-full">Upcoming</span>
+                            </div>
+                            <h4 class="font-medium text-[#2c3e50] font-poppins">Q4 Public Health Advisory Board
+                                                                                          Meeting</h4>
+                            <div class="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 font-inter">
+                              <span class="flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>Virtual</span>
+                              <span class="sm:ml-4 flex items-center">
+                                <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="12" cy="12" r="10"></circle>
+                                  <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>1:00 PM - 3:30 PM CT</span>
+                            </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 bg-gradient-to-r from-[#f4dfb0]/20 to-[#fdf7e6]">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="md:w-1/2">
-                    <h2 class="text-3xl font-bold text-[#2c3e50] mb-6 font-poppins">Advisory Board Charter</h2>
-                    <p class="text-[#4a5568] mb-4 font-inter leading-relaxed">Our advisory boards operate under a formal
-                        charter that outlines their roles, responsibilities, and governance structure. Board members
-                        serve two-year terms with the option for renewal.</p>
-                    <p class="text-[#4a5568] mb-6 font-inter leading-relaxed">The charter ensures that our advisory
-                        boards provide independent, expert guidance while maintaining alignment with MAAGE's mission and
-                        objectives. Board members are selected based on their expertise, experience, and commitment to
-                        advancing genomic epidemiology and public health.</p><a href="#"
-                        class="inline-flex items-center px-5 py-2.5 bg-[#ecc187] text-white rounded-md hover:bg-[#e0b06e] transition-colors font-medium font-inter">View
-                        Full Charter<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
-                            <path d="M15 3h6v6"></path>
-                            <path d="M10 14 21 3"></path>
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                        </svg></a>
-                </div>
-                <div class="md:w-1/2">
-                    <div class="bg-white rounded-lg shadow-md p-6 border border-[#ecc187]/30">
+              </section>
+              <section class="py-16 bg-gradient-to-r from-[#f4dfb0]/20 to-[#fdf7e6]">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="md:w-1/2">
+                      <h2 class="text-3xl font-bold text-[#2c3e50] mb-6 font-poppins">Advisory Board Charter</h2>
+                      <p class="text-[#4a5568] mb-4 font-inter leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                      </p>
+                      <p class="text-[#4a5568] mb-6 font-inter leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                      </p>
+                      <a href="#" class="inline-flex items-center px-5 py-2.5 bg-[#ecc187] text-white rounded-md hover:bg-[#e0b06e] transition-colors font-medium font-inter">View
+                                                                        Full Charter<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link ml-2 h-4 w-4">
+                          <path d="M15 3h6v6"></path>
+                          <path d="M10 14 21 3"></path>
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        </svg>
+                      </a>
+                    </div>
+                    <div class="md:w-1/2">
+                      <div class="bg-white rounded-lg shadow-md p-6 border border-[#fdf7e6]/30">
                         <h3 class="text-xl font-semibold text-[#2c3e50] mb-4 font-poppins">Board Responsibilities</h3>
                         <ul class="space-y-3 font-inter">
-                            <li class="flex items-start">
-                                <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
-                                    <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
-                                </div><span class="text-[#4a5568]">Provide strategic guidance on research priorities and
-                                    initiatives</span>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
-                                    <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
-                                </div><span class="text-[#4a5568]">Review and evaluate MAAGE's scientific and technical
-                                    approaches</span>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
-                                    <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
-                                </div><span class="text-[#4a5568]">Identify emerging trends and opportunities in genomic
-                                    epidemiology</span>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
-                                    <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
-                                </div><span class="text-[#4a5568]">Facilitate connections with key stakeholders and
-                                    partners</span>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
-                                    <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
-                                </div><span class="text-[#4a5568]">Advocate for the adoption of MAAGE's tools and
-                                    approaches</span>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
-                                    <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
-                                </div><span class="text-[#4a5568]">Ensure ethical considerations are addressed in all
-                                    activities</span>
-                            </li>
+                          <li class="flex items-start">
+                            <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
+                              <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
+                            </div>
+                            <span class="text-[#4a5568]">Provide strategic guidance ...</span>
+                          </li>
+                          <li class="flex items-start">
+                            <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
+                              <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
+                            </div>
+                            <span class="text-[#4a5568]">Review and evaluate MAAGE's ...</span>
+                          </li>
+                          <li class="flex items-start">
+                            <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
+                              <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
+                            </div>
+                            <span class="text-[#4a5568]">Identify emerging trends ...</span>
+                          </li>
+                          <li class="flex items-start">
+                            <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
+                              <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
+                            </div>
+                            <span class="text-[#4a5568]">Facilitate connections with ...</span>
+                          </li>
+                          <li class="flex items-start">
+                            <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
+                              <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
+                            </div>
+                            <span class="text-[#4a5568]">Advocate for the adoption of ...</span>
+                          </li>
+                          <li class="flex items-start">
+                            <div class="bg-[#ecc187]/20 p-1 rounded-full mr-3 mt-1">
+                              <div class="w-4 h-4 bg-[#ecc187] rounded-full"></div>
+                            </div>
+                            <span class="text-[#4a5568]">Ensure ethical considerations are ...</span>
+                          </li>
                         </ul>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </section>
             </div>
+          </div>
         </div>
-    </section>
-    <section class="relative h-40 bg-[#446c83]">
-        <p class="pl-5 pt-10 text-white">inject footer</p>
-        </section>
-</body>
+        <%- include('../footer') %>
+      </div>
+    </div>
+    <%- include('../javascript') %>
+  </body>
 </html>
