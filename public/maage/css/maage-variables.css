@@ -1,0 +1,226 @@
+:root {
+    /* === Fonts === */
+    --maage-font-heading: 'Poppins', sans-serif;
+    --maage-font-body: 'Inter', sans-serif;
+    --maage-font-mono: 'IBM Plex Mono', monospace;
+
+    /* === Primary Colors === */
+    --maage-primary-50: #f6f9f8;
+    --maage-primary-100: #e5f1e9;
+    --maage-primary-200: #d2e5db;
+    --maage-primary-300: #b3d1c2;
+    --maage-primary-400: #92baa8;
+    --maage-primary-500: #5b9f83;
+    --maage-primary-600: #44856e;
+    --maage-primary-700: #3b735e;
+    --maage-primary-800: #315d4c;
+    --maage-primary-900: #2a4b40;
+    --maage-primary-950: #192f28;
+
+    /* === Secondary Colors === */
+    --maage-secondary-50: #f5f9fa;
+    --maage-secondary-100: #e7f0f3;
+    --maage-secondary-200: #d2e4ea;
+    --maage-secondary-300: #b3d0db;
+    --maage-secondary-400: #8fb7c6;
+    --maage-secondary-500: #679fb7;
+    --maage-secondary-600: #4d85a2;
+    --maage-secondary-700: #446c83;
+    --maage-secondary-800: #3c5867;
+    --maage-secondary-900: #344855;
+    --maage-secondary-950: #1d2b35;
+
+    /* === Tertiary Colors === */
+    --maage-tertiary-50: #fefcf5;
+    --maage-tertiary-100: #fdf7e6;
+    --maage-tertiary-200: #faeccc;
+    --maage-tertiary-300: #f4dfb0;
+    --maage-tertiary-400: #eacb89;
+    --maage-tertiary-500: #ddaf60;
+    --maage-tertiary-600: #c79547;
+    --maage-tertiary-700: #a87634;
+    --maage-tertiary-800: #895c2b;
+    --maage-tertiary-900: #6c4723;
+    --maage-tertiary-950: #3c2913;
+
+    /* === Quaternary Colors === */
+    --maage-quaternary-50: #f6f6f9;
+    --maage-quaternary-100: #efeff5;
+    --maage-quaternary-200: #dfdfec;
+    --maage-quaternary-300: #cbc9de;
+    --maage-quaternary-400: #b0aecb;
+    --maage-quaternary-500: #9a96bb;
+    --maage-quaternary-600: #847ba7;
+    --maage-quaternary-700: #6c638c;
+    --maage-quaternary-800: #585171;
+    --maage-quaternary-900: #48435b;
+    --maage-quaternary-950: #2a2839;
+
+    /* === Quinary Colors === */
+    --maage-quinary-50: #fcf5f3;
+    --maage-quinary-100: #faebea;
+    --maage-quinary-200: #f4dad7;
+    --maage-quinary-300: #ecc0bb;
+    --maage-quinary-400: #e49f9b;
+    --maage-quinary-500: #d8807e;
+    --maage-quinary-600: #c66264;
+    --maage-quinary-700: #b43c41;
+    --maage-quinary-800: #8f3239;
+    --maage-quinary-900: #732b33;
+    --maage-quinary-950: #4a171a;
+
+    /* === Senary Colors === */
+    --maage-senary-50: #f2fafb;
+    --maage-senary-100: #dff3f5;
+    --maage-senary-200: #c2e9ee;
+    --maage-senary-300: #9fdbe3;
+    --maage-senary-400: #75c8d6;
+    --maage-senary-500: #53b2c6;
+    --maage-senary-600: #3d98ae;
+    --maage-senary-700: #357e8e;
+    --maage-senary-800: #2e6773;
+    --maage-senary-900: #2a535e;
+    --maage-senary-950: #1b343d;
+
+    /* === General Semantic Colors === */
+    --maage-success-50: #f2fbf5;
+    --maage-success-500: #4ba675;
+    --maage-success-600: #3d8d61;
+
+    --maage-warning-50: #fff9eb;
+    --maage-warning-500: #f0b429;
+    --maage-warning-600: #d99a1c;
+
+    --maage-error-50: #fef2f2;
+    --maage-error-500: #d9534f;
+    --maage-error-600: #c0392b;
+
+    --maage-info-50: #eef6fb;
+    --maage-info-500: #5b9bd5;
+    --maage-info-600: #417cbf;
+
+    /* === Light Mode Semantic  === */
+    --maage-color-bg: #f8f9fa;
+    --maage-color-bg-muted: #e9ecef;
+    --maage-color-bg-subtle: #f1f3f5;
+    --maage-color-bg-surface: #ffffff;
+    --maage-color-bg-border: #dee2e6;
+
+    --maage-color-text: #212529;
+    --maage-color-text-muted: #495057;
+    --maage-color-text-subtle: #6c757d;
+    --maage-color-text-inverse: #f8f9fa;
+    --maage-color-text-link: #4d85a2;
+
+    --maage-color-success: #4ba675;
+    --maage-color-warning: #f0b429;
+    --maage-color-error: #d9534f;
+    --maage-color-info: #5b9bd5;
+
+    /* === Text Colors === */
+    --maage-text-default: #212529;
+    --maage-text-muted: #495057;
+    --maage-text-subtle: #6c757d;
+    --maage-text-inverse: #f8f9fa;
+    --maage-text-link: #4d85a2;
+
+    /* === Background Colors === */
+    --maage-bg-default: #f8f9fa;
+    --maage-bg-subtle: #f1f3f5;
+    --maage-bg-muted: #e9ecef;
+    --maage-bg-surface: #ffffff;
+    --maage-bg-border: #dee2e6;
+
+    /* === DataViz Colors - Light Mode === */
+    --maage-dataviz-primary-1: #f6f9f8;
+    --maage-dataviz-primary-2: #d2e5db;
+    --maage-dataviz-primary-3: #92baa8;
+    --maage-dataviz-primary-4: #5b9f83;
+
+    --maage-dataviz-secondary-1: #f5f9fa;
+    --maage-dataviz-secondary-2: #d2e4ea;
+    --maage-dataviz-secondary-3: #8fb7c6;
+    --maage-dataviz-secondary-4: #679fb7;
+
+    --maage-dataviz-tertiary-1: #fefcf5;
+    --maage-dataviz-tertiary-2: #faeccc;
+    --maage-dataviz-tertiary-3: #eacb89;
+    --maage-dataviz-tertiary-4: #ddaf60;
+
+    --maage-dataviz-quaternary-1: #f6f6f9;
+    --maage-dataviz-quaternary-2: #dfdfec;
+    --maage-dataviz-quaternary-3: #b0aecb;
+    --maage-dataviz-quaternary-4: #9a96bb;
+
+    --maage-dataviz-quinary-1: #fcf5f3;
+    --maage-dataviz-quinary-2: #f4dad7;
+    --maage-dataviz-quinary-3: #e49f9b;
+    --maage-dataviz-quinary-4: #d8807e;
+
+    --maage-dataviz-senary-1: #f2fafb;
+    --maage-dataviz-senary-2: #c2e9ee;
+    --maage-dataviz-senary-3: #75c8d6;
+    --maage-dataviz-senary-4: #53b2c6;
+}
+
+/* === Dark Mode === */
+[data-theme='dark'] {
+    /* === Background Colors === */
+    --maage-color-bg: #212529;
+    --maage-color-bg-muted: #343a40;
+    --maage-color-bg-subtle: #2b3035;
+    --maage-color-bg-surface: #1e1e1e;
+    --maage-color-bg-border: #495057;
+
+    /* === Text Colors === */
+    --maage-color-text: #f8f9fa;
+    --maage-color-text-muted: #adb5bd;
+    --maage-color-text-subtle: #ced4da;
+    --maage-color-text-inverse: #212529;
+    --maage-color-text-link: #9bc4dc;
+
+    /* === Semantic Colors === */
+    --maage-color-success: #63c78d;
+    --maage-color-warning: #ffd166;
+    --maage-color-error: #ef6d64;
+    --maage-color-info: #6ca8e0;
+
+    /* === Core 500 Colors  === */
+    --maage-primary-500: #92dbc1;
+    --maage-secondary-500: #96c3d7;
+    --maage-tertiary-500: #e3c89f;
+    --maage-quaternary-500: #bfbde0;
+    --maage-quinary-500: #eba5a2;
+    --maage-senary-500: #83d3e0;
+
+    /* === DataViz Colors === */
+    --maage-dataviz-primary-1: #92dbc1;
+    --maage-dataviz-primary-2: #63c78d;
+    --maage-dataviz-primary-3: #3da57d;
+    --maage-dataviz-primary-4: #2a6d59;
+
+    --maage-dataviz-secondary-1: #96c3d7;
+    --maage-dataviz-secondary-2: #6ca8e0;
+    --maage-dataviz-secondary-3: #3f7da6;
+    --maage-dataviz-secondary-4: #285872;
+
+    --maage-dataviz-tertiary-1: #f0d69a;
+    --maage-dataviz-tertiary-2: #e3c89f;
+    --maage-dataviz-tertiary-3: #caa45a;
+    --maage-dataviz-tertiary-4: #9e7933;
+
+    --maage-dataviz-quaternary-1: #bfbde0;
+    --maage-dataviz-quaternary-2: #9a96bb;
+    --maage-dataviz-quaternary-3: #6c638c;
+    --maage-dataviz-quaternary-4: #48435b;
+
+    --maage-dataviz-quinary-1: #eba5a2;
+    --maage-dataviz-quinary-2: #d8807e;
+    --maage-dataviz-quinary-3: #b44c49;
+    --maage-dataviz-quinary-4: #8f3239;
+
+    --maage-dataviz-senary-1: #83d3e0;
+    --maage-dataviz-senary-2: #53b2c6;
+    --maage-dataviz-senary-3: #3d98ae;
+    --maage-dataviz-senary-4: #2a535e;
+}

@@ -1,0 +1,14 @@
+div#maage-page {
+    width: 100%;
+}
+
+.topMenuButton .workspace-nav-links {
+    color: #344855;
+    font-size: 14px;
+}
+
+.topMenuButton .workspace-nav-links:hover {
+    opacity: 75%;
+    text-decoration: underline;
+}
+
