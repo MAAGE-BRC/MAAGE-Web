@@ -29,6 +29,38 @@ router.get("/advisory-boards", function (req, res) {
   });
 });
 
+/* About MAAGE */
+router.get("/about-2", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/about-2", { title: "PATRIC", request: req, response: res });
+});
+
+/* Team Members */
+router.get("/team-2", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/team-2", { title: "PATRIC", request: req, response: res });
+});
+
+/* Advisory Boards. */
+router.get("/advisory-boards-2", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/advisory-boards-2", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
+
+/* Advisory Boards. */
+router.get("/template", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/template", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
+
 // /* Dashboard Demo 1. */
 // router.get("/dev/dashboard/demo-1", function (req, res) {
 //   req.applicationModule = "p3/app/p3app";
@@ -175,15 +207,15 @@ router.get("/advisory-boards", function (req, res) {
 //   res.render("pages/tools", { title: "PATRIC", request: req, response: res });
 // });
 
-// /* GET privacy policy page. */
-// router.get("/privacy-policy", function (req, res) {
-//   req.applicationModule = "p3/app/p3app";
-//   res.render("pages/privacy-policy", {
-//     title: "PATRIC",
-//     request: req,
-//     response: res,
-//   });
-// });
+/* GET privacy policy page. */
+router.get("/privacy-policy", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/privacy-policy", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
 
 // /* GET privacy policy page. */
 // router.get("/verify_failure", function (req, res) {
