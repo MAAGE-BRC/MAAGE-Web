@@ -6,7 +6,7 @@ dojoConfig = {
       {name: 'jDataView', location: '../jDataView/src', main: 'jdataview'},
       {name: "FileSaver", location: "../FileSaver", main: "FileSaver"}
     ]
-  }
+  };
 </script>
 
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -33,19 +33,21 @@ lucide.createIcons();
   const chevronDown = document.querySelector('.chevron-down');
   const chevronUp = document.querySelector('.chevron-up');
 
-  advancedToggle.addEventListener('click', function() {
-    const isVisible = advancedPanel.style.display === 'block';
+  if (advancedToggle && advancedPanel && chevronDown && chevronUp) {
+    advancedToggle.addEventListener('click', function() {
+      const isVisible = advancedPanel.style.display === 'block';
 
-    if (isVisible) {
-      advancedPanel.style.display = 'none';
-      chevronDown.style.display = 'block';
-      chevronUp.style.display = 'none';
-    } else {
-      advancedPanel.style.display = 'block';
-      chevronDown.style.display = 'none';
-      chevronUp.style.display = 'block';
-    }
-  });
+      if (isVisible) {
+        advancedPanel.style.display = 'none';
+        chevronDown.style.display = 'block';
+        chevronUp.style.display = 'none';
+      } else {
+        advancedPanel.style.display = 'block';
+        chevronDown.style.display = 'none';
+        chevronUp.style.display = 'block';
+      }
+    });
+  }
 </script>
 
 <script>
@@ -108,17 +110,4 @@ const load_scripts = [
       });
       <% } %>
       </script>
-      <!-- Google Analytics 4 -->
-      <% if (request && request.applicationOptions.gaID) { %>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<%- request.applicationOptions.gaID %>"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', '<%- request.applicationOptions.gaID %>', {
-          'link_attribution': true
-        });
-        </script>
-        <% } %>
