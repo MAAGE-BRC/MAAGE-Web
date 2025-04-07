@@ -1,0 +1,44 @@
+<style id="maage-reset">
+  #maage-page,
+  #maage-page * {
+    all: unset;
+    display: revert; /* retain layout context */
+    box-sizing: border-box;
+    font-family: inherit;
+    color: inherit;
+    text-decoration: none;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #maage-page * {
+    line-height: 1.5;
+  }
+
+  /* Optional: enable Tailwind-specific contexts */
+  #maage-page {
+    all: initial; /* ensures it doesn't inherit from body/html */
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Form elements normalize */
+  #maage-page input,
+  #maage-page textarea,
+  #maage-page select,
+  #maage-page button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    appearance: none;
+  }
+</style>
