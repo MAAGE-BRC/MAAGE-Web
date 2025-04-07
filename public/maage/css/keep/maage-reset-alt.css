@@ -1,0 +1,27 @@
+[data-reset] {
+  all: initial;
+  box-sizing: border-box;
+  display: block;
+  font-family: inherit;
+  line-height: normal;
+}
+
+[data-reset] *,
+[data-reset] *::before,
+[data-reset] *::after {
+  all: unset;
+  box-sizing: border-box;
+}
+
+[data-reset] h1,
+[data-reset] h2,
+[data-reset] h3,
+[data-reset] p,
+[data-reset] a,
+[data-reset] button,
+[data-reset] input,
+[data-reset] label,
+[data-reset] textarea,
+[data-reset] select {
+  all: revert;
+}
