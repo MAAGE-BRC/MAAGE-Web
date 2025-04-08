@@ -1,5 +1,33 @@
+.fa {
+  font-display: block!important; /* Forces text to display even before font loads */
+}
+
+.ActionBar .ActionButtonWrapper .ActionButton  {
+  color: #ffffff!important;
+}
+
+.ActionBar .ActionButtonWrapper .ActionButtonText  {
+  color: #ffffff!important;
+}
+
+div.ActionButton.fa-2x {
+  color: #ffffff!important;
+  z-index: 1000!important;
+  margin-top: 1px!important;
+  height: 30px!important;
+}
+
+
 div#maage-page {
     width: 100%;
+}
+
+div#uniqName_18_0 > div:nth-child(1) > div.ActionButton.fa.icon-chevron-circle-right.fa-2x {
+  height: 30px!important;
+  width: 30px!important;
+  display: block!important;
+  color: red;
+  left: 1px!important;
 }
 
 #maage-page .about-logo {
@@ -25,7 +53,7 @@ div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:te
   div.flex.items-center.mb-6 > h2.text-2xl.font-semibold.text-secondary-800.font-poppins {
     color: #212529;
   }
-  div.flex.items-center > h2.text-2xl.font-semibold.text-/[var\(--maage-gray-800\)\].font-poppins {
+  div.flex.items-center > h2.text-2xl.font-semibold.text-[var(--maage-gray-800)].font-poppins {
     color: #212529;
   }
   div.flex.items-center.mb-5 > h2.text-xl.font-bold.text-gray-800.font-poppins {
@@ -45,10 +73,5 @@ div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:te
     div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:text-5xl.font-bold.text-secondary-900.mb-4.font-poppins.leading-tight {
       color: #212529;
       font-weight: 600;
-    }
-  }
-  @media (min-width: 1024px) {
-    div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:text-5xl.font-bold.text-secondary-900.mb-4.font-poppins.leading-tight {
-      color: #212529;
     }
   }

@@ -785,31 +785,8 @@ div#bv-brc-header-container>div:nth-child(2) {
     color: var(--maage-primary-500);
   }
 
-  div.ActionButtonWrapper>div.ActionButton.fa.icon-info-circle.fa-2x {
-    color: #fafafa;
-    cursor: pointer;
-    font-family: icomoon;
-    font-size: 2em;
-    margin: 2px 5px;
-    border-style: initial;
-    border-width: 0;
-    font-size-adjust: none;
-    padding: 0;
-    text-align: center;
-    visibility: visible;
-  }
 
-  div.ActionButtonWrapper>div.ActionButtonText {
-    text-wrap-mode: wrap;
-    color: #fafafa;
-    font-size: .6em;
-    margin: 0;
-    text-align: center;
-  }
 
-  div.ActionBar.dijitBorderContainerNoGutter-child.dijitBorderContainerNoGutter-ActionBar.dijitBorderContainerNoGutterPane.dijitAlignRight {
-    background-color: var(--maage-secondary-500);
-  }
 
   div.selectedList {
     background-color: #ecc187;
