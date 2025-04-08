@@ -118,9 +118,9 @@ define([
           case 'protein_features':
             Topic.publish('/navigate', { href: '/view/ProteinFeaturesList/?' + q });
             break;
-          // case 'protein_structures':
-          //   Topic.publish('/navigate', { href: '/view/ProteinStructureList/?' + q });
-          //   break;
+          case 'protein_structures':
+            Topic.publish('/navigate', { href: '/view/ProteinStructureList/?' + q });
+            break;
           case 'pathways':
             Topic.publish('/navigate', { href: '/view/PathwayList/?' + q });
             break;
@@ -202,9 +202,9 @@ define([
         case 'protein_features':
           Topic.publish('/navigate', { href: '/view/ProteinFeaturesList/?' + q });
           break;
-        // case 'protein_structures':
-        //   Topic.publish('/navigate', { href: '/view/ProteinStructureList/?' + q });
-        //   break;
+        case 'protein_structures':
+          Topic.publish('/navigate', { href: '/view/ProteinStructureList/?' + q });
+          break;
         case 'pathways':
           Topic.publish('/navigate', { href: '/view/PathwayList/?' + q });
           break;
