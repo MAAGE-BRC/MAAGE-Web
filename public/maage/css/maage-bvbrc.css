@@ -4261,10 +4261,10 @@ div.space-y-4 > div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.b
   color: white !important;
   font-weight: 600 !important;
   text-align: left !important;
-  padding: 6px 12px !important;
+  padding: 12px 6px 12px 4px !important;
   margin-top: 6px !important;
   margin-bottom: 2px !important;
-  font-size: 13px !important;
+  font-size: 15px !important;
   letter-spacing: 0.5px !important;
   border-left: 3px solid #4d7d65 !important;
   /* Darker shade for the accent */
@@ -4675,7 +4675,8 @@ div.space-y-4 > div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.b
 .menuHeader {
   background-color: #d2e5db !important;
   color: #3c5867 !important;
-  font-weight: 700 !important;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500 !important;
   text-align: left !important;
   padding: 6px 12px !important;
   margin-top: 6px !important;
@@ -4716,10 +4717,10 @@ div.space-y-4 > div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.b
   text-decoration: none !important;
   font-size: 14px !important;
   border-radius: 4px !important;
-  transition: all 0.2s ease-in-out !important;
+  transition: all 0.15s ease-in-out !important;
   position: relative !important;
   font-weight: 400 !important;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
 .maage-nav-link:hover {
