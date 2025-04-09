@@ -4,7 +4,7 @@
       <div class="nav-logo">
         <a class="nav-logo-link" href="/">
           <a class="nav-logo-link min-x-50" href="/">
-            <img class="h-[40px] mt-[10px] text-[var(--maage-secondary-500)]" src="/public/img/logos/maage-logo-temp.png" alt="Midwest Alliance for Applied Genomic Epidemiology (MAAGE) Logo">
+            <img class="h-[40px] mt-[10px] text-[var(--maage-secondary-500)]" src="/maage/img/logos/maage-logo-temp.png" alt="Midwest Alliance for Applied Genomic Epidemiology (MAAGE) Logo">
             <span class="font-poppins font-light text-[42px] text-[var(--maage-secondary-800)]">MA</span>
             <span class="font-poppins font-semibold text-[42px] text-[var(--maage-secondary-600)]">AGE</span>
           </a>
@@ -209,6 +209,7 @@
           <span class="fa-regular fa-chevron-down"></span>
           <div data-dojo-type="p3/widget/TooltipDialog">
             <div>
+              <div class="menuHeader maage-menu-header">Workspaces</div>
               <div style="vertical-align: top;width:300px;display:inline-block; font-family: 'Poppins', sans-serif; font-size: 14px; color: #344855;">
                 <div class="HideWithAuth" style="margin-bottom: 6px;">
                   Please
@@ -316,15 +317,7 @@
             <div class="maage-nav-item">
               <a class="maage-nav-link" href="/related-resources">Related Resources</a>
             </div>
-            <!-- <div class="maage-nav-item">
-              <a class="maage-nav-link" href="/privacy-policy">Privacy Policy</a>
-            </div>
-            <div class="maage-nav-item">
-              <a class="maage-nav-link" href="/funding">Funding Transparency</a>
-            </div> -->
-            <!-- <div class="maage-nav-item">
-              <a class="maage-nav-link" href="/oss">Open-source Software</a>
-            </div> -->
+
 
             <div class="maage-nav-item">
               <a class="maage-nav-link navigationLinkOut" href="https://github.com/MAAGE-BRC" target="_blank" rel="noopener">GitHub</a>
@@ -336,54 +329,36 @@
           </div>
         </div>
       </div>
-      <!-- <div id="p3header-search" style="width: 120px;flex-grow: 0.85;margin-right: 10px;">
-              <input style="width:100%;font-size:1em;" class="showOnLoad dijitHidden"
-                     data-dojo-type="p3/widget/GlobalSearch"/>
-          </div> -->
+
       <div id="bv-brc-right-header">
         <div class="HideWithAuth authLinks showOnLoad dijitHidden">
           <a class="navigationLink login-btn" href="/register">Register</a>
           <a class="navigationLink register-btn" href="/login">Login</a>
         </div>
-        <!-- <div id="mobile-search-icon">
-                  <button class="search-icon" onclick="toggleSearch()">
-                      <span class="icon-search fa-2x"></span>
-                  </button>
-                </div> -->
         <div class="showOnLoad ShowWithAuth dijitHidden">
           <div class="showOnLoad ShowWithAuth dijitHidden topMenuButtonIcon" data-dojo-type="dijit/form/DropDownButton">
             <span>
-              <i class="fa-solid fa-user" style="color: #446c83; font-size: 28px; margin-right: 20px;"></i>
+            <i class="fa-solid fa-user" style="color: #446c83; font-size: 28px; margin-right: 20px;"></i>
             </span>
-            <div class="warning_icon user_warning_icon icon-warning fa fa-1x"></div>
+            <div class="warning_icon user_warning_icon icon-warning fa fa-1x"> </div>
             <div data-dojo-type="p3/widget/TooltipDialog">
-              <div>Signed in as
-                <span id="signedInAs" style="font-weight:bold;"></span>
-              </div>
+              <div>Signed in as <span id="signedInAs" style="font-weight:bold;"></span></div>
               <hr>
-              <div>
-                <a class="userProfile">Account Settings
-                  <i class="warning_icon account-settings-warning icon-warning fa fa-1x" style="vertical-align:middle;"></i>
-                </a>
+              <div><a class="userProfile">Account Settings <i
+                class="warning_icon account-settings-warning icon-warning fa fa-1x" style="vertical-align:middle;">
+                </i></a>
               </div>
-              <div>
-                <a class="sulogin">SU Login</a>
+              <div><a class="sulogin">SU Login</a></div>
+              <div><a class="suSwitchBack" onclick="window.App.suSwitchBack()" style="display:none">SU Switch Back</a>
               </div>
-              <div>
-                <a class="suSwitchBack" onclick="window.App.suSwitchBack()" style="display:none">SU Switch Back</a>
-              </div>
-              <div>
-                <a class="logoutLink" onclick="window.App.logout()">Logout</a>
-              </div>
+              <div><a class="logoutLink" onclick="window.App.logout()">Logout</a></div>
             </div>
           </div>
         </div>
-        <!-- <div id="mobile-nav-icon">
-                  <button class="hamburger-icon" onclick="toggleMenu()">
-                      <span class="icon-bars fa-2x"></span>
-                  </button>
-                </div> -->
+
       </div>
+
+
     </div>
   </div>
 </div>
