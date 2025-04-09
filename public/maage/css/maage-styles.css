@@ -119,29 +119,73 @@ div.home-search-wrapper > table.GStable {
   }
 
 
-  .maage-home .cepi-info .search .global-search .GStable {
+  /* .maage-home .search .global-search .GStable {
     border: 2px solid var(--maage-secondary-800);
     border-radius: 15px;
     border-collapse: separate;
   }
 
-  .maage-home .cepi-info .search .global-search .gs-data-types-dropdown .dijitInputField {
+  .maage-home .search .global-search .gs-data-types-dropdown .dijitInputField {
     font-size: 14px;
     padding: 12px 4px;
   }
 
-  .maage-home .cepi-info .search .global-search .gs-input .dijitInputField {
+  .maage-home .search .global-search .gs-input .dijitInputField {
     font-family: inherit;
     font-size: 14px;
     padding: 12px 8px;
   }
 
-  .maage-home .cepi-info .search .global-search .gs-input .dijitPlaceHolder {
+  .maage-home  .search .global-search .gs-input .dijitPlaceHolder {
     font-size: 14px;
     padding: 12px 8px;
   }
 
-  .maage-home .cepi-info .search .global-search .gs-options-dropdown .dijitInputField {
+  .maage-home  .search .global-search .gs-options-dropdown .dijitInputField {
     font-size: 14px;
     padding: 12px 4px;
+  } */
+
+  .maage-login div#dijit__WidgetsInTemplateMixin_0 > div:nth-child(1) {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 150ms ease;
+  }
+
+  .maage-login .dijitTextBox {
+    border-radius: 4px !important;
+    border: 1px solid #dedede !important;
+    transition: all 150ms ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  }
+  
+  .maage-login .dijitTextBox:hover {
+    border-color: #b3d0db !important;
+  }
+  
+  .maage-login .dijitTextBox:focus-within {
+    border-color: #3f7da6 !important;
+    box-shadow: 0 0 0 3px rgba(63, 125, 166, 0.15);
+  }
+
+  .maage-login .dijitButton {
+    background-color: #3f7da6 !important;
+    border-radius: 4px !important;
+    transition: all 150ms ease;
+  }
+  
+  .maage-login .dijitButton:hover:not(.dijitButtonDisabled) {
+    background-color: #346c83 !important;
+    transform: translateY(-1px);
+  }
+  
+  .maage-login .dijitButtonText {
+    color: white !important;
+    font-weight: 500 !important;
+  }
+
+  .maage-login .loginForm > form > div {
+    margin-bottom: 15px;
   }
