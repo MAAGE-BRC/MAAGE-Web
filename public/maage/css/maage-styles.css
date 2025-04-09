@@ -210,3 +210,7 @@ div.home-search-wrapper > table.GStable {
     background-color: var(--maage-tertiary-400)!important;
     padding: 1px!important;
   }
+
+  .ActionButtonContainer div.selectedList {
+   background-color: #8cc187!important; 
+  }
