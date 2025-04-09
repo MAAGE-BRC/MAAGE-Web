@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./views/**/*.{js,jsx,ts,tsx,ejs,html}'],
-  darkMode: ['class', '[data-theme="dark"]'],
+  content: [
+    './views/**/*.ejs',
+    './public/**/*.js',
+    './public/maage/css/**/*.css'
+  ],
   theme: {
     extend: {
       fontFamily: {

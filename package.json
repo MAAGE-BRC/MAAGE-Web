@@ -6,8 +6,8 @@
     "start": "node ./bin/p3-web",
     "test": "cross-env NODE_ENV=test gulp srcfiles && npm run move-src && eslint . && jest --config jest.config.json --notify",
     "move-src": "cp gulpified/app/app.js src/app/ && cp gulpified/app/p3app.js src/app/ && cp gulpified/widget/LoginForm.js src/widget",
-    "tailwind:build": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css",
-    "tailwind:watch": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
+    "tailwind:build": "tailwindcss -i ./public/maage/css/tailwind-source.css -o ./public/maage/css/tailwind.css --minify",
+    "tailwind:watch": "tailwindcss -i ./public/maage/css/tailwind-source.css -o ./public/maage/css/tailwind.css --watch",
     "xxxeslint:fix": "./node_modules/eslint/bin/eslint.js --fix public/js/p3",
     "xxxeslint:test": "./node_modules/eslint/bin/eslint.js public/js/p3",
     "xxxtest:intern": "./node_modules/.bin/intern",
@@ -59,14 +59,16 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.1",
     "@semantic-release/release-notes-generator": "^14.0.3",
+    "autoprefixer": "^10.4.21",
     "cross-env": "^7.0.3",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "gulp-replace": "^1.1.4",
     "minimatch": "^9.0.4",
+    "postcss": "^8.5.3",
     "semantic-release": "^24.2.3",
     "stylelint": "^16.5.0",
     "stylelint-config-standard": "^36.0.0",
-    "tailwindcss": "^3.4.16"
+    "tailwindcss": "^3.4.17"
   }
 }
