@@ -7,7 +7,7 @@ div#bv-brc-header-container>div:nth-child(2) {
 }
 
 div#bv-brc-header {
-  background-color: #9cc2af;
+  background-color: #92baa8;
   height: 60px;
   z-index: 1000;
 }
@@ -320,7 +320,7 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(1) {
-  background-color: #9cc2af;
+  background-color: #92baa8;
   border-style: none;
   border: 1px solid #26292C;
   color: #26292C;
@@ -333,7 +333,7 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(2) {
-  background-color: #9cc2af;
+  background-color: #92baa8;
   border-style: none;
   border: 1px solid #26292C;
   color: #26292C;
@@ -346,7 +346,7 @@ div#bv-brc-header-container>div.nav-logo {
 }
 
 #bv-brc-home-container div.mid-content-buttons>a.btn.btn-blue.navigationLinkOut:nth-child(3) {
-  background-color: #9cc2af;
+  background-color: #92baa8;
   border-style: none;
   border: 1px solid #26292C;
   color: #26292C;
@@ -756,20 +756,20 @@ div#dijit_layout_TabContainer_0_tablist>div.dijitTabInner.dijitTabContent.dijitT
 }
 
 div.column-sub>div.section:nth-child(n)>h3.section-title.close {
-  background-color: #9cc2af;
+  background-color: #92baa8;
 }
 
 div.column-prime>div.section:nth-child(n)>h3.section-title.close {
-  background-color: #9cc2af;
+  background-color: #92baa8;
 }
 
 
 div.column-opt>div.section:nth-child(n)>h3.close.section-title {
-  background-color: #9cc2af;
+  background-color: #92baa8;
 }
 
 div.section:nth-child(3)>h3.section-title.close2x {
-  background-color: #9cc2af;
+  background-color: #92baa8;
   ;
 }
 
@@ -900,7 +900,8 @@ div#dijit__FocusMixin_1 > table.GStable > tbody.GSbody {
   }
 
   #maage-home div#analyze-section > div.mid-content-bottom {
-    background-color: #f5f5f5;
+    background-color: FAFAF9
+;
   }
 
   #maage-home #bv-brc-header-container .topMenuButton
@@ -1773,6 +1774,6 @@ div.mid-content-section:nth-child(4) > div.mid-links > a:nth-child(3) {
 #maage-page .advisor-card {
   border-top-width: 4px;
   border-top-style: solid;
-  border-color: #9cc2af;
+  border-color: #92baa8;
 }
 

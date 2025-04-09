@@ -77,8 +77,6 @@ div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:te
   }
 
 
-
-
 .gs-input input {
   border: none !important;
   outline: none !important;
@@ -87,17 +85,6 @@ div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:te
   background: transparent !important;
 }
 
-/* table.dijitSelect {
-  border-radius: 6px !important;
-  overflow: hidden !important;
-  transition: all 200ms ease !important;
-  border: 1px solid rgba(77, 133, 162, 0.3) !important;
-}
-
-table.dijitSelect:hover {
-  border-color: rgba(77, 133, 162, 0.5) !important;
-  background-color: rgba(77, 133, 162, 0.05) !important;
-} */
 
 div.home-search-wrapper > table.GStable {
   height: auto;
@@ -109,3 +96,52 @@ div.home-search-wrapper > table.GStable {
 div.home-search-wrapper > table.GStable {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
+
+
+
+
+  div.dijitTooltipContents.dijitTooltipFocusNode > div > div.authMenuHeader {
+    background-color: #D2E5DB;
+    font-size: 14px;
+    border-style: initial;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #3C5867;
+    font-family: Poppins, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 2pm;
+    margin-top: 6px;
+    padding: 6px 12px;
+    tab-size: 4;
+    visibility: visible;
+    margin-right: 8px;
+  }
+
+
+  .maage-home .cepi-info .search .global-search .GStable {
+    border: 2px solid var(--maage-secondary-800);
+    border-radius: 15px;
+    border-collapse: separate;
+  }
+
+  .maage-home .cepi-info .search .global-search .gs-data-types-dropdown .dijitInputField {
+    font-size: 14px;
+    padding: 12px 4px;
+  }
+
+  .maage-home .cepi-info .search .global-search .gs-input .dijitInputField {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 12px 8px;
+  }
+
+  .maage-home .cepi-info .search .global-search .gs-input .dijitPlaceHolder {
+    font-size: 14px;
+    padding: 12px 8px;
+  }
+
+  .maage-home .cepi-info .search .global-search .gs-options-dropdown .dijitInputField {
+    font-size: 14px;
+    padding: 12px 4px;
+  }
