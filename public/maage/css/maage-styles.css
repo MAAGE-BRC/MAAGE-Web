@@ -1,3 +1,37 @@
+.maage {
+  background-color: var(--maage-bg-default);
+}
+
+.maage-app-container {
+  background-color: var(--maage-bg-default);
+}
+
+div#bv-brc-home {
+  background-color: var(--maage-bg-default);
+  background-repeat: initial;
+}
+
+#maage-home .maage-home {
+  background-color: red!important;
+}
+
+.ApplicationContainer {
+  background-color: var(--maage-bg-default)!important;
+}
+
+.ApplicationContainer .ViewerApp {
+  background-color: var(--maage-bg-default)!important;
+}
+.ApplicationContainer .ViewerApp .ViewerHeader {
+  background-color: var(--maage-bg-default)!important;
+}
+
+/* .claro .dijitTabPaneWrapper {
+  background-color: var(--maage-bg-default)!important;
+} */
+
+
+
 .fa {
   font-display: block!important; /* Forces text to display even before font loads */
 }

@@ -204,12 +204,6 @@ span#dijit_form_DropDownButton_0>span.dijitReset.dijitInline.dijitArrowButtonInn
   cursor: pointer;
 }
 
-
-div#bv-brc-home {
-  background-color: var(--maage-bg);
-  background-repeat: initial;
-}
-
 #bv-brc-home-container div.grid-container>div#bv-brc-info {
   background-color: #F8FBF9;
   border-left-width: 0;
@@ -1523,7 +1517,6 @@ div.dijitHidden.ActionButtonWrapper:nth-child(7) > div.ActionButtonText {
 
 div.ActionButtonWrapper:nth-child(2) > div.ActionButton.fa.icon-info-circle.fa-2x {
   -webkit-font-smoothing: antialiased;
-  speak: none;
   color: #F7F4ED;
 }
 
@@ -1597,7 +1590,6 @@ div.dijitHidden.ActionButtonWrapper:nth-child(7) > div.ActionButtonText {
 
 div.ActionButtonWrapper:nth-child(2) > div.ActionButton.fa.icon-info-circle.fa-2x {
   -webkit-font-smoothing: antialiased;
-  speak: none;
   color: #F7F4ED;
 }
 
@@ -1608,13 +1600,10 @@ div.ActionButtonWrapper:nth-child(2) > div.ActionButton.fa.icon-info-circle.fa-2
 }
 
 #maage-header div#bv-brc-header-container {
-  font-family: 'Roboto Slab';
   font-size: 16px;
 }
 
-#maage-header div#bv-brc-header {
-  height: 50px;
-}
+
 
 div#dijit_layout_ContentPane_1 {
   padding: 0!important;

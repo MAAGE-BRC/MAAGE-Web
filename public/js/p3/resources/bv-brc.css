@@ -33,7 +33,7 @@
 #bv-brc-page {
   box-sizing: border-box;
   margin: 0;
-  background: var(--main-bg);
+  background: var(--maage-bg-default);
 }
 
 #bv-brc-header {
