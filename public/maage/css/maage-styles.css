@@ -204,16 +204,38 @@ div.home-search-wrapper > table.GStable {
   }
 
   .PerspectiveHeader i.fa.PerspectiveIcon {
-    color: var(--maage-primary-600)!important;
+    color: var(--maage-primary-500)!important;
   }
 
+  .patric .PerspectiveHeader div.PerspectiveType {
+    font-size: 17px!important;
+    font-weight: 500!important;
+  }
+
+
   .PerspectiveHeader span.queryModel {
-    color: var(--maage-primary-600)!important;
+    color: var(--maage-primary-500)!important;
   }
 
   .PerspectiveHeader span.searchValue {
     background-color: var(--maage-tertiary-400)!important;
     padding: 1px!important;
+  }
+
+  .PerspectiveHeader span.PerspectiveQuery a.navigationLink {
+    color: var(--maage-secondary-700);
+    font-size: 1em!important;
+    font-family: 'Inter', sans-serif!important;
+  }
+
+  .PerspectiveHeader span.PerspectiveQuery a.navigationLink.current {
+    color: var(--maage-primary-500);
+    font-size: 1.1em!important;
+    font-family: 'Inter', sans-serif!important;
+  }
+
+  .PerspectiveHeader .PerspectiveTotalCount {
+    color: var(--maage-secondary-700)!important;
   }
 
   div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
@@ -228,3 +250,7 @@ div.home-search-wrapper > table.GStable {
     font-size: 1.25em;
   }
 
+  .ItemDetailPanel .noItemSelection .fa {
+    color: var(--maage-tertiary-400);
+
+  }
