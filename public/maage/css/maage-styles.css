@@ -7,10 +7,12 @@ html, body {
 
 .ActionBar .ActionButtonWrapper .ActionButton  {
   color: #ffffff!important;
+  font-size: 1.5em!important;
 }
 
 .ActionBar .ActionButtonWrapper .ActionButtonText  {
   color: #ffffff!important;
+  font-size: 10px!important;
 }
 
 div.ActionButton.fa-2x {
@@ -213,3 +215,16 @@ div.home-search-wrapper > table.GStable {
     background-color: var(--maage-tertiary-400)!important;
     padding: 1px!important;
   }
+
+  div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
+    border-color: var(--maage-primary-500) #b5bcc7 #b5bcc7;
+  }
+
+  div.ActionButtonWrapper:nth-child(1) > div.ActionButton.fa.icon-chevron-circle-right.fa-2x {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: none;
+    font-size: 1.25em;
+  }
+
