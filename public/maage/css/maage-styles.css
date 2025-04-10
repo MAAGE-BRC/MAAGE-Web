@@ -1,3 +1,6 @@
+html, body {
+  font-size: 16px;
+}
 .fa {
   font-display: block!important; /* Forces text to display even before font loads */
 }
@@ -199,11 +202,11 @@ div.home-search-wrapper > table.GStable {
   }
 
   .PerspectiveHeader i.fa.PerspectiveIcon {
-    color: var(--maage-primary-500)!important;
+    color: var(--maage-primary-600)!important;
   }
 
   .PerspectiveHeader span.queryModel {
-    color: var(--maage-primary-500)!important;
+    color: var(--maage-primary-600)!important;
   }
 
   .PerspectiveHeader span.searchValue {
