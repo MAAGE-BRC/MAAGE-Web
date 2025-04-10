@@ -5,7 +5,7 @@
     --maage-font-mono: 'IBM Plex Mono', monospace;
 
     /* === Backgrounds (Light Mode) === */
-    --maage-bg-default: #f8f8f7;
+    --maage-bg-default: #f7f5f3;
     --maage-bg-default-alt: #f8f9fa;
     --maage-bg-faint: #fcfcfd;
     --maage-bg-subtle: #f1f3f5;
@@ -42,7 +42,7 @@
     --maage-info-600: #417cbf;
 
     /* === Base Colors === */
-    --maage-app-base: #f8f8f7;
+    --maage-app-base: #f5f5f5;
 
     /* === Primary Colors === */
     --maage-primary-50: #f6f9f8;
