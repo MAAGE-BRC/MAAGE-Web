@@ -4,13 +4,49 @@
     --maage-font-body: 'Inter', sans-serif;
     --maage-font-mono: 'IBM Plex Mono', monospace;
 
+    /* === Backgrounds (Light Mode) === */
+    --maage-bg-default: #f8f9fa;
+    --maage-bg-faint: #fcfcfd;
+    --maage-bg-subtle: #f1f3f5;
+    --maage-bg-alt: #f3f4f6;
+    --maage-bg-muted: #e9ecef;
+    --maage-bg-soft: #eaeef0;
+    --maage-bg-strong: #dee2e6;
+    --maage-bg-inverse: #ffffff;
+    --maage-surface: #ffffff;
+    --maage-border: #dee2e6;
+
+    /* === Text Colors === */
+    --maage-text-default: #212529;
+    --maage-text-muted: #495057;
+    --maage-text-subtle: #6c757d;
+    --maage-text-inverse: #f8f9fa;
+    --maage-text-link: var(--maage-secondary-600);
+
+    /* === Status Colors === */
+    --maage-success-50: #f2fbf5;
+    --maage-success-500: #4ba675;
+    --maage-success-600: #3d8d61;
+
+    --maage-warning-50: #fff9eb;
+    --maage-warning-500: #f0b429;
+    --maage-warning-600: #d99a1c;
+
+    --maage-error-50: #fef2f2;
+    --maage-error-500: #d9534f;
+    --maage-error-600: #c0392b;
+
+    --maage-info-50: #eef6fb;
+    --maage-info-500: #5b9bd5;
+    --maage-info-600: #417cbf;
+
     /* === Primary Colors === */
     --maage-primary-50: #f6f9f8;
     --maage-primary-100: #e5f1e9;
     --maage-primary-200: #d2e5db;
     --maage-primary-300: #b3d1c2;
-    --maage-primary-400: #92baa8;
-    --maage-primary-500: #5b9f83;
+    --maage-primary-400: #9EC2B1;
+    --maage-primary-500: #82B09A;
     --maage-primary-600: #44856e;
     --maage-primary-700: #3b735e;
     --maage-primary-800: #315d4c;
@@ -81,55 +117,6 @@
     --maage-senary-800: #2e6773;
     --maage-senary-900: #2a535e;
     --maage-senary-950: #1b343d;
-
-    /* === General Semantic Colors === */
-    --maage-success-50: #f2fbf5;
-    --maage-success-500: #4ba675;
-    --maage-success-600: #3d8d61;
-
-    --maage-warning-50: #fff9eb;
-    --maage-warning-500: #f0b429;
-    --maage-warning-600: #d99a1c;
-
-    --maage-error-50: #fef2f2;
-    --maage-error-500: #d9534f;
-    --maage-error-600: #c0392b;
-
-    --maage-info-50: #eef6fb;
-    --maage-info-500: #5b9bd5;
-    --maage-info-600: #417cbf;
-
-    /* === Light Mode Semantic  === */
-    --maage-color-bg: #f8f9fa;
-    --maage-color-bg-muted: #e9ecef;
-    --maage-color-bg-subtle: #f1f3f5;
-    --maage-color-bg-surface: #ffffff;
-    --maage-color-bg-border: #dee2e6;
-
-    --maage-color-text: #212529;
-    --maage-color-text-muted: #495057;
-    --maage-color-text-subtle: #6c757d;
-    --maage-color-text-inverse: #f8f9fa;
-    --maage-color-text-link: #4d85a2;
-
-    --maage-color-success: #4ba675;
-    --maage-color-warning: #f0b429;
-    --maage-color-error: #d9534f;
-    --maage-color-info: #5b9bd5;
-
-    /* === Text Colors === */
-    --maage-text-default: #212529;
-    --maage-text-muted: #495057;
-    --maage-text-subtle: #6c757d;
-    --maage-text-inverse: #f8f9fa;
-    --maage-text-link: #4d85a2;
-
-    /* === Background Colors === */
-    --maage-bg-default: #f8f9fa;
-    --maage-bg-subtle: #f1f3f5;
-    --maage-bg-muted: #e9ecef;
-    --maage-bg-surface: #ffffff;
-    --maage-bg-border: #dee2e6;
 
     /* === DataViz Colors - Light Mode === */
     --maage-dataviz-primary-1: #f6f9f8;
