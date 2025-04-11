@@ -183,7 +183,7 @@
                   <div><i class="fa icon-caret-down fa-1x noHoverIcon" style="color:#333;cursor:normal;"></i>&nbsp;<a
                       class="navigationLink" id="YourWorkspaceLink">Workspaces</a></div>
                   <div id="YourWorkspaces"></div>
-    
+
                 </div>
                 <div style="vertical-align:top;display:inline-block" class="ShowWithAuth">
                   <div class="maage-nav-item">
@@ -192,15 +192,15 @@
                   <div class="maage-nav-item">
                     <a class="navigationLink maage-nav-link" href="/view/GenomeList/?eq(public,false)">My Genomes</a>
                   </div>
-<hr> 
-                  <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/workspace/public">Public Workspaces</a></div>
-                  <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/workspace/public/maage@bvbrc/MAAGE%20Workshop">MAAGE
+                  <hr>
+                  <div class="maage-nav-item"><a class="navigationLink maage-nav-link" href="/workspace/public">Public
+                      Workspaces</a></div>
+                  <div class="maage-nav-item"><a class="navigationLink maage-nav-link"
+                      href="/workspace/public/maage@bvbrc/MAAGE%20Workshop">MAAGE
                       Workshop</a></div>
                 </div>
               </div>
 
-
-    
 
             </div>
           </div>
@@ -208,11 +208,11 @@
 
         <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
           <span class="navigation-item" style="display: flex; align-items: center;">
-            Docs
+            Resources
             <i data-lucide="chevron-down" class="h-5 w-5 ml-1"></i>
           </span>
           <div data-dojo-type="p3/widget/TooltipDialog">
-            <div class="menuHeader">User Resources</div>
+            <div class="menuHeader">Resources</div>
             <div class="maage-nav-item">
               <a class="maage-nav-link navigationLinkOut" href="https://www.bv-brc.org/docs/">Documentation</a>
             </div>
@@ -315,17 +315,10 @@
           <a class="navigationLink login-btn" href="/register">Register</a>
           <a class="navigationLink register-btn" href="/login">Login</a>
         </div>
-        <div id="mobile-search-icon">
-          <button class="search-icon" onclick="toggleSearch()">
-            <span class="icon-search fa-2x"></span>
-          </button>
-        </div>
 
         <div class="showOnLoad ShowWithAuth dijitHidden">
-          <div class="showOnLoad ShowWithAuth dijitHidden topMenuButtonIcon" data-dojo-type="dijit/form/DropDownButton"
-            data-dojo-props="iconClass:'icon-user fa-2x login-btn'">
-            <span></span>
-            <div class="warning_icon user_warning_icon icon-warning fa fa-1x"> </div>
+          <div class="showOnLoad ShowWithAuth dijitHidden topMenuButtonIcon" data-dojo-type="dijit/form/DropDownButton">
+            <i data-lucide="user" class="h-8 w-8"></i>
             <div data-dojo-type="p3/widget/TooltipDialog">
               <div>Signed in as <span id="signedInAs" style="font-weight:bold;"></span></div>
               <hr>
