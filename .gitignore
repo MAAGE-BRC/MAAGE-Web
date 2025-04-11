@@ -152,3 +152,5 @@ node_repl_history
 # TEMP - TO BE REMOVED
 package-lock.json
 .qodo
+
+bvbrc/
