@@ -41,44 +41,44 @@
     --maage-info-600: #417cbf;
 
     /* === Primary Colors === */
-    --maage-primary-50: #f6f9f8;
-    --maage-primary-100: #e5f1e9;
-    --maage-primary-200: #d2e5db;
-    --maage-primary-300: #b3d1c2;
-    --maage-primary-400: #9EC2B1;
-    --maage-primary-500: #82B09A;
-    --maage-primary-600: #44856e;
-    --maage-primary-700: #3b735e;
-    --maage-primary-800: #315d4c;
+    --maage-primary-50: #f6f9f7;
+    --maage-primary-100: #e6f0e9;
+    --maage-primary-200: #d2e4da;
+    --maage-primary-300: #b6d2c4;
+    --maage-primary-400: #93b9a8;
+    --maage-primary-500: #689c85;
+    --maage-primary-600: #508670;
+    --maage-primary-700: #3e6f5c;
+    --maage-primary-800: #335b4c;
     --maage-primary-900: #2a4b40;
     --maage-primary-950: #192f28;
-
+    
     /* === Secondary Colors === */
-    --maage-secondary-50: #f5f9fa;
-    --maage-secondary-100: #e7f0f3;
-    --maage-secondary-200: #d2e4ea;
-    --maage-secondary-300: #b3d0db;
-    --maage-secondary-400: #8fb7c6;
-    --maage-secondary-500: #679fb7;
-    --maage-secondary-600: #4d85a2;
-    --maage-secondary-700: #446c83;
-    --maage-secondary-800: #3c5867;
-    --maage-secondary-900: #344855;
-    --maage-secondary-950: #1d2b35;
-
+    --maage-secondary-50: #f1f7f9;
+    --maage-secondary-100: #dceaef;
+    --maage-secondary-200: #c2d9e0;
+    --maage-secondary-300: #a0c3cf;
+    --maage-secondary-400: #71a3b7;
+    --maage-secondary-500: #548fa6;
+    --maage-secondary-600: #447188;
+    --maage-secondary-700: #406477;
+    --maage-secondary-800: #395160;
+    --maage-secondary-900: #314654;
+    --maage-secondary-950: #24333d;
+    
     /* === Tertiary Colors === */
-    --maage-tertiary-50: #fefcf5;
-    --maage-tertiary-100: #fdf7e6;
-    --maage-tertiary-200: #faeccc;
-    --maage-tertiary-300: #f4dfb0;
-    --maage-tertiary-400: #e6C489;
-    --maage-tertiary-500: #ddaf60;
-    --maage-tertiary-600: #c79547;
-    --maage-tertiary-700: #a87634;
-    --maage-tertiary-800: #895c2b;
-    --maage-tertiary-900: #6c4723;
-    --maage-tertiary-950: #3c2913;
-
+    --maage-tertiary-50: #fefcf6;
+    --maage-tertiary-100: #fcf7e8;
+    --maage-tertiary-200: #f9eccd;
+    --maage-tertiary-300: #f5e0b2;
+    --maage-tertiary-400: #f0c98e;
+    --maage-tertiary-500: #ecc188;
+    --maage-tertiary-600: #e7b279;
+    --maage-tertiary-700: #d78f50;
+    --maage-tertiary-800: #cd793c;
+    --maage-tertiary-900: #aa6631;
+    --maage-tertiary-950: #874f2c;
+    
     /* === Quaternary Colors === */
     --maage-quaternary-50: #f6f6f9;
     --maage-quaternary-100: #efeff5;
@@ -117,36 +117,5 @@
     --maage-senary-800: #2e6773;
     --maage-senary-900: #2a535e;
     --maage-senary-950: #1b343d;
-
-    /* === DataViz Colors - Light Mode === */
-    --maage-dataviz-primary-1: #f6f9f8;
-    --maage-dataviz-primary-2: #d2e5db;
-    --maage-dataviz-primary-3: #92baa8;
-    --maage-dataviz-primary-4: #5b9f83;
-
-    --maage-dataviz-secondary-1: #f5f9fa;
-    --maage-dataviz-secondary-2: #d2e4ea;
-    --maage-dataviz-secondary-3: #8fb7c6;
-    --maage-dataviz-secondary-4: #679fb7;
-
-    --maage-dataviz-tertiary-1: #fefcf5;
-    --maage-dataviz-tertiary-2: #faeccc;
-    --maage-dataviz-tertiary-3: #eacb89;
-    --maage-dataviz-tertiary-4: #ddaf60;
-
-    --maage-dataviz-quaternary-1: #f6f6f9;
-    --maage-dataviz-quaternary-2: #dfdfec;
-    --maage-dataviz-quaternary-3: #b0aecb;
-    --maage-dataviz-quaternary-4: #9a96bb;
-
-    --maage-dataviz-quinary-1: #fcf5f3;
-    --maage-dataviz-quinary-2: #f4dad7;
-    --maage-dataviz-quinary-3: #e49f9b;
-    --maage-dataviz-quinary-4: #d8807e;
-
-    --maage-dataviz-senary-1: #f2fafb;
-    --maage-dataviz-senary-2: #c2e9ee;
-    --maage-dataviz-senary-3: #75c8d6;
-    --maage-dataviz-senary-4: #53b2c6;
 
 }
