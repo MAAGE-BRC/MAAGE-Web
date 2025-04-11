@@ -1,12 +1,240 @@
+<style>
+
+  .maage-home-container {
+    margin-top: 15px;
+  }
+
+  .intro-description {
+    font-size: 16px;
+  }
+
+  .search-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    font-size: 16px;
+  }
+
+  .search-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+
+  .search-form {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    flex-grow: 1;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: #94a3b8;
+  }
+
+  .search-input {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    padding-left: 2.5rem;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem 0 0 0.5rem;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .search-input:focus {
+    border-color: #cbd5e1;
+    box-shadow: 0 0 0 1px #cbd5e1;
+  }
+
+  .search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background-color: #467d94;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .search-button:hover {
+    background-color: #548fa6;
+  }
+
+  .advanced-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #3c677e;
+    font-weight: 500;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .advanced-toggle:hover {
+    color: #548fa6;
+  }
+
+  .advanced-panel {
+    background-color: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: none;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .advanced-section {
+    margin-bottom: 1rem;
+  }
+
+  .advanced-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .advanced-heading {
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 0.5rem;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .options-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .option-input {
+    height: 1rem;
+    width: 1rem;
+    color: #475569;
+    border-color: #cbd5e1;
+  }
+
+  .option-input[type="checkbox"] {
+    border-radius: 0.25rem;
+  }
+
+  .option-label {
+    margin-left: 0.5rem;
+    font-size: 0.875rem;
+    color: #334155;
+  }
+
+  .icon {
+    width: 1rem;
+    height: 1rem;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .search-button .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .card-heading {
+    font-size: 18px;
+  }
+
+  .card-list {
+    font-size: 14px;
+  }
+
+  .card-header {
+    font-size: 1.4rem;
+  }
+
+  .btn-guide-links {
+    border: 1px solid var(--maage-gray-200);
+    padding: 8px 26px;
+    border-radius: 6px;
+    color: #2c2c2c;
+    font-size: 14px;
+  }
+
+  .maage-banner {
+    max-width: 1350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .event-date {
+    background-color: #f2f7f5;
+    color: #334a57;
+  }
+
+  .event-date-default {
+    background-color: #ffffff;
+    color: #334a57;
+  }
+
+  .covid-card-header {
+    background-color: #a6c9b8;
+  }
+  #maage-home-container {
+    font-size: 16px;
+  }
+</style>
+
 <div id="maage-homepage">
 <div id="bv-brc-home" class="maage-background">
   <div class="maage-home">
     <div id="bv-brc-home-container">
       <div id="maage-home-container" class="maage-home-container">
 
+      <!-- Banner -->
       <div id="maage-banner"
         class="maage-banner flex items-center gap-x-6 bg-[var(--maage-secondary-600)] rounded-lg px-6 py-2.5 sm:px-3.5 sm:before:flex-1 mb-[5px] relative">
-        <p class="text-[#ffffff] font-light text-md font-inter">
+        <p class="text-sm/6 text-[#ffffff] font-normal text-md font-poppins">
           The MAAGE platform is currently under development. Expect frequent updates with occasional downtime.
         </p>
         <div class="flex flex-1 justify-end">
@@ -20,91 +248,62 @@
       <main class="flex-grow container mx-auto p-4 md:p-6">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div class="lg:col-span-3 space-y-6 flex flex-col">
-            <section class="bg-gradient-to-r from-primary-100 to-secondary-100 p-8 md:p-12 rounded-xl shadow-md overflow-hidden relative">
-
-              <div class="absolute right-0 top-0 w-64 h-64 md:w-96 md:h-96 opacity-10"> </div>
-
+            <section
+              class="bg-gradient-to-r from-primary-100 to-secondary-100 p-8 md:p-12 rounded-xl shadow-md overflow-hidden relative home-card">
+              <div class="absolute right-0 top-0 w-64 h-64 md:w-96 md:h-96 opacity-10">
+                <img src="/public/maage/img/home/hero-bg.svg" alt="MAAGE Background" width="400" height="400" class="object-contain">
+              </div>
               <div class="relative z-10 space-y-6">
                 <div>
-                  <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-maage-text-default mb-4 font-poppins leading-tight">
-                    Midwest Alliance for Applied <br>
-                    Genomic Epidemiology
+                  <h1
+                    class="text-3xl md:text-4xl lg:text-5xl font-semibold text-secondary-900 mb-4 font-poppins leading-tight">
+                    Midwest Alliance for Applied<br /> Genomic Epidemiology
                   </h1>
-                  <p class="text-gray-700 mb-6 text-lg font-light max-w-3xl">
-                    A collaboration of IDPH, the University of Illinois, and Argonne National Laboratory developing
-                    advanced genomic surveillance and epidemiology platforms to track infectious diseases with greater
-                    sensitivity.
+                  <p class="intro-description text-gray-700 mb-6 text-lg max-w-4xl">
+                    The Midwest Alliance for Applied Genomic Epidemiology (MAAGE) aims to develop a genomic surveillance platform to enhance infectious disease detection and tracking while providing educational resources for public health and healthcare professionals.
                   </p>
                 </div>
 
-                <div class="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-md border border-primary-200">
+                <div id="maage-home-search" class="search-container">
                   <div class="flex items-center mb-4">
-                    <i class="fa-regular fa-database" style="color: #4d85a2; font-size: 26px;"></i>
-                    <h2 class="text-2xl font-semibold text-gray-800 font-poppins pl-2">Search</h2>
-
+                    <?xml version="1.0"?>
+                    <svg class="h-7 w-7 fill-secondary-600 mr-2 xmlns=" http://www.w3.org/2000/svg"
+                      viewBox="1.799 -24.6 11.666 11.666">
+                      <path
+                        d="M7.2-13.42q-.75 0-1.7-.13t-1.78-.41q-.84-.29-1.41-.74 -.58-.46-.58-1.07v0q0 .61.57 1.06 .57.45 1.4.73 .83.28 1.77.4 .94.12 1.69.12v0q0 0 0 0t0 0Zm-1.04-3.07q-.56-.03-1.03-.11 -.48-.08-.9-.19 -.43-.12-.79-.27 -.37-.15-.69-.34v0q.32.18.68.33 .36.14.78.26 .42.11.89.18 .47.07 1.02.1 0 0 0 0t0 0 0 0 0 0Zm.83-4q1.25 0 2.58-.38 1.32-.38 1.6-.84 -.28-.44-1.6-.83 -1.32-.39-2.59-.39 -1.3 0-2.59.37 -1.3.37-1.6.83 .32.46 1.61.83 1.29.37 2.57.37Zm-.53 6q.13.29.31.55 .18.26.41.49 -.75 0-1.7-.13t-1.78-.41q-.84-.29-1.41-.74 -.58-.46-.58-1.07v-5.94q0-.44.43-.84 .43-.41 1.15-.72 .72-.32 1.67-.5 .95-.19 1.97-.19 .99 0 1.93.18t1.68.51q.74.32 1.18.72 .44.4.44.82 0 .42-.44.82 -.44.4-1.18.7 -.74.3-1.68.49 -.95.18-1.97.18 -1.2 0-2.29-.25t-1.95-.71v1.86q.67.49 1.65.75 .98.25 2.03.31v0q-.11.18-.18.44 -.08.25-.12.54v0q-1.1-.08-1.92-.3 -.83-.22-1.49-.6v1.64q.17.42 1.29.8 1.12.37 2.4.45Zm6.22 2.21l-1.59-1.59q-.31.21-.68.32 -.37.1-.75.1 -1.07 0-1.81-.75 -.75-.75-.75-1.81 0-1.07.74-1.81 .74-.75 1.8-.75t1.8.74q.74.74.74 1.8 0 .37-.11.74 -.11.36-.33.67l1.58 1.58Zm-3.01-2.19q.64 0 1.08-.45 .44-.45.44-1.09 0-.65-.45-1.09 -.45-.45-1.09-.45 -.65 0-1.09.44 -.45.44-.45 1.08 0 .64.44 1.08 .44.44 1.08.44Z">
+                      </path>
+                    </svg>
+                    <h2 class="text-2xl font-semibold text-gray-800 font-poppins">Search Data</h2>
                   </div>
 
-                  <div class="search-wrapper">
-                  <div class="search" style="border: 2px solid #4d85a2;">
-                    <div class="global-search">
-                        <div style="padding: 10px 0px 10px 2px; flex-grow: 1">
-                            <input style="width:100%;font-size:1em;" class="showOnLoad dijitHidden"
-                                   data-dojo-type="p3/widget/GlobalSearch"/>
+                  <form class="search-form" id="searchForm">
+                    <div class="search-input-container">
+                      <div class="search-input-wrapper">
+                        <div class="search-icon">
+                          <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                          </svg>
                         </div>
-                    </div>
-                  </div>
-                </div>
-                <style>
-                  #maage-homepage .search .claro .dijitSelect .dijitArrowButton {
-                    background-color: green !important;
-                  }
-
-                 #maage-homepage div.search-wrapper > div.search {
-  border: 2px solid #4d85a2;
-  border-radius: 6px;
-  box-sizing: border-box;
-  color: #333333;
-  font-family: Poppins, sans-serif;
-  font-size: 16px;
-  font-size-adjust: none;
-  font-weight: 400;
-  line-height: 1.5;
-  margin: 0;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 2px;
-  padding-right: 2px;
-  tab-size: 4;
-}
-
-.form-select.dijitSelect {
-  appearance: none;
-  background-color: white;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  padding: 0.5rem 2rem 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  background-image: url('');
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-}
-                </style>
-                  <!-- <div class="relative">
-                    <div class="flex items-center">
-                      <div class="relative w-full" data-protonpass-form="">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search h-4 w-4 text-gray-500"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-                        </div>
-                        <input type="text" placeholder="Search genes, genomes, proteins, pathways..." class="pl-10 pr-20 py-3 h-12 border border-gray-300 focus:ring-2 focus:ring-secondary-400 focus:border-secondary-400 rounded-lg w-full" spellcheck="false" data-ms-editor="true">
-                        <button class="absolute right-0 top-0 h-12 px-4 bg-secondary-600 hover:bg-secondary-700 text-white rounded-r-lg transition-colors duration-200 flex items-center justify-center">
-                          <span class="mr-2 hidden sm:inline">Search</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search h-4 w-4"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-                        </button>
+                        <input
+                          type="text"
+                          class="search-input"
+                          name="searchQuery"
+                          id="searchQuery"
+                          placeholder="Search genes, genomes, proteins, pathways..."
+                        >
                       </div>
+                      <button type="submit" class="search-button">
+                        Search
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                      </button>
                     </div>
-                  </div> -->
+                  </form>
 
-                  <!-- <div class="mt-4">
+                  <div>
                     <button type="button" class="advanced-toggle" id="advancedToggle">
                       <svg class="icon chevron-down" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <polyline points="6 9 12 15 18 9"></polyline>
@@ -249,12 +448,31 @@
                         </div>
                       </div>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </section>
 
+            <script>
+              const advancedToggle = document.getElementById('advancedToggle');
+              const advancedPanel = document.getElementById('advancedPanel');
+              const chevronDown = document.querySelector('.chevron-down');
+              const chevronUp = document.querySelector('.chevron-up');
 
+              advancedToggle.addEventListener('click', function() {
+                const isVisible = advancedPanel.style.display === 'block';
+
+                if (isVisible) {
+                  advancedPanel.style.display = 'none';
+                  chevronDown.style.display = 'block';
+                  chevronUp.style.display = 'none';
+                } else {
+                  advancedPanel.style.display = 'block';
+                  chevronDown.style.display = 'none';
+                  chevronUp.style.display = 'block';
+                }
+              });
+            </script>
 
             <section class="bg-white p-6 rounded-lg shadow-md border border-primary-100 home-card">
               <div class="flex items-center mb-6">
@@ -377,6 +595,18 @@
                         MAAGE Workspace
                       </a>
                     </li>
+                    <!-- <li class="flex items-center">
+                      <i data-lucide="server" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspace/" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        Public Workspaces
+                      </a>
+                    </li> -->
+                    <!-- <li class="flex items-center">
+                      <i data-lucide="clock" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
+                      <a href="/workspace/bioprojects" class="text-gray-700 hover:text-secondary-600 transition-colors">
+                        BioProjects
+                      </a>
+                    </li> -->
                   </ul>
                 </div>
 
@@ -401,7 +631,7 @@
                     <li class="flex items-center">
                       <i data-lucide="download" class="h-4 w-4 text-primary-600 mr-2 flex-shrink-0"></i>
                       <a href="#" class="text-gray-700 hover:text-secondary-600 transition-colors">
-                        File Transfers
+                        FTP Uploads & Downloads
                       </a>
                     </li>
                   </ul>
@@ -409,20 +639,20 @@
               </div>
 
               <div class="mt-8 flex flex-wrap gap-4 justify-center">
-                <a href="https://bv-brc.org/docs/quick_start/index.html"
-                  class="navigationLinkOut btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                <a href="#"
+                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
                   <i data-lucide="zap" class="mr-1.5 h-4 w-4"></i>
                   Quick Start
                 </a>
 
-                <a href="https://bv-brc.org/docs/quick_references/index.html"
-                  class="navigationLinkOut btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                <a href="#"
+                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
                   <i data-lucide="database" class="mr-1.5 h-4 w-4"></i>
                   Reference Guides
                 </a>
 
-                <a href="https://bv-brc.org/docs/tutorial/index.html"
-                  class="navigationLinkOut btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
+                <a href="#"
+                  class="btn-guide-links bg-white text-secondary-700 px-5 py-2.5 hover:bg-gray-100 shadow-sm text-sm font-medium flex items-center">
                   <i data-lucide="microscope" class="mr-1.5 h-4 w-4"></i>
                   Tutorials
                 </a>
@@ -469,7 +699,7 @@
                       </div>
                     </div>
                     <a
-                      href="/dashboard"
+                      href="#"
                       class="text-[#978fb5] hover:text-[#7a7394] text-sm font-medium flex items-center mt-2"
                     >
                       View Dashboard
@@ -479,7 +709,7 @@
                 </div>
 
                 <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-md transition-all">
-                  <div class="bg-[var(--maage-tertiary-400)] p-4 text-white">
+                  <div class="bg-[var(--maage-tertiary-500)] p-4 text-white">
                     <div class="flex justify-between items-center">
                       <h3 class="text-lg font-semibold text-[#fafafa]">A/H5N1</h3>
                       <span class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Moderate</span>
@@ -499,7 +729,7 @@
                       </div>
                     </div>
                     <a
-                      href="/dashboard"
+                      href="#"
                       class="text-[#ecc187] hover:text-[#d9a966] text-sm font-medium flex items-center mt-2"
                     >
                       View Dashboard
@@ -529,7 +759,7 @@
                       </div>
                     </div>
                     <a
-                      href="/dashboard"
+                      href="#"
                       class="text-[#548fa6] hover:text-[#3a7085] text-sm font-medium flex items-center mt-2"
                     >
                       View Dashboard
@@ -540,6 +770,9 @@
               </div>
             </section>
           </div>
+          <!-- End Left Main Content -->
+
+          <!-- Sidebar -->
           <div class="space-y-6 flex flex-col h-full">
             <section class="bg-white p-6 rounded-lg shadow-sm flex-grow home-card">
               <div class="flex items-center mb-5">
@@ -666,11 +899,7 @@
               </div>
             </section>
           </div>
-          <style>
-            .maage-home .home-card li a:hover {
-               text-decoration: underline;
-             }
-           </style>
+          <!-- End Sidebar -->
 
         </div>
       </main>

@@ -1,0 +1,358 @@
+html, body {
+  font-size: 16px;
+}
+.fa {
+  font-display: block!important; /* Forces text to display even before font loads */
+}
+
+.ActionBar .ActionButtonWrapper .ActionButton  {
+  color: #ffffff!important;
+  font-size: 1.5em!important;
+}
+
+.ActionBar .ActionButtonWrapper .ActionButtonText  {
+  color: #ffffff!important;
+  font-size: 10px!important;
+}
+
+div.ActionButton.fa-2x {
+  color: #ffffff!important;
+  z-index: 1000!important;
+  margin-top: 1px!important;
+  height: 30px!important;
+}
+
+
+div#maage-page {
+    width: 100%;
+}
+
+div#uniqName_18_0 > div:nth-child(1) > div.ActionButton.fa.icon-chevron-circle-right.fa-2x {
+  height: 30px!important;
+  width: 30px!important;
+  display: block!important;
+  color: red;
+  left: 1px!important;
+}
+
+#maage-page .about-logo {
+  width: 55%;
+  height: auto;
+}
+
+.topMenuButton .workspace-nav-links {
+    color: #344855;
+    font-size: 14px;
+}
+
+.topMenuButton .workspace-nav-links:hover {
+    opacity: 75%;
+    text-decoration: underline;
+}
+
+div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:text-5xl.font-bold.text-secondary-900.mb-4.font-poppins.leading-tight {
+      font-weight: 600!important;
+      color: #212529!important;
+    }
+
+  div.flex.items-center.mb-6 > h2.text-2xl.font-semibold.text-secondary-800.font-poppins {
+    color: #212529;
+  }
+  div.flex.items-center > h2.text-2xl.font-semibold.text-[var(--maage-gray-800)].font-poppins {
+    color: #212529;
+  }
+  div.flex.items-center.mb-5 > h2.text-xl.font-bold.text-gray-800.font-poppins {
+    color: #212529;
+    font-weight: 600;
+  }
+  div.flex.items-center.mb-6 > h2.text-xl.font-bold.text-gray-800.font-poppins {
+    color: #212529;
+    font-weight: 600;
+  }
+  div.flex.items-center.mb-4 > h2.text-xl.font-bold.text-gray-800.font-poppins {
+    color: #212529;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  @media (min-width: 1024px) {
+    div.relative.z-10.space-y-6 > div:nth-child(1) > h1.text-3xl.md/:text-4xl.lg\:text-5xl.font-bold.text-secondary-900.mb-4.font-poppins.leading-tight {
+      color: #212529;
+      font-weight: 600;
+    }
+  }
+
+
+.gs-input input {
+  border: none !important;
+  outline: none !important;
+  padding: 2px 16px !important;
+  font-size: 16px !important;
+  background: transparent !important;
+}
+
+
+div.home-search-wrapper > table.GStable {
+  height: auto;
+  padding: 10px 5px;
+  border-radius: 6px;
+  border: 1px solid #BFD9CB;
+}
+
+div.home-search-wrapper > table.GStable {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+
+
+
+  div.dijitTooltipContents.dijitTooltipFocusNode > div > div.authMenuHeader {
+    background-color: #D2E5DB;
+    font-size: 14px;
+    border-style: initial;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #3C5867;
+    font-family: Poppins, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 2pm;
+    margin-top: 6px;
+    padding: 6px 12px;
+    tab-size: 4;
+    visibility: visible;
+    margin-right: 8px;
+  }
+
+
+  /* .maage-home .search .global-search .GStable {
+    border: 2px solid var(--maage-secondary-800);
+    border-radius: 15px;
+    border-collapse: separate;
+  }
+
+  .maage-home .search .global-search .gs-data-types-dropdown .dijitInputField {
+    font-size: 14px;
+    padding: 12px 4px;
+  }
+
+  .maage-home .search .global-search .gs-input .dijitInputField {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 12px 8px;
+  }
+
+  .maage-home  .search .global-search .gs-input .dijitPlaceHolder {
+    font-size: 14px;
+    padding: 12px 8px;
+  }
+
+  .maage-home  .search .global-search .gs-options-dropdown .dijitInputField {
+    font-size: 14px;
+    padding: 12px 4px;
+  } */
+
+  .maage-login div#dijit__WidgetsInTemplateMixin_0 > div:nth-child(1) {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 150ms ease;
+  }
+
+  .maage-login .dijitTextBox {
+    border-radius: 4px !important;
+    border: 1px solid #dedede !important;
+    transition: all 150ms ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  }
+  
+  .maage-login .dijitTextBox:hover {
+    border-color: #b3d0db !important;
+  }
+  
+  .maage-login .dijitTextBox:focus-within {
+    border-color: #3f7da6 !important;
+    box-shadow: 0 0 0 3px rgba(63, 125, 166, 0.15);
+  }
+
+  .maage-login .dijitButton {
+    background-color: #3f7da6 !important;
+    border-radius: 4px !important;
+    transition: all 150ms ease;
+  }
+  
+  .maage-login .dijitButton:hover:not(.dijitButtonDisabled) {
+    background-color: #346c83 !important;
+    transform: translateY(-1px);
+  }
+  
+  .maage-login .dijitButtonText {
+    color: white !important;
+    font-weight: 500 !important;
+  }
+
+  .maage-login .loginForm > form > div {
+    margin-bottom: 15px;
+  }
+
+  .ViewerApp {
+    margin-top: 10px!important;
+  }
+
+  .BrowserHeader div.ActionButton.fa.icon-rocket.fa-2x {
+    color: var(--maage-secondary-800);
+  }
+
+  .PerspectiveHeader i.fa.PerspectiveIcon {
+    color: var(--maage-primary-500)!important;
+  }
+
+  .patric .PerspectiveHeader div.PerspectiveType {
+    font-size: 17px!important;
+    font-weight: 500!important;
+  }
+
+
+  .PerspectiveHeader span.queryModel {
+    color: var(--maage-primary-500)!important;
+  }
+
+  .PerspectiveHeader span.searchValue {
+    background-color: var(--maage-tertiary-400)!important;
+    padding: 1px!important;
+  }
+
+  .PerspectiveHeader span.PerspectiveQuery a.navigationLink {
+    color: var(--maage-secondary-700);
+    font-size: 1em!important;
+    font-family: 'Inter', sans-serif!important;
+  }
+
+  .PerspectiveHeader span.PerspectiveQuery a.navigationLink.current {
+    color: var(--maage-primary-500);
+    font-size: 1.1em!important;
+    font-family: 'Inter', sans-serif!important;
+  }
+
+  .PerspectiveHeader .PerspectiveTotalCount {
+    color: var(--maage-secondary-700)!important;
+  }
+
+  div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
+    border-color: var(--maage-primary-500) #b5bcc7 #b5bcc7;
+  }
+
+  div.ActionButtonWrapper:nth-child(1) > div.ActionButton.fa.icon-chevron-circle-right.fa-2x {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: none;
+    font-size: 1.25em;
+  }
+
+  .ItemDetailPanel .noItemSelection .fa {
+    color: var(--maage-tertiary-400);
+
+  }
+
+  div#maage-home-container > main.flex-grow.container.mx-auto.p-4.md\:p-6 {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+  }
+
+  div#maage-home-container {
+    --tw-contain-style: ;
+    --tw-contain-paint: ;
+    --tw-contain-layout: ;
+    --tw-contain-size: ;
+    --tw-backdrop-sepia: ;
+    --tw-backdrop-saturate: ;
+    --tw-backdrop-opacity: ;
+    --tw-backdrop-invert: ;
+    --tw-backdrop-hue-rotate: ;
+    --tw-backdrop-grayscale: ;
+    --tw-backdrop-contrast: ;
+    --tw-backdrop-brightness: ;
+    --tw-backdrop-blur: ;
+    --tw-drop-shadow: ;
+    --tw-sepia: ;
+    --tw-saturate: ;
+    --tw-invert: ;
+    --tw-hue-rotate: ;
+    --tw-grayscale: ;
+    --tw-contrast: ;
+    --tw-brightness: ;
+    --tw-blur: ;
+    --tw-shadow-colored: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-color: #FFFFFF;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-inset: ;
+    --tw-numeric-fraction: ;
+    --tw-numeric-spacing: ;
+    --tw-numeric-figure: ;
+    --tw-slashed-zero: ;
+    --tw-ordinal: ;
+    --tw-gradient-to-position: ;
+    --tw-gradient-via-position: ;
+    --tw-gradient-from-position: ;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-pinch-zoom: ;
+    --tw-pan-y: ;
+    --tw-pan-x: ;
+    --tw-scale-y: 1;
+    --tw-scale-x: 1;
+    --tw-skew-y: 0;
+    --tw-skew-x: 0;
+    --tw-rotate: 0;
+    --tw-translate-y: 0;
+    --tw-translate-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-border-spacing-x: 0;
+    border: 0 solid #e5e7eb;
+    flex-grow: 1;
+    margin: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 1400px) {
+    div#maage-home-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 640px) {
+    div#maage-home-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    div#maage-home-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    div#maage-home-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    div#maage-home-container {
+      max-width: 100%;
+    }
+  }
+
+.grid-cols-1.lg\:grid-cols-4 {
+  width: 100%;
+}
+
+.lg\:col-span-1 {
+  width: 100%;
+}
