@@ -332,15 +332,15 @@
           <div class="showOnLoad ShowWithAuth dijitHidden topMenuButtonIcon" data-dojo-type="dijit/form/DropDownButton">
             <i data-lucide="user" class="h-8 w-8"></i>
             <div data-dojo-type="p3/widget/TooltipDialog">
-              <div>Signed in as <span id="signedInAs" style="font-weight:bold;"></span></div>
+              <div class="maage-nav-item" style="font-family: 'Inter'; font-weight: normal; font-size: 15px;">Hello, <span id="signedInAs" style="font-family: 'Inter'; font-weight: bold; font-size:15px;"></span></div>
               <hr>
-              <div><a class="userProfile">Account Settings <i
+              <div class="maage-nav-item" style="margin-top: 4px;"><a class="userProfile maage-nav-link">Account Settings <i
                     class="warning_icon account-settings-warning icon-warning fa fa-1x" style="vertical-align:middle;">
                   </i></a></div>
-              <div><a class="sulogin">SU Login</a></div>
-              <div><a class="suSwitchBack" onclick="window.App.suSwitchBack()" style="display:none">SU Switch Back</a>
+              <div class="maage-nav-item"><a class="sulogin maage-nav-link">SU Login</a></div>
+              <div class="maage-nav-item"><a class="suSwitchBack" onclick="window.App.suSwitchBack()" style="display:none">SU Switch Back</a>
               </div>
-              <div><a class="logoutLink" onclick="window.App.logout()">Logout</a></div>
+              <div class="maage-nav-item"><a class="logoutLink maage-nav-link" onclick="window.App.logout()">Logout</a></div>
             </div>
           </div>
         </div>
