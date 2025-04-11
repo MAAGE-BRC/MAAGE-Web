@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --bg: #f8f9fa;
+        --fg: #212529;
+        --highlight: #548fa6;
+        --code-bg: #f1f3f5;
+        --code-fg: #000;
+        --box-bg: #ffffff;
+        --box-shadow: rgba(0, 0, 0, 0.1) 0 4px 16px;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        max-width: 720px;
+        padding: 2rem;
+        background: var(--box-bg);
+        box-shadow: var(--box-shadow);
+        border-radius: 8px;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--highlight);
+      }
+      p {
+        font-size: 1.1rem;
+        margin: 0.5rem 0;
+      }
+      pre {
+        background: var(--code-bg);
+        padding: 1rem;
+        font-family: monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+        border-left: 4px solid var(--highlight);
+        color: var(--code-fg);
+      }
+      .status {
+        font-weight: bold;
+        font-size: 1.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Something went wrong</h1>
+      <p class="status">Error Code: <%= error.status || 500 %></p>
+      <% if (error.message) { %>
+        <p><strong>Message:</strong> <%= error.message %></p>
+      <% } %>
+
+      <% if (error.stack && Object.keys(error.stack).length > 0) { %>
+        <h2>Stack Trace</h2>
+        <pre><%= error.stack %></pre>
+      <% } else { %>
+        <p>This error was unexpected. Please try again later or contact support.</p>
+      <% } %>
+    </div>
+  </body>
+</html>

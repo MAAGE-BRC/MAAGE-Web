@@ -2,7 +2,6 @@
 module.exports = {
   content: [
     './views/**/*.ejs',
-    './public/**/*.js',
     './public/maage/css/**/*.css'
   ],
   theme: {
