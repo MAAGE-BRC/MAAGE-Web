@@ -1,1 +1,13 @@
 @import url("partials/variables.css");
+@import url("partials/typography.css");
+@import url("partials/header.css");
+@import url("partials/footer.css");
+
+
+div#bv-brc-home.maage-background {
+    background-color: blue!important;
+}
+
+div#bv-brc-home.maage-background {
+    background-color: var(--maage-bg-default)!important;
+}
