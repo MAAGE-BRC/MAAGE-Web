@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("partials/reset.css");
+@import url("partials/variables.css");
+@import url("partials/typography.css");
+@import url("partials/header.css");
+@import url("partials/footer.css");
+@import url("partials/home.css");

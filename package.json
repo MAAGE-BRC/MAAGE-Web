@@ -6,8 +6,8 @@
     "start": "node ./bin/p3-web",
     "test": "cross-env NODE_ENV=test gulp srcfiles && npm run move-src && eslint . && jest --config jest.config.json --notify",
     "move-src": "cp gulpified/app/app.js src/app/ && cp gulpified/app/p3app.js src/app/ && cp gulpified/widget/LoginForm.js src/widget",
-    "tailwind:build": "tailwindcss -i ./public/maage/css/input.css -o ./public/maage/css/output.css --minify",
-    "tailwind:watch": "tailwindcss -i ./public/maage/css/input.css -o ./public/maage/css/output.css --watch",
+    "tailwind:build": "tailwindcss -i ./public/maage/css/input.css -o ./public/maage/css/output.css --minify --content './views/**/*.{ejs}'",
+    "tailwind:watch": "tailwindcss -i ./public/maage/css/input.css -o ./public/maage/css/output.css --watch --content './views/**/*.{ejs}'",
     "xxxeslint:fix": "./node_modules/eslint/bin/eslint.js --fix public/js/p3",
     "xxxeslint:test": "./node_modules/eslint/bin/eslint.js public/js/p3",
     "xxxtest:intern": "./node_modules/.bin/intern",
@@ -69,6 +69,6 @@
     "semantic-release": "^24.2.3",
     "stylelint": "^16.5.0",
     "stylelint-config-standard": "^36.0.0",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^4.1.3"
   }
 }
