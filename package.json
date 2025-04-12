@@ -6,14 +6,18 @@
     "start": "node ./bin/p3-web",
     "test": "cross-env NODE_ENV=test gulp srcfiles && npm run move-src && eslint . && jest --config jest.config.json --notify",
     "move-src": "cp gulpified/app/app.js src/app/ && cp gulpified/app/p3app.js src/app/ && cp gulpified/widget/LoginForm.js src/widget",
-    "tailwind:build": "tailwindcss -i ./public/maage/css/input.css -o ./public/maage/css/output.css --minify --content './views/**/*.{ejs}'",
-    "tailwind:watch": "tailwindcss -i ./public/maage/css/input.css -o ./public/maage/css/output.css --watch --content './views/**/*.{ejs}'",
+    "tailwind:build:all": "npm run tailwind:build:light && npm run tailwind:build:dark",
+    "tailwind:build:light": "THEME=light NODE_ENV=production npx @tailwindcss/cli -i ./public/maage/css/input.css -o ./public/maage/css/output.light.css --postcss",
+    "tailwind:build:dark": "THEME=dark NODE_ENV=production npx @tailwindcss/cli -i ./public/maage/css/input.css -o ./public/maage/css/output.dark.css --postcss",
+    "tailwind:preview:dark": "THEME=dark NODE_ENV=development ...",
+    "tailwind:watch": "npx @tailwindcss/cli -i ./public/maage/css/input.css -o ./public/maage/css/output.css --content './views/**/*.{ejs}' --postcss --watch --map",
     "xxxeslint:fix": "./node_modules/eslint/bin/eslint.js --fix public/js/p3",
     "xxxeslint:test": "./node_modules/eslint/bin/eslint.js public/js/p3",
     "xxxtest:intern": "./node_modules/.bin/intern",
     "postinstall": "./post_install.sh"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.3",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "braces": "^3.0.3",
@@ -50,6 +54,7 @@
     "rql": "^0.3.3",
     "serve-favicon": "^2.5.0",
     "sitemap": "^8.0.0",
+    "tailwindcss": "^4.1.3",
     "underscore": "^1.13.6",
     "webcola": "^3.4.0"
   },
@@ -66,9 +71,10 @@
     "gulp-replace": "^1.1.4",
     "minimatch": "^9.0.4",
     "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "semantic-release": "^24.2.3",
     "stylelint": "^16.5.0",
-    "stylelint-config-standard": "^36.0.0",
-    "tailwindcss": "^4.1.3"
+    "stylelint-config-standard": "^36.0.0"
   }
 }
