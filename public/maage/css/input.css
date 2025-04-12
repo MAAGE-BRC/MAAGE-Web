@@ -7,4 +7,6 @@
 @import url("partials/typography.css");
 @import url("partials/header.css");
 @import url("partials/footer.css");
+@import url("partials/page.css");
 @import url("partials/home.css");
+@import url("partials/dashboard.css");
