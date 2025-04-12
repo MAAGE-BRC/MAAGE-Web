@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <title>Verification Page | MAAGE</title>
     <%- include('../head') %>
   </head>
-  <body
-    class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>"
-  >
-    <div
-      id="ApplicationContainer"
-      data-dojo-type="dijit/layout/BorderContainer"
-      class="layoutContainer"
-      data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false"
-    >
+
+  <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+    <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer"
+      data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
       <%- include('../navbar') %>
-      <div
-        data-dojo-type="dijit/layout/ContentPane"
-        data-dojo-props="region:'center'"
-        style="padding: 0px; border: 0px solid #ddd; background: inherit"
-      >
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+        style="padding: 0px; border: 0px solid #ddd; background: inherit">
         <div id="maage-page">
           <div id="maage-page-container">
             <div class="page-content">
@@ -41,4 +34,5 @@
 
     <%- include('../javascript') %>
   </body>
+
 </html>

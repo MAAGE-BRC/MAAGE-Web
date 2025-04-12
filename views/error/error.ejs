@@ -59,6 +59,9 @@
   <body>
     <div class="container">
       <h1>Something went wrong</h1>
+      <br>
+      <hr>
+      <br>
       <p class="status">Error Code: <%= error.status || 500 %></p>
       <% if (error.message) { %>
         <p><strong>Message:</strong> <%= error.message %></p>

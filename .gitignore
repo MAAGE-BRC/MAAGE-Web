@@ -45,6 +45,7 @@ p3-web.conf-prod.maage
 
 # Editors, IDEs, Terminals
 .vscode/
+*.code-workspace
 .idea/
 .zed/
 .fleet/
@@ -52,6 +53,7 @@ p3-web.conf-prod.maage
 .project
 .warp
 CLAUDE.md
+.augment-guidelines
 
 # macOS
 .DS_Store
