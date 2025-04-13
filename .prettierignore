@@ -1,6 +1,0 @@
-# ignore all
-*
-
-# allow ejs view templates
-!views/
-!views/**/*.ejs
