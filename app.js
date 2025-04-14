@@ -162,10 +162,6 @@ app.use('/status', systemStatus);  // system status page
 app.use('/help', help);
 app.use('/uploads', uploads);
 app.use('/users', users);
-app.get('/error/403', (req, res) => res.status(403).render('403', { title: '403 Forbidden' }));
-app.get('/error/404', (req, res) => res.status(404).render('404', { title: '404 Not Found' }));
-app.get('/error/500', (req, res) => res.status(500).render('500', { title: '500 Internal Error' }));
-app.get('/error/503', (req, res) => res.status(503).render('503', { title: '503 Unavailable' }));
 
 // MTB Taxon Overview Route
 app.use('/pathogens/mtb', [
@@ -175,28 +171,35 @@ app.use('/pathogens/mtb', [
 ]);
 
 app.use((req, res, next) => {
-  res.status(404).render('404', { title: '404 Not Found' });
+  res.status(404).render('error/404', { title: '404 Not Found' });
 });
 
-// error handlers
-// development error handler (stacktrace visible)
+// dev error handler
 if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
+    const status = err.status || 500;
+    const knownErrors = [403, 404, 500, 503];
+    const template = knownErrors.includes(status) ? `${status}` : 'error/error';
+
     console.error(err.stack);
-    res.status(err.status || 500);
-    res.render('500', {
-      title: '500 Internal Server Error',
+
+    res.status(status).render(template, {
+      title: `${status} Error`,
       error: err
     });
   });
 }
 
-// production error handler (no stacktrace shown)
+// prod error handler
 app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const knownErrors = [403, 404, 500, 503];
+  const template = knownErrors.includes(status) ? `${status}` : 'error/error';
+
   console.error(err.stack);
-  res.status(err.status || 500);
-  res.render('500', {
-    title: '500 Internal Server Error',
+
+  res.status(status).render(template, {
+    title: `${status} Error`,
     error: {}
   });
 });
