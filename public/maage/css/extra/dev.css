@@ -137,6 +137,68 @@
   --maage-seasalt: #f8f9fa;
 }
 
+/* === text reset utilities === */
+.text-reset-basic {
+  all: unset;
+  display: inline;
+  font: inherit;
+  color: inherit;
+}
+
+.text-reset-clean {
+  all: unset;
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #212529;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.text-reset-inter {
+  all: unset;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #212529;
+  font-weight: 400;
+}
+
+.body-text-reset-hard {
+all: initial;
+font-family: var(--maage-font-body, sans-serif);
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+letter-spacing: 0.01em;
+color: var(--maage-text-default, #212529);
+text-align: left;
+text-decoration: none;
+text-transform: none;
+white-space: normal;
+word-break: break-word;
+display: initial;
+}
+
+.heading-text-reset-hard {
+all: initial;
+font-family: var(--maage-font-heading, sans-serif);
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+letter-spacing: 0.01em;
+color: var(--maage-text-default, #212529);
+text-align: left;
+text-decoration: none;
+text-transform: none;
+white-space: normal;
+word-break: break-word;
+display: initial;
+}
+
 html,
 body {
   font-size: 16px;
@@ -1900,4 +1962,13 @@ maage-navbar .topMenuButton .topMenuLink {
 .register-btn:hover {
   background-color: #477e93;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+div#bv-brc-home {
+  background: #f8f6f4!important;
+  background-color: #f8f6f4!important;
+}
+
+div#maage-homepage {
+  background-color: #f8f6f4!important;
 }
