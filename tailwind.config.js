@@ -13,7 +13,6 @@ module.exports = {
             },
             colors: {
                 maage: {
-
                     bg: {
                         DEFAULT: "#f8f9fa",
                         faint: "#fcfcfd",
