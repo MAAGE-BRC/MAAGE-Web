@@ -1,104 +1,88 @@
-<div style="width:100%;margin-top: 28px;">
-  <div style="max-width:400px; margin-left: auto; margin-right: auto;text-align:center;">
-    <!-- <img src="/patric/images/bv-brc/bv-brc-logo-bgwhite.png" style='margin:0px;margin-bottom:16px;width:300px' /> -->
-    <h1 class="alt-login-note" style="font-size: 1.5rem;line-height: 1.9; text-align: center;">
-      MAAGE Login
-    </h1>
-    <div class="maage-login">
-      <div class="loginForm" style="width: 350px;margin-left:auto;margin-right:auto; ">
-        <form
-          dojoAttachPoint="containerNode"
-          class="${baseClass} PanelForm patric-login"
-          dojoAttachEvent="onreset:_onReset,onsubmit:_onSubmit,onchange:validate"
-        >
-          <div class="">
-            <div style="padding:2px; margin:10px;margin-left:auto;margin-right:auto;">
-              <input
-                type="text"
-                name="username"
-                data-dojo-attach-point="unField"
-                data-dojo-type="dijit/form/TextBox"
-                style="width:100%"
-                data-dojo-props="placeholder:'MAAGE - username or email address', intermediateChanges: true"
-                data-dojo-attach-event="onChange: validatePatricCreds"
-                required="true"
-              /><br/>
-            </div>
-            <div style="padding:2px;margin-left:auto;margin-right:auto;">
-              <input
-                type="password"
-                name="password"
-                data-dojo-attach-point="pwField"
-                data-dojo-type="dijit/form/TextBox"
-                style="width:100%"
-                data-dojo-props="placeholder:'MAAGE - password', intermediateChanges: true"
-                data-dojo-attach-event="onChange: validatePatricCreds"
-                required="true"
-              />
-            </div>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+  <div class="max-w-md mx-auto text-center mt-[-100px]">
+    <img src="/maage/img/logos/maage-logo-temp.png" alt="MAAGE Logo" class="w-24 mx-auto mb-4" />
+    <h1 class="text-2xl font-semibold text-gray-800 mb-6">MAAGE Login</h1>
+
+    <div class="loginForm w-[320px] max-w-md bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+
+      <div class="p-6 sm:p-8">
+        <form dojoAttachPoint="containerNode" class="${baseClass} PanelForm patric-login space-y-4"
+          dojoAttachEvent="onreset:_onReset,onsubmit:_onSubmit,onchange:validate">
+
+          <div>
+            <input type="text" name="username" data-dojo-attach-point="unField" data-dojo-type="dijit/form/TextBox"
+              data-dojo-props="placeholder:'Username or Email', intermediateChanges: true"
+              data-dojo-attach-event="onChange: validatePatricCreds" required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" />
           </div>
-  
-          <div class="messageContainer workingMessage">
+          
+          <div>
+            <input type="password" name="password" data-dojo-attach-point="pwField" data-dojo-type="dijit/form/TextBox"
+              data-dojo-props="placeholder:'Password', intermediateChanges: true"
+              data-dojo-attach-event="onChange: validatePatricCreds" required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" />
+          </div>
+
+          <div class="messageContainer workingMessage hidden text-sm text-gray-500">
             Signing into MAAGE...
           </div>
-          <div class="messageContainer errorMessage">
+          <div class="messageContainer errorMessage hidden text-sm text-red-600">
             We were unable to sign you in with the credentials provided.
           </div>
-  
-          <div style="padding:2px; margin-left:auto;margin-right:auto;">
-            <div
-              data-dojo-attach-point="submitBtn"
-              type="submit"
-              value="Submit"
-              data-dojo-type="dijit/form/Button"
+
+          <div>
+            <div data-dojo-attach-point="submitBtn" type="submit" value="Submit" data-dojo-type="dijit/form/Button"
               data-dojo-props="disabled:true"
-            >
+              class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-md cursor-pointer transition">
               Sign In
             </div>
           </div>
-  
-          <div style="margin-left:auto; margin-right:auto;margin-top:16px;padding:8px; ">
-            <a style="float:left;"class="forgotPW" data-dojo-attach-event="click: makeFPform">Forgot your password?</a> <a style="float: right;" class="forgotPW navigationLink" href="/register">Register/Subscribe</a>
-          </div>
-  
-          <div class="loginError" style="color:red;margin:10px;font-size:1.1em;width:100%;"></div>
-  
-  
         </form>
       </div>
+
+      <div class="bg-gray-100 border-t border-gray-200 flex justify-between text-sm px-4 py-3">
+        <a class="forgotPW navigationLink rounded-md text-maage-secondary-600 hover:text-maage-secondary-600/80 hover:underline visited:text-maage-secondary-600 px-3 py-1 transition"
+          href="/register">
+          Register
+        </a>
+        <a class="forgotPW navigationLink rounded-md text-maage-secondary-600 hover:text-maage-secondary-600/80 hover:underline visited:text-maage-secondary-600 px-3 py-1 transition"
+          href="/register">
+          Reset Password
+        </a>
       </div>
+    </div>
 
+    <div class="loginError text-red-600 text-sm mt-3 px-1 hidden">
+      <!-- dynamically filled by the system -->
+    </div>
+
+    <div class="pwReset hidden max-w-sm mx-auto mt-8 border border-gray-300 rounded-md bg-white shadow p-4">
+      <h2 class="text-center text-base font-semibold text-gray-700 bg-gray-100 py-2 rounded">PASSWORD RESET</h2>
+      <form>
+        <input
+          data-dojo-props="placeholder:'Email Address or Username',promptMessage:'Enter your Email Address or User Name',intermediateChanges:true"
+          class="rpwi w-full mt-4 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+          data-dojo-attach-event="onChange:fieldChanged2" data-dojo-attach-point="emailAddress" type="text" name="rsw"
+          data-dojo-type="dijit/form/TextBox" required />
+        <div
+          class="RSPWbutton w-full mt-4 bg-primary-600 hover:bg-primary-700 text-white text-center py-2 px-4 rounded-lg cursor-pointer transition"
+          data-dojo-attach-event="click:onResetClick" data-dojo-attach-point="resetPWbutton" type="button"
+          data-dojo-type="dijit/form/Button">
+          Reset Password
+        </div>
+      </form>
+    </div>
+    
+    <div class="pwrError hidden text-center text-red-600 text-sm mt-4 border border-red-300 px-4 py-2 rounded-md">
+      Unable to reset the account with the provided email address
+    </div>
+
+    <div class="pwrMessage hidden max-w-sm mx-auto mt-6 border border-green-300 rounded-md bg-white shadow p-4">
+      <h2 class="text-center text-base font-semibold text-green-700 bg-gray-100 py-2 rounded">Your Password has been
+        reset</h2>
+      <p class="text-sm text-gray-700 mt-2 text-center">Please check your email for instructions to complete the reset
+        process.</p>
+    </div>
   </div>
 
-
-  <div class="pwReset" style="display:none; max-width:200px; margin:auto; border:2px">
-    <h2 style="margin:0px;padding:4px;font-size:1.2em;text-align:center;background:#eee;">PASSWORD RESET</h2>
-    <p>&nbsp;</p>
-    <form>
-      <input
-        data-dojo-props="placeholder:'Email Address or Username',promptMessage:'Enter your Email Address or User Name',intermediateChanges:true"
-        class="rpwi"
-        data-dojo-attach-event="onChange:fieldChanged2"
-        data-dojo-attach-point="emailAddress"
-        style="width:100%"
-        type="text"
-        name="rsw"
-        data-dojo-type="dijit/form/TextBox"
-        required="true"
-        value=""
-      >
-      <p>&nbsp;</p>
-      <div class="RSPWbutton" data-dojo-attach-event="click:onResetClick" style="margin:auto" data-dojo-attach-point="resetPWbutton" type="button" data-dojo-type="dijit/form/Button">Reset Password</div>
-    </form>
-  </div>
-
-  <div class="pwrError" style="text-align: center; padding: 2px; margin: 10px; border: 1px solid red; border-radius: 4px;display:none">
-    Unable to reset the account with the provided email address
-  </div>
-
-  <div class="pwrMessage" style="display:none; border:2px">
-    <h2 style="margin:0px;padding:4px;font-size:1.2em;text-align:center;background:#eee;">Your Password has been reset</h2>
-    <p>Please check your email for instructions to complete the reset process.</p>
-  </div>
-  <p>&nbsp;</p>
 </div>
