@@ -32,7 +32,7 @@ define([
     _setStateAttr: function (state) {
       this._set('state', state);
 
-      var sumWidgets = ['rgSummaryWidget', 'gmSummaryWidget', 'spgSummaryWidget', 'apmSummaryWidget'];
+      var sumWidgets = [];
 
       sumWidgets.forEach(function (w) {
         if (this[w]) {
