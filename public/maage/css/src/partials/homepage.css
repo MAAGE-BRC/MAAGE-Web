@@ -4,7 +4,11 @@ div#bv-brc-home.maage-background {
 
 div#bv-brc-home.maage-background {
     background-color: var(--maage-bg-default)!important;
-    padding-top: 25px;
+    padding-top: 50px;
+}
+
+#maage-homepage {
+    position: relative;
 }
 
 btn-guide-links {

@@ -133,6 +133,8 @@
     --maage-sky-gray-800: #1e2938;
     --maage-sky-gray-900: #111828;
     --maage-sky-gray-950: #030712;
+
+    --maage-seasalt: #f8f9fa;
 }
 
 [data-theme="dark"] {
