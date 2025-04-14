@@ -5,7 +5,10 @@
   "scripts": {
     "start": "node ./bin/p3-web",
     "postinstall": "./post_install.sh",
-    "build:twcss": "tailwindcss -i ./public/maage/css/src/twcss/input.css -o ./public/maage/css/dist/twcss/output.css"
+    "build:css:tw": "npx tailwindcss -i ./public/maage/css/src/tw/input.css -o ./public/maage/css/src/tw/output.css",
+    "build:css:maage": "postcss ./public/maage/css/src/index.css -o ./public/maage/css/dist/maage.css",
+    "build:css:maage.min": "postcss ./public/maage/css/dist/maage.css -o ./public/maage/css/dist/maage.min.css",
+    "build:css": "npm run build:css:tw && npm run build:css:maage && npm run build:css:maage.min"
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -49,7 +52,9 @@
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.21",
+    "cssnano": "^7.0.6",
     "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "tailwindcss": "^3.4.17"
   }
