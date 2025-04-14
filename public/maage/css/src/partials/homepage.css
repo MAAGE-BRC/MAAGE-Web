@@ -1,0 +1,8 @@
+div#bv-brc-home.maage-background {
+    background-color: blue!important;
+}
+
+div#bv-brc-home.maage-background {
+    background-color: var(--maage-bg-default)!important;
+    padding-top: 25px;
+}

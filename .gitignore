@@ -43,16 +43,6 @@ p3-web.conf-dev.maage
 p3-web.conf-test.maage
 p3-web.conf-prod.maage
 
-# Editors, IDEs, Terminals
-.vscode/
-.idea/
-.zed/
-.fleet/
-*.swp
-.project
-.warp
-CLAUDE.md
-
 # macOS
 .DS_Store
 .AppleDouble
@@ -112,11 +102,10 @@ NTUSER.INI
 .Xdefaults
 
 # build
-dist/
-build/
-test/
-src/
-coverage/
+/dist/
+/build/
+/test/
+/src/
 public/js/release/
 
 # testing & coverage
@@ -151,4 +140,17 @@ node_repl_history
 
 # TEMP - TO BE REMOVED
 package-lock.json
+
+# Editors, IDEs, Terminals, AI, etc
+# Should often be handled by excludes 
+.vscode/
+*.code-workspace
+.idea/
+.zed/
+.fleet/
+*.swp
+.project
+.warp
+CLAUDE.md
+.augment-guidelines
 .qodo
