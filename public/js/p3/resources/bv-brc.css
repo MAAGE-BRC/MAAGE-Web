@@ -33,12 +33,11 @@
 #bv-brc-page {
   box-sizing: border-box;
   margin: 0;
-  padding: 10px;
   background: var(--main-bg);
 }
 
 #bv-brc-header {
-  background: var(--blue);
+  background: var(--maage-primary-400);
 }
 
 #bv-brc-header-container {
@@ -67,19 +66,6 @@
   /* justify-content: center; */
 }
 
-/* .nav-logo-link span {
-  font-size: 1.85em;
-  font-weight: 400;
-  padding-left: 10px;
-  color: #ffffff;
-  align-self: center;
-  transition: color .1s;
-} */
-
-/* .nav-logo-link span:hover,
-.nav-logo-link span:focus {
-  color: #cbcbcb;
-} */
 
 #bv-brc-header-container .bv-brc-logo {
   margin-right: 0;
@@ -108,7 +94,7 @@
 #bv-brc-page-container {
   display: flex;
   justify-content: flex-start;
-  max-width: 1220px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -702,7 +688,7 @@
 @media (min-width: 1400px) {
   #bv-brc-home #bv-brc-home-container,
   #bv-brc-footer-container {
-    max-width: 100%;
+    max-width: 90%;
   }
 }
 

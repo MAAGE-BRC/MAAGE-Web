@@ -23,10 +23,6 @@
 @import url("./DataItemFormatter.css");
 @import url("./D3StackedBarChart.css");
 @import url("bv-brc.css");
-@import url("google-fonts.css");
-/* @import url("fonts.css"); */
-@import url("design-vars.css");
-@import url("maage.css");
 @import url("./dlp.css");
 @import url("./help.css");
 @import url("webpage.css");
@@ -37,6 +33,3 @@
 @import url("../../cytoscape-context-menus/cytoscape-context-menus.css");
 @import url("./archaeopteryx/jquery-ui.css");
 @import url("end.css");
-@import url("brc.css");
-@import url("tw.css");
-@import url("user.css");
