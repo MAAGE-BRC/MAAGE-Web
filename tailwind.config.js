@@ -11,6 +11,9 @@ module.exports = {
                 body: ["Inter", "sans-serif"],
                 mono: ["IBM Plex Mono", "monospace"],
             },
+            maxWidth: {
+                'maage': '1400px',
+              },
             colors: {
                 maage: {
                     bg: {
