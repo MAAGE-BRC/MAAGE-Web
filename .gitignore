@@ -45,6 +45,7 @@ p3-web.conf-prod.maage
 
 # Editors, IDEs, Terminals
 .vscode/
+*.code-workspace
 .idea/
 .zed/
 .fleet/
@@ -52,6 +53,7 @@ p3-web.conf-prod.maage
 .project
 .warp
 CLAUDE.md
+.augment-guidelines
 
 # macOS
 .DS_Store
@@ -117,7 +119,7 @@ build/
 test/
 src/
 coverage/
-
+public/js/release/
 
 # testing & coverage
 coverage/
@@ -133,6 +135,8 @@ intern.js
 .htmlhintrc
 .jshintrc
 .editorconfig
+gulpfile.js
+gulpified
 
 # temp files & caches
 .pnp.*
@@ -147,10 +151,9 @@ out/
 .nyc_output/
 node_repl_history
 
-# misc
-gulpfile.js
-gulpified
-
 # TEMP - TO BE REMOVED
 package-lock.json
 .qodo
+
+bvbrc/
+keep/

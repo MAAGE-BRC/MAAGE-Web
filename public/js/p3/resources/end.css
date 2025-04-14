@@ -913,7 +913,7 @@ div.pubmed ul li {
 .patric .PerspectiveQuery .current {
     font-size: 1.1em;
     font-weight: bold;
-    color: #76a72d;
+
 }
 
 .patric .PerspectiveTotalCount {
@@ -925,7 +925,7 @@ div.pubmed ul li {
     float:left;
     color:#76a72d;
     margin:4px;
-    padding-right: 3px;
+    padding-right: 5px;
 }
 
 .patric.claro .breadcrumb.dijitContentPane {

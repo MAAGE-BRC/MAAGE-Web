@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<title>Midwest Alliance for Applied Genomic Epidemiology | MAAGE</title>
 		<%- include('head') %>
-	  </head>
-	<body class="claro patric bg-maage-bg <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
-		<div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+	</head>
+
+	<body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+		<div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer"
+			data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
 			<%- include('navbar') %>
-			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;" class="bg-[var(--maage-bg)]">
-                <%- include('home') %>
-            </div>
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+				style="padding:0px;border:0px solid #ddd;background:inherit;">
+				<%- include('home') %>
+			</div>
 		</div>
 		<%- include('javascript') %>
 	</body>
 	<style>
 		#bv-brc-header {
-    padding: 0!important;
-  }
-  .p3header-search {
-    display: none;
-  }
+			padding: 0 !important;
+		}
+
+		.p3header-search {
+			max-width: 100px;
+		}
 	</style>
+
 </html>
