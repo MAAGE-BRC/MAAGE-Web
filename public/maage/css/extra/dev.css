@@ -221,10 +221,13 @@ div#bv-brc-home.maage-background {
   position: relative;
 }
 
-#maage-home,
+#maage-home {
+  background-color: var(--maage-bg-default);
+  padding-top: 50px;
+}
+
 #maage-page {
   background-color: var(----maage-bg-default);
-  padding-top: 50px;
 }
 
 btn-guide-links {
