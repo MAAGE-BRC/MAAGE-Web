@@ -3,7 +3,7 @@
 
   <head>
     <title>About MAAGE | MAAGE</title>
-    <%- include('../head') %>
+    <%- include('page-head') %>
   </head>
 
   <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
@@ -15,7 +15,6 @@
         <div id="bv-brc-page">
           <div id="bv-brc-page-container">
             <div id="maage-page" class="maage-content">
-
               <div class="bg-gradient-to-r from-[#e8f0ec] to-[#e8f0ec]/70 py-16">
                 <div class="max-w-7xl mx-auto px-4">
                   <div class="max-w-4xl">
@@ -38,8 +37,8 @@
                   <h2 class="text-3xl font-semibold text-[#2c3e50] mb-8 text-center font-poppins">Collaborative
                     Initiative</h2>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
-                      <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 flex flex-col">
+                      <div class="p-6 flex items-center justify-center h-32 bg-gray-100"><img
                           alt="Argonne National Laboratory" loading="lazy" width="200" height="80" decoding="async"
                           data-nimg="1" class="max-h-16 w-auto about-logo" style="color:transparent"
                           src="/maage/img/logos/anl-logo.png"></div>
@@ -57,8 +56,8 @@
                         </a>
                       </div>
                     </div>
-                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
-                      <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 flex flex-col">
+                      <div class="p-6 flex items-center justify-center h-32 bg-gray-100"><img
                           alt="Illinois Department of Public Health" loading="lazy" width="200" height="80"
                           decoding="async" data-nimg="1" class="max-h-16 w-auto about-logo" style="color:transparent"
                           src="/maage/img/logos/idph-logo.png"></div>
@@ -76,8 +75,8 @@
                         </a>
                       </div>
                     </div>
-                    <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 flex flex-col">
-                      <div class="p-6 flex items-center justify-center h-32 bg-[#f8faf9]"><img
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 flex flex-col">
+                      <div class="p-6 flex items-center justify-center h-32 bg-gray-100"><img
                           alt="University of Illinois" loading="lazy" width="200" height="80" decoding="async"
                           data-nimg="1" class="max-h-16 w-auto about-logo" style="color:transparent"
                           src="/maage/img/logos/illinois-logo.png"></div>
@@ -137,7 +136,7 @@
                               </div>
                               <div>
                                 <h4 class="font-medium text-[#2c3e50] font-poppins">Protection</h4>
-                                <p class="text-sm text-[#4a5568] font-inter">Safeguarding public health .../p></p>
+                                <p class="text-sm text-[#4a5568] font-inter">Safeguarding public health ...</p>
                               </div>
                             </div>
                             <div class="flex items-start">
@@ -203,57 +202,51 @@
                   <div class="max-w-7xl mx-auto px-4">
                     <h2 class="text-3xl font-semibold text-[#2c3e50] mb-4 font-poppins text-center">Our Leadership</h2>
                     <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto">MAAGE is led by a
-                      team of distinguished principal investigators from our partner organizations, each bringing unique
-                      expertise to our collaborative initiative.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-                        <div class="aspect-w-1 aspect-h-1 relative"><img alt="Charles Williams" loading="lazy"
-                            decoding="async" data-nimg="fill" class="object-cover"
-                            style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent"
-                            src="/placeholder.svg?height=300&amp;width=300">
-                          <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#a6c9b8"></div>
+                      team of distinguished principal investigators from each collaborating organization</p>
+                      <div class="grid md:grid-cols-3 gap-8">
+                        <div
+                            class="bg-maage-secondary-50 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <div class="p-6 text-center">
+                                <div
+                                    class="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-6 flex items-center justify-center overflow-hidden">
+                                    <img alt="Charles Williams" class="object-cover" src="https://placeholder.pics/svg/500"></div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-1 font-display">Charles Williams</h3>
+                                <p class="text-primary-600 font-medium mb-3">Chief of Testing</p>
+                                <p class="text-sm text-gray-500 mb-3">Illinois Department of Public Health</p>
+                                <p class="text-sm text-gray-700">With extensive experience in public health testing protocols, Charles
+                                    Williams leads our testing initiatives with precision and expertise. His work has been instrumental in
+                                    developing efficient and accurate testing methods for various infectious diseases.</p>
+                            </div>
                         </div>
-                        <div class="p-6">
-                          <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Charles Williams</h3>
-                          <p class="text-[#548fa6] mb-1 font-inter">Chief of Testing</p>
-                          <p class="text-sm text-[#4a5568] mb-4 font-inter">Illinois Department of Public Health</p>
-                          <p class="text-[#4a5568] font-inter">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <div
+                            class="bg-maage-tertiary-50 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <div class="p-6 text-center">
+                                <div
+                                    class="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-6 flex items-center justify-center overflow-hidden">
+                                    <img alt="Rebecca Smith" class="object-cover" src="https://placeholder.pics/svg/500"></div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-1 font-display">Rebecca Smith</h3>
+                                <p class="text-primary-600 font-medium mb-3">Associate Professor of Pathology</p>
+                                <p class="text-sm text-gray-500 mb-3">University of Illinois Urbana-Champaign</p>
+                                <p class="text-sm text-gray-700">Dr. Smith brings a wealth of knowledge in pathology and molecular
+                                    diagnostics. Her research focuses on developing innovative approaches to disease detection and
+                                    characterization, contributing significantly to our understanding of pathogen evolution and
+                                    transmission.</p>
+                            </div>
                         </div>
-                      </div>
-                      <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-                        <div class="aspect-w-1 aspect-h-1 relative"><img alt="Rebecca Smith, Ph.D." loading="lazy"
-                            decoding="async" data-nimg="fill" class="object-cover"
-                            style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent"
-                            src="/placeholder.svg?height=300&amp;width=300">
-                          <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#548fa6"></div>
+                        <div
+                            class="bg-maage-primary-50 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <div class="p-6 text-center">
+                                <div
+                                    class="w-32 h-32 mx-auto bg-gray-200 rounded-full mb-6 flex items-center justify-center overflow-hidden">
+                                    <img alt="Thomas Brettin" class="object-cover" src="https://placeholder.pics/svg/500"></div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-1 font-display">Thomas Brettin</h3>
+                                <p class="text-primary-600 font-medium mb-3">Strategic Program Manager</p>
+                                <p class="text-sm text-gray-500 mb-3">Argonne National Laboratory</p>
+                                <p class="text-sm text-gray-700">Thomas Brettin excels in managing large-scale scientific initiatives. His
+                                    expertise in coordinating multi-disciplinary teams and leveraging advanced computational resources has
+                                    been crucial in driving our genomic surveillance projects forward.</p>
+                            </div>
                         </div>
-                        <div class="p-6">
-                          <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Rebecca Smith, Ph.D.</h3>
-                          <p class="text-[#548fa6] mb-1 font-inter">Associate Professor of Pathology</p>
-                          <p class="text-sm text-[#4a5568] mb-4 font-inter">University of Illinois</p>
-                          <p class="text-[#4a5568] font-inter">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
-                      </div>
-                      <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
-                        <div class="aspect-w-1 aspect-h-1 relative"><img alt="Tom Brettin" loading="lazy"
-                            decoding="async" data-nimg="fill" class="object-cover"
-                            style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent"
-                            src="/placeholder.svg?height=300&amp;width=300">
-                          <div class="absolute bottom-0 left-0 right-0 h-1" style="background-color:#ecc187"></div>
-                        </div>
-                        <div class="p-6">
-                          <h3 class="text-xl font-semibold text-[#2c3e50] font-poppins">Tom Brettin</h3>
-                          <p class="text-[#548fa6] mb-1 font-inter">Strategic Program Manager</p>
-                          <p class="text-sm text-[#4a5568] mb-4 font-inter">Argonne National Laboratory</p>
-                          <p class="text-[#4a5568] font-inter">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -450,7 +443,6 @@
         </div>
       </div>
       <%- include('../javascript') %>
-  </body>
   </body>
 
 </html>
