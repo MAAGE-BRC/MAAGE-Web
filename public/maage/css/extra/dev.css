@@ -137,7 +137,6 @@
   --maage-seasalt: #f8f9fa;
 }
 
-/* === text reset utilities === */
 .text-reset-basic {
   all: unset;
   display: inline;
@@ -207,6 +206,25 @@ body {
 .fa {
   font-display: block !important;
 
+}
+
+div#bv-brc-home.maage-background {
+  background-color: blue!important;
+}
+
+div#bv-brc-home.maage-background {
+  background-color: var(--maage-bg-default)!important;
+  padding-top: 50px;
+}
+
+#maage-homepage {
+  position: relative;
+}
+
+btn-guide-links {
+  border: 1px solid var(--maage-gray-200);
+  border-radius: 4px;
+  color: var(--maage-text-default);
 }
 
 div.PerspectiveHeader>i.fa.PerspectiveIcon.icon-selection-Taxonomy {
