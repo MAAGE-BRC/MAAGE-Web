@@ -1,6 +1,6 @@
 {
   "name": "p3-web",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "private": true,
   "scripts": {
     "start": "node ./bin/p3-web",
@@ -9,7 +9,7 @@
     "build:css:index": "postcss ./public/maage/css/src/index.css -o ./public/maage/css/dist/maage.css",
     "build:css:min": "postcss ./public/maage/css/dist/maage.css -o ./public/maage/css/dist/maage.min.css",
     "build:css:maage": "npm run build:css:tw && npm run build:css:index",
-    "build:css:maage-min": "npm run build:css:tw && npm run build:css:maage && npm run build:css:maage.min"
+    "build:css:maage-min": "npm run build:css:tw && npm run build:css:maage && npm run build:css:maage-min"
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -50,8 +50,6 @@
     "webcola": "^3.4.0"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.0.6",
     "postcss": "^8.5.3",

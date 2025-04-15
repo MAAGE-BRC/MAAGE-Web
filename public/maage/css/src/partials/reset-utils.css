@@ -105,12 +105,34 @@
     font-weight: 400;
 }
 
-.text-reset-hard {
-    all: initial;
-    font-family: sans-serif;
-    font-size: medium;
-    font-weight: normal;
-    color: black;
-    text-decoration: none;
-    display: initial;
+.body-text-reset-hard {
+  all: initial;
+  font-family: var(--maage-font-body, sans-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--maage-text-default, #212529);
+  text-align: left;
+  text-decoration: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: break-word;
+  display: initial;
+}
+
+.heading-text-reset-hard {
+  all: initial;
+  font-family: var(--maage-font-heading, sans-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--maage-text-default, #212529);
+  text-align: left;
+  text-decoration: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: break-word;
+  display: initial;
 }
