@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Team Members | MAAGE</title>
+        <title>Our Team| Midwest Alliance for Applied Genomic Epidemiology</title>
         <%- include('page-head') %>
     </head>
     <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
@@ -31,7 +31,7 @@
 
                             <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
                                 <div class="max-w-7xl mx-auto px-4">
-                                    <div class="flex overflow-x-auto py-4 gap-4"><a href="#argonne"
+                                    <div class="flex overflow-x-auto py-4 gap-4"><a href="#anl"
                                             class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-primary-100 text-maage-primary-700 hover:bg-maage-primary-200/75 font-medium font-inter">Argonne
                                             National Laboratory</a><a href="#idph"
                                             class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-secondary-100 text-maage-secondary-700 hover:bg-maage-secondary-200/75 font-medium font-inter">Illinois
@@ -44,7 +44,7 @@
 
 
 
-                            <section id="argonne" class="py-8 border-b border-gray-200">
+                            <section id="anl" class="py-8 border-b border-gray-200">
                               <div class="max-w-7xl mx-auto px-4">
                         
                               <div class="flex flex-col md:flex-row gap-6 mb-6">
@@ -385,12 +385,40 @@
                                 </div>
                               </div>
                             </div>
-                            </section>
-
-                              <section class="h-[50px] bg-maage-primary-400/80"></section>
+ </section>
 
 
-                        </div>
+                        </div><script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            const OFFSET = 55;
+                        
+                            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                              anchor.addEventListener("click", function (e) {
+                                const targetId = this.getAttribute("href").substring(1);
+                                const target = document.getElementById(targetId);
+                        
+                                if (!target) return;
+                        
+                                e.preventDefault();
+                        
+                                // Find the scrollable container — in your case likely #maage-page or a nested one
+                                const scrollContainer = document.querySelector("#maage-page");
+                        
+                                if (!scrollContainer) return;
+                        
+                                const targetTop = target.getBoundingClientRect().top;
+                                const containerTop = scrollContainer.getBoundingClientRect().top;
+                        
+                                const scrollOffset = targetTop - containerTop + scrollContainer.scrollTop - OFFSET;
+                        
+                                scrollContainer.scrollTo({
+                                  top: scrollOffset,
+                                  behavior: "smooth"
+                                });
+                              });
+                            });
+                          });
+                        </script>
                     </div>
                 </div>
                 <%- include('../footer') %>
