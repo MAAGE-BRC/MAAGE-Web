@@ -11,7 +11,6 @@ module.exports = {
         mono: ['"IBM Plex Mono"', 'monospace'],
       },
       colors: {
-        // Base colors
         maage: {
           bg: {
             default: '#f8f9fa',
@@ -39,7 +38,6 @@ module.exports = {
           },
         },
 
-        // Semantic colors
         success: {
           50: '#f2fbf5',
           500: '#4ba675',
@@ -61,7 +59,6 @@ module.exports = {
           600: '#417cbf',
         },
 
-        // Brand palettes
         primary: {
           50: '#f6f9f7',
           100: '#e6f0e9',
@@ -128,7 +125,6 @@ module.exports = {
           950: '#491d22',
         },
 
-        // Additional grayscale variants
         'gray-nickel': {
           50: '#f8f8f7',
           100: '#eeeeec',
