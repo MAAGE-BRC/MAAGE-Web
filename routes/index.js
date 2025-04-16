@@ -19,6 +19,12 @@ router.get("/team", function (req, res) {
   res.render("pages/team", { title: "PATRIC", request: req, response: res });
 });
 
+/* Team Members */
+router.get("/team-temp", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/team-temp", { title: "PATRIC", request: req, response: res });
+});
+
 /* Advisory Boards. */
 router.get("/advisory-boards", function (req, res) {
   req.applicationModule = "p3/app/p3app";

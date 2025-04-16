@@ -1,15 +1,32 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet">
+<% if (request && request.applicationOptions.gaID) { %>
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%- request.applicationOptions.gaID %>"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', '<%- request.applicationOptions.gaID %>', {
+		'link_attribution': true
+	});
+</script>
+<% } %>
+
+<% if (request && request.applicationOptions.MSClarityID) { %>
+<script type="text/javascript">
+	(function (c, l, a, r, i, t, y) {
+		c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+		t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+		y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+	})(window, document, "clarity", "script", "<%- request.applicationOptions.MSClarityID %>");
+</script>
+<% } %>
 
 <%
-const load_css = [
-	"p3/resources/p3.css",
-	"heatmap/dist/hotmap.css",
-];
-%>
+	const load_css = [
+		"p3/resources/p3.css",
+		"heatmap/dist/hotmap.css",
+	];
+	%>
 <% if (request && request.production) { %>
 <% load_css.forEach(function(url) { %>
 <link rel='stylesheet' href="/js/<%- request.package.version %>/<%- url %>" />
@@ -20,7 +37,222 @@ const load_css = [
 <% }) %>
 <% } %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
 
-<%- include('partials/helper') %>
-<link rel="stylesheet" href="/maage/css/extra/dev.css">
-<link rel="stylesheet" href="/maage/icomoon/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+	tailwind.config = {
+		theme: {
+			extend: {
+				fontFamily: {
+					heading: ["Poppins", "sans-serif"],
+					body: ["Inter", "sans-serif"],
+					mono: ["IBM Plex Mono", "monospace"],
+				},
+				maxWidth: {
+					'maage': '1400px',
+				},
+				colors: {
+					maage: {
+						bg: {
+							DEFAULT: "#f8f9fa",
+							faint: "#fcfcfd",
+							subtle: "#f1f3f5",
+							alt: "#f3f4f6",
+							muted: "#e9ecef",
+							soft: "#eaeef0",
+							strong: "#dee2e6",
+							inverse: "#ffffff",
+						},
+						surface: "#ffffff",
+						border: "#dee2e6",
+						text: {
+							DEFAULT: "#212529",
+							muted: "#495057",
+							subtle: "#6c757d",
+							inverse: "#f8f9fa",
+							link: "#447188",
+							primary: 'var(--maage-primary-500)',
+							secondary: 'var(--maage-secondary-500)',
+							tertiary: 'var(--maage-tertiary-500)',
+							quaternary: 'var(--maage-quaternary-500)',
+							quinary: 'var(--maage-quinary-500)',
+						},
+						success: {
+							50: "#f2fbf5",
+							500: "#4ba675",
+							600: "#3d8d61",
+						},
+						warning: {
+							50: "#fff9eb",
+							500: "#f0b429",
+							600: "#d99a1c",
+						},
+						error: {
+							50: "#fef2f2",
+							500: "#d9534f",
+							600: "#c0392b",
+						},
+						info: {
+							50: "#eef6fb",
+							500: "#5b9bd5",
+							600: "#417cbf",
+						},
+
+						'primary': {
+							'50': '#f9fbfa',
+							'100': '#ecf3f0',
+							'200': '#d6e5de',
+							'300': '#b4d0c3',
+							'400': '#98bdac',
+							'500': '#6ea089',
+							'600': '#57856f',
+							'700': '#496f5d',
+							'800': '#3c5d4e',
+							'900': '#324d41',
+							'950': '#1c2b24',
+						},
+
+						'secondary': {
+							'50': '#eef4f7',
+							'100': '#dce9ef',
+							'200': '#c1d8e1',
+							'300': '#a0c2cf',
+							'400': '#71a3b7',
+							'500': '#568ea4',
+							'600': '#467186',
+							'700': '#406477',
+							'800': '#365263',
+							'900': '#2e4656',
+							'950': '#22333f',
+						},
+
+						'tertiary': {
+							'50': '#fdfaf2',
+							'100': '#fbf6e9',
+							'200': '#f8edd8',
+							'300': '#f4e4c2',
+							'400': '#edd5a6',
+							'500': '#e7c788',
+							'600': '#dab46c',
+							'700': '#d29c4b',
+							'800': '#bb8335',
+							'900': '#946729',
+							'950': '#6d461d',
+						},
+
+						'quaternary': {
+							'50': '#f6f6f9',
+							'100': '#efeff5',
+							'200': '#dfdfec',
+							'300': '#cbc9de',
+							'400': '#b0aecb',
+							'500': '#9a96bb',
+							'600': '#847ba7',
+							'700': '#6c638c',
+							'800': '#585171',
+							'900': '#48435b',
+							'950': '#2a2839',
+						},
+
+						'quinary': {
+							'50': '#fbf6f5',
+							'100': '#f8eceb',
+							'200': '#f1dbda',
+							'300': '#e6bebb',
+							'400': '#d79895',
+							'500': '#c56e6e',
+							'600': '#ab4e52',
+							'700': '#923e44',
+							'800': '#7b363d',
+							'900': '#6c323a',
+							'950': '#491d22',
+						},
+
+						'gray-base': {
+							'50': '#f5f5f5',
+							'100': '#ededed',
+							'200': '#dedede',
+							'300': '#c9c9c9',
+							'400': '#adadad',
+							'500': '#8f8f8f',
+							'600': '#757575',
+							'700': '#595959',
+							'800': '#454545',
+							'900': '#333333',
+							'950': '#262626',
+						},
+
+						'gray-cool': {
+							'50': '#f9fafb',
+							'100': '#f3f4f6',
+							'200': '#e5e7eb',
+							'300': '#d0d5dc',
+							'400': '#9aa3b1',
+							'500': '#687182',
+							'600': '#495465',
+							'700': '#364153',
+							'800': '#1e2938',
+							'900': '#111828',
+							'950': '#030712',
+						},
+						'gray-cool': {
+							'50': '#f9fafb',
+							'100': '#f3f4f6',
+							'200': '#e5e7eb',
+							'300': '#d0d5dc',
+							'400': '#9aa3b1',
+							'500': '#687182',
+							'600': '#495465',
+							'700': '#364153',
+							'800': '#1e2938',
+							'900': '#111828',
+							'950': '#030712',
+						},
+
+					},
+				},
+				plugins: [
+				],
+			}
+		}
+	}
+</script>
+<link rel="stylesheet" href="/maage/css/dist/maage.min.css">
+<link rel="stylesheet" href="/maage/css/src/dev.css">
+<link rel="stylesheet" href="/maage/css/src/fontawesome/brands.min.css">
+<link rel="stylesheet" href="/maage/css/src/fontawesome/v4-shims.min.css">
+<link rel="stylesheet" href="/maage/css/src/icomoon/style.css">
+
+<style>
+	/* Style dijit TextBoxes */
+	.dijitTextBox .dijitInputInner {
+		@apply w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500;
+	}
+
+	/* Optional: Hide placeholder span when input is filled */
+	.dijitInputInner:not(:placeholder-shown)+.dijitPlaceHolder {
+		display: none;
+	}
+
+	/* ComboBox + FilteringSelect */
+	.dijitComboBox .dijitInputInner {
+		@apply pr-10;
+	}
+
+	/* Make full dijitTextBox containers fill width */
+	.dijitTextBox,
+	.dijitValidationTextBox,
+	.dijitComboBox {
+		@apply w-full;
+	}
+
+	/* Action buttons (e.g. Reset / Search) already look decent but we can enforce style just in case */
+	.dijitButtonText {
+		@apply text-sm font-medium;
+	}
+</style>
