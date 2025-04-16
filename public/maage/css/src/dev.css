@@ -381,32 +381,33 @@ div#dijit_layout_TabContainer_0_tablist > div.dijitTabInner.dijitTabContent.diji
 }
 
 div.column-sub > div.section:nth-child(n) > h3.section-title.close {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
 }
 
 div.column-prime > div.section:nth-child(n) > h3.section-title.close {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
 }
 
 div.column-opt > div.section:nth-child(n) > h3.close.section-title {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
 }
 
 div.section:nth-child(3) > h3.section-title.close2x {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
   ;
 }
 
 div.column-sub a,
 div.column-prime a,
 div.column-opt a {
-  color: #436d58;
+  color: var(--maage-secondary-700);
 }
 
 div.column-sub a:hover,
 div.column-prime a:hover,
 div.column-opt a:hover {
-  color: var(--maage-primary-500);
+  color: var(--maage-secondary-700);
+  opacity: 75%;
 }
 
 div.ActionButtonWrapper > div.ActionButton.fa.icon-info-circle.fa-2x {
