@@ -26,7 +26,7 @@
 		"p3/resources/p3.css",
 		"heatmap/dist/hotmap.css",
 	];
-	%>
+%>
 <% if (request && request.production) { %>
 <% load_css.forEach(function(url) { %>
 <link rel='stylesheet' href="/js/<%- request.package.version %>/<%- url %>" />
@@ -39,10 +39,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet">
-
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 	tailwind.config = {
@@ -117,19 +115,21 @@
 							'950': '#1c2b24',
 						},
 
+
 						'secondary': {
 							'50': '#eef4f7',
 							'100': '#dce9ef',
 							'200': '#c1d8e1',
-							'300': '#a0c2cf',
-							'400': '#71a3b7',
-							'500': '#568ea4',
-							'600': '#467186',
-							'700': '#406477',
-							'800': '#365263',
-							'900': '#2e4656',
-							'950': '#22333f',
+							'300': '#a0c1cf',
+							'400': '#87afc0',
+							'500': '#5f94ab',
+							'600': '#467386',
+							'700': '#406777',
+							'800': '#365663',
+							'900': '#2e4a56',
+							'950': '#22363f',
 						},
+
 
 						'tertiary': {
 							'50': '#fdfaf2',
@@ -145,6 +145,7 @@
 							'950': '#6d461d',
 						},
 
+
 						'quaternary': {
 							'50': '#f6f6f9',
 							'100': '#efeff5',
@@ -158,6 +159,7 @@
 							'900': '#48435b',
 							'950': '#2a2839',
 						},
+
 
 						'quinary': {
 							'50': '#fbf6f5',
@@ -173,7 +175,8 @@
 							'950': '#491d22',
 						},
 
-						'gray-base': {
+
+						'gray-neutral': {
 							'50': '#f5f5f5',
 							'100': '#ededed',
 							'200': '#dedede',
@@ -200,18 +203,19 @@
 							'900': '#111828',
 							'950': '#030712',
 						},
-						'gray-cool': {
-							'50': '#f9fafb',
-							'100': '#f3f4f6',
-							'200': '#e5e7eb',
-							'300': '#d0d5dc',
-							'400': '#9aa3b1',
-							'500': '#687182',
-							'600': '#495465',
-							'700': '#364153',
-							'800': '#1e2938',
-							'900': '#111828',
-							'950': '#030712',
+
+						'gray-warm': {
+							'50': '#f8f8f7',
+							'100': '#eeeeec',
+							'200': '#dfdfdc',
+							'300': '#ccccc7',
+							'400': '#b2b1a9',
+							'500': '#9a988e',
+							'600': '#838177',
+							'700': '#6b6961',
+							'800': '#585650',
+							'900': '#484742',
+							'950': '#2b2a27',
 						},
 
 					},
@@ -222,37 +226,9 @@
 		}
 	}
 </script>
+<link rel="stylesheet" href="/maage/fontawesome/fontawesome.css">
+<link rel="stylesheet" href="/maage/fontawesome/brands.min.css">
+<link rel="stylesheet" href="/maage/fontawesome/v4-shims.min.css">
+<link rel="stylesheet" href="/maage/css/src/icomoon/style.css">
 <link rel="stylesheet" href="/maage/css/dist/maage.min.css">
 <link rel="stylesheet" href="/maage/css/src/dev.css">
-<link rel="stylesheet" href="/maage/css/src/fontawesome/brands.min.css">
-<link rel="stylesheet" href="/maage/css/src/fontawesome/v4-shims.min.css">
-<link rel="stylesheet" href="/maage/css/src/icomoon/style.css">
-
-<style>
-	/* Style dijit TextBoxes */
-	.dijitTextBox .dijitInputInner {
-		@apply w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500;
-	}
-
-	/* Optional: Hide placeholder span when input is filled */
-	.dijitInputInner:not(:placeholder-shown)+.dijitPlaceHolder {
-		display: none;
-	}
-
-	/* ComboBox + FilteringSelect */
-	.dijitComboBox .dijitInputInner {
-		@apply pr-10;
-	}
-
-	/* Make full dijitTextBox containers fill width */
-	.dijitTextBox,
-	.dijitValidationTextBox,
-	.dijitComboBox {
-		@apply w-full;
-	}
-
-	/* Action buttons (e.g. Reset / Search) already look decent but we can enforce style just in case */
-	.dijitButtonText {
-		@apply text-sm font-medium;
-	}
-</style>
