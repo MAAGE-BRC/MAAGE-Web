@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Publications | MAAGE</title>
+        <%- include('../head') %>
+    </head>
+
+    <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+        <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer"
+            data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+            <%- include('../navbar') %>
+            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+                style="padding:0px;border:0px solid #ddd;background:inherit;">
+                <div id="bv-brc-page">
+                    <div id="bv-brc-page-container" style="width:100%;">
+                        <div class="page-content" style="width:80%; margin: 0 auto; text-align:left;">
+                            <style>
+                                h1 {
+                                    font-family: 'Poppins', sans-serif;
+                                    font-weight: 600;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+
+                                p {
+                                    font-family: 'Inter', sans-serif;
+                                    font-weight: 400;
+                                    font-size: 16px;
+                                    line-height: 1.5;
+                                }
+                            </style>
+                            <div class="max-w-[75%] mx-auto">
+
+
+                                <h1 id="privacy-policy" class="text-2xl font-semibold font-poppins pt-4 pb-6">
+                                    Publications</h1>
+
+                                <p class="italic">There are no publications available at this time.</p>
+
+                                <br>
+                                <div class="mt-6">
+
+                                    <a href="/"
+                                        class="btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-secondary-300 font-normal transition-colors duration-200 text-sm">
+
+                                        <span class="text-[#fafafa]">Back to Home</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="maage-fixed-footer">
+                    <%- include('../footer') %>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../javascript') %>
+    </body>
+
+</html>
