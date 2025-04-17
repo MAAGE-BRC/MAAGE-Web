@@ -56,15 +56,15 @@ router.get("/advisory-boards", function (req, res) {
 //   });
 // });
 
-// /* GET publications page. */
-// router.get("/publications", function (req, res) {
-//   req.applicationModule = "p3/app/p3app";
-//   res.render("pages/publications", {
-//     title: "PATRIC",
-//     request: req,
-//     response: res,
-//   });
-// });
+/* GET publications page. */
+router.get("/publications", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/publications", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
 
 // /* GET related resources page. */
 // router.get("/related-resources", function (req, res) {
