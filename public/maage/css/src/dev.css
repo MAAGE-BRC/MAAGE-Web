@@ -131,6 +131,7 @@
   --maage-text-subtle: #6c757d;
   --maage-text-inverse: #f8f9fa;
   --maage-text-link: #447188;
+  --maage-text-white: #fafafa;
   --maage-text-primary: var(--maage-primary-500);
   --maage-text-secondary: var(--maage-secondary-500);
   --maage-text-tertiary: var(--maage-tertiary-500);
@@ -1830,7 +1831,6 @@ div#maage-homepage {
 
 .footer-wrapper .footer-logo-container {
   display: flex;
-  margin-bottom: 14.4px;
   align-items: center;
   border: 0;
 }
@@ -1890,76 +1890,8 @@ div#maage-homepage {
   background-color: rgb(166, 201, 184);
   width: 50px;
   height: 4px;
-  margin-top: -4px;
   margin-bottom: 25px;
   border: 0;
-}
-
-.footer-wrapper .connect-section {
-  margin-top: 12px;
-  border: 0;
-  padding: 0;
-}
-
-.footer-wrapper .connect-heading {
-  font-weight: 600;
-  font-size: 12.6px;
-  line-height: 18px;
-  font-family: Poppins, sans-serif;
-  margin: 0 0 15.75px;
-  padding: 0;
-  color: rgb(219, 219, 219);
-  border: 0;
-}
-
-.footer-wrapper .social-links {
-  display: flex;
-  margin-top: 5px;
-  padding: 0;
-  border: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.footer-wrapper .social-link {
-  font-family: Inter, sans-serif;
-  margin: 0;
-  padding: 0;
-  transition-duration: 0.3s;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  color: rgb(44, 44, 44);
-  text-decoration: none;
-  border: 0;
-}
-
-.footer-wrapper .social-link:not(:first-child) {
-  margin-left: 14.4px;
-}
-
-.footer-wrapper .social-icon {
-  font-family: 'Font Awesome 6 Brands';
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  line-height: 27px;
-  text-rendering: auto;
-  transition-duration: 0.3s;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  color: rgb(219, 219, 219);
-  font-size: 27px;
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.footer-wrapper .email-icon {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
 }
 
 .footer-wrapper .footer-nav-section {
