@@ -356,7 +356,7 @@ define([
 
       docs.forEach(function (doc) {
         out.push("<div class='searchResult'>");
-        out.push("<div class='resultHead' style='color: #09456f;'>" + doc.source + ' | ' + doc.description + '</a></div>');
+        out.push("<div class='resultHead' style='color:#447188!important;'>" + doc.source + ' | ' + doc.description + '</a></div>');
         out.push("<div class='resultInfo'>" + doc.genome_name + '</div>');
         out.push("<div class='resultInfo'>" + doc.patric_id + ' | ' + doc.refseq_locus_tag + '</div>');
         out.push('</div>');
@@ -372,7 +372,7 @@ define([
 
       docs.forEach(function (doc) {
         out.push("<div class='searchResult'>");
-        out.push("<div class='resultHead' style='color: #09456f;'>" + doc.epitope_id + ' | ' + doc.epitope_sequence + '</a></div>');
+        out.push("<div class='resultHead' style='color: #447188!important;'>" + doc.epitope_id + ' | ' + doc.epitope_sequence + '</a></div>');
         out.push("<div class='resultInfo'>" + doc.protein_name + '</div>');
         out.push("<div class='resultInfo'>" + doc.organism + '</div>');
         out.push('</div>');

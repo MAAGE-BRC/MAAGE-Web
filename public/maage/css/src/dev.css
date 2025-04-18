@@ -131,6 +131,8 @@
   --maage-text-subtle: #6c757d;
   --maage-text-inverse: #f8f9fa;
   --maage-text-link: #447188;
+  --maage-text-link-white: f5f5f5;
+  --maage-text-white: #fafafa;
   --maage-text-primary: var(--maage-primary-500);
   --maage-text-secondary: var(--maage-secondary-500);
   --maage-text-tertiary: var(--maage-tertiary-500);
@@ -298,6 +300,18 @@ body {
   font-size: 16px;
 }
 
+#ApplicationContainer {
+  background-color: #f8f9fa;
+}
+
+#ApplicationContainer .App {
+  background-color: #f8f9fa;
+}
+
+#ApplicationContainer .App .appTemplate {
+  background-color: #f8f9fa;
+}
+
 .fa {
   font-display: block !important;
 }
@@ -381,32 +395,33 @@ div#dijit_layout_TabContainer_0_tablist > div.dijitTabInner.dijitTabContent.diji
 }
 
 div.column-sub > div.section:nth-child(n) > h3.section-title.close {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
 }
 
 div.column-prime > div.section:nth-child(n) > h3.section-title.close {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
 }
 
 div.column-opt > div.section:nth-child(n) > h3.close.section-title {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
 }
 
 div.section:nth-child(3) > h3.section-title.close2x {
-  background-color: #9cc2af;
+  background-color: var(--maage-primary-400);
   ;
 }
 
 div.column-sub a,
 div.column-prime a,
 div.column-opt a {
-  color: #436d58;
+  color: var(--maage-secondary-700);
 }
 
 div.column-sub a:hover,
 div.column-prime a:hover,
 div.column-opt a:hover {
-  color: var(--maage-primary-500);
+  color: var(--maage-secondary-700);
+  opacity: 75%;
 }
 
 div.ActionButtonWrapper > div.ActionButton.fa.icon-info-circle.fa-2x {
@@ -437,7 +452,7 @@ div.ActionBar.dijitBorderContainerNoGutter-child.dijitBorderContainerNoGutter-Ac
 
 div.selectedList {
   background-color: #ecc187;
-  color: #333333;
+  color: #212529;
   margin: 0 0 2px;
   min-height: 21px;
   text-align: center;
@@ -682,6 +697,10 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 span#dijit_form_DropDownButton_4_label {
   cursor: pointer;
   font-weight: normal;
+}
+
+#bv-brc-header-container .navigation-intem {
+  cursor: pointer !important;
 }
 
 div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(6) {
@@ -1552,24 +1571,6 @@ body {
   align-items: center !important;
 }
 
-.menuHeader:nth-of-type(2)::before {
-  content: '';
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  background-repeat: no-repeat;
-}
-
-.menuHeader:nth-of-type(3)::before {
-  content: '';
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  background-repeat: no-repeat;
-}
-
 .menuItemWrapper {
   margin: 1px 0 !important;
   padding: 0 6px !important;
@@ -1689,7 +1690,7 @@ maage-navbar .topMenuButton .topMenuLink {
   border: 2px solid #4d85a2;
   border-radius: 6px;
   box-sizing: border-box;
-  color: #333333;
+  color: #212529;
   font-family: Poppins, sans-serif;
   font-size: 16px;
   font-size-adjust: none;
@@ -1748,11 +1749,11 @@ maage-navbar .topMenuButton .topMenuLink {
   left: 100%;
 }
 
-.login-btn {
+#bv-brc-header #bv-brc-header-container .login-btn {
+  background-color: #f8f9fa !important;
   color: #334a57;
   font-weight: 400;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--maage-seasalt);
 }
 
 .login-btn:hover {
@@ -1795,7 +1796,7 @@ div#maage-homepage {
 .footer-wrapper .footer {
   background-color: rgb(60, 103, 126);
   padding-top: 43.2px;
-  min-height: 275px;
+  min-height: 300px;
   border: 0;
   margin: 0;
 }
@@ -1829,7 +1830,6 @@ div#maage-homepage {
 
 .footer-wrapper .footer-logo-container {
   display: flex;
-  margin-bottom: 14.4px;
   align-items: center;
   border: 0;
 }
@@ -1889,76 +1889,8 @@ div#maage-homepage {
   background-color: rgb(166, 201, 184);
   width: 50px;
   height: 4px;
-  margin-top: -4px;
   margin-bottom: 25px;
   border: 0;
-}
-
-.footer-wrapper .connect-section {
-  margin-top: 12px;
-  border: 0;
-  padding: 0;
-}
-
-.footer-wrapper .connect-heading {
-  font-weight: 600;
-  font-size: 12.6px;
-  line-height: 18px;
-  font-family: Poppins, sans-serif;
-  margin: 0 0 15.75px;
-  padding: 0;
-  color: rgb(219, 219, 219);
-  border: 0;
-}
-
-.footer-wrapper .social-links {
-  display: flex;
-  margin-top: 5px;
-  padding: 0;
-  border: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.footer-wrapper .social-link {
-  font-family: Inter, sans-serif;
-  margin: 0;
-  padding: 0;
-  transition-duration: 0.3s;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  color: rgb(44, 44, 44);
-  text-decoration: none;
-  border: 0;
-}
-
-.footer-wrapper .social-link:not(:first-child) {
-  margin-left: 14.4px;
-}
-
-.footer-wrapper .social-icon {
-  font-family: 'Font Awesome 6 Brands';
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  line-height: 27px;
-  text-rendering: auto;
-  transition-duration: 0.3s;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  color: rgb(219, 219, 219);
-  font-size: 27px;
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.footer-wrapper .email-icon {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
 }
 
 .footer-wrapper .footer-nav-section {
@@ -2003,28 +1935,6 @@ div#maage-homepage {
   padding: 0;
   list-style-position: inside;
   list-style: none;
-  border: 0;
-}
-
-.footer-wrapper .footer-nav-item {
-  margin: 0;
-  padding: 3.6px 0 0;
-  font-size: 12.96px;
-  line-height: 19.44px;
-  border: 0;
-}
-
-.footer-wrapper .footer-nav-link {
-  font-family: Inter, sans-serif;
-  margin: 0;
-  padding: 0;
-  transition-duration: 0.3s;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  color: rgb(219, 219, 219);
-  font-weight: 400;
-  font-size: 15px;
-  text-decoration: none;
   border: 0;
 }
 
@@ -2076,4 +1986,78 @@ div#maage-homepage {
   font-weight: 300;
   text-decoration: none;
   border: 0;
+}
+
+div.searchResultsContainer .searchResult .resultHead a,
+div.searchResultsContainer .searchResult .resultHead a:visited {
+  color: var(--maage-secondary-600);
+  font-family: Poppins;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+div.searchResultsContainer .searchResult .resultHead a:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+.maage-search-results-container div.searchResultsContainer > td > a.navigationLink,
+.maage-search-results-container div.searchResultsContainer > td > a.navigationLink:visited {
+  color: var(--maage-secondary-600) !important;
+  font-family: Poppins !important;
+  font-weight: 600 !important;
+}
+
+.maage-search-results-container div.searchResultsContainer > td > a.navigationLink:hover {
+  opacity: 0.75 !important;
+  text-decoration: underline !important;
+}
+
+#bv-brc-page .page-content {
+  padding: 20px 40px;
+  background: var(--white-bg);
+  flex-basis: 100%;
+}
+
+#bv-brc-page .page-content h1 {
+  color: var(--maage-text-default) !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.75rem;
+  font-weight: semibold;
+
+}
+
+#bv-brc-page .page-content h3 {
+  color: var(--maage-secondary-600) !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: medium;
+
+}
+
+#bv-brc-page .page-content a {
+  font-weight: 300;
+  color: var(--maage-secondary-500)
+}
+
+#bv-brc-page .page-content a.maage-btn {
+  font-weight: 400;
+  color: #f5f5f5;
+  border: 2px solid var(--maage-secondary-600);
+}
+
+#bv-brc-page .page-content a.maage-btn:hover {
+  font-weight: 400;
+  color: var(--maage-secondary-600);
+  border: 2px solid var(--maage-secondary-600);
+}
+
+.maage-fixed-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  width: 100vw;
+  z-index: 100;
+  background: inherit;
 }
