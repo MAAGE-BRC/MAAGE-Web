@@ -1,431 +1,511 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Our Team| Midwest Alliance for Applied Genomic Epidemiology</title>
-        <%- include('page-head') %>
-    </head>
-    <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
-        <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer"
-            data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
-            <%- include('../navbar') %>
-            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
-                style="padding:0px;border:0px solid #ddd;background:inherit;">
-                <div id="bv-brc-page">
-                    <div id="bv-brc-page-container">
-                        <div id="maage-page" class="maage-content">
 
-                            <div class="bg-gradient-to-r from-[#e8f0ec] to-[#e8f0ec]/70 py-12">
-                                <div class="max-w-7xl mx-auto px-4">
-                                    <div class="max-w-4xl">
-                                        <h1 class="text-4xl md:text-5xl font-bold text-[#2c3e50] mb-6 font-poppins">Our
-                                            Team</h1>
-                                        <p class="text-xl text-[#4a5568] font-inter leading-relaxed">Meet the dedicated
-                                            professionals behind
-                                            MAAGE who are working to advance genomic surveillance and epidemiological
-                                            research across the
-                                            Midwest. Our multidisciplinary team brings together expertise from three
-                                            leading organizations.</p>
-                                    </div>
-                                </div>
-                            </div>
+  <head>
+    <title>Our Team | Midwest Alliance for Applied Genomic Epidemiology</title>
+    <%- include('../head') %>
+  </head>
 
-                            <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
-                                <div class="max-w-7xl mx-auto px-4">
-                                    <div class="flex overflow-x-auto py-4 gap-4"><a href="#anl"
-                                            class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-primary-100 text-maage-primary-700 hover:bg-maage-primary-200/75 font-medium font-inter">Argonne
-                                            National Laboratory</a><a href="#idph"
-                                            class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-secondary-100 text-maage-secondary-700 hover:bg-maage-secondary-200/75 font-medium font-inter">Illinois
-                                            Department of Public Health</a><a href="#uiuc"
-                                            class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-quaternary-100 text-maage-quaternary-800 hover:bg-maage-quaternary-200/75 font-medium font-inter">University
-                                            of Illinois</a></div>
-                                </div>
-                            </div>
+  <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+    <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer"
+      data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+      <%- include('../navbar') %>
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+        style="padding:0px;border:0px solid #ddd;background:inherit;">
+        <div id="bv-brc-page">
+          <div id="bv-brc-page-container">
+            <div id="maage-page" class="maage-content">
 
+              <div class="bg-gradient-to-r from-[#e8f0ec] to-[#e8f0ec]/70 py-16 h-[300px]">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="max-w-4xl">
+                    <h1 class="text-5xl font-semibold text-[var(--maage-text-default)] mb-6 font-poppins">Our
+                      Team</h1>
+                    <p class="pt-4 text-xl text-[var(--maage-text-default)] font-inter leading-relaxed">Meet the dedicated
+                      professionals behind
+                      MAAGE who are working to advance genomic surveillance and epidemiological
+                      research across the
+                      Midwest. Our multidisciplinary team brings together expertise from three
+                      leading organizations.</p>
+                    <div class="flex flex-wrap gap-4 mt-8">
 
-
-
-                            <section id="anl" class="py-8 border-b border-gray-200">
-                              <div class="max-w-7xl mx-auto px-4">
-                        
-                              <div class="flex flex-col md:flex-row gap-6 mb-6">
-                                <div class="flex-shrink-0">
-                                  <div class="bg-white border border-gray-200 p-4 rounded-md w-32 h-32 flex items-center justify-center">
-                                    <div class="w-16 h-16 bg-gray-100 flex items-center justify-center">
-                                      <span class="text-xs text-gray-500">LOGO</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="flex-grow">
-                                  <h3 class="text-[18px] font-semibold font-poppins">Argonne National Laboratory</h3>
-                                  <p class="text-gray-700 mb-4 font-inter text-[15px]">
-                                    Argonne National Laboratory is a multidisciplinary science and engineering research center, advancing
-                                    scientific knowledge and addressing critical challenges in energy, environment, and national security.
-                                    Founded in 1946, Argonne has a rich history of groundbreaking discoveries and continues to be at the
-                                    forefront of scientific innovation.
-                                  </p>
-                                  <a href="https://www.anl.gov" target="_blank" class="inline-flex items-center text-maage-primary-600 hover:underline">
-                                    <span>www.anl.gov</span>
-                                  </a>
-                                </div>
-                              </div>
-                        
-                              <div>
-                                <h3 class="text-lg font-semibold border-l-4 border-[#488970] pl-3 mb-6">Team Members</h3>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Thomas Brettin</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Principal Investigator</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Nicole Bowers</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Clark Cuchrell</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">James Davis</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Marcus Nguyen</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Robert Olson</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Maulik Shukla</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Christopher Thomas</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            </section>
-
-                           
-
-                            <section id="idph" class="py-8 border-b border-gray-200">
-                              <div class="max-w-7xl mx-auto px-4">                        
-                              <div class="flex flex-col md:flex-row gap-6 mb-6">
-                                <div class="flex-shrink-0">
-                                  <div class="bg-white border border-gray-200 p-4 rounded-md w-32 h-32 flex items-center justify-center">
-                                    <div class="w-16 h-16 bg-gray-100 flex items-center justify-center">
-                                      <span class="text-xs text-gray-500">LOGO</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="flex-grow">
-                                  <h3 class="text-[18px] font-semibold font-poppins">Illinois Department of Public Health</h3>
-                                  <p class="text-gray-700 text-[15px] font-inter mb-4">
-                                    The Illinois Department of Public Health is dedicated to improving health outcomes and ensuring public
-                                    health safety across the state of Illinois. With a history dating back to 1877, the IDPH has been at the
-                                    forefront of protecting and promoting the health of Illinois residents for over 140 years.
-                                  </p>
-                                  <a href="https://dph.illinois.gov" target="_blank" class="inline-flex items-center text-maage-secondary-600 hover:underline">
-                                    <span>dph.illinois.gov</span>
-                                  </a>
-                                </div>
-                              </div>
-                        
-                              <div>
-                                <h3 class="text-lg font-semibold border-l-4 border-[#488970] pl-3 mb-6">Team Members</h3>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Charles Williams</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Principal Investigator</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Vincent Delman</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Matthew Leslie</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Lori Saathoff-Huber</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Ryan Welch</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            </section>
-
-                            <section id="uofi" class="py-8 border-b border-gray-200">
-                              <div class="max-w-7xl mx-auto px-4">
-                        
-                              <div class="flex flex-col md:flex-row gap-6 mb-6">
-                                <div class="flex-shrink-0">
-                                  <div class="bg-white border border-gray-200 p-4 rounded-md w-32 h-32 flex items-center justify-center">
-                                    <div class="w-16 h-16 bg-gray-100 flex items-center justify-center">
-                                      <span class="text-xs text-gray-500">LOGO</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="flex-grow">
-                                  <h3 class="text-[18px] font-semibold">University of Illinois</h3>
-                                  <p class="text-gray-700 mb-4 text-[15px]">
-                                    The University of Illinois System is a world leader in research and discovery, with three distinct
-                                    universities and a healthcare enterprise working together to transform lives and serve society. Founded
-                                    in 1867, the University of Illinois has a long-standing tradition of excellence in education, research,
-                                    and public service.
-                                  </p>
-                                  <a href="https://illinois.edu" target="_blank" class="inline-flex items-center text-maage-quaternary-600 hover:underline">
-                                    <span>www.illinois.edu</span>
-                                  </a>
-                                </div>
-                              </div>
-                        
-                              <div>
-                                <h3 class="text-lg font-semibold border-l-4 border-[#488970] pl-3 mb-6">Team Members</h3>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Rebecca Smith</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Principal Investigator</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Carline Campbell</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Jacinda Daniels</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Dana Fehreth</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Claudia Lutz</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                        
-                                  <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
-                                    <div class="flex justify-center mb-2">
-                                      <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <h4 class="text-center font-semibold mb-1">Brad Noor</h4>
-                                    <p class="text-center text-sm text-gray-500 mb-3">Positiion</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
- </section>
-
-
-                        </div><script>
-                          document.addEventListener("DOMContentLoaded", () => {
-                            const OFFSET = 55;
-                        
-                            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                              anchor.addEventListener("click", function (e) {
-                                const targetId = this.getAttribute("href").substring(1);
-                                const target = document.getElementById(targetId);
-                        
-                                if (!target) return;
-                        
-                                e.preventDefault();
-                        
-                                // Find the scrollable container — in your case likely #maage-page or a nested one
-                                const scrollContainer = document.querySelector("#maage-page");
-                        
-                                if (!scrollContainer) return;
-                        
-                                const targetTop = target.getBoundingClientRect().top;
-                                const containerTop = scrollContainer.getBoundingClientRect().top;
-                        
-                                const scrollOffset = targetTop - containerTop + scrollContainer.scrollTop - OFFSET;
-                        
-                                scrollContainer.scrollTo({
-                                  top: scrollOffset,
-                                  behavior: "smooth"
-                                });
-                              });
-                            });
-                          });
-                        </script>
                     </div>
+                  </div>
                 </div>
-                <%- include('../footer') %>
-            </div>
-        </div>
+              </div>
 
-        <%- include('../javascript') %>
-    </body>
+              <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="flex overflow-x-auto py-4 gap-4"><a href="#anl"
+                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-primary-100 text-maage-primary-700 hover:bg-maage-primary-200/75 font-medium font-inter">Argonne
+                      National Laboratory</a><a href="#idph"
+                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-secondary-100 text-maage-secondary-700 hover:bg-maage-secondary-200/75 font-medium font-inter">Illinois
+                      Department of Public Health</a><a href="#uiuc"
+                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-quaternary-100 text-maage-quaternary-800 hover:bg-maage-quaternary-200/75 font-medium font-inter">University
+                      of Illinois</a></div>
+                </div>
+              </div>
+
+
+              <section id="anl" class="py-8 border-b border-gray-200 bg-[#f8f9fa]">
+                <div class="max-w-7xl mx-auto px-4">
+
+                  <div class="flex flex-col md:flex-row gap-6 mb-6">
+                    <div class="flex-shrink-0">
+                      <div
+                        class="bg-white border border-gray-200 p-4 rounded-md w-32 h-32 flex items-center justify-center">
+                        <div class="w-16 h-16 bg-gray-100 flex items-center justify-center">
+                          <span class="text-xs text-gray-500">LOGO</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex-grow">
+                      <h3 class="text-[22px] font-semibold font-poppins">Argonne National Laboratory</h3>
+                      <br>
+                      <p class="text-gray-700 mb-4 font-inter text-[15px] italic">
+                        ANL Team Bio Here
+                      </p>
+                      <a href="https://www.anl.gov" target="_blank"
+                        class="inline-flex items-center text-maage-primary-600 hover:underline">
+                        <span>www.anl.gov</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-semibold border-l-4 border-[#488970] pl-3 mb-6">Team Members</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Thomas Brettin</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">Principal Investigator</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Nicole Bowers</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Clark Cuchrell</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">James Davis</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Marcus Nguyen</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Robert Olson</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Maulik Shukla</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#deede4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#488970]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Christopher Thomas</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+
+              <section id="idph" class="py-8 border-b border-gray-200 bg-[#f7f7f7]">
+                <div class="max-w-7xl mx-auto px-4">
+                  <div class="flex flex-col md:flex-row gap-6 mb-6">
+                    <div class="flex-shrink-0">
+                      <div
+                        class="bg-white border border-gray-200 p-4 rounded-md w-32 h-32 flex items-center justify-center">
+                        <div class="w-16 h-16 bg-gray-100 flex items-center justify-center">
+                          <span class="text-xs text-gray-500">LOGO</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex-grow">
+                      <h3 class="text-[22px] font-semibold font-poppins">Illinois Department of Public Health</h3>
+                      <br>
+                      <p class="text-gray-700 text-[15px] font-inter mb-4 italic">
+                        IDPH Team Bio Here
+                      </p>
+                      <a href="https://dph.illinois.gov" target="_blank"
+                        class="inline-flex items-center text-maage-secondary-600 hover:underline">
+                        <span>dph.illinois.gov</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-semibold border-l-4 border-[#488970] pl-3 mb-6">Team Members</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Charles Williams</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">Principal Investigator</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Vincent Delman</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Matthew Leslie</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Lori Saathoff-Huber</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#dceaef] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#649baf]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Ryan Welch</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section id="uofi" class="py-8 border-b border-gray-200 bg-[#f8f9fa]">
+                <div class="max-w-7xl mx-auto px-4">
+
+                  <div class="flex flex-col md:flex-row gap-6 mb-6">
+                    <div class="flex-shrink-0">
+                      <div
+                        class="bg-white border border-gray-200 p-4 rounded-md w-32 h-32 flex items-center justify-center">
+                        <div class="w-16 h-16 bg-gray-100 flex items-center justify-center">
+                          <span class="text-xs text-gray-500">LOGO</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex-grow">
+                      <h3 class="text-[22px] font-semibold">University of Illinois</h3>
+                      <br>
+                      <p class="text-gray-700 mb-4 text-[15px] italic">
+                        UIUC Team Bio Here
+                      </p>
+                      <a href="https://illinois.edu" target="_blank"
+                        class="inline-flex items-center text-maage-quaternary-600 hover:underline">
+                        <span>www.illinois.edu</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-semibold border-l-4 border-[#488970] pl-3 mb-6">Team Members</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Rebecca Smith</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">Principal Investigator</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Carline Campbell</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Jacinda Daniels</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Dana Fehreth</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Claudia Lutz</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-100 rounded-md p-4 shadow-sm">
+                        <div class="flex justify-center mb-2">
+                          <div class="w-16 h-16 rounded-full bg-[#eeedf4] flex items-center justify-center">
+                            <svg class="w-8 h-8 text-[#a9a1c6]" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M20 19C20 16.7909 16.4183 15 12 15C7.58172 15 4 16.7909 4 19"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </div>
+                        </div>
+                        <h4 class="text-center font-semibold mb-1">Brad Noor</h4>
+                        <p class="text-center text-sm text-gray-500 mb-3">position</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+
+            </div>
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                const OFFSET = 55;
+
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                  anchor.addEventListener("click", function (e) {
+                    const targetId = this.getAttribute("href").substring(1);
+                    const target = document.getElementById(targetId);
+
+                    if (!target) return;
+
+                    e.preventDefault();
+
+                    // Find the scrollable container — in your case likely #maage-page or a nested one
+                    const scrollContainer = document.querySelector("#maage-page");
+
+                    if (!scrollContainer) return;
+
+                    const targetTop = target.getBoundingClientRect().top;
+                    const containerTop = scrollContainer.getBoundingClientRect().top;
+
+                    const scrollOffset = targetTop - containerTop + scrollContainer.scrollTop - OFFSET;
+
+                    scrollContainer.scrollTo({
+                      top: scrollOffset,
+                      behavior: "smooth"
+                    });
+                  });
+                });
+              });
+            </script>
+          </div>
+        </div>
+        <%- include('../footer') %>
+      </div>
+    </div>
+
+    <%- include('../javascript') %>
+  </body>
 
 </html>
