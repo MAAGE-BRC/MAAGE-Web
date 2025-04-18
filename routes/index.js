@@ -26,14 +26,14 @@ router.get("/team-temp", function (req, res) {
 });
 
 /* Advisory Boards. */
-// router.get("/advisory-boards", function (req, res) {
-//   req.applicationModule = "p3/app/p3app";
-//   res.render("pages/advisory-boards", {
-//     title: "PATRIC",
-//     request: req,
-//     response: res,
-//   });
-// });
+router.get("/advisory-boards", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/advisory-boards", {
+    title: "PATRIC",
+    request: req,
+    response: res,
+  });
+});
 
 
 /* Announcements. */
