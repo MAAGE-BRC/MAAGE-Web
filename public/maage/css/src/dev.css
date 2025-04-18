@@ -687,6 +687,10 @@ span#dijit_form_DropDownButton_4_label {
   font-weight: normal;
 }
 
+#bv-brc-header-container .navigation-intem {
+  cursor: pointer !important;
+}
+
 div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(6) {
   background-position: inherit;
   border-radius: 4px;
