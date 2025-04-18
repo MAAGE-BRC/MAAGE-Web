@@ -1751,11 +1751,11 @@ maage-navbar .topMenuButton .topMenuLink {
   left: 100%;
 }
 
-.login-btn {
+#bv-brc-header #bv-brc-header-container .login-btn {
+  background-color: #f8f9fa !important;
   color: #334a57;
   font-weight: 400;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--maage-seasalt);
 }
 
 .login-btn:hover {
