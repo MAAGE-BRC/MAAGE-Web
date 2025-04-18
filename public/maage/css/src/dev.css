@@ -1571,24 +1571,6 @@ body {
   align-items: center !important;
 }
 
-.menuHeader:nth-of-type(2)::before {
-  content: '';
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  background-repeat: no-repeat;
-}
-
-.menuHeader:nth-of-type(3)::before {
-  content: '';
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  background-repeat: no-repeat;
-}
-
 .menuItemWrapper {
   margin: 1px 0 !important;
   padding: 0 6px !important;
