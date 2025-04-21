@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <title>About MAAGE | MAAGE</title>
     <%- include('../head') %>
   </head>
+
   <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
-    <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+    <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer"
+      data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
       <%- include('../navbar') %>
-      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;">
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+        style="padding:0px;border:0px solid #ddd;background:inherit;">
         <div id="bv-brc-page">
           <div id="bv-brc-page-container">
             <div id="maage-page" class="maage-content">
@@ -17,44 +21,49 @@
                     <h1 class="text-5xl font-semibold text-[var(--maage-text-default)] mb-6 font-poppins">About MAAGE
                     </h1>
                     <p class="pt-4 text-xl text-[var(--maage-text-default)] font-inter leading-relaxed">The Midwest
-                                            Alliance for Applied
-                                            Genomic Epidemiology is a collaborative effort developing a comprehensive surveillance platform
-                                            that intends to
-                                            better detect, monitor, and respond to infectious disease threats across the Midwest region.</p>
+                      Alliance for Applied
+                      Genomic Epidemiology is a collaborative effort developing a comprehensive surveillance platform
+                      that intends to
+                      better detect, monitor, and respond to infectious disease threats across the Midwest region.</p>
                   </div>
                 </div>
               </div>
 
 
-
-                            <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
+              <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
                 <div class="max-w-7xl mx-auto px-4">
                   <div class="flex overflow-x-auto py-4 gap-4">
                     <a href="#mission"
-                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-tertiary-100 text-maage-tertiary-800 hover:bg-maage-tertiary-200/75 font-medium font-inter">Our Mission</a>
-                      <a href="#leadership"
-                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-secondary-100 text-maage-secondary-800 hover:bg-maage-secondary-200/75 font-medium font-inter">Our Leadership</a>
-                      <a href="#key-features"
-                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-quaternary-200/90 text-maage-quaternary-800 hover:bg-maage-quaternary-300/75 font-medium font-inter">Key Features</a>
+                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-tertiary-100 text-maage-tertiary-800 hover:bg-maage-tertiary-200/75 font-medium font-inter">Our
+                      Mission</a>
+                    <a href="#leadership"
+                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-secondary-100 text-maage-secondary-800 hover:bg-maage-secondary-200/75 font-medium font-inter">Our
+                      Leadership</a>
+                    <a href="#key-features"
+                      class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-quaternary-200/90 text-maage-quaternary-800 hover:bg-maage-quaternary-300/75 font-medium font-inter">Key
+                      Features</a>
                     <a href="#funding"
                       class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-primary-100 text-maage-primary-700 hover:bg-maage-primary-200/75 font-medium font-inter">Funding</a>
-                    </div>
+                  </div>
                 </div>
               </div>
 
 
-                            <section class="bg-maage-secondary-50 text-gray-800 leading-normal py-16 ">
-                <div class="text-gray-800 leading-normal w-full mx-auto px-4 sm:max-w-screen-sm md:max-w-screen-md md:px-6 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl ">
+              <section class="bg-maage-secondary-50 text-gray-800 leading-normal py-16 ">
+                <div
+                  class="text-gray-800 leading-normal w-full mx-auto px-4 sm:max-w-screen-sm md:max-w-screen-md md:px-6 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl ">
                   <div class="text-gray-800 leading-normal text-center mb-12 ">
-                    <h2 class="text-gray-800 text-3xl font-semibold leading-9 text-center md:text-4xl md:leading-10 custom-styles-2">
+                    <h2
+                      class="text-gray-800 text-3xl font-semibold leading-9 text-center md:text-4xl md:leading-10 custom-styles-2">
                       Our Mission</h2>
                   </div>
-                  <div class="bg-white border-emerald-50 shadow-md text-gray-800 leading-normal max-w-screen-md mx-auto p-8 rounded-lg md:p-10 ">
+                  <div
+                    class="bg-white border-emerald-50 shadow-md text-gray-800 leading-normal max-w-screen-md mx-auto p-8 rounded-lg md:p-10 ">
                     <div class="text-gray-800 leading-normal ">
                       <p class="text-lg text-[#4a5568] mb-6 font-inter leading-relaxed">MAAGE aims to ... lorem ipsum
-                                                dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                                                lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                                                labore et dolore magna aliqua. sed do eiusmod lorem ipsum dolor.
+                        dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                        lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. sed do eiusmod lorem ipsum dolor.
                       </p>
                     </div>
                   </div>
@@ -63,51 +72,63 @@
 
 
               <section class="text-gray-800 leading-normal py-20 bg-gray-50">
-                <div class="text-gray-800 leading-normal w-full mx-auto px-4 sm:max-w-screen-sm md:max-w-screen-md md:px-6 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl ">
+                <div
+                  class="text-gray-800 leading-normal w-full mx-auto px-4 sm:max-w-screen-sm md:max-w-screen-md md:px-6 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl ">
                   <div class="text-gray-800 leading-normal text-center mb-16 ">
-                    <h2 class="text-gray-800 text-3xl font-semibold leading-9 text-center md:text-4xl md:leading-10 custom-styles-2">
+                    <h2
+                      class="text-gray-800 text-3xl font-semibold leading-9 text-center md:text-4xl md:leading-10 custom-styles-2">
                       Our Leadership</h2>
                   </div>
-                  <div class="text-gray-800 gap-x-8 grid grid-cols-1 leading-normal gap-y-8 md:grid-cols-2 lg:grid-cols-3 ">
-                    <div class="bg-white shadow-[0_0_#0000,0_0_#0000,0_1px_2px_0_rgb(0_0_0/0.05)] text-gray-800 leading-normal overflow-hidden transition-all duration-[0.3s] rounded-xl hover:shadow-[rgba(0,0,0,0.1)_0_10px_25px_-5px,rgba(0,0,0,0.05)_0_8px_10px_-6px] hover:translate-y-[-5px] custom-styles-4">
-                      <div class="bg-[linear-gradient(to_bottom_right,#e6f0e9,#dceaef)] text-gray-800 h-48 leading-normal overflow-hidden relative ">
-                        <div class="items-center bg-gray-300 shadow-[0_0_#0000,0_0_#0000,0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] text-gray-800 flex h-32 justify-center leading-normal transition-transform duration-[0.3s] w-32 mt-8 mx-auto rounded-full border-4 border-white custom-styles-4">
+                  <div
+                    class="text-gray-800 gap-x-8 grid grid-cols-1 leading-normal gap-y-8 md:grid-cols-2 lg:grid-cols-3 ">
+                    <div
+                      class="bg-white shadow-[0_0_#0000,0_0_#0000,0_1px_2px_0_rgb(0_0_0/0.05)] text-gray-800 leading-normal overflow-hidden transition-all duration-[0.3s] rounded-xl hover:shadow-[rgba(0,0,0,0.1)_0_10px_25px_-5px,rgba(0,0,0,0.05)_0_8px_10px_-6px] hover:translate-y-[-5px] custom-styles-4">
+                      <div
+                        class="bg-[linear-gradient(to_bottom_right,#e6f0e9,#dceaef)] text-gray-800 h-48 leading-normal overflow-hidden relative ">
+                        <div
+                          class="items-center bg-gray-300 shadow-[0_0_#0000,0_0_#0000,0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] text-gray-800 flex h-32 justify-center leading-normal transition-transform duration-[0.3s] w-32 mt-8 mx-auto rounded-full border-4 border-white custom-styles-4">
                           <span class="text-white text-4xl font-bold leading-9 ">C</span>
                         </div>
                       </div>
                       <div class="text-gray-800 leading-normal text-center p-6 ">
                         <h3 class="text-gray-800 text-xl font-bold leading-7 text-center mb-1 custom-styles-2">Charles
-                                                    Williams</h3>
+                          Williams</h3>
                         <p class="text-maage-secondary-600 text-lg font-medium leading-normal text-center mb-2">Chief of
-                                                    Testing</p>
+                          Testing</p>
                         <p class="text-gray-500 text-lg leading-5 text-center mb-4 ">Illinois Department of Public
-                                                    Health</p>
+                          Health</p>
                       </div>
                     </div>
-                    <div class="bg-white shadow-[0_0_#0000,0_0_#0000,0_1px_2px_0_rgb(0_0_0/0.05)] text-gray-800 leading-normal overflow-hidden transition-all duration-[0.3s] rounded-xl hover:shadow-[rgba(0,0,0,0.1)_0_10px_25px_-5px,rgba(0,0,0,0.05)_0_8px_10px_-6px] hover:translate-y-[-5px] custom-styles-4">
-                      <div class="bg-[linear-gradient(to_bottom_right,#e6f0e9,#dceaef)] text-gray-800 h-48 leading-normal overflow-hidden relative ">
-                        <div class="items-center bg-gray-300 shadow-[0_0_#0000,0_0_#0000,0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] text-gray-800 flex h-32 justify-center leading-normal transition-transform duration-[0.3s] w-32 mt-8 mx-auto rounded-full border-4 border-white custom-styles-4">
+                    <div
+                      class="bg-white shadow-[0_0_#0000,0_0_#0000,0_1px_2px_0_rgb(0_0_0/0.05)] text-gray-800 leading-normal overflow-hidden transition-all duration-[0.3s] rounded-xl hover:shadow-[rgba(0,0,0,0.1)_0_10px_25px_-5px,rgba(0,0,0,0.05)_0_8px_10px_-6px] hover:translate-y-[-5px] custom-styles-4">
+                      <div
+                        class="bg-[linear-gradient(to_bottom_right,#e6f0e9,#dceaef)] text-gray-800 h-48 leading-normal overflow-hidden relative ">
+                        <div
+                          class="items-center bg-gray-300 shadow-[0_0_#0000,0_0_#0000,0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] text-gray-800 flex h-32 justify-center leading-normal transition-transform duration-[0.3s] w-32 mt-8 mx-auto rounded-full border-4 border-white custom-styles-4">
                           <span class="text-white text-4xl font-bold leading-9">R</span>
                         </div>
                       </div>
                       <div class="text-gray-800 leading-normal text-center p-6 ">
                         <h3 class="text-gray-800 text-xl font-bold leading-7 text-center mb-1 custom-styles-2">Rebecca
-                                                    Smith</h3>
+                          Smith</h3>
                         <p class="text-maage-secondary-600 text-lg font-medium leading-normal text-center mb-2">
                           Associate Professor of Pathology</p>
                         <p class="text-gray-500 text-lg leading-5 text-center mb-4 ">University of Illinois
-                                                    Urbana-Champaign</p>
+                          Urbana-Champaign</p>
                       </div>
                     </div>
-                    <div class="bg-white shadow-[0_0_#0000,0_0_#0000,0_1px_2px_0_rgb(0_0_0/0.05)] text-gray-800 leading-normal overflow-hidden transition-all duration-[0.3s] rounded-xl hover:shadow-[rgba(0,0,0,0.1)_0_10px_25px_-5px,rgba(0,0,0,0.05)_0_8px_10px_-6px] hover:translate-y-[-5px] custom-styles-4">
-                      <div class="bg-[linear-gradient(to_bottom_right,#e6f0e9,#dceaef)] text-gray-800 h-48 leading-normal overflow-hidden relative ">
-                        <div class="items-center bg-gray-300 shadow-[0_0_#0000,0_0_#0000,0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] text-gray-800 flex h-32 justify-center leading-normal transition-transform duration-[0.3s] w-32 mt-8 mx-auto rounded-full border-4 border-white custom-styles-4">
+                    <div
+                      class="bg-white shadow-[0_0_#0000,0_0_#0000,0_1px_2px_0_rgb(0_0_0/0.05)] text-gray-800 leading-normal overflow-hidden transition-all duration-[0.3s] rounded-xl hover:shadow-[rgba(0,0,0,0.1)_0_10px_25px_-5px,rgba(0,0,0,0.05)_0_8px_10px_-6px] hover:translate-y-[-5px] custom-styles-4">
+                      <div
+                        class="bg-[linear-gradient(to_bottom_right,#e6f0e9,#dceaef)] text-gray-800 h-48 leading-normal overflow-hidden relative ">
+                        <div
+                          class="items-center bg-gray-300 shadow-[0_0_#0000,0_0_#0000,0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] text-gray-800 flex h-32 justify-center leading-normal transition-transform duration-[0.3s] w-32 mt-8 mx-auto rounded-full border-4 border-white custom-styles-4">
                           <span class="text-white text-4xl font-bold leading-9 ">T</span>
                         </div>
                       </div>
                       <div class="text-gray-800 leading-normal text-center p-6 ">
                         <h3 class="text-gray-800 text-xl font-bold leading-7 text-center mb-1 custom-styles-2">Thomas
-                                                    Brettin</h3>
+                          Brettin</h3>
                         <p class="text-maage-secondary-600 text-lg font-medium leading-normal text-center mb-2">
                           Strategic Program Manager</p>
                         <p class="text-gray-500 text-lg leading-5 text-center mb-4 ">Argonne National Laboratory</p>
@@ -118,14 +139,18 @@
               </section>
               <div class="py-16 bg-maage-primary-50">
                 <div class="max-w-7xl mx-auto px-4">
-                  <h2 class="text-gray-800 text-3xl font-semibold leading-9 text-center md:text-4xl md:leading-10 custom-styles-2">
+                  <h2
+                    class="text-gray-800 text-3xl font-semibold leading-9 text-center md:text-4xl md:leading-10 custom-styles-2">
                     Key Features</h2>
                   <p class="text-lg text-[#4a5568] mb-12 font-inter text-center max-w-3xl mx-auto"></p>
                   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#a6c9b820">
                         <div class="text-white rounded-full p-2" style="background-color:#a6c9b8">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microscope h-6 w-6">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-microscope h-6 w-6">
                             <path d="M6 18h8"></path>
                             <path d="M3 22h18"></path>
                             <path d="M14 22a7 7 0 1 0 0-14h-1"></path>
@@ -139,10 +164,13 @@
                       </h3>
                       <p class="text-[#4a5568] font-inter">State-of-the-art tools ...</p>
                     </div>
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#dceaef">
                         <div class="text-white rounded-full p-2" style="background-color:#548fa6">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-6 w-6">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-globe h-6 w-6">
                             <circle cx="12" cy="12" r="10"></circle>
                             <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
                             <path d="M2 12h20"></path>
@@ -152,10 +180,13 @@
                       <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Real-time Surveillance</h3>
                       <p class="text-[#4a5568] font-inter">Continuous monitoring ...</p>
                     </div>
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#ecc18720">
                         <div class="text-white rounded-full p-2" style="background-color:#ecc187">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-6 w-6">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-users h-6 w-6">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                             <circle cx="9" cy="7" r="4"></circle>
                             <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -166,11 +197,16 @@
                       <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Collaborative Workspaces</h3>
                       <p class="text-[#4a5568] font-inter">Secure environments for ...</p>
                     </div>
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#e6f0e9">
                         <div class="text-white rounded-full p-2" style="background-color:#93b9a8">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse h-6 w-6">
-                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-heart-pulse h-6 w-6">
+                            <path
+                              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                            </path>
                             <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path>
                           </svg>
                         </div>
@@ -178,10 +214,13 @@
                       <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Outbreak Detection</h3>
                       <p class="text-[#4a5568] font-inter">Early warning ...</p>
                     </div>
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#dceaef">
                         <div class="text-white rounded-full p-2" style="background-color:#548fa6">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-network h-6 w-6">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-network h-6 w-6">
                             <rect x="16" y="16" width="6" height="6" rx="1"></rect>
                             <rect x="2" y="16" width="6" height="6" rx="1"></rect>
                             <rect x="9" y="2" width="6" height="6" rx="1"></rect>
@@ -193,10 +232,13 @@
                       <h3 class="text-lg font-semibold text-[#2c3e50] mb-2 font-poppins">Data Integration</h3>
                       <p class="text-[#4a5568] font-inter">Seamless integration of ...</p>
                     </div>
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#e6f0e9">
                         <div class="text-white rounded-full p-2" style="background-color:#a6c9b8">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-round h-6 w-6">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-flask-round h-6 w-6">
                             <path d="M10 2v7.31"></path>
                             <path d="M14 9.3V1.99"></path>
                             <path d="M8.5 2h7"></path>
@@ -209,10 +251,13 @@
                       <p class="text-[#4a5568] font-inter">Specialized tools for ...
                       </p>
                     </div>
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#dceaef">
                         <div class="text-white rounded-full p-2" style="background-color:#548fa6">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2 h-6 w-6">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-building2 h-6 w-6">
                             <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
                             <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
                             <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
@@ -227,11 +272,16 @@
                       <p class="text-[#4a5568] font-inter">Extensive database of ...
                       </p>
                     </div>
-                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div
+                      class="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                       <div class="rounded-full p-3 inline-flex mb-4" style="background-color:#ecc18720">
                         <div class="text-white rounded-full p-2" style="background-color:#ecc187">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-6 w-6">
-                            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-shield h-6 w-6">
+                            <path
+                              d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                            </path>
                           </svg>
                         </div>
                       </div>
@@ -286,4 +336,5 @@
     </div>
     <%- include('../javascript') %>
   </body>
+
 </html>
