@@ -1,31 +1,25 @@
 var express = require("express");
 var router = express.Router();
 
-/* Home. */
+/* GET home. */
 router.get("/", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("index", { title: "PATRIC", request: req, response: res });
 });
 
-/* About MAAGE */
+/* GET about */
 router.get("/about", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("pages/about", { title: "PATRIC", request: req, response: res });
 });
 
-/* Team Members */
+/* GET team */
 router.get("/team", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("pages/team", { title: "PATRIC", request: req, response: res });
 });
 
-/* Team Members */
-router.get("/team-temp", function (req, res) {
-  req.applicationModule = "p3/app/p3app";
-  res.render("pages/team-temp", { title: "PATRIC", request: req, response: res });
-});
-
-/* Advisory Boards. */
+/* GET advisory boards. */
 router.get("/advisory-boards", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("pages/advisory-boards", {
@@ -35,8 +29,7 @@ router.get("/advisory-boards", function (req, res) {
   });
 });
 
-
-/* Announcements. */
+/* GET announcements. */
 router.get("/announcements", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("pages/announcements", {
@@ -86,7 +79,7 @@ router.get("/searches", function (req, res) {
   });
 });
 
-/* GET all tools & services page. */
+/* GET all tools page. */
 router.get("/tools", function (req, res) {
   req.applicationModule = "p3/app/p3app";
   res.render("pages/tools", { title: "PATRIC", request: req, response: res });
@@ -101,6 +94,5 @@ router.get("/privacy-policy", function (req, res) {
     response: res,
   });
 });
-
 
 module.exports = router;
