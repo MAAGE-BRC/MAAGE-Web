@@ -111,7 +111,8 @@
   --maage-gray-warm-900: #484742;
   --maage-gray-warm-950: #2b2a27;
 
-  /* Background */
+  /* background */
+  --maage-background: #f8f9fa;
   --maage-bg-default: #f8f9fa;
   --maage-bg-faint: #fcfcfd;
   --maage-bg-subtle: #f1f3f5;
