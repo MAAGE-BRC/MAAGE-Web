@@ -50,26 +50,31 @@ lucide.createIcons();
   }
 </script>
 
-
-
 <script>
-  // Smooth scrolling
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
+  document.addEventListener("DOMContentLoaded", () => {
+    const OFFSET = 55;
 
-      const targetId = this.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href").substring(1);
+        const target = document.getElementById(targetId);
 
-      if (targetElement) {
+        if (!target) return;
+
+        e.preventDefault();
+
+        const targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+        const scrollOffset = targetTop - OFFSET;
+
         window.scrollTo({
-          top: targetElement.offsetTop - 20,
-          behavior: 'smooth'
+          top: scrollOffset,
+          behavior: "smooth"
         });
-      }
+      });
     });
   });
 </script>
+
 
 <%
 const load_scripts = [
