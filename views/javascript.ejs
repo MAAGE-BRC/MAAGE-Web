@@ -24,34 +24,24 @@ const load_scripts = [
 %>
 
 <% if (request && request.production){ %>
-<% load_scripts.forEach(function(url){ %>
-<script type="text/javascript" src="/js/<%- request.package.version %>/<%- url %>"></script>
-<% }) %>
-<% } else { %>
-<% load_scripts.forEach(function(url){ %>
-<script type="text/javascript" src="/js/<%- url %>"></script>
-<% }) %>
-<% } %>
-
-<% if (request && request.production){ %>
-<script src="/js/<%- request.package.version %>/dojo/dojo.js"></script>
-<script>
-  require(<% - JSON.stringify(request.productionLayers) %>, function () {
+  <script src="/js/<%- request.package.version %>/dojo/dojo.js"></script>
+  <script>
+  require(<%- JSON.stringify(request.productionLayers) %>, function(){
     <% } else { %>
-  <script src="/js/dojo/dojo.js"></script>
-<script>
+      <script src="/js/dojo/dojo.js"></script>
+      <script>
       <% } %>
       require(["<%= request.applicationModule %>"], function(App){
-        appOpts = <% - JSON.stringify(request.applicationOptions || {}) %>;
-      appOpts.workspaceAPI = "<%= request.applicationOptions.workspaceServiceURL %>";
-      appOpts.serviceAPI = "<%= request.applicationOptions.appServiceURL %>";
-      appOpts.dataAPI = "<%= request.applicationOptions.dataServiceURL %>";
-      appOpts.userServiceURL = "<%= request.applicationOptions.userServiceURL %>";
-      appOpts.mailinglistURL = "<%= request.applicationOptions.mailinglistURL %>";
-      appOpts.localStorageCheckInterval = "<%= request.applicationOptions.localStorageCheckInterval %>";
-      window.App = new App(appOpts);
+        appOpts = <%- JSON.stringify(request.applicationOptions || {}) %>;
+        appOpts.workspaceAPI = "<%= request.applicationOptions.workspaceServiceURL %>";
+        appOpts.serviceAPI = "<%= request.applicationOptions.appServiceURL %>";
+        appOpts.dataAPI = "<%= request.applicationOptions.dataServiceURL %>";
+        appOpts.userServiceURL = "<%= request.applicationOptions.userServiceURL %>";
+        appOpts.mailinglistURL = "<%= request.applicationOptions.mailinglistURL %>";
+        appOpts.localStorageCheckInterval = "<%= request.applicationOptions.localStorageCheckInterval %>";
+        window.App = new App(appOpts);
       });
       <% if (request && request.production){ %>
       });
       <% } %>
-</script>
+      </script>
