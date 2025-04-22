@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>PAGE_TEMPLATE | Midwest Alliance for Applied Genomic Epidemiology</title>
+        <%- include('../head') %>
+    </head>
+
+    <body class="claro patric <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+        <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer"
+            data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+            <%- include('../navbar') %>
+            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+                style="padding:0px;border:0px solid #ddd;background:inherit;">
+                <div id="bv-brc-page">
+                    <div id="bv-brc-page-container">
+                        <div id="maage-page" class="maage-content">
+                            <!-- page header -->
+                            <div class="bg-white py-24 sm:py-32">
+                                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                                    <div class="mx-auto max-w-2xl lg:mx-0">
+                                        <h2 class="text-5xl font-semibold tracking-tight text-maage-text">
+                                            Page Header</h2>
+                                        <p class="mt-8 text-pretty text-xl font-inter font-normal text-maage-text">Anim
+                                            aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat
+                                            commodo. Elit sunt amet fugiat veniam occaecat fugiat.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- sticky page nav (optional)-->
+                            <!-- <div class="sticky top-0 bg-white border-b border-gray-200 z-10 shadow-sm">
+                                    <div class="max-w-7xl mx-auto px-4">
+                                    <div class="flex overflow-x-auto py-4 gap-4">
+                                        <a href="#argonne"
+                                        class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-primary-100 text-maage-primary-700 hover:bg-maage-primary-200/75 font-medium font-inter">Argonne
+                                        National Laboratory</a>
+                                        <a href="#idph"
+                                        class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-secondary-100 text-maage-secondary-700 hover:bg-maage-secondary-200/75 font-medium font-inter">Illinois
+                                        Department of Public Health</a>
+                                        <a href="#uofi"
+                                        class="px-4 py-2 whitespace-nowrap rounded-md bg-maage-quaternary-100 text-maage-quaternary-800 hover:bg-maage-quaternary-200/75 font-medium font-inter">University
+                                        of Illinois</a>
+                                    </div>
+                                    </div>
+                                </div> -->
+
+                            <!-- page content -->
+                            <div class="py-12 bg-[var(--maage-background)]">
+                                <div class="max-w-7xl mx-auto px-4">
+
+                                </div>
+                            </div>
+                        </div><!-- end #maage-page and .maage-content -->
+                    </div>
+                </div>
+                <%- include('../footer') %>
+            </div><!-- end dojo center content pane-->
+        </div><!-- end #ApplicationContainer -->
+        <%- include('../javascript') %>
+    </body>
+
+</html>
