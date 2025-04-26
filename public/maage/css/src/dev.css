@@ -299,6 +299,7 @@
 html,
 body {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -335,6 +336,11 @@ pre {
 
 .fa {
   font-display: block !important;
+}
+
+#bv-brc-page-container {
+  overflow-y: auto;
+  height: 100%;
 }
 
 div#bv-brc-home.maage-background {
@@ -448,7 +454,8 @@ div.PerspectiveHeader > span.PerspectiveTotalCount {
 
 div#dijit_layout_TabContainer_0_tablist > div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
   z-index: 3;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */ 
+  white-space: nowrap;
   white-space-collapse: collapse;
   border-color: var(--maage-secondary-500) #b5bcc7 #b5bcc7;
   position: relative;
@@ -515,7 +522,8 @@ div.selectedList {
   margin: 0 0 2px;
   min-height: 21px;
   text-align: center;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   padding: 0;
 }
 
@@ -704,14 +712,16 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1) > span.dijitReset.dijitInline.dijitButtonNode {
   font-family: Poppins;
   font-weight: normal;
-  white-space-collapse: collapse;
-  text-wrap-mode: nowrap;
+  /* white-space-collapse: collapse; */
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
 }
 
 span#dijit_form_DropDownButton_1 {
   font-family: Poppins;
   font-weight: normal;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   background-repeat: repeat-x;
 }
 
@@ -738,14 +748,16 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) > span.dijitReset.dijitInline.dijitButtonNode {
   transition: background-color 0.3s;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   white-space-collapse: collapse;
   font-weight: normal;
 }
 
 span#dijit_form_DropDownButton_3 {
   font-weight: normal;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   background-repeat: repeat-x;
 }
 
@@ -791,7 +803,8 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_5 {
   font-weight: normal;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   background-repeat: repeat-x;
 }
 
@@ -802,7 +815,8 @@ span#dijit_form_DropDownButton_5_label {
 
 span#dijit_form_DropDownButton_6 {
   font-weight: normal;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   background-repeat: repeat-x;
 }
 
@@ -1070,7 +1084,8 @@ span#dijit_form_DropDownButton_0 {
   display: block;
   text-align: center;
   white-space-collapse: collapse;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   background-repeat: repeat-x;
   border-style: initial;
   border-width: 0;
@@ -1097,7 +1112,8 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_1 {
   background-repeat: repeat-x;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   color: #26292c;
   font-weight: 500;
   cursor: pointer;
@@ -1111,7 +1127,8 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_2 {
   background-repeat: repeat-x;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   color: #26292c;
   font-weight: 500;
   cursor: pointer;
@@ -1125,7 +1142,8 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_3 {
   background-repeat: repeat-x;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   color: #34383c;
   font-weight: 500;
   cursor: pointer;
@@ -1139,7 +1157,8 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_4 {
   background-repeat: repeat-x;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   color: #26292c;
   font-weight: 500;
   cursor: pointer;
@@ -1153,7 +1172,8 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_5 {
   background-repeat: repeat-x;
-  text-wrap-mode: nowrap;
+  /* text-wrap-mode: nowrap; */
+  white-space: nowrap;
   color: #26292c;
   font-weight: 500;
   cursor: pointer;
@@ -1823,45 +1843,27 @@ maage-navbar .topMenuButton .topMenuLink {
   text-align: center;
 }
 
-.login-btn::before,
-.register-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.7s ease;
-}
-
-.login-btn:hover::before,
-.register-btn:hover::before {
-  left: 100%;
-}
-
 #bv-brc-header #bv-brc-header-container .login-btn {
-  background-color: #f8f9fa !important;
-  color: #334a57;
+  background-color: var(--maage-background);
+  color: var(--maage-secondary-700);
   font-weight: 400;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .login-btn:hover {
-  color: #fafafa;
-  background-color: #477e93;
+  background-color: #dddddd!important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .register-btn {
   color: #fafafa !important;
-  background-color: var(--maage-secondary-600);
+  background-color: var(--maage-secondary-500);
   margin-right: 10px;
   font-weight: 400;
 }
 
 .register-btn:hover {
-  background-color: #477e93;
+  background-color: var(--maage-secondary-600);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -2195,10 +2197,22 @@ div.searchResultsContainer .searchResult .resultHead a:hover {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+.maage-content .tab-trigger.about.active {
+  background-color: var(--maage-primary-100);
+  color: var(--maage-primary-700);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
 .maage-content .tab-content {
   display: none;
 }
 
 .maage-content .tab-content.active {
   display: block;
+}
+
+.about-scrollspy .tab-trigger.active {
+  background-color: var(--maage-primary-100);
+  color: var(--maage-primary-700);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
