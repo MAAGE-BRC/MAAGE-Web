@@ -28,6 +28,25 @@ lucide.createIcons();
 </script>
 
 <script>
+    const tabTriggers = document.querySelectorAll('.tab-trigger');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabTriggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        tabTriggers.forEach(function (t) { t.classList.remove('active'); });
+        tabContents.forEach(function (c) { c.classList.remove('active'); });
+        trigger.classList.add('active');
+        const tabId = trigger.getAttribute('data-tab');
+        const content = document.getElementById(tabId + '-content');
+        if (content) {
+          content.classList.add('active');
+        } else {
+          console.warn('Tab content not found for:', tabId);
+        }
+      });
+    });
+</script>
+
+<script>
   const advancedToggle = document.getElementById('advancedToggle');
   const advancedPanel = document.getElementById('advancedPanel');
   const chevronDown = document.querySelector('.chevron-down');
