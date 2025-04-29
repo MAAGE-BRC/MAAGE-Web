@@ -4,7 +4,6 @@
 [![License](https://img.shields.io/github/license/MAAGE-BRC/maage-web?style=for-the-badge)](LICENSE)
 [![Open PRs](https://img.shields.io/github/issues-pr/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/pulls)
 [![Issues](https://img.shields.io/github/issues/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/commits/main)
 
 ---
 
