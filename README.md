@@ -20,31 +20,31 @@ Our mission is to develop a comprehensive genomic surveillance and epidemiology 
 
 ## Quick Start
 
-### Prerequisites
+#### Requirements
 
 - Node.js v18.x or newer
 - NPM v9.x or newer
 
-### Clone Repo
+#### Clone
 
 ```bash
 gh repo clone MAAGE-BRC/MAAGE-Web
 ```
 
-### Install Dependencies
+#### Install
 
 ```bash
 cd MAAGE-Web
 npm install
 ```
 
-### Initialize Submodules
+#### Submodules
 
 ```bash
 git submodule update --init
 ```
 
-## Start MAAGE
+#### Start
 
 
 ```bash
