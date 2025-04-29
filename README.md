@@ -1,4 +1,4 @@
-# MAAGE-Web
+# Midwest Alliance for Applied Genomic Epidemiology
 
 [![Version](https://img.shields.io/badge/Release-v0.4.10-blue?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/releases)
 [![License](https://img.shields.io/github/license/MAAGE-BRC/maage-web?style=for-the-badge)](LICENSE)
@@ -6,8 +6,10 @@
 [![Issues](https://img.shields.io/github/issues/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/issues)
 [![Last Commit](https://img.shields.io/github/last-commit/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/commits/main)
 
+---
 
-The **Midwest Alliance for Applied Genomic Epidemiology (MAAGE)** is a collaboration between Argonne National Laboratory, the Illinois Department of Public Health, and the University of Illinois.  
+
+MAAGE is a collaboration between Argonne National Laboratory, the Illinois Department of Public Health, and the University of Illinois.  
 Our mission is to develop a comprehensive genomic surveillance and epidemiology platform, empowering public health agencies to detect and monitor infectious diseases.
 
 
