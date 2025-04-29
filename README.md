@@ -1,0 +1,66 @@
+# MAAGE-Web
+
+[![Version](https://img.shields.io/badge/Release-v0.4.10-blue?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/releases)
+[![License](https://img.shields.io/github/license/MAAGE-BRC/maage-web?style=for-the-badge)](LICENSE)
+[![Open PRs](https://img.shields.io/github/issues-pr/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/pulls)
+[![Issues](https://img.shields.io/github/issues/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/commits/main)
+
+
+The **Midwest Alliance for Applied Genomic Epidemiology (MAAGE)** is a collaboration between Argonne National Laboratory, the Illinois Department of Public Health, and the University of Illinois.  
+Our mission is to develop a comprehensive genomic surveillance and epidemiology platform, empowering public health agencies to detect and monitor infectious diseases.
+
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Contributing Guidelines](#contributing-guidelines)
+- [Changelog](#changelog)
+- [License](#license)
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js v18.x or newer
+- NPM v9.x or newer
+
+### Clone Repo
+
+```bash
+gh repo clone MAAGE-BRC/MAAGE-Web
+```
+
+### Install Dependencies
+
+```bash
+cd MAAGE-Web
+npm install
+```
+
+### Initialize Submodules
+
+```bash
+git submodule update --init
+```
+
+## Start MAAGE
+
+
+```bash
+npm start
+```
+
+Access the development server running the MAAGE web application at [http://localhost:3000](http://localhost:3000)
+
+## Contributing
+
+Anyone is welcome to contribute to the [MAAGE-Web](https://github.com/MAAGE-BRC/MAAGE-Web) repository. For detailed contributer guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
