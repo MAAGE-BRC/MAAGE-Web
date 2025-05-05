@@ -135,25 +135,60 @@
   --maage-text-link: #447188;
   --maage-text-link-white: f5f5f5;
   --maage-text-white: #fafafa;
-  --maage-text-primary: var(--maage-primary-500);
+  --maage-text-primary: var(--maage-primary-400);
   --maage-text-secondary: var(--maage-secondary-500);
   --maage-text-tertiary: var(--maage-tertiary-500);
   --maage-text-quaternary: var(--maage-quaternary-500);
   --maage-text-quinary: var(--maage-quinary-500);
 
   /* semantic */
-  --maage-success-50: #f2fbf5;
-  --maage-success-500: #4ba675;
-  --maage-success-600: #3d8d61;
-  --maage-warning-50: #fff9eb;
-  --maage-warning-500: #f0b429;
-  --maage-warning-600: #d99a1c;
-  --maage-error-50: #fef2f2;
-  --maage-error-500: #d9534f;
-  --maage-error-600: #c0392b;
-  --maage-info-50: #eef6fb;
-  --maage-info-500: #5b9bd5;
-  --maage-info-600: #417cbf;
+--maage-success-50: #f4f9f6;
+--maage-success-100: #e7efe9;
+--maage-success-200: #cfe0d4;
+--maage-success-300: #afc9b8;
+--maage-success-400: #7ba28b;
+--maage-success-500: #578e6f;
+--maage-success-600: #43785b;
+--maage-success-700: #36604a;
+--maage-success-800: #2d4d3d;
+--maage-success-900: #264033;
+--maage-success-950: #14231c;
+
+--maage-warning-50: #fbf8ec;
+--maage-warning-100: #f6f0d0;
+--maage-warning-200: #efdea1;
+--maage-warning-300: #e6c76c;
+--maage-warning-400: #dbac3b;
+--maage-warning-500: #d29b2d;
+--maage-warning-600: #bb7d23;
+--maage-warning-700: #965a1e;
+--maage-warning-800: #7d4921;
+--maage-warning-900: #6b3d21;
+--maage-warning-950: #3e1e0f;
+
+--maage-error-50: #fcf3f3;
+--maage-error-100: #f8e9e7;
+--maage-error-200: #f3d3d2;
+--maage-error-300: #e8b1ae;
+--maage-error-400: #da8180;
+--maage-error-500: #bb4448;
+--maage-error-600: #a94348;
+--maage-error-700: #863037;
+--maage-error-800: #702b33;
+--maage-error-900: #61272f;
+--maage-error-950: #351216;
+
+--maage-info-50: #f4f8fa;
+--maage-info-100: #e2eef2;
+--maage-info-200: #c6dee7;
+--maage-info-300: #a0c5d5;
+--maage-info-400: #609ab4;
+--maage-info-500: #4889a8;
+--maage-info-600: #407493;
+--maage-info-700: #3b6078;
+--maage-info-800: #385264;
+--maage-info-900: #334757;
+--maage-info-950: #1d2c39;
 }
 
 /* scoped reset */
