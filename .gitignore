@@ -154,3 +154,4 @@ package-lock.json
 CLAUDE.md
 .augment-guidelines
 .qodo
+**/.claude/settings.local.json
