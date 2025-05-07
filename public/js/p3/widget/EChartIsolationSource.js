@@ -153,8 +153,9 @@ define([
             formatter: '{b}: {c} ({d}%)'
           },
           legend: {
-            orient: 'vertical',
-            left: 'left',
+            orient: 'horizontal',
+            left: 'center',
+            bottom: 10,
             textStyle: {
               fontFamily: 'Inter, sans-serif'
             }
@@ -198,7 +199,6 @@ define([
         console.error("Error initializing chart:", e);
       }
 
-      // If a query was set before the chart was initialized, execute it now
       if (this._pendingQuery) {
         console.log("Chart initialized, executing pending query");
         this.executeQuery(this._pendingQuery);
@@ -300,7 +300,6 @@ define([
 
     processData: function (isolationSourceData) {
       console.log("Processing isolation source data");
-      console.log("Raw isolationSourceData:", isolationSourceData);
 
       if (!this.chart) {
         console.error("Chart is not initialized yet, cannot process data");
@@ -313,30 +312,15 @@ define([
         var othersCount = 0;
         var maxBars = this.maxBars;
 
-        // Defensive: handle both array and object (should be array)
-        var arr = isolationSourceData;
-        if (!Array.isArray(arr)) {
-          // fallback for object (should not happen)
-          arr = [];
-          for (var k in isolationSourceData) {
-            if (Object.prototype.hasOwnProperty.call(isolationSourceData, k)) {
-              arr.push(k, isolationSourceData[k]);
-            }
-          }
-        }
-
-        // Build array of {name, value} pairs
-        for (var i = 0; i < arr.length; i += 2) {
-          var name = arr[i];
-          var value = arr[i + 1];
+        for (var i = 0; i < isolationSourceData.length; i += 2) {
+          var name = isolationSourceData[i];
+          var value = isolationSourceData[i + 1];
           if (name === null || name === undefined || name === "") name = "Unknown";
           pieData.push({ name: String(name), value: value });
         }
 
-        // Sort descending by value
         pieData.sort(function(a, b) { return b.value - a.value; });
 
-        // Aggregate into top N and 'Others'
         var displayData = [];
         for (var j = 0; j < pieData.length; j++) {
           if (j < maxBars) {
@@ -349,7 +333,6 @@ define([
           displayData.push({ name: 'Others', value: othersCount });
         }
 
-        // Defensive: forcibly reset legend formatter and pie label formatter to use the name, not index
         this.chart.setOption({
           series: [{
             data: displayData,
@@ -357,7 +340,6 @@ define([
               show: true,
               position: 'outside',
               formatter: function(params) {
-                // Always show the actual name, count, and percent
                 return params.name + ': ' + params.value + ' (' + params.percent.toFixed(2) + '%)';
               },
               fontFamily: 'Inter, sans-serif'
@@ -365,6 +347,9 @@ define([
           }],
           legend: {
             data: displayData.map(function(d) { return d.name; }),
+            orient: 'horizontal',
+            left: 'center',
+            bottom: 10,
             formatter: function(name) {
               return name;
             }
@@ -412,9 +397,7 @@ define([
       if (this.chart) {
         console.log("Disposing ECharts instance");
         try {
-
           this.chart.off('click');
-
           this.chart.dispose();
         } catch (e) {
           console.error("Error disposing chart:", e);
