@@ -1,12 +1,12 @@
 define([
   'dojo/_base/declare', 'dojo/_base/lang',
-  'dojo/dom-class', 'dojo/dom-construct', 'dojo/dom-style', 'dojo/on', 'dojo/topic',
+  'dojo/dom-class', 'dojo/dom-style', 'dojo/on',
   'dijit/_WidgetBase', 'dijit/_TemplatedMixin',
   '../DataAPI',
   'dojo/text!./templates/EChartIsolationSource.html'
 ], function (
   declare, lang,
-  domClass, domConstruct, domStyle, on, Topic,
+  domClass, domStyle, on,
   WidgetBase, TemplatedMixin,
   DataAPI,
   Template
@@ -24,14 +24,11 @@ define([
     },
 
     startup: function () {
-      console.log("EChartIsolationSource startup");
       if (this._started) { 
-        console.log("Widget already started, exiting startup");
         return; 
       }
 
       this.inherited(arguments);
-      console.log("After inherited startup");
 
       if (!this.chartNode) {
         console.error("Chart node not available at startup");
@@ -42,61 +39,22 @@ define([
       }
 
       this.resizeHandler = on(window, 'resize', lang.hitch(this, function () {
-        console.log("Window resize detected");
         if (this.chart) {
-          console.log("Resizing chart");
           this.chart.resize();
         }
       }));
 
-      console.log("Setting initial render timer");
       this.initialRenderTimer = setTimeout(lang.hitch(this, function() {
-        console.log("Initial render timer fired after 500ms");
         if (this.chartNode && this.chartNode.offsetWidth > 0 && this.chartNode.offsetHeight > 0) {
-          console.log("chartNode has dimensions, initializing chart");
           this.initializeChart();
-        } else {
-          console.log("chartNode still has no dimensions, setting retry timer");
-
-          this.retryTimer = setTimeout(lang.hitch(this, function() {
-            console.log("First retry timer fired after 1000ms");
-            if (this.chartNode && this.chartNode.offsetWidth > 0 && this.chartNode.offsetHeight > 0) {
-              this.initializeChart();
-            } else {
-
-              console.log("Still no dimensions, setting second retry timer");
-              this.secondRetryTimer = setTimeout(lang.hitch(this, function() {
-                console.log("Second retry timer fired after 2000ms");
-                this.initializeChart();
-              }), 2000);
-            }
-          }), 1000);
-        }
+        } 
       }), 500);
     },
 
     initializeChart: function () {
-      console.log("Starting chart initialization");
       if (!this.chartNode) {
         console.error("Chart node not found");
         return;
-      }
-
-      console.log("Chart container dimensions:", 
-                 this.chartNode.offsetWidth, 
-                 this.chartNode.offsetHeight,
-                 "style:", this.chartNode.style.width, 
-                 this.chartNode.style.height);
-
-      var parentNode = this.chartNode.parentNode;
-      if (parentNode) {
-        console.log("Parent node found, setting explicit dimensions");
-        domStyle.set(parentNode, {
-          width: "100%",
-          height: "400px",
-          minWidth: "300px",
-          minHeight: "400px"
-        });
       }
 
       domStyle.set(this.chartNode, {
@@ -105,12 +63,6 @@ define([
         minWidth: "300px", 
         minHeight: "400px"
       });
-
-      console.log("After forcing dimensions:", 
-                 this.chartNode.offsetWidth, 
-                 this.chartNode.offsetHeight,
-                 "style:", this.chartNode.style.width, 
-                 this.chartNode.style.height);
 
       if (this.chartNode.offsetWidth <= 0 || this.chartNode.offsetHeight <= 0) {
         console.warn("Chart container still has no dimensions after forcing, delaying initialization");
@@ -125,7 +77,6 @@ define([
           width: (this.chartNode.offsetWidth || 300) + "px",
           height: (this.chartNode.offsetHeight || 400) + "px"
         };
-        console.log("Setting final explicit dimensions:", dimensions);
         domStyle.set(this.chartNode, dimensions);
 
         if (typeof echarts === 'undefined') {
@@ -200,7 +151,6 @@ define([
       }
 
       if (this._pendingQuery) {
-        console.log("Chart initialized, executing pending query");
         this.executeQuery(this._pendingQuery);
         this._pendingQuery = null;
       }
@@ -371,25 +321,21 @@ define([
       this._pendingQuery = null;
 
       if (this.initialRenderTimer) {
-        console.log("Clearing initial render timer");
         clearTimeout(this.initialRenderTimer);
         this.initialRenderTimer = null;
       }
 
       if (this.retryTimer) {
-        console.log("Clearing retry timer");
         clearTimeout(this.retryTimer);
         this.retryTimer = null;
       }
 
       if (this.secondRetryTimer) {
-        console.log("Clearing second retry timer");
         clearTimeout(this.secondRetryTimer);
         this.secondRetryTimer = null;
       }
 
       if (this.resizeHandler) {
-        console.log("Removing resize handler");
         this.resizeHandler.remove();
         this.resizeHandler = null;
       }
