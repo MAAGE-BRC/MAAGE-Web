@@ -152,6 +152,7 @@ package-lock.json
 .project
 .warp
 CLAUDE.md
+CLAUDE.local.md
 .augment-guidelines
 .qodo
-**/.claude/settings.local.json
+.claude/
