@@ -3,6 +3,7 @@ module.exports = {
   content: [
     './views/**/*.ejs',
     './views/**/*.html',
+    './public/js/p3/maage/**/*.{js,html}', // Only MAAGE widgets under /p3/maage
   ],
   theme: {
     extend: {
