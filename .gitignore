@@ -138,9 +138,6 @@ out/
 .nyc_output/
 node_repl_history
 
-# TEMP - TO BE REMOVED
-package-lock.json
-
 # Editors, IDEs, Terminals, AI, etc
 # Should often be handled by excludes 
 .vscode/
@@ -152,5 +149,8 @@ package-lock.json
 .project
 .warp
 CLAUDE.md
+CLAUDE.local.md
 .augment-guidelines
 .qodo
+.claude/
+claude/

@@ -417,21 +417,30 @@ define([
       Topic.subscribe('/login', showAuthDlg);
 
       on(document, '.navigationLink:click', function (evt) {
-        // console.log("NavigationLink Click", evt);
         evt.preventDefault();
-        // evt.stopPropagation();
-        // console.log("APP Link Target: ", evt.target.pathname, evt.target.href, evt.target);
-        var parts = evt.target.href.split(evt.target.pathname);
-        // console.log("navigationLink:click - " + evt.target.pathname + (parts[1]||"") )
-        /* istanbul ignore next */
-        Router.go(evt.target.pathname + (parts[1] || ''));
+
+        var anchor = evt.target.closest('a');
+
+        if (!anchor || !anchor.href || !anchor.pathname) {
+          console.warn("Invalid navigation link clicked:", evt.target);
+          return;
+        }
+
+        var parts = anchor.href.split(anchor.pathname);
+
+        Router.go(anchor.pathname + (parts[1] || ''));
       });
 
       on(document, '.navigationLinkOut:click', function (evt) {
-        // console.log(evt);
         evt.preventDefault();
-        var target = evt.srcElement || evt.target;
-        window.open(target.href);
+
+        var anchor = evt.target.closest('a');
+        if (!anchor || !anchor.href) {
+          console.warn("Invalid external link target:", evt.target);
+          return;
+        }
+
+        window.open(anchor.href, '_blank');
       });
 
     },
