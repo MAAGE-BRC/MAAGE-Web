@@ -40,8 +40,3 @@
   text-align: center;
   z-index: 10;
 }
-
-.isolationSourceChart .loading.hidden,
-.chart-wrapper .loading.hidden {
-  display: none;
-}
