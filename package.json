@@ -12,6 +12,7 @@
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "braces": "^3.0.3",
+    "browserlist": "^1.0.1",
     "bvbrc_js_client": "github:bv-brc/bvbrc_js_client",
     "cookie-parser": "~1.4.6",
     "cytoscape": "^3.2.4",

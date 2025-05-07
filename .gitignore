@@ -138,9 +138,6 @@ out/
 .nyc_output/
 node_repl_history
 
-# TEMP - TO BE REMOVED
-package-lock.json
-
 # Editors, IDEs, Terminals, AI, etc
 # Should often be handled by excludes 
 .vscode/
