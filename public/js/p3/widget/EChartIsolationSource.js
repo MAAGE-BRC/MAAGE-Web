@@ -115,14 +115,12 @@ define([
       if (this.chartNode.offsetWidth <= 0 || this.chartNode.offsetHeight <= 0) {
         console.warn("Chart container still has no dimensions after forcing, delaying initialization");
         this.retryTimer = setTimeout(lang.hitch(this, function() {
-          console.log("Retrying chart initialization");
           this.initializeChart();
         }), 500);
         return;
       }
 
       try {
-
         var dimensions = {
           width: (this.chartNode.offsetWidth || 300) + "px",
           height: (this.chartNode.offsetHeight || 400) + "px"
@@ -131,22 +129,12 @@ define([
         domStyle.set(this.chartNode, dimensions);
 
         if (typeof echarts === 'undefined') {
-          console.error("ECharts library is not available");
+          console.error("ECharts library is not loaded");
           return;
         }
 
         if (!this.chart) {
-          console.log("Initializing chart with dimensions:", this.chartNode.offsetWidth, this.chartNode.offsetHeight);
           this.chart = echarts.init(this.chartNode);
-          console.log("Chart initialized successfully");
-
-          if (this._pendingQuery) {
-            console.log("Found pending query, executing it now");
-            setTimeout(lang.hitch(this, function() {
-              this.executeQuery(this._pendingQuery);
-              this._pendingQuery = null;
-            }), 100); 
-          }
         }
 
         var chartOptions = {
@@ -161,43 +149,42 @@ define([
             }
           },
           tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'shadow'
-            }
+            trigger: 'item',
+            formatter: '{b}: {c} ({d}%)'
           },
-          grid: {
-            left: '15%',
-            right: '4%',
-            bottom: '10%',
-            top: '60',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'value',
-            name: 'Count',
-            nameLocation: 'middle',
-            nameGap: 30,
-            nameTextStyle: {
+          legend: {
+            orient: 'vertical',
+            left: 'left',
+            textStyle: {
               fontFamily: 'Inter, sans-serif'
             }
           },
-          yAxis: {
-            type: 'category',
-            data: ['Loading...'],
-            axisLabel: {
-              fontFamily: 'Inter, sans-serif',
-              width: 120,
-              overflow: 'truncate',
-              interval: 0
-            }
-          },
           series: [{
-            name: 'Count',
-            type: 'bar',
-            data: [0],
+            name: 'Isolation Source',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: true,
+              position: 'outside',
+              formatter: '{b}: {c} ({d}%)',
+              fontFamily: 'Inter, sans-serif'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: 18,
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: true
+            },
+            data: [{ value: 0, name: 'Loading...' }],
             itemStyle: {
-              color: '#5f94ab'
+              borderRadius: 6,
+              borderColor: '#fff',
+              borderWidth: 2
             }
           }]
         };
@@ -205,14 +192,17 @@ define([
         this.chart.setOption(chartOptions);
 
         this.chart.on('click', lang.hitch(this, function (params) {
-          if (params.data && params.data.link) {
-            var baseUrl = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
-            var url = (window.location.href).split(baseUrl)[1].replace(window.location.hash, params.data.link);
-            Topic.publish('/navigate', { href: url });
-          }
+          console.log("Pie slice clicked:", params);
         }));
       } catch (e) {
         console.error("Error initializing chart:", e);
+      }
+
+      // If a query was set before the chart was initialized, execute it now
+      if (this._pendingQuery) {
+        console.log("Chart initialized, executing pending query");
+        this.executeQuery(this._pendingQuery);
+        this._pendingQuery = null;
       }
     },
 
@@ -301,9 +291,6 @@ define([
       if (this.chart) {
         console.log("Updating chart with 'No data available' message");
         this.chart.setOption({
-          yAxis: {
-            data: ['No data available']
-          },
           series: [{
             data: [{ value: 0, name: 'No data available' }]
           }]
@@ -313,6 +300,7 @@ define([
 
     processData: function (isolationSourceData) {
       console.log("Processing isolation source data");
+      console.log("Raw isolationSourceData:", isolationSourceData);
 
       if (!this.chart) {
         console.error("Chart is not initialized yet, cannot process data");
@@ -321,72 +309,73 @@ define([
       }
 
       try {
+        var pieData = [];
+        var othersCount = 0;
+        var maxBars = this.maxBars;
 
-        var chartData = [];
-        var categories = [];
-        var others = { value: 0, name: 'Others', itemStyle: { color: '#e7c788' } }; 
-
-        var sorted = Object.entries(isolationSourceData).sort(([, a], [, b]) => b - a);
-        var totalCount = 0;
-
-        console.log("Processing sorted data with entries:", sorted.length);
-
-        sorted.forEach(function ([source, count], index) {
-          if (source) {
-            totalCount += count;
-            if (index < this.maxBars) {
-
-              chartData.push({
-                value: count,
-                name: source,
-                link: `#view_tab=genomes&filter=eq(isolation_source,${encodeURIComponent(source)})`,
-                cursor: 'pointer'
-              });
-              categories.push(source);
-            } else {
-              others.value += count;
+        // Defensive: handle both array and object (should be array)
+        var arr = isolationSourceData;
+        if (!Array.isArray(arr)) {
+          // fallback for object (should not happen)
+          arr = [];
+          for (var k in isolationSourceData) {
+            if (Object.prototype.hasOwnProperty.call(isolationSourceData, k)) {
+              arr.push(k, isolationSourceData[k]);
             }
           }
-        }, this);
-
-        if (others.value > 0) {
-          chartData.push({
-            ...others,
-            link: '#view_tab=genomes&filter=eq(isolation_source,*)',
-            cursor: 'pointer'
-          });
-          categories.push('Others');
         }
 
-        if (chartData.length === 0) {
-          console.log("No isolation source data found");
-          categories = ['No data available'];
-          chartData = [{ value: 0, name: 'No data available' }];
-        } else {
-          console.log("Found isolation source data:", chartData.length, "entries");
+        // Build array of {name, value} pairs
+        for (var i = 0; i < arr.length; i += 2) {
+          var name = arr[i];
+          var value = arr[i + 1];
+          if (name === null || name === undefined || name === "") name = "Unknown";
+          pieData.push({ name: String(name), value: value });
         }
 
-        console.log("Updating chart with categories:", categories);
+        // Sort descending by value
+        pieData.sort(function(a, b) { return b.value - a.value; });
 
+        // Aggregate into top N and 'Others'
+        var displayData = [];
+        for (var j = 0; j < pieData.length; j++) {
+          if (j < maxBars) {
+            displayData.push(pieData[j]);
+          } else {
+            othersCount += pieData[j].value;
+          }
+        }
+        if (othersCount > 0) {
+          displayData.push({ name: 'Others', value: othersCount });
+        }
+
+        // Defensive: forcibly reset legend formatter and pie label formatter to use the name, not index
         this.chart.setOption({
-          yAxis: {
-            data: categories
-          },
           series: [{
-            data: chartData
-          }]
+            data: displayData,
+            label: {
+              show: true,
+              position: 'outside',
+              formatter: function(params) {
+                // Always show the actual name, count, and percent
+                return params.name + ': ' + params.value + ' (' + params.percent.toFixed(2) + '%)';
+              },
+              fontFamily: 'Inter, sans-serif'
+            }
+          }],
+          legend: {
+            data: displayData.map(function(d) { return d.name; }),
+            formatter: function(name) {
+              return name;
+            }
+          }
         });
 
-        console.log("Chart updated successfully");
+        console.log("Chart updated with processed data");
       } catch (err) {
-        console.error("Error processing isolation source data:", err);
+        console.error("Error processing data:", err);
+        this.handleEmptyData();
       }
-
-      setTimeout(lang.hitch(this, function() {
-        if (this.chart) {
-          this.chart.resize();
-        }
-      }), 100);
 
       this.setLoading(false);
     },
