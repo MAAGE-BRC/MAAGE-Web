@@ -3,7 +3,9 @@ module.exports = {
   content: [
     './views/**/*.ejs',
     './views/**/*.html',
-    './public/js/p3/maage/**/*.{js,html}', // Only MAAGE widgets under /p3/maage
+    './public/js/p3/maage/**/*.{js,html}',
+    './public/js/p3/widget/templates/GenomeListOverview.html',
+    './public/js/p3/widget/GenomeListOverview.js',
   ],
   theme: {
     extend: {

@@ -3,7 +3,7 @@ define([
   'dojo/on', 'dojo/dom-class', 'dojo/request',
   'dijit/_WidgetBase', 'dijit/_WidgetsInTemplateMixin', 'dijit/_TemplatedMixin',
   'p3/widget/GenomeGroupInfoSummary', 'p3/widget/ReferenceGenomeSummary', 'p3/widget/AMRPanelMetaSummary',
-  'p3/widget/GenomeMetaSummary', 'p3/widget/SpecialtyGeneSummary', './EChartIsolationSource',
+  'p3/widget/GenomeMetaSummary', 'p3/widget/SpecialtyGeneSummary',
   'dojo/text!./templates/GenomeListOverview.html'
 
 ], function (
@@ -11,7 +11,7 @@ define([
   on, domClass, xhr,
   WidgetBase, _WidgetsInTemplateMixin, Templated,
   GenomeGroupInfoSummary, ReferenceGenomeSummary, AMRPanelMetaSummary,
-  GenomeMetaSummary, SpecialtyGeneSummary, EChartIsolationSource,
+  GenomeMetaSummary, SpecialtyGeneSummary,
   Template
 ) {
 
@@ -32,19 +32,13 @@ define([
     _setStateAttr: function (state) {
       this._set('state', state);
 
-      var sumWidgets = ['apmSummaryWidget', 'gmSummaryWidget'];
+      var sumWidgets = ['rgSummaryWidget', 'gmSummaryWidget', 'spgSummaryWidget', 'apmSummaryWidget'];
 
       sumWidgets.forEach(function (w) {
         if (this[w]) {
           this[w].set('query', this.state.search);
         }
       }, this);
-
-      setTimeout(lang.hitch(this, function() {
-        if (this.isolationSourceWidget) {
-          this.isolationSourceWidget.set('query', this.state.search);
-        }
-      }), 100);
 
       if (this.isGenomeGroup) {
         domClass.remove(this.ggiSummaryWidget.domNode.parentNode, 'hidden');
