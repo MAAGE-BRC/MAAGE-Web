@@ -1,12 +1,13 @@
 {
   "name": "p3-web",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "private": true,
   "scripts": {
     "start": "node ./bin/p3-web",
     "postinstall": "./post_install.sh",
-    "build:tw": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.css",
-    "build:tw:min": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.min.css --minify"
+    "tw:build": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.css",
+    "tw:build:min": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.min.css --minify",
+    "tw:watch": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.css --watch"
   },
   "dependencies": {
     "axios": "^1.6.8",
