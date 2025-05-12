@@ -1,5 +1,10 @@
 # gitignore for https://github.com/maage-brc/maage
 
+# .dev
+.dev/*
+!.dev/.gitkeep
+!.dev/README.md
+
 # lock files - ignored only when testing!
 # package-lock.json
 # pnpm-lock.yaml
