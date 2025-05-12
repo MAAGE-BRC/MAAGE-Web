@@ -179,7 +179,7 @@ if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
     const status = err.status || 500;
     const knownErrors = [403, 404, 500, 503];
-    const template = knownErrors.includes(status) ? `${status}` : 'error/error';
+    const template = knownErrors.includes(status) ? `errors/${status}` : 'errors/error';
 
     console.error(err.stack);
 
@@ -194,7 +194,7 @@ if (app.get('env') === 'development') {
 app.use((err, req, res, next) => {
   const status = err.status || 500;
   const knownErrors = [403, 404, 500, 503];
-  const template = knownErrors.includes(status) ? `${status}` : 'error/error';
+  const template = knownErrors.includes(status) ? `errors/${status}` : 'errors/error';
 
   console.error(err.stack);
 
