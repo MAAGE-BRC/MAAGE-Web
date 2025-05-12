@@ -1,6 +1,6 @@
 # Midwest Alliance for Applied Genomic Epidemiology
 
-[![Version](https://img.shields.io/badge/Release-v0.5.1-blue?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/releases)
+[![Version](https://img.shields.io/badge/Release-v0.5.9-blue?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/releases)
 [![License](https://img.shields.io/github/license/MAAGE-BRC/maage-web?style=for-the-badge)](LICENSE)
 [![Open PRs](https://img.shields.io/github/issues-pr/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/pulls)
 [![Issues](https://img.shields.io/github/issues/MAAGE-BRC/maage-web?style=for-the-badge)](https://github.com/MAAGE-BRC/maage-web/issues)
