@@ -169,41 +169,40 @@ define([
       
       try {
         this.chart.setOption({
-          tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b}: {c} ({d}%)'
-          },
-          legend: {
-            type: 'scroll',
-            orient: 'vertical',
-            right: 10,
-            top: 20,
-            bottom: 20,
-          },
-          series: [{
-            name: "",
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: true,
-            itemStyle: {
-              borderRadius: 4,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: { show: false },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: '14',
-                fontWeight: 'bold'
-              }
-            },
-            data: this._chartData.map(item => ({
-              value: item.value,
-              name: item.name
-            }))
-          }]
-        });
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b}: {c} ({d}%)'
+  },
+  legend: {
+    type: 'scroll',
+    orient: 'horizontal',
+    bottom: 10,
+    left: 'center' // Optional: centers the legend horizontally
+  },
+  series: [{
+    name: "",
+    type: 'pie',
+    radius: ['40%', '70%'],
+    avoidLabelOverlap: true,
+    itemStyle: {
+      borderRadius: 4,
+      borderColor: '#fff',
+      borderWidth: 2
+    },
+    label: { show: false },
+    emphasis: {
+      label: {
+        show: true,
+        fontSize: '14',
+        fontWeight: 'bold'
+      }
+    },
+    data: this._chartData.map(item => ({
+      value: item.value,
+      name: item.name
+    }))
+  }]
+});
         
         this.chart.resize();
       } catch(e) {
