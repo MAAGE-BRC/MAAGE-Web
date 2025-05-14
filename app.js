@@ -126,7 +126,7 @@ app.use('/css', express.static(path.join(__dirname, 'public/css')));
 
 app.use((req, res, next) => {
   if (maintenanceMode && !req.url.startsWith('/admin')) {
-  res.status(503).send('Maintenance Mode Active');
+  res.status(503).render('errors/503', { title: '503 Service Unavailable' });
   } else {
   next();
   }
