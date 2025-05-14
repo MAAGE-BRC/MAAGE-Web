@@ -1,56 +1,49 @@
 define([
   'dojo/_base/declare', 'dojo/_base/lang',
-  'dojo/on', 'dojo/dom-class', 'dojo/request',
-  'dijit/_WidgetBase', 'dijit/_WidgetsInTemplateMixin', 'dijit/_TemplatedMixin',
-  'p3/widget/GenomeGroupInfoSummary', 'p3/widget/ReferenceGenomeSummary', 'p3/widget/AMRPanelMetaSummary',
-  'p3/widget/GenomeMetaSummary', 'p3/widget/SpecialtyGeneSummary',
-  'dojo/text!./templates/GenomeListOverview.html'
-
+  'dijit/_WidgetBase', 'dijit/_TemplatedMixin', 'dijit/_WidgetsInTemplateMixin',
+  'dojo/text!./templates/GenomeListOverview.html',
+  './ReferenceGenomeSummary', './GenomeMetaSummary',
+  './AMRPanelMetaSummary', './SpecialtyGeneSummary',
+  './ECDoughnut'
 ], function (
   declare, lang,
-  on, domClass, xhr,
-  WidgetBase, _WidgetsInTemplateMixin, Templated,
-  GenomeGroupInfoSummary, ReferenceGenomeSummary, AMRPanelMetaSummary,
-  GenomeMetaSummary, SpecialtyGeneSummary,
-  Template
+  WidgetBase, Templated, WidgetsInTemplateMixin,
+  Template,
+  ReferenceGenomeSummary, GenomeMetaSummary,
+  AMRPanelMetaSummary, SpecialtyGeneSummary,
+  ECDoughnut
 ) {
-
-  return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
+  return declare([WidgetBase, Templated, WidgetsInTemplateMixin], {
     baseClass: 'GenomeListOverview',
-    disabled: false,
     templateString: Template,
-    apiServiceUrl: window.App.dataAPI,
-    state: null,
-    genome_ids: null,
-    isGenomeGroup: false,
+    apiServiceUrl: window.App.dataServiceURL,
+    query: null,
 
-    constructor: function (opts) {
-      this.isGenomeGroup = opts && opts.isGenomeGroup || false;
+    startup: function() {
+      if (this._started) return;
       this.inherited(arguments);
+      
+      if (this.query) this.set('query', this.query);
     },
 
-    _setStateAttr: function (state) {
+    _setQueryAttr: function(query) {
+      this.query = query;
+      
+      // Propagate query to child widgets
+      ['rgSummaryWidget', 'gmSummaryWidget', 'apmSummaryWidget', 
+       'spgSummaryWidget', 'isolationSourceWidget'].forEach(widget => {
+        if (this[widget]) this[widget].set('query', query);
+      });
+      
+      if (this.isolationSourceWidget) {
+        this.isolationSourceWidget.set('chartTitle', 'Isolation Sources');
+        this.isolationSourceWidget.set('facetField', 'isolation_source');
+      }
+    },
+
+    _setStateAttr: function(state) {
       this._set('state', state);
-
-      var sumWidgets = ['rgSummaryWidget', 'gmSummaryWidget', 'spgSummaryWidget', 'apmSummaryWidget'];
-
-      sumWidgets.forEach(function (w) {
-        if (this[w]) {
-          this[w].set('query', this.state.search);
-        }
-      }, this);
-
-      if (this.isGenomeGroup) {
-        domClass.remove(this.ggiSummaryWidget.domNode.parentNode, 'hidden');
-        this.ggiSummaryWidget.set('state', this.state);
-      }
-    },
-
-    startup: function () {
-      if (this._started) {
-        return;
-      }
-      this.inherited(arguments);
+      if (state.search) this.set('query', state.search);
     }
   });
 });
