@@ -1,25 +1,71 @@
 <div class="bg-maage-bg p-4 md:p-6">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        <div class="lg:col-span-1">
-            <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-                <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
-                    Isolation Sources
-                </h3>
-                <div data-dojo-attach-point="isolationSourceWidget" data-dojo-type="p3/widget/ECDoughnut">
-                </div>
-            </div>
-        </div>
-
-        <div class="lg:col-span-2">
-            <div class="bg-maage-surface rounded-lg shadow-sm p-4 mb-6">
-                <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
-                    Genomes by Metadata
-                </h3>
-                <div data-dojo-attach-point="gmSummaryWidget" data-dojo-type="p3/widget/GenomeMetaSummary">
-                </div>
-            </div>
-        </div>
-
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- isolation country -->
+    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
+      <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
+        Geographic Distribution
+      </h3>
+      <div data-dojo-attach-point="countryWidget"
+           data-dojo-type="p3/widget/ECDoughnut"
+           data-dojo-props="facetField:'isolation_country', chartTitle:'Countries'">
+      </div>
     </div>
+    
+    <!-- host group -->
+    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
+      <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
+        Host Groups
+      </h3>
+      <div data-dojo-attach-point="hostGroupWidget"
+           data-dojo-type="p3/widget/ECDoughnut"
+           data-dojo-props="facetField:'host_group', chartTitle:'Host Distribution'">
+      </div>
+    </div>
+    
+    <!-- collection year -->
+    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
+      <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
+        Collection Timeline
+      </h3>
+      <div data-dojo-attach-point="yearWidget"
+           data-dojo-type="p3/widget/ECBarchart"
+           data-dojo-props="facetField:'collection_year', chartTitle:'Yearly Distribution', sortByCount:false">
+      </div>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+    <!-- serovar distribution -->
+    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
+      <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
+        Serotype Distribution
+      </h3>
+      <div data-dojo-attach-point="serovarWidget"
+           data-dojo-type="p3/widget/ECBarchart"
+           data-dojo-props="facetField:'serovar', chartTitle:'Top Serotypes', maxBars:10">
+      </div>
+    </div>
+    
+    <!-- antimicrobial resistance -->
+    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
+      <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
+        Antimicrobial Resistance
+      </h3>
+      <div data-dojo-attach-point="amrWidget"
+           data-dojo-type="p3/widget/ECBarchart"
+           data-dojo-props="facetField:'antimicrobial_resistance', chartTitle:'AMR Genes'">
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
+      <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
+        Additional Genome Metadata
+      </h3>
+      <div data-dojo-attach-point="gmSummaryWidget"
+           data-dojo-type="p3/widget/GenomeMetaSummary">
+      </div>
+    </div>
+  </div>
 </div>

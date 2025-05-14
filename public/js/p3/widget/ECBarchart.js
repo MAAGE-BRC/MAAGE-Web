@@ -4,7 +4,7 @@ define([
   'dojo/topic', 'dojo/request', 'dojo/aspect',
   '../util/PathJoin', 'dgrid/Grid',
   './SummaryWidget',
-  'dojo/text!./templates/ECDoughnut.html'
+  'dojo/text!./templates/ECBarchart.html'
 ], function (
   declare, lang,
   domClass, domStyle, on, domGeom,
@@ -14,13 +14,14 @@ define([
   Template
 ) {
   return declare([SummaryWidget], {
-    baseClass: 'ECDoughnut',
+    baseClass: 'ECBarchart',
     dataModel: 'genome',
     query: '',
     baseQuery: '&limit(1)&json(nl,map)',
-    chartTitle: 'Isolation Sources',
-    maxSlices: 10,
+    chartTitle: 'Distribution',
+    maxBars: 15,
     facetField: 'isolation_source',
+    sortByCount: true, // Set to false to sort by name
     templateString: Template,
     _chartInitialized: false,
     
@@ -77,14 +78,21 @@ define([
           name: key || 'Unknown',
           value: count,
           link: `#view_tab=genomes&filter=eq(${this.facetField},${encodeURIComponent(key)})`
-        }))
-        .sort((a, b) => b.value - a.value);
+        }));
+        
+      // Sort data
+      if (this.sortByCount) {
+        data.sort((a, b) => b.value - a.value);
+      } else {
+        data.sort((a, b) => a.name.localeCompare(b.name));
+      }
       
-      let chartData = data.slice(0, this.maxSlices);
+      // Limit to max bars
+      let chartData = data.slice(0, this.maxBars);
       let othersCount = 0;
       
-      if (data.length > this.maxSlices) {
-        othersCount = data.slice(this.maxSlices).reduce((sum, item) => sum + item.value, 0);
+      if (data.length > this.maxBars) {
+        othersCount = data.slice(this.maxBars).reduce((sum, item) => sum + item.value, 0);
         if (othersCount > 0) {
           chartData.push({
             name: 'Others',
@@ -116,7 +124,6 @@ define([
         return;
       }
       
-
       domStyle.set(this.chartNode, {
         display: 'block',
         height: '300px'
@@ -168,40 +175,63 @@ define([
       }
       
       try {
+        // Reverse data for better visual display in bars
+        const names = this._chartData.map(item => item.name);
+        const values = this._chartData.map(item => item.value);
+        
         this.chart.setOption({
           tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b}: {c} ({d}%)'
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
           },
-          legend: {
-            type: 'scroll',
-            orient: 'vertical',
-            right: 10,
-            top: 20,
-            bottom: 20,
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'value',
+            name: 'Count',
+            nameLocation: 'middle',
+            nameGap: 30
+          },
+          yAxis: {
+            type: 'category',
+            data: names,
+            axisLabel: {
+              interval: 0,
+              rotate: 0,
+              formatter: function (value) {
+                // Truncate long names
+                if (value.length > 20) {
+                  return value.substring(0, 17) + '...';
+                }
+                return value;
+              }
+            }
           },
           series: [{
-            name: "",
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: true,
-            itemStyle: {
-              borderRadius: 4,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: { show: false },
+            name: "Count",
+            type: 'bar',
+            data: values,
             emphasis: {
-              label: {
-                show: true,
-                fontSize: '14',
-                fontWeight: 'bold'
-              }
+              focus: 'series'
             },
-            data: this._chartData.map(item => ({
-              value: item.value,
-              name: item.name
-            }))
+            itemStyle: {
+              borderRadius: [0, 4, 4, 0],
+              borderWidth: 1,
+              borderType: 'solid',
+              borderColor: '#fff'
+            },
+            // Add label for each bar
+            label: {
+              show: true,
+              position: 'right',
+              formatter: '{c}'
+            }
           }]
         });
         
@@ -215,7 +245,7 @@ define([
       if (!this.grid) {
         const opts = {
           columns: [
-            { field: 'name', label: this.chartTitle.replace(/s$/, '') },
+            { field: 'name', label: this.facetField.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) },
             { field: 'value', label: 'Count' }
           ]
         };
@@ -236,6 +266,18 @@ define([
           this.chart.resize();
         }
       }), 50);
+    },
+    
+    showChart: function() {
+      domClass.add(this.tableNode, 'hidden');
+      domClass.remove(this.chartNode, 'hidden');
+      this.resize();
+    },
+    
+    showTable: function() {
+      domClass.remove(this.tableNode, 'hidden');
+      domClass.add(this.chartNode, 'hidden');
+      this.render_table();
     },
     
     destroy: function() {

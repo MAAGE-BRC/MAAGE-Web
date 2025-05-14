@@ -4,14 +4,14 @@ define([
   'dojo/text!./templates/GenomeListOverview.html',
   './ReferenceGenomeSummary', './GenomeMetaSummary',
   './AMRPanelMetaSummary', './SpecialtyGeneSummary',
-  './ECDoughnut'
+  './ECDoughnut', './ECBarchart'
 ], function (
   declare, lang,
   WidgetBase, Templated, WidgetsInTemplateMixin,
   Template,
   ReferenceGenomeSummary, GenomeMetaSummary,
   AMRPanelMetaSummary, SpecialtyGeneSummary,
-  ECDoughnut
+  ECDoughnut, ECBarchart
 ) {
   return declare([WidgetBase, Templated, WidgetsInTemplateMixin], {
     baseClass: 'GenomeListOverview',
@@ -19,29 +19,30 @@ define([
     apiServiceUrl: window.App.dataServiceURL,
     query: null,
 
-    startup: function() {
+    startup: function () {
       if (this._started) return;
       this.inherited(arguments);
-      
+
       if (this.query) this.set('query', this.query);
     },
 
-    _setQueryAttr: function(query) {
+    _setQueryAttr: function (query) {
       this.query = query;
-      
-      // Propagate query to child widgets
-      ['rgSummaryWidget', 'gmSummaryWidget', 'apmSummaryWidget', 
-       'spgSummaryWidget', 'isolationSourceWidget'].forEach(widget => {
+
+      // Update all widgets with the new query
+      [
+        'countryWidget', 
+        'hostGroupWidget', 
+        'yearWidget', 
+        'serovarWidget', 
+        'amrWidget', 
+        'gmSummaryWidget'
+      ].forEach(widget => {
         if (this[widget]) this[widget].set('query', query);
       });
-      
-      if (this.isolationSourceWidget) {
-        this.isolationSourceWidget.set('chartTitle', 'Isolation Sources');
-        this.isolationSourceWidget.set('facetField', 'isolation_source');
-      }
     },
 
-    _setStateAttr: function(state) {
+    _setStateAttr: function (state) {
       this._set('state', state);
       if (state.search) this.set('query', state.search);
     }

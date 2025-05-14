@@ -1,0 +1,20 @@
+<div class="ECBarchart w-full">
+  <div class="flex justify-between items-center mb-2">
+    <div class="text-sm text-maage-text-muted" data-dojo-attach-point="chartTitleNode"></div>
+    <div class="flex gap-2" data-dojo-attach-point="actionButtonsNode">
+      <button class="p-1 hover:bg-maage-bg-subtle rounded" title="Chart View" data-dojo-attach-event="click:showChart">
+        <i class="fa fa-bar-chart"></i>
+      </button>
+      <button class="p-1 hover:bg-maage-bg-subtle rounded" title="Table View" data-dojo-attach-event="click:showTable">
+        <i class="fa fa-table"></i>
+      </button>
+    </div>
+  </div>
+  <div data-dojo-attach-point="containerNode" class="relative min-h-[300px]">
+    <div class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 z-10" data-dojo-attach-point="loadingNode">
+      <span class="text-maage-text-muted">Loading...</span>
+    </div>
+    <div class="w-full h-[300px]" data-dojo-attach-point="chartNode"></div>
+    <div class="hidden w-full" data-dojo-attach-point="tableNode"></div>
+  </div>
+</div>
