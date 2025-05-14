@@ -171,7 +171,9 @@ app.use('/pathogens/mtb', [
 ]);
 
 app.use((req, res, next) => {
-  res.status(404).render('error/404', { title: '404 Not Found' });
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // dev error handler
