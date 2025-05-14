@@ -126,7 +126,7 @@ app.use('/css', express.static(path.join(__dirname, 'public/css')));
 
 app.use((req, res, next) => {
   if (maintenanceMode && !req.url.startsWith('/admin')) {
-  res.status(503).render('503', { title: '503 Service Unavailable' });
+  res.status(503).send('Maintenance Mode Active');
   } else {
   next();
   }
@@ -137,7 +137,6 @@ app.use('/patric/', express.static(path.join(__dirname, 'public/patric/')));
 app.use('/maage/', express.static(path.join(__dirname, 'public/maage/')));
 app.use('/public/', express.static(path.join(__dirname, 'public/')));
 app.use('/', routes);
-// app.use('/home-prev', prevHome);
 app.post('/reportProblem', reportProblem);
 app.post('/notifySubmitSequence', notifySubmitSequence);
 app.use('/linkedin', linkedin);
