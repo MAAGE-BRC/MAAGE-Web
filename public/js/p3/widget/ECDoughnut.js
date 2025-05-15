@@ -169,40 +169,54 @@ define([
       
       try {
         this.chart.setOption({
-  tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b}: {c} ({d}%)'
-  },
-  legend: {
-    type: 'scroll',
-    orient: 'horizontal',
-    bottom: 10,
-    left: 'center' // Optional: centers the legend horizontally
-  },
-  series: [{
-    name: "",
-    type: 'pie',
-    radius: ['40%', '70%'],
-    avoidLabelOverlap: true,
-    itemStyle: {
-      borderRadius: 4,
-      borderColor: '#fff',
-      borderWidth: 2
-    },
-    label: { show: false },
-    emphasis: {
-      label: {
-        show: true,
-        fontSize: '14',
-        fontWeight: 'bold'
-      }
-    },
-    data: this._chartData.map(item => ({
-      value: item.value,
-      name: item.name
-    }))
-  }]
-});
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+          },
+          legend: {
+            type: 'scroll',
+            orient: 'vertical',
+            right: 10,
+            top: 20,
+            bottom: 20,
+            itemWidth: 15,
+            itemHeight: 10,
+            textStyle: {
+              width: 100,
+              overflow: 'truncate',
+              ellipsis: '...'
+            },
+            pageButtonPosition: 'end',
+            pageButtonItemGap: 5,
+            pageIconSize: 12,
+            pageTextStyle: {
+              fontSize: 12
+            }
+          },
+          series: [{
+            name: this.chartTitle || "",
+            type: 'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: true,
+            itemStyle: {
+              borderRadius: 4,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: { show: false },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '14',
+                fontWeight: 'bold'
+              }
+            },
+            data: this._chartData.map(item => ({
+              value: item.value,
+              name: item.name
+            }))
+          }]
+        });
         
         this.chart.resize();
       } catch(e) {
@@ -214,7 +228,7 @@ define([
       if (!this.grid) {
         const opts = {
           columns: [
-            { field: 'name', label: this.chartTitle.replace(/s$/, '') },
+            { field: 'name', label: this.facetField.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) },
             { field: 'value', label: 'Count' }
           ]
         };
@@ -235,6 +249,18 @@ define([
           this.chart.resize();
         }
       }), 50);
+    },
+    
+    showChart: function() {
+      domClass.add(this.tableNode, 'hidden');
+      domClass.remove(this.chartNode, 'hidden');
+      this.resize();
+    },
+    
+    showTable: function() {
+      domClass.remove(this.tableNode, 'hidden');
+      domClass.add(this.chartNode, 'hidden');
+      this.render_table();
     },
     
     destroy: function() {
