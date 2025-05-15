@@ -35,7 +35,8 @@ define([
         'hostGroupWidget', 
         'yearWidget', 
         'serovarWidget', 
-        'amrWidget', 
+        'amrWidget',
+        'isolationSourceWidget', // Add this new widget to the list
         'gmSummaryWidget'
       ].forEach(widget => {
         if (this[widget]) this[widget].set('query', query);
