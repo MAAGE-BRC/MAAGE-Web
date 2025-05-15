@@ -30,7 +30,8 @@
             "#c18b9a",
             "#8b9ba9",
             "#bda48a",
-            "#9aa89f"
+            "#9aa89f",
+            '#687182'
         ],
         "backgroundColor": "#f8f9fa",
         "textStyle": {},

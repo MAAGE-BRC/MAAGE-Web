@@ -31,6 +31,13 @@ define([
         this.chartTitleNode.innerHTML = this.chartTitle;
       }
       
+      // Define theme colors - explicitly listed for direct use
+      this._themeColors = [
+        "#98bdac", "#5f94ab", "#e7c788", "#c56e6e", 
+        "#9a96bb", "#6f8091", "#c18b9a", "#8b9ba9", 
+        "#bda48a", "#9aa89f"
+      ];
+      
       // Safely handle resize
       this._resizeHandler = lang.hitch(this, function() {
         if (this.chart) this.chart.resize();
@@ -175,11 +182,25 @@ define([
       }
       
       try {
-        // Reverse data for better visual display in bars
+        // Prepare data with explicit color assignments
         const names = this._chartData.map(item => item.name);
-        const values = this._chartData.map(item => item.value);
         
+        // Create an array of objects with explicit colors for each bar
+        const barData = this._chartData.map((item, idx) => {
+          // Calculate color index (wrapping around if more bars than colors)
+          const colorIdx = idx % this._themeColors.length;
+          
+          return {
+            value: item.value,
+            itemStyle: {
+              color: this._themeColors[colorIdx]
+            }
+          };
+        });
+        
+        // Configure chart
         this.chart.setOption({
+          color: this._themeColors, // Set overall palette
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -214,19 +235,9 @@ define([
             }
           },
           series: [{
-            name: "Count",
+            name: this.chartTitle || "Count",
             type: 'bar',
-            data: values,
-            emphasis: {
-              focus: 'series'
-            },
-            itemStyle: {
-              borderRadius: [0, 4, 4, 0],
-              borderWidth: 1,
-              borderType: 'solid',
-              borderColor: '#fff'
-            },
-            // Add label for each bar
+            data: barData,
             label: {
               show: true,
               position: 'right',
