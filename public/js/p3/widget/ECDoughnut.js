@@ -1,31 +1,41 @@
 define([
   'dojo/_base/declare', 'dojo/_base/lang',
   'dojo/dom-class', 'dojo/dom-style', 'dojo/on', 'dojo/dom-geometry',
-  'dojo/topic', 'dojo/request', 'dojo/aspect',
+  'dojo/topic', 'dojo/aspect',
   '../util/PathJoin', 'dgrid/Grid',
   './SummaryWidget',
-  'dojo/text!./templates/ECDoughnut.html'
+  'dojo/text!./templates/ECDoughnut.html',
+  'bvbrc_js_client/dist/bvbrc_client' // Import BV-BRC JS client
 ], function (
   declare, lang,
   domClass, domStyle, on, domGeom,
-  Topic, xhr, aspect,
+  Topic, aspect,
   PathJoin, Grid,
   SummaryWidget,
-  Template
+  Template,
+  BVBRCClient  // Now available as a module
 ) {
   return declare([SummaryWidget], {
     baseClass: 'ECDoughnut',
     dataModel: 'genome',
     query: '',
-    baseQuery: '&limit(1)&json(nl,map)',
+    baseQuery: '',
     chartTitle: 'Isolation Sources',
     maxSlices: 10,
     facetField: 'isolation_source',
     templateString: Template,
     _chartInitialized: false,
     
+    // Client instance - can be shared across components
+    _client: null,
+    
     postCreate: function() {
       this.inherited(arguments);
+      
+      // Initialize the client - use the configured API URL
+      this._client = new BVBRCClient();
+      this._client.init(this.apiServiceUrl);
+      
       if (this.chartTitle) {
         this.chartTitleNode.innerHTML = this.chartTitle;
       }
@@ -53,16 +63,17 @@ define([
     onSetQuery: function(attr, oldVal, query) {
       if (!query) return;
       
+      // Create the faceted query
       const facetQuery = `${this.query}&facet((field,${this.facetField}),(mincount,1))${this.baseQuery}`;
       
-      return xhr.post(PathJoin(this.apiServiceUrl, this.dataModel) + '/', {
-        handleAs: 'json',
-        headers: this.headers,
-        data: facetQuery
+      // Use the client to execute the query
+      return this._client.query(this.dataModel, facetQuery, {
+        accept: 'application/solr+json'  // Use Solr JSON format for facets
       }).then(lang.hitch(this, 'processData'));
     },
     
     processData: function(results) {
+      // Check if we got facets in the results
       if (!results?.facet_counts?.facet_fields?.[this.facetField]) {
         domClass.remove(this.loadingNode, 'hidden');
         this.loadingNode.innerHTML = 'No data available';
@@ -71,6 +82,7 @@ define([
       
       const facets = results.facet_counts.facet_fields[this.facetField];
       
+      // Convert flat SOLR facet format to array of objects
       let data = Object.entries(facets)
         .filter(([key]) => key)
         .map(([key, count]) => ({
@@ -83,6 +95,7 @@ define([
       let chartData = data.slice(0, this.maxSlices);
       let othersCount = 0;
       
+      // Group smaller slices as "Others"
       if (data.length > this.maxSlices) {
         othersCount = data.slice(this.maxSlices).reduce((sum, item) => sum + item.value, 0);
         if (othersCount > 0) {
@@ -116,7 +129,6 @@ define([
         return;
       }
       
-
       domStyle.set(this.chartNode, {
         display: 'block',
         height: '300px'
