@@ -1,183 +1,199 @@
-define([
-  'dojo/_base/declare', 'dijit/_WidgetBase', 'dojo/topic', 'dojo/on',
-  'dojo/dom-class',
-  'dojo/text!./templates/WholeGenomeSNPAnalysis.html', './AppBase', 'dojo/dom-construct', 'dijit/registry',
-  'dojo/_base/Deferred', 'dojo/aspect', 'dojo/_base/lang', 'dojo/domReady!', 'dijit/form/NumberTextBox', 'dijit/form/Textarea', 'dijit/form/Select', 'dijit/form/FilteringSelect',
-  'dojo/query', 'dojo/dom', 'dijit/popup', 'dijit/Tooltip', 'dijit/Dialog', 'dijit/TooltipDialog', '../../DataAPI',
-  'dojo/NodeList-traverse', '../../WorkspaceManager', 'dojo/store/Memory', 'dojox/widget/Standby', 'dojo/when'
-], function (
-  declare, WidgetBase, Topic, on,
-  domClass,
-  Template, AppBase, domConstruct, registry,
-  Deferred, aspect, lang, domReady, NumberTextBox, Textarea, Select, FilteringSelect,
-  query, dom, popup, Tooltip, Dialog, TooltipDialog, DataAPI,
-  children, WorkspaceManager, Memory, Standby, when
-) {
-  return declare([AppBase], {
-    baseClass: 'Whole Genome SNP Analysis',
-    templateString: Template,
-    applicationName: 'WholeGenomeSNPAnalysis',
-    requireAuth: true,
-    applicationLabel: 'Whole Genome SNP Analysis',
-    applicationDescription: 'The Whole Genome SNP Analysis service accepts genome groups. This service will identify single nucleotide polymorphisms (SNPs) for tracking viral and bacterial pathogens during outbreaks. The software, kSNP4 will identify SNPs and estimate phylogenetic trees based on those SNPs.',
-    applicationHelp: 'quick_references/services/Whole Genome SNP Analysis_service.html',
-    tutorialLink: 'tutorial/WholeGenome SNPAnalysis/WholeGenomeSNPAnalysis.html',
-    videoLink: '',
-    pageTitle: 'Whole Genome SNP Analysis Service | BV-BRC',
-    appBaseURL: 'Whole Genome SNP Analysis',
-    defaultPath: '',
-    startingRows: 14,
-    alphabet: '',
-    ref_id_length: 60,
-    input_seq_rows: 10,
-    input_seq_min_seqs: 2,
-    maxGenomes: 5000,
-    maxGenomeLength: 250000,
-    fid_value: '',
-    validFasta: false,
-    textInput: false,
-
-    startup: function () {
-      var _self = this;
-      if (this._started) {
-        return;
-      }
-      if (this.requireAuth && (window.App.authorizationToken === null || window.App.authorizationToken === undefined)) {
-        return;
-      }
-      this.inherited(arguments);
-      _self.defaultPath = WorkspaceManager.getDefaultFolder() || _self.activeWorkspacePath;
-      _self.output_path.set('value', _self.defaultPath);
-      this._started = true;
-      this.form_flag = false;
-      // on(this.max-strong-linkage), "change", (value) => {this.min_mid_linkage.set("value", value);}
-      try {
-        this.intakeRerunForm();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-
-    onChangeMinMidLinkage: function () {
-      console.log('called_onchange event')
-      if (this.min_mid_linkage.value !== null) {
-        this.max_strong_linkage.set("value", this.min_mid_linkage.value);
-      }
-    },
-
-    // can delete if we field remains disabled
-    onChangeMaxStrongLinkage: function () {
-      console.log('called_onchange event')
-      if (this.max_strong_linkage.value !== null) {
-        console.log(this.max_strong_linkage.value);
-        this.min_mid_linkage.set("value", this.max_strong_linkage.value);
-      }
-    },
-    onChangeMaxMidLinkage: function () {
-      console.log('called_onchange event')
-      if (this.max_mid_linkage.value !== null) {
-        this.min_weak_linkage.set("value", this.max_mid_linkage.value);
-      }
-      
-    },
-
-    // can delete if we field remains disabled
-    onChangeMinWeakLinkage: function () {
-      console.log('called_onchange event')
-      if (this.min_weak_linkage.value !== null) {
-        console.log(this.min_weak_linkage.value);
-        this.max_mid_linkage.set("value", this.min_weak_linkage.value);
-      }
-    },
-    onAddGenomeGroup: function () {
-      console.log("Fetching genome group path...");
-      
-      var path = this.input_genome_group;
-      if (!path) {
-        console.warn("No genome group path provided.");
-        return;
-      }
-    
-      when(WorkspaceManager.getObject(path), lang.hitch(this, function (res) {
-        if (typeof res.data === "string") {
-          res.data = JSON.parse(res.data);
-        }
-        if (res?.data?.id_list?.genome_id) {
-          var newGenomeIds = res.data.id_list.genome_id;
-          this.checkBacterialGenomes(newGenomeIds, groupType, false, path);
-        }
-      }));
-    },
-
-    validate: function () {
-      return this.inherited(arguments);
-    },
-
-    validateGenomeGroup: function () {
-      // this.submitButton.set('disabled', true);
-      var path = this.select_genomegroup.searchBox.item.path;
-      var genomes_valid = true;
-      when(WorkspaceManager.getObject(path), lang.hitch(this, function (res) {
-        if (typeof res.data == 'string') {
-          res.data = JSON.parse(res.data);
-        }
-        if (res && res.data && res.data.id_list && res.data.id_list.genome_id) {
-          // viral genome checks
-          genomes_valid = this.checkViralGenomes(res.data.id_list.genome_id);
-        }
-      }));
-      return genomes_valid;
-    },
-
-    openJobsList: function () {
-      Topic.publish('/navigate', { href: '/job/' });
-    },
-
-    getValues: function () {
-      var values = this.inherited(arguments);
-      //  Adding genome type and analysis type for future dev
-      values.input_genome_type = "genome_group";
-      values.analysis_type = "Whole Genome SNP Analysis";
-      if (values.select_genomegroup) {
-        values.select_genomegroup = [values.select_genomegroup];
-      }
-      return values;
-    },
-
-
-    checkBaseParameters: function (values, seqcomp_values) {
-      seqcomp_values.output_path = values.output_path;
-      this.output_folder = values.output_path;
-      seqcomp_values.output_file = values.output_file;
-      this.output_name = values.output_file;
-      return seqcomp_values;
-    },
-
-    intakeRerunForm: function () {
-      // assuming only one key
-      var service_fields = window.location.search.replace('?', '');
-      var rerun_fields = service_fields.split('=');
-      var rerun_key;
-      if (rerun_fields.length > 1) {
-        try {
-          rerun_key = rerun_fields[1];
-          var sessionStorage = window.sessionStorage;
-          if (sessionStorage.hasOwnProperty(rerun_key)) {
-            var job_data = JSON.parse(sessionStorage.getItem(rerun_key));
-            this.setStatusFormFill(job_data);
-            this.setAlphabetFormFill(job_data);
-            this.setUnalignedInputFormFill(job_data);
-            this.setReferenceFormFill(job_data);
-            // this.addSequenceFilesFormFill(job_data);
-            this.setAlignerFormFill(job_data);
-            this.form_flag = true;
-          }
-        } catch (error) {
-          console.log('Error during intakeRerunForm: ', error);
-        } finally {
-          sessionStorage.removeItem(rerun_key);
-        }
-      }
-    },
-  });
-});
+<form dojoAttachPoint="containerNode" class="PanelForm App ${baseClass}"
+  dojoAttachEvent="onreset:_onReset,onsubmit:_onSubmit,onchange:validate">
+  <div class="appTemplate">
+    <div class="appTitle">
+      <span class="breadcrumb">Services</span>
+      <h3>${applicationLabel}
+        <div name="overview" class="infobox iconbox infobutton dialoginfo">
+          <i class="fa icon-info-circle fa" title="click to open info dialog"></i>
+        </div>
+        <div class="infobox iconbox tutorialButton tutorialInfo">
+          <a href="${docsServiceURL}${tutorialLink}" target="_blank" ><i class="fa icon-books fa-1x" title="click to open tutorial"></i></a>
+        </div>
+        <div class="infobox iconbox videoButton videoInfo">
+          <a href="${videoLink}" target="_blank" ><i class="fa icon-play-circle fa-1x" title="click to open the video tutorial"></i></a>
+        </div>
+      </h3>
+      <p>
+        ${applicationDescription} For further explanation, please see the ${applicationLabel} Service <a href="${docsServiceURL}${applicationHelp}" target="_blank">Quick Reference Guide</a>, <a href="${docsServiceURL}${tutorialLink}" target="_blank">Tutorial</a> and <a href="${videoLink}" target="_blank">Instructional Video</a>.
+      </p>
+    </div>
+    <div class="formFieldsContainer">
+      <div style="width:97%;" class="appBox appShadow">
+        <div class="headerrow">
+          <label class="appBoxLabel">Select a Genome Group</label>
+          <div name="start-with" class="infobox iconbox infobutton dialoginfo">
+            <i class="fa icon-info-circle fa" title="click to open info dialog"></i>
+          </div>
+        </div>
+        <div class="appRow">
+          <div class="appRow">
+            <label class="paramlabel">Select Genome Group</label><br>
+            <!-- <div style="width:78%;display:inline-block;"  -->
+            <div style="width:100%;display:inline-block;" 
+              data-dojo-type="p3/widget/WorkspaceObjectSelector" 
+              name="input_genome_group" required="false" 
+              data-dojo-attach-point="input_genome_group" 
+              data-dojo-attach-event="click:onAddGenomeGroup"
+              data-dojo-props="type:['genome_group'],multi:false,promptMessage:'Select a genome group from your workspace',missingMessage:'Genome group is required.', placeHolder:'Select an exisiting Genome Group'">
+            </div>
+            <br>
+        </div>
+      </div>
+    </div>
+    <div style="width:97%;" class="appBox appShadow">
+        <div class="headerrow">
+          <label class="appBoxLabel">Parameters:</label>
+            <div name="parameters" class="infobox iconbox infobutton dialoginfo">
+              <i class="fa icon-info-circle fa" title="click to open info dialog"></i>
+            </div>
+        </div>
+            <div class="appRow">
+          <label>Majority SNP Threshold</label>
+            <input
+              type="number"
+              name="majority-threshold"
+              data-dojo-type="dijit/form/NumberTextBox"
+              data-dojo-attach-point="majority-threshold"
+              style="width: 110px"
+              min="1"
+              max="99"
+              step="0.1"
+              required="false"
+              disabled="false"
+              data-dojo-props="
+                intermediateChanges: true,
+                missingMessage: 'Define the minimum threshold of genomes a SNP must be present in to be included in the Majority SNP output files.',placeHolder:'Default 50%',
+                trim: true">
+        </div>
+                <div class="appRow" style="margin-top: 15px;">
+          <label>SNP Distance Treshold Configuration</label>
+          <br>
+                    <div style="margin-bottom: 10px;">
+            <label>Strong Linkage</label>
+          <br>
+          <input
+            type="number"
+            name="min_strong_linkage"
+            data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-attach-point="min_strong_linkage"
+            style="width: 110px"
+            required="false"
+            disabled="true"
+            data-dojo-props="
+              intermediateChanges: true,
+              placeHolder:'0',
+              trim: true"/>
+          <input
+            type="number"
+            name="max_strong_linkage"
+            data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-attach-point="max_strong_linkage"
+            data-dojo-attach-event="onChange:onChangeMaxStrongLinkage"
+            style="width: 110px"
+            required="false"
+            disabled="true"
+            data-dojo-props="
+              intermediateChanges: true,
+              placeHolder:'0',
+              trim: true"/>
+            <div style="margin-bottom: 10px;">
+            <label>Mid</label>
+            <br>
+          <input
+            type="number"
+            name="min_mid_linkage"
+            data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-attach-point="min_mid_linkage"
+            data-dojo-attach-event="onChange:onChangeMinMidLinkage"
+            style="width: 110px"
+            required="false"
+            disabled="false"
+            data-dojo-props="
+              intermediateChanges: true,
+              placeHolder:'10',
+              trim: true"/>
+          <input
+            type="number"
+            name="max_mid_linkage"
+            data-dojo-type="dijit/form/NumberTextBox"
+            data-dojo-attach-point="max_mid_linkage"
+            data-dojo-attach-event="onChange:onChangeMaxMidLinkage"
+            style="width: 110px"
+            required="false"
+            disabled="false"
+            data-dojo-props="
+              intermediateChanges: true,
+              placeHolder:'40',
+              trim: true"/>
+        <div style="margin-bottom: 10px;">
+          <label>Weak</label>
+            <br>
+          <input
+              type="number"
+              name="min_weak_linkage"
+              data-dojo-type="dijit/form/NumberTextBox"
+              data-dojo-attach-point="min_weak_linkage"
+              data-dojo-attach-event="onChange:onChangeMinWeakLinkage"
+              style="width: 110px"
+              required="false"
+              disabled="true"
+              data-dojo-props="
+                intermediateChanges: true,
+                placeHolder:'40',
+                trim: true"/>
+            <input
+              type="number"
+              name="max_weak_linkage"
+              data-dojo-type="dijit/form/NumberTextBox"
+              data-dojo-attach-point="max_weak_linkage"
+              style="width: 110px"
+              required="false"
+              disabled="true"
+              data-dojo-props="
+                intermediateChanges: true
+                ,placeHolder:'Max',
+                trim: true"/>
+        </div>
+        </div>
+      <div class="appRow">
+        <label class="paramlabel">Output Folder</label><br>
+        <div data-dojo-type="p3/widget/WorkspaceObjectSelector" name="output_path" data-dojo-attach-point="output_path"
+          required="true"
+          data-dojo-props="allowUpload:false,title:'Select an Output Folder',autoSelectCurrent:true,selectionText:'Destination',type:['folder'],multi:false,placeHolder:'Output Folder'"
+          data-dojo-attach-event="onChange:onOutputPathChange"></div>
+      </div>
+      <div class="appRow">
+        <label class="paramlabel">Output Name</label><span class="charError"
+          style="color:red; font-size:8pt; padding-left:10px; font-weight:bold">&nbsp;</span><br>
+        <div data-dojo-type="p3/widget/WorkspaceFilenameValidationTextBox"
+          data-dojo-attach-event="onChange:checkOutputName" name="output_file" data-dojo-attach-point="output_file"
+          style="width:85%" required="true"
+          data-dojo-props="intermediateChanges:true,missingMessage:'Name must be provided for the job result',trim:true,placeHolder:'Output Name'">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="appSubmissionArea">
+    <div data-dojo-attach-point="workingMessage" class="messageContainer workingMessage"
+      style="margin-top:10px; text-align:center;">
+      Submitting Whole Genome SNP Analysis job.
+    </div>
+    <div data-dojo-attach-point="errorMessage" class="messageContainer errorMessage"
+      style="margin-top:10px; text-align:center;">
+      Error Submitting Job. Check that your genome group exists.
+    </div>
+    <div data-dojo-attach-point="submittedMessage" class="messageContainer submittedMessage"
+      style="margin-top:10px; text-align:center;">
+      Your job has been submitted successfully. Please visit your <a
+        data-dojo-attach-event="onclick:openJobsList"><u>Jobs List</u> </a>to check the status of your job and
+      access
+      the results.
+    </div>
+    <div style="margin-top: 10px; text-align:center;">
+      <div data-dojo-attach-point="resetButton" type="reset" data-dojo-type="dijit/form/Button">Reset</div>
+      <div data-dojo-attach-point="submitButton" type="submit" data-dojo-type="dijit/form/Button">Submit</div>
+    </div>
+  </div>
+</form>
