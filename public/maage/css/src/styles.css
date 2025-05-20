@@ -191,6 +191,137 @@
 --maage-info-950: #1d2c39;
 }
 
+.dark {
+    --maage-success-dark-50: #0e1814;
+    --maage-success-dark-100: #13241b;
+    --maage-success-dark-200: #193228;
+    --maage-success-dark-300: #204235;
+    --maage-success-dark-400: #295646;
+    --maage-success-dark-500: #3c6f59;
+    --maage-success-dark-600: #5e8d75;
+    --maage-success-dark-700: #83a893;
+    --maage-success-dark-800: #a8c3b0;
+    --maage-success-dark-900: #cfe0d4;
+
+    --maage-warning-dark-50: #2a1e0b;
+    --maage-warning-dark-100: #3a2a10;
+    --maage-warning-dark-200: #4e3a15;
+    --maage-warning-dark-300: #624d1e;
+    --maage-warning-dark-400: #7e651f;
+    --maage-warning-dark-500: #9f8129;
+    --maage-warning-dark-600: #bb9d4e;
+    --maage-warning-dark-700: #d5b974;
+    --maage-warning-dark-800: #e9d5a3;
+    --maage-warning-dark-900: #f6f0d0;
+
+    --maage-error-dark-50: #2a0f10;
+    --maage-error-dark-100: #3a1817;
+    --maage-error-dark-200: #4f2321;
+    --maage-error-dark-300: #662d2a;
+    --maage-error-dark-400: #853938;
+    --maage-error-dark-500: #a14d4d;
+    --maage-error-dark-600: #c36d6c;
+    --maage-error-dark-700: #d89995;
+    --maage-error-dark-800: #ebc6c3;
+    --maage-error-dark-900: #f8e9e7;
+
+    --maage-info-dark-50: #112028;
+    --maage-info-dark-100: #162a35;
+    --maage-info-dark-200: #1c3746;
+    --maage-info-dark-300: #24475a;
+    --maage-info-dark-400: #2f5e74;
+    --maage-info-dark-500: #3f7c94;
+    --maage-info-dark-600: #5899b1;
+    --maage-info-dark-700: #85b9ce;
+    --maage-info-dark-800: #b4d7e6;
+    --maage-info-dark-900: #e2eef2;
+
+    --maage-bg-dark: #0e0f11;
+    --maage-bg-muted-dark: #18191b;
+    --maage-surface-dark: #1e2023;
+
+    --maage-border-dark: #2c2f33;
+
+    --maage-text-dark: #f5f5f5;
+    --maage-text-muted-dark: #d0d0d0;
+    --maage-text-subtle-dark: #a0a0a0;
+    --maage-text-inverse-dark: #1a1a1a;
+
+    --maage-text-link-dark: #66a2c2;
+    --maage-text-link-white-dark: #ffffff;
+
+    --maage-gray-neutral-dark-100: #1a1a1a;
+    --maage-gray-neutral-dark-200: #222222;
+    --maage-gray-neutral-dark-300: #2a2a2a;
+    --maage-gray-neutral-dark-400: #333333;
+    --maage-gray-neutral-dark-500: #444444;
+}
+
+.dark-1 {
+    --maage-bg-dark-50: #0b1116;
+    --maage-bg-dark-100: #101820;
+    --maage-bg-dark-200: #1a222b;
+    --maage-bg-dark-300: #232f3b;
+    --maage-bg-dark-400: #2e3c4c;
+    --maage-bg-dark-500: #394a5a;
+    --maage-bg-dark-600: #47596b;
+    --maage-bg-dark-700: #556a7e;
+    --maage-bg-dark-800: #6b8092;
+    --maage-bg-dark-900: #92a2b4;
+}
+
+.dark-2 {
+    --maage-bg-dark-50: #0e1013;
+    --maage-bg-dark-100: #14171c;
+    --maage-bg-dark-200: #1b1f26;
+    --maage-bg-dark-300: #232832;
+    --maage-bg-dark-400: #2e3440;
+    --maage-bg-dark-500: #3b4453;
+    --maage-bg-dark-600: #485264;
+    --maage-bg-dark-700: #576178;
+    --maage-bg-dark-800: #6b768c;
+    --maage-bg-dark-900: #8490a8;
+}
+
+.dark-3 {
+    --maage-bg-dark-50: #0d1216;
+    --maage-bg-dark-100: #12181e;
+    --maage-bg-dark-200: #1a2128;
+    --maage-bg-dark-300: #232b34;
+    --maage-bg-dark-400: #2e3742;
+    --maage-bg-dark-500: #39434f;
+    --maage-bg-dark-600: #455060;
+    --maage-bg-dark-700: #526072;
+    --maage-bg-dark-800: #617183;
+    --maage-bg-dark-900: #7f90a0;
+}
+
+.dark-4 {
+    --maage-bg-dark-50: #0a0f1a;
+    --maage-bg-dark-100: #0e1620;
+    --maage-bg-dark-200: #141e2b;
+    --maage-bg-dark-300: #1c2938;
+    --maage-bg-dark-400: #273647;
+    --maage-bg-dark-500: #324357;
+    --maage-bg-dark-600: #3f5268;
+    --maage-bg-dark-700: #4e637a;
+    --maage-bg-dark-800: #5f768e;
+    --maage-bg-dark-900: #8298b2;
+}
+
+.dark-5 {
+    --maage-bg-dark-50: #111111;
+    --maage-bg-dark-100: #151515;
+    --maage-bg-dark-200: #1b1b1b;
+    --maage-bg-dark-300: #222222;
+    --maage-bg-dark-400: #2a2a2a;
+    --maage-bg-dark-500: #333333;
+    --maage-bg-dark-600: #3f3f3f;
+    --maage-bg-dark-700: #4c4c4c;
+    --maage-bg-dark-800: #5b5b5b;
+    --maage-bg-dark-900: #6b6b6b;
+}
+
 /* scoped reset */
 #maage.scoped-reset,
 #maage.scoped-reset * {
