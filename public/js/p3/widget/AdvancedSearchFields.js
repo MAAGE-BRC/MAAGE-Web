@@ -202,7 +202,7 @@ define([], function () {
         field: '----- Sequence Info -----', type: 'str', facet: false, face_hidden: true, search: true
       },
       {
-        field: 'sequencing_centers', type: 'str', facet: true, facet_hidden: true, search: true
+        field: 'sequencing_centers', type: 'str', facet: true, facet_hidden: false, search: true
       },
       {
         field: 'sequencing_platform', type: 'str', facet: false, facet_hidden: true, search: true
@@ -293,6 +293,12 @@ define([], function () {
       },
       {
         field: 'state_province', type: 'str', facet: true, facet_hidden: false, search: true
+      },
+      {
+        field: 'county', type: 'str', facet: true, facet_hidden: false, search: true
+      },
+      {
+        field: 'city', type: 'str', facet: true, facet_hidden: false, search: true
       },
       {
         field: 'geographic_group', type: 'str', facet: true, facet_hidden: false, search: true
