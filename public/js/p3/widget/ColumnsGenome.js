@@ -292,7 +292,7 @@ define(['./formatter'], function (formatter) {
     sequencing_centers: {
       label: 'Sequencing Center',
       field: 'sequencing_centers',
-      hidden: true,
+      hidden: false,
       group: 'Sequence Info'
     },
     sequencing_status: {
@@ -470,7 +470,19 @@ define(['./formatter'], function (formatter) {
     state_province: {
       label: 'State/Province',
       field: 'state_province',
-      hidden: true,
+      hidden: false,
+      group: 'Isolate Info'
+    },
+    county: {
+      label: 'County',
+      field: 'county',
+      hidden: false,
+      group: 'Isolate Info'
+    },
+    city: {
+      label: 'City',
+      field: 'city',
+      hidden: false,
       group: 'Isolate Info'
     },
     geographic_group: {
