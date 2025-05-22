@@ -54,7 +54,7 @@ Access the development server running the MAAGE web application at [http://local
 
 ## Contributing
 
-Anyone is welcome to contribute to the [MAAGE-Web](https://github.com/MAAGE-BRC/MAAGE-Web) repository. For detailed contributer guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+Anyone is welcome to contribute to the [MAAGE-Web](https://github.com/MAAGE-BRC/MAAGE-Web) repository. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## License
 
