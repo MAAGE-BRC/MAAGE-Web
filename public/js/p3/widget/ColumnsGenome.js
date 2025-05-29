@@ -468,7 +468,7 @@ define(['./formatter'], function (formatter) {
       group: 'Isolate Info'
     },
     state_province: {
-      label: 'State/Province',
+      label: 'State / Province',
       field: 'state_province',
       hidden: false,
       group: 'Isolate Info'

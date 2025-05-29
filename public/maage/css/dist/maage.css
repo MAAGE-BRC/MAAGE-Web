@@ -1105,11 +1105,6 @@ video {
   border-color: rgb(134 239 172 / var(--tw-border-opacity, 1));
 }
 
-.border-maage-border {
-  --tw-border-opacity: 1;
-  border-color: rgb(222 226 230 / var(--tw-border-opacity, 1));
-}
-
 .border-maage-primary-100 {
   --tw-border-opacity: 1;
   border-color: rgb(236 243 240 / var(--tw-border-opacity, 1));
@@ -1164,11 +1159,6 @@ video {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
 
-.bg-maage-bg {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 249 250 / var(--tw-bg-opacity, 1));
-}
-
 .bg-maage-primary-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(236 243 240 / var(--tw-bg-opacity, 1));
@@ -1210,11 +1200,6 @@ video {
 .bg-maage-secondary-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(95 148 171 / var(--tw-bg-opacity, 1));
-}
-
-.bg-maage-surface {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .bg-maage-tertiary-100 {
@@ -1438,10 +1423,6 @@ video {
   padding-bottom: 2.5rem;
 }
 
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-
 .pb-6 {
   padding-bottom: 1.5rem;
 }
@@ -1472,10 +1453,6 @@ video {
 
 .font-\[\'Poppins\'\] {
   font-family: 'Poppins';
-}
-
-.font-heading {
-  font-family: Poppins, sans-serif;
 }
 
 .text-2xl {
@@ -2110,10 +2087,6 @@ video {
     padding: 2.5rem;
   }
 
-  .md\:p-6 {
-    padding: 1.5rem;
-  }
-
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
@@ -2128,10 +2101,6 @@ video {
 
   .lg\:w-\[75\%\] {
     width: 75%;
-  }
-
-  .lg\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-3 {
