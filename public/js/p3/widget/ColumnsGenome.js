@@ -428,7 +428,7 @@ define(['./formatter'], function (formatter) {
       sortable: false,
       group: 'Genome Quality'
     },
-
+    
     // Isolate Info
     isolation_source: {
       label: 'Isolation Source',
@@ -468,7 +468,7 @@ define(['./formatter'], function (formatter) {
       group: 'Isolate Info'
     },
     state_province: {
-      label: 'State/Province',
+      label: 'State',
       field: 'state_province',
       hidden: false,
       group: 'Isolate Info'
