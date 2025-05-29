@@ -3405,8 +3405,16 @@ define([
           text: 'isolation_country',
           editable: true
         }, {
-          name: 'State/Province',
+          name: 'State',
           text: 'state_province',
+          editable: true
+        }, {
+          name: 'County',
+          text: 'county',
+          editable: true
+        }, {
+          name: 'City',
+          text: 'city',
           editable: true
         }, {
           name: 'Geographic Group',
