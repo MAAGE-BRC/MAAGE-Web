@@ -144,9 +144,10 @@ out/
 node_repl_history
 
 # Editors, IDEs, Terminals, AI, etc
-# Should often be handled by excludes 
+# Should often be handled by excludes
 .vscode/
 *.code-workspace
+!maage-web.code-workspace
 .idea/
 .zed/
 .fleet/
