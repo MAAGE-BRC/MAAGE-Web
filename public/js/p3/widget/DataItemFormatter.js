@@ -3405,7 +3405,7 @@ define([
           text: 'isolation_country',
           editable: true
         }, {
-          name: 'State',
+          name: 'State / Province',
           text: 'state_province',
           editable: true
         }, {
