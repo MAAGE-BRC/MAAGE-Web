@@ -1247,11 +1247,6 @@ video {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
 
-.bg-indigo-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(79 70 229 / var(--tw-bg-opacity, 1));
-}
-
 .bg-maage-bg {
   --tw-bg-opacity: 1;
   background-color: rgb(248 249 250 / var(--tw-bg-opacity, 1));
@@ -2079,14 +2074,14 @@ video {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.focus\:ring-indigo-600:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(79 70 229 / var(--tw-ring-opacity, 1));
-}
-
 .focus\:ring-maage-primary-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(180 208 195 / var(--tw-ring-opacity, 1));
+}
+
+.focus\:ring-maage-primary-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(110 160 137 / var(--tw-ring-opacity, 1));
 }
 
 .focus\:ring-maage-secondary-300:focus {
