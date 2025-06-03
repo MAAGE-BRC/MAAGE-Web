@@ -1,0 +1,33 @@
+<script>
+  let grid;
+  let dragEnabled = false;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const gridEl = document.querySelector('.grid-stack');
+    const modeLabel = document.getElementById('edit-mode-label');
+    grid = GridStack.init({
+      float: true,
+      margin: 10,
+      cellHeight: 100,
+      disableResize: true,
+      disableDrag: true
+    }, gridEl);
+
+    const toggleBtn = document.getElementById('toggle-drag');
+    const toggleIndicator = document.getElementById('toggle-indicator');
+
+    toggleBtn.addEventListener('click', () => {
+      dragEnabled = !dragEnabled;
+      grid.enableMove(dragEnabled);
+      grid.enableResize(dragEnabled);
+      gridEl.classList.toggle('cursor-move', dragEnabled);
+      gridEl.classList.toggle('cursor-default', !dragEnabled);
+      toggleBtn.setAttribute('aria-checked', dragEnabled);
+      toggleBtn.classList.toggle('bg-gray-200', !dragEnabled);
+      toggleBtn.classList.toggle('bg-indigo-600', dragEnabled);
+      toggleIndicator.classList.toggle('translate-x-0', !dragEnabled);
+      toggleIndicator.classList.toggle('translate-x-5', dragEnabled);
+      modeLabel.textContent = dragEnabled ? 'Edit Mode' : 'View Mode';
+    });
+  });
+</script>

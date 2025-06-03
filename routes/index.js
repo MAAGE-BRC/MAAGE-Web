@@ -7,6 +7,12 @@ router.get("/", function (req, res) {
   res.render("index", { title: "PATRIC", request: req, response: res });
 });
 
+/* GET demo */
+router.get("/demo", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/demo", { title: "PATRIC", request: req, response: res });
+});
+
 /* GET about */
 router.get("/about", function (req, res) {
   req.applicationModule = "p3/app/p3app";
