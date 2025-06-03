@@ -2079,11 +2079,6 @@ video {
   --tw-ring-color: rgb(180 208 195 / var(--tw-ring-opacity, 1));
 }
 
-.focus\:ring-maage-primary-500:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(110 160 137 / var(--tw-ring-opacity, 1));
-}
-
 .focus\:ring-maage-secondary-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(160 193 207 / var(--tw-ring-opacity, 1));
