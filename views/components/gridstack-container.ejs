@@ -1,0 +1,9 @@
+<div class="grid-stack p-4 gap-4 cursor-default" id="dashboard-grid">
+  <% widgets.forEach(function(widget) { %>
+    <div class="grid-stack-item" gs-x="<%= widget.x %>" gs-y="<%= widget.y %>" gs-w="<%= widget.w %>" gs-h="<%= widget.h %>">
+      <div class="grid-stack-item-content bg-white shadow rounded-lg overflow-hidden border border-gray-300">
+        <%- include(`../widgets/${widget.partial}`) %>
+      </div>
+    </div>
+  <% }) %>
+</div>
