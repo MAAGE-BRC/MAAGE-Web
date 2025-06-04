@@ -1,0 +1,116 @@
+<%
+  const chartId = 'doughnutChart-' + Math.random().toString(36).substr(2, 9);
+%>
+<div class="w-full h-full flex flex-col p-4 rounded-sm shadow-md">
+  <h2 class="text-lg font-semibold mb-3 text-gray-700">Sample Distribution</h2>
+  <div class="flex-1">
+    <div id="<%= chartId %>" class="w-full h-full min-h-64"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  function initChart() {
+    const chartDom = document.getElementById('<%= chartId %>');
+    
+    if (!chartDom) {
+      console.error('Chart DOM element not found');
+      return;
+    }
+    
+    if (typeof echarts === 'undefined') {
+      console.error('ECharts library not loaded');
+      return;
+    }
+    
+    // Wait for element to be visible
+    setTimeout(function() {
+      const myChart = echarts.init(chartDom, 'maage');
+      
+      const option = {
+        title: {
+          text: 'Pathogen Species Distribution',
+          left: 'center',
+          textStyle: {
+            fontSize: 14,
+            fontWeight: 'normal'
+          }
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: function(params) {
+            return params.name + '<br/>' + 
+                   params.value + ' samples (' + params.percent + '%)';
+          }
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+          textStyle: {
+            fontSize: 11
+          }
+        },
+        series: [{
+          name: 'Sample Count',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          center: ['60%', '50%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 5,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
+          label: {
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 16,
+              fontWeight: 'bold',
+              formatter: function(params) {
+                return params.name + '\n' + params.value + ' samples';
+              }
+            },
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: [
+            { value: 342, name: 'E. coli' },
+            { value: 198, name: 'Salmonella' },
+            { value: 156, name: 'Listeria' },
+            { value: 89, name: 'Campylobacter' },
+            { value: 67, name: 'Shigella' },
+            { value: 45, name: 'Other' }
+          ]
+        }]
+      };
+      
+      myChart.setOption(option);
+      
+      // Handle resize
+      if (typeof ResizeObserver !== 'undefined') {
+        const resizeObserver = new ResizeObserver(function() {
+          myChart.resize();
+        });
+        resizeObserver.observe(chartDom);
+      }
+    }, 100);
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChart);
+  } else {
+    initChart();
+  }
+})();
+</script>

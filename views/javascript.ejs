@@ -141,11 +141,3 @@ const load_scripts = [
       </script>
 
 
-<script>
-// Create a no-op echarts AMD module to prevent loader errors
-if (typeof define === 'function' && define.amd) {
-  define("echarts", [], function() { 
-    return window.echarts || {}; 
-  });
-}
-</script>
