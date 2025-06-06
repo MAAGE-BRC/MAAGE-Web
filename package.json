@@ -15,7 +15,6 @@
     "braces": "^3.0.3",
     "browserlist": "^1.0.1",
     "bvbrc_js_client": "^1.0.1",
-    "caniuse-lite": "^1.0.30001718",
     "cookie-parser": "~1.4.6",
     "cytoscape": "^3.2.4",
     "cytoscape-cola": "^1.6.0",
