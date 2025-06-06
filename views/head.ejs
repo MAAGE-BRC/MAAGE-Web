@@ -44,6 +44,16 @@
 
 <script src="/maage/js/echarts/v5.4.3/echarts.js"></script>
 <script src="/maage/js/echarts/themes/maage.js"></script>
+<script src="/maage/js/data-api/maage_client.js"></script>
+<script>
+    const maageSVC = new MAAGEClient();
+    // later maageSVC.init(endpoint, token)
+</script>
+<script>
+  maageSVC.init('https://www.maage-brc.org/api');
+  var schema = maageSVC.getSchema('genome');
+  console.log('Schema loaded:', schema);
+</script>
 
 <link rel="stylesheet" href="/maage/gridstack/gridstack.min.css">
 <link rel="stylesheet" href="/maage/css/dist/maage.css">
