@@ -12,8 +12,11 @@ module.exports = {
     extend: {
       fontFamily: {
         heading: ['Poppins', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
         mono: ['IBM Plex Mono', 'monospace'],
+        ibmplexmono: ['IBM Plex Mono', 'monospace'],
       },
       maxWidth: {
         maage: '1400px',
