@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+
+    <body>
+
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-5 sm:p-6 border border-gray-200">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-[#98bdac]/20 flex items-center justify-center mr-3"><i
+                               class="fas fa-database text-[#98bdac]"></i></div>
+                        <h3 class="text-xl font-['Poppins',sans-serif] font-semibold text-gray-800">Search Genomic Data
+                        </h3>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-4" data-protonpass-form="">
+                        <div class="relative flex-grow">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i
+                                   class="fas fa-search text-gray-400"></i></div><input type="text"
+                                   placeholder="Search genes, genomes, proteins, pathways..."
+                                   class="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-[#98bdac] focus:border-[#98bdac] transition-colors"
+                                   aria-label="Search genomic data">
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-3"><select
+                                    class="border border-gray-300 rounded-md py-3 px-4 bg-white focus:ring-[#98bdac] focus:border-[#98bdac] transition-colors"
+                                    aria-label="Select data type">
+                                <option value="">All Data Types</option>
+                                <option value="genomes">Genomes</option>
+                                <option value="genes">Genes</option>
+                                <option value="proteins">Proteins</option>
+                                <option value="pathways">Pathways</option>
+                                <option value="taxa">Taxa</option>
+                            </select><button
+                                    class="bg-[#5f94ab] hover:bg-[#4f849b] text-white py-3 px-6 rounded-md font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5f94ab] focus:ring-opacity-50">Search</button>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-gray-50 border border-gray-200 rounded-md p-3 sm:p-4">
+                        <div class="flex flex-wrap items-center justify-between">
+                            <div class="flex flex-wrap items-center"><span
+                                      class="text-xs font-medium text-gray-600 mr-2">Popular:</span>
+                                <div class="flex flex-wrap gap-2 mt-2 md:mt-0"><a href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#5f94ab] rounded-full px-3 py-1 text-sm transition-colors"><i
+                                           class="fas fa-virus text-[#5f94ab] mr-1 text-xs"></i><span>SARS-CoV-2</span></a><a
+                                       href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#5f94ab] rounded-full px-3 py-1 text-sm transition-colors"><i
+                                           class="fas fa-virus-slash text-[#5f94ab] mr-1 text-xs"></i><span>Influenza
+                                            A</span></a><a href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#98bdac] rounded-full px-3 py-1 text-sm transition-colors"><i
+                                           class="fas fa-viruses text-[#98bdac] mr-1 text-xs"></i><span>Mpox</span></a><a
+                                       href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#98bdac] rounded-full px-3 py-1 text-sm transition-colors"><i
+                                           class="fas fa-bacterium text-[#98bdac] mr-1 text-xs"></i><span>Salmonella</span></a>
+                                </div>
+                            </div><a href="/advanced-search"
+                               class="text-[#5f94ab] hover:text-[#4f849b] flex items-center text-sm mt-3 md:mt-0 transition-colors font-medium">Advanced
+                                Search<i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+
+</html>
