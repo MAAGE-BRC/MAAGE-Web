@@ -781,6 +781,10 @@ video {
   margin-top: 2.5rem;
 }
 
+.mt-12 {
+  margin-top: 3rem;
+}
+
 .mt-16 {
   margin-top: 4rem;
 }
@@ -1069,6 +1073,10 @@ video {
   max-width: 56rem;
 }
 
+.max-w-6xl {
+  max-width: 72rem;
+}
+
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -1107,6 +1115,10 @@ video {
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.border-collapse {
+  border-collapse: collapse;
 }
 
 .-translate-y-1\/2 {
@@ -1152,6 +1164,16 @@ video {
 
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
 .cursor-default {
@@ -1254,6 +1276,12 @@ video {
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1310,6 +1338,12 @@ video {
   overflow-y: scroll;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -1358,6 +1392,10 @@ video {
   border-width: 4px;
 }
 
+.border-\[3px\] {
+  border-width: 3px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1387,6 +1425,15 @@ video {
 .border-\[\#e7c788\] {
   --tw-border-opacity: 1;
   border-color: rgb(231 199 136 / var(--tw-border-opacity, 1));
+}
+
+.border-blue-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));
+}
+
+.border-current {
+  border-color: currentColor;
 }
 
 .border-gray-100 {
@@ -1457,6 +1504,10 @@ video {
   border-color: rgb(255 255 255 / 0.2);
 }
 
+.border-t-transparent {
+  border-top-color: transparent;
+}
+
 .bg-\[\#548fa6\] {
   --tw-bg-opacity: 1;
   background-color: rgb(84 143 166 / var(--tw-bg-opacity, 1));
@@ -1504,6 +1555,11 @@ video {
 
 .bg-\[var\(--maage-background\)\] {
   background-color: var(--maage-background);
+}
+
+.bg-blue-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gray-100 {
@@ -1565,6 +1621,11 @@ video {
 .bg-maage-primary-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 247 245 / var(--tw-bg-opacity, 1));
+}
+
+.bg-maage-primary-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(110 160 137 / var(--tw-bg-opacity, 1));
 }
 
 .bg-maage-quaternary-100 {
@@ -1849,6 +1910,11 @@ video {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
 }
 
 .py-12 {
@@ -2154,6 +2220,16 @@ video {
   color: var(--maage-text-link-white);
 }
 
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity, 1));
+}
+
+.text-blue-900 {
+  --tw-text-opacity: 1;
+  color: rgb(30 58 138 / var(--tw-text-opacity, 1));
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));
@@ -2274,6 +2350,10 @@ video {
   color: rgb(73 80 87 / var(--tw-text-opacity, 1));
 }
 
+.text-maage-text-primary {
+  color: var(--maage-primary-400);
+}
+
 .text-maage-text-subtle {
   --tw-text-opacity: 1;
   color: rgb(108 117 125 / var(--tw-text-opacity, 1));
@@ -2294,6 +2374,11 @@ video {
 
 .text-maage-text\/90 {
   color: rgb(33 37 41 / 0.9);
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 
 .text-red-600 {
@@ -2373,6 +2458,10 @@ video {
 
 .brightness-110 {
   --tw-brightness: brightness(1.1);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -2543,6 +2632,11 @@ video {
 .hover\:bg-maage-primary-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 247 245 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-maage-primary-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(87 133 111 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-maage-quaternary-200:hover {
