@@ -45,17 +45,32 @@
 <script src="/maage/js/echarts/v5.4.3/echarts.js"></script>
 <script src="/maage/js/echarts/themes/maage.js"></script>
 <script src="/maage/js/data-api/maage_client.js"></script>
+<script src="/maage/js/chart-widget-base.js"></script>
 <script>
-    const maageSVC = new MAAGEClient();
-    // later maageSVC.init(endpoint, token)
-</script>
-<script>
-  maageSVC.init('https://www.maage-brc.org/api');
-  var schema = maageSVC.getSchema('genome');
-  console.log('Schema loaded:', schema);
+    // Initialize MAAGE client globally
+    if (typeof MAAGEClient !== 'undefined') {
+        window.maageSVC = new MAAGEClient();
+        window.maageSVC.init('https://www.maage-brc.org/api');
+        
+        // Test connection and log status
+        window.maageSVC.getSchema('genome').then(function(schema) {
+            console.log('MAAGE Client initialized successfully:', schema);
+        }).catch(function(error) {
+            console.warn('MAAGE Client connection issue:', error);
+        });
+        
+        console.log('MAAGE Client available:', {
+            client: !!window.maageSVC,
+            initialized: window.maageSVC.initialized,
+            endpoint: window.maageSVC.endpoint
+        });
+    } else {
+        console.error('MAAGEClient class not found - check if maage_client.js loaded properly');
+    }
 </script>
 
 <link rel="stylesheet" href="/maage/gridstack/gridstack.min.css">
 <link rel="stylesheet" href="/maage/css/dist/maage.css">
 <link rel="stylesheet" href="/maage/css/src/styles.css">
 
+<script src="https://cdn.tailwindcss.com"></script>

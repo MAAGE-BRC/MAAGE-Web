@@ -60,6 +60,7 @@ define([
         }))
       }
     },
+
     buildQuery: function () {
       let queryArr = []
 
@@ -101,4 +102,4 @@ define([
       }
     }
   })
-})
+});

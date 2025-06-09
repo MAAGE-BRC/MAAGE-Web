@@ -148,7 +148,7 @@ define([
       }
 
       Router.register('/$', function (params, oldPath, newPath, state) {
-        var homeNode = dom.byId('bv-brc-home');
+        var homeNode = dom.byId('maage-home');
         if (homeNode) {
           return;
         }

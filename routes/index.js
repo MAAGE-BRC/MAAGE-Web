@@ -13,6 +13,30 @@ router.get("/demo", function (req, res) {
   res.render("pages/demo", { title: "PATRIC", request: req, response: res });
 });
 
+/* GET MAAGE charts demo */
+router.get("/maage-charts-demo", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/maage-charts-demo", { title: "MAAGE Charts Demo", request: req, response: res });
+});
+
+/* GET simple charts test */
+router.get("/simple-charts-test", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/simple-charts-test", { title: "Simple Charts Test", request: req, response: res });
+});
+
+/* GET refactored charts test */
+router.get("/refactored-charts-test", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/refactored-charts-test", { title: "Refactored Charts Test", request: req, response: res });
+});
+
+/* GET interactive charts demo */
+router.get("/interactive-charts-demo", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("pages/interactive-charts-demo", { title: "Interactive Charts Demo", request: req, response: res });
+});
+
 /* GET about */
 router.get("/about", function (req, res) {
   req.applicationModule = "p3/app/p3app";

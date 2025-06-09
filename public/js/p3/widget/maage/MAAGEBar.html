@@ -1,0 +1,27 @@
+<div class="MAAGEBar w-full">
+  <div class="flex justify-between items-center mb-4 p-2 bg-maage-bg-subtle rounded-lg">
+    <div class="text-lg font-medium text-maage-text-primary" data-dojo-attach-point="chartTitleNode"></div>
+    <div class="flex gap-2" data-dojo-attach-point="actionButtonsNode">
+      <button class="px-3 py-1.5 bg-maage-primary-500 hover:bg-maage-primary-600 text-white rounded-md transition-colors text-sm font-medium" 
+              title="Chart View" 
+              data-dojo-attach-event="click:showChart">
+        📊 Chart
+      </button>
+      <button class="px-3 py-1.5 bg-maage-secondary-500 hover:bg-maage-secondary-600 text-white rounded-md transition-colors text-sm font-medium" 
+              title="Table View" 
+              data-dojo-attach-event="click:showTable">
+        📋 Table
+      </button>
+    </div>
+  </div>
+  <div data-dojo-attach-point="containerNode" class="relative min-h-[350px] bg-white rounded-lg border border-maage-border">
+    <div class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-90 z-10" data-dojo-attach-point="loadingNode">
+      <div class="text-center">
+        <div class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-maage-primary-500 rounded-full mb-2"></div>
+        <span class="text-maage-text-muted text-sm">Loading chart data...</span>
+      </div>
+    </div>
+    <div class="w-full h-[350px] p-4" data-dojo-attach-point="chartNode"></div>
+    <div class="hidden w-full p-4" data-dojo-attach-point="tableNode"></div>
+  </div>
+</div>
