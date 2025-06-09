@@ -1073,10 +1073,6 @@ video {
   max-width: 56rem;
 }
 
-.max-w-6xl {
-  max-width: 72rem;
-}
-
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -1115,10 +1111,6 @@ video {
 
 .flex-grow {
   flex-grow: 1;
-}
-
-.border-collapse {
-  border-collapse: collapse;
 }
 
 .-translate-y-1\/2 {
@@ -2374,11 +2366,6 @@ video {
 
 .text-maage-text\/90 {
   color: rgb(33 37 41 / 0.9);
-}
-
-.text-red-500 {
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 
 .text-red-600 {
