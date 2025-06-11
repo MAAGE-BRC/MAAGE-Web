@@ -1,22 +1,35 @@
-<script src="https://kit.fontawesome.com/63d3c7d220.js" crossorigin="anonymous"></script>
 <div id="maage-home">
+<script src="https://kit.fontawesome.com/4bb90511c9.js" crossorigin="anonymous"></script>
+    <section
+             class="pt-24 pb-24 bg-gradient-to-br from-maage-primary-100/80 via-maage-tertiary-100/60 to-maage-secondary-100/80 relative overflow-hidden">
+        <div
+             class="absolute inset-0 bg-gradient-to-r from-maage-primary-200/40 via-transparent to-maage-secondary-200/40">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-maage-bg/20 via-transparent to-maage-tertiary-50/30">
+        </div>
 
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <div class="absolute top-20 left-20 w-32 h-32 bg-maage-primary-300 rounded-full blur-3xl"></div>
+            <div class="absolute top-40 right-32 w-24 h-24 bg-maage-secondary-300 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-32 left-1/3 w-40 h-40 bg-maage-tertiary-300 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-20 w-28 h-28 bg-maage-primary-400 rounded-full blur-2xl"></div>
+        </div>
 
-
-         <!-- Hero Section -->
-        <section class="pt-24 pb-24 bg-gradient-to-br from-maage-primary-50 via-maage-bg to-maage-secondary-50">
-            <div class="container mx-auto px-4 sm:px-6">
+        <div class="relative z-10">
+            <div class="max-w-maage mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <div class="w-3/5">
                         <h2 class="text-5xl font-heading font-semibold text-gray-800 mb-6 leading-tight">
                             Midwest Alliance for<br>
                             Applied Genomic Epidemiology
                         </h2>
-                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">The Midwest Alliance for
-                            Applied Genomic Epidemiology (MAAGE) aims to develop a genomic surveillance platform to
-                            enhance infectious disease detection and tracking while providing educational resources for
-                            public health and healthcare professionals.</p>
-
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            The Midwest Alliance for Applied Genomic Epidemiology (MAAGE) aims to develop a genomic
+                            surveillance
+                            platform to enhance infectious disease detection and tracking while providing
+                            educational resources for
+                            public health and healthcare professionals.
+                        </p>
                     </div>
                     <div class="w-2/4 flex justify-center">
                         <div class="relative">
@@ -41,329 +54,342 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Main Content Layout -->
-        <main class="max-w-maage mx-auto py-8">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <main class="max-w-maage mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3 space-y-8">
 
-                <!-- Left Column (3/4) -->
-                <div class="lg:col-span-3 space-y-8">
-
-                    <!-- Featured Content -->
-                    <section class="bg-white rounded-md shadow-sm border border-maage-border p-6">
-
-                        <div class="container mx-auto px-2">
-
-                            <div class="flex items-center mb-6">
-                                <div
-                                     class="w-10 h-10 rounded-full bg-maage-primary-400/20 flex items-center justify-center mr-3">
-                                    <i class="fas fa-database text-maage-primary-400"></i>
-                                </div>
-                                <h3 class="text-xl font-heading font-semibold text-gray-800">Search Genomic
-                                    Data</h3>
+                <section class="bg-white rounded-md shadow-sm border border-maage-border p-6">                    
+                    <div class="flex items-center mb-6">
+                        <div
+                             class="w-10 h-10 rounded-full bg-maage-primary-400/20 flex items-center justify-center mr-3">
+                            <i class="fas fa-database text-maage-primary-400"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-semibold text-gray-800">Search Genomic
+                            Data</h3>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="relative flex-grow">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
                             </div>
-                            <div class="flex flex-col md:flex-row gap-4"
-                                 data-protonpass-form="">
-                                <div class="relative flex-grow">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-search text-gray-400"></i>
-                                    </div><input type="text"
-                                           placeholder="Search genes, genomes, proteins, pathways..."
-                                           class="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-[#98bdac] focus:border-[#98bdac] transition-colors"
-                                           aria-label="Search genomic data">
-                                </div>
-                                <div class="flex flex-col md:flex-row gap-3"><select
-                                            class="border border-gray-300 rounded-md py-3 px-4 bg-white focus:ring-[#98bdac] focus:border-[#98bdac] transition-colors"
-                                            aria-label="Select data type">
-                                        <option value="">All Data Types</option>
-                                        <option value="genomes">Genomes</option>
-                                        <option value="genes">Genes</option>
-                                        <option value="proteins">Proteins</option>
-                                        <option value="pathways">Pathways</option>
-                                        <option value="taxa">Taxa</option>
-                                    </select><button
-                                            class="bg-[#5f94ab] hover:bg-maage-secondary-600 text-white py-3 px-6 rounded-md font-medium transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5f94ab] focus:ring-opacity-50">Search</button>
+                            <input type="text"
+                                   placeholder="Search genes, genomes, proteins, pathways..."
+                                   class="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-[#98bdac] focus:border-[#98bdac] transition-colors"
+                                   aria-label="Search genomic data">
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <select
+                                    class="border border-gray-300 rounded-md py-3 px-4 bg-white focus:ring-[#98bdac] focus:border-[#98bdac] transition-colors"
+                                    aria-label="Select data type">
+                                <option value="">All Data Types</option>
+                                <option value="genomes">Genomes</option>
+                                <option value="genes">Genes</option>
+                                <option value="proteins">Proteins</option>
+                                <option value="pathways">Pathways</option>
+                                <option value="taxa">Taxa</option>
+                            </select>
+                            <button
+                                    class="bg-[#5f94ab] hover:bg-maage-secondary-600 text-white py-3 px-6 rounded-md font-medium transition-colors shadow-sm focus:outline-none focus:ring-[#5f94ab] focus:ring-opacity-50 whitespace-nowrap">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-gray-50 border border-gray-200 rounded-md p-3 sm:p-4">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                            <div class="flex flex-wrap items-center">
+                                <span class="text-xs font-medium text-gray-600 mr-2">Popular:</span>
+                                <div class="flex flex-wrap gap-2 mt-2 sm:mt-0">
+                                    <a href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#5f94ab] rounded-full px-3 py-1 text-sm transition-colors">
+                                        <i class="fas fa-virus text-maage-secondary-500 mr-1 text-xs"></i>
+                                        <span>SARS-CoV-2</span>
+                                    </a>
+                                    <a href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#5f94ab] rounded-full px-3 py-1 text-sm transition-colors">
+                                        <i class="fas fa-virus-slash text-maage-secondary-500 mr-1 text-xs"></i>
+                                        <span>Influenza A</span>
+                                    </a>
+                                    <a href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#98bdac] rounded-full px-3 py-1 text-sm transition-colors">
+                                        <i class="fas fa-viruses text-maage-primary-400 mr-1 text-xs"></i>
+                                        <span>Mpox</span>
+                                    </a>
+                                    <a href="#"
+                                       class="flex items-center bg-white border border-gray-200 hover:border-[#98bdac] rounded-full px-3 py-1 text-sm transition-colors">
+                                        <i class="fas fa-bacterium text-maage-primary-400 mr-1 text-xs"></i>
+                                        <span>Salmonella</span>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="mt-6 bg-gray-50 border border-gray-200 rounded-md p-3 sm:p-4">
-                                <div class="flex flex-wrap items-center justify-between">
-                                    <div class="flex flex-wrap items-center"><span
-                                              class="text-xs font-medium text-gray-600 mr-2">Popular:</span>
-                                        <div class="flex flex-wrap gap-2 mt-2 md:mt-0"><a href="#"
-                                               class="flex items-center bg-white border border-gray-200 hover:border-[#5f94ab] rounded-full px-3 py-1 text-sm transition-colors"><i
-                                                   class="fas fa-virus text-maage-secondary-500 mr-1 text-xs"></i><span>SARS-CoV-2</span></a><a
-                                               href="#"
-                                               class="flex items-center bg-white border border-gray-200 hover:border-[#5f94ab] rounded-full px-3 py-1 text-sm transition-colors"><i
-                                                   class="fas fa-virus-slash text-maage-secondary-500 mr-1 text-xs"></i><span>Influenza
-                                                    A</span></a><a href="#"
-                                               class="flex items-center bg-white border border-gray-200 hover:border-[#98bdac] rounded-full px-3 py-1 text-sm transition-colors"><i
-                                                   class="fas fa-viruses text-maage-primary-400 mr-1 text-xs"></i><span>Mpox</span></a><a
-                                               href="#"
-                                               class="flex items-center bg-white border border-gray-200 hover:border-[#98bdac] rounded-full px-3 py-1 text-sm transition-colors"><i
-                                                   class="fas fa-bacterium text-maage-primary-400 mr-1 text-xs"></i><span>Salmonella</span></a>
-                                        </div>
-                                    </div><a href="/advanced-search"
-                                       class="text-maage-secondary-500 hover:text-maage-secondary-600 flex items-center text-sm mt-3 md:mt-0 transition-colors font-medium">Advanced
-                                        Search<i class="fas fa-arrow-right ml-1 text-xs"></i></a>
-                                </div>
+                            <a href="/advanced-search"
+                               class="text-maage-secondary-500 hover:text-maage-secondary-600 flex items-center text-sm transition-colors font-medium whitespace-nowrap">
+                                Advanced Search
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
 
+                <section class="bg-white rounded-md shadow-sm border border-maage-border p-6">
+                    <h2 class="font-heading text-xl font-semibold text-maage-text mb-6">
+                        <i class="fas fa-chart-line text-maage-secondary-400 mr-3"></i>
+                        Surveillance Quick View
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-maage-bg rounded-md p-4 h-64 flex items-center justify-center">
+                            <div class="text-center text-maage-text-muted">
+                                <i class="fas fa-chart-area text-4xl mb-2"></i>
+                                <div>Geographic Distribution</div>
                             </div>
                         </div>
-
-                    </section>
-
-                    <!-- Data Visualization Dashboard -->
-                    <section class="bg-white rounded-md shadow-sm border border-maage-border p-6">
-                        <h2 class="font-heading text-xl font-semibold text-maage-text mb-6">
-                            <i class="fas fa-chart-line text-maage-secondary-400 mr-3"></i>
-                            Surveillance Quick View
-                        </h2>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Placeholder for charts -->
-                            <div class="bg-maage-bg rounded-md p-4 h-64 flex items-center justify-center">
-                                <div class="text-center text-maage-text-muted">
-                                    <i class="fas fa-chart-area text-4xl mb-2"></i>
-                                    <div>Geographic Distribution</div>
-                                </div>
-                            </div>
-                            <div class="bg-maage-bg rounded-md p-4 h-64 flex items-center justify-center">
-                                <div class="text-center text-maage-text-muted">
-                                    <i class="fas fa-chart-pie text-4xl mb-2"></i>
-                                    <div>Pathogen Breakdown</div>
-                                </div>
+                        <div class="bg-maage-bg rounded-md p-4 h-64 flex items-center justify-center">
+                            <div class="text-center text-maage-text-muted">
+                                <i class="fas fa-chart-pie text-4xl mb-2"></i>
+                                <div>Pathogen Breakdown</div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
-                    <!-- Analyze Data -->
-                    <section class="bg-maage-secondary-50 rounded-md shadow-sm border border-maage-border p-6">
+                <section class="bg-maage-secondary-50 rounded-md shadow-sm border border-maage-border p-6">
 
-                        <div class="flex items-center mb-8">
-                            <div class="w-12 h-12 rounded-full bg-[#5f94ab]/20 flex items-center justify-center mr-4">
-                                <i class="fas fa-chart-bar text-[#5f94ab] text-xl"></i>
-                            </div>
-                            <h2 class="text-2xl sm:text-3xl font-['Poppins',sans-serif] font-semibold text-gray-800">
-                                Analyze Data</h2>
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-12 rounded-full bg-[#5f94ab]/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-bar text-[#5f94ab] text-xl"></i>
                         </div>
-                        <p class="text-gray-600 max-w-3xl mb-8 leading-relaxed">Upload and analyze your genomic
-                            data in a secure private workspace with our comprehensive suite of tools.</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mb-8">
-                            <div
-                                 class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                                <div class="flex items-center mb-4"><i
-                                       class="fas fa-search text-[#98bdac] mr-3 text-lg"></i>
-                                    <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Search</h3>
-                                </div>
-                                <ul class="space-y-2 text-[#5f94ab]">
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Taxa</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Genomes
-                                    </li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Features
-                                    </li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Specialty
-                                        Genes</li>
-                                    <li
-                                        class="flex items-center hover:text-[#4f849b] cursor-pointer transition-colors font-medium">
-                                        <span>View All</span><i class="fas fa-arrow-right ml-1 text-xs"></i>
-                                    </li>
-                                </ul>
+                        <h2 class="text-2xl sm:text-3xl font-['Poppins',sans-serif] font-semibold text-gray-800">
+                            Analyze Data</h2>
+                    </div>
+                    <p class="text-gray-600 max-w-3xl mb-8 leading-relaxed">Upload and analyze your genomic
+                        data in a secure private workspace with our comprehensive suite of tools.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mb-8">
+                        <div
+                             class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-4"><i
+                                   class="fas fa-search text-[#98bdac] mr-3 text-lg"></i>
+                                <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Search</h3>
                             </div>
-                            <div
-                                 class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                                <div class="flex items-center mb-4"><i
-                                       class="fas fa-chart-line text-[#98bdac] mr-3 text-lg"></i>
-                                    <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Analyze</h3>
-                                </div>
-                                <ul class="space-y-2 text-[#5f94ab]">
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Assembly
-                                    </li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Annotation
-                                    </li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">BLAST</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">MSA</li>
-                                    <li
-                                        class="flex items-center hover:text-[#4f849b] cursor-pointer transition-colors font-medium">
-                                        <span>View All</span><i class="fas fa-arrow-right ml-1 text-xs"></i>
-                                    </li>
-                                </ul>
+                            <ul class="space-y-2 text-[#5f94ab]">
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Taxa</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Genomes
+                                </li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Features
+                                </li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Specialty
+                                    Genes</li>
+                                <li
+                                    class="flex items-center hover:text-[#4f849b] cursor-pointer transition-colors font-medium">
+                                    <span>View All</span><i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div
+                             class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-4"><i
+                                   class="fas fa-chart-line text-[#98bdac] mr-3 text-lg"></i>
+                                <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Analyze</h3>
                             </div>
-                            <div
-                                 class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                                <div class="flex items-center mb-4"><i
-                                       class="fas fa-database text-[#98bdac] mr-3 text-lg"></i>
-                                    <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Data</h3>
-                                </div>
-                                <ul class="space-y-2 text-[#5f94ab]">
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Access
-                                        Workspace</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Save
-                                        Search Results</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Upload
-                                        Data</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Analysis
-                                        Jobs</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Share
-                                        &amp; Publish</li>
-                                </ul>
+                            <ul class="space-y-2 text-[#5f94ab]">
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Assembly
+                                </li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Annotation
+                                </li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">BLAST</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">MSA</li>
+                                <li
+                                    class="flex items-center hover:text-[#4f849b] cursor-pointer transition-colors font-medium">
+                                    <span>View All</span><i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div
+                             class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-4"><i
+                                   class="fas fa-database text-[#98bdac] mr-3 text-lg"></i>
+                                <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Data</h3>
                             </div>
-                            <div
-                                 class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                                <div class="flex items-center mb-4"><i
-                                       class="fas fa-server text-[#98bdac] mr-3 text-lg"></i>
-                                    <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Access</h3>
-                                </div>
-                                <ul class="space-y-2 text-[#5f94ab]">
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">CLI tools
-                                    </li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Data API
-                                    </li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">File
-                                        Transfers</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Public
-                                        Workspaces</li>
-                                    <li class="hover:text-[#4f849b] cursor-pointer transition-colors">MAAGE
-                                        Workshop</li>
-                                </ul>
+                            <ul class="space-y-2 text-[#5f94ab]">
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Access
+                                    Workspace</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Save
+                                    Search Results</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Upload
+                                    Data</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Analysis
+                                    Jobs</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Share
+                                    &amp; Publish</li>
+                            </ul>
+                        </div>
+                        <div
+                             class="bg-white p-5 sm:p-6 rounded-md shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-4"><i
+                                   class="fas fa-server text-[#98bdac] mr-3 text-lg"></i>
+                                <h3 class="text-lg font-['Poppins',sans-serif] font-medium">Access</h3>
+                            </div>
+                            <ul class="space-y-2 text-[#5f94ab]">
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">CLI tools
+                                </li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Data API
+                                </li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">File
+                                    Transfers</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">Public
+                                    Workspaces</li>
+                                <li class="hover:text-[#4f849b] cursor-pointer transition-colors">MAAGE
+                                    Workshop</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3"><button
+                                class="bg-[#98bdac] hover:bg-[#88ad9c] text-white px-5 py-2.5 rounded-md font-medium flex items-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#98bdac] focus:ring-opacity-50"><i
+                               class="fas fa-bolt mr-2"></i>Quick Start</button><button
+                                class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-md font-medium flex items-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"><i
+                               class="fas fa-book mr-2"></i>Reference Guides</button><button
+                                class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-md font-medium flex items-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"><i
+                               class="fas fa-users mr-2"></i>Tutorials</button></div>
+
+                </section>
+            </div>
+
+            <aside class="space-y-6">
+                <div class="bg-white rounded-md shadow-sm border border-maage-border p-6">
+                    <h3 class="font-heading text-lg font-semibold text-maage-text mb-4">Quick Actions</h3>
+                    <div class="relative">
+                        <div
+                             class="space-y-2 max-h-48 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                            <button
+                                    class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-primary-50 hover:border-maage-primary-200 transition-colors">
+                                <i class="fas fa-upload text-maage-primary-400"></i>
+                                <span class="text-sm font-medium text-maage-text">Upload Sequences</span>
+                            </button>
+                            <button
+                                    class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-secondary-50 hover:border-maage-secondary-200 transition-colors">
+                                <i class="fas fa-project-diagram text-maage-secondary-400"></i>
+                                <span class="text-sm font-medium text-maage-text">Run Analysis</span>
+                            </button>
+                            <button
+                                    class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-tertiary-50 hover:border-maage-tertiary-200 transition-colors">
+                                <i class="fas fa-download text-maage-tertiary-400"></i>
+                                <span class="text-sm font-medium text-maage-text">Export Data</span>
+                            </button>
+                            <button
+                                    class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-primary-50 hover:border-maage-primary-200 transition-colors">
+                                <i class="fas fa-upload text-maage-primary-400"></i>
+                                <span class="text-sm font-medium text-maage-text">My Workspace</span>
+                            </button>
+                            <button
+                                    class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-secondary-50 hover:border-maage-secondary-200 transition-colors">
+                                <i class="fas fa-project-diagram text-maage-secondary-400"></i>
+                                <span class="text-sm font-medium text-maage-text">Advanced Search</span>
+                            </button>
+                            <button
+                                    class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-tertiary-50 hover:border-maage-tertiary-200 transition-colors">
+                                <i class="fas fa-download text-maage-tertiary-400"></i>
+                                <span class="text-sm font-medium text-maage-text">Documentation</span>
+                            </button>
+                        </div>
+                        <div
+                             class="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none opacity-60">
+                        </div>
+                        <div class="text-center mt-2">
+                            <div class="inline-flex items-center text-xs text-maage-text-muted">
+                                <i class="fas fa-chevron-down text-maage-text-subtle mr-1 animate-bounce"></i>
                             </div>
                         </div>
-                        <div class="flex flex-wrap gap-3"><button
-                                    class="bg-[#98bdac] hover:bg-[#88ad9c] text-white px-5 py-2.5 rounded-md font-medium flex items-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#98bdac] focus:ring-opacity-50"><i
-                                   class="fas fa-bolt mr-2"></i>Quick Start</button><button
-                                    class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-md font-medium flex items-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"><i
-                                   class="fas fa-book mr-2"></i>Reference Guides</button><button
-                                    class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-md font-medium flex items-center transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"><i
-                                   class="fas fa-users mr-2"></i>Tutorials</button></div>
-
-                    </section>
+                    </div>
                 </div>
 
-                <!-- Right Sidebar (1/4) -->
-                <aside class="space-y-6">
+                <div
+                     class="bg-white rounded-md shadow-sm border border-maage-border p-6 hover:shadow-md transition-shadow">
+                    <h3 class="font-heading text-lg font-semibold text-maage-text mb-4">Recent Updates</h3>
+                    <div class="space-y-4 max-h-80 overflow-y-auto pr-1 mb-4">
+                        <div class="border-l-2 border-[#5f94ab] pl-4">
+                            <div class="flex items-center mb-1"><span
+                                      class="bg-[#5f94ab]/10 text-maage-secondary-500 text-xs font-medium px-2 py-0.5 rounded mr-2">Publication</span><span
+                                      class="text-xs text-gray-500">March 15, 2024</span></div>
+                            <h3 class="font-medium mb-1">New H5N1 Surveillance Tools</h3>
+                            <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE is developing a new
+                                surveillance platform that enables real-time tracking of H5N1 influenza variants
+                                across the Midwest.</p><a href="#"
+                               class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
+                                More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
+                        </div>
+                        <div class="border-l-2 border-[#98bdac] pl-4">
+                            <div class="flex items-center mb-1"><span
+                                      class="bg-maage-primary-400/10 text-maage-primary-400 text-xs font-medium px-2 py-0.5 rounded mr-2">Research</span><span
+                                      class="text-xs text-gray-500">March 5, 2024</span></div>
+                            <h3 class="font-medium mb-1">New Research Paper on SARS-CoV-2 Variant Tracking</h3>
+                            <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE researchers published a new
+                                paper on improved methods for tracking SARS-CoV-2 variants.</p><a href="#"
+                               class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
+                                More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
+                        </div>
 
-                    <!-- Quick Actions -->
-                    <div class="bg-white rounded-md shadow-sm border border-maage-border p-6">
-                        <h3 class="font-heading text-lg font-semibold text-maage-text mb-4">Quick Actions</h3>
-                        <div class="relative">
-                            <div
-                                 class="space-y-2 max-h-48 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                                <button
-                                        class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-primary-50 hover:border-maage-primary-200 transition-colors">
-                                    <i class="fas fa-upload text-maage-primary-400"></i>
-                                    <span class="text-sm font-medium text-maage-text">Upload Sequences</span>
-                                </button>
-                                <button
-                                        class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-secondary-50 hover:border-maage-secondary-200 transition-colors">
-                                    <i class="fas fa-project-diagram text-maage-secondary-400"></i>
-                                    <span class="text-sm font-medium text-maage-text">Run Analysis</span>
-                                </button>
-                                <button
-                                        class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-tertiary-50 hover:border-maage-tertiary-200 transition-colors">
-                                    <i class="fas fa-download text-maage-tertiary-400"></i>
-                                    <span class="text-sm font-medium text-maage-text">Export Data</span>
-                                </button>
-                                <button
-                                        class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-primary-50 hover:border-maage-primary-200 transition-colors">
-                                    <i class="fas fa-upload text-maage-primary-400"></i>
-                                    <span class="text-sm font-medium text-maage-text">My Workspace</span>
-                                </button>
-                                <button
-                                        class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-secondary-50 hover:border-maage-secondary-200 transition-colors">
-                                    <i class="fas fa-project-diagram text-maage-secondary-400"></i>
-                                    <span class="text-sm font-medium text-maage-text">Advanced Search</span>
-                                </button>
-                                <button
-                                        class="w-full flex items-center space-x-3 p-3 text-left rounded-md border border-maage-border hover:bg-maage-tertiary-50 hover:border-maage-tertiary-200 transition-colors">
-                                    <i class="fas fa-download text-maage-tertiary-400"></i>
-                                    <span class="text-sm font-medium text-maage-text">Documentation</span>
-                                </button>
-                            </div>
-                            <!-- Scroll indicator -->
-                            <div
-                                 class="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none opacity-60">
-                            </div>
-                            <div class="text-center mt-2">
-                                <div class="inline-flex items-center text-xs text-maage-text-muted">
-                                    <i class="fas fa-chevron-down text-maage-text-subtle mr-1 animate-bounce"></i>
-                                </div>
-                            </div>
+                        <div class="border-l-2 border-[#e7c788] pl-4">
+                            <div class="flex items-center mb-1"><span
+                                      class="bg-maage-tertiary-400/10 text-maage-tertiary-600 text-xs font-medium px-2 py-0.5 rounded mr-2">Research</span><span
+                                      class="text-xs text-gray-500">March 5, 2024</span></div>
+                            <h3 class="font-medium mb-1">New Research Paper on SARS-CoV-2 Variant Tracking</h3>
+                            <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE researchers published a new
+                                paper on improved methods for tracking SARS-CoV-2 variants.</p><a href="#"
+                               class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
+                                More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
+                        </div>
+                        <div class="border-l-2 border-[#5f94ab] pl-4">
+                            <div class="flex items-center mb-1"><span
+                                      class="bg-[#5f94ab]/10 text-maage-secondary-500 text-xs font-medium px-2 py-0.5 rounded mr-2">Publication</span><span
+                                      class="text-xs text-gray-500">March 15, 2024</span></div>
+                            <h3 class="font-medium mb-1">New H5N1 Surveillance Tools</h3>
+                            <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE is developing a new
+                                surveillance platform that enables real-time tracking of H5N1 influenza variants
+                                across the Midwest.</p><a href="#"
+                               class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
+                                More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
+                        </div>
+                        <div class="border-l-2 border-[#5f94ab] pl-4">
+                            <div class="flex items-center mb-1"><span
+                                      class="bg-[#5f94ab]/10 text-maage-secondary-500 text-xs font-medium px-2 py-0.5 rounded mr-2">Publication</span><span
+                                      class="text-xs text-gray-500">March 15, 2024</span></div>
+                            <h3 class="font-medium mb-1">New H5N1 Surveillance Tools</h3>
+                            <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE is developing a new
+                                surveillance platform that enables real-time tracking of H5N1 influenza variants
+                                across the Midwest.</p><a href="#"
+                               class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
+                                More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
                         </div>
                     </div>
+                    <div class="border-t border-gray-100 pt-3 flex items-center justify-between"><a href="/news"
+                           class="text-sm text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center transition-colors">View
+                            All News<i class="fas fa-arrow-right ml-1.5 text-xs"></i></a></div>
+                </div>
 
-                    <!-- Recent Updates -->
-                    <div class="bg-white rounded-md shadow-sm border border-maage-border p-6 hover:shadow-md transition-shadow">
-                        <h3 class="font-heading text-lg font-semibold text-maage-text mb-4">Recent Updates</h3>
-                            <div class="space-y-4 max-h-80 overflow-y-auto pr-1 mb-4">
-                                <div class="border-l-2 border-[#5f94ab] pl-4">
-                                    <div class="flex items-center mb-1"><span class="bg-[#5f94ab]/10 text-maage-secondary-500 text-xs font-medium px-2 py-0.5 rounded mr-2">Publication</span><span class="text-xs text-gray-500">March 15, 2024</span></div>
-                                    <h3 class="font-medium mb-1">New H5N1 Surveillance Tools</h3>
-                                    <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE is developing a new
-                                        surveillance platform that enables real-time tracking of H5N1 influenza variants
-                                        across the Midwest.</p><a href="#" class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
-                                        More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
-                                </div>
-                                <div class="border-l-2 border-[#98bdac] pl-4">
-                                    <div class="flex items-center mb-1"><span class="bg-maage-primary-400/10 text-maage-primary-400 text-xs font-medium px-2 py-0.5 rounded mr-2">Research</span><span class="text-xs text-gray-500">March 5, 2024</span></div>
-                                    <h3 class="font-medium mb-1">New Research Paper on SARS-CoV-2 Variant Tracking</h3>
-                                    <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE researchers published a new
-                                        paper on improved methods for tracking SARS-CoV-2 variants.</p><a href="#" class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
-                                        More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
-                                </div>
-
-                                <div class="border-l-2 border-[#e7c788] pl-4">
-                                    <div class="flex items-center mb-1"><span class="bg-maage-tertiary-400/10 text-maage-tertiary-600 text-xs font-medium px-2 py-0.5 rounded mr-2">Research</span><span class="text-xs text-gray-500">March 5, 2024</span></div>
-                                    <h3 class="font-medium mb-1">New Research Paper on SARS-CoV-2 Variant Tracking</h3>
-                                    <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE researchers published a new
-                                        paper on improved methods for tracking SARS-CoV-2 variants.</p><a href="#" class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
-                                        More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
-                                </div>
-                                                                                                <div class="border-l-2 border-[#5f94ab] pl-4">
-                                    <div class="flex items-center mb-1"><span class="bg-[#5f94ab]/10 text-maage-secondary-500 text-xs font-medium px-2 py-0.5 rounded mr-2">Publication</span><span class="text-xs text-gray-500">March 15, 2024</span></div>
-                                    <h3 class="font-medium mb-1">New H5N1 Surveillance Tools</h3>
-                                    <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE is developing a new
-                                        surveillance platform that enables real-time tracking of H5N1 influenza variants
-                                        across the Midwest.</p><a href="#" class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
-                                        More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
-                                </div>
-                                                                                                <div class="border-l-2 border-[#5f94ab] pl-4">
-                                    <div class="flex items-center mb-1"><span class="bg-[#5f94ab]/10 text-maage-secondary-500 text-xs font-medium px-2 py-0.5 rounded mr-2">Publication</span><span class="text-xs text-gray-500">March 15, 2024</span></div>
-                                    <h3 class="font-medium mb-1">New H5N1 Surveillance Tools</h3>
-                                    <p class="text-sm text-gray-600 line-clamp-2 mb-2">MAAGE is developing a new
-                                        surveillance platform that enables real-time tracking of H5N1 influenza variants
-                                        across the Midwest.</p><a href="#" class="text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center text-xs transition-colors">Read
-                                        More<i class="fas fa-external-link-alt ml-1.5 text-xs"></i></a>
-                                </div>
-                            </div>
-                            <div class="border-t border-gray-100 pt-3 flex items-center justify-between"><a href="/news" class="text-sm text-maage-secondary-500 hover:text-maage-secondary-600 font-medium flex items-center transition-colors">View
-                                    All News<i class="fas fa-arrow-right ml-1.5 text-xs"></i></a></div>
-                        </div>
-
-                    <!-- Resource Links -->
-                    <div class="bg-white rounded-md shadow-sm border border-maage-border p-6">
-                        <h3 class="font-heading text-lg font-semibold text-maage-text mb-4">Resources</h3>
-                        <div class="space-y-2">
-                            <a href="#"
-                               class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
-                                <i class="fas fa-book mr-2"></i>Documentation
-                            </a>
-                            <a href="#"
-                               class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
-                                <i class="fas fa-video mr-2"></i>Training Videos
-                            </a>
-                            <a href="#"
-                               class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
-                                <i class="fas fa-life-ring mr-2"></i>Support Center
-                            </a>
-                            <a href="#"
-                               class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
-                                <i class="fas fa-comment mr-2"></i>Contact Us
-                            </a>
-                        </div>
+                <div class="bg-white rounded-md shadow-sm border border-maage-border p-6">
+                    <h3 class="font-heading text-lg font-semibold text-maage-text mb-4">Resources</h3>
+                    <div class="space-y-2">
+                        <a href="#"
+                           class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
+                            <i class="fas fa-book mr-2"></i>Documentation
+                        </a>
+                        <a href="#"
+                           class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
+                            <i class="fas fa-video mr-2"></i>Training Videos
+                        </a>
+                        <a href="#"
+                           class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
+                            <i class="fas fa-life-ring mr-2"></i>Support Center
+                        </a>
+                        <a href="#"
+                           class="block text-sm text-maage-text-link hover:text-maage-secondary-600 transition-colors">
+                            <i class="fas fa-comment mr-2"></i>Contact Us
+                        </a>
                     </div>
-                </aside>
-            </div>
-        </main>               
-
-
+                </div>
+            </aside>
+        </div>
+    </main>
 </div>

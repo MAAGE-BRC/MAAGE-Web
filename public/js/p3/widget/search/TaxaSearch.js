@@ -4,7 +4,7 @@ define([
   'dojo/dom-class',
   'dojo/on',
   './SearchBase',
-  'dojo/text!./templates/TaxaSearchNew.html',
+  'dojo/text!./templates/TaxaSearch.html',
   './TextInputEncoder',
   './FacetStoreBuilder',
 ], function (

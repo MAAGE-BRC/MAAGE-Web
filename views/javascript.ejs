@@ -17,19 +17,6 @@ lucide.createIcons();
 <script src="/maage/gridstack/gridstack-all.js"></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const closeBtn = document.getElementById('close-banner');
-    const banner = document.getElementById('maage-banner');
-
-    if (closeBtn && banner) {
-      closeBtn.addEventListener('click', () => {
-        banner.style.display = 'none';
-      });
-    }
-  });
-</script>
-
-<script>
     const tabTriggers = document.querySelectorAll('.tab-trigger');
     const tabContents = document.querySelectorAll('.tab-content');
     tabTriggers.forEach(function (trigger) {
@@ -46,29 +33,6 @@ lucide.createIcons();
         }
       });
     });
-</script>
-
-<script>
-  const advancedToggle = document.getElementById('advancedToggle');
-  const advancedPanel = document.getElementById('advancedPanel');
-  const chevronDown = document.querySelector('.chevron-down');
-  const chevronUp = document.querySelector('.chevron-up');
-
-  if (advancedToggle && advancedPanel && chevronDown && chevronUp) {
-    advancedToggle.addEventListener('click', function() {
-      const isVisible = advancedPanel.style.display === 'block';
-
-      if (isVisible) {
-        advancedPanel.style.display = 'none';
-        chevronDown.style.display = 'block';
-        chevronUp.style.display = 'none';
-      } else {
-        advancedPanel.style.display = 'block';
-        chevronDown.style.display = 'none';
-        chevronUp.style.display = 'block';
-      }
-    });
-  }
 </script>
 
 <script>
@@ -95,7 +59,6 @@ lucide.createIcons();
     });
   });
 </script>
-
 
 <%
 const load_scripts = [
@@ -138,5 +101,3 @@ const load_scripts = [
       });
       <% } %>
       </script>
-
-

@@ -24,16 +24,15 @@
             "#98bdac",
             "#5f94ab",
             "#e7c788",
-            "#c56e6e",
             "#9a96bb",
-            "#6f8091",
-            "#c18b9a",
-            "#8b9ba9",
-            "#bda48a",
-            "#9aa89f",
-            '#687182'
+            "#c56e6e",
+            "#b4d0c3",
+            "#87afc0",
+            "#edd5a6",
+            "#b0aecb",
+            "#d79895"
         ],
-        "backgroundColor": "#f8f9fa",
+        "backgroundColor": "#ffffff",
         "textStyle": {},
         "title": {
             "textStyle": {
@@ -138,15 +137,16 @@
                 "#98bdac",
                 "#5f94ab",
                 "#e7c788",
-                "#d6e5de",
-                "#a0c1cf",
-                "#f4e4c2",
-                "#57856f",
-                "#406777",
-                "#dab46c"
+                "#9a96bb",
+                "#c56e6e",
+                "#b4d0c3",
+                "#87afc0",
+                "#edd5a6",
+                "#b0aecb",
+                "#d79895"
             ],
             "label": {
-                "color": "#eee"
+                "color": "#364144"
             }
         },
         "map": {
@@ -331,17 +331,17 @@
         },
         "toolbox": {
             "iconStyle": {
-                "borderColor": "#999"
+                "borderColor": "#8f8f8f"
             },
             "emphasis": {
                 "iconStyle": {
-                    "borderColor": "#666"
+                    "borderColor": "#595959"
                 }
             }
         },
         "legend": {
             "textStyle": {
-                "color": "#333"
+                "color": "#364144"
             }
         },
         "tooltip": {
@@ -393,11 +393,9 @@
         },
         "visualMap": {
             "color": [
-                "#496f5d",
-                "#6ea089",
-                "#b4d0c3",
-                "#ecf3f0",
-                "#3c5d4e"
+                "#bf444c",
+                "#d88273",
+                "#f6efa6"
             ]
         },
         "dataZoom": {
@@ -406,11 +404,11 @@
         },
         "markPoint": {
             "label": {
-                "color": "#eee"
+                "color": "#364144"
             },
             "emphasis": {
                 "label": {
-                    "color": "#eee"
+                    "color": "#364144"
                 }
             }
         }

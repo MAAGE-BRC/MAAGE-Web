@@ -59,13 +59,13 @@
       "excludePaths": [
         "public/js/xstyle",
         "public/js/put-selector",
-        "public/js/dbind",
-        "public/js/dgrid",
-        "public/js/rql",
-        "public/js/dojo",
-        "public/js/dijit",
-        "public/js/dojox",
-        "public/js/util",
+        // "public/js/dbind",
+        // "public/js/dgrid",
+        // "public/js/rql",
+        // "public/js/dojo",
+        // "public/js/dijit",
+        // "public/js/dojox",
+        // "public/js/util",
         "public/js/msa",
         "public/js/FileSaver",
         "public/js/jDataView",
@@ -74,12 +74,12 @@
         "public/js/lazyload",
         "public/js/raphael",
         "public/js/circulus",
-        "public/js/d3",
-        "public/js/phyloview",
+        // "public/js/d3",
+        // "public/js/phyloview",
         "public/js/autotrack",
-        "public/js/mauve_viewer",
-        "public/js/heatmap",
-        "public/js/archaeopteryx/archaeopteryx-js"
+        // "public/js/mauve_viewer",
+        // "public/js/heatmap",
+        // "public/js/archaeopteryx/archaeopteryx-js"
       ]
     }
   }
