@@ -1,17 +1,16 @@
 define([
   'dojo/_base/declare', 'dojo/_base/lang',
-  'dojo/on', 'dojo/dom-class', 'dojo/request',
+  'dojo/on', 'dojo/dom-class', 'dojo/request', 'dojo/dom-construct',
   'dijit/_WidgetBase', 'dijit/_WidgetsInTemplateMixin', 'dijit/_TemplatedMixin',
-  'p3/widget/GenomeGroupInfoSummary', 'p3/widget/ReferenceGenomeSummary', 'p3/widget/AMRPanelMetaSummary',
-  'p3/widget/GenomeMetaSummary', 'p3/widget/SpecialtyGeneSummary',
+  './EChartsGenomeStats',
+  './IsolationSourceBarChart',
   'dojo/text!./templates/GenomeListOverview.html'
 
 ], function (
   declare, lang,
-  on, domClass, xhr,
+  on, domClass, xhr, domConstruct,
   WidgetBase, _WidgetsInTemplateMixin, Templated,
-  GenomeGroupInfoSummary, ReferenceGenomeSummary, AMRPanelMetaSummary,
-  GenomeMetaSummary, SpecialtyGeneSummary,
+  GenomeStats, IsolationSourceBarChart,
   Template
 ) {
 
@@ -23,26 +22,80 @@ define([
     state: null,
     genome_ids: null,
     isGenomeGroup: false,
+    
+    // Widget references
+    statsWidget: null,
+    barChart: null,
 
     constructor: function (opts) {
       this.isGenomeGroup = opts && opts.isGenomeGroup || false;
       this.inherited(arguments);
     },
+    
+    postCreate: function () {
+      this.inherited(arguments);
+      console.log('GenomeListOverview postCreate');
+      
+      // Create stats widget
+      this.statsWidget = new GenomeStats({});
+      domConstruct.place(this.statsWidget.domNode, this.statsContainer);
+      
+      // Create bar chart
+      this.barChart = new IsolationSourceBarChart({});
+      domConstruct.place(this.barChart.domNode, this.chartContainer);
+    },
 
     _setStateAttr: function (state) {
       this._set('state', state);
+      
+      console.log('GenomeListOverview _setStateAttr called with state:', state);
+      console.log('Is this the overview tab?', state.hash === 'view_tab=overview');
 
-      var sumWidgets = ['rgSummaryWidget', 'gmSummaryWidget', 'spgSummaryWidget', 'apmSummaryWidget'];
-
-      sumWidgets.forEach(function (w) {
-        if (this[w]) {
-          this[w].set('query', this.state.search);
+      if (state && state.search) {
+        var search = state.search;
+        
+        console.log('GenomeListOverview original search:', search);
+        
+        // Remove leading question mark if present
+        if (search.charAt(0) === '?') {
+          search = search.substring(1);
         }
-      }, this);
-
-      if (this.isGenomeGroup) {
-        domClass.remove(this.ggiSummaryWidget.domNode.parentNode, 'hidden');
-        this.ggiSummaryWidget.set('state', this.state);
+        
+        // Fix malformed genome list queries
+        // Convert "eq(*,*)&genome(in(genome_id,(...)))" to "in(genome_id,(...))"
+        var genomeMatch = search.match(/^eq\(\*,\*\)&genome\((in\(genome_id,\([^)]+\)\))\)$/);
+        if (genomeMatch) {
+          search = genomeMatch[1];
+        }
+        
+        console.log('GenomeListOverview cleaned search:', search);
+        
+        // Store the query for later use
+        this.currentQuery = search;
+        
+        // Update widgets with the cleaned query
+        if (this.statsWidget) {
+          this.statsWidget.setQuery(search);
+        }
+        if (this.barChart) {
+          this.barChart.setQuery(search);
+        }
+      }
+    },
+    
+    onShow: function() {
+      console.log('GenomeListOverview onShow');
+      // Called when the overview tab becomes visible
+      if (this.barChart) {
+        this.barChart.resize();
+      }
+    },
+    
+    resize: function() {
+      console.log('GenomeListOverview resize');
+      this.inherited(arguments);
+      if (this.barChart) {
+        this.barChart.resize();
       }
     },
 
@@ -51,6 +104,21 @@ define([
         return;
       }
       this.inherited(arguments);
+      
+      console.log('GenomeListOverview startup');
+      
+      // Startup widgets
+      if (this.statsWidget) {
+        this.statsWidget.startup();
+      }
+      if (this.barChart) {
+        this.barChart.startup();
+      }
+      
+      // If we have state already, set it
+      if (this.state) {
+        this._setStateAttr(this.state);
+      }
     }
   });
 });
