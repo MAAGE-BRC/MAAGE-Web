@@ -1552,11 +1552,6 @@ video {
   background-color: rgb(95 148 171 / 0.2);
 }
 
-.bg-maage-surface {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
 .bg-maage-tertiary-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(251 246 233 / var(--tw-bg-opacity, 1));
@@ -1833,10 +1828,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
 }
 
 .pb-24 {
@@ -2717,10 +2708,6 @@ video {
     padding: 2.5rem;
   }
 
-  .md\:p-6 {
-    padding: 1.5rem;
-  }
-
   .md\:py-20 {
     padding-top: 5rem;
     padding-bottom: 5rem;
@@ -2753,10 +2740,6 @@ video {
 
   .lg\:w-\[75\%\] {
     width: 75%;
-  }
-
-  .lg\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-3 {
