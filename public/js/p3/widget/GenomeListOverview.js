@@ -4,13 +4,14 @@ define([
   'dijit/_WidgetBase', 'dijit/_WidgetsInTemplateMixin', 'dijit/_TemplatedMixin',
   './EChartsGenomeStats',
   './IsolationSourceBarChart',
+  './GenomeQualityPieChart',
   'dojo/text!./templates/GenomeListOverview.html'
 
 ], function (
   declare, lang,
   on, domClass, xhr, domConstruct,
   WidgetBase, _WidgetsInTemplateMixin, Templated,
-  GenomeStats, IsolationSourceBarChart,
+  GenomeStats, IsolationSourceBarChart, GenomeQualityPieChart,
   Template
 ) {
 
@@ -26,6 +27,7 @@ define([
     // Widget references
     statsWidget: null,
     barChart: null,
+    pieChart: null,
 
     constructor: function (opts) {
       this.isGenomeGroup = opts && opts.isGenomeGroup || false;
@@ -42,7 +44,11 @@ define([
       
       // Create bar chart
       this.barChart = new IsolationSourceBarChart({});
-      domConstruct.place(this.barChart.domNode, this.chartContainer);
+      domConstruct.place(this.barChart.domNode, this.barChartContainer);
+      
+      // Create pie chart
+      this.pieChart = new GenomeQualityPieChart({});
+      domConstruct.place(this.pieChart.domNode, this.pieChartContainer);
     },
 
     _setStateAttr: function (state) {
@@ -80,6 +86,9 @@ define([
         if (this.barChart) {
           this.barChart.setQuery(search);
         }
+        if (this.pieChart) {
+          this.pieChart.setQuery(search);
+        }
       }
     },
     
@@ -89,6 +98,9 @@ define([
       if (this.barChart) {
         this.barChart.resize();
       }
+      if (this.pieChart) {
+        this.pieChart.resize();
+      }
     },
     
     resize: function() {
@@ -96,6 +108,9 @@ define([
       this.inherited(arguments);
       if (this.barChart) {
         this.barChart.resize();
+      }
+      if (this.pieChart) {
+        this.pieChart.resize();
       }
     },
 
@@ -113,6 +128,9 @@ define([
       }
       if (this.barChart) {
         this.barChart.startup();
+      }
+      if (this.pieChart) {
+        this.pieChart.startup();
       }
       
       // If we have state already, set it
