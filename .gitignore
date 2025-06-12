@@ -148,6 +148,8 @@ node_repl_history
 # Should often be handled by excludes
 .vscode/
 *.code-workspace
+.github/copilot-instructions.md
+.github/
 !maage-web.code-workspace
 .idea/
 .zed/
