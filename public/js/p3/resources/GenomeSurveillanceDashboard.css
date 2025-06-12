@@ -1,0 +1,115 @@
+.GenomeSurveillanceDashboard {
+  padding: 10px;
+}
+
+.GenomeSurveillanceDashboard .dashboard-header {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.GenomeSurveillanceDashboard .dashboard-summary h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.GenomeSurveillanceDashboard .dashboard-summary p {
+  margin: 0;
+  color: #666;
+}
+
+.GenomeSurveillanceDashboard .chart-controls {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.GenomeSurveillanceDashboard .chart-mode-btn {
+  margin: 0 5px;
+  padding: 5px 15px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.GenomeSurveillanceDashboard .chart-mode-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.GenomeSurveillanceDashboard .chart-mode-btn.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+/* EChartsGenomeStats styles */
+.EChartsGenomeStats {
+  padding: 20px;
+}
+
+.EChartsGenomeStats .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.EChartsGenomeStats .stat-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.EChartsGenomeStats .stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.EChartsGenomeStats .stat-card.primary {
+  border-top: 4px solid #3498db;
+}
+
+.EChartsGenomeStats .stat-card.success {
+  border-top: 4px solid #2ecc71;
+}
+
+.EChartsGenomeStats .stat-card.info {
+  border-top: 4px solid #1abc9c;
+}
+
+.EChartsGenomeStats .stat-card.warning {
+  border-top: 4px solid #f39c12;
+}
+
+.EChartsGenomeStats .stat-card.danger {
+  border-top: 4px solid #e74c3c;
+}
+
+.EChartsGenomeStats .stat-card.secondary {
+  border-top: 4px solid #95a5a6;
+}
+
+.EChartsGenomeStats .stat-card.muted {
+  border-top: 4px solid #bdc3c7;
+}
+
+.EChartsGenomeStats .stat-label {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.EChartsGenomeStats .stat-value {
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.EChartsGenomeStats .loading {
+  text-align: center;
+  padding: 40px;
+  color: #7f8c8d;
+}

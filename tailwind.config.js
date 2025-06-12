@@ -6,14 +6,19 @@ module.exports = {
     './public/js/p3/maage/**/*.{js,html}',
     './public/js/p3/widget/templates/LoginForm.html',
     './public/js/p3/widget/templates/GenomeListOverview.html',
+    './public/js/p3/widget/templates/TaxaSearch.html',
+    './public/js/p3/widget/search/templates/TaxaSearch.html',
     './public/js/p3/widget/GenomeListOverview.js',
   ],
   theme: {
     extend: {
       fontFamily: {
         heading: ['Poppins', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
         mono: ['IBM Plex Mono', 'monospace'],
+        ibmplexmono: ['IBM Plex Mono', 'monospace'],
       },
       maxWidth: {
         maage: '1400px',

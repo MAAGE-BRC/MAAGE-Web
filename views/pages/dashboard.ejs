@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>dashboard_page | MAAGE</title>
+    <%- include('../head') %>
+  </head>
+      <body class="claro patric bg-maage-bg <% if (request.isAuthenticated && request.isAuthenticated()) { %>Authenticated<% } %>">
+    <div id="ApplicationContainer" data-dojo-type="dijit/layout/BorderContainer" class="layoutContainer" data-dojo-props="id:'ApplicationContainer',gutters:false,liveSplitters:false">
+      <%- include('../navbar') %>
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0px;border:0px solid #ddd;background:inherit;">
+        <div id="bv-brc-page">
+          <div id="bv-brc-page-container" style="width:100%;">
+            <div class="page-content" style="width:90%; margin: 0 auto; text-align:left;">
+              <div class="max-w-full mx-auto">
+                <div class="flex justify-between items-center mb-4 mt-16">
+                  <div class="ml-4 flex items-center gap-3">
+                    <span id="edit-mode-label" class="text-sm font-medium text-gray-700">View Mode</span>
+                    <label for="toggle-drag" class="sr-only">Mode</label>
+                    <button id="toggle-drag" type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-gray-200 transition-colors duration-200 ease-in-out" role="switch" aria-checked="false">
+                      <span class="sr-only">Edit mode toggle</span>
+                      <span id="toggle-indicator" aria-hidden="true" class="pointer-events-none inline-block size-5 translate-x-0 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                    </button>
+                  </div>
+                </div>
+
+                <% const widgets = [
+                  { partial: 'blank-chart-widget.ejs', x: 0, y: 0, w: 3, h: 2 },
+                  { partial: 'blank-chart-widget.ejs', x: 3, y: 0, w: 3, h: 2 },
+                  { partial: 'blank-table-widget.ejs', x: 6, y: 0, w: 3, h: 2 },
+                  { partial: 'blank-table-widget.ejs', x: 9, y: 0, w: 3, h: 2 },
+                  { partial: 'blank-chart-widget.ejs', x: 0, y: 2, w: 6, h: 4 },
+                  { partial: 'blank-chart-widget.ejs', x: 6, y: 2, w: 6, h: 4 },
+                  { partial: 'blank-table-widget.ejs', x: 0, y: 6, w: 4, h: 3 },
+                  { partial: 'blank-table-widget.ejs', x: 4, y: 6, w: 4, h: 3 },
+                  { partial: 'blank-table-widget.ejs', x: 8, y: 6, w: 4, h: 3 },
+                  { partial: 'blank-chart-widget.ejs', x: 0, y: 9, w: 6, h: 3 },
+                  { partial: 'blank-chart-widget.ejs', x: 6, y: 9, w: 6, h: 3 }
+                ]; %>
+
+                <%- include('../components/gridstack-container', { widgets }) %>
+                <%- include('../components/gridstack-init') %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%- include('../footer') %>
+    </div>
+    <%- include('../javascript') %>
+  </body>
+</html>
