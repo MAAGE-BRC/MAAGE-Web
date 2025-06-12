@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GenomeListOverview ECharts Test</title>
+    <link rel="stylesheet" href="/js/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="/js/p3/resources/p3.css">
+    <link rel="stylesheet" href="/maage/css/dist/maage.css">
+    
+    <!-- Load ECharts -->
+    <script src="/maage/js/echarts/v5.4.3/echarts.js"></script>
+    <script src="/maage/js/echarts/themes/maage.js"></script>
+    
+    <!-- Dojo Configuration -->
+    <script>
+        dojoConfig = {
+            parseOnLoad: false,
+            packages: [
+                {name: 'p3', location: '/js/p3'},
+                {name: 'echarts', location: '/js/echarts'}
+            ]
+        };
+    </script>
+    
+    <!-- Load Dojo -->
+    <script src="/js/dojo/dojo.js"></script>
+    
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .overview-container {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .instructions code {
+            background: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body class="claro">
+    <h1>GenomeListOverview with Apache ECharts Integration</h1>
+    
+    <div class="instructions">
+        <h3>Integration Instructions</h3>
+        <p>To use the new ECharts-based GenomeListOverview widget in your application:</p>
+        <ol>
+            <li>Replace <code>'p3/widget/GenomeListOverview'</code> with <code>'p3/widget/GenomeListOverviewECharts'</code> in your require statements</li>
+            <li>The widget API remains the same - no code changes needed</li>
+            <li>ECharts is already loaded globally via the head.ejs template</li>
+            <li>The MAAGE theme is automatically applied to all charts</li>
+        </ol>
+    </div>
+    
+    <h2>GenomeListOverview Widget (with ECharts)</h2>
+    <div class="overview-container">
+        <div id="genomeOverviewWidget"></div>
+    </div>
+    
+    <script>
+        require([
+            'p3/widget/GenomeListOverviewECharts',
+            'dojo/domReady!'
+        ], function(GenomeListOverviewECharts) {
+            
+            // Create the GenomeListOverview widget with ECharts
+            var overviewWidget = new GenomeListOverviewECharts({
+                state: {
+                    search: 'eq(genome_id,*)' // Query all genomes
+                }
+            }, 'genomeOverviewWidget');
+            
+            overviewWidget.startup();
+            
+            console.log('GenomeListOverview widget with ECharts created successfully');
+            
+            // Simulate setting state (as would happen in the real application)
+            setTimeout(function() {
+                overviewWidget.set('state', {
+                    search: 'eq(genome_id,*)'
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

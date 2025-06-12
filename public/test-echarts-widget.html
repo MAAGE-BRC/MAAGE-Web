@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ECharts Widget Test</title>
+    <link rel="stylesheet" href="/js/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="/js/p3/resources/p3.css">
+    <link rel="stylesheet" href="/maage/css/dist/maage.css">
+    
+    <!-- Load ECharts -->
+    <script src="/maage/js/echarts/v5.4.3/echarts.js"></script>
+    <script src="/maage/js/echarts/themes/maage.js"></script>
+    
+    <!-- Dojo Configuration -->
+    <script>
+        dojoConfig = {
+            parseOnLoad: false,
+            packages: [
+                {name: 'p3', location: '/js/p3'},
+                {name: 'echarts', location: '/js/echarts'}
+            ]
+        };
+    </script>
+    
+    <!-- Load Dojo -->
+    <script src="/js/dojo/dojo.js"></script>
+    
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        #testContainer {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 20px;
+            min-height: 400px;
+        }
+        .comparison-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .widget-section {
+            flex: 1;
+            border: 1px solid #eee;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+        .widget-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="claro">
+    <h1>ECharts Widget Test</h1>
+    <p>This page demonstrates the integration of Apache ECharts with the GenomeListOverview widget.</p>
+    
+    <div class="comparison-container">
+        <div class="widget-section">
+            <h3>Original Widget (Dojo Charts)</h3>
+            <div id="originalWidget"></div>
+        </div>
+        
+        <div class="widget-section">
+            <h3>New Widget (Apache ECharts)</h3>
+            <div id="echartsWidget"></div>
+        </div>
+    </div>
+    
+    <script>
+        require([
+            'p3/widget/GenomeMetaSummary',
+            'p3/widget/EChartsGenomeMetaSummary',
+            'dojo/domReady!'
+        ], function(GenomeMetaSummary, EChartsGenomeMetaSummary) {
+            
+            // Create original widget
+            var originalWidget = new GenomeMetaSummary({
+                query: 'eq(genome_id,*)' // Query all genomes
+            }, 'originalWidget');
+            originalWidget.startup();
+            
+            // Create ECharts widget
+            var echartsWidget = new EChartsGenomeMetaSummary({
+                query: 'eq(genome_id,*)' // Query all genomes
+            }, 'echartsWidget');
+            echartsWidget.startup();
+            
+            console.log('Widgets created successfully');
+        });
+    </script>
+</body>
+</html>
