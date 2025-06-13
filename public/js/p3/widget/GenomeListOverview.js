@@ -5,13 +5,16 @@ define([
   './EChartsGenomeStats',
   './IsolationSourceBarChart',
   './GenomeQualityPieChart',
+  './GenomeYearDistributionChart',
+  './HostOrganismQualityStackedChart',
   'dojo/text!./templates/GenomeListOverview.html'
 
 ], function (
   declare, lang,
   on, domClass, xhr, domConstruct,
   WidgetBase, _WidgetsInTemplateMixin, Templated,
-  GenomeStats, IsolationSourceBarChart, GenomeQualityPieChart,
+  GenomeStats, IsolationSourceBarChart, GenomeQualityPieChart, GenomeYearDistributionChart,
+  HostOrganismQualityStackedChart,
   Template
 ) {
 
@@ -28,6 +31,8 @@ define([
     statsWidget: null,
     barChart: null,
     pieChart: null,
+    yearChart: null,
+    stackedChart: null,
 
     constructor: function (opts) {
       this.isGenomeGroup = opts && opts.isGenomeGroup || false;
@@ -36,7 +41,6 @@ define([
     
     postCreate: function () {
       this.inherited(arguments);
-      console.log('GenomeListOverview postCreate');
       
       // Create stats widget
       this.statsWidget = new GenomeStats({});
@@ -49,18 +53,24 @@ define([
       // Create pie chart
       this.pieChart = new GenomeQualityPieChart({});
       domConstruct.place(this.pieChart.domNode, this.pieChartContainer);
+      
+      // Create year distribution chart
+      this.yearChart = new GenomeYearDistributionChart({});
+      domConstruct.place(this.yearChart.domNode, this.yearChartContainer);
+      
+      // Create stacked chart
+      this.stackedChart = new HostOrganismQualityStackedChart({});
+      domConstruct.place(this.stackedChart.domNode, this.stackedChartContainer);
+      
     },
 
     _setStateAttr: function (state) {
       this._set('state', state);
       
-      console.log('GenomeListOverview _setStateAttr called with state:', state);
-      console.log('Is this the overview tab?', state.hash === 'view_tab=overview');
 
       if (state && state.search) {
         var search = state.search;
         
-        console.log('GenomeListOverview original search:', search);
         
         // Remove leading question mark if present
         if (search.charAt(0) === '?') {
@@ -74,7 +84,6 @@ define([
           search = genomeMatch[1];
         }
         
-        console.log('GenomeListOverview cleaned search:', search);
         
         // Store the query for later use
         this.currentQuery = search;
@@ -89,11 +98,16 @@ define([
         if (this.pieChart) {
           this.pieChart.setQuery(search);
         }
+        if (this.yearChart) {
+          this.yearChart.setQuery(search);
+        }
+        if (this.stackedChart) {
+          this.stackedChart.setQuery(search);
+        }
       }
     },
     
     onShow: function() {
-      console.log('GenomeListOverview onShow');
       // Called when the overview tab becomes visible
       if (this.barChart) {
         this.barChart.resize();
@@ -101,16 +115,27 @@ define([
       if (this.pieChart) {
         this.pieChart.resize();
       }
+      if (this.yearChart) {
+        this.yearChart.resize();
+      }
+      if (this.stackedChart) {
+        this.stackedChart.resize();
+      }
     },
     
     resize: function() {
-      console.log('GenomeListOverview resize');
       this.inherited(arguments);
       if (this.barChart) {
         this.barChart.resize();
       }
       if (this.pieChart) {
         this.pieChart.resize();
+      }
+      if (this.yearChart) {
+        this.yearChart.resize();
+      }
+      if (this.stackedChart) {
+        this.stackedChart.resize();
       }
     },
 
@@ -120,7 +145,6 @@ define([
       }
       this.inherited(arguments);
       
-      console.log('GenomeListOverview startup');
       
       // Startup widgets
       if (this.statsWidget) {
@@ -131,6 +155,12 @@ define([
       }
       if (this.pieChart) {
         this.pieChart.startup();
+      }
+      if (this.yearChart) {
+        this.yearChart.startup();
+      }
+      if (this.stackedChart) {
+        this.stackedChart.startup();
       }
       
       // If we have state already, set it

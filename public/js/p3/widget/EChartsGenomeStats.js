@@ -57,12 +57,10 @@ define([
       var statsQuery = cleanQuery + 
         '&facet(genome_quality)' +
         '&facet(genome_status)' +
-        '&facet(isolation_country)' +
-        '&facet(collection_year)' +
+        '&facet(genus)' +
+        '&facet(county)' +
         '&limit(1)';
       
-      console.log('EChartsGenomeStats loadStats - cleaned query:', cleanQuery);
-      console.log('EChartsGenomeStats loadStats - stats query (v2):', statsQuery);
       
       DataAPI.query('genome', statsQuery, {
         accept: 'application/solr+json'
@@ -73,7 +71,6 @@ define([
     },
     
     renderStats: function (response) {
-      console.log('EChartsGenomeStats renderStats - response:', response);
       
       if (!response) {
         this.handleError({ message: 'No response received' });
@@ -86,26 +83,32 @@ define([
       // Process facet arrays to objects
       var qualityData = this.arrayToObject(facets.genome_quality || []);
       var statusData = this.arrayToObject(facets.genome_status || []);
-      var countryData = this.arrayToObject(facets.isolation_country || []);
-      var yearData = this.arrayToObject(facets.collection_year || []);
+      var genusData = this.arrayToObject(facets.genus || []);
+      var countyData = this.arrayToObject(facets.county || []);
       
       // Calculate metrics
       var highQuality = (qualityData.High || 0) + (qualityData.Good || 0);
       var completeGenomes = statusData.Complete || 0;
       
-      // Find top country
-      var topCountry = 'Unknown';
-      var countryCount = 0;
-      for (var country in countryData) {
-        if (countryData[country] > countryCount) {
-          topCountry = country;
-          countryCount = countryData[country];
+      // Find top pathogen (genus)
+      var topPathogen = 'Unknown';
+      var pathogenCount = 0;
+      for (var genus in genusData) {
+        if (genus && genus !== 'null' && genus !== 'undefined' && genusData[genus] > pathogenCount) {
+          topPathogen = genus;
+          pathogenCount = genusData[genus];
         }
       }
       
-      // Calculate year range
-      var years = Object.keys(yearData).filter(function(y) { return y && y !== 'null'; }).sort();
-      var yearRange = years.length > 0 ? years[0] + ' - ' + years[years.length - 1] : 'N/A';
+      // Find top county
+      var topCounty = 'Unknown';
+      var topCountyCount = 0;
+      for (var county in countyData) {
+        if (county && county !== 'null' && county !== 'undefined' && countyData[county] > topCountyCount) {
+          topCounty = county;
+          topCountyCount = countyData[county];
+        }
+      }
       
       // Render the four KPI cards
       var html = '<div class="kpi-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">';
@@ -115,7 +118,7 @@ define([
         'Total Genomes',
         number.format(total),
         'Total number of genomes in this collection',
-        '#3498DB',
+        null,
         'database'
       );
       
@@ -125,27 +128,26 @@ define([
         'High Quality',
         qualityPercent + '%',
         number.format(highQuality) + ' of ' + number.format(total) + ' genomes',
-        '#2ECC71',
+        null,
         'award'
       );
       
-      // Card 3: Complete Genomes
-      var completePercent = total > 0 ? Math.round((completeGenomes / total) * 100) : 0;
+      // Card 3: Top Pathogen
       html += this.createKPICard(
-        'Complete Genomes',
-        completePercent + '%',
-        number.format(completeGenomes) + ' of ' + number.format(total) + ' genomes',
-        '#E74C3C',
+        'Top Pathogen',
+        topPathogen,
+        number.format(pathogenCount) + ' genomes of this genus',
+        null,
         'dna'
       );
       
-      // Card 4: Geographic Diversity
-      var countryCountTotal = Object.keys(countryData).length;
+      // Card 4: Counties
+      var countyCountTotal = Object.keys(countyData).filter(function(c) { return c && c !== 'null' && c !== 'undefined'; }).length;
       html += this.createKPICard(
-        'Countries',
-        number.format(countryCountTotal),
-        'Top: ' + topCountry + ' (' + countryCount + ' genomes)',
-        '#F39C12',
+        'Counties',
+        number.format(countyCountTotal),
+        'Top: ' + topCounty + ' (' + number.format(topCountyCount) + ' genomes)',
+        null,
         'globe'
       );
       
@@ -167,11 +169,11 @@ define([
       
       return '<div class="kpi-card" style="background: white; border-radius: 8px; padding: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; overflow: hidden;">' +
         '<div style="position: absolute; top: 20px; right: 20px; opacity: 0.1;">' +
-        iconSvg.replace('width="24"', 'width="60"').replace('height="24"', 'height="60"').replace('currentColor', color) +
+        iconSvg.replace('width="24"', 'width="60"').replace('height="24"', 'height="60"') +
         '</div>' +
         '<div style="position: relative; z-index: 1;">' +
         '<div style="color: #666; font-size: 14px; margin-bottom: 8px;">' + title + '</div>' +
-        '<div style="color: ' + color + '; font-size: 36px; font-weight: bold; margin-bottom: 8px;">' + value + '</div>' +
+        '<div style="font-size: 36px; font-weight: bold; margin-bottom: 8px;">' + value + '</div>' +
         '<div style="color: #999; font-size: 12px;">' + subtitle + '</div>' +
         '</div>' +
         '</div>';
@@ -211,7 +213,6 @@ define([
     },
     
     handleError: function (error) {
-      console.error('Error loading statistics:', error);
       this.containerNode.innerHTML = '<div class="error">Error loading statistics</div>';
     }
   });

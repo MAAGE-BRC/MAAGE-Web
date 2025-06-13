@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAAGE Epidemiological Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['IBM Plex Mono', 'monospace'],
+                    },
+                    colors: {
+                        'maage': {
+                            'primary': '#98bdac',
+                            'secondary': '#5f94ab', 
+                            'tertiary': '#e7c788',
+                            'text': '#212529',
+                            'link': '#467386',
+                            'bg': '#f8f9fa',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .sidebar-shadow {
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-animation {
+            animation: countUp 2s ease-out;
+        }
+        
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .map-placeholder {
+            background: linear-gradient(45deg, #e9ecef 25%, transparent 25%), 
+                        linear-gradient(-45deg, #e9ecef 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #e9ecef 75%), 
+                        linear-gradient(-45deg, transparent 75%, #e9ecef 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+    </style>
+</head>
+<body class="bg-maage-bg font-body">
+    <!-- Floating Sidebar -->
+    <aside id="sidebar" class="fixed left-4 top-4 bottom-4 w-64 bg-white rounded-2xl sidebar-shadow z-50 flex flex-col overflow-hidden transition-transform duration-300 lg:translate-x-0 -translate-x-full">
+        <!-- Logo Section -->
+        <div class="p-6 border-b border-gray-100">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-maage-primary to-maage-secondary rounded-xl flex items-center justify-center">
+                    <i class="fas fa-dna text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-lg text-maage-text">
+                        <span class="font-light">MA</span><span class="font-bold">AGE</span>
+                    </h1>
+                    <p class="text-xs text-gray-500">Genomic Surveillance</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="#dashboard" class="nav-item active flex items-center space-x-3 px-4 py-3 rounded-xl bg-maage-primary/10 text-maage-primary font-medium">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#outbreaks" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors">
+                <i class="fas fa-exclamation-triangle w-5"></i>
+                <span>Outbreak Tracking</span>
+            </a>
+            <a href="#surveillance" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors">
+                <i class="fas fa-microscope w-5"></i>
+                <span>Surveillance</span>
+            </a>
+            <a href="#genomics" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors">
+                <i class="fas fa-dna w-5"></i>
+                <span>Genomic Analysis</span>
+            </a>
+            <a href="#reports" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors">
+                <i class="fas fa-file-alt w-5"></i>
+                <span>Reports</span>
+            </a>
+            
+            <div class="pt-4 border-t border-gray-100 mt-4">
+                <a href="#alerts" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors">
+                    <i class="fas fa-bell w-5"></i>
+                    <span>Alerts</span>
+                    <span class="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full">3</span>
+                </a>
+                <a href="#settings" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors">
+                    <i class="fas fa-cog w-5"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+        
+        <!-- User Profile -->
+        <div class="p-4 border-t border-gray-100">
+            <div class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="w-8 h-8 bg-gradient-to-br from-maage-secondary to-maage-primary rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-white text-sm"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="font-medium text-sm text-maage-text">Dr. Sarah Chen</p>
+                    <p class="text-xs text-gray-500">Epidemiologist</p>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400 text-sm"></i>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button id="sidebarToggle" class="lg:hidden fixed top-4 left-4 z-50 w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center">
+        <i class="fas fa-bars text-maage-text"></i>
+    </button>
+    
+    <!-- Main Content -->
+    <main class="lg:ml-72 p-4 lg:p-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="font-heading text-3xl font-bold text-maage-text mb-2">Epidemiological Dashboard</h1>
+                    <p class="text-gray-600">Real-time surveillance and outbreak monitoring across the Midwest region</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-2 text-sm text-gray-500">
+                        <div class="w-2 h-2 bg-green-500 rounded-full pulse-dot"></div>
+                        <span>Live Data</span>
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        Last updated: <span class="font-mono">14:32 CST</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+            <!-- Active Cases KPI -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-virus text-red-500 text-xl"></i>
+                    </div>
+                    <div class="flex items-center space-x-1 text-red-500 text-sm font-medium">
+                        <i class="fas fa-arrow-up text-xs"></i>
+                        <span>12.5%</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Active Cases</h3>
+                    <p class="text-3xl font-heading font-bold text-maage-text metric-animation">2,847</p>
+                    <p class="text-xs text-gray-500 mt-2">+156 from yesterday</p>
+                </div>
+            </div>
+            
+            <!-- Genomic Sequences KPI -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-maage-primary/10 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-dna text-maage-primary text-xl"></i>
+                    </div>
+                    <div class="flex items-center space-x-1 text-green-500 text-sm font-medium">
+                        <i class="fas fa-arrow-up text-xs"></i>
+                        <span>8.2%</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Sequences Analyzed</h3>
+                    <p class="text-3xl font-heading font-bold text-maage-text metric-animation">18,932</p>
+                    <p class="text-xs text-gray-500 mt-2">1,486 this week</p>
+                </div>
+            </div>
+            
+            <!-- Alert Level KPI -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-maage-tertiary/10 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-maage-tertiary text-xl"></i>
+                    </div>
+                    <div class="flex items-center space-x-1 text-maage-tertiary text-sm font-medium">
+                        <i class="fas fa-minus text-xs"></i>
+                        <span>Stable</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Alert Level</h3>
+                    <p class="text-3xl font-heading font-bold text-maage-text metric-animation">Medium</p>
+                    <p class="text-xs text-gray-500 mt-2">3 active outbreaks</p>
+                </div>
+            </div>
+            
+            <!-- Coverage KPI -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-maage-secondary/10 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-map-marked-alt text-maage-secondary text-xl"></i>
+                    </div>
+                    <div class="flex items-center space-x-1 text-green-500 text-sm font-medium">
+                        <i class="fas fa-arrow-up text-xs"></i>
+                        <span>5.1%</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Regional Coverage</h3>
+                    <p class="text-3xl font-heading font-bold text-maage-text metric-animation">87.3%</p>
+                    <p class="text-xs text-gray-500 mt-2">12 states monitored</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Outbreak Trends Chart -->
+            <div class="lg:col-span-2 bg-white rounded-2xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-heading text-xl font-semibold text-maage-text">Outbreak Trends</h3>
+                        <p class="text-gray-500 text-sm">Weekly case detection patterns</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1 bg-maage-primary/10 text-maage-primary rounded-lg text-sm font-medium">7D</button>
+                        <button class="px-3 py-1 hover:bg-gray-100 text-gray-500 rounded-lg text-sm">30D</button>
+                        <button class="px-3 py-1 hover:bg-gray-100 text-gray-500 rounded-lg text-sm">90D</button>
+                    </div>
+                </div>
+                <div class="h-64 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 font-medium">Outbreak Trends Chart</p>
+                        <p class="text-gray-400 text-sm">Line chart showing case trajectories</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pathogen Distribution -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="mb-6">
+                    <h3 class="font-heading text-xl font-semibold text-maage-text">Pathogen Distribution</h3>
+                    <p class="text-gray-500 text-sm">Current variant breakdown</p>
+                </div>
+                <div class="h-64 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-chart-pie text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 font-medium">Pathogen Distribution</p>
+                        <p class="text-gray-400 text-sm">Pie chart of variants</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Second Row Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Genomic Analysis -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="mb-6">
+                    <h3 class="font-heading text-xl font-semibold text-maage-text">Genomic Analysis</h3>
+                    <p class="text-gray-500 text-sm">Sequence similarity matrix</p>
+                </div>
+                <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-project-diagram text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 font-medium">Phylogenetic Tree</p>
+                        <p class="text-gray-400 text-sm">Genomic relationships</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Regional Hotspots -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="mb-6">
+                    <h3 class="font-heading text-xl font-semibold text-maage-text">Regional Hotspots</h3>
+                    <p class="text-gray-500 text-sm">High-risk area identification</p>
+                </div>
+                <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-chart-bar text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 font-medium">Risk Assessment</p>
+                        <p class="text-gray-400 text-sm">County-level analysis</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transmission Chains -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <div class="mb-6">
+                    <h3 class="font-heading text-xl font-semibold text-maage-text">Transmission Chains</h3>
+                    <p class="text-gray-500 text-sm">Contact tracing network</p>
+                </div>
+                <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-network-wired text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 font-medium">Network Graph</p>
+                        <p class="text-gray-400 text-sm">Transmission pathways</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Map Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="lg:col-span-2 bg-white rounded-2xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-heading text-xl font-semibold text-maage-text">Geographic Distribution</h3>
+                        <p class="text-gray-500 text-sm">Real-time case mapping across the Midwest</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-4 py-2 bg-maage-secondary text-white rounded-lg text-sm font-medium hover:bg-maage-secondary/90 transition-colors">
+                            <i class="fas fa-layer-group mr-2"></i>
+                            Layers
+                        </button>
+                        <button class="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-fullscreen mr-2"></i>
+                            Fullscreen
+                        </button>
+                    </div>
+                </div>
+                <div class="h-96 bg-gradient-to-br from-blue-50 to-green-50 rounded-xl map-placeholder relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-map text-6xl text-maage-secondary/30 mb-4"></i>
+                            <p class="text-maage-secondary font-heading font-semibold text-lg">Interactive Midwest Map</p>
+                            <p class="text-gray-500 text-sm mt-2">Choropleth visualization with case density</p>
+                        </div>
+                    </div>
+                    <!-- Map controls -->
+                    <div class="absolute top-4 right-4 space-y-2">
+                        <button class="w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center hover:shadow-lg transition-shadow">
+                            <i class="fas fa-plus text-gray-600"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center hover:shadow-lg transition-shadow">
+                            <i class="fas fa-minus text-gray-600"></i>
+                        </button>
+                    </div>
+                    <!-- Legend -->
+                    <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3">
+                        <p class="text-xs font-medium text-gray-700 mb-2">Cases per 100k</p>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-4 h-3 bg-green-200 rounded-sm"></div>
+                            <span class="text-xs text-gray-600">0-10</span>
+                            <div class="w-4 h-3 bg-yellow-300 rounded-sm"></div>
+                            <span class="text-xs text-gray-600">11-50</span>
+                            <div class="w-4 h-3 bg-red-400 rounded-sm"></div>
+                            <span class="text-xs text-gray-600">50+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map Legend and Controls -->
+            <div class="bg-white rounded-2xl p-6 card-hover">
+                <h3 class="font-heading text-xl font-semibold text-maage-text mb-6">Map Controls</h3>
+                
+                <!-- Data Layers -->
+                <div class="mb-6">
+                    <h4 class="font-medium text-maage-text mb-3">Data Layers</h4>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" checked class="w-4 h-4 text-maage-primary rounded">
+                            <span class="text-sm text-gray-700">Active Cases</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" checked class="w-4 h-4 text-maage-primary rounded">
+                            <span class="text-sm text-gray-700">Genomic Samples</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-maage-primary rounded">
+                            <span class="text-sm text-gray-700">Healthcare Facilities</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-maage-primary rounded">
+                            <span class="text-sm text-gray-700">Population Density</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Time Range -->
+                <div class="mb-6">
+                    <h4 class="font-medium text-maage-text mb-3">Time Range</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="px-3 py-2 bg-maage-primary/10 text-maage-primary rounded-lg text-sm font-medium">Last 7 days</button>
+                        <button class="px-3 py-2 hover:bg-gray-100 text-gray-600 rounded-lg text-sm">Last 30 days</button>
+                        <button class="px-3 py-2 hover:bg-gray-100 text-gray-600 rounded-lg text-sm">Last 90 days</button>
+                        <button class="px-3 py-2 hover:bg-gray-100 text-gray-600 rounded-lg text-sm">Custom</button>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div>
+                    <h4 class="font-medium text-maage-text mb-3">Quick Stats</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Total Counties</span>
+                            <span class="font-mono text-sm font-medium">1,055</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Affected Counties</span>
+                            <span class="font-mono text-sm font-medium">287</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">High-Risk Counties</span>
+                            <span class="font-mono text-sm font-medium text-red-600">43</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informational Detail List -->
+        <div class="bg-white rounded-2xl p-6 card-hover">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="font-heading text-xl font-semibold text-maage-text">Recent Surveillance Activities</h3>
+                    <p class="text-gray-500 text-sm">Latest genomic sequencing and outbreak investigations</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button class="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-filter mr-2"></i>
+                        Filter
+                    </button>
+                    <button class="px-4 py-2 bg-maage-primary text-white rounded-lg text-sm font-medium hover:bg-maage-primary/90 transition-colors">
+                        <i class="fas fa-download mr-2"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Activity Item 1 -->
+                <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer" onclick="toggleDetails(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle text-red-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-maage-text">E. coli Outbreak Investigation</h4>
+                                <p class="text-sm text-gray-500">Cook County, Illinois • 23 confirmed cases</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">High Priority</span>
+                            <span class="text-sm text-gray-500 font-mono">2h ago</span>
+                            <i class="fas fa-chevron-right text-gray-400 expand-icon transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="details mt-4 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Genomic Sequences</p>
+                                    <p class="font-mono font-medium">18 analyzed</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Strain Type</p>
+                                    <p class="font-mono font-medium">O157:H7</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Source Investigation</p>
+                                    <p class="font-mono font-medium">Ongoing</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">
+                                WGS analysis reveals a closely related cluster with 0-5 SNP differences. 
+                                Contact tracing indicates potential common source exposure at local farmers market.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity Item 2 -->
+                <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer" onclick="toggleDetails(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-maage-primary/10 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-dna text-maage-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-maage-text">Influenza A Sequencing Complete</h4>
+                                <p class="text-sm text-gray-500">Regional surveillance • 145 samples processed</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Complete</span>
+                            <span class="text-sm text-gray-500 font-mono">4h ago</span>
+                            <i class="fas fa-chevron-right text-gray-400 expand-icon transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="details mt-4 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">H3N2 Variants</p>
+                                    <p class="font-mono font-medium">87 sequences</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">H1N1 Variants</p>
+                                    <p class="font-mono font-medium">58 sequences</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Novel Mutations</p>
+                                    <p class="font-mono font-medium text-orange-600">3 detected</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">
+                                Seasonal surveillance shows continued H3N2 dominance with emergence of new antigenic variants. 
+                                Phylogenetic analysis suggests potential vaccine mismatch.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity Item 3 -->
+                <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer" onclick="toggleDetails(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-maage-secondary/10 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-map-marked-alt text-maage-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-maage-text">Wastewater Surveillance Update</h4>
+                                <p class="text-sm text-gray-500">Chicago Metro Area • Weekly monitoring report</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Routine</span>
+                            <span class="text-sm text-gray-500 font-mono">1d ago</span>
+                            <i class="fas fa-chevron-right text-gray-400 expand-icon transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="details mt-4 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Treatment Plants</p>
+                                    <p class="font-mono font-medium">12 monitored</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">SARS-CoV-2 Detection</p>
+                                    <p class="font-mono font-medium text-green-600">Stable</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Other Pathogens</p>
+                                    <p class="font-mono font-medium">7 monitored</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">
+                                Weekly wastewater analysis shows stable SARS-CoV-2 levels with no significant increases. 
+                                Norovirus and influenza signals detected at expected seasonal levels.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity Item 4 -->
+                <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer" onclick="toggleDetails(this)">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-maage-tertiary/10 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-users text-maage-tertiary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-maage-text">Multi-State Collaboration Meeting</h4>
+                                <p class="text-sm text-gray-500">Midwest SARS-CoV-2 Working Group • Action items</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Meeting</span>
+                            <span class="text-sm text-gray-500 font-mono">2d ago</span>
+                            <i class="fas fa-chevron-right text-gray-400 expand-icon transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="details mt-4 hidden">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Participating States</p>
+                                    <p class="font-mono font-medium">IL, IN, MI, OH, WI</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Action Items</p>
+                                    <p class="font-mono font-medium">7 assigned</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">
+                                Collaborative planning session focused on standardizing sequencing protocols and 
+                                data sharing frameworks. Next meeting scheduled for March 15th.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Load More -->
+            <div class="mt-6 text-center">
+                <button class="px-6 py-3 border border-gray-200 text-gray-600 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    Load More Activities
+                </button>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Overlay for mobile sidebar -->
+    <div id="sidebarOverlay" class="lg:hidden fixed inset-0 bg-black/50 z-40 hidden"></div>
+    
+    <script>
+        // Mobile sidebar toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+        
+        // Detail expansion
+        function toggleDetails(element) {
+            const details = element.querySelector('.details');
+            const icon = element.querySelector('.expand-icon');
+            
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+                icon.style.transform = 'rotate(90deg)';
+            } else {
+                details.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        // Auto-update timestamp simulation
+        function updateTimestamp() {
+            const timestamp = document.querySelector('[data-timestamp]');
+            if (timestamp) {
+                const now = new Date();
+                timestamp.textContent = now.toLocaleTimeString('en-US', { 
+                    hour12: false, 
+                    timeZone: 'America/Chicago' 
+                }) + ' CST';
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add smooth animations after load
+            setTimeout(() => {
+                document.querySelectorAll('.metric-animation').forEach((el, index) => {
+                    el.style.animationDelay = `${index * 0.1}s`;
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -3,23 +3,19 @@ define([
   'dijit/_WidgetBase',
   'dijit/_TemplatedMixin',
   'dojo/on',
-  'dojo/dom-class',
-  'dojo/dom-style',
   'dojo/dom-geometry',
   'dojo/dom-construct',
   'dojo/_base/lang',
-  'dojo/topic',
   '../DataAPI'
 ], function (
   declare, _WidgetBase, _TemplatedMixin,
-  on, domClass, domStyle, domGeometry, domConstruct, lang, Topic,
+  on, domGeometry, domConstruct, lang,
   DataAPI
 ) {
-  // ECharts is loaded globally
   var echarts = window.echarts;
   
   if (!echarts) {
-    console.error('ECharts library not found. Make sure echarts.js is loaded before this widget.');
+    console.error('ECharts library not found');
   }
 
   return declare([_WidgetBase, _TemplatedMixin], {
@@ -29,90 +25,79 @@ define([
     chartNode: null,
     query: null,
     dataType: 'genome',
-    
-    // Chart configuration to be overridden by subclasses
     chartOptions: {},
+    _initAttempts: 0,
+    _maxInitAttempts: 10,
     
-    // Default MAAGE theme colors
-    themeColors: [
-      '#E74C3C', // Red
-      '#3498DB', // Blue
-      '#2ECC71', // Green
-      '#F39C12', // Orange
-      '#9B59B6', // Purple
-      '#1ABC9C', // Turquoise
-      '#34495E', // Dark Gray
-      '#E67E22', // Carrot
-      '#95A5A6', // Gray
-      '#16A085'  // Green Sea
-    ],
+    // Default chart dimensions - can be overridden by subclasses
+    chartHeight: '400px',
+    minChartHeight: '400px',
     
     postCreate: function () {
       this.inherited(arguments);
       this.chartNode = domConstruct.create('div', {
-        style: 'width: 100%; height: 400px; min-height: 400px;'
+        style: 'width: 100%; height: ' + this.chartHeight + '; min-height: ' + this.minChartHeight + ';'
       }, this.containerNode);
+      
+      // Initialize chart options if provided by subclass
+      if (this.getChartOptions) {
+        this.chartOptions = this.getChartOptions();
+      }
     },
     
     startup: function () {
       if (this._started) { return; }
       this.inherited(arguments);
+      this._attemptInitialization();
+    },
+    
+    _attemptInitialization: function() {
+      var box = domGeometry.getContentBox(this.chartNode);
       
-      console.log('EChartsBase startup - widget type:', this.declaredClass);
-      
-      // Ensure the chart node has dimensions before initializing
-      this._initRetries = this._initRetries || 0;
-      
-      setTimeout(lang.hitch(this, function() {
-        // Check if the container has dimensions
-        var box = domGeometry.getContentBox(this.chartNode);
-        console.log('EChartsBase dimensions check:', this.declaredClass, 'width:', box.w, 'height:', box.h);
+      if (box.w > 0 && box.h > 0) {
+        this._initializeChart();
+      } else if (this._initAttempts < this._maxInitAttempts) {
+        this._initAttempts++;
+        setTimeout(lang.hitch(this, this._attemptInitialization), 500);
+      } else {
+        this._setupDeferredInitialization();
+      }
+    },
+    
+    _initializeChart: function() {
+      if (!this.chart && echarts) {
+        this.chart = echarts.init(this.chartNode, 'maage');
+        this._setupResizeHandler();
         
-        if (box.w > 0 && box.h > 0) {
-          // Initialize ECharts instance
-          this.chart = echarts.init(this.chartNode);
-          console.log('EChartsBase chart initialized:', this.declaredClass);
-          
-          // Set up resize handler
-          this.own(
-            on(window, 'resize', lang.hitch(this, function () {
-              if (this.chart) {
-                this.chart.resize();
-              }
-            }))
-          );
-          
-          // Load data if query is set
-          if (this.query) {
-            console.log('EChartsBase loading data on startup:', this.declaredClass);
-            this.loadData();
-          }
-        } else if (this._initRetries < 10) {
-          // Try again if container still has no dimensions, but limit retries
-          this._initRetries++;
-          console.log('EChartsBase no dimensions yet, retry', this._initRetries, 'of 10:', this.declaredClass);
-          setTimeout(lang.hitch(this, this.startup), 500);
-          this._started = false;
-        } else {
-          console.log('EChartsBase giving up after 10 retries, will init on resize:', this.declaredClass);
-          // Set up resize handler to try initializing when container gets dimensions
-          this.own(
-            on(window, 'resize', lang.hitch(this, function () {
-              if (!this.chart) {
-                var box = domGeometry.getContentBox(this.chartNode);
-                if (box.w > 0 && box.h > 0) {
-                  this.chart = echarts.init(this.chartNode);
-                  if (this.query) {
-                    this.loadData();
-                  }
-                }
-              } else {
-                this.chart.resize();
-              }
-            }))
-          );
+        if (this.query) {
+          this.loadData();
         }
-      }), 100);
+      }
+    },
+    
+    _setupResizeHandler: function() {
+      this.own(
+        on(window, 'resize', lang.hitch(this, function () {
+          if (this.chart) {
+            this.chart.resize();
+          }
+        }))
+      );
+    },
+    
+    _setupDeferredInitialization: function() {
+      this.own(
+        on(window, 'resize', lang.hitch(this, function () {
+          if (!this.chart) {
+            var box = domGeometry.getContentBox(this.chartNode);
+            if (box.w > 0 && box.h > 0) {
+              this._initializeChart();
+            }
+          } else {
+            this.chart.resize();
+          }
+        }))
+      );
     },
     
     resize: function () {
@@ -120,14 +105,9 @@ define([
       if (this.chart) {
         this.chart.resize();
       } else {
-        // Try to initialize if not already done
         var box = domGeometry.getContentBox(this.chartNode);
         if (box.w > 0 && box.h > 0) {
-          this.chart = echarts.init(this.chartNode);
-          console.log('EChartsBase chart initialized on resize:', this.declaredClass);
-          if (this.query) {
-            this.loadData();
-          }
+          this._initializeChart();
         }
       }
     },
@@ -139,37 +119,16 @@ define([
       }
     },
     
-    forceInitialize: function() {
-      if (!this.chart) {
-        var box = domGeometry.getContentBox(this.chartNode);
-        console.log('EChartsBase forceInitialize:', this.declaredClass, 'width:', box.w, 'height:', box.h);
-        if (box.w > 0 && box.h > 0) {
-          this.chart = echarts.init(this.chartNode);
-          console.log('EChartsBase chart initialized via forceInitialize:', this.declaredClass);
-          if (this.query) {
-            this.loadData();
-          }
-          return true;
-        }
-      }
-      return false;
-    },
-    
     loadData: function () {
       if (!this.query || !this.chart) { return; }
       
       this.chart.showLoading({
-        text: 'Loading data...',
+        text: 'Loading...',
         maskColor: 'rgba(255, 255, 255, 0.8)',
         textColor: '#333'
       });
       
-      // Build query with facets
       var facetQuery = this.buildFacetQuery();
-      
-      // Debug logging
-      console.log('EChartsBase loadData - original query:', this.query);
-      console.log('EChartsBase loadData - facet query:', facetQuery);
       
       DataAPI.query(this.dataType, facetQuery, {
         accept: 'application/solr+json'
@@ -179,70 +138,91 @@ define([
       );
     },
     
-    // To be overridden by subclasses
     buildFacetQuery: function () {
-      // Clean up the query to ensure proper format
-      var cleanQuery = this.query;
+      // Abstract method - must be implemented by subclasses
+      console.error('buildFacetQuery must be implemented by subclass');
+      return this.query + '&limit(1)';
+    },
+    
+    // Helper method for common facet query pattern
+    buildSimpleFacetQuery: function(field, limit, sort) {
+      var cleanQuery = this._cleanQuery(this.query);
+      var sortParam = sort || 'count';
+      var limitParam = limit || 10;
+      return cleanQuery + '&facet((field,' + field + '),(mincount,1),(sort,' + sortParam + '),(limit,' + limitParam + '))&limit(1)';
+    },
+    
+    _cleanQuery: function(query) {
+      if (!query) return '';
       
-      // Remove leading question marks if present
-      if (cleanQuery && cleanQuery.charAt(0) === '?') {
-        cleanQuery = cleanQuery.substring(1);
+      var cleaned = query;
+      
+      // Remove leading question mark
+      if (cleaned.charAt(0) === '?') {
+        cleaned = cleaned.substring(1);
       }
       
       // Fix malformed genome list queries
-      // Convert "eq(*,*)&genome(in(genome_id,(...)))" to "in(genome_id,(...))"
-      var genomeMatch = cleanQuery.match(/^eq\(\*,\*\)&genome\((in\(genome_id,\([^)]+\)\))\)$/);
+      var genomeMatch = cleaned.match(/^eq\(\*,\*\)&genome\((in\(genome_id,\([^)]+\)\))\)$/);
       if (genomeMatch) {
-        cleanQuery = genomeMatch[1];
+        cleaned = genomeMatch[1];
       }
       
-      // Remove any remaining "eq(*,*)&" patterns
-      cleanQuery = cleanQuery.replace(/^eq\(\*,\*\)&/, '');
+      // Remove eq(*,*)& patterns
+      cleaned = cleaned.replace(/^eq\(\*,\*\)&/, '');
       
-      return cleanQuery + '&limit(1)';
+      return cleaned;
     },
     
-    // To be overridden by subclasses
     processData: function (response) {
+      // Abstract method - must be implemented by subclasses
       this.chart.hideLoading();
-      // Process data and update chart
-      this.updateChart({});
+      console.error('processData must be implemented by subclass');
+    },
+    
+    // Helper method to transform facet data into chart series
+    transformFacetData: function(response, field, excludeTerms) {
+      if (!response || !response.facet_counts || !response.facet_counts.facet_fields || !response.facet_counts.facet_fields[field]) {
+        return { categories: [], values: [] };
+      }
+      
+      var facetData = response.facet_counts.facet_fields[field];
+      var categories = [];
+      var values = [];
+      var excludeSet = excludeTerms ? new Set(excludeTerms) : null;
+      
+      for (var i = 0; i < facetData.length; i += 2) {
+        var label = facetData[i];
+        var count = facetData[i + 1];
+        
+        if (!excludeSet || !excludeSet.has(label.toLowerCase())) {
+          categories.push(label);
+          values.push(count);
+        }
+      }
+      
+      return { categories: categories, values: values };
     },
     
     handleError: function (error) {
-      this.chart.hideLoading();
-      console.error('Error loading data:', error);
-      this.chart.setOption({
-        title: {
-          text: 'Error Loading Data',
-          subtext: error.message || 'Unknown error occurred',
-          left: 'center',
-          top: 'center'
-        }
-      });
+      if (this.chart) {
+        this.chart.hideLoading();
+        this.chart.setOption({
+          title: {
+            text: 'Error Loading Data',
+            subtext: error.message || 'Unknown error',
+            left: 'center',
+            top: 'center'
+          }
+        });
+      }
     },
     
     updateChart: function (data) {
-      var options = lang.mixin({
-        color: this.themeColors,
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        tooltip: {
-          trigger: 'axis',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)',
-          borderColor: '#ccc',
-          borderWidth: 1,
-          textStyle: {
-            color: '#333'
-          }
-        }
-      }, this.chartOptions, data);
-      
-      this.chart.setOption(options);
+      if (this.chart) {
+        var options = lang.mixin({}, this.chartOptions, data);
+        this.chart.setOption(options);
+      }
     },
     
     destroy: function () {
