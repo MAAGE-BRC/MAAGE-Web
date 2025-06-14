@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* MAAGE Custom Components */
 @layer components {
-  /* Dijit widget styling within MAAGE forms */
   .dijit-wrapper .dijit {
     @apply w-full;
   }
@@ -20,7 +18,6 @@
     @apply w-full border-0 outline-none bg-transparent;
   }
 
-  /* TaxaSearch specific styles */
   .TaxaSearchModern {
     @apply min-h-screen bg-maage-bg;
   }

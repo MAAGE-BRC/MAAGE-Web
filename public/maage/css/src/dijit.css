@@ -1,4 +1,3 @@
-/* Override Dojo widget styles to match Tailwind design */
 .dijitTextBox,
 .dijitComboBox,
 .dijitSelect {
@@ -33,18 +32,15 @@
   border-radius: 0.25rem !important;
 }
 
-/* Placeholder text color */
 .dijitPlaceHolder {
   color: #6c757d !important;
 }
 
-/* Dropdown arrow styling */
 .dijitArrowButton {
   border-left: none !important;
   background: transparent !important;
 }
 
-/* Reset default Dojo form styling */
 .PanelForm {
   margin: 0 !important;
   padding: 0 !important;
@@ -57,7 +53,6 @@
   margin: 0 !important;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr !important;
