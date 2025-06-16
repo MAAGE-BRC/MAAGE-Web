@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAAGE - Genomic Surveillance Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4bb90511c9.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Poppins', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace'],
+                        ibmplexmono: ['IBM Plex Mono', 'monospace'],
+                    },
+                    maxWidth: {
+                        maage: '1400px',
+                    },
+                    colors: {
+                        maage: {
+                            primary: {
+                                50: '#f3f7f5',
+                                100: '#ecf3f0',
+                                200: '#d6e5de',
+                                300: '#b4d0c3',
+                                400: '#98bdac',
+                                500: '#6ea089',
+                                600: '#57856f',
+                                700: '#496f5d',
+                                800: '#3c5d4e',
+                                900: '#324d41',
+                                950: '#1c2b24',
+                            },
+                            secondary: {
+                                50: '#eef4f7',
+                                100: '#dce9ef',
+                                200: '#c1d8e1',
+                                300: '#a0c1cf',
+                                400: '#87afc0',
+                                500: '#5f94ab',
+                                600: '#467386',
+                                700: '#406777',
+                                800: '#365663',
+                                900: '#2e4a56',
+                                950: '#22363f',
+                            },
+                            tertiary: {
+                                50: '#fdfaf2',
+                                100: '#fbf6e9',
+                                200: '#f8edd8',
+                                300: '#f4e4c2',
+                                400: '#edd5a6',
+                                500: '#e7c788',
+                                600: '#dab46c',
+                                700: '#d29c4b',
+                                800: '#bb8335',
+                                900: '#946729',
+                                950: '#6d461d',
+                            },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .county {
+            stroke: #fff;
+            stroke-width: 0.5px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .county:hover {
+            stroke-width: 2px;
+            stroke: #333;
+        }
+        
+        .tooltip {
+            position: absolute;
+            text-align: left;
+            padding: 10px;
+            font: 12px Inter, sans-serif;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            pointer-events: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .legend-item {
+            cursor: pointer;
+        }
+        
+        .legend-item:hover rect {
+            stroke: #333;
+            stroke-width: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8f9fa] text-gray-800">
+    <div class="max-w-screen-xl mx-auto py-8 px-4">
+
+        <!-- Map Container -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <!-- <h2 class="font-heading text-2xl font-semibold text-gray-800 mb-4">Counties</h2> -->
+            <div id="map-container" class="relative">
+                <div id="loading" class="text-center py-8">
+                    <i class="fas fa-spinner fa-spin text-maage-primary-500 text-3xl"></i>
+                    <p class="mt-2 text-gray-600">Loading surveillance data...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="bg-white rounded-lg shadow-sm p-4">
+            <h3 class="font-heading text-lg font-semibold mb-2">Surveillance Intensity</h3>
+            <p class="text-sm text-gray-600 mb-3">Hover over counties for detailed information</p>
+            <div id="legend" class="flex flex-wrap gap-2"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize visualization
+        async function initMap() {
+            try {
+                // Set dimensions
+                const width = 960;
+                const height = 600;
+                const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+
+                // Clear loading indicator
+                d3.select("#loading").remove();
+
+                // Create SVG
+                const svg = d3.select("#map-container")
+                    .append("svg")
+                    .attr("viewBox", [0, 0, width, height])
+                    .attr("class", "w-full h-auto");
+
+                // Create tooltip
+                const tooltip = d3.select("body")
+                    .append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
+
+                // Load the TopoJSON data
+                const response = await fetch('counties-albers-10m.json');
+                const us = await response.json();
+
+                // Convert TopoJSON to GeoJSON
+                const counties = topojson.feature(us, us.objects.counties);
+
+                // Generate sample data for visualization
+                const data = new Map();
+                counties.features.forEach(d => {
+                    // Simulate surveillance data
+                    const value = Math.random() * 100;
+                    data.set(d.id, {
+                        value: value,
+                        samples: Math.floor(Math.random() * 1000) + 50,
+                        coverage: (Math.random() * 40 + 60).toFixed(1),
+                        name: d.properties.name || "Unknown County"
+                    });
+                });
+
+                // Create color scale using MAAGE colors
+                const colorScale = d3.scaleQuantize()
+                    .domain([0, 100])
+                    .range([
+                        '#f3f7f5', // primary-50
+                        '#d6e5de', // primary-200
+                        '#b4d0c3', // primary-300
+                        '#98bdac', // primary-400
+                        '#6ea089', // primary-500
+                        '#57856f', // primary-600
+                        '#496f5d'  // primary-700
+                    ]);
+
+                // Create path generator
+                const path = d3.geoPath();
+
+                // Draw counties
+                svg.append("g")
+                    .selectAll("path")
+                    .data(counties.features)
+                    .join("path")
+                    .attr("class", "county")
+                    .attr("d", path)
+                    .attr("fill", d => {
+                        const countyData = data.get(d.id);
+                        return countyData ? colorScale(countyData.value) : "#f3f7f5";
+                    })
+                    .on("mouseover", function(event, d) {
+                        const countyData = data.get(d.id);
+                        if (countyData) {
+                            tooltip.transition()
+                                .duration(200)
+                                .style("opacity", .95);
+                            tooltip.html(`
+                                <div class="font-semibold text-gray-800">${countyData.name}</div>
+                                <div class="mt-1">
+                                    <div class="text-xs text-gray-600">Surveillance Intensity: 
+                                        <span class="font-mono font-semibold">${countyData.value.toFixed(1)}%</span>
+                                    </div>
+                                    <div class="text-xs text-gray-600">Samples Processed: 
+                                        <span class="font-mono">${countyData.samples}</span>
+                                    </div>
+                                    <div class="text-xs text-gray-600">Coverage: 
+                                        <span class="font-mono">${countyData.coverage}%</span>
+                                    </div>
+                                </div>
+                            `)
+                                .style("left", (event.pageX + 10) + "px")
+                                .style("top", (event.pageY - 28) + "px");
+                        }
+                    })
+                    .on("mouseout", function(d) {
+                        tooltip.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    });
+
+                // Create legend
+                const legendData = [
+                    { range: "0-15%", color: '#f3f7f5', label: "Minimal" },
+                    { range: "15-30%", color: '#d6e5de', label: "Low" },
+                    { range: "30-45%", color: '#b4d0c3', label: "Moderate" },
+                    { range: "45-60%", color: '#98bdac', label: "Active" },
+                    { range: "60-75%", color: '#6ea089', label: "High" },
+                    { range: "75-90%", color: '#57856f', label: "Very High" },
+                    { range: "90-100%", color: '#496f5d', label: "Maximum" }
+                ];
+
+                const legend = d3.select("#legend");
+                
+                legendData.forEach(item => {
+                    const legendItem = legend.append("div")
+                        .attr("class", "flex items-center gap-2 legend-item");
+                    
+                    legendItem.append("div")
+                        .style("width", "24px")
+                        .style("height", "24px")
+                        .style("background-color", item.color)
+                        .attr("class", "rounded border border-gray-300");
+                    
+                    legendItem.append("div")
+                        .attr("class", "text-sm")
+                        .html(`<span class="font-mono text-gray-600">${item.range}</span> <span class="text-gray-500">- ${item.label}</span>`);
+                });
+
+            } catch (error) {
+                console.error('Error loading map:', error);
+                d3.select("#loading").html(`
+                    <i class="fas fa-exclamation-triangle text-red-500 text-3xl"></i>
+                    <p class="mt-2 text-red-600">Error loading map data</p>
+                    <p class="text-sm text-gray-600 mt-1">${error.message}</p>
+                `);
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initMap);
+    </script>
+</body>
+
+</html>
