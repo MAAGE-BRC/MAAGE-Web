@@ -1,29 +1,41 @@
-<div style="width: 100%; padding: 20px;">
-    <!-- KPI Stats Cards -->
-    <div data-dojo-attach-point="statsContainer" style="margin-bottom: 30px;"></div>
-    
-    <!-- Charts Grid - 3 columns -->
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
-        <!-- Isolation Source Bar Chart -->
-        <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <div data-dojo-attach-point="barChartContainer" style="width: 100%; height: 350px;"></div>
+<div>
+    <div class="column-sub">
+        <div class="section hidden">
+            <h3 class="close section-title"><span class="wrap">Genome Group Info</span></h3>
+            <div data-dojo-attach-point="ggiSummaryWidget"
+                 data-dojo-type="p3/widget/GenomeGroupInfoSummary"></div>
         </div>
-        
-        <!-- Genome Quality Pie Chart -->
-        <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <div data-dojo-attach-point="pieChartContainer" style="width: 100%; height: 350px;"></div>
-        </div>
-        
-        <!-- Year Distribution Chart -->
-        <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <div data-dojo-attach-point="yearChartContainer" style="width: 100%; height: 350px;"></div>
+
+        <div class="section">
+            <h3 class="close section-title"><span class="wrap">Reference/Representative Genomes</span></h3>
+            <div class="rgSummaryWidget" data-dojo-attach-point="rgSummaryWidget"
+                 data-dojo-type="p3/widget/ReferenceGenomeSummary">
+            </div>
         </div>
     </div>
-    
-    <!-- Second Row - Full Width Stacked Chart -->
-    <div style="margin-top: 20px;">
-        <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <div data-dojo-attach-point="stackedChartContainer" style="width: 100%; height: 500px;"></div>
+
+    <div class="column-prime">
+        <div class="section hidden">
+            <h3 class="close section-title"><span class="wrap">Genomes by Antimicrobial Resistance</span></h3>
+            <div class="apmSummaryWidget" data-dojo-attach-point="apmSummaryWidget"
+                 data-dojo-type="p3/widget/AMRPanelMetaSummary">
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="close section-title"><span class="wrap">Genomes by Metadata</span></h3>
+            <div class="gmSummaryWidget" data-dojo-attach-point="gmSummaryWidget"
+                 data-dojo-type="p3/widget/GenomeMetaSummary">
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="close section-title"><span class="wrap">Specialty Gene Summary</span></h3>
+            <div data-dojo-attach-point="spgSummaryWidget"
+                 data-dojo-type="p3/widget/SpecialtyGeneSummary">
+            </div>
         </div>
     </div>
+
+    <div class="column-opt"></div>
 </div>
