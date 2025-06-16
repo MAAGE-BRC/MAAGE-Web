@@ -19,6 +19,12 @@ router.get("/dashboard", function (req, res) {
   res.render("pages/dashboard", { title: "PATRIC", request: req, response: res });
 });
 
+/* GET dashboard layout */
+router.get("/dashboard-layout", function (req, res) {
+  req.applicationModule = "p3/app/p3app";
+  res.render("layouts/dashboard-layout", { title: "PATRIC", request: req, response: res });
+});
+
 /* GET about */
 router.get("/about", function (req, res) {
   req.applicationModule = "p3/app/p3app";
