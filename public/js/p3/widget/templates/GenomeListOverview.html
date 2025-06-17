@@ -1,41 +1,25 @@
 <div>
-    <div class="column-sub">
-        <div class="section hidden">
-            <h3 class="close section-title"><span class="wrap">Genome Group Info</span></h3>
-            <div data-dojo-attach-point="ggiSummaryWidget"
-                 data-dojo-type="p3/widget/GenomeGroupInfoSummary"></div>
-        </div>
-
-        <div class="section">
-            <h3 class="close section-title"><span class="wrap">Reference/Representative Genomes</span></h3>
-            <div class="rgSummaryWidget" data-dojo-attach-point="rgSummaryWidget"
-                 data-dojo-type="p3/widget/ReferenceGenomeSummary">
-            </div>
-        </div>
-    </div>
-
-    <div class="column-prime">
-        <div class="section hidden">
-            <h3 class="close section-title"><span class="wrap">Genomes by Antimicrobial Resistance</span></h3>
-            <div class="apmSummaryWidget" data-dojo-attach-point="apmSummaryWidget"
-                 data-dojo-type="p3/widget/AMRPanelMetaSummary">
-            </div>
-        </div>
-
-        <div class="section">
-            <h3 class="close section-title"><span class="wrap">Genomes by Metadata</span></h3>
-            <div class="gmSummaryWidget" data-dojo-attach-point="gmSummaryWidget"
-                 data-dojo-type="p3/widget/GenomeMetaSummary">
-            </div>
-        </div>
-
-        <div class="section">
-            <h3 class="close section-title"><span class="wrap">Specialty Gene Summary</span></h3>
-            <div data-dojo-attach-point="spgSummaryWidget"
-                 data-dojo-type="p3/widget/SpecialtyGeneSummary">
-            </div>
-        </div>
-    </div>
-
-    <div class="column-opt"></div>
+	<div style="display: flex; flex-wrap: wrap; width: 100%;">
+		<div class="column-prime" style="width: 60%; padding-right: 10px; box-sizing: border-box;">
+			<div class="section">
+				<h3 class="section-title"><span class="wrap">Host Distribution</span></h3>
+				<div data-dojo-attach-point="hostChartNode"></div>
+			</div>
+		</div>
+		<div class="column-sub" style="width: 40%; display: flex; flex-direction: column;">
+			<div class="section" style="flex: 1; min-height: 450px;">
+				<h3 class="section-title"><span class="wrap">Genome Status</span></h3>
+				<div data-dojo-attach-point="statusChartNode"></div>
+			</div>
+			<div class="section" style="margin-top: 20px; flex: 1; min-height: 450px;">
+				<h3 class="section-title"><span class="wrap">Isolation Countries</span></h3>
+				<div data-dojo-attach-point="countryChartNode"></div>
+			</div>
+			<!-- ADDED: New container for the isolation source chart -->
+			<div class="section" style="margin-top: 20px; flex: 1; min-height: 450px;">
+				<h3 class="section-title"><span class="wrap">Isolation Sources</span></h3>
+				<div data-dojo-attach-point="sourceChartNode"></div>
+			</div>
+		</div>
+	</div>
 </div>
