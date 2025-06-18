@@ -3,8 +3,6 @@ define([
     'dojo/_base/lang',
     'dojo/request',
     './EChart'
-    // Note: 'echarts' is a dependency of the base EChart widget.
-    // The topojson library is loaded globally and does not need to be in the define block.
 ], function (
     declare,
     lang,
@@ -13,18 +11,17 @@ define([
 ) {
     return declare([EChart], {
         baseClass: 'EChartMap',
-        mapName: 'US_Counties', // A unique name for the registered map
+        mapName: 'US_Counties',
+        geoJson: null, // Property to store the loaded map geometry
 
         postCreate: function () {
             this.inherited(arguments);
-            // Initiate the load for the map's topology data.
             this.loadMapData('/maage/us-atlas/counties-albers-10m.json');
         },
 
         loadMapData: function (jsonUrl) {
-            // Ensure the global topojson library is available before proceeding.
             if (typeof topojson == 'undefined') {
-                console.error("TopoJSON client not loaded. Please include it via a <script> tag in your main HTML document.");
+                console.error("TopoJSON client not loaded. Please include it via a <script> tag.");
                 return;
             }
 
@@ -32,10 +29,15 @@ define([
             request.get(jsonUrl, {
                 handleAs: 'json'
             }).then(lang.hitch(this, function (us) {
+                // Convert TopoJSON and store it on the widget instance
+                this.geoJson = topojson.feature(us, us.objects.counties);
+                
+                // Register the map with ECharts
+                echarts.registerMap(this.mapName, this.geoJson);
+                
                 this.chart.hideLoading();
-                // Once the TopoJSON is loaded, register it with ECharts.
-                echarts.registerMap(this.mapName, us, {});
-                this.updateChart(); // Call updateChart to render the map with default/empty data.
+                this.updateChart(); // Render the map with default/empty data
+
             }), lang.hitch(this, function (err) {
                 this.chart.hideLoading();
                 console.error("Failed to load map data: ", err);
@@ -45,20 +47,19 @@ define([
         
         /**
          * Updates the chart with map-specific data.
-         * For this demo, it generates random data. In a real implementation,
-         * you would pass data from a store query to this method.
          * @param {Array} data - Array of objects, e.g. [{name: 'Cook', value: 500}, ...]
          */
         updateChart: function (data) {
-            if (!this.chart) { return; }
+            if (!this.chart || !this.geoJson) { 
+                // Don't try to render until the geoJson is loaded
+                return; 
+            }
 
             // If no data is passed, use simulated data for demonstration.
             if (!data) {
                 data = [];
-                // Check if the map is registered before trying to get its GeoJSON
-                if (echarts.getMap(this.mapName)) {
-                    const geoJson = echarts.getMap(this.mapName).geoJson;
-                    geoJson.features.forEach(function (feature) {
+                if (this.geoJson.features) {
+                    this.geoJson.features.forEach(function (feature) {
                         data.push({
                             name: feature.properties.name,
                             value: Math.round(Math.random() * 1000)
@@ -78,13 +79,14 @@ define([
                     showDelay: 0,
                     transitionDuration: 0.2,
                     formatter: function (params) {
+                        if (!params.data) { return params.name; }
                         return params.seriesName + '<br/>' + params.name + ': ' + params.value;
                     }
                 },
                 visualMap: {
                     left: 'right',
                     min: 0,
-                    max: 1000, // This should be dynamic based on the data in a real implementation
+                    max: 1000,
                     inRange: {
                         color: ['#f3f7f5', '#d6e5de', '#b4d0c3', '#98bdac', '#6ea089', '#57856f', '#496f5d']
                     },
@@ -107,7 +109,7 @@ define([
                 ]
             };
 
-            this.chart.setOption(option, true); // `true` clears the previous options
+            this.chart.setOption(option, true);
         }
     });
 });
