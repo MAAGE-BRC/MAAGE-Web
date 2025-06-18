@@ -36,7 +36,20 @@ define([
                 echarts.registerMap(this.mapName, this.geoJson);
                 
                 this.chart.hideLoading();
-                this.updateChart(); // Render the map with default/empty data
+
+                // --- FIX: Generate the initial data here and pass it to updateChart ---
+                const initialData = [];
+                if (this.geoJson && this.geoJson.features) {
+                    this.geoJson.features.forEach(function (feature) {
+                        initialData.push({
+                            name: feature.properties.name,
+                            value: Math.round(Math.random() * 1000)
+                        });
+                    });
+                }
+                
+                // Render the map with the initial simulated data
+                this.updateChart(initialData);
 
             }), lang.hitch(this, function (err) {
                 this.chart.hideLoading();
@@ -46,26 +59,13 @@ define([
         },
         
         /**
-         * Updates the chart with map-specific data.
+         * Updates the chart with map-specific data. This function now ONLY renders data.
          * @param {Array} data - Array of objects, e.g. [{name: 'Cook', value: 500}, ...]
          */
         updateChart: function (data) {
-            if (!this.chart || !this.geoJson) { 
-                // Don't try to render until the geoJson is loaded
+            // Guard against rendering if the chart or data isn't ready
+            if (!this.chart || !data) { 
                 return; 
-            }
-
-            // If no data is passed, use simulated data for demonstration.
-            if (!data) {
-                data = [];
-                if (this.geoJson.features) {
-                    this.geoJson.features.forEach(function (feature) {
-                        data.push({
-                            name: feature.properties.name,
-                            value: Math.round(Math.random() * 1000)
-                        });
-                    });
-                }
             }
 
             const option = {
@@ -104,6 +104,7 @@ define([
                                 show: true
                             }
                         },
+                        // Use the data that was passed into the function
                         data: data
                     }
                 ]
