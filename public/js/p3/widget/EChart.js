@@ -8,6 +8,7 @@ define([
   "dojo/dom-construct",
   "echarts",
   "maage-themes/maage-echarts-theme",
+  "maage-themes/theme-new",
 ], function (
   declare,
   _WidgetBase,
@@ -23,6 +24,8 @@ define([
     baseClass: "EChart",
     chart: null,
     title: "",
+
+    // The default theme for any chart that doesn't specify one
     theme: "maage-echarts-theme",
 
     postCreate: function () {
@@ -33,6 +36,8 @@ define([
         return;
       }
 
+      // Initialize the ECharts instance. It will use the 'theme' property
+      // passed in during widget construction, or the default defined above.
       this.chart = echarts.init(this.chartNode, this.theme);
 
       on(
