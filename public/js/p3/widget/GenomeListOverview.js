@@ -12,60 +12,14 @@ define([
     EChart
 ) {
     return declare([EChart], {
-        baseClass: 'EChartMap',
-        mapName: 'US_Counties', // A unique name for the registered map
+
 
         postCreate: function () {
             this.inherited(arguments);
-            // Initiate the load for the map's topology data.
-            this.loadMapData('/maage/us-atlas/counties-albers-10m.json');
         },
 
-        loadMapData: function (jsonUrl) {
-            // Ensure the global topojson library is available before proceeding.
-            if (typeof topojson == 'undefined') {
-                console.error("TopoJSON client not loaded. Please include it via a <script> tag in your main HTML document.");
-                return;
-            }
-
-            this.showLoading();
-            request.get(jsonUrl, {
-                handleAs: 'json'
-            }).then(lang.hitch(this, function (us) {
-                this.chart.hideLoading();
-                // Once the TopoJSON is loaded, register it with ECharts.
-                echarts.registerMap(this.mapName, us, {});
-                this.updateChart(); // Call updateChart to render the map with default/empty data.
-            }), lang.hitch(this, function (err) {
-                this.chart.hideLoading();
-                console.error("Failed to load map data: ", err);
-                this.chart.setOption({ title: { text: 'Error: Could not load map topology.' } });
-            }));
-        },
-        
-        /**
-         * Updates the chart with map-specific data.
-         * For this demo, it generates random data. In a real implementation,
-         * you would pass data from a store query to this method.
-         * @param {Array} data - Array of objects, e.g. [{name: 'Cook', value: 500}, ...]
-         */
         updateChart: function (data) {
             if (!this.chart) { return; }
-
-            // If no data is passed, use simulated data for demonstration.
-            if (!data) {
-                data = [];
-                // Check if the map is registered before trying to get its GeoJSON
-                if (echarts.getMap(this.mapName)) {
-                    const geoJson = echarts.getMap(this.mapName).geoJson;
-                    geoJson.features.forEach(function (feature) {
-                        data.push({
-                            name: feature.properties.name,
-                            value: Math.round(Math.random() * 1000)
-                        });
-                    });
-                }
-            }
 
             const option = {
                 title: {
