@@ -6,9 +6,7 @@ define([
   "dojo/_base/lang",
   "dojo/on",
   "dojo/dom-construct",
-
   "echarts",
-
   "maage-themes/maage-echarts-theme",
 ], function (
   declare,
