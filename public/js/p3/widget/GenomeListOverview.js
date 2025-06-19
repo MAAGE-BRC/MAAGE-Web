@@ -108,6 +108,14 @@ define([
 
 			const baseQuery = this.state.search;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
+			
+			// Add placeholder content to map legend and stats
+			if (this.mapLegendNode) {
+				this.mapLegendNode.innerHTML = '<div style="text-align: center; color: #6c757d;">Map Legend Placeholder</div>';
+			}
+			if (this.mapStatsNode) {
+				this.mapStatsNode.innerHTML = '<div style="text-align: center; color: #6c757d;">Map Statistics Placeholder</div>';
+			}
 
 			const createChart = (widgetClass, node, query, theme) => {
 				if (!node) return;

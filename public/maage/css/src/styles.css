@@ -1,7 +1,20 @@
 /* Map chart container style */
 .map-chart-container {
-  min-height: 600px;
-  height: 600px;
+  min-height: 350px;
+  height: 350px;
+}
+
+/* Map placeholder containers */
+.chart-section [data-dojo-attach-point="mapLegendNode"],
+.chart-section [data-dojo-attach-point="mapStatsNode"] {
+  min-height: 165px;
+  height: 165px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border: 1px dashed #dee2e6;
+  color: #6c757d;
 }
 
 :root {

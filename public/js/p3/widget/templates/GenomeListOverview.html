@@ -28,11 +28,17 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div class="chart-section w-full lg:w-[calc(25%-0.75rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">map-menu</h3>
-			<div data-dojo-attach-point="placeholderChartNode" class="chart-container"></div>
+		<div class="flex flex-col gap-2 sm:gap-4 w-full lg:w-[calc(33.333%-0.5rem)]">
+			<div class="chart-section w-full">
+				<h3 class="chart-title">Map Legend</h3>
+				<div data-dojo-attach-point="mapLegendNode" class="chart-container"></div>
+			</div>
+			<div class="chart-section w-full">
+				<h3 class="chart-title">Map Statistics</h3>
+				<div data-dojo-attach-point="mapStatsNode" class="chart-container"></div>
+			</div>
 		</div>
-		<div class="chart-section w-full lg:w-[calc(75%-0.25rem)] xl:flex-[3] min-w-0">
+		<div class="chart-section w-full lg:w-[calc(66.667%-0.5rem)]">
 			<h3 class="chart-title">Genome Distribution by County</h3>
 			<div data-dojo-attach-point="mapChartNode" class="chart-container map-chart-container"></div>
 		</div>
@@ -59,23 +65,15 @@
 			<div data-dojo-attach-point="serotypeChartNode" class="chart-container"></div>
 		</div>
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">placeholder</h3>
-			<div data-dojo-attach-point="blankPlaceholder2Node" class="chart-container"></div>
+			<h3 class="chart-title">Historical Serotype Distribution</h3>
+			<div data-dojo-attach-point="serotypeOverTimeChartNode" class="chart-container"></div>
 		</div>
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4">
-		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Historical Serotype Distribution</h3>
-			<div data-dojo-attach-point="serotypeOverTimeChartNode" class="chart-container"></div>
-		</div>
-		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
 			<h3 class="chart-title">Geographic Breakdown</h3>
 			<div data-dojo-attach-point="countryChartNode" class="chart-container"></div>
-		</div>
-		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">blank</h3>
-			<div data-dojo-attach-point="chart7Node" class="chart-container"></div>
 		</div>
 	</div>
 </div>
