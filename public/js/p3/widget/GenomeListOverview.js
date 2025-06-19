@@ -109,7 +109,7 @@ define([
 			const baseQuery = this.state.search;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
 			
-			// Add placeholder content to map legend and stats
+			
 			if (this.mapLegendNode) {
 				this.mapLegendNode.innerHTML = '<div style="text-align: center; color: #6c757d;">Map Legend Placeholder</div>';
 			}
@@ -206,10 +206,10 @@ define([
 				"maage-muted"
 			);
 			
-			// Create the map chart for county data
+			
 			this.createMapChart();
 			
-			// Update the metrics
+			
 			this.updateMetrics();
 		},
 		
@@ -224,7 +224,7 @@ define([
 			mapChart.startup();
 			mapChart.showLoading();
 			
-			// Query for county data with faceting
+			
 			const query = `${this.state.search}&facet((field,county),(mincount,1))&limit(0)`;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
 			
@@ -234,7 +234,7 @@ define([
 						const countyFacets = res.facet_counts.facet_fields.county;
 						const countyData = {};
 						
-						// Process facets into county data object
+						
 						for (let i = 0; i < countyFacets.length; i += 2) {
 							const county = countyFacets[i];
 							const count = countyFacets[i + 1];
@@ -260,19 +260,19 @@ define([
 			const baseQuery = this.state.search;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
 			
-			// Query for basic stats
+			
 			this.genomeStore.query(`${baseQuery}&limit(0)`, queryOptions).then(
 				lang.hitch(this, function (res) {
 					if (res && res.response) {
 						const total = res.response.numFound || 0;
-						// Update total genomes metric
+						
 						const totalNode = this.domNode.querySelector(".metric-card:nth-child(1) .metric-value");
 						if (totalNode) totalNode.textContent = total.toLocaleString();
 					}
 				})
 			);
 			
-			// Query for complete genomes
+			
 			this.genomeStore.query(`${baseQuery}&eq(genome_status,Complete)&limit(0)`, queryOptions).then(
 				lang.hitch(this, function (res) {
 					if (res && res.response) {
@@ -283,7 +283,7 @@ define([
 				})
 			);
 			
-			// Query for unique hosts, countries, and isolates
+			
 			const facetQueries = [
 				{ field: "host_common_name", nodeIndex: 3 },
 				{ field: "isolation_country", nodeIndex: 4 },
@@ -295,7 +295,7 @@ define([
 					lang.hitch(this, function (res) {
 						if (res && res.facet_counts && res.facet_counts.facet_fields[facetInfo.field]) {
 							const facets = res.facet_counts.facet_fields[facetInfo.field];
-							const uniqueCount = facets.length / 2; // Facets come in pairs
+							const uniqueCount = facets.length / 2; 
 							const node = this.domNode.querySelector(`.metric-card:nth-child(${facetInfo.nodeIndex}) .metric-value`);
 							if (node) node.textContent = Math.floor(uniqueCount).toLocaleString();
 						}
