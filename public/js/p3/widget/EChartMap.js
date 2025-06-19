@@ -34,6 +34,25 @@ define([
 					// Convert TopoJSON to GeoJSON
 					const geoData = topojson.feature(topoData, topoData.objects.counties);
 					
+					// The Albers projection data needs to be flipped vertically
+					// Transform the coordinates to fix the upside-down issue
+					geoData.features.forEach(function(feature) {
+						if (feature.geometry && feature.geometry.coordinates) {
+							const flipCoordinates = function(coords) {
+								if (Array.isArray(coords[0]) && typeof coords[0][0] === 'number') {
+									// This is a coordinate pair [x, y]
+									return coords.map(function(coord) {
+										return [coord[0], -coord[1]]; // Flip Y coordinate
+									});
+								} else {
+									// Recursively process nested arrays
+									return coords.map(flipCoordinates);
+								}
+							};
+							feature.geometry.coordinates = flipCoordinates(feature.geometry.coordinates);
+						}
+					});
+					
 					// Register the map with ECharts
 					echarts.registerMap("USA-counties", geoData);
 					
@@ -94,11 +113,6 @@ define([
 			const max = Math.max(...values) || 100;
 			
 			const option = {
-				title: {
-					text: this.title || "Genome Count by County",
-					left: "center",
-					top: 10
-				},
 				tooltip: {
 					trigger: "item",
 					formatter: function (params) {
@@ -130,6 +144,9 @@ define([
 							min: 1,
 							max: 10
 						},
+						// Center on Midwest region
+						center: [-90, -40], // Approximate center for Midwest
+						zoom: 2.5, // Zoom in to focus on Midwest
 						emphasis: {
 							label: {
 								show: true

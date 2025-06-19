@@ -1,6 +1,7 @@
 /* Map chart container style */
 .map-chart-container {
-  min-height: 400px;
+  min-height: 600px;
+  height: 600px;
 }
 
 :root {

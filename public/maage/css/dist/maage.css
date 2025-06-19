@@ -2708,6 +2708,10 @@ video {
     width: calc(50% - 0.5rem);
   }
 
+  .lg\:w-\[calc\(75\%-0\.25rem\)\] {
+    width: calc(75% - 0.25rem);
+  }
+
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -2727,7 +2731,7 @@ video {
     flex: 1 1 0%;
   }
 
-  .xl\:flex-\[2\] {
-    flex: 2;
+  .xl\:flex-\[3\] {
+    flex: 3;
   }
 }
