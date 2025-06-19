@@ -1,63 +1,87 @@
-<div class="genome-list-overview-dashboard p-4 sm:p-6 bg-gray-50">
-	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] xl:flex-1 min-w-0">
-			<div class="metric-header">Metric 1</div>
+<div class="genome-list-overview-dashboard p-4 sm:p-6 bg-maage-bg">
+	<div class="flex flex-wrap gap-2 mb-4 sm:gap-4">
+		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0">
+			<!-- <div class="metric-header"></div> -->
 			<div class="metric-value">--</div>
 			<div class="metric-label">Total Genomes</div>
 		</div>
-		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] xl:flex-1 min-w-0">
-			<div class="metric-header">Metric 2</div>
+		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0">
+			<!-- <div class="metric-header"></div> -->
 			<div class="metric-value">--</div>
 			<div class="metric-label">Complete Genomes</div>
 		</div>
-		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] xl:flex-1 min-w-0">
-			<div class="metric-header">Metric 3</div>
+		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0">
+			<!-- <div class="metric-header"></div> -->
 			<div class="metric-value">--</div>
 			<div class="metric-label">Unique Hosts</div>
 		</div>
-		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] xl:flex-1 min-w-0">
-			<div class="metric-header">Metric 4</div>
+		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0">
+			<!-- <div class="metric-header"></div> -->
 			<div class="metric-value">--</div>
 			<div class="metric-label">Countries</div>
+		</div>
+		<div class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0">
+			<!-- <div class="metric-header"></div> -->
+			<div class="metric-value">--</div>
+			<div class="metric-label">Isolates</div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(25%-0.75rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">map-menu</h3>
+			<div data-dojo-attach-point="placeholderChartNode" class="chart-container"></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-[2] min-w-0">
+			<h3 class="chart-title">map</h3>
+			<div class="map-placeholder">
+				<div class="placeholder-text">interactive_map_placeholder</div>
+			</div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(25%-0.75rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">map-stats</h3>
+			<div data-dojo-attach-point="blankPlaceholderNode" class="chart-container"></div>
 		</div>
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Chart 1</h3>
+			<h3 class="chart-title">Genome Status</h3>
 			<div data-dojo-attach-point="statusChartNode" class="chart-container"></div>
 		</div>
 		<div class="chart-section w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Chart 2</h3>
+			<h3 class="chart-title">Host Distribution</h3>
 			<div data-dojo-attach-point="hostChartNode" class="chart-container"></div>
 		</div>
 		<div class="chart-section w-full md:w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Chart 3</h3>
+			<h3 class="chart-title">Isolation Sources</h3>
 			<div data-dojo-attach-point="sourceChartNode" class="chart-container"></div>
 		</div>
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Map Placeholder</h3>
-			<div class="map-placeholder">
-				<div class="placeholder-text">interactive_map_placeholder</div>
-			</div>
+			<h3 class="chart-title">Top Serotypes</h3>
+			<div data-dojo-attach-point="serotypeChartNode" class="chart-container"></div>
 		</div>
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Chart 4</h3>
-			<div data-dojo-attach-point="serotypeChartNode" class="chart-container"></div>
+			<h3 class="chart-title">placeholder</h3>
+			<div data-dojo-attach-point="blankPlaceholder2Node" class="chart-container"></div>
 		</div>
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4">
-		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Chart 5</h3>
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Historical Serotype Distribution</h3>
 			<div data-dojo-attach-point="serotypeOverTimeChartNode" class="chart-container"></div>
 		</div>
-		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Chart 6</h3>
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Geographic Breakdown</h3>
 			<div data-dojo-attach-point="countryChartNode" class="chart-container"></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">blank</h3>
+			<div data-dojo-attach-point="chart7Node" class="chart-container"></div>
 		</div>
 	</div>
 </div>

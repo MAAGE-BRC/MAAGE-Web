@@ -2458,7 +2458,7 @@ div#bv-brc-page-container > div.page-content {
 
       .chart-title {
         font-size: 0.875rem;
-        font-weight: 600;
+        font-weight: 500;
         padding: 16px 20px;
         background-color: #f9fafb;
         border-bottom: 1px solid #e5e7eb;
@@ -2478,7 +2478,7 @@ div#bv-brc-page-container > div.page-content {
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #f9fafb;
+        background: #ffffff;
         border-top: 1px solid #e5e7eb;
       }
 
@@ -2549,8 +2549,4 @@ div#bv-brc-page-container > div.page-content {
       
       .p-6 {
         padding: 1.5rem;
-      }
-      
-      .bg-gray-50 {
-        background-color: #f9fafb;
       }

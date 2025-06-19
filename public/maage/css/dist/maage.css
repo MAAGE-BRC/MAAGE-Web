@@ -2692,6 +2692,10 @@ video {
     width: 75%;
   }
 
+  .lg\:w-\[calc\(20\%-0\.8rem\)\] {
+    width: calc(20% - 0.8rem);
+  }
+
   .lg\:w-\[calc\(25\%-0\.75rem\)\] {
     width: calc(25% - 0.75rem);
   }
@@ -2721,5 +2725,9 @@ video {
 @media (min-width: 1280px) {
   .xl\:flex-1 {
     flex: 1 1 0%;
+  }
+
+  .xl\:flex-\[2\] {
+    flex: 2;
   }
 }
