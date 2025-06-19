@@ -1,3 +1,8 @@
+/* Map chart container style */
+.map-chart-container {
+  min-height: 400px;
+}
+
 :root {
   /* font families */
   --maage-font-heading: 'Poppins', sans-serif;

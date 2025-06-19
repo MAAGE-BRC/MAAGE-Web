@@ -159,7 +159,7 @@
                     .style("opacity", 0);
 
                 // Load the TopoJSON data
-                const response = await fetch('counties-albers-10m.json');
+                const response = await fetch('usa-counties-albers-10m.json');
                 const us = await response.json();
 
                 // Convert TopoJSON to GeoJSON
