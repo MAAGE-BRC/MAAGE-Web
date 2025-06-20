@@ -16,6 +16,21 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 		currentView: "state", // "state" or "county" or specific state code
 		toggleButtonNode: null,
 		backButtonNode: null,
+		
+		// State name to FIPS code mapping
+		stateNameToFips: {
+			"Alabama": "01", "Alaska": "02", "Arizona": "04", "Arkansas": "05", "California": "06",
+			"Colorado": "08", "Connecticut": "09", "Delaware": "10", "District of Columbia": "11",
+			"Florida": "12", "Georgia": "13", "Hawaii": "15", "Idaho": "16", "Illinois": "17",
+			"Indiana": "18", "Iowa": "19", "Kansas": "20", "Kentucky": "21", "Louisiana": "22",
+			"Maine": "23", "Maryland": "24", "Massachusetts": "25", "Michigan": "26", "Minnesota": "27",
+			"Mississippi": "28", "Missouri": "29", "Montana": "30", "Nebraska": "31", "Nevada": "32",
+			"New Hampshire": "33", "New Jersey": "34", "New Mexico": "35", "New York": "36",
+			"North Carolina": "37", "North Dakota": "38", "Ohio": "39", "Oklahoma": "40", "Oregon": "41",
+			"Pennsylvania": "42", "Rhode Island": "44", "South Carolina": "45", "South Dakota": "46",
+			"Tennessee": "47", "Texas": "48", "Utah": "49", "Vermont": "50", "Virginia": "51",
+			"Washington": "53", "West Virginia": "54", "Wisconsin": "55", "Wyoming": "56"
+		},
 
 		postCreate: function () {
 			this.inherited(arguments);
@@ -34,7 +49,7 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				
 				// Create controls container
 				this.controlsNode = domConstruct.create("div", {
-					style: "display: flex; gap: 8px; margin-bottom: 8px; flex-shrink: 0;"
+					style: "display: flex; gap: 8px; margin-bottom: 8px; flex-shrink: 0; align-items: center;"
 				}, this.domNode, "first");
 
 				// Create toggle button
@@ -42,6 +57,26 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 					style: "padding: 4px 12px; background-color: #98bdac; color: white; border-radius: 4px; border: none; cursor: pointer; font-size: 14px;",
 					innerHTML: "Show Counties"
 				}, this.controlsNode);
+
+				// Create state dropdown
+				this.stateDropdownNode = domConstruct.create("select", {
+					style: "padding: 4px 12px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; cursor: pointer; background-color: white;",
+				}, this.controlsNode);
+				
+				// Add default option
+				domConstruct.create("option", {
+					value: "",
+					innerHTML: "Select a state...",
+					selected: true
+				}, this.stateDropdownNode);
+				
+				// Add state options
+				Object.keys(this.stateNameToFips).forEach(lang.hitch(this, function(stateName) {
+					domConstruct.create("option", {
+						value: this.stateNameToFips[stateName],
+						innerHTML: stateName
+					}, this.stateDropdownNode);
+				}));
 
 				// Create back button (initially hidden)
 				this.backButtonNode = domConstruct.create("button", {
@@ -56,6 +91,22 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				// Add event handlers
 				on(this.toggleButtonNode, "click", lang.hitch(this, this.toggleView));
 				on(this.backButtonNode, "click", lang.hitch(this, this.backToUSMap));
+				on(this.stateDropdownNode, "change", lang.hitch(this, function(evt) {
+					const stateCode = evt.target.value;
+					if (stateCode) {
+						// Find state name from FIPS code
+						let stateName = "";
+						Object.keys(this.stateNameToFips).forEach(lang.hitch(this, function(name) {
+							if (this.stateNameToFips[name] === stateCode) {
+								stateName = name;
+							}
+						}));
+						
+						if (stateName) {
+							this.showStateDetail(stateCode, stateName);
+						}
+					}
+				}));
 			}
 
 			this.loadMapData();
@@ -142,11 +193,12 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 			this.currentView = "state";
 			this.toggleButtonNode.style.display = "";
 			this.backButtonNode.style.display = "none";
+			this.stateDropdownNode.value = ""; // Reset dropdown
 			this.updateChart(this.genomeData);
 		},
 
 		updateChart: function (data) {
-			if (!this.chart || (!this.stateMapData && !this.countyMapData)) {
+			if (!this.chart) {
 				if (data && data.countyData) {
 					this.genomeData = data;
 				}
@@ -158,7 +210,6 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 			
 			let chartData = [];
 			let mapName = "USA-states";
-			let mapData = this.stateMapData;
 
 			if (this.currentView === "state") {
 				// Use state data directly if provided, otherwise aggregate from counties
@@ -168,33 +219,78 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 					chartData = this.aggregateToStates(this.genomeData.countyData || this.genomeData);
 				}
 				mapName = "USA-states";
-				mapData = this.stateMapData;
 			} else if (this.currentView === "county") {
 				// Show all counties
 				chartData = this.processCountyData(this.genomeData.countyData || this.genomeData, this.countyMapData);
 				mapName = "USA-counties";
-				mapData = this.countyMapData;
 			} else {
 				// Show specific state's counties
 				const stateCode = this.currentView;
-				chartData = this.processStateCounties(this.genomeData.countyData || this.genomeData, stateCode);
 				mapName = "state-" + stateCode;
-				mapData = this.getStateMapData(stateCode);
+				
+				// For state view, we need to process county data specially
+				const countyData = this.genomeData.countyData || this.genomeData;
+				chartData = [];
+				
+				// Create a map of county names to values for quick lookup
+				const countyLookup = {};
+				Object.keys(countyData).forEach(function(countyName) {
+					// Normalize county name for matching
+					const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
+					countyLookup[normalizedName] = countyData[countyName];
+				});
+				
+				// Process the data to match with map features
+				// The actual matching will happen in the series data function
+				this._countyLookup = countyLookup;
 			}
 
 			const values = chartData.map((item) => item.value).filter((v) => v > 0);
 			const min = Math.min(...values) || 0;
 			const max = Math.max(...values) || 100;
 
+			// Add title for state view
+			let title = "";
+			if (this.currentView !== "state" && this.currentView !== "county") {
+				// Find state name from code
+				Object.keys(this.stateNameToFips).forEach(lang.hitch(this, function(name) {
+					if (this.stateNameToFips[name] === this.currentView) {
+						title = name + " Counties";
+					}
+				}));
+			}
+			
 			const option = {
+				title: title ? {
+					text: title,
+					left: 'center',
+					top: 10,
+					textStyle: {
+						fontSize: 16,
+						fontWeight: 'bold'
+					}
+				} : undefined,
 				tooltip: {
 					trigger: "item",
-					formatter: function (params) {
+					formatter: lang.hitch(this, function (params) {
+						// For state view showing counties
+						if (this.currentView !== "state" && this.currentView !== "county") {
+							const countyName = params.name;
+							const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
+							const value = this._countyLookup ? this._countyLookup[normalizedName] : 0;
+							
+							if (value > 0) {
+								return countyName + ": " + value + " genomes";
+							}
+							return countyName + ": No data";
+						}
+						
+						// For regular state/county view
 						if (params.data && params.data.value) {
 							return params.name + ": " + params.data.value + " genomes";
 						}
 						return params.name + ": No data";
-					},
+					}),
 				},
 				visualMap: {
 					min: min,
@@ -229,7 +325,29 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 								areaColor: "#e7c788",
 							},
 						},
-						data: chartData,
+						data: chartData.length > 0 ? chartData : undefined,
+						// For state view, use dynamic color mapping
+						itemStyle: this.currentView !== "state" && this.currentView !== "county" ? {
+							color: lang.hitch(this, function(params) {
+								const countyName = params.name;
+								const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
+								const value = this._countyLookup ? this._countyLookup[normalizedName] : 0;
+								
+								if (value === 0) {
+									return "#f3f4f6"; // Light gray for no data
+								}
+								
+								// Calculate relative color based on value
+								const allValues = Object.values(this._countyLookup || {});
+								const maxValue = Math.max(...allValues, 1);
+								const relativeValue = (value / maxValue) * 100;
+								
+								// Use the color scale
+								const colors = ["#e7f5f8", "#98bdac", "#5f94ab", "#467386"];
+								const index = Math.floor((relativeValue / 100) * (colors.length - 1));
+								return colors[Math.min(index, colors.length - 1)];
+							})
+						} : undefined,
 					},
 				],
 			};
@@ -277,6 +395,9 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				const stateCode = properties.STATE || properties.STUSPS || properties.postal || "";
 				const normalizedName = stateName.toLowerCase().replace(/[^a-z]/g, "");
 				
+				// Get FIPS code for this state
+				const fipsCode = this.stateNameToFips[stateName] || stateCode;
+				
 				// Debug: Log first few state names from map
 				if (chartData.length < 5) {
 					console.log("Map state:", stateName, "normalized:", normalizedName, "has data:", !!stateLookup[normalizedName]);
@@ -286,7 +407,7 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 					chartData.push({
 						name: stateName,
 						value: stateLookup[normalizedName],
-						stateCode: stateCode,
+						stateCode: fipsCode,
 						properties: properties,
 					});
 				}
@@ -336,44 +457,26 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 		},
 
 		processCountyData: function (countyData, mapData) {
-			if (!mapData || !countyData) return [];
+			if (!countyData) return [];
 
 			const chartData = [];
 			const countyLookup = {};
 			
+			// Store all county data - we'll match it when rendering
 			Object.keys(countyData).forEach(function (county) {
-				const normalizedName = county.toLowerCase().replace(/[^a-z0-9]/g, "");
-				countyLookup[normalizedName] = countyData[county];
-			});
-
-			mapData.features.forEach(function (feature) {
-				const properties = feature.properties || {};
-				const countyName = properties.name || properties.NAME || "";
-				const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-				if (countyLookup[normalizedName]) {
-					chartData.push({
-						name: countyName,
-						value: countyLookup[normalizedName],
-						properties: properties,
-					});
-				}
+				chartData.push({
+					name: county,
+					value: countyData[county]
+				});
 			});
 
 			return chartData;
 		},
 
 		processStateCounties: function (countyData, stateCode) {
-			// Filter counties for the specific state
-			const stateCountyData = {};
-			Object.keys(countyData).forEach(function (countyKey) {
-				// This is a simplified approach - you may need to adjust based on your data format
-				if (countyKey.includes(stateCode)) {
-					stateCountyData[countyKey] = countyData[countyKey];
-				}
-			});
-
-			return this.processCountyData(stateCountyData, this.getStateMapData(stateCode));
+			// For state view, we'll process all county data available
+			// The map will be filtered by state when we load the GeoJSON
+			return this.processCountyData(countyData);
 		},
 
 		getStateMapData: function (stateCode) {
@@ -397,13 +500,46 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 			this.backButtonNode.style.display = "";
 			this.backButtonNode.innerHTML = "Back to US Map";
 			
-			// Register the state-specific map if needed
-			const stateMapData = this.getStateMapData(stateCode);
-			if (stateMapData && stateMapData.features.length > 0) {
-				echarts.registerMap("state-" + stateCode, stateMapData);
-			}
+			// We need to load state-specific GeoJSON data
+			this.loadStateGeoJSON(stateCode, stateName);
+		},
+		
+		loadStateGeoJSON: function(stateCode, stateName) {
+			this.showLoading();
 			
-			this.updateChart(this.genomeData);
+			// Try to load the state-specific GeoJSON file
+			request("/maage/maps/geojson/cb_2024_us_county_5m.geojson", {
+				handleAs: "json",
+			}).then(
+				lang.hitch(this, function (geoData) {
+					// Filter counties for this specific state
+					const stateCounties = {
+						type: "FeatureCollection",
+						features: geoData.features.filter(function(feature) {
+							// GeoJSON uses STATEFP property for state FIPS code
+							return feature.properties && feature.properties.STATEFP === stateCode;
+						})
+					};
+					
+					if (stateCounties.features.length > 0) {
+						// Register the filtered state map
+						echarts.registerMap("state-" + stateCode, stateCounties);
+						this.hideLoading();
+						this.updateChart(this.genomeData);
+					} else {
+						console.error("No counties found for state:", stateCode);
+						this.hideLoading();
+						// Fallback to showing US map
+						this.backToUSMap();
+					}
+				}),
+				lang.hitch(this, function (err) {
+					console.error("Failed to load state GeoJSON:", err);
+					this.hideLoading();
+					// Fallback to showing US map
+					this.backToUSMap();
+				})
+			);
 		},
 	});
 });
