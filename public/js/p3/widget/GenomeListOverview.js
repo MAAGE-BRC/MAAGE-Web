@@ -138,54 +138,106 @@ define([
 
 			const createChart = (widgetClass, node, query, theme) => {
 				if (!node) return;
-				const chart = new widgetClass({
-					title: "",
-					theme: theme || "maage-echarts-theme",
-				});
-				chart.placeAt(node);
-				chart.startup();
-				chart.showLoading();
-				this.genomeStore.query(query, queryOptions).then(
-					lang.hitch(this, (res) => {
-						const field = query.match(/facet\(\(field,(\w+)\)/)[1];
-						if (res && res.facet_counts && res.facet_counts.facet_fields[field]) {
-							const data = this._processFacets(res.facet_counts.facet_fields[field]);
-							chart.updateChart(data);
-						}
-						chart.hideLoading();
-					}),
-					lang.hitch(this, () => {
-						chart.hideLoading();
-					})
-				);
-				this.charts.push(chart);
+				
+				// Wait for the container to have dimensions
+				const checkAndCreate = () => {
+					const rect = node.getBoundingClientRect();
+					if (rect.width > 0 && rect.height > 0) {
+						const chart = new widgetClass({
+							title: "",
+							theme: theme || "maage-echarts-theme",
+						});
+						chart.placeAt(node);
+						chart.startup();
+						chart.showLoading();
+						
+						// Force resize after a short delay
+						setTimeout(() => {
+							if (chart.resize) {
+								chart.resize();
+							}
+						}, 100);
+						
+						this.genomeStore.query(query, queryOptions).then(
+							lang.hitch(this, (res) => {
+								const field = query.match(/facet\(\(field,(\w+)\)/)[1];
+								if (res && res.facet_counts && res.facet_counts.facet_fields[field]) {
+									const data = this._processFacets(res.facet_counts.facet_fields[field]);
+									chart.updateChart(data);
+								}
+								chart.hideLoading();
+								// Force another resize after data is loaded
+								setTimeout(() => {
+									if (chart.resize) {
+										chart.resize();
+									}
+								}, 50);
+							}),
+							lang.hitch(this, () => {
+								chart.hideLoading();
+							})
+						);
+						this.charts.push(chart);
+					} else {
+						// If container has no dimensions yet, check again
+						setTimeout(checkAndCreate, 100);
+					}
+				};
+				
+				checkAndCreate();
 			};
 
 			const createPivotChart = (widgetClass, node, query, theme) => {
 				if (!node) return;
-				const chart = new widgetClass({
-					title: "",
-					theme: theme || "maage-echarts-theme",
-				});
-				chart.placeAt(node);
-				chart.startup();
-				chart.showLoading();
-				this.genomeStore.query(query, queryOptions).then(
-					lang.hitch(this, (res) => {
-						const pivotField = query.match(/facet\(\(pivot,\(([^,]+),([^)]+)\)\)/);
-						const pivotKey = `${pivotField[1]},${pivotField[2]}`;
-						const pivotData = res.facet_counts.facet_pivot[pivotKey];
-						if (pivotData) {
-							const data = this._processPivotFacets(pivotData);
-							chart.updateChart(data);
-						}
-						chart.hideLoading();
-					}),
-					lang.hitch(this, () => {
-						chart.hideLoading();
-					})
-				);
-				this.charts.push(chart);
+				
+				// Wait for the container to have dimensions
+				const checkAndCreate = () => {
+					const rect = node.getBoundingClientRect();
+					if (rect.width > 0 && rect.height > 0) {
+						const chart = new widgetClass({
+							title: "",
+							theme: theme || "maage-echarts-theme",
+						});
+						chart.placeAt(node);
+						chart.startup();
+						chart.showLoading();
+						
+						// Force resize after a short delay
+						setTimeout(() => {
+							if (chart.resize) {
+								chart.resize();
+							}
+						}, 100);
+						
+						this.genomeStore.query(query, queryOptions).then(
+							lang.hitch(this, (res) => {
+								const pivotField = query.match(/facet\(\(pivot,\(([^,]+),([^)]+)\)\)/);
+								const pivotKey = `${pivotField[1]},${pivotField[2]}`;
+								const pivotData = res.facet_counts.facet_pivot[pivotKey];
+								if (pivotData) {
+									const data = this._processPivotFacets(pivotData);
+									chart.updateChart(data);
+								}
+								chart.hideLoading();
+								// Force another resize after data is loaded
+								setTimeout(() => {
+									if (chart.resize) {
+										chart.resize();
+									}
+								}, 50);
+							}),
+							lang.hitch(this, () => {
+								chart.hideLoading();
+							})
+						);
+						this.charts.push(chart);
+					} else {
+						// If container has no dimensions yet, check again
+						setTimeout(checkAndCreate, 100);
+					}
+				};
+				
+				checkAndCreate();
 			};
 
 			createChart(
@@ -328,221 +380,267 @@ define([
 			}, this);
 		},
 
+		_createChartWhenReady: function (node, widgetClass, options, dataLoader) {
+			if (!node) return;
+			
+			const checkAndCreate = () => {
+				const rect = node.getBoundingClientRect();
+				if (rect.width > 0 && rect.height > 0) {
+					const chart = new widgetClass(options);
+					chart.placeAt(node);
+					chart.startup();
+					chart.showLoading();
+					
+					// Force resize after a short delay
+					setTimeout(() => {
+						if (chart.resize) {
+							chart.resize();
+						}
+					}, 100);
+					
+					// Load data
+					dataLoader(chart);
+					
+					this.charts.push(chart);
+				} else {
+					// If container has no dimensions yet, check again
+					setTimeout(checkAndCreate, 100);
+				}
+			};
+			
+			checkAndCreate();
+		},
+
 		createQualityScatterChart: function () {
 			if (!this.qualityScatterNode) return;
 			
-			const scatterChart = new EChartScatter({
-				title: "Genome Size vs GC Content",
-				theme: "maage-echarts-theme"
-			});
-			scatterChart.placeAt(this.qualityScatterNode);
-			scatterChart.startup();
-			scatterChart.showLoading();
-			
-			
-			const query = `${this.state.search}&select(genome_id,genome_name,genome_length,gc_content,contigs,genome_status)&limit(1000)`;
-			const queryOptions = { headers: { Accept: "application/json" } };
-			
-			this.genomeStore.query(query, queryOptions).then(
-				lang.hitch(this, function (genomes) {
-					if (genomes && genomes.length > 0) {
-						
-						const data = genomes.map(function (g) {
-							return [
-								g.genome_length || 0,  
-								g.gc_content || 0,     
-								g.contigs || 1,        
-								g.genome_name || "Unknown" 
-							];
-						});
-						
-						scatterChart.updateChart({
-							data: data,
-							xAxisName: "Genome Length (bp)",
-							yAxisName: "GC Content (%)",
-							sizeMetricName: "Contigs",
-							symbolSize: function (val) {
+			this._createChartWhenReady(
+				this.qualityScatterNode,
+				EChartScatter,
+				{
+					title: "Genome Size vs GC Content",
+					theme: "maage-echarts-theme"
+				},
+				lang.hitch(this, function (chart) {
+					const query = `${this.state.search}&select(genome_id,genome_name,genome_length,gc_content,contigs,genome_status)&limit(1000)`;
+					const queryOptions = { headers: { Accept: "application/json" } };
+					
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (genomes) {
+							if (genomes && genomes.length > 0) {
+								const data = genomes.map(function (g) {
+									return [
+										g.genome_length || 0,
+										g.gc_content || 0,
+										g.contigs || 1,
+										g.genome_name || "Unknown"
+									];
+								});
 								
-								return Math.min(Math.sqrt(val[2]) * 3, 30);
+								chart.updateChart({
+									data: data,
+									xAxisName: "Genome Length (bp)",
+									yAxisName: "GC Content (%)",
+									sizeMetricName: "Contigs",
+									symbolSize: function (val) {
+										return Math.min(Math.sqrt(val[2]) * 3, 30);
+									}
+								});
 							}
-						});
-					}
-					scatterChart.hideLoading();
-				}),
-				lang.hitch(this, function () {
-					console.error("Failed to load genome quality data:", err);
-					scatterChart.hideLoading();
+							chart.hideLoading();
+							// Force resize after data
+							setTimeout(() => {
+								if (chart.resize) {
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function (err) {
+							console.error("Failed to load genome quality data:", err);
+							chart.hideLoading();
+						})
+					);
 				})
 			);
-			
-			this.charts.push(scatterChart);
 		},
 		
 		createTimelineChart: function () {
 			if (!this.timelineChartNode) return;
 			
-			const timelineChart = new EChartTimeline({
-				title: "Genomes Collected Over Time",
-				theme: "maage-echarts-theme"
-			});
-			timelineChart.placeAt(this.timelineChartNode);
-			timelineChart.startup();
-			timelineChart.showLoading();
-			
-			
-			const query = `${this.state.search}&facet((field,collection_date),(mincount,1))&limit(0)`;
-			const queryOptions = { headers: { Accept: "application/solr+json" } };
-			
-			this.genomeStore.query(query, queryOptions).then(
-				lang.hitch(this, function (res) {
-					if (res && res.facet_counts && res.facet_counts.facet_fields.collection_date) {
-						const dateFacets = res.facet_counts.facet_fields.collection_date;
-						const timeData = [];
-						
-						
-						for (let i = 0; i < dateFacets.length; i += 2) {
-							const date = dateFacets[i];
-							const count = dateFacets[i + 1];
-							if (date && count > 0) {
-								timeData.push([date, count]);
+			this._createChartWhenReady(
+				this.timelineChartNode,
+				EChartTimeline,
+				{
+					title: "Genomes Collected Over Time",
+					theme: "maage-echarts-theme"
+				},
+				lang.hitch(this, function (chart) {
+					const query = `${this.state.search}&facet((field,collection_date),(mincount,1))&limit(0)`;
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+					
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res) {
+							if (res && res.facet_counts && res.facet_counts.facet_fields.collection_date) {
+								const dateFacets = res.facet_counts.facet_fields.collection_date;
+								const timeData = [];
+								
+								for (let i = 0; i < dateFacets.length; i += 2) {
+									const date = dateFacets[i];
+									const count = dateFacets[i + 1];
+									if (date && count > 0) {
+										timeData.push([date, count]);
+									}
+								}
+								
+								timeData.sort(function (a, b) {
+									return new Date(a[0]) - new Date(b[0]);
+								});
+								
+								chart.updateChart({
+									data: timeData,
+									yAxisName: "Number of Genomes",
+									showArea: true,
+									enableZoom: true
+								});
 							}
-						}
-						
-						
-						timeData.sort(function (a, b) {
-							return new Date(a[0]) - new Date(b[0]);
-						});
-						
-						timelineChart.updateChart({
-							data: timeData,
-							yAxisName: "Number of Genomes",
-							showArea: true,
-							enableZoom: true
-						});
-					}
-					timelineChart.hideLoading();
-				}),
-				lang.hitch(this, function () {
-					console.error("Failed to load timeline data:", err);
-					timelineChart.hideLoading();
+							chart.hideLoading();
+							// Force resize after data
+							setTimeout(() => {
+								if (chart.resize) {
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function (err) {
+							console.error("Failed to load timeline data:", err);
+							chart.hideLoading();
+						})
+					);
 				})
 			);
-			
-			this.charts.push(timelineChart);
 		},
 		
 		createSizeBoxPlotChart: function () {
 			if (!this.sizeBoxPlotNode) return;
 			
-			const boxPlotChart = new EChartBoxPlot({
-				title: "Genome Size by Host",
-				theme: "maage-echarts-theme"
-			});
-			boxPlotChart.placeAt(this.sizeBoxPlotNode);
-			boxPlotChart.startup();
-			boxPlotChart.showLoading();
-			
-			
-			const query = `${this.state.search}&select(genome_length,host_common_name)&limit(5000)`;
-			const queryOptions = { headers: { Accept: "application/json" } };
-			
-			this.genomeStore.query(query, queryOptions).then(
-				lang.hitch(this, function (genomes) {
-					if (genomes && genomes.length > 0) {
-						
-						const hostData = {};
-						genomes.forEach(function (g) {
-							const host = g.host_common_name || "Unknown";
-							if (!hostData[host]) {
-								hostData[host] = [];
+			this._createChartWhenReady(
+				this.sizeBoxPlotNode,
+				EChartBoxPlot,
+				{
+					title: "Genome Size by Host",
+					theme: "maage-echarts-theme"
+				},
+				lang.hitch(this, function (chart) {
+					const query = `${this.state.search}&select(genome_length,host_common_name)&limit(5000)`;
+					const queryOptions = { headers: { Accept: "application/json" } };
+					
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (genomes) {
+							if (genomes && genomes.length > 0) {
+								const hostData = {};
+								genomes.forEach(function (g) {
+									const host = g.host_common_name || "Unknown";
+									if (!hostData[host]) {
+										hostData[host] = [];
+									}
+									if (g.genome_length) {
+										hostData[host].push(g.genome_length);
+									}
+								});
+								
+								const topHosts = Object.keys(hostData)
+									.sort(function (a, b) {
+										return hostData[b].length - hostData[a].length;
+									})
+									.slice(0, 10);
+								
+								chart.updateChart({
+									source: topHosts.reduce(function (acc, host) {
+										acc[host] = hostData[host];
+										return acc;
+									}, {}),
+									categories: topHosts,
+									yAxisName: "Genome Length (bp)",
+									rotateLabels: 45
+								});
 							}
-							if (g.genome_length) {
-								hostData[host].push(g.genome_length);
-							}
-						});
-						
-						
-						const topHosts = Object.keys(hostData)
-							.sort(function (a, b) {
-								return hostData[b].length - hostData[a].length;
-							})
-							.slice(0, 10);
-						
-						boxPlotChart.updateChart({
-							source: topHosts.reduce(function (acc, host) {
-								acc[host] = hostData[host];
-								return acc;
-							}, {}),
-							categories: topHosts,
-							yAxisName: "Genome Length (bp)",
-							rotateLabels: 45
-						});
-					}
-					boxPlotChart.hideLoading();
-				}),
-				lang.hitch(this, function () {
-					console.error("Failed to load size distribution data:", err);
-					boxPlotChart.hideLoading();
+							chart.hideLoading();
+							// Force resize after data
+							setTimeout(() => {
+								if (chart.resize) {
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function (err) {
+							console.error("Failed to load size distribution data:", err);
+							chart.hideLoading();
+						})
+					);
 				})
 			);
-			
-			this.charts.push(boxPlotChart);
 		},
 		
 		createCategoryTreemapChart: function () {
 			if (!this.categoryTreemapNode) return;
 			
-			const treemapChart = new EChartTreemap({
-				title: "Genome Categories",
-				theme: "maage-echarts-theme"
-			});
-			treemapChart.placeAt(this.categoryTreemapNode);
-			treemapChart.startup();
-			treemapChart.showLoading();
-			
-			
-			const query = `${this.state.search}&facet((pivot,(host_common_name,isolation_source,serovar)),(mincount,1))&limit(0)`;
-			const queryOptions = { headers: { Accept: "application/solr+json" } };
-			
-			this.genomeStore.query(query, queryOptions).then(
-				lang.hitch(this, function (res) {
-					if (res && res.facet_counts && res.facet_counts.facet_pivot) {
-						const pivotData = res.facet_counts.facet_pivot["host_common_name,isolation_source,serovar"];
-						
-						
-						const treeData = pivotData.slice(0, 10).map(function (hostData) {
-							return {
-								name: hostData.value || "Unknown Host",
-								value: hostData.count,
-								children: (hostData.pivot || []).slice(0, 5).map(function (sourceData) {
-									return {
-										name: sourceData.value || "Unknown Source",
-										value: sourceData.count,
-										children: (sourceData.pivot || []).slice(0, 3).map(function (serovarData) {
-											return {
-												name: serovarData.value || "Unknown Serovar",
-												value: serovarData.count
-											};
-										})
-									};
-								})
-							};
-						});
-						
-						treemapChart.updateChart({
-							treeData: treeData,
-							leafDepth: 2
-						});
-					}
-					treemapChart.hideLoading();
-				}),
-				lang.hitch(this, function () {
-					console.error("Failed to load category data:", err);
-					treemapChart.hideLoading();
+			this._createChartWhenReady(
+				this.categoryTreemapNode,
+				EChartTreemap,
+				{
+					title: "Genome Categories",
+					theme: "maage-echarts-theme"
+				},
+				lang.hitch(this, function (chart) {
+					const query = `${this.state.search}&facet((pivot,(host_common_name,isolation_source,serovar)),(mincount,1))&limit(0)`;
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+					
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res) {
+							if (res && res.facet_counts && res.facet_counts.facet_pivot) {
+								const pivotData = res.facet_counts.facet_pivot["host_common_name,isolation_source,serovar"];
+								
+								if (pivotData) {
+									const treeData = pivotData.slice(0, 10).map(function (hostData) {
+										return {
+											name: hostData.value || "Unknown Host",
+											value: hostData.count,
+											children: (hostData.pivot || []).slice(0, 5).map(function (sourceData) {
+												return {
+													name: sourceData.value || "Unknown Source",
+													value: sourceData.count,
+													children: (sourceData.pivot || []).slice(0, 3).map(function (serovarData) {
+														return {
+															name: serovarData.value || "Unknown Serovar",
+															value: serovarData.count
+														};
+													})
+												};
+											})
+										};
+									});
+									
+									chart.updateChart({
+										treeData: treeData,
+										leafDepth: 2
+									});
+								}
+							}
+							chart.hideLoading();
+							// Force resize after data
+							setTimeout(() => {
+								if (chart.resize) {
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function (err) {
+							console.error("Failed to load category data:", err);
+							chart.hideLoading();
+						})
+					);
 				})
 			);
-			
-			this.charts.push(treemapChart);
 		},
 
 		resize: function () {
