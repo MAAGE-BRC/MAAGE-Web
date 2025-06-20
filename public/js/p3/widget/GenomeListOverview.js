@@ -1,7 +1,6 @@
 define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
-	"dojo/on",
 	"dijit/_WidgetBase",
 	"dijit/_WidgetsInTemplateMixin",
 	"dijit/_TemplatedMixin",
@@ -11,10 +10,13 @@ define([
 	"./EChartDoughnut",
 	"./EChartStackedBar",
 	"./EChartMap",
+	"./EChartTimeline",
+	"./EChartScatter",
+	"./EChartBoxPlot",
+	"./EChartTreemap"
 ], function (
 	declare,
 	lang,
-	on,
 	WidgetBase,
 	_WidgetsInTemplateMixin,
 	Templated,
@@ -23,7 +25,11 @@ define([
 	VerticalBar,
 	Doughnut,
 	StackedBar,
-	EChartMap
+	EChartMap,
+	EChartTimeline,
+	EChartScatter,
+	EChartBoxPlot,
+	EChartTreemap
 ) {
 	return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
 		baseClass: "GenomeListOverview",
@@ -36,10 +42,23 @@ define([
 			this.genomeStore = new GenomeStore({});
 		},
 
+		startup: function () {
+			this.inherited(arguments);
+			
+			if (this.state && this.state.search) {
+				setTimeout(lang.hitch(this, function () {
+					this.createCharts();
+				}), 100);
+			}
+		},
+
 		_setStateAttr: function (state) {
 			this._set("state", state);
-			if (this.state && this.state.search) {
-				this.createCharts();
+			if (this._started && this.state && this.state.search) {
+				
+				setTimeout(lang.hitch(this, function () {
+					this.createCharts();
+				}), 100);
 			}
 		},
 
@@ -135,7 +154,7 @@ define([
 						}
 						chart.hideLoading();
 					}),
-					lang.hitch(this, (err) => {
+					lang.hitch(this, () => {
 						chart.hideLoading();
 					})
 				);
@@ -162,7 +181,7 @@ define([
 						}
 						chart.hideLoading();
 					}),
-					lang.hitch(this, (err) => {
+					lang.hitch(this, () => {
 						chart.hideLoading();
 					})
 				);
@@ -210,6 +229,11 @@ define([
 			this.createMapChart();
 			
 			
+			this.createQualityScatterChart();
+			this.createTimelineChart();
+			this.createSizeBoxPlotChart();
+			this.createCategoryTreemapChart();
+			
 			this.updateMetrics();
 		},
 		
@@ -247,7 +271,7 @@ define([
 					}
 					mapChart.hideLoading();
 				}),
-				lang.hitch(this, function (err) {
+				lang.hitch(this, function () {
 					console.error("Failed to load county data:", err);
 					mapChart.hideLoading();
 				})
@@ -302,6 +326,223 @@ define([
 					})
 				);
 			}, this);
+		},
+
+		createQualityScatterChart: function () {
+			if (!this.qualityScatterNode) return;
+			
+			const scatterChart = new EChartScatter({
+				title: "Genome Size vs GC Content",
+				theme: "maage-echarts-theme"
+			});
+			scatterChart.placeAt(this.qualityScatterNode);
+			scatterChart.startup();
+			scatterChart.showLoading();
+			
+			
+			const query = `${this.state.search}&select(genome_id,genome_name,genome_length,gc_content,contigs,genome_status)&limit(1000)`;
+			const queryOptions = { headers: { Accept: "application/json" } };
+			
+			this.genomeStore.query(query, queryOptions).then(
+				lang.hitch(this, function (genomes) {
+					if (genomes && genomes.length > 0) {
+						
+						const data = genomes.map(function (g) {
+							return [
+								g.genome_length || 0,  
+								g.gc_content || 0,     
+								g.contigs || 1,        
+								g.genome_name || "Unknown" 
+							];
+						});
+						
+						scatterChart.updateChart({
+							data: data,
+							xAxisName: "Genome Length (bp)",
+							yAxisName: "GC Content (%)",
+							sizeMetricName: "Contigs",
+							symbolSize: function (val) {
+								
+								return Math.min(Math.sqrt(val[2]) * 3, 30);
+							}
+						});
+					}
+					scatterChart.hideLoading();
+				}),
+				lang.hitch(this, function () {
+					console.error("Failed to load genome quality data:", err);
+					scatterChart.hideLoading();
+				})
+			);
+			
+			this.charts.push(scatterChart);
+		},
+		
+		createTimelineChart: function () {
+			if (!this.timelineChartNode) return;
+			
+			const timelineChart = new EChartTimeline({
+				title: "Genomes Collected Over Time",
+				theme: "maage-echarts-theme"
+			});
+			timelineChart.placeAt(this.timelineChartNode);
+			timelineChart.startup();
+			timelineChart.showLoading();
+			
+			
+			const query = `${this.state.search}&facet((field,collection_date),(mincount,1))&limit(0)`;
+			const queryOptions = { headers: { Accept: "application/solr+json" } };
+			
+			this.genomeStore.query(query, queryOptions).then(
+				lang.hitch(this, function (res) {
+					if (res && res.facet_counts && res.facet_counts.facet_fields.collection_date) {
+						const dateFacets = res.facet_counts.facet_fields.collection_date;
+						const timeData = [];
+						
+						
+						for (let i = 0; i < dateFacets.length; i += 2) {
+							const date = dateFacets[i];
+							const count = dateFacets[i + 1];
+							if (date && count > 0) {
+								timeData.push([date, count]);
+							}
+						}
+						
+						
+						timeData.sort(function (a, b) {
+							return new Date(a[0]) - new Date(b[0]);
+						});
+						
+						timelineChart.updateChart({
+							data: timeData,
+							yAxisName: "Number of Genomes",
+							showArea: true,
+							enableZoom: true
+						});
+					}
+					timelineChart.hideLoading();
+				}),
+				lang.hitch(this, function () {
+					console.error("Failed to load timeline data:", err);
+					timelineChart.hideLoading();
+				})
+			);
+			
+			this.charts.push(timelineChart);
+		},
+		
+		createSizeBoxPlotChart: function () {
+			if (!this.sizeBoxPlotNode) return;
+			
+			const boxPlotChart = new EChartBoxPlot({
+				title: "Genome Size by Host",
+				theme: "maage-echarts-theme"
+			});
+			boxPlotChart.placeAt(this.sizeBoxPlotNode);
+			boxPlotChart.startup();
+			boxPlotChart.showLoading();
+			
+			
+			const query = `${this.state.search}&select(genome_length,host_common_name)&limit(5000)`;
+			const queryOptions = { headers: { Accept: "application/json" } };
+			
+			this.genomeStore.query(query, queryOptions).then(
+				lang.hitch(this, function (genomes) {
+					if (genomes && genomes.length > 0) {
+						
+						const hostData = {};
+						genomes.forEach(function (g) {
+							const host = g.host_common_name || "Unknown";
+							if (!hostData[host]) {
+								hostData[host] = [];
+							}
+							if (g.genome_length) {
+								hostData[host].push(g.genome_length);
+							}
+						});
+						
+						
+						const topHosts = Object.keys(hostData)
+							.sort(function (a, b) {
+								return hostData[b].length - hostData[a].length;
+							})
+							.slice(0, 10);
+						
+						boxPlotChart.updateChart({
+							source: topHosts.reduce(function (acc, host) {
+								acc[host] = hostData[host];
+								return acc;
+							}, {}),
+							categories: topHosts,
+							yAxisName: "Genome Length (bp)",
+							rotateLabels: 45
+						});
+					}
+					boxPlotChart.hideLoading();
+				}),
+				lang.hitch(this, function () {
+					console.error("Failed to load size distribution data:", err);
+					boxPlotChart.hideLoading();
+				})
+			);
+			
+			this.charts.push(boxPlotChart);
+		},
+		
+		createCategoryTreemapChart: function () {
+			if (!this.categoryTreemapNode) return;
+			
+			const treemapChart = new EChartTreemap({
+				title: "Genome Categories",
+				theme: "maage-echarts-theme"
+			});
+			treemapChart.placeAt(this.categoryTreemapNode);
+			treemapChart.startup();
+			treemapChart.showLoading();
+			
+			
+			const query = `${this.state.search}&facet((pivot,(host_common_name,isolation_source,serovar)),(mincount,1))&limit(0)`;
+			const queryOptions = { headers: { Accept: "application/solr+json" } };
+			
+			this.genomeStore.query(query, queryOptions).then(
+				lang.hitch(this, function (res) {
+					if (res && res.facet_counts && res.facet_counts.facet_pivot) {
+						const pivotData = res.facet_counts.facet_pivot["host_common_name,isolation_source,serovar"];
+						
+						
+						const treeData = pivotData.slice(0, 10).map(function (hostData) {
+							return {
+								name: hostData.value || "Unknown Host",
+								value: hostData.count,
+								children: (hostData.pivot || []).slice(0, 5).map(function (sourceData) {
+									return {
+										name: sourceData.value || "Unknown Source",
+										value: sourceData.count,
+										children: (sourceData.pivot || []).slice(0, 3).map(function (serovarData) {
+											return {
+												name: serovarData.value || "Unknown Serovar",
+												value: serovarData.count
+											};
+										})
+									};
+								})
+							};
+						});
+						
+						treemapChart.updateChart({
+							treeData: treeData,
+							leafDepth: 2
+						});
+					}
+					treemapChart.hideLoading();
+				}),
+				lang.hitch(this, function () {
+					console.error("Failed to load category data:", err);
+					treemapChart.hideLoading();
+				})
+			);
+			
+			this.charts.push(treemapChart);
 		},
 
 		resize: function () {

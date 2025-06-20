@@ -70,10 +70,32 @@
 		</div>
 	</div>
 
-	<div class="flex flex-wrap gap-2 sm:gap-4">
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
 			<h3 class="chart-title">Geographic Breakdown</h3>
 			<div data-dojo-attach-point="countryChartNode" class="chart-container"></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Genome Quality Metrics</h3>
+			<div data-dojo-attach-point="qualityScatterNode" class="chart-container"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full">
+			<h3 class="chart-title">Genome Collection Timeline</h3>
+			<div data-dojo-attach-point="timelineChartNode" class="chart-container"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Genome Size Distribution</h3>
+			<div data-dojo-attach-point="sizeBoxPlotNode" class="chart-container"></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Hierarchical Genome Categories</h3>
+			<div data-dojo-attach-point="categoryTreemapNode" class="chart-container"></div>
 		</div>
 	</div>
 </div>
