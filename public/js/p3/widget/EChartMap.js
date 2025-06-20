@@ -25,27 +25,38 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				return;
 			}
 
-			// Create controls container
-			this.controlsNode = domConstruct.create("div", {
-				class: "map-controls flex gap-2 mb-2"
-			}, this.domNode, "first");
+			// Modify the template structure to add controls
+			if (this.domNode && this.chartNode) {
+				// Change the main container height to accommodate controls
+				this.domNode.style.height = "100%";
+				this.domNode.style.display = "flex";
+				this.domNode.style.flexDirection = "column";
+				
+				// Create controls container
+				this.controlsNode = domConstruct.create("div", {
+					style: "display: flex; gap: 8px; margin-bottom: 8px; flex-shrink: 0;"
+				}, this.domNode, "first");
 
-			// Create toggle button
-			this.toggleButtonNode = domConstruct.create("button", {
-				class: "px-3 py-1 bg-maage-primary text-white rounded hover:bg-maage-primary-dark text-sm",
-				innerHTML: "Show Counties"
-			}, this.controlsNode);
+				// Create toggle button
+				this.toggleButtonNode = domConstruct.create("button", {
+					style: "padding: 4px 12px; background-color: #98bdac; color: white; border-radius: 4px; border: none; cursor: pointer; font-size: 14px;",
+					innerHTML: "Show Counties"
+				}, this.controlsNode);
 
-			// Create back button (initially hidden)
-			this.backButtonNode = domConstruct.create("button", {
-				class: "px-3 py-1 bg-maage-secondary text-white rounded hover:bg-maage-secondary-dark text-sm",
-				innerHTML: "Back to US Map",
-				style: "display: none;"
-			}, this.controlsNode);
+				// Create back button (initially hidden)
+				this.backButtonNode = domConstruct.create("button", {
+					style: "padding: 4px 12px; background-color: #5f94ab; color: white; border-radius: 4px; border: none; cursor: pointer; font-size: 14px; display: none;",
+					innerHTML: "Back to US Map"
+				}, this.controlsNode);
+				
+				// Adjust chart node to fill remaining space
+				this.chartNode.style.flex = "1";
+				this.chartNode.style.minHeight = "0";
 
-			// Add event handlers
-			on(this.toggleButtonNode, "click", lang.hitch(this, this.toggleView));
-			on(this.backButtonNode, "click", lang.hitch(this, this.backToUSMap));
+				// Add event handlers
+				on(this.toggleButtonNode, "click", lang.hitch(this, this.toggleView));
+				on(this.backButtonNode, "click", lang.hitch(this, this.backToUSMap));
+			}
 
 			this.loadMapData();
 		},

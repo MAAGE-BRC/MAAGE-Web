@@ -95,8 +95,12 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 				],
 			};
 
-			if (data.colorGradient !== false) {
+			if (data.colorGradient !== false && values && values.length > 0) {
 				option.series[0].itemStyle.color = function (params) {
+					if (params.value === undefined || params.value === null) {
+						return "#98bdac"; // Default color
+					}
+					
 					const colors = [
 						"#f3f7f5",
 						"#ecf3f0",
@@ -106,8 +110,15 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 						"#6ea089",
 						"#57856f",
 					];
-					const max = Math.max(...values);
-					const min = Math.min(...values);
+					
+					// Filter out any undefined/null values
+					const validValues = values.filter(v => v !== undefined && v !== null);
+					if (validValues.length === 0) {
+						return colors[4]; // Return middle color
+					}
+					
+					const max = Math.max(...validValues);
+					const min = Math.min(...validValues);
 					const range = max - min;
 
 					const normalizedValue =
