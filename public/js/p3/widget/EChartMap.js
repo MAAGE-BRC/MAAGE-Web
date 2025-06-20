@@ -228,26 +228,34 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				const stateCode = this.currentView;
 				mapName = "state-" + stateCode;
 				
-				// For state view, we need to process county data specially
+				// For state view, we need to create chart data that matches county names
 				const countyData = this.genomeData.countyData || this.genomeData;
-				chartData = [];
-				
-				// Create a map of county names to values for quick lookup
 				const countyLookup = {};
+				
+				// Create normalized lookup
 				Object.keys(countyData).forEach(function(countyName) {
-					// Normalize county name for matching
 					const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
 					countyLookup[normalizedName] = countyData[countyName];
 				});
 				
-				// Process the data to match with map features
-				// The actual matching will happen in the series data function
+				// Store for later use
 				this._countyLookup = countyLookup;
+				
+				// Create data array for all counties (ECharts will match by name)
+				chartData = Object.keys(countyData).map(function(countyName) {
+					return {
+						name: countyName,
+						value: countyData[countyName]
+					};
+				});
 			}
 
 			const values = chartData.map((item) => item.value).filter((v) => v > 0);
 			const min = Math.min(...values) || 0;
 			const max = Math.max(...values) || 100;
+			
+			// Debug: log min/max values
+			console.log("Map data values - min:", min, "max:", max, "total items:", chartData.length);
 
 			// Add title for state view
 			let title = "";
@@ -272,37 +280,30 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				} : undefined,
 				tooltip: {
 					trigger: "item",
-					formatter: lang.hitch(this, function (params) {
-						// For state view showing counties
-						if (this.currentView !== "state" && this.currentView !== "county") {
-							const countyName = params.name;
-							const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
-							const value = this._countyLookup ? this._countyLookup[normalizedName] : 0;
-							
-							if (value > 0) {
-								return countyName + ": " + value + " genomes";
-							}
-							return countyName + ": No data";
-						}
-						
-						// For regular state/county view
+					formatter: function (params) {
 						if (params.data && params.data.value) {
 							return params.name + ": " + params.data.value + " genomes";
 						}
 						return params.name + ": No data";
-					}),
+					},
 				},
 				visualMap: {
-					min: min,
-					max: max,
-					text: ["High", "Low"],
-					realtime: false,
-					calculable: true,
-					inRange: {
-						color: ["#e7f5f8", "#98bdac", "#5f94ab", "#467386"],
-					},
+					type: "piecewise",
+					pieces: [
+						{min: 1, max: 10, label: "1-10", color: "#e7f5f8"},
+						{min: 11, max: 50, label: "11-50", color: "#b4d0c3"},
+						{min: 51, max: 100, label: "51-100", color: "#98bdac"},
+						{min: 101, max: 500, label: "101-500", color: "#6ea089"},
+						{min: 501, max: 1000, label: "501-1K", color: "#57856f"},
+						{min: 1001, label: ">1K", color: "#496f5d"}
+					],
 					left: "left",
 					top: "bottom",
+					textStyle: {
+						fontSize: 12
+					},
+					itemWidth: 20,
+					itemHeight: 12
 				},
 				series: [
 					{
@@ -325,29 +326,18 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 								areaColor: "#e7c788",
 							},
 						},
-						data: chartData.length > 0 ? chartData : undefined,
-						// For state view, use dynamic color mapping
-						itemStyle: this.currentView !== "state" && this.currentView !== "county" ? {
-							color: lang.hitch(this, function(params) {
-								const countyName = params.name;
-								const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
-								const value = this._countyLookup ? this._countyLookup[normalizedName] : 0;
-								
-								if (value === 0) {
-									return "#f3f4f6"; // Light gray for no data
+						itemStyle: {
+							areaColor: function(params) {
+								// Default color for regions with no data
+								if (!params.data || params.data.value === 0) {
+									return "#f3f4f6";
 								}
-								
-								// Calculate relative color based on value
-								const allValues = Object.values(this._countyLookup || {});
-								const maxValue = Math.max(...allValues, 1);
-								const relativeValue = (value / maxValue) * 100;
-								
-								// Use the color scale
-								const colors = ["#e7f5f8", "#98bdac", "#5f94ab", "#467386"];
-								const index = Math.floor((relativeValue / 100) * (colors.length - 1));
-								return colors[Math.min(index, colors.length - 1)];
-							})
-						} : undefined,
+								return null; // Use visualMap color
+							},
+							borderColor: "#d1d5db",
+							borderWidth: 0.5
+						},
+						data: chartData.length > 0 ? chartData : undefined,
 					},
 				],
 			};
@@ -403,14 +393,13 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 					console.log("Map state:", stateName, "normalized:", normalizedName, "has data:", !!stateLookup[normalizedName]);
 				}
 
-				if (stateLookup[normalizedName]) {
-					chartData.push({
-						name: stateName,
-						value: stateLookup[normalizedName],
-						stateCode: fipsCode,
-						properties: properties,
-					});
-				}
+				// Always add the state, even if no data (value will be 0)
+				chartData.push({
+					name: stateName,
+					value: stateLookup[normalizedName] || 0,
+					stateCode: fipsCode,
+					properties: properties,
+				});
 			}));
 			
 			console.log("Chart data created:", chartData.length, "states with data");
