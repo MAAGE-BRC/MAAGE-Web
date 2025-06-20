@@ -1,3 +1,12 @@
+/* Map Controls */
+.map-controls {
+  @apply flex gap-2 mb-2;
+}
+
+.map-controls button {
+  @apply transition-colors duration-200;
+}
+
 /* Map chart container style */
 .map-chart-container {
   min-height: 350px;

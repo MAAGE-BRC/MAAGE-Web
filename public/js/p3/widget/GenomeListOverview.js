@@ -307,27 +307,38 @@ define([
 			const query = `${this.state.search}&facet((field,county),(mincount,1))&limit(0)`;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
 			
+			// Query for county data only (state will be derived from county names)
 			this.genomeStore.query(query, queryOptions).then(
 				lang.hitch(this, function (res) {
+					const countyData = {};
+					const stateData = {};
+					
 					if (res && res.facet_counts && res.facet_counts.facet_fields.county) {
 						const countyFacets = res.facet_counts.facet_fields.county;
-						const countyData = {};
-						
-						
 						for (let i = 0; i < countyFacets.length; i += 2) {
 							const county = countyFacets[i];
 							const count = countyFacets[i + 1];
 							if (county && count > 0) {
 								countyData[county] = count;
+								
+								// Extract state from county name (format: "County, State")
+								const parts = county.split(", ");
+								if (parts.length >= 2) {
+									const stateName = parts[parts.length - 1].trim();
+									if (!stateData[stateName]) {
+										stateData[stateName] = 0;
+									}
+									stateData[stateName] += count;
+								}
 							}
 						}
-						
-						mapChart.updateChart({ countyData: countyData });
 					}
+					
+					mapChart.updateChart({ countyData: countyData, stateData: stateData });
 					mapChart.hideLoading();
 				}),
 				lang.hitch(this, function (err) {
-					console.error("Failed to load county data:", err);
+					console.error("Failed to load map data:", err);
 					mapChart.hideLoading();
 				})
 			);

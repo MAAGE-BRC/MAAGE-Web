@@ -1,14 +1,21 @@
-define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "echarts"], function (
+define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "echarts", "dojo/dom-construct", "dojo/on"], function (
 	declare,
 	EChart,
 	lang,
 	request,
-	echarts
+	echarts,
+	domConstruct,
+	on
 ) {
 	return declare([EChart], {
 		baseClass: "EChartMap",
-		mapData: null,
-		countyData: {},
+		stateMapData: null,
+		countyMapData: null,
+		individualStateData: {},
+		genomeData: {},
+		currentView: "state", // "state" or "county" or specific state code
+		toggleButtonNode: null,
+		backButtonNode: null,
 
 		postCreate: function () {
 			this.inherited(arguments);
@@ -18,40 +25,65 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				return;
 			}
 
+			// Create controls container
+			this.controlsNode = domConstruct.create("div", {
+				class: "map-controls flex gap-2 mb-2"
+			}, this.domNode, "first");
+
+			// Create toggle button
+			this.toggleButtonNode = domConstruct.create("button", {
+				class: "px-3 py-1 bg-maage-primary text-white rounded hover:bg-maage-primary-dark text-sm",
+				innerHTML: "Show Counties"
+			}, this.controlsNode);
+
+			// Create back button (initially hidden)
+			this.backButtonNode = domConstruct.create("button", {
+				class: "px-3 py-1 bg-maage-secondary text-white rounded hover:bg-maage-secondary-dark text-sm",
+				innerHTML: "Back to US Map",
+				style: "display: none;"
+			}, this.controlsNode);
+
+			// Add event handlers
+			on(this.toggleButtonNode, "click", lang.hitch(this, this.toggleView));
+			on(this.backButtonNode, "click", lang.hitch(this, this.backToUSMap));
+
 			this.loadMapData();
 		},
 
 		loadMapData: function () {
 			this.showLoading();
 
-			request("/maage/maps/usa-counties-albers-10m.json", {
+			// Load both state and county maps
+			const stateMapPromise = request("/maage/maps/usa-states-albers-10m.json", {
 				handleAs: "json",
-			}).then(
-				lang.hitch(this, function (topoData) {
-					const geoData = topojson.feature(topoData, topoData.objects.counties);
+			});
 
-					geoData.features.forEach(function (feature) {
-						if (feature.geometry && feature.geometry.coordinates) {
-							const flipCoordinates = function (coords) {
-								if (Array.isArray(coords[0]) && typeof coords[0][0] === "number") {
-									return coords.map(function (coord) {
-										return [coord[0], -coord[1]];
-									});
-								} else {
-									return coords.map(flipCoordinates);
-								}
-							};
-							feature.geometry.coordinates = flipCoordinates(feature.geometry.coordinates);
-						}
-					});
+			const countyMapPromise = request("/maage/maps/usa-counties-albers-10m.json", {
+				handleAs: "json",
+			});
 
-					echarts.registerMap("USA-counties", geoData);
+			Promise.all([stateMapPromise, countyMapPromise]).then(
+				lang.hitch(this, function ([stateTopoData, countyTopoData]) {
+					// Process state map
+					const stateGeoData = topojson.feature(stateTopoData, stateTopoData.objects.states);
+					this.flipCoordinates(stateGeoData);
+					echarts.registerMap("USA-states", stateGeoData);
+					this.stateMapData = stateGeoData;
 
-					this.mapData = geoData;
+					// Process county map
+					const countyGeoData = topojson.feature(countyTopoData, countyTopoData.objects.counties);
+					this.flipCoordinates(countyGeoData);
+					echarts.registerMap("USA-counties", countyGeoData);
+					this.countyMapData = countyGeoData;
+
+					// Load individual state maps
+					this.loadIndividualStateMaps();
+
 					this.hideLoading();
 
-					if (Object.keys(this.countyData).length > 0) {
-						this.updateChart(this.countyData);
+					// Update chart if data is already available
+					if (Object.keys(this.genomeData).length > 0) {
+						this.updateChart(this.genomeData);
 					}
 				}),
 				lang.hitch(this, function (err) {
@@ -61,36 +93,83 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 			);
 		},
 
+		flipCoordinates: function (geoData) {
+			geoData.features.forEach(function (feature) {
+				if (feature.geometry && feature.geometry.coordinates) {
+					const flipCoords = function (coords) {
+						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number") {
+							return coords.map(function (coord) {
+								return [coord[0], -coord[1]];
+							});
+						} else {
+							return coords.map(flipCoords);
+						}
+					};
+					feature.geometry.coordinates = flipCoords(feature.geometry.coordinates);
+				}
+			});
+		},
+
+		loadIndividualStateMaps: function () {
+			// For now, we'll use the county data filtered by state
+			// In the future, you can load individual state TopoJSON files here
+			// Example: load illinois.json, michigan.json, etc.
+		},
+
+		toggleView: function () {
+			if (this.currentView === "state") {
+				this.currentView = "county";
+				this.toggleButtonNode.innerHTML = "Show States";
+			} else if (this.currentView === "county") {
+				this.currentView = "state";
+				this.toggleButtonNode.innerHTML = "Show Counties";
+			}
+			this.updateChart(this.genomeData);
+		},
+
+		backToUSMap: function () {
+			this.currentView = "state";
+			this.toggleButtonNode.style.display = "";
+			this.backButtonNode.style.display = "none";
+			this.updateChart(this.genomeData);
+		},
+
 		updateChart: function (data) {
-			if (!this.chart || !this.mapData) {
+			if (!this.chart || (!this.stateMapData && !this.countyMapData)) {
 				if (data && data.countyData) {
-					this.countyData = data.countyData;
+					this.genomeData = data;
 				}
 				return;
 			}
 
-			const chartData = [];
-			const countyData = data.countyData || data;
+			// Store the data for later use
+			this.genomeData = data;
+			
+			let chartData = [];
+			let mapName = "USA-states";
+			let mapData = this.stateMapData;
 
-			const countyLookup = {};
-			Object.keys(countyData).forEach(function (county) {
-				const normalizedName = county.toLowerCase().replace(/[^a-z0-9]/g, "");
-				countyLookup[normalizedName] = countyData[county];
-			});
-
-			this.mapData.features.forEach(function (feature) {
-				const properties = feature.properties || {};
-				const countyName = properties.name || properties.NAME || "";
-				const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-				if (countyLookup[normalizedName]) {
-					chartData.push({
-						name: countyName,
-						value: countyLookup[normalizedName],
-						properties: properties,
-					});
+			if (this.currentView === "state") {
+				// Use state data directly if provided, otherwise aggregate from counties
+				if (this.genomeData.stateData) {
+					chartData = this.processStateData(this.genomeData.stateData);
+				} else {
+					chartData = this.aggregateToStates(this.genomeData.countyData || this.genomeData);
 				}
-			});
+				mapName = "USA-states";
+				mapData = this.stateMapData;
+			} else if (this.currentView === "county") {
+				// Show all counties
+				chartData = this.processCountyData(this.genomeData.countyData || this.genomeData, this.countyMapData);
+				mapName = "USA-counties";
+				mapData = this.countyMapData;
+			} else {
+				// Show specific state's counties
+				const stateCode = this.currentView;
+				chartData = this.processStateCounties(this.genomeData.countyData || this.genomeData, stateCode);
+				mapName = "state-" + stateCode;
+				mapData = this.getStateMapData(stateCode);
+			}
 
 			const values = chartData.map((item) => item.value).filter((v) => v > 0);
 			const min = Math.min(...values) || 0;
@@ -122,7 +201,7 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 					{
 						name: "Genome Count",
 						type: "map",
-						map: "USA-counties",
+						map: mapName,
 						roam: true,
 						scaleLimit: {
 							min: 0.5,
@@ -144,6 +223,18 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				],
 			};
 
+			// Add click handler for states
+			if (this.currentView === "state") {
+				this.chart.off("click");
+				this.chart.on("click", lang.hitch(this, function (params) {
+					if (params.data && params.data.stateCode) {
+						this.showStateDetail(params.data.stateCode, params.data.name);
+					}
+				}));
+			} else {
+				this.chart.off("click");
+			}
+
 			this.chart.setOption(option, true);
 			
 			// Force a resize to ensure map fits properly
@@ -152,6 +243,146 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 					this.chart.resize();
 				}
 			}), 100);
+		},
+
+		processStateData: function (stateData) {
+			if (!this.stateMapData || !stateData) return [];
+
+			const chartData = [];
+			const stateLookup = {};
+			
+			// Create lookup for state data
+			Object.keys(stateData).forEach(function (state) {
+				const normalizedName = state.toLowerCase().replace(/[^a-z]/g, "");
+				stateLookup[normalizedName] = stateData[state];
+			});
+
+			this.stateMapData.features.forEach(lang.hitch(this, function (feature) {
+				const properties = feature.properties || {};
+				const stateName = properties.name || properties.NAME || "";
+				const stateCode = properties.STATE || properties.STUSPS || properties.postal || "";
+				const normalizedName = stateName.toLowerCase().replace(/[^a-z]/g, "");
+
+				if (stateLookup[normalizedName]) {
+					chartData.push({
+						name: stateName,
+						value: stateLookup[normalizedName],
+						stateCode: stateCode,
+						properties: properties,
+					});
+				}
+			}));
+
+			return chartData;
+		},
+
+		aggregateToStates: function (countyData) {
+			if (!this.stateMapData || !countyData) return [];
+
+			const stateData = {};
+
+			// Aggregate county data to states
+			Object.keys(countyData).forEach(function (countyKey) {
+				// Extract state from county name (assuming format like "Cook, Illinois")
+				const parts = countyKey.split(", ");
+				if (parts.length >= 2) {
+					const stateName = parts[parts.length - 1].trim();
+					if (!stateData[stateName]) {
+						stateData[stateName] = 0;
+					}
+					stateData[stateName] += countyData[countyKey];
+				}
+			});
+
+			// Map to chart data format
+			const chartData = [];
+			this.stateMapData.features.forEach(lang.hitch(this, function (feature) {
+				const properties = feature.properties || {};
+				const stateName = properties.name || properties.NAME || "";
+				const stateCode = properties.STATE || properties.STUSPS || properties.postal || "";
+				
+				if (stateData[stateName]) {
+					chartData.push({
+						name: stateName,
+						value: stateData[stateName],
+						stateCode: stateCode,
+						properties: properties
+					});
+				}
+			}));
+
+			return chartData;
+		},
+
+		processCountyData: function (countyData, mapData) {
+			if (!mapData || !countyData) return [];
+
+			const chartData = [];
+			const countyLookup = {};
+			
+			Object.keys(countyData).forEach(function (county) {
+				const normalizedName = county.toLowerCase().replace(/[^a-z0-9]/g, "");
+				countyLookup[normalizedName] = countyData[county];
+			});
+
+			mapData.features.forEach(function (feature) {
+				const properties = feature.properties || {};
+				const countyName = properties.name || properties.NAME || "";
+				const normalizedName = countyName.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+				if (countyLookup[normalizedName]) {
+					chartData.push({
+						name: countyName,
+						value: countyLookup[normalizedName],
+						properties: properties,
+					});
+				}
+			});
+
+			return chartData;
+		},
+
+		processStateCounties: function (countyData, stateCode) {
+			// Filter counties for the specific state
+			const stateCountyData = {};
+			Object.keys(countyData).forEach(function (countyKey) {
+				// This is a simplified approach - you may need to adjust based on your data format
+				if (countyKey.includes(stateCode)) {
+					stateCountyData[countyKey] = countyData[countyKey];
+				}
+			});
+
+			return this.processCountyData(stateCountyData, this.getStateMapData(stateCode));
+		},
+
+		getStateMapData: function (stateCode) {
+			// For now, return filtered county data for the state
+			// In the future, this could return dedicated state map data
+			if (!this.countyMapData) return null;
+
+			const stateFeatures = this.countyMapData.features.filter(function (feature) {
+				return feature.properties && feature.properties.STATE === stateCode;
+			});
+
+			return {
+				type: "FeatureCollection",
+				features: stateFeatures
+			};
+		},
+
+		showStateDetail: function (stateCode, stateName) {
+			this.currentView = stateCode;
+			this.toggleButtonNode.style.display = "none";
+			this.backButtonNode.style.display = "";
+			this.backButtonNode.innerHTML = "Back to US Map";
+			
+			// Register the state-specific map if needed
+			const stateMapData = this.getStateMapData(stateCode);
+			if (stateMapData && stateMapData.features.length > 0) {
+				echarts.registerMap("state-" + stateCode, stateMapData);
+			}
+			
+			this.updateChart(this.genomeData);
 		},
 	});
 });
