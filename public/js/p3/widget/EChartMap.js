@@ -125,12 +125,12 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 						map: "USA-counties",
 						roam: true,
 						scaleLimit: {
-							min: 1,
+							min: 0.5,
 							max: 10,
 						},
-
-						center: [-90, -40],
-						zoom: 2.5,
+						// Let ECharts auto-calculate the best view
+						layoutCenter: ['50%', '50%'],
+						layoutSize: '95%',
 						emphasis: {
 							label: {
 								show: true,
@@ -145,6 +145,13 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 			};
 
 			this.chart.setOption(option, true);
+			
+			// Force a resize to ensure map fits properly
+			setTimeout(lang.hitch(this, function() {
+				if (this.chart) {
+					this.chart.resize();
+				}
+			}), 100);
 		},
 	});
 });
