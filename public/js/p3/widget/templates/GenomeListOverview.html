@@ -3,8 +3,18 @@
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
-			<div class="metric-value" data-dojo-attach-point="totalGenomesNode">--</div>
+			<div class="metric-value" data-dojo-attach-point="totalGenomesNode">
+				--
+			</div>
 			<div class="metric-label">Total Genomes</div>
+		</div>
+		<div
+			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
+		>
+			<div class="metric-value" data-dojo-attach-point="recentGenomesNode">
+				--
+			</div>
+			<div class="metric-label">Genomes (Last 30 Days)</div>
 		</div>
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
@@ -25,16 +35,13 @@
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
-			<div class="metric-list" data-dojo-attach-point="sequencingCenterListNode">
+			<div
+				class="metric-list"
+				data-dojo-attach-point="sequencingCenterListNode"
+			>
 				<div class="text-center text-maage-text-subtle">Loading...</div>
 			</div>
 			<div class="metric-label">Collection Countries</div>
-		</div>
-		<div
-			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
-		>
-			<div class="metric-value" data-dojo-attach-point="recentGenomesNode">--</div>
-			<div class="metric-label">Genomes (Last 30 Days)</div>
 		</div>
 	</div>
 
@@ -97,7 +104,7 @@
 		</div>
 	</div>
 
-		<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full">
 			<h3 class="chart-title">Genome Collection Timeline</h3>
 			<div
@@ -123,8 +130,6 @@
 			></div>
 		</div>
 	</div>
-
-
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
