@@ -3,37 +3,38 @@
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
-			<!-- <div class="metric-header"></div> -->
-			<div class="metric-value">--</div>
+			<div class="metric-value" data-dojo-attach-point="totalGenomesNode">--</div>
 			<div class="metric-label">Total Genomes</div>
 		</div>
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
-			<!-- <div class="metric-header"></div> -->
-			<div class="metric-value">--</div>
-			<div class="metric-label">Complete Genomes</div>
+			<div class="metric-list" data-dojo-attach-point="genusListNode">
+				<div class="text-center text-maage-text-subtle">Loading...</div>
+			</div>
+			<div class="metric-label">Genus Distribution</div>
 		</div>
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
-			<!-- <div class="metric-header"></div> -->
-			<div class="metric-value">--</div>
-			<div class="metric-label">Unique Hosts</div>
+			<div class="metric-list" data-dojo-attach-point="statusListNode">
+				<div class="text-center text-maage-text-subtle">Loading...</div>
+			</div>
+			<div class="metric-label">Genome Status</div>
 		</div>
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
-			<!-- <div class="metric-header"></div> -->
-			<div class="metric-value">--</div>
-			<div class="metric-label">Countries</div>
+			<div class="metric-list" data-dojo-attach-point="sequencingCenterListNode">
+				<div class="text-center text-maage-text-subtle">Loading...</div>
+			</div>
+			<div class="metric-label">Collection Countries</div>
 		</div>
 		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
-			<!-- <div class="metric-header"></div> -->
-			<div class="metric-value">--</div>
-			<div class="metric-label">Isolates</div>
+			<div class="metric-value" data-dojo-attach-point="recentGenomesNode">--</div>
+			<div class="metric-label">Genomes (Last 30 Days)</div>
 		</div>
 	</div>
 

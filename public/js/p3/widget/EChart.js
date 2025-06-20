@@ -26,9 +26,10 @@ define([
 				return;
 			}
 
-			this.chart = echarts.init(this.chartNode, this.theme);
+			// Don't initialize echarts yet - wait for startup when DOM is ready
+			this._theme = this.theme;
 
-			on(
+			this._resizeHandler = on(
 				window,
 				"resize",
 				lang.hitch(this, function () {
@@ -39,7 +40,39 @@ define([
 			);
 		},
 
+		startup: function () {
+			this.inherited(arguments);
+
+			// Initialize echarts in startup when DOM is ready
+			if (this.chartNode && !this.chart) {
+				// Check if container has dimensions
+				const rect = this.chartNode.getBoundingClientRect();
+				if (rect.width > 0 && rect.height > 0) {
+					this.chart = echarts.init(this.chartNode, this._theme);
+				} else {
+					// If no dimensions yet, defer initialization
+					this._deferredInit = true;
+				}
+			}
+		},
+
+		_ensureChartInit: function () {
+			if (this._deferredInit && !this.chart && this.chartNode) {
+				const rect = this.chartNode.getBoundingClientRect();
+				if (rect.width > 0 && rect.height > 0) {
+					this.chart = echarts.init(this.chartNode, this._theme);
+					this._deferredInit = false;
+					return true;
+				}
+			}
+			return false;
+		},
+
 		showLoading: function () {
+			// Try to initialize if deferred
+			if (!this.chart && this._deferredInit) {
+				this._ensureChartInit();
+			}
 			if (this.chart) {
 				this.chart.showLoading();
 			}
@@ -52,10 +85,24 @@ define([
 		},
 
 		updateChart: function (data) {
+			// Try to initialize if deferred
+			if (!this.chart && this._deferredInit) {
+				if (this._ensureChartInit()) {
+					// If we just initialized, call updateChart in the next tick
+					setTimeout(lang.hitch(this, function() {
+						this.updateChart(data);
+					}), 0);
+					return;
+				}
+			}
 			console.warn("EChart: updateChart() method not implemented.");
 		},
 
 		resize: function () {
+			// Try to initialize if deferred
+			if (!this.chart && this._deferredInit) {
+				this._ensureChartInit();
+			}
 			if (this.chart) {
 				setTimeout(
 					lang.hitch(this, function () {
@@ -70,6 +117,9 @@ define([
 			this.inherited(arguments);
 			if (this.chart) {
 				this.chart.dispose();
+			}
+			if (this._resizeHandler) {
+				this._resizeHandler.remove();
 			}
 		},
 	});

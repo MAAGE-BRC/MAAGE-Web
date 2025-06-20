@@ -4,6 +4,42 @@
   height: 350px;
 }
 
+/* Metric list styles for dashboard KPIs */
+.metric-list {
+  max-height: 120px;
+  overflow-y: auto;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.metric-list .metric-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.metric-list .metric-list-item:last-child {
+  border-bottom: none;
+}
+
+.metric-list .metric-list-label {
+  color: #495057;
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metric-list .metric-list-value {
+  color: #212529;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+}
+
 /* Map placeholder containers */
 .chart-section [data-dojo-attach-point="mapLegendNode"],
 .chart-section [data-dojo-attach-point="mapStatsNode"] {

@@ -326,7 +326,7 @@ define([
 					}
 					mapChart.hideLoading();
 				}),
-				lang.hitch(this, function () {
+				lang.hitch(this, function (err) {
 					console.error("Failed to load county data:", err);
 					mapChart.hideLoading();
 				})
@@ -339,48 +339,114 @@ define([
 			const baseQuery = this.state.search;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
 			
-			
+			// Total genomes count
 			this.genomeStore.query(`${baseQuery}&limit(0)`, queryOptions).then(
 				lang.hitch(this, function (res) {
 					if (res && res.response) {
 						const total = res.response.numFound || 0;
-						
-						const totalNode = this.domNode.querySelector(".metric-card:nth-child(1) .metric-value");
-						if (totalNode) totalNode.textContent = total.toLocaleString();
+						if (this.totalGenomesNode) {
+							this.totalGenomesNode.textContent = total.toLocaleString();
+						}
 					}
 				})
 			);
 			
+			// Genus distribution
+			this.genomeStore.query(`${baseQuery}&facet((field,genus),(mincount,1),(limit,10))&limit(0)`, queryOptions).then(
+				lang.hitch(this, function (res) {
+					if (res && res.facet_counts && res.facet_counts.facet_fields.genus) {
+						const genusFacets = res.facet_counts.facet_fields.genus;
+						let html = '';
+						
+						for (let i = 0; i < genusFacets.length; i += 2) {
+							const genus = genusFacets[i] || 'Unknown';
+							const count = genusFacets[i + 1];
+							html += '<div class="metric-list-item">' +
+								'<span class="metric-list-label">' + genus + '</span>' +
+								'<span class="metric-list-value">' + count.toLocaleString() + '</span>' +
+								'</div>';
+						}
+						
+						if (this.genusListNode) {
+							this.genusListNode.innerHTML = html || '<div class="text-center text-maage-text-subtle">No data</div>';
+						}
+					}
+				})
+			);
 			
-			this.genomeStore.query(`${baseQuery}&eq(genome_status,Complete)&limit(0)`, queryOptions).then(
+			// Genome status distribution
+			this.genomeStore.query(`${baseQuery}&facet((field,genome_status),(mincount,1))&limit(0)`, queryOptions).then(
+				lang.hitch(this, function (res) {
+					if (res && res.facet_counts && res.facet_counts.facet_fields.genome_status) {
+						const statusFacets = res.facet_counts.facet_fields.genome_status;
+						let html = '';
+						
+						for (let i = 0; i < statusFacets.length; i += 2) {
+							const status = statusFacets[i] || 'Unknown';
+							const count = statusFacets[i + 1];
+							html += '<div class="metric-list-item">' +
+								'<span class="metric-list-label">' + status + '</span>' +
+								'<span class="metric-list-value">' + count.toLocaleString() + '</span>' +
+								'</div>';
+						}
+						
+						if (this.statusListNode) {
+							this.statusListNode.innerHTML = html || '<div class="text-center text-maage-text-subtle">No data</div>';
+						}
+					}
+				})
+			);
+			
+			// Sequencing centers - try 'sequencing_centers' (plural) or fall back to 'collection_country'
+			this.genomeStore.query(`${baseQuery}&facet((field,collection_country),(mincount,1),(limit,10))&limit(0)`, queryOptions).then(
+				lang.hitch(this, function (res) {
+					if (res && res.facet_counts && res.facet_counts.facet_fields.collection_country) {
+						const countryFacets = res.facet_counts.facet_fields.collection_country;
+						let html = '';
+						
+						for (let i = 0; i < countryFacets.length; i += 2) {
+							const country = countryFacets[i] || 'Unknown';
+							const count = countryFacets[i + 1];
+							html += '<div class="metric-list-item">' +
+								'<span class="metric-list-label">' + country + '</span>' +
+								'<span class="metric-list-value">' + count.toLocaleString() + '</span>' +
+								'</div>';
+						}
+						
+						if (this.sequencingCenterListNode) {
+							this.sequencingCenterListNode.innerHTML = html || '<div class="text-center text-maage-text-subtle">No data</div>';
+						}
+					}
+				}),
+				lang.hitch(this, function (err) {
+					console.error("Failed to load sequencing center data:", err);
+					if (this.sequencingCenterListNode) {
+						this.sequencingCenterListNode.innerHTML = '<div class="text-center text-maage-text-subtle">Unable to load data</div>';
+					}
+				})
+			);
+			
+			// Recent genomes (last 30 days)
+			const thirtyDaysAgo = new Date();
+			thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+			const dateStr = thirtyDaysAgo.toISOString().split('T')[0];
+			
+			this.genomeStore.query(`${baseQuery}&gt(date_inserted,"${dateStr}")&limit(0)`, queryOptions).then(
 				lang.hitch(this, function (res) {
 					if (res && res.response) {
-						const complete = res.response.numFound || 0;
-						const completeNode = this.domNode.querySelector(".metric-card:nth-child(2) .metric-value");
-						if (completeNode) completeNode.textContent = complete.toLocaleString();
+						const recent = res.response.numFound || 0;
+						if (this.recentGenomesNode) {
+							this.recentGenomesNode.textContent = recent.toLocaleString();
+						}
+					}
+				}),
+				lang.hitch(this, function (err) {
+					console.error("Failed to load recent genomes data:", err);
+					if (this.recentGenomesNode) {
+						this.recentGenomesNode.textContent = "--";
 					}
 				})
 			);
-			
-			
-			const facetQueries = [
-				{ field: "host_common_name", nodeIndex: 3 },
-				{ field: "isolation_country", nodeIndex: 4 },
-				{ field: "serovar", nodeIndex: 5 }
-			];
-			
-			facetQueries.forEach(function (facetInfo) {
-				this.genomeStore.query(`${baseQuery}&facet((field,${facetInfo.field}))&limit(0)`, queryOptions).then(
-					lang.hitch(this, function (res) {
-						if (res && res.facet_counts && res.facet_counts.facet_fields[facetInfo.field]) {
-							const facets = res.facet_counts.facet_fields[facetInfo.field];
-							const uniqueCount = facets.length / 2; 
-							const node = this.domNode.querySelector(`.metric-card:nth-child(${facetInfo.nodeIndex}) .metric-value`);
-							if (node) node.textContent = Math.floor(uniqueCount).toLocaleString();
-						}
-					})
-				);
-			}, this);
 		},
 
 		_createChartWhenReady: function (node, widgetClass, options, dataLoader) {
