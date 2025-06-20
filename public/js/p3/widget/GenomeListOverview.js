@@ -13,7 +13,8 @@ define([
 	"./EChartTimeline",
 	"./EChartScatter",
 	"./EChartBoxPlot",
-	"./EChartTreemap"
+	"./EChartTreemap",
+	"./EChartHorizontalBar"
 ], function (
 	declare,
 	lang,
@@ -29,7 +30,8 @@ define([
 	EChartTimeline,
 	EChartScatter,
 	EChartBoxPlot,
-	EChartTreemap
+	EChartTreemap,
+	HorizontalBar
 ) {
 	return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
 		baseClass: "GenomeListOverview",
@@ -280,9 +282,10 @@ define([
 			
 			this.createMapChart();
 			
-			
+			// Additional charts for genome metrics
 			this.createQualityScatterChart();
 			this.createTimelineChart();
+			this.createYearlyCountChart();
 			this.createSizeBoxPlotChart();
 			this.createCategoryTreemapChart();
 			
@@ -513,6 +516,70 @@ define([
 						}),
 						lang.hitch(this, function (err) {
 							console.error("Failed to load timeline data:", err);
+							chart.hideLoading();
+						})
+					);
+				})
+			);
+		},
+		
+		createYearlyCountChart: function () {
+			if (!this.yearlyCountChartNode) return;
+			
+			this._createChartWhenReady(
+				this.yearlyCountChartNode,
+				HorizontalBar,
+				{
+					title: "Total Genomes by Year",
+					theme: "maage-echarts-theme"
+				},
+				lang.hitch(this, function (chart) {
+					// Get current year
+					const currentYear = new Date().getFullYear();
+					const startYear = currentYear - 9; // Last 10 years including current
+					
+					const query = `${this.state.search}&facet((field,collection_year),(mincount,1))&limit(0)`;
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+					
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res) {
+							if (res && res.facet_counts && res.facet_counts.facet_fields.collection_year) {
+								const yearFacets = res.facet_counts.facet_fields.collection_year;
+								const yearData = {};
+								
+								// Process year facets
+								for (let i = 0; i < yearFacets.length; i += 2) {
+									const year = parseInt(yearFacets[i], 10);
+									const count = yearFacets[i + 1];
+									if (!isNaN(year) && year >= startYear && year <= currentYear) {
+										yearData[year] = count;
+									}
+								}
+								
+								// Create array for all years in range, including years with 0 genomes
+								const chartData = [];
+								for (let year = startYear; year <= currentYear; year++) {
+									chartData.push({
+										year: year.toString(),
+										value: yearData[year] || 0
+									});
+								}
+								
+								// Sort by year (oldest first for horizontal bar)
+								chartData.sort((a, b) => parseInt(a.year) - parseInt(b.year));
+								
+								chart.updateChart(chartData);
+							}
+							chart.hideLoading();
+							// Force resize after data
+							setTimeout(() => {
+								if (chart.resize) {
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function (err) {
+							console.error("Failed to load yearly genome data:", err);
 							chart.hideLoading();
 						})
 					);
