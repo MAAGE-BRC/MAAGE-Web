@@ -4,6 +4,37 @@
   height: 350px;
 }
 
+/* Metric cards container - handle 6 cards layout */
+.metric-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (min-width: 1280px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 calc(16.666% - 0.42rem);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 calc(33.333% - 0.667rem);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 639px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 100%;
+  }
+}
+
 /* Metric list styles for dashboard KPIs */
 .metric-list {
   max-height: 100px;
