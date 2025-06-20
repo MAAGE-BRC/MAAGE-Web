@@ -568,7 +568,11 @@ define([
 								// Sort by year (oldest first for horizontal bar)
 								chartData.sort((a, b) => parseInt(a.year) - parseInt(b.year));
 								
-								chart.updateChart(chartData);
+								// Update chart with color gradient enabled
+								chart.updateChart({
+									data: chartData,
+									colorGradient: true
+								});
 							}
 							chart.hideLoading();
 							// Force resize after data

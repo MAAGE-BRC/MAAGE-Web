@@ -93,12 +93,27 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 			// Add color gradient if specified
 			if (data.colorGradient !== false) {
 				option.series[0].itemStyle.color = function (params) {
-					// Create gradient from light to dark based on value
-					const colors = ["#e7f5f8", "#abd9e9", "#74add1", "#4575b4", "#313695"];
+					// Create monochromatic gradient based on MAAGE primary colors
+					// Using primary-50 to primary-600 for light to dark scale
+					const colors = [
+						"#f3f7f5", // primary-50
+						"#ecf3f0", // primary-100
+						"#d6e5de", // primary-200
+						"#b4d0c3", // primary-300
+						"#98bdac", // primary-400 (base)
+						"#6ea089", // primary-500
+						"#57856f", // primary-600
+					];
 					const max = Math.max(...values);
-					const percent = params.value / max;
-					const index = Math.floor(percent * (colors.length - 1));
-					return colors[index];
+					const min = Math.min(...values);
+					const range = max - min;
+					
+					// Normalize value to 0-1 range
+					const normalizedValue = range > 0 ? (params.value - min) / range : 0.5;
+					
+					// Map to color index
+					const index = Math.floor(normalizedValue * (colors.length - 1));
+					return colors[Math.min(index, colors.length - 1)];
 				};
 			}
 

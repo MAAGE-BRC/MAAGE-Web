@@ -2631,8 +2631,8 @@ video {
     width: 85%;
   }
 
-  .md\:w-\[calc\(50\%-0\.5rem\)\] {
-    width: calc(50% - 0.5rem);
+  .md\:w-\[calc\(75\%-0\.75rem\)\] {
+    width: calc(75% - 0.75rem);
   }
 
   .md\:w-full {
