@@ -296,43 +296,52 @@ define([
 			if (!this.mapChartNode) return;
 			
 			const mapChart = new EChartMap({
-				title: "Genome Distribution by County",
+				title: "Genome Distribution",
 				theme: "maage-echarts-theme"
 			});
 			mapChart.placeAt(this.mapChartNode);
 			mapChart.startup();
 			mapChart.showLoading();
 			
-			
-			const query = `${this.state.search}&facet((field,county),(mincount,1))&limit(0)`;
+			// Query for state and county data
+			const stateQuery = `${this.state.search}&eq(isolation_country,USA)&facet((field,state_province),(mincount,1))&limit(0)`;
+			const countyQuery = `${this.state.search}&eq(isolation_country,USA)&facet((field,county),(mincount,1))&limit(0)`;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
 			
-			// Query for county data only (state will be derived from county names)
-			this.genomeStore.query(query, queryOptions).then(
-				lang.hitch(this, function (res) {
-					const countyData = {};
+			Promise.all([
+				this.genomeStore.query(stateQuery, queryOptions),
+				this.genomeStore.query(countyQuery, queryOptions)
+			]).then(
+				lang.hitch(this, function ([stateRes, countyRes]) {
 					const stateData = {};
+					const countyData = {};
 					
-					if (res && res.facet_counts && res.facet_counts.facet_fields.county) {
-						const countyFacets = res.facet_counts.facet_fields.county;
+					// Process state data
+					if (stateRes && stateRes.facet_counts && stateRes.facet_counts.facet_fields.state_province) {
+						const stateFacets = stateRes.facet_counts.facet_fields.state_province;
+						for (let i = 0; i < stateFacets.length; i += 2) {
+							const state = stateFacets[i];
+							const count = stateFacets[i + 1];
+							if (state && count > 0) {
+								stateData[state] = count;
+							}
+						}
+					}
+					
+					// Process county data
+					if (countyRes && countyRes.facet_counts && countyRes.facet_counts.facet_fields.county) {
+						const countyFacets = countyRes.facet_counts.facet_fields.county;
 						for (let i = 0; i < countyFacets.length; i += 2) {
 							const county = countyFacets[i];
 							const count = countyFacets[i + 1];
 							if (county && count > 0) {
 								countyData[county] = count;
-								
-								// Extract state from county name (format: "County, State")
-								const parts = county.split(", ");
-								if (parts.length >= 2) {
-									const stateName = parts[parts.length - 1].trim();
-									if (!stateData[stateName]) {
-										stateData[stateName] = 0;
-									}
-									stateData[stateName] += count;
-								}
 							}
 						}
 					}
+					
+					console.log("State data loaded:", Object.keys(stateData).length, "states");
+					console.log("County data loaded:", Object.keys(countyData).length, "counties");
 					
 					mapChart.updateChart({ countyData: countyData, stateData: stateData });
 					mapChart.hideLoading();

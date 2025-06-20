@@ -267,12 +267,20 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 				const normalizedName = state.toLowerCase().replace(/[^a-z]/g, "");
 				stateLookup[normalizedName] = stateData[state];
 			});
+			
+			console.log("State lookup created:", stateLookup);
+			console.log("State map features:", this.stateMapData.features.length);
 
 			this.stateMapData.features.forEach(lang.hitch(this, function (feature) {
 				const properties = feature.properties || {};
 				const stateName = properties.name || properties.NAME || "";
 				const stateCode = properties.STATE || properties.STUSPS || properties.postal || "";
 				const normalizedName = stateName.toLowerCase().replace(/[^a-z]/g, "");
+				
+				// Debug: Log first few state names from map
+				if (chartData.length < 5) {
+					console.log("Map state:", stateName, "normalized:", normalizedName, "has data:", !!stateLookup[normalizedName]);
+				}
 
 				if (stateLookup[normalizedName]) {
 					chartData.push({
@@ -283,6 +291,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang", "dojo/request", "ec
 					});
 				}
 			}));
+			
+			console.log("Chart data created:", chartData.length, "states with data");
 
 			return chartData;
 		},
