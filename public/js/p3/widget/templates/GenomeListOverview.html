@@ -16,7 +16,7 @@
 			</div>
 			<div class="metric-label">Complete Genomes</div>
 		</div>
-				<div
+		<div
 			class="metric-card w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(20%-0.8rem)] xl:flex-1 min-w-0"
 		>
 			<div class="metric-list" data-dojo-attach-point="recentGenomesListNode">
@@ -51,7 +51,6 @@
 			</div>
 			<div class="metric-label">Sequencing Centers</div>
 		</div>
-
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
@@ -125,9 +124,9 @@
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Isolation Country</h3>
+			<h3 class="chart-title">Genome Treemap</h3>
 			<div
-				data-dojo-attach-point="countryChartNode"
+				data-dojo-attach-point="categoryTreemapNode"
 				class="chart-container"
 			></div>
 		</div>
@@ -142,18 +141,15 @@
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Hierarchical Genome Categories</h3>
-			<div
-				data-dojo-attach-point="categoryTreemapNode"
-				class="chart-container"
-			></div>
-		</div>
-		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Genome Size Distribution</h3>
+			<h3 class="chart-title">Genome Size Distributions</h3>
 			<div
 				data-dojo-attach-point="sizeBoxPlotNode"
 				class="chart-container"
 			></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">placeholder</h3>
+			<div class="chart-container"></div>
 		</div>
 	</div>
 
@@ -162,6 +158,13 @@
 			<h3 class="chart-title">Genome Status</h3>
 			<div
 				data-dojo-attach-point="statusChartNode"
+				class="chart-container"
+			></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Isolation Country</h3>
+			<div
+				data-dojo-attach-point="countryChartNode"
 				class="chart-container"
 			></div>
 		</div>
