@@ -26,9 +26,9 @@ router.get("/dashboard-layout", function (req, res) {
 });
 
 /* GET maps */
-router.get("/maps", function (req, res) {
+router.get("/map-data-demo", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("pages/maps", { title: "PATRIC", request: req, response: res });
+  res.render("pages/map-data-demo", { title: "PATRIC", request: req, response: res });
 });
 
 /* GET about */
