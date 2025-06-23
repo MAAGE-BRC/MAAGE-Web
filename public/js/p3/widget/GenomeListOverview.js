@@ -42,6 +42,10 @@ define([
 			this.genomeStore = new GenomeStore({});
 
 			this.own(
+				on(this.countryToggleBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchLocationView("country");
+				})),
 				on(this.stateToggleBtn, "click", lang.hitch(this, function ()
 				{
 					this.switchLocationView("state");
@@ -49,6 +53,10 @@ define([
 				on(this.countyToggleBtn, "click", lang.hitch(this, function ()
 				{
 					this.switchLocationView("county");
+				})),
+				on(this.cityToggleBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchLocationView("city");
 				}))
 			);
 		},
@@ -85,8 +93,10 @@ define([
 
 			this.currentLocationView = viewType;
 
+			domClass.toggle(this.countryToggleBtn, "active", viewType === "country");
 			domClass.toggle(this.stateToggleBtn, "active", viewType === "state");
 			domClass.toggle(this.countyToggleBtn, "active", viewType === "county");
+			domClass.toggle(this.cityToggleBtn, "active", viewType === "city");
 
 			if (this.locationChart)
 			{
@@ -363,8 +373,19 @@ define([
 			if (!this.locationChartNode || !this.state || !this.state.search) return;
 
 			const baseQuery = this.state.search;
-			const field = this.currentLocationView === "state" ? "state_province" : "county";
-			const query = `${baseQuery}&facet((field,${field}),(mincount,1)${field === "county" ? ",(limit,10)" : ""})&limit(0)`;
+			
+			// Map view types to field names
+			const fieldMap = {
+				country: "isolation_country",
+				state: "state_province",
+				county: "county",
+				city: "city"
+			};
+			
+			const field = fieldMap[this.currentLocationView];
+			// Apply limit for county and city to show top 10
+			const needsLimit = this.currentLocationView === "county" || this.currentLocationView === "city";
+			const query = `${baseQuery}&facet((field,${field}),(mincount,1)${needsLimit ? ",(limit,10)" : ""})&limit(0)`;
 
 			this._createChartWhenReady(
 				this.locationChartNode,
@@ -499,3 +520,4 @@ define([
 		},
 	});
 });
+

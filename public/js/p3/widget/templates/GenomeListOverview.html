@@ -75,6 +75,14 @@
 			<div class="absolute top-3 right-3 toggle-buttons flex gap-0.5 bg-gray-100 rounded-md p-0.5" data-dojo-attach-point="locationToggleContainer">
 				<button 
 					type="button"
+					data-dojo-attach-point="countryToggleBtn"
+					data-location-type="country"
+					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
+				>
+					Country
+				</button>
+				<button 
+					type="button"
 					data-dojo-attach-point="stateToggleBtn"
 					data-location-type="state"
 					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors active"
@@ -88,6 +96,14 @@
 					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
 				>
 					County
+				</button>
+				<button 
+					type="button"
+					data-dojo-attach-point="cityToggleBtn"
+					data-location-type="city"
+					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
+				>
+					City
 				</button>
 			</div>
 			<div
