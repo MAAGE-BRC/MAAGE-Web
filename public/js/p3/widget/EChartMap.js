@@ -6,7 +6,8 @@ define([
 	"echarts",
 	"dojo/dom-construct",
 	"dojo/on",
-], function (declare, EChart, lang, request, echarts, domConstruct, on) {
+], function (declare, EChart, lang, request, echarts, domConstruct, on)
+{
 	return declare([EChart], {
 		baseClass: "EChartMap",
 		stateMapData: null,
@@ -125,15 +126,18 @@ define([
 			Wyoming: "WY",
 		},
 
-		postCreate: function () {
+		postCreate: function ()
+		{
 			this.inherited(arguments);
 
-			if (!window.topojson) {
+			if (!window.topojson)
+			{
 				console.error("TopoJSON library not loaded");
 				return;
 			}
 
-			if (this.domNode && this.chartNode) {
+			if (this.domNode && this.chartNode)
+			{
 				this.domNode.style.height = "100%";
 				this.domNode.style.display = "flex";
 				this.domNode.style.flexDirection = "column";
@@ -178,7 +182,8 @@ define([
 				);
 
 				Object.keys(this.stateNameToFips).forEach(
-					lang.hitch(this, function (stateName) {
+					lang.hitch(this, function (stateName)
+					{
 						domConstruct.create(
 							"option",
 							{
@@ -208,19 +213,24 @@ define([
 				on(
 					this.stateDropdownNode,
 					"change",
-					lang.hitch(this, function (evt) {
+					lang.hitch(this, function (evt)
+					{
 						const stateCode = evt.target.value;
-						if (stateCode) {
+						if (stateCode)
+						{
 							let stateName = "";
 							Object.keys(this.stateNameToFips).forEach(
-								lang.hitch(this, function (name) {
-									if (this.stateNameToFips[name] === stateCode) {
+								lang.hitch(this, function (name)
+								{
+									if (this.stateNameToFips[name] === stateCode)
+									{
 										stateName = name;
 									}
 								})
 							);
 
-							if (stateName) {
+							if (stateName)
+							{
 								this.showStateDetail(stateCode, stateName);
 							}
 						}
@@ -231,7 +241,8 @@ define([
 			this.loadMapData();
 		},
 
-		loadMapData: function () {
+		loadMapData: function ()
+		{
 			this.showLoading();
 
 			const stateMapPromise = request(
@@ -249,7 +260,8 @@ define([
 			);
 
 			Promise.all([stateMapPromise, countyMapPromise]).then(
-				lang.hitch(this, function ([stateTopoData, countyTopoData]) {
+				lang.hitch(this, function ([stateTopoData, countyTopoData])
+				{
 					const stateGeoData = topojson.feature(
 						stateTopoData,
 						stateTopoData.objects.states
@@ -270,26 +282,35 @@ define([
 
 					this.hideLoading();
 
-					if (Object.keys(this.genomeData).length > 0) {
+					if (Object.keys(this.genomeData).length > 0)
+					{
 						this.updateChart(this.genomeData);
 					}
 				}),
-				lang.hitch(this, function (err) {
+				lang.hitch(this, function (err)
+				{
 					console.error("Failed to load map data:", err);
 					this.hideLoading();
 				})
 			);
 		},
 
-		flipCoordinates: function (geoData) {
-			geoData.features.forEach(function (feature) {
-				if (feature.geometry && feature.geometry.coordinates) {
-					const flipCoords = function (coords) {
-						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number") {
-							return coords.map(function (coord) {
+		flipCoordinates: function (geoData)
+		{
+			geoData.features.forEach(function (feature)
+			{
+				if (feature.geometry && feature.geometry.coordinates)
+				{
+					const flipCoords = function (coords)
+					{
+						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number")
+						{
+							return coords.map(function (coord)
+							{
 								return [coord[0], -coord[1]];
 							});
-						} else {
+						} else
+						{
 							return coords.map(flipCoords);
 						}
 					};
@@ -300,20 +321,24 @@ define([
 			});
 		},
 
-		loadIndividualStateMaps: function () {},
+		loadIndividualStateMaps: function () { },
 
-		toggleView: function () {
-			if (this.currentView === "state") {
+		toggleView: function ()
+		{
+			if (this.currentView === "state")
+			{
 				this.currentView = "county";
 				this.toggleButtonNode.innerHTML = "Show States";
-			} else if (this.currentView === "county") {
+			} else if (this.currentView === "county")
+			{
 				this.currentView = "state";
 				this.toggleButtonNode.innerHTML = "Show Counties";
 			}
 			this.updateChart(this.genomeData);
 		},
 
-		backToUSMap: function () {
+		backToUSMap: function ()
+		{
 			this.currentView = "state";
 			this.toggleButtonNode.style.display = "";
 			this.backButtonNode.style.display = "none";
@@ -321,9 +346,12 @@ define([
 			this.updateChart(this.genomeData);
 		},
 
-		updateChart: function (data) {
-			if (!this.chart) {
-				if (data && data.countyData) {
+		updateChart: function (data)
+		{
+			if (!this.chart)
+			{
+				if (data && data.countyData)
+				{
 					this.genomeData = data;
 				}
 				return;
@@ -334,22 +362,27 @@ define([
 			let chartData = [];
 			let mapName = "USA-states";
 
-			if (this.currentView === "state") {
-				if (this.genomeData.stateData) {
+			if (this.currentView === "state")
+			{
+				if (this.genomeData.stateData)
+				{
 					chartData = this.processStateData(this.genomeData.stateData);
-				} else {
+				} else
+				{
 					chartData = this.aggregateToStates(
 						this.genomeData.countyData || this.genomeData
 					);
 				}
 				mapName = "USA-states";
-			} else if (this.currentView === "county") {
+			} else if (this.currentView === "county")
+			{
 				chartData = this.processCountyData(
 					this.genomeData.countyData || this.genomeData,
 					this.countyMapData
 				);
 				mapName = "USA-counties";
-			} else {
+			} else
+			{
 				const stateCode = this.currentView;
 				mapName = "state-" + stateCode;
 
@@ -374,10 +407,13 @@ define([
 			);
 
 			let title = "";
-			if (this.currentView !== "state" && this.currentView !== "county") {
+			if (this.currentView !== "state" && this.currentView !== "county")
+			{
 				Object.keys(this.stateNameToFips).forEach(
-					lang.hitch(this, function (name) {
-						if (this.stateNameToFips[name] === this.currentView) {
+					lang.hitch(this, function (name)
+					{
+						if (this.stateNameToFips[name] === this.currentView)
+						{
 							title = name + " Counties";
 						}
 					})
@@ -387,19 +423,21 @@ define([
 			const option = {
 				title: title
 					? {
-							text: title,
-							left: "center",
-							top: 10,
-							textStyle: {
-								fontSize: 16,
-								fontWeight: "bold",
-							},
-					  }
+						text: title,
+						left: "center",
+						top: 10,
+						textStyle: {
+							fontSize: 16,
+							fontWeight: "bold",
+						},
+					}
 					: undefined,
 				tooltip: {
 					trigger: "item",
-					formatter: function (params) {
-						if (params.data && params.data.value) {
+					formatter: function (params)
+					{
+						if (params.data && params.data.value)
+						{
 							return params.name + ": " + params.data.value + " genomes";
 						}
 						return params.name + ": No data";
@@ -445,8 +483,10 @@ define([
 							},
 						},
 						itemStyle: {
-							areaColor: function (params) {
-								if (!params.data || params.data.value === 0) {
+							areaColor: function (params)
+							{
+								if (!params.data || params.data.value === 0)
+								{
 									return "#f3f4f6";
 								}
 								return null;
@@ -459,25 +499,31 @@ define([
 				],
 			};
 
-			if (this.currentView === "state") {
+			if (this.currentView === "state")
+			{
 				this.chart.off("click");
 				this.chart.on(
 					"click",
-					lang.hitch(this, function (params) {
-						if (params.data && params.data.stateCode) {
+					lang.hitch(this, function (params)
+					{
+						if (params.data && params.data.stateCode)
+						{
 							this.showStateDetail(params.data.stateCode, params.data.name);
 						}
 					})
 				);
-			} else {
+			} else
+			{
 				this.chart.off("click");
 			}
 
 			this.chart.setOption(option, true);
 
 			setTimeout(
-				lang.hitch(this, function () {
-					if (this.chart) {
+				lang.hitch(this, function ()
+				{
+					if (this.chart)
+					{
 						this.chart.resize();
 					}
 				}),
@@ -485,13 +531,15 @@ define([
 			);
 		},
 
-		processStateData: function (stateData) {
+		processStateData: function (stateData)
+		{
 			if (!this.stateMapData || !stateData) return [];
 
 			const chartData = [];
 			const stateLookup = {};
 
-			Object.keys(stateData).forEach(function (state) {
+			Object.keys(stateData).forEach(function (state)
+			{
 				const normalizedName = state.toLowerCase().replace(/[^a-z]/g, "");
 				stateLookup[normalizedName] = stateData[state];
 			});
@@ -500,7 +548,8 @@ define([
 			console.log("State map features:", this.stateMapData.features.length);
 
 			this.stateMapData.features.forEach(
-				lang.hitch(this, function (feature) {
+				lang.hitch(this, function (feature)
+				{
 					const properties = feature.properties || {};
 					const stateName = properties.name || properties.NAME || "";
 					const stateCode =
@@ -509,7 +558,8 @@ define([
 
 					const fipsCode = this.stateNameToFips[stateName] || stateCode;
 
-					if (chartData.length < 5) {
+					if (chartData.length < 5)
+					{
 						console.log(
 							"Map state:",
 							stateName,
@@ -534,16 +584,20 @@ define([
 			return chartData;
 		},
 
-		aggregateToStates: function (countyData) {
+		aggregateToStates: function (countyData)
+		{
 			if (!this.stateMapData || !countyData) return [];
 
 			const stateData = {};
 
-			Object.keys(countyData).forEach(function (countyKey) {
+			Object.keys(countyData).forEach(function (countyKey)
+			{
 				const parts = countyKey.split(", ");
-				if (parts.length >= 2) {
+				if (parts.length >= 2)
+				{
 					const stateName = parts[parts.length - 1].trim();
-					if (!stateData[stateName]) {
+					if (!stateData[stateName])
+					{
 						stateData[stateName] = 0;
 					}
 					stateData[stateName] += countyData[countyKey];
@@ -552,13 +606,15 @@ define([
 
 			const chartData = [];
 			this.stateMapData.features.forEach(
-				lang.hitch(this, function (feature) {
+				lang.hitch(this, function (feature)
+				{
 					const properties = feature.properties || {};
 					const stateName = properties.name || properties.NAME || "";
 					const stateCode =
 						properties.STATE || properties.STUSPS || properties.postal || "";
 
-					if (stateData[stateName]) {
+					if (stateData[stateName])
+					{
 						chartData.push({
 							name: stateName,
 							value: stateData[stateName],
@@ -572,13 +628,15 @@ define([
 			return chartData;
 		},
 
-		processCountyData: function (countyData, mapData) {
+		processCountyData: function (countyData, mapData)
+		{
 			if (!countyData) return [];
 
 			const chartData = [];
 			const countyLookup = {};
 
-			Object.keys(countyData).forEach(function (county) {
+			Object.keys(countyData).forEach(function (county)
+			{
 				chartData.push({
 					name: county,
 					value: countyData[county],
@@ -588,16 +646,19 @@ define([
 			return chartData;
 		},
 
-		processStateCounties: function (countyData, stateCode) {
+		processStateCounties: function (countyData, stateCode)
+		{
 			return this.processCountyData(countyData);
 		},
 
-		getStateMapData: function (stateCode) {
+		getStateMapData: function (stateCode)
+		{
 			if (!this.countyMapData) return null;
 
 			const stateFeatures = this.countyMapData.features.filter(function (
 				feature
-			) {
+			)
+			{
 				return feature.properties && feature.properties.STATE === stateCode;
 			});
 
@@ -607,7 +668,8 @@ define([
 			};
 		},
 
-		showStateDetail: function (stateCode, stateName) {
+		showStateDetail: function (stateCode, stateName)
+		{
 			this.currentView = stateCode;
 			this.toggleButtonNode.style.display = "none";
 			this.backButtonNode.style.display = "";
@@ -616,23 +678,27 @@ define([
 			this.loadStateGeoJSON(stateCode, stateName);
 		},
 
-		loadStateGeoJSON: function (stateCode, stateName) {
+		loadStateGeoJSON: function (stateCode, stateName)
+		{
 			this.showLoading();
 
 			request("/maage/maps/geojson/cb_2024_us_county_5m.geojson", {
 				handleAs: "json",
 			}).then(
-				lang.hitch(this, function (geoData) {
+				lang.hitch(this, function (geoData)
+				{
 					const stateCounties = {
 						type: "FeatureCollection",
-						features: geoData.features.filter(function (feature) {
+						features: geoData.features.filter(function (feature)
+						{
 							return (
 								feature.properties && feature.properties.STATEFP === stateCode
 							);
 						}),
 					};
 
-					if (stateCounties.features.length > 0) {
+					if (stateCounties.features.length > 0)
+					{
 						echarts.registerMap("state-" + stateCode, stateCounties);
 
 						const allCountyData =
@@ -642,24 +708,30 @@ define([
 						const countyData = {};
 
 						let hasStateInfo = false;
-						Object.keys(allCountyData).forEach(function (countyName) {
-							if (countyName.includes(",")) {
+						Object.keys(allCountyData).forEach(function (countyName)
+						{
+							if (countyName.includes(","))
+							{
 								hasStateInfo = true;
 							}
 						});
 
-						if (!hasStateInfo) {
+						if (!hasStateInfo)
+						{
 							console.log(
 								"County data does not include state information. Showing all counties."
 							);
-							Object.keys(allCountyData).forEach(function (countyName) {
+							Object.keys(allCountyData).forEach(function (countyName)
+							{
 								countyData[countyName] = allCountyData[countyName];
 							});
-						} else {
+						} else
+						{
 							const stateAbbr = this.stateAbbreviations[stateName];
 
 							Object.keys(allCountyData).forEach(
-								lang.hitch(this, function (countyName) {
+								lang.hitch(this, function (countyName)
+								{
 									const countyLower = countyName.toLowerCase();
 									const stateLower = stateName.toLowerCase();
 									const stateAbbrLower = stateAbbr
@@ -670,7 +742,8 @@ define([
 										countyLower.includes(", " + stateLower) ||
 										(stateAbbrLower &&
 											countyLower.includes(", " + stateAbbrLower))
-									) {
+									)
+									{
 										countyData[countyName] = allCountyData[countyName];
 									}
 								})
@@ -688,7 +761,8 @@ define([
 
 						console.log("All county names from API (first 20):");
 						const allCountyNames = Object.keys(allCountyData);
-						allCountyNames.slice(0, 20).forEach(function (countyName) {
+						allCountyNames.slice(0, 20).forEach(function (countyName)
+						{
 							console.log(
 								"  API county:",
 								countyName,
@@ -698,11 +772,13 @@ define([
 						});
 
 						console.log("\nCounties containing 'Illinois' or 'IL':");
-						allCountyNames.forEach(function (countyName) {
+						allCountyNames.forEach(function (countyName)
+						{
 							if (
 								countyName.toLowerCase().includes("illinois") ||
 								countyName.toLowerCase().includes(", il")
-							) {
+							)
+							{
 								console.log(
 									"  Found:",
 									countyName,
@@ -715,7 +791,8 @@ define([
 						console.log("\nAfter filtering for", stateName + ":");
 						Object.keys(countyData)
 							.slice(0, 5)
-							.forEach(function (countyName) {
+							.forEach(function (countyName)
+							{
 								console.log(
 									"  Filtered county:",
 									countyName,
@@ -724,9 +801,11 @@ define([
 								);
 							});
 
-						Object.keys(countyData).forEach(function (countyName) {
+						Object.keys(countyData).forEach(function (countyName)
+						{
 							let countyOnly = countyName;
-							if (countyName.includes(",")) {
+							if (countyName.includes(","))
+							{
 								countyOnly = countyName.split(",")[0].trim();
 							}
 
@@ -754,7 +833,8 @@ define([
 
 						console.log("County matching for", stateName + ":");
 
-						stateCounties.features.forEach(function (feature, index) {
+						stateCounties.features.forEach(function (feature, index)
+						{
 							const props = feature.properties;
 							const geoJsonName = props.NAME || props.NAME20 || "";
 							const geoJsonFullName = props.NAMELSAD || geoJsonName;
@@ -771,8 +851,10 @@ define([
 								geoJsonName + " County, " + stateName,
 							];
 
-							for (let variation of variations) {
-								if (countyData[variation]) {
+							for (let variation of variations)
+							{
+								if (countyData[variation])
+								{
 									value = countyData[variation];
 									matched = true;
 									matchedKey = variation;
@@ -780,7 +862,8 @@ define([
 								}
 							}
 
-							if (!matched) {
+							if (!matched)
+							{
 								const normalizedGeo1 = geoJsonName
 									.toLowerCase()
 									.replace(/[^a-z0-9]/g, "");
@@ -790,22 +873,26 @@ define([
 									.replace(/[^a-z0-9]/g, "");
 								const normalizedGeo3 = geoJsonName.toLowerCase();
 
-								if (countyLookup[normalizedGeo1]) {
+								if (countyLookup[normalizedGeo1])
+								{
 									value = countyLookup[normalizedGeo1];
 									matched = true;
 									matchedKey = "normalized: " + normalizedGeo1;
-								} else if (countyLookup[normalizedGeo2]) {
+								} else if (countyLookup[normalizedGeo2])
+								{
 									value = countyLookup[normalizedGeo2];
 									matched = true;
 									matchedKey = "normalized: " + normalizedGeo2;
-								} else if (countyLookup[normalizedGeo3]) {
+								} else if (countyLookup[normalizedGeo3])
+								{
 									value = countyLookup[normalizedGeo3];
 									matched = true;
 									matchedKey = "normalized: " + normalizedGeo3;
 								}
 							}
 
-							if (index < 5) {
+							if (index < 5)
+							{
 								console.log(
 									"  County:",
 									geoJsonName,
@@ -832,21 +919,25 @@ define([
 
 						this.hideLoading();
 
-						if (this.chart) {
+						if (this.chart)
+						{
 							const option = this.chart.getOption();
-							if (option && option.series && option.series[0]) {
+							if (option && option.series && option.series[0])
+							{
 								option.series[0].data = chartData;
 								this.chart.setOption(option, true);
 							}
 						}
-					} else {
+					} else
+					{
 						console.error("No counties found for state:", stateCode);
 						this.hideLoading();
 
 						this.backToUSMap();
 					}
 				}),
-				lang.hitch(this, function (err) {
+				lang.hitch(this, function (err)
+				{
 					console.error("Failed to load state GeoJSON:", err);
 					this.hideLoading();
 

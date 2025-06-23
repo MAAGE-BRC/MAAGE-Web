@@ -1,9 +1,12 @@
-define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
+define(["dojo/_base/declare", "./EChart"], function (declare, EChart)
+{
 	return declare([EChart], {
 		baseClass: "EChartStackedBar",
 
-		updateChart: function (data) {
-			if (!this.chart || !data || !data.series) {
+		updateChart: function (data)
+		{
+			if (!this.chart || !data || !data.series)
+			{
 				this.chart.clear();
 				return;
 			}

@@ -2,23 +2,30 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 	declare,
 	EChart,
 	lang
-) {
+)
+{
 	return declare([EChart], {
 		baseClass: "EChartTreemap",
 
-		updateChart: function (data) {
-			if (!this.chart || !data) {
+		updateChart: function (data)
+		{
+			if (!this.chart || !data)
+			{
 				return;
 			}
 
 			let treeData = [];
 
-			if (data.treeData) {
+			if (data.treeData)
+			{
 				treeData = data.treeData;
-			} else if (data.categories) {
+			} else if (data.categories)
+			{
 				treeData = this._convertToTreeData(data.categories);
-			} else if (data.data && Array.isArray(data.data)) {
-				treeData = data.data.map(function (item) {
+			} else if (data.data && Array.isArray(data.data))
+			{
+				treeData = data.data.map(function (item)
+				{
 					return {
 						name: item.name || item.label || "Item",
 						value: item.value || 0,
@@ -34,12 +41,14 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 					left: "center",
 				},
 				tooltip: {
-					formatter: function (info) {
+					formatter: function (info)
+					{
 						const value = info.value;
 						const treePathInfo = info.treePathInfo;
 						const treePath = [];
 
-						for (let i = 1; i < treePathInfo.length; i++) {
+						for (let i = 1; i < treePathInfo.length; i++)
+						{
 							treePath.push(treePathInfo[i].name);
 						}
 
@@ -81,7 +90,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				],
 			};
 
-			if (data.visualMap) {
+			if (data.visualMap)
+			{
 				option.visualMap = lang.mixin(
 					{
 						type: "continuous",
@@ -96,41 +106,51 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				);
 			}
 
-			if (data.colorMapping) {
+			if (data.colorMapping)
+			{
 				option.series[0].colorMappingBy = data.colorMapping;
 			}
 
 			this.chart.setOption(option);
 		},
 
-		_convertToTreeData: function (categories) {
+		_convertToTreeData: function (categories)
+		{
 			const result = [];
 
-			for (let category in categories) {
-				if (categories.hasOwnProperty(category)) {
+			for (let category in categories)
+			{
+				if (categories.hasOwnProperty(category))
+				{
 					const item = {
 						name: category,
 						children: [],
 					};
 
 					const catData = categories[category];
-					if (typeof catData === "object" && !Array.isArray(catData)) {
+					if (typeof catData === "object" && !Array.isArray(catData))
+					{
 						item.children = this._convertToTreeData(catData);
 
-						item.value = item.children.reduce(function (sum, child) {
+						item.value = item.children.reduce(function (sum, child)
+						{
 							return sum + (child.value || 0);
 						}, 0);
-					} else if (Array.isArray(catData)) {
-						item.children = catData.map(function (subItem) {
+					} else if (Array.isArray(catData))
+					{
+						item.children = catData.map(function (subItem)
+						{
 							return {
 								name: subItem.name || subItem,
 								value: subItem.value || 1,
 							};
 						});
-						item.value = item.children.reduce(function (sum, child) {
+						item.value = item.children.reduce(function (sum, child)
+						{
 							return sum + child.value;
 						}, 0);
-					} else {
+					} else
+					{
 						item.value = catData;
 					}
 
@@ -141,7 +161,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 			return result;
 		},
 
-		_getDefaultLevels: function () {
+		_getDefaultLevels: function ()
+		{
 			return [
 				{
 					itemStyle: {

@@ -2,12 +2,15 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 	declare,
 	EChart,
 	lang
-) {
+)
+{
 	return declare([EChart], {
 		baseClass: "EChartScatter",
 
-		updateChart: function (data) {
-			if (!this.chart || !data) {
+		updateChart: function (data)
+		{
+			if (!this.chart || !data)
+			{
 				return;
 			}
 
@@ -15,8 +18,10 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 			let xAxisConfig = { type: "value", name: data.xAxisName || "" };
 			let yAxisConfig = { type: "value", name: data.yAxisName || "" };
 
-			if (data.series && Array.isArray(data.series)) {
-				seriesData = data.series.map(function (series) {
+			if (data.series && Array.isArray(data.series))
+			{
+				seriesData = data.series.map(function (series)
+				{
 					return {
 						name: series.name || "Series",
 						type: "scatter",
@@ -29,7 +34,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 						},
 					};
 				});
-			} else if (data.data && Array.isArray(data.data)) {
+			} else if (data.data && Array.isArray(data.data))
+			{
 				seriesData = [
 					{
 						name: data.name || "Data",
@@ -37,7 +43,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 						data: data.data,
 						symbolSize:
 							data.symbolSize ||
-							function (val) {
+							function (val)
+							{
 								return val[2] ? Math.sqrt(val[2]) * 2 : 10;
 							},
 						emphasis: {
@@ -55,8 +62,10 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				},
 				tooltip: {
 					trigger: "item",
-					formatter: function (params) {
-						if (params.value.length === 2) {
+					formatter: function (params)
+					{
+						if (params.value.length === 2)
+						{
 							return (
 								params.seriesName +
 								"<br/>" +
@@ -68,7 +77,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 								": " +
 								params.value[1]
 							);
-						} else if (params.value.length === 3) {
+						} else if (params.value.length === 3)
+						{
 							return (
 								params.seriesName +
 								"<br/>" +
@@ -84,7 +94,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 								": " +
 								params.value[2]
 							);
-						} else if (params.value.length >= 4) {
+						} else if (params.value.length >= 4)
+						{
 							return (
 								params.seriesName +
 								"<br/>" +
@@ -109,7 +120,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				},
 				legend: {
 					bottom: 10,
-					data: seriesData.map(function (s) {
+					data: seriesData.map(function (s)
+					{
 						return s.name;
 					}),
 				},
@@ -125,7 +137,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				series: seriesData,
 			};
 
-			if (data.visualMap) {
+			if (data.visualMap)
+			{
 				option.visualMap = lang.mixin(
 					{
 						show: true,
@@ -141,7 +154,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				);
 			}
 
-			if (data.enableZoom !== false) {
+			if (data.enableZoom !== false)
+			{
 				option.dataZoom = [
 					{
 						type: "inside",

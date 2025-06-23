@@ -1,24 +1,30 @@
-define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
+define(["dojo/_base/declare", "./EChart"], function (declare, EChart)
+{
 	return declare([EChart], {
 		baseClass: "EChartHorizontalBar",
 
-		updateChart: function (data) {
-			if (!this.chart || !data) {
+		updateChart: function (data)
+		{
+			if (!this.chart || !data)
+			{
 				return;
 			}
 
 			let categories = [];
 			let values = [];
 
-			if (Array.isArray(data)) {
+			if (Array.isArray(data))
+			{
 				categories = data.map(
 					(item) => item.name || item.label || item.year || ""
 				);
 				values = data.map((item) => item.value || item.count || 0);
-			} else if (data.categories && data.values) {
+			} else if (data.categories && data.values)
+			{
 				categories = data.categories;
 				values = data.values;
-			} else if (data.data) {
+			} else if (data.data)
+			{
 				categories = data.data.map(
 					(item) => item.name || item.label || item.year || ""
 				);
@@ -35,8 +41,10 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 					axisPointer: {
 						type: "shadow",
 					},
-					formatter: function (params) {
-						if (params && params[0]) {
+					formatter: function (params)
+					{
+						if (params && params[0])
+						{
 							return (
 								params[0].name +
 								": " +
@@ -56,7 +64,8 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 				xAxis: {
 					type: "value",
 					axisLabel: {
-						formatter: function (value) {
+						formatter: function (value)
+						{
 							return value.toLocaleString();
 						},
 					},
@@ -87,7 +96,8 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 						label: {
 							show: true,
 							position: "right",
-							formatter: function (params) {
+							formatter: function (params)
+							{
 								return params.value.toLocaleString();
 							},
 						},
@@ -95,12 +105,15 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 				],
 			};
 
-			if (data.colorGradient !== false && values && values.length > 0) {
-				option.series[0].itemStyle.color = function (params) {
-					if (params.value === undefined || params.value === null) {
-						return "#98bdac"; // Default color
+			if (data.colorGradient !== false && values && values.length > 0)
+			{
+				option.series[0].itemStyle.color = function (params)
+				{
+					if (params.value === undefined || params.value === null)
+					{
+						return "#98bdac";
 					}
-					
+
 					const colors = [
 						"#f3f7f5",
 						"#ecf3f0",
@@ -110,13 +123,13 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart) {
 						"#6ea089",
 						"#57856f",
 					];
-					
-					// Filter out any undefined/null values
+
 					const validValues = values.filter(v => v !== undefined && v !== null);
-					if (validValues.length === 0) {
-						return colors[4]; // Return middle color
+					if (validValues.length === 0)
+					{
+						return colors[4];
 					}
-					
+
 					const max = Math.max(...validValues);
 					const min = Math.min(...validValues);
 					const range = max - min;

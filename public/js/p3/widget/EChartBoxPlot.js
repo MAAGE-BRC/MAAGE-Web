@@ -2,12 +2,15 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 	declare,
 	EChart,
 	lang
-) {
+)
+{
 	return declare([EChart], {
 		baseClass: "EChartBoxPlot",
 
-		updateChart: function (data) {
-			if (!this.chart || !data) {
+		updateChart: function (data)
+		{
+			if (!this.chart || !data)
+			{
 				return;
 			}
 
@@ -16,18 +19,23 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 			let boxplotData = [];
 			let outliers = [];
 
-			if (data.boxplotData && data.categories) {
+			if (data.boxplotData && data.categories)
+			{
 				boxplotData = data.boxplotData;
 				categories = data.categories;
 				outliers = data.outliers || [];
-			} else if (data.source) {
+			} else if (data.source)
+			{
 				source = data.source;
 				categories = data.categories || [];
 
-				categories.forEach(function (category, categoryIndex) {
+				categories.forEach(function (category, categoryIndex)
+				{
 					const categoryData = source[category] || [];
-					if (categoryData.length > 0) {
-						const sorted = categoryData.slice().sort(function (a, b) {
+					if (categoryData.length > 0)
+					{
+						const sorted = categoryData.slice().sort(function (a, b)
+						{
 							return a - b;
 						});
 
@@ -46,25 +54,33 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 						let min = sorted[0];
 						let max = sorted[sorted.length - 1];
 
-						sorted.forEach(function (value) {
-							if (value < lowerBound || value > upperBound) {
+						sorted.forEach(function (value)
+						{
+							if (value < lowerBound || value > upperBound)
+							{
 								outliers.push([categoryIndex, value]);
-							} else {
+							} else
+							{
 								if (value >= lowerBound && value < min) min = value;
 								if (value <= upperBound && value > max) max = value;
 							}
 						});
 
 						boxplotData.push([min, q1, q2, q3, max]);
-					} else {
+					} else
+					{
 						boxplotData.push([]);
 					}
 				});
-			} else if (data.series) {
-				data.series.forEach(function (series, index) {
-					if (series.data && series.data.length > 0) {
+			} else if (data.series)
+			{
+				data.series.forEach(function (series, index)
+				{
+					if (series.data && series.data.length > 0)
+					{
 						categories.push(series.name || "Series " + (index + 1));
-						const sorted = series.data.slice().sort(function (a, b) {
+						const sorted = series.data.slice().sort(function (a, b)
+						{
 							return a - b;
 						});
 
@@ -83,10 +99,13 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 						let min = sorted[0];
 						let max = sorted[sorted.length - 1];
 
-						sorted.forEach(function (value) {
-							if (value < lowerBound || value > upperBound) {
+						sorted.forEach(function (value)
+						{
+							if (value < lowerBound || value > upperBound)
+							{
 								outliers.push([index, value]);
-							} else {
+							} else
+							{
 								if (value >= lowerBound && value < min) min = value;
 								if (value <= upperBound && value > max) max = value;
 							}
@@ -107,8 +126,10 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 					axisPointer: {
 						type: "shadow",
 					},
-					formatter: function (param) {
-						if (param.componentSubType === "boxplot") {
+					formatter: function (param)
+					{
+						if (param.componentSubType === "boxplot")
+						{
 							return [
 								param.name + ":",
 								"Upper: " + param.data[4],
@@ -117,7 +138,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 								"Q1: " + param.data[1],
 								"Lower: " + param.data[0],
 							].join("<br/>");
-						} else {
+						} else
+						{
 							return (
 								param.seriesName + "<br/>" + param.name + ": " + param.data[1]
 							);
@@ -162,7 +184,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				],
 			};
 
-			if (data.orientation === "horizontal") {
+			if (data.orientation === "horizontal")
+			{
 				const temp = option.xAxis;
 				option.xAxis = option.yAxis;
 				option.yAxis = temp;
@@ -170,7 +193,8 @@ define(["dojo/_base/declare", "./EChart", "dojo/_base/lang"], function (
 				option.yAxis.type = "category";
 			}
 
-			if (data.colors) {
+			if (data.colors)
+			{
 				option.color = data.colors;
 			}
 
