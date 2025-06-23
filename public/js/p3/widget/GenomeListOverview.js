@@ -129,14 +129,6 @@ define([
 
 			const baseQuery = this.state.search;
 			const queryOptions = { headers: { Accept: "application/solr+json" } };
-			
-			
-			if (this.mapLegendNode) {
-				this.mapLegendNode.innerHTML = '<div style="text-align: center; color: #6c757d;">Map Legend Placeholder</div>';
-			}
-			if (this.mapStatsNode) {
-				this.mapStatsNode.innerHTML = '<div style="text-align: center; color: #6c757d;">Map Statistics Placeholder</div>';
-			}
 
 			const createChart = (widgetClass, node, query, theme) => {
 				if (!node) return;
@@ -288,8 +280,6 @@ define([
 			this.createYearlyCountChart();
 			this.createSizeBoxPlotChart();
 			this.createCategoryTreemapChart();
-			
-			this.updateMetrics();
 		},
 		
 		createMapChart: function () {
@@ -355,157 +345,6 @@ define([
 			this.charts.push(mapChart);
 		},
 		
-		updateMetrics: function () {
-			const baseQuery = this.state.search;
-			const queryOptions = { headers: { Accept: "application/solr+json" } };
-			
-			// Total genomes count
-			this.genomeStore.query(`${baseQuery}&limit(0)`, queryOptions).then(
-				lang.hitch(this, function (res) {
-					if (res && res.response) {
-						const total = res.response.numFound || 0;
-						if (this.totalGenomesNode) {
-							this.totalGenomesNode.textContent = total.toLocaleString();
-						}
-					}
-				})
-			);
-			
-			// Genus distribution
-			this.genomeStore.query(`${baseQuery}&facet((field,genus),(mincount,1),(limit,10))&limit(0)`, queryOptions).then(
-				lang.hitch(this, function (res) {
-					if (res && res.facet_counts && res.facet_counts.facet_fields.genus) {
-						const genusFacets = res.facet_counts.facet_fields.genus;
-						let html = '';
-						
-						for (let i = 0; i < genusFacets.length; i += 2) {
-							const genus = genusFacets[i] || 'Unknown';
-							const count = genusFacets[i + 1];
-							html += '<div class="metric-list-item">' +
-								'<span class="metric-list-label">' + genus + '</span>' +
-								'<span class="metric-list-value">' + count.toLocaleString() + '</span>' +
-								'</div>';
-						}
-						
-						if (this.genusListNode) {
-							this.genusListNode.innerHTML = html || '<div class="text-center text-maage-text-subtle">No data</div>';
-						}
-					}
-				})
-			);
-			
-			// Genome status distribution
-			this.genomeStore.query(`${baseQuery}&facet((field,genome_status),(mincount,1))&limit(0)`, queryOptions).then(
-				lang.hitch(this, function (res) {
-					if (res && res.facet_counts && res.facet_counts.facet_fields.genome_status) {
-						const statusFacets = res.facet_counts.facet_fields.genome_status;
-						let html = '';
-						
-						for (let i = 0; i < statusFacets.length; i += 2) {
-							const status = statusFacets[i] || 'Unknown';
-							const count = statusFacets[i + 1];
-							html += '<div class="metric-list-item">' +
-								'<span class="metric-list-label">' + status + '</span>' +
-								'<span class="metric-list-value">' + count.toLocaleString() + '</span>' +
-								'</div>';
-						}
-						
-						if (this.statusListNode) {
-							this.statusListNode.innerHTML = html || '<div class="text-center text-maage-text-subtle">No data</div>';
-						}
-					}
-				})
-			);
-			
-			// Sequencing centers
-			this.genomeStore.query(`${baseQuery}&facet((field,sequencing_centers),(mincount,1),(limit,10))&limit(0)`, queryOptions).then(
-				lang.hitch(this, function (res) {
-					if (res && res.facet_counts && res.facet_counts.facet_fields.sequencing_centers) {
-						const centerFacets = res.facet_counts.facet_fields.sequencing_centers;
-						let html = '';
-						
-						for (let i = 0; i < centerFacets.length; i += 2) {
-							const center = centerFacets[i] || 'Unknown';
-							const count = centerFacets[i + 1];
-							html += '<div class="metric-list-item">' +
-								'<span class="metric-list-label">' + center + '</span>' +
-								'<span class="metric-list-value">' + count.toLocaleString() + '</span>' +
-								'</div>';
-						}
-						
-						if (this.sequencingCenterListNode) {
-							this.sequencingCenterListNode.innerHTML = html || '<div class="text-center text-maage-text-subtle">No data</div>';
-						}
-					}
-				}),
-				lang.hitch(this, function (err) {
-					console.error("Failed to load sequencing center data:", err);
-					if (this.sequencingCenterListNode) {
-						this.sequencingCenterListNode.innerHTML = '<div class="text-center text-maage-text-subtle">Unable to load data</div>';
-					}
-				})
-			);
-			
-			// Complete genomes count
-			this.genomeStore.query(`${baseQuery}&eq(genome_status,Complete)&limit(0)`, queryOptions).then(
-				lang.hitch(this, function (res) {
-					if (res && res.response) {
-						const complete = res.response.numFound || 0;
-						if (this.completeGenomesNode) {
-							this.completeGenomesNode.textContent = complete.toLocaleString();
-						}
-					}
-				}),
-				lang.hitch(this, function (err) {
-					console.error("Failed to load complete genomes data:", err);
-					if (this.completeGenomesNode) {
-						this.completeGenomesNode.textContent = "--";
-					}
-				})
-			);
-			
-			// Recent genomes - multiple time periods
-			this.loadRecentGenomeCounts();
-		},
-		
-		loadRecentGenomeCounts: function () {
-			if (!this.recentGenomesListNode) return;
-			
-			// Define time periods
-			const timePeriods = [
-				{ label: "Last 7 days", days: 7 },
-				{ label: "Last 30 days", days: 30 },
-				{ label: "Last 3 months", days: 90 },
-				{ label: "Last 6 months", days: 180 },
-				{ label: "Last year", days: 365 },
-				{ label: "Last 3 years", days: 1095 }
-			];
-			
-			// Create placeholder HTML
-			let html = '';
-			timePeriods.forEach(function(period) {
-				html += '<div class="metric-list-item">' +
-					'<span class="metric-list-label">' + period.label + '</span>' +
-					'<span class="metric-list-value">--</span>' +
-					'</div>';
-			});
-			this.recentGenomesListNode.innerHTML = html;
-			
-			// For now, just show placeholder data since date filtering is not working
-			// TODO: Implement when we figure out the correct date query format
-			setTimeout(lang.hitch(this, function() {
-				// Simulate loading with placeholder data
-				let html = '';
-				const placeholderCounts = [15, 87, 234, 478, 1052, 2845];
-				timePeriods.forEach(function(period, index) {
-					html += '<div class="metric-list-item">' +
-						'<span class="metric-list-label">' + period.label + '</span>' +
-						'<span class="metric-list-value">' + placeholderCounts[index].toLocaleString() + '</span>' +
-						'</div>';
-				});
-				this.recentGenomesListNode.innerHTML = html;
-			}), 500);
-		},
 
 		_createChartWhenReady: function (node, widgetClass, options, dataLoader) {
 			if (!node) return;
