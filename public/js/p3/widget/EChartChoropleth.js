@@ -10,7 +10,7 @@ define([
 {
 	return declare([EChart], {
 		baseClass: "EChartChoropleth",
-		title: "Geographic Distribution",
+		title: "",
 		
 		// Map data storage
 		worldMapData: null,
@@ -140,7 +140,7 @@ define([
 			
 			// Create controls container
 			this.controlsNode = domConstruct.create("div", {
-				style: "display: flex; gap: 12px; margin-bottom: 12px; flex-shrink: 0; align-items: center;"
+				style: "display: flex; gap: 12px; margin-bottom: 12px; flex-shrink: 0; align-items: center; justify-content: space-between;"
 			}, this.domNode, "first");
 			
 			// Create view toggle buttons
@@ -186,6 +186,36 @@ define([
 				innerHTML: "← Back"
 			}, this.controlsNode);
 			
+			// Create a container for left-side controls
+			const leftControls = domConstruct.create("div", {
+				style: "display: flex; gap: 12px; align-items: center;"
+			}, this.controlsNode, "first");
+			
+			// Move toggle container and other controls to left side
+			domConstruct.place(toggleContainer, leftControls);
+			domConstruct.place(this.stateDropdownNode, leftControls);
+			domConstruct.place(this.backButtonNode, leftControls);
+			
+			// Create zoom controls on the right
+			const zoomControls = domConstruct.create("div", {
+				style: "display: flex; gap: 4px; background-color: #f3f4f6; border-radius: 8px; padding: 4px;"
+			}, this.controlsNode);
+			
+			this.zoomInBtn = domConstruct.create("button", {
+				innerHTML: "+",
+				style: "width: 32px; height: 32px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;"
+			}, zoomControls);
+			
+			this.zoomOutBtn = domConstruct.create("button", {
+				innerHTML: "−",
+				style: "width: 32px; height: 32px; background-color: #5f94ab; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;"
+			}, zoomControls);
+			
+			this.zoomResetBtn = domConstruct.create("button", {
+				innerHTML: "⟲",
+				style: "width: 32px; height: 32px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;"
+			}, zoomControls);
+			
 			// Set up chart node styling
 			this.chartNode.style.flex = "1";
 			this.chartNode.style.minHeight = "450px";
@@ -221,6 +251,42 @@ define([
 				{
 					// Coming from state view, go back to US
 					this.switchToUSView();
+				}
+			}));
+			
+			// Bind zoom button events
+			on(this.zoomInBtn, "click", lang.hitch(this, function ()
+			{
+				if (this.chart)
+				{
+					const zoom = this.chart.getOption().series[0].zoom || 1;
+					this.chart.setOption({
+						series: [{
+							zoom: zoom * 1.2
+						}]
+					});
+				}
+			}));
+			
+			on(this.zoomOutBtn, "click", lang.hitch(this, function ()
+			{
+				if (this.chart)
+				{
+					const zoom = this.chart.getOption().series[0].zoom || 1;
+					this.chart.setOption({
+						series: [{
+							zoom: zoom * 0.8
+						}]
+					});
+				}
+			}));
+			
+			on(this.zoomResetBtn, "click", lang.hitch(this, function ()
+			{
+				if (this.chart)
+				{
+					// Re-render with original zoom
+					this.updateChart(this.genomeData);
 				}
 			}));
 		},
@@ -413,7 +479,6 @@ define([
 			
 			let chartData = [];
 			let mapName = "world";
-			let title = this.title;
 			let zoom = 1;
 			let center = null;
 			
@@ -421,25 +486,23 @@ define([
 			if (this.currentView === "world")
 			{
 				mapName = "world";
-				title = "World Distribution";
 				chartData = this._processWorldData(this.genomeData.countryData || {});
 			} else if (this.currentView === "us")
 			{
 				mapName = "usa-states";
-				title = "United States Distribution";
 				chartData = this._processUSStateData(this.genomeData.stateData || {});
-				zoom = 0.95;
+				zoom = 4.5; // Much larger zoom for US map
+				center = ["50%", "50%"];
 			} else
 			{
 				// State view
 				mapName = "state-" + this.currentView;
-				title = this.selectedStateName + " Counties";
 				chartData = this._processStateCountyData(
 					this.genomeData.countyData || {},
 					this.currentView,
 					this.selectedStateName
 				);
-				zoom = 0.9;
+				zoom = 0.9; // Reduced zoom for state maps
 			}
 			
 			// Calculate value range
@@ -447,14 +510,7 @@ define([
 			const max = Math.max(...values) || 100;
 			
 			const option = {
-				title: {
-					text: title,
-					left: "center",
-					textStyle: {
-						fontSize: 18,
-						fontWeight: "500"
-					}
-				},
+				// Title removed as requested
 				tooltip: {
 					trigger: "item",
 					formatter: function (params)
