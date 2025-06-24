@@ -601,6 +601,7 @@ define([
 								}
 							}
 
+							console.log("Map data loaded:", data);
 							chart.updateChart(data);
 							chart.hideLoading();
 

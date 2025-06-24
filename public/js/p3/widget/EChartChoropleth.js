@@ -19,7 +19,7 @@ define([
 		stateCountiesMapData: {},
 		
 		// Current view state
-		currentView: "world", // "world", "us", or state code (e.g., "17" for Illinois)
+		currentView: "us", // "world", "us", or state code (e.g., "17" for Illinois)
 		selectedState: null,
 		selectedStateName: null,
 		
@@ -151,18 +151,18 @@ define([
 			// World view button
 			this.worldViewBtn = domConstruct.create("button", {
 				innerHTML: "World",
-				style: "padding: 6px 16px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; transition: all 0.2s;"
-			}, toggleContainer);
-			
-			// US view button
-			this.usViewBtn = domConstruct.create("button", {
-				innerHTML: "United States",
 				style: "padding: 6px 16px; background-color: transparent; color: #6c757d; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; transition: all 0.2s;"
 			}, toggleContainer);
 			
-			// State dropdown (hidden by default)
+			// US view button (active by default)
+			this.usViewBtn = domConstruct.create("button", {
+				innerHTML: "United States",
+				style: "padding: 6px 16px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; transition: all 0.2s;"
+			}, toggleContainer);
+			
+			// State dropdown (shown for US view)
 			this.stateDropdownNode = domConstruct.create("select", {
-				style: "padding: 6px 16px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; cursor: pointer; background-color: white; display: none;"
+				style: "padding: 6px 16px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; cursor: pointer; background-color: white;"
 			}, this.controlsNode);
 			
 			// Populate state dropdown
@@ -188,7 +188,8 @@ define([
 			
 			// Set up chart node styling
 			this.chartNode.style.flex = "1";
-			this.chartNode.style.minHeight = "0";
+			this.chartNode.style.minHeight = "450px";
+			this.chartNode.style.height = "450px";
 			
 			// Bind events
 			on(this.worldViewBtn, "click", lang.hitch(this, function ()
@@ -224,9 +225,33 @@ define([
 			}));
 		},
 		
+		startup: function ()
+		{
+			this.inherited(arguments);
+			// After base startup, check if we have pending data
+			if (this.genomeData && this.chart)
+			{
+				this.updateChart(this.genomeData);
+			}
+		},
+		
+		initializeChart: function ()
+		{
+			this.inherited(arguments);
+			// After chart initialization, update with any pending data
+			if (this.genomeData && this.chart)
+			{
+				this.updateChart(this.genomeData);
+			}
+		},
+		
 		loadMapData: function ()
 		{
-			this.showLoading();
+			// Don't show loading until chart is ready
+			if (this.chart)
+			{
+				this.showLoading();
+			}
 			
 			// Load all map data in parallel
 			const promises = [
@@ -258,7 +283,11 @@ define([
 					echarts.registerMap("usa-counties", countiesGeo);
 					this.usCountiesMapData = countiesGeo;
 					
-					this.hideLoading();
+					// Hide loading only if chart exists
+					if (this.chart)
+					{
+						this.hideLoading();
+					}
 					
 					// Update chart if we have data
 					if (this.genomeData)
@@ -269,7 +298,10 @@ define([
 				lang.hitch(this, function (err)
 				{
 					console.error("Failed to load map data:", err);
-					this.hideLoading();
+					if (this.chart)
+					{
+						this.hideLoading();
+					}
 				})
 			);
 		},
@@ -383,16 +415,24 @@ define([
 		
 		updateChart: function (data)
 		{
+			// Store data for later use
+			this.genomeData = data || {};
+			
+			// If chart not initialized yet, ensure it gets initialized
 			if (!this.chart)
 			{
-				if (data)
+				// Try to initialize if we have a chartNode
+				if (this.chartNode && this._started)
 				{
-					this.genomeData = data;
+					this.initializeChart();
 				}
-				return;
+				// If still no chart, wait for initialization
+				if (!this.chart)
+				{
+					console.log("EChartChoropleth: Chart not ready yet, deferring update");
+					return;
+				}
 			}
-			
-			this.genomeData = data || {};
 			
 			let chartData = [];
 			let mapName = "world";
@@ -609,22 +649,49 @@ define([
 		{
 			if (!this.stateCountiesMapData[stateCode] || !countyData) return [];
 			
+			console.log("Processing county data for state:", stateName, "code:", stateCode);
+			console.log("All county data keys (first 10):", Object.keys(countyData).slice(0, 10));
+			
 			const chartData = [];
 			const stateGeoData = this.stateCountiesMapData[stateCode];
 			
 			// Filter county data for this state
 			const stateCountyData = {};
-			Object.keys(countyData).forEach(lang.hitch(this, function (countyName)
+			const stateAbbr = this._getStateAbbreviation(stateName);
+			console.log("Looking for counties with state:", stateName, "or abbreviation:", stateAbbr);
+			
+			// Check if county data includes state information
+			const hasStateInfo = Object.keys(countyData).some(name => name.includes(","));
+			
+			if (!hasStateInfo)
 			{
-				// Check if county belongs to this state
-				if (countyName.includes(", " + stateName) || 
-					countyName.includes(", " + this._getStateAbbreviation(stateName)))
+				// County data doesn't include state info, so we'll use all counties
+				// This assumes we're viewing data filtered by state already
+				console.log("County data doesn't include state info, using all counties");
+				Object.keys(countyData).forEach(function (countyName)
 				{
-					// Extract just county name
-					const countyOnly = countyName.split(",")[0].trim();
-					stateCountyData[countyOnly] = countyData[countyName];
-				}
-			}));
+					stateCountyData[countyName] = countyData[countyName];
+				});
+			}
+			else
+			{
+				// County data includes state info, filter by state
+				Object.keys(countyData).forEach(lang.hitch(this, function (countyName)
+				{
+					// Check if county belongs to this state
+					if (countyName.includes(", " + stateName) || 
+						countyName.includes(", " + stateAbbr))
+					{
+						console.log("Found matching county:", countyName);
+						// Extract just county name
+						const countyOnly = countyName.split(",")[0].trim();
+						stateCountyData[countyOnly] = countyData[countyName];
+					}
+				}));
+			}
+			
+			console.log("Filtered state county data:", stateCountyData);
+			console.log("Number of counties found for state:", Object.keys(stateCountyData).length);
 			
 			// Create lookup with various normalizations
 			const countyLookup = {};
@@ -632,26 +699,58 @@ define([
 			{
 				const normalized = county.toLowerCase().replace(/[^a-z0-9]/g, "");
 				const withoutCounty = county.toLowerCase().replace(" county", "").trim();
+				const titleCase = county.charAt(0).toUpperCase() + county.slice(1).toLowerCase();
 				
 				countyLookup[county] = stateCountyData[county];
 				countyLookup[county.toLowerCase()] = stateCountyData[county];
+				countyLookup[county.toUpperCase()] = stateCountyData[county];
+				countyLookup[titleCase] = stateCountyData[county];
 				countyLookup[normalized] = stateCountyData[county];
 				countyLookup[withoutCounty] = stateCountyData[county];
+				
+				// Handle special cases
+				// DuPage/Dupage
+				if (county.toLowerCase() === "dupage")
+				{
+					countyLookup["DuPage"] = stateCountyData[county];
+					countyLookup["Du Page"] = stateCountyData[county];
+				}
+				// McHenry/Mchenry
+				if (county.toLowerCase() === "mchenry")
+				{
+					countyLookup["McHenry"] = stateCountyData[county];
+				}
+				// DeKalb/Dekalb
+				if (county.toLowerCase() === "dekalb")
+				{
+					countyLookup["DeKalb"] = stateCountyData[county];
+				}
 			});
 			
-			stateGeoData.features.forEach(function (feature)
+			console.log("Map features (first 5):", stateGeoData.features.slice(0, 5).map(f => ({
+				name: f.properties.NAME || f.properties.name,
+				props: f.properties
+			})));
+			
+			stateGeoData.features.forEach(function (feature, index)
 			{
 				const props = feature.properties || {};
 				const countyName = props.NAME || props.name || "";
 				
 				let value = 0;
+				let matched = false;
+				
 				// Try various name formats
 				const namesToTry = [
 					countyName,
 					countyName.toLowerCase(),
+					countyName.toUpperCase(),
 					countyName + " County",
 					countyName.toLowerCase().replace(/[^a-z0-9]/g, ""),
-					countyName.toLowerCase().replace(" county", "").trim()
+					countyName.toLowerCase().replace(" county", "").trim(),
+					// Handle special cases like McHenry
+					countyName.replace(/Mc([A-Z])/g, "Mc$1"),
+					countyName.replace(/Mc([A-Z])/g, (match, p1) => "Mc" + p1.toLowerCase())
 				];
 				
 				for (let name of namesToTry)
@@ -659,8 +758,15 @@ define([
 					if (countyLookup[name])
 					{
 						value = countyLookup[name];
+						matched = true;
 						break;
 					}
+				}
+				
+				// Log unmatched counties for debugging
+				if (!matched && index < 10)
+				{
+					console.log("No match for county:", countyName, "Tried:", namesToTry);
 				}
 				
 				chartData.push({
