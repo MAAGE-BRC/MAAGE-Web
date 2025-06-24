@@ -9,8 +9,8 @@
 
 /* Map chart container style */
 .map-chart-container {
-  min-height: 350px;
-  height: 350px;
+  min-height: 500px;
+  height: 500px;
 }
 
 /* Metric cards container - handle 6 cards layout */

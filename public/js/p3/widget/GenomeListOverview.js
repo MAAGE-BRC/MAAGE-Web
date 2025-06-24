@@ -13,6 +13,7 @@ define([
 	"./EChartStackedBar",
 	"./EChartHorizontalBar",
 	"./EChartAMRStackedBar",
+	"./EChartChoropleth",
 	"p3/store/AMRJsonRest"
 ], function (
 	declare,
@@ -29,6 +30,7 @@ define([
 	StackedBar,
 	HorizontalBar,
 	AMRStackedBar,
+	Choropleth,
 	AMRStore
 )
 {
@@ -40,6 +42,7 @@ define([
 		locationChart: null,
 		currentLocationView: "state",
 		amrChart: null,
+		mapChart: null,
 
 		postCreate: function ()
 		{
@@ -347,6 +350,7 @@ define([
 			};
 
 			this.createLocationChart();
+			this.createMapChart();
 			createChart(
 				VerticalBar,
 				this.hostChartNode,
@@ -515,6 +519,111 @@ define([
 			);
 		},
 
+		createMapChart: function ()
+		{
+			if (!this.mapChartNode || !this.state || !this.state.search) return;
+
+			this._createChartWhenReady(
+				this.mapChartNode,
+				Choropleth,
+				{
+					title: "Genome Distribution",
+					theme: "maage-echarts-theme"
+				},
+				lang.hitch(this, function (chart)
+				{
+					const baseQuery = this.state.search;
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					// Query for country data
+					const countryQuery = `${baseQuery}&facet((field,isolation_country),(mincount,1))&limit(0)`;
+					// Query for state data
+					const stateQuery = `${baseQuery}&facet((field,state_province),(mincount,1))&limit(0)`;
+					// Query for county data (limited to top results)
+					const countyQuery = `${baseQuery}&facet((field,county),(mincount,1),(limit,1000))&limit(0)`;
+
+					// Execute all queries in parallel
+					Promise.all([
+						this.genomeStore.query(countryQuery, queryOptions),
+						this.genomeStore.query(stateQuery, queryOptions),
+						this.genomeStore.query(countyQuery, queryOptions)
+					]).then(
+						lang.hitch(this, function ([countryRes, stateRes, countyRes])
+						{
+							const data = {
+								countryData: {},
+								stateData: {},
+								countyData: {}
+							};
+
+							// Process country data
+							if (countryRes && countryRes.facet_counts && countryRes.facet_counts.facet_fields.isolation_country)
+							{
+								const facets = countryRes.facet_counts.facet_fields.isolation_country;
+								for (let i = 0; i < facets.length; i += 2)
+								{
+									const name = facets[i];
+									const count = facets[i + 1];
+									if (name && count > 0)
+									{
+										data.countryData[name] = count;
+									}
+								}
+							}
+
+							// Process state data
+							if (stateRes && stateRes.facet_counts && stateRes.facet_counts.facet_fields.state_province)
+							{
+								const facets = stateRes.facet_counts.facet_fields.state_province;
+								for (let i = 0; i < facets.length; i += 2)
+								{
+									const name = facets[i];
+									const count = facets[i + 1];
+									if (name && count > 0)
+									{
+										data.stateData[name] = count;
+									}
+								}
+							}
+
+							// Process county data
+							if (countyRes && countyRes.facet_counts && countyRes.facet_counts.facet_fields.county)
+							{
+								const facets = countyRes.facet_counts.facet_fields.county;
+								for (let i = 0; i < facets.length; i += 2)
+								{
+									const name = facets[i];
+									const count = facets[i + 1];
+									if (name && count > 0)
+									{
+										data.countyData[name] = count;
+									}
+								}
+							}
+
+							chart.updateChart(data);
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function (err)
+						{
+							console.error("Failed to load map data:", err);
+							chart.hideLoading();
+						})
+					);
+
+					this.mapChart = chart;
+				})
+			);
+		},
+
 		createYearlyCountChart: function ()
 		{
 			if (!this.yearlyCountChartNode) return;
@@ -667,6 +776,7 @@ define([
 			if (this.charts) this.charts.forEach((c) => c.resize());
 			if (this.locationChart) this.locationChart.resize();
 			if (this.amrChart) this.amrChart.resize();
+			if (this.mapChart) this.mapChart.resize();
 		},
 
 		destroy: function ()
@@ -682,6 +792,11 @@ define([
 			{
 				this.amrChart.destroy();
 				this.amrChart = null;
+			}
+			if (this.mapChart)
+			{
+				this.mapChart.destroy();
+				this.mapChart = null;
 			}
 		},
 	});

@@ -2195,10 +2195,6 @@ video {
     width: calc(50% - 0.5rem);
   }
 
-  .lg\:w-\[calc\(66\.667\%-0\.5rem\)\] {
-    width: calc(66.667% - 0.5rem);
-  }
-
   .lg\:w-\[calc\(66\.667\%-0\.667rem\)\] {
     width: calc(66.667% - 0.667rem);
   }
