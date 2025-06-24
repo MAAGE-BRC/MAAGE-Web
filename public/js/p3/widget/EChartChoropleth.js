@@ -31,6 +31,7 @@ define([
 		
 		// Data storage
 		genomeData: null,
+		metadata: null,
 		
 		// State FIPS code mapping
 		stateNameToFips: {
@@ -220,6 +221,14 @@ define([
 			this.chartNode.style.flex = "1";
 			this.chartNode.style.minHeight = "450px";
 			this.chartNode.style.height = "450px";
+			this.chartNode.style.position = "relative";
+			
+			// Create stats panel
+			this.statsPanel = domConstruct.create("div", {
+				style: "position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.95); " +
+					"border: 1px solid #e0e0e0; border-radius: 4px; padding: 12px; min-width: 200px; " +
+					"display: none; font-size: 13px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+			}, this.chartNode);
 			
 			// Bind events
 			on(this.worldViewBtn, "click", lang.hitch(this, function ()
@@ -484,6 +493,11 @@ define([
 		{
 			// Store data for later use
 			this.genomeData = data || {};
+			this.metadata = {
+				country: data.countryMetadata || {},
+				state: data.stateMetadata || {},
+				county: data.countyMetadata || {}
+			};
 			
 			// If chart not initialized yet, ensure it gets initialized
 			if (!this.chart)
@@ -537,25 +551,101 @@ define([
 				// Title removed as requested
 				tooltip: {
 					trigger: "item",
-					formatter: function (params)
+					backgroundColor: "rgba(255, 255, 255, 0.95)",
+					borderColor: "#ddd",
+					borderWidth: 1,
+					padding: 12,
+					textStyle: {
+						fontSize: 13,
+						color: "#333"
+					},
+					formatter: lang.hitch(this, function (params)
 					{
-						if (params.data && params.data.value)
+						if (!params.data || params.data.value === 0)
 						{
-							return params.name + ": " + params.data.value + " genomes";
+							return params.name + ": No data";
 						}
-						return params.name + ": No data";
-					}
+						
+						let html = `<div style="font-weight: 600; font-size: 14px; margin-bottom: 8px; color: #212529;">${params.name}</div>`;
+						html += `<div style="margin-bottom: 6px;"><strong>Total Genomes:</strong> ${params.data.value.toLocaleString()}</div>`;
+						
+						// Get metadata based on current view
+						let metadata = null;
+						if (this.currentView === "world" && this.metadata.country[params.name])
+						{
+							metadata = this.metadata.country[params.name];
+						} else if (this.currentView === "us" && this.metadata.state[params.name])
+						{
+							metadata = this.metadata.state[params.name];
+						} else if (this.currentView !== "world" && this.currentView !== "us")
+						{
+							// State view - check county metadata
+							metadata = this.metadata.county[params.name];
+						}
+						
+						if (metadata)
+						{
+							// Add genus breakdown if available
+							if (metadata.genera && Object.keys(metadata.genera).length > 0)
+							{
+								html += '<div style="margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px;">';
+								html += '<div style="font-weight: 600; margin-bottom: 4px;">Top Genera:</div>';
+								const topGenera = Object.entries(metadata.genera)
+									.sort((a, b) => b[1] - a[1])
+									.slice(0, 5);
+								
+								topGenera.forEach(([genus, count]) => {
+									const percent = ((count / params.data.value) * 100).toFixed(1);
+									html += `<div style="display: flex; justify-content: space-between; margin-bottom: 2px;">`;
+									html += `<span style="font-style: italic;">${genus}</span>`;
+									html += `<span style="color: #666;">${count} (${percent}%)</span>`;
+									html += `</div>`;
+								});
+								html += '</div>';
+							}
+							
+							// Add host breakdown if available (not for counties)
+							if (metadata.hosts && Object.keys(metadata.hosts).length > 0)
+							{
+								html += '<div style="margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px;">';
+								html += '<div style="font-weight: 600; margin-bottom: 4px;">Top Hosts:</div>';
+								const topHosts = Object.entries(metadata.hosts)
+									.sort((a, b) => b[1] - a[1])
+									.slice(0, 5);
+								
+								topHosts.forEach(([host, count]) => {
+									const percent = ((count / params.data.value) * 100).toFixed(1);
+									html += `<div style="display: flex; justify-content: space-between; margin-bottom: 2px;">`;
+									html += `<span>${host || "Unknown"}</span>`;
+									html += `<span style="color: #666;">${count} (${percent}%)</span>`;
+									html += `</div>`;
+								});
+								html += '</div>';
+							}
+						}
+						
+						return html;
+					})
 				},
 				visualMap: {
 					type: "piecewise",
 					pieces: this._getVisualMapPieces(max),
-					left: "left",
-					top: "bottom",
+					left: 20,
+					bottom: 20,
+					text: ["High", "Low"],
 					textStyle: {
-						fontSize: 12
+						fontSize: 12,
+						color: "#495057"
 					},
-					itemWidth: 20,
-					itemHeight: 12
+					itemWidth: 24,
+					itemHeight: 14,
+					itemGap: 8,
+					orient: "vertical",
+					backgroundColor: "rgba(255, 255, 255, 0.9)",
+					borderColor: "#e0e0e0",
+					borderWidth: 1,
+					padding: 10,
+					borderRadius: 4
 				},
 				series: [{
 					name: "Genome Count",
@@ -570,10 +660,24 @@ define([
 					layoutSize: zoom * 100 + "%",
 					emphasis: {
 						label: {
-							show: true
+							show: true,
+							fontSize: 14,
+							fontWeight: "bold"
 						},
 						itemStyle: {
-							areaColor: "#e7c788"
+							areaColor: "#e7c788",
+							shadowBlur: 10,
+							shadowColor: "rgba(0, 0, 0, 0.2)"
+						}
+					},
+					select: {
+						label: {
+							show: true,
+							fontSize: 14,
+							fontWeight: "bold"
+						},
+						itemStyle: {
+							areaColor: "#d4b575"
 						}
 					},
 					itemStyle: {
@@ -581,7 +685,7 @@ define([
 						{
 							if (!params.data || params.data.value === 0)
 							{
-								return "#f3f4f6";
+								return "#f8f9fa";
 							}
 							return null;
 						},
@@ -619,6 +723,38 @@ define([
 					this.chart.resize();
 				}
 			}), 100);
+			
+			// Update stats panel
+			this._updateStatsPanel(chartData);
+		},
+		
+		_updateStatsPanel: function (chartData)
+		{
+			if (!this.statsPanel) return;
+			
+			// Calculate statistics
+			const validData = chartData.filter(item => item.value > 0);
+			const totalGenomes = validData.reduce((sum, item) => sum + item.value, 0);
+			const locations = validData.length;
+			const maxLocation = validData.reduce((max, item) => item.value > max.value ? item : max, { value: 0 });
+			const avgGenomes = locations > 0 ? Math.round(totalGenomes / locations) : 0;
+			
+			// Create HTML for stats
+			let html = '<div style="font-weight: 600; margin-bottom: 8px; color: #212529;">Summary Statistics</div>';
+			html += `<div style="margin-bottom: 4px;"><strong>Total Genomes:</strong> ${totalGenomes.toLocaleString()}</div>`;
+			html += `<div style="margin-bottom: 4px;"><strong>Locations with Data:</strong> ${locations}</div>`;
+			html += `<div style="margin-bottom: 4px;"><strong>Average per Location:</strong> ${avgGenomes.toLocaleString()}</div>`;
+			
+			if (maxLocation.value > 0)
+			{
+				html += `<div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee;">`;
+				html += `<strong>Highest Concentration:</strong><br>`;
+				html += `${maxLocation.name}: ${maxLocation.value.toLocaleString()} genomes`;
+				html += `</div>`;
+			}
+			
+			this.statsPanel.innerHTML = html;
+			this.statsPanel.style.display = "block";
 		},
 		
 		_processWorldData: function (countryData)
@@ -837,31 +973,40 @@ define([
 		
 		_getVisualMapPieces: function (max)
 		{
-			// Dynamic visual map based on max value
+			// Dynamic visual map with improved color gradient
 			if (max <= 10)
 			{
 				return [
-					{ min: 1, max: 2, label: "1-2", color: "#e7f5f8" },
-					{ min: 3, max: 5, label: "3-5", color: "#b4d0c3" },
+					{ min: 1, max: 2, label: "1-2", color: "#e8f5ef" },
+					{ min: 3, max: 5, label: "3-5", color: "#b8d9ca" },
 					{ min: 6, max: 10, label: "6-10", color: "#98bdac" }
 				];
 			} else if (max <= 100)
 			{
 				return [
-					{ min: 1, max: 10, label: "1-10", color: "#e7f5f8" },
-					{ min: 11, max: 25, label: "11-25", color: "#b4d0c3" },
+					{ min: 1, max: 10, label: "1-10", color: "#e8f5ef" },
+					{ min: 11, max: 25, label: "11-25", color: "#c5e2d5" },
 					{ min: 26, max: 50, label: "26-50", color: "#98bdac" },
 					{ min: 51, max: 100, label: "51-100", color: "#6ea089" }
+				];
+			} else if (max <= 1000)
+			{
+				return [
+					{ min: 1, max: 10, label: "1-10", color: "#e8f5ef" },
+					{ min: 11, max: 50, label: "11-50", color: "#c5e2d5" },
+					{ min: 51, max: 100, label: "51-100", color: "#98bdac" },
+					{ min: 101, max: 500, label: "101-500", color: "#6ea089" },
+					{ min: 501, max: 1000, label: "501-1K", color: "#57856f" }
 				];
 			} else
 			{
 				return [
-					{ min: 1, max: 10, label: "1-10", color: "#e7f5f8" },
-					{ min: 11, max: 50, label: "11-50", color: "#b4d0c3" },
-					{ min: 51, max: 100, label: "51-100", color: "#98bdac" },
-					{ min: 101, max: 500, label: "101-500", color: "#6ea089" },
-					{ min: 501, max: 1000, label: "501-1K", color: "#57856f" },
-					{ min: 1001, label: ">1K", color: "#496f5d" }
+					{ min: 1, max: 50, label: "1-50", color: "#e8f5ef" },
+					{ min: 51, max: 100, label: "51-100", color: "#c5e2d5" },
+					{ min: 101, max: 500, label: "101-500", color: "#98bdac" },
+					{ min: 501, max: 1000, label: "501-1K", color: "#6ea089" },
+					{ min: 1001, max: 5000, label: "1K-5K", color: "#57856f" },
+					{ min: 5001, label: ">5K", color: "#3d5c4f" }
 				];
 			}
 		},
