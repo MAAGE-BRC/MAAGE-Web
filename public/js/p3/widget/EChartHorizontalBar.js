@@ -113,22 +113,22 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart)
 
 			if (data.colorGradient === false)
 			{
-				// Use distinct colors for each bar
+
 				const distinctColors = [
-					"#c56e6e", // Muted red
-					"#5f94ab", // Secondary blue
-					"#98bdac", // Primary green
-					"#e7c788", // Tertiary accent
-					"#7ba3b8", // Light blue
-					"#a4c5b5", // Light green
-					"#d8b066", // Darker gold
-					"#8fa8b5", // Muted blue
-					"#b3cfc3", // Pale green
-					"#c9a876", // Muted gold
-					"#6c8fa1", // Dark blue
-					"#8eb1a3", // Mid green
+					"#c56e6e",
+					"#5f94ab",
+					"#98bdac",
+					"#e7c788",
+					"#7ba3b8",
+					"#a4c5b5",
+					"#d8b066",
+					"#8fa8b5",
+					"#b3cfc3",
+					"#c9a876",
+					"#6c8fa1",
+					"#8eb1a3",
 				];
-				
+
 				option.series[0].itemStyle.color = function (params)
 				{
 					return distinctColors[params.dataIndex % distinctColors.length];
@@ -136,7 +136,7 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart)
 			}
 			else if (values && values.length > 0)
 			{
-				// Original gradient code
+
 				option.series[0].itemStyle.color = function (params)
 				{
 					if (params.value === undefined || params.value === null)
