@@ -111,9 +111,46 @@
 	</div>
 
 		<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">placeholder</h3>
-			<div class="chart-container"></div>
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0 relative">
+			<h3 class="chart-title">Antimicrobial Resistance Profile</h3>
+			<div class="absolute top-3 right-3 toggle-buttons flex gap-1" data-dojo-attach-point="amrControlsContainer">
+				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+					<button 
+						type="button"
+						data-dojo-attach-point="amrCountBtn"
+						class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active"
+					>
+						Count
+					</button>
+					<button 
+						type="button"
+						data-dojo-attach-point="amrPercentBtn"
+						class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors"
+					>
+						Percent
+					</button>
+				</div>
+				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+					<button 
+						type="button"
+						data-dojo-attach-point="amrSortNameBtn"
+						class="amr-sort-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active"
+					>
+						Name
+					</button>
+					<button 
+						type="button"
+						data-dojo-attach-point="amrSortValueBtn"
+						class="amr-sort-btn px-2 py-0.5 text-xs font-medium rounded transition-colors"
+					>
+						Value
+					</button>
+				</div>
+			</div>
+			<div
+				data-dojo-attach-point="amrChartNode"
+				class="chart-container"
+			></div>
 		</div>
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
 			<h3 class="chart-title">placeholder</h3>

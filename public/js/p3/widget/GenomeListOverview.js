@@ -11,7 +11,9 @@ define([
 	"./EChartVerticalBar",
 	"./EChartDoughnut",
 	"./EChartStackedBar",
-	"./EChartHorizontalBar"
+	"./EChartHorizontalBar",
+	"./EChartAMRStackedBar",
+	"p3/store/AMRJsonRest"
 ], function (
 	declare,
 	lang,
@@ -25,7 +27,9 @@ define([
 	VerticalBar,
 	Doughnut,
 	StackedBar,
-	HorizontalBar
+	HorizontalBar,
+	AMRStackedBar,
+	AMRStore
 )
 {
 	return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
@@ -35,11 +39,13 @@ define([
 		charts: [],
 		locationChart: null,
 		currentLocationView: "state",
+		amrChart: null,
 
 		postCreate: function ()
 		{
 			this.inherited(arguments);
 			this.genomeStore = new GenomeStore({});
+			this.amrStore = new AMRStore({});
 
 			this.own(
 				on(this.countryToggleBtn, "click", lang.hitch(this, function ()
@@ -57,6 +63,22 @@ define([
 				on(this.cityToggleBtn, "click", lang.hitch(this, function ()
 				{
 					this.switchLocationView("city");
+				})),
+				on(this.amrCountBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchAMRView("count");
+				})),
+				on(this.amrPercentBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchAMRView("percent");
+				})),
+				on(this.amrSortNameBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchAMRSort("name");
+				})),
+				on(this.amrSortValueBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchAMRSort("value");
 				}))
 			);
 		},
@@ -105,6 +127,26 @@ define([
 			}
 
 			this.createLocationChart();
+		},
+
+		switchAMRView: function (viewMode)
+		{
+			if (!this.amrChart) return;
+
+			domClass.toggle(this.amrCountBtn, "active", viewMode === "count");
+			domClass.toggle(this.amrPercentBtn, "active", viewMode === "percent");
+
+			this.amrChart.setViewMode(viewMode);
+		},
+
+		switchAMRSort: function (sortBy)
+		{
+			if (!this.amrChart) return;
+
+			domClass.toggle(this.amrSortNameBtn, "active", sortBy === "name");
+			domClass.toggle(this.amrSortValueBtn, "active", sortBy === "value");
+
+			this.amrChart.setSortBy(sortBy);
 		},
 
 		_processFacets: function (facets)
@@ -331,6 +373,7 @@ define([
 			);
 
 			this.createYearlyCountChart();
+			this.createAMRChart();
 		},
 
 		_createChartWhenReady: function (node, widgetClass, options, dataLoader)
@@ -373,17 +416,16 @@ define([
 			if (!this.locationChartNode || !this.state || !this.state.search) return;
 
 			const baseQuery = this.state.search;
-			
-			// Map view types to field names
+
 			const fieldMap = {
 				country: "isolation_country",
 				state: "state_province",
 				county: "county",
 				city: "city"
 			};
-			
+
 			const field = fieldMap[this.currentLocationView];
-			// Apply limit for county and city to show top 10
+
 			const needsLimit = this.currentLocationView === "county" || this.currentLocationView === "city";
 			const query = `${baseQuery}&facet((field,${field}),(mincount,1)${needsLimit ? ",(limit,10)" : ""})&limit(0)`;
 
@@ -404,8 +446,7 @@ define([
 							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
 							{
 								const data = this._processFacets(res.facet_counts.facet_fields[field]);
-								
-								// Custom configuration for location charts with bottom legend
+
 								const option = {
 									tooltip: {
 										trigger: "item",
@@ -548,11 +589,84 @@ define([
 			);
 		},
 
+		createAMRChart: function ()
+		{
+			if (!this.amrChartNode || !this.state || !this.state.search) return;
+
+			if (this.amrChart)
+			{
+				this.amrChart.destroy();
+				this.amrChart = null;
+			}
+
+			this._createChartWhenReady(
+				this.amrChartNode,
+				AMRStackedBar,
+				{
+					title: "",
+					theme: "maage-echarts-theme"
+				},
+				lang.hitch(this, function (chart)
+				{
+
+					const baseQuery = this.state.search;
+					const amrQuery = `${baseQuery}&facet((pivot,(antibiotic,resistant_phenotype,genome_id)),(mincount,1),(limit,-1))&json(nl,map)&limit(1)`;
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(baseQuery + "&select(genome_id)&limit(25000)", queryOptions).then(
+						lang.hitch(this, function (genomeRes)
+						{
+							if (!genomeRes || !genomeRes.response || !genomeRes.response.docs)
+							{
+								chart.hideLoading();
+								return;
+							}
+
+							const genomeIds = genomeRes.response.docs.map(d => d.genome_id);
+							if (genomeIds.length === 0)
+							{
+								chart.hideLoading();
+								return;
+							}
+
+							const amrQuery = `in(genome_id,(${genomeIds.join(",")}))`
+								+ "&in(resistant_phenotype,(Resistant,Susceptible,Intermediate))"
+								+ "&facet((pivot,(antibiotic,resistant_phenotype)),(mincount,1),(limit,-1))&json(nl,map)&limit(1)";
+
+							this.amrStore.query(amrQuery, queryOptions).then(
+								lang.hitch(this, function (res)
+								{
+									if (res && res.facet_counts && res.facet_counts.facet_pivot)
+									{
+										chart.updateChart(res.facet_counts);
+									}
+									chart.hideLoading();
+								}),
+								lang.hitch(this, function (err)
+								{
+									console.error("Failed to load AMR data:", err);
+									chart.hideLoading();
+								})
+							);
+						}),
+						lang.hitch(this, function (err)
+						{
+							console.error("Failed to load genome data for AMR:", err);
+							chart.hideLoading();
+						})
+					);
+
+					this.amrChart = chart;
+				})
+			);
+		},
+
 		resize: function ()
 		{
 			this.inherited(arguments);
 			if (this.charts) this.charts.forEach((c) => c.resize());
 			if (this.locationChart) this.locationChart.resize();
+			if (this.amrChart) this.amrChart.resize();
 		},
 
 		destroy: function ()
@@ -563,6 +677,11 @@ define([
 			{
 				this.locationChart.destroy();
 				this.locationChart = null;
+			}
+			if (this.amrChart)
+			{
+				this.amrChart.destroy();
+				this.amrChart = null;
 			}
 		},
 	});

@@ -37,4 +37,19 @@
   .location-toggle-btn.active {
     @apply bg-white text-gray-900 shadow-sm;
   }
+
+  .amr-view-btn,
+  .amr-sort-btn {
+    @apply bg-transparent text-gray-500;
+  }
+
+  .amr-view-btn:hover,
+  .amr-sort-btn:hover {
+    @apply bg-gray-200 text-gray-700;
+  }
+
+  .amr-view-btn.active,
+  .amr-sort-btn.active {
+    @apply bg-white text-gray-900 shadow-sm;
+  }
 }
