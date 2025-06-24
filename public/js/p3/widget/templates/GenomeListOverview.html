@@ -19,44 +19,12 @@
 				></div>
 			</div>
 		</div>
-		<div class="chart-section w-full lg:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0 relative">
-			<h3 class="chart-title">Isolate Location</h3>
-			<div class="absolute top-3 right-3 toggle-buttons flex gap-0.5 bg-gray-100 rounded-md p-0.5" data-dojo-attach-point="locationToggleContainer">
-				<button 
-					type="button"
-					data-dojo-attach-point="countryToggleBtn"
-					data-location-type="country"
-					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
-				>
-					Country
-				</button>
-				<button 
-					type="button"
-					data-dojo-attach-point="stateToggleBtn"
-					data-location-type="state"
-					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors active"
-				>
-					State
-				</button>
-				<button 
-					type="button"
-					data-dojo-attach-point="countyToggleBtn"
-					data-location-type="county"
-					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
-				>
-					County
-				</button>
-				<button 
-					type="button"
-					data-dojo-attach-point="cityToggleBtn"
-					data-location-type="city"
-					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
-				>
-					City
-				</button>
-			</div>
+		<div
+			class="chart-section w-full md:w-[calc(75%-0.75rem)] xl:flex-1 min-w-0"
+		>
+			<h3 class="chart-title">Collection Year</h3>
 			<div
-				data-dojo-attach-point="locationChartNode"
+				data-dojo-attach-point="yearlyCountChartNode"
 				class="chart-container"
 			></div>
 		</div>
@@ -107,12 +75,44 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div
-			class="chart-section w-full md:w-[calc(75%-0.75rem)] xl:flex-1 min-w-0"
-		>
-			<h3 class="chart-title">Genomes by Year (Last 10 Years)</h3>
+		<div class="chart-section w-full lg:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0 relative">
+			<h3 class="chart-title">Isolate Location</h3>
+			<div class="absolute top-3 right-3 toggle-buttons flex gap-0.5 bg-gray-100 rounded-md p-0.5" data-dojo-attach-point="locationToggleContainer">
+				<button 
+					type="button"
+					data-dojo-attach-point="countryToggleBtn"
+					data-location-type="country"
+					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
+				>
+					Country
+				</button>
+				<button 
+					type="button"
+					data-dojo-attach-point="stateToggleBtn"
+					data-location-type="state"
+					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors active"
+				>
+					State
+				</button>
+				<button 
+					type="button"
+					data-dojo-attach-point="countyToggleBtn"
+					data-location-type="county"
+					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
+				>
+					County
+				</button>
+				<button 
+					type="button"
+					data-dojo-attach-point="cityToggleBtn"
+					data-location-type="city"
+					class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors"
+				>
+					City
+				</button>
+			</div>
 			<div
-				data-dojo-attach-point="yearlyCountChartNode"
+				data-dojo-attach-point="locationChartNode"
 				class="chart-container"
 			></div>
 		</div>

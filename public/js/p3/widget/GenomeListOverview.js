@@ -704,15 +704,12 @@ define([
 				this.yearlyCountChartNode,
 				HorizontalBar,
 				{
-					title: "Total Genomes by Year",
+					title: "",
 					theme: "maage-echarts-theme"
 				},
 				lang.hitch(this, function (chart)
 				{
-
-					const currentYear = new Date().getFullYear();
-					const startYear = currentYear - 9;
-
+					// Get all years from the data instead of limiting to last 10
 					const query = `${this.state.search}&facet((field,collection_year),(mincount,1))&limit(0)`;
 					const queryOptions = { headers: { Accept: "application/solr+json" } };
 
@@ -722,32 +719,29 @@ define([
 							if (res && res.facet_counts && res.facet_counts.facet_fields.collection_year)
 							{
 								const yearFacets = res.facet_counts.facet_fields.collection_year;
-								const yearData = {};
+								const chartData = [];
 
+								// Process all years found in the data
 								for (let i = 0; i < yearFacets.length; i += 2)
 								{
 									const year = parseInt(yearFacets[i], 10);
 									const count = yearFacets[i + 1];
-									if (!isNaN(year) && year >= startYear && year <= currentYear)
+									if (!isNaN(year) && count > 0)
 									{
-										yearData[year] = count;
+										chartData.push({
+											year: year.toString(),
+											value: count
+										});
 									}
 								}
 
-								const chartData = [];
-								for (let year = startYear; year <= currentYear; year++)
-								{
-									chartData.push({
-										year: year.toString(),
-										value: yearData[year] || 0
-									});
-								}
+								// Sort in descending order (newest first)
+								chartData.sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
-								chartData.sort((a, b) => parseInt(a.year) - parseInt(b.year));
-
+								// Update the chart without color gradient to get individual colors
 								chart.updateChart({
 									data: chartData,
-									colorGradient: true
+									colorGradient: false
 								});
 							}
 							chart.hideLoading();
