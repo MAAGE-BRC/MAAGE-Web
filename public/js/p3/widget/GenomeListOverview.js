@@ -535,21 +535,17 @@ define([
 					const baseQuery = this.state.search;
 					const queryOptions = { headers: { Accept: "application/solr+json" } };
 
-					// Query for country data with additional metadata
 					const countryQuery = `${baseQuery}&facet((field,isolation_country),(mincount,1))&limit(0)`;
 					const countryPivotQuery = `${baseQuery}&facet((pivot,(isolation_country,genus)),(mincount,1))&limit(0)`;
 					const countryHostQuery = `${baseQuery}&facet((pivot,(isolation_country,host_common_name)),(mincount,1))&limit(0)`;
-					
-					// Query for state data with additional metadata
+
 					const stateQuery = `${baseQuery}&facet((field,state_province),(mincount,1))&limit(0)`;
 					const statePivotQuery = `${baseQuery}&facet((pivot,(state_province,genus)),(mincount,1))&limit(0)`;
 					const stateHostQuery = `${baseQuery}&facet((pivot,(state_province,host_common_name)),(mincount,1))&limit(0)`;
-					
-					// Query for county data (limited to top results)
+
 					const countyQuery = `${baseQuery}&facet((field,county),(mincount,1),(limit,1000))&limit(0)`;
 					const countyPivotQuery = `${baseQuery}&facet((pivot,(county,genus)),(mincount,1),(limit,1000))&limit(0)`;
 
-					// Execute all queries in parallel
 					Promise.all([
 						this.genomeStore.query(countryQuery, queryOptions),
 						this.genomeStore.query(countryPivotQuery, queryOptions),
@@ -575,22 +571,26 @@ define([
 								countyMetadata: {}
 							};
 
-							// Helper function to process pivot data
-							const processPivotData = (pivotData, parentField) => {
+							const processPivotData = (pivotData, parentField) =>
+							{
 								const metadata = {};
-								if (pivotData && pivotData.facet_counts && pivotData.facet_counts.facet_pivot) {
+								if (pivotData && pivotData.facet_counts && pivotData.facet_counts.facet_pivot)
+								{
 									const pivotKey = Object.keys(pivotData.facet_counts.facet_pivot)[0];
 									const pivots = pivotData.facet_counts.facet_pivot[pivotKey] || [];
-									
-									pivots.forEach(item => {
+
+									pivots.forEach(item =>
+									{
 										const location = item.value;
 										metadata[location] = {
 											total: item.count,
 											breakdown: {}
 										};
-										
-										if (item.pivot) {
-											item.pivot.forEach(subItem => {
+
+										if (item.pivot)
+										{
+											item.pivot.forEach(subItem =>
+											{
 												metadata[location].breakdown[subItem.value] = subItem.count;
 											});
 										}
@@ -599,7 +599,6 @@ define([
 								return metadata;
 							};
 
-							// Process country data
 							if (countryRes && countryRes.facet_counts && countryRes.facet_counts.facet_fields.isolation_country)
 							{
 								const facets = countryRes.facet_counts.facet_fields.isolation_country;
@@ -613,19 +612,18 @@ define([
 									}
 								}
 							}
-							
-							// Process country metadata
+
 							const countryGenusData = processPivotData(countryPivotRes, "isolation_country");
 							const countryHostData = processPivotData(countryHostRes, "isolation_country");
-							
-							Object.keys(data.countryData).forEach(country => {
+
+							Object.keys(data.countryData).forEach(country =>
+							{
 								data.countryMetadata[country] = {
 									genera: countryGenusData[country]?.breakdown || {},
 									hosts: countryHostData[country]?.breakdown || {}
 								};
 							});
 
-							// Process state data
 							if (stateRes && stateRes.facet_counts && stateRes.facet_counts.facet_fields.state_province)
 							{
 								const facets = stateRes.facet_counts.facet_fields.state_province;
@@ -639,19 +637,18 @@ define([
 									}
 								}
 							}
-							
-							// Process state metadata
+
 							const stateGenusData = processPivotData(statePivotRes, "state_province");
 							const stateHostData = processPivotData(stateHostRes, "state_province");
-							
-							Object.keys(data.stateData).forEach(state => {
+
+							Object.keys(data.stateData).forEach(state =>
+							{
 								data.stateMetadata[state] = {
 									genera: stateGenusData[state]?.breakdown || {},
 									hosts: stateHostData[state]?.breakdown || {}
 								};
 							});
 
-							// Process county data
 							if (countyRes && countyRes.facet_counts && countyRes.facet_counts.facet_fields.county)
 							{
 								const facets = countyRes.facet_counts.facet_fields.county;
@@ -665,11 +662,11 @@ define([
 									}
 								}
 							}
-							
-							// Process county metadata
+
 							const countyGenusData = processPivotData(countyPivotRes, "county");
-							
-							Object.keys(data.countyData).forEach(county => {
+
+							Object.keys(data.countyData).forEach(county =>
+							{
 								data.countyMetadata[county] = {
 									genera: countyGenusData[county]?.breakdown || {}
 								};
