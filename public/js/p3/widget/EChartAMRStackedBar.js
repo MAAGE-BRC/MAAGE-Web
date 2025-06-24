@@ -114,15 +114,16 @@ define([
 				},
 				legend: {
 					data: phenotypes,
-					bottom: 10,
-					itemWidth: 20,
-					itemHeight: 12
+					bottom: 25,
+					itemWidth: 30,
+					itemHeight: 12,
+					padding: [10, 0, 0, 0]  // Add top padding to legend
 				},
 				grid: {
 					left: "3%",
 					right: "4%",
-					bottom: "15%",
-					top: "15%",
+					bottom: "20%",  // Increase bottom space for legend
+					top: "10%",
 					containLabel: true
 				},
 				xAxis: {
@@ -150,7 +151,7 @@ define([
 					xAxisIndex: [0],
 					start: 0,
 					end: 100,
-					bottom: 40,
+					bottom: 65,  // Adjusted for better spacing with legend
 					height: 20
 				}] : []
 			};

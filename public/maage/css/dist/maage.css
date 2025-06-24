@@ -2199,6 +2199,10 @@ video {
     width: calc(66.667% - 0.5rem);
   }
 
+  .lg\:w-\[calc\(66\.667\%-0\.667rem\)\] {
+    width: calc(66.667% - 0.667rem);
+  }
+
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

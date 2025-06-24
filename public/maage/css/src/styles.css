@@ -2636,6 +2636,11 @@ div#bv-brc-page-container > div.page-content {
         min-height: 300px;
       }
 
+      /* AMR Chart specific - taller for better readability */
+      .genome-list-overview-dashboard [data-dojo-attach-point="amrChartNode"] {
+        min-height: 400px;
+      }
+
       /* Responsive adjustments */
       @media (max-width: 1024px) {
         .metric-value {
