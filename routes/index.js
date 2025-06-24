@@ -25,10 +25,10 @@ router.get("/dashboard-layout", function (req, res) {
   res.render("layouts/dashboard-layout", { title: "PATRIC", request: req, response: res });
 });
 
-/* GET maps */
-router.get("/map-data-demo", function (req, res) {
+/* GET test */
+router.get("/test", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("pages/map-data-demo", { title: "PATRIC", request: req, response: res });
+  res.render("pages/test", { title: "PATRIC", request: req, response: res });
 });
 
 /* GET about */
