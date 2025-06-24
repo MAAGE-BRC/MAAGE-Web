@@ -257,10 +257,10 @@ define([
 			const promises = [
 				// World map
 				request("/maage/maps/world-atlas/countries-110m.json", { handleAs: "json" }),
-				// US states
-				request("/maage/maps/us-atlas/states-albers-10m.json", { handleAs: "json" }),
-				// US counties
-				request("/maage/maps/us-atlas/counties-albers-10m.json", { handleAs: "json" })
+				// US states (non-Albers for straight projection)
+				request("/maage/maps/us-atlas/states-10m.json", { handleAs: "json" }),
+				// US counties (non-Albers for straight projection)
+				request("/maage/maps/us-atlas/counties-10m.json", { handleAs: "json" })
 			];
 			
 			Promise.all(promises).then(
@@ -273,13 +273,13 @@ define([
 					
 					// Process US states map
 					const statesGeo = topojson.feature(statesTopo, statesTopo.objects.states);
-					this._flipCoordinates(statesGeo); // Flip Y for Albers projection
+					// Don't flip coordinates - use maps as they are
 					echarts.registerMap("usa-states", statesGeo);
 					this.usStatesMapData = statesGeo;
 					
 					// Process US counties map
 					const countiesGeo = topojson.feature(countiesTopo, countiesTopo.objects.counties);
-					this._flipCoordinates(countiesGeo); // Flip Y for Albers projection
+					// Don't flip coordinates - use maps as they are
 					echarts.registerMap("usa-counties", countiesGeo);
 					this.usCountiesMapData = countiesGeo;
 					
@@ -306,30 +306,7 @@ define([
 			);
 		},
 		
-		_flipCoordinates: function (geoData)
-		{
-			// Flip Y coordinates for Albers projection
-			geoData.features.forEach(function (feature)
-			{
-				if (feature.geometry && feature.geometry.coordinates)
-				{
-					const flipCoords = function (coords)
-					{
-						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number")
-						{
-							return coords.map(function (coord)
-							{
-								return [coord[0], -coord[1]];
-							});
-						} else
-						{
-							return coords.map(flipCoords);
-						}
-					};
-					feature.geometry.coordinates = flipCoords(feature.geometry.coordinates);
-				}
-			});
-		},
+		// Note: _flipCoordinates function removed - using standard projection maps instead
 		
 		switchToWorldView: function ()
 		{
