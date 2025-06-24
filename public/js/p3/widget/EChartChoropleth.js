@@ -323,9 +323,9 @@ define([
 			const promises = [
 				// World map
 				request("/maage/maps/world-atlas/countries-110m.json", { handleAs: "json" }),
-				// US states (non-Albers for straight projection)
-				request("/maage/maps/us-atlas/states-10m.json", { handleAs: "json" }),
-				// US counties (non-Albers for straight projection)
+				// US states (Albers projection for better layout with AK/HI)
+				request("/maage/maps/us-atlas/states-albers-10m.json", { handleAs: "json" }),
+				// US counties (non-Albers for straight projection in state views)
 				request("/maage/maps/us-atlas/counties-10m.json", { handleAs: "json" })
 			];
 			
@@ -339,7 +339,8 @@ define([
 					
 					// Process US states map
 					const statesGeo = topojson.feature(statesTopo, statesTopo.objects.states);
-					// Don't flip coordinates - use maps as they are
+					// Flip coordinates for Albers projection
+					this._flipCoordinates(statesGeo);
 					echarts.registerMap("usa-states", statesGeo);
 					this.usStatesMapData = statesGeo;
 					
@@ -372,7 +373,30 @@ define([
 			);
 		},
 		
-		// Note: _flipCoordinates function removed - using standard projection maps instead
+		_flipCoordinates: function (geoData)
+		{
+			// Flip Y coordinates for Albers projection
+			geoData.features.forEach(function (feature)
+			{
+				if (feature.geometry && feature.geometry.coordinates)
+				{
+					const flipCoords = function (coords)
+					{
+						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number")
+						{
+							return coords.map(function (coord)
+							{
+								return [coord[0], -coord[1]];
+							});
+						} else
+						{
+							return coords.map(flipCoords);
+						}
+					};
+					feature.geometry.coordinates = flipCoords(feature.geometry.coordinates);
+				}
+			});
+		},
 		
 		switchToWorldView: function ()
 		{
@@ -491,7 +515,7 @@ define([
 			{
 				mapName = "usa-states";
 				chartData = this._processUSStateData(this.genomeData.stateData || {});
-				zoom = 4.5; // Much larger zoom for US map
+				zoom = 1.0; // Albers projection is already well-sized
 				center = ["50%", "50%"];
 			} else
 			{
