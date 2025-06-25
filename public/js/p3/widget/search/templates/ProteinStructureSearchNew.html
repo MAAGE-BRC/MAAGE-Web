@@ -1,0 +1,243 @@
+<form dojoAttachPoint="containerNode" class="PanelForm App ${baseClass}" dojoAttachEvent="onsubmit:onSubmit" style="padding-top: 80px;">
+  <!-- Container to constrain width -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <div class="mb-6">
+      <nav class="text-sm text-gray-600">
+        <a href="/app/Home" class="hover:text-maage-secondary-600">Home</a>
+        <span class="mx-2">›</span>
+        <a href="/searches" class="hover:text-maage-secondary-600">Searches</a>
+        <span class="mx-2">›</span>
+        <span class="text-gray-900">Protein Structure Search</span>
+      </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- Left Column - Search Form (3/4 width) -->
+      <div class="lg:col-span-3">
+        
+        <!-- Page Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="w-8 h-8 bg-maage-secondary-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-maage-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+              </svg>
+            </div>
+            <h1 class="text-2xl font-heading font-semibold text-gray-900">${searchAppName}</h1>
+          </div>
+          <button type="button" class="text-maage-secondary-600 hover:text-maage-secondary-700 flex items-center text-sm">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Help
+          </button>
+        </div>
+
+        <!-- Description -->
+        <p class="text-gray-600 mb-8">
+          Search for experimentally characterized protein structures using keywords, taxon information, PDB identifiers, protein descriptions, or experimental methods.
+        </p>
+
+        <!-- Basic Search Criteria Section -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 class="text-lg font-heading font-medium text-gray-900 mb-6">Basic Search Criteria</h2>
+          
+          <!-- Keyword Field -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Keyword</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'Search by any term (e.g., protein name, function)'" 
+                   data-dojo-attach-point="keywordNode" 
+                   name="keyword" 
+                   class="pl-10"></div>
+            </div>
+          </div>
+
+          <!-- Taxon Name -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Taxon Name</label>
+            <div data-dojo-type="p3/widget/maage/MAAGETaxonNameSelector" 
+                 data-dojo-props="placeHolder:'e.g., Escherichia coli'" 
+                 data-dojo-attach-point="taxonNameNode" 
+                 name="taxon_name"></div>
+          </div>
+        </div>
+
+        <!-- Structure Identification Section -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 class="text-lg font-heading font-medium text-gray-900 mb-6">Structure Identification</h2>
+          
+          <!-- Two-column layout for PDB ID and Genome ID -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- PDB ID -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">PDB ID</label>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'e.g., 1EA3'" 
+                   data-dojo-attach-point="pdbIDNode" 
+                   name="pdb_id"></div>
+            </div>
+
+            <!-- Genome ID -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Genome ID</label>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'e.g., 444178.3'" 
+                   data-dojo-attach-point="genomeIDNode" 
+                   name="genomeID"></div>
+            </div>
+          </div>
+
+          <!-- BRC ID -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">BRC ID</label>
+            <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                 data-dojo-props="placeHolder:'e.g., fig|114727.5.CDS.1'" 
+                 data-dojo-attach-point="brcIDNode" 
+                 name="brcID"></div>
+          </div>
+        </div>
+
+        <!-- Protein Information Section -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 class="text-lg font-heading font-medium text-gray-900 mb-6">Protein Information</h2>
+          
+          <!-- Description -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                 data-dojo-props="placeHolder:'e.g., DNA binding protein'" 
+                 data-dojo-attach-point="descriptionNode" 
+                 name="description"></div>
+          </div>
+
+          <!-- Two-column layout for Gene and Product -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Gene -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Gene</label>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'e.g., dnaA'" 
+                   data-dojo-attach-point="geneNode" 
+                   name="gene"></div>
+            </div>
+
+            <!-- Product -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Product</label>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'e.g., ABC transporter'" 
+                   data-dojo-attach-point="productNode" 
+                   name="product"></div>
+            </div>
+          </div>
+
+          <!-- Method -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Experimental Method</label>
+            <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                 data-dojo-props="placeHolder:'e.g., X-ray diffraction'" 
+                 data-dojo-attach-point="methodNode" 
+                 name="method"></div>
+          </div>
+
+          <!-- Additional Criteria -->
+          <div class="border-t border-gray-200 pt-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-md font-medium text-gray-700">Additional Criteria</h3>
+              <button type="button" 
+                      class="text-maage-secondary-600 hover:text-maage-secondary-700 flex items-center text-sm"
+                      data-dojo-attach-point="addCriteriaBtn">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Add Criterion
+              </button>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-md p-4 text-center text-gray-500 text-sm" 
+                 data-dojo-attach-point="noCriteriaMessage">
+              No additional criteria. Click "Add Criterion" to add more search parameters.
+            </div>
+            
+            <div data-dojo-attach-point="AdvancedSearchPanel" class="space-y-4"></div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex space-x-4">
+          <button type="submit" 
+                  class="inline-flex items-center justify-center px-4 py-2 text-md font-medium rounded-md bg-maage-secondary-500 hover:bg-maage-secondary-600 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-maage-secondary-500 transition-colors"
+                  data-dojo-attach-point="submitButton">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            Search
+          </button>
+          <button type="reset" 
+                  class="inline-flex items-center justify-center px-4 py-2 text-md font-medium rounded-md bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
+                  data-dojo-attach-point="resetButton">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column - Tools & Resources (1/4 width) -->
+      <div class="lg:col-span-1">
+        <div class="bg-white border border-gray-200 rounded-lg p-6 sticky top-6">
+          <h3 class="text-lg font-heading font-medium text-gray-900 mb-4">Tools & Resources</h3>
+          
+          <div class="space-y-4">
+            <!-- Structure Visualization -->
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-maage-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-maage-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium text-gray-900">Structure Visualization</h4>
+                <p class="text-xs text-gray-600 mt-1">View 3D protein structures interactively</p>
+              </div>
+            </div>
+
+            <!-- Structural Analysis -->
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-maage-tertiary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-maage-tertiary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium text-gray-900">Structural Analysis</h4>
+                <p class="text-xs text-gray-600 mt-1">Analyze protein folds and domains</p>
+              </div>
+            </div>
+
+            <!-- Structure Comparison -->
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-maage-quinary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-maage-quinary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium text-gray-900">Structure Comparison</h4>
+                <p class="text-xs text-gray-600 mt-1">Compare structural similarities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

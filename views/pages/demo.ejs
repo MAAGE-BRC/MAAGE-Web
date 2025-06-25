@@ -12,7 +12,7 @@
           <div id="bv-brc-page-container" style="width:100%;">
             <div class="page-content" style="width:90%; margin: 0 auto; text-align:left;">
               <div class="max-w-full mx-auto">
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex justify-between items-center mb-4 mt-16">
                   <div class="ml-4 flex items-center gap-3">
                     <span id="edit-mode-label" class="text-sm font-medium text-gray-700">View Mode</span>
                     <label for="toggle-drag" class="sr-only">Mode</label>
@@ -24,17 +24,17 @@
                 </div>
 
                 <% const widgets = [
-                  { partial: 'echarts-bar.ejs', x: 0, y: 0, w: 3, h: 2 },
-                  { partial: 'echarts-doughnut.ejs', x: 3, y: 0, w: 3, h: 2 },
+                  { partial: 'blank-chart-widget.ejs', x: 0, y: 0, w: 3, h: 2 },
+                  { partial: 'blank-chart-widget.ejs', x: 3, y: 0, w: 3, h: 2 },
                   { partial: 'blank-table-widget.ejs', x: 6, y: 0, w: 3, h: 2 },
                   { partial: 'blank-table-widget.ejs', x: 9, y: 0, w: 3, h: 2 },
-                  { partial: 'echarts-bar.ejs', x: 0, y: 2, w: 6, h: 4 },
-                  { partial: 'echarts-doughnut.ejs', x: 6, y: 2, w: 6, h: 4 },
+                  { partial: 'blank-chart-widget.ejs', x: 0, y: 2, w: 6, h: 4 },
+                  { partial: 'blank-chart-widget.ejs', x: 6, y: 2, w: 6, h: 4 },
                   { partial: 'blank-table-widget.ejs', x: 0, y: 6, w: 4, h: 3 },
                   { partial: 'blank-table-widget.ejs', x: 4, y: 6, w: 4, h: 3 },
                   { partial: 'blank-table-widget.ejs', x: 8, y: 6, w: 4, h: 3 },
-                  { partial: 'echarts-bar.ejs', x: 0, y: 9, w: 6, h: 3 },
-                  { partial: 'echarts-doughnut.ejs', x: 6, y: 9, w: 6, h: 3 }
+                  { partial: 'blank-chart-widget.ejs', x: 0, y: 9, w: 6, h: 3 },
+                  { partial: 'blank-chart-widget.ejs', x: 6, y: 9, w: 6, h: 3 }
                 ]; %>
 
                 <%- include('../components/gridstack-container', { widgets }) %>

@@ -1,14 +1,18 @@
 define([
   'dojo/_base/declare',
   'dojo/_base/lang',
+  'dojo/dom-class',
+  'dojo/on',
   './SearchBase',
-  'dojo/text!./templates/SpecialtyGeneSearch.html',
+  'dojo/text!./templates/SpecialtyGeneSearchNew.html',
   './TextInputEncoder',
   './FacetStoreBuilder',
   './PathogenGroups',
 ], function (
   declare,
   lang,
+  domClass,
+  on,
   SearchBase,
   template,
   TextInputEncoder,
@@ -23,30 +27,55 @@ define([
   return declare([SearchBase], {
     templateString: template,
     searchAppName: 'Specialty Gene Search',
-    pageTitle: 'Specialty Gene Search | BV-BRC',
+    pageTitle: 'Specialty Gene Search | MAAGE',
     dataKey: 'sp_gene',
     resultUrlBase: '/view/SpecialtyGeneList/?',
     resultUrlHash: '#view_tab=specialtyGenes&filter=false',
+    baseClass: 'SpecialtyGeneSearchModern',
+    
     postCreate: function () {
-      this.inherited(arguments)
-
-      this.pathogenGroupNode.store = pathogenGroupStore
+      // Build the stores for dropdown widgets
+      this.pathogenGroupNode.set('store', pathogenGroupStore)
 
       storeBuilder('genome', 'host_common_name').then(lang.hitch(this, (store) => {
-        this.hostNameNode.store = store
+        this.hostNameNode.set('store', store)
       }))
 
       storeBuilder('sp_gene', 'property').then(lang.hitch(this, (store) => {
-        this.propertyNode.store = store
+        this.propertyNode.set('store', store)
       }))
 
       storeBuilder('sp_gene', 'source').then(lang.hitch(this, (store) => {
-        this.sourceNode.store = store
+        this.sourceNode.set('store', store)
       }))
 
       storeBuilder('sp_gene', 'evidence').then(lang.hitch(this, (store) => {
-        this.evidenceNode.store = store
+        this.evidenceNode.set('store', store)
       }))
+
+      this.inherited(arguments)
+      
+      // Set up additional criteria toggle
+      this._setupAdditionalCriteria()
+    },
+
+    _setupAdditionalCriteria: function () {
+      // Initially hide the "no criteria" message if there are already criteria
+      if (this.AdvancedSearchPanel && this.AdvancedSearchPanel.children.length > 0) {
+        domClass.add(this.noCriteriaMessage, 'hidden')
+      }
+
+      // Handle add criteria button click
+      if (this.addCriteriaBtn) {
+        on(this.addCriteriaBtn, 'click', lang.hitch(this, function(e) {
+          e.preventDefault()
+          // This will trigger the inherited advanced search functionality
+          if (this.AdvancedSearchPanel && this.AdvancedSearchPanel.addCriterion) {
+            this.AdvancedSearchPanel.addCriterion()
+            domClass.add(this.noCriteriaMessage, 'hidden')
+          }
+        }))
+      }
     },
     buildQuery: function () {
       let queryArr = []
@@ -120,6 +149,16 @@ define([
         return query + genomeQuery
       } else {
         return query
+      }
+    },
+
+    // Override reset to also reset the additional criteria UI
+    onReset: function () {
+      this.inherited(arguments)
+      
+      // Show the "no criteria" message again
+      if (this.noCriteriaMessage) {
+        domClass.remove(this.noCriteriaMessage, 'hidden')
       }
     }
   })
