@@ -7,6 +7,20 @@
   @apply transition-colors duration-200;
 }
 
+/* Map view toggle buttons */
+.map-view-btn {
+  @apply bg-gray-500 text-white hover:bg-gray-600;
+}
+
+.map-view-btn.active {
+  @apply bg-maage-primary-400 text-white shadow-sm;
+}
+
+/* Map zoom buttons */
+.map-zoom-btn {
+  @apply bg-gray-500 text-white hover:bg-gray-600;
+}
+
 /* Map chart container style */
 .genome-list-overview-dashboard .map-chart-container {
   min-height: 500px !important;

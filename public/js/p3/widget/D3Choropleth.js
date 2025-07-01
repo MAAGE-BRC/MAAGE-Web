@@ -193,14 +193,27 @@ define([
 			this.worldViewBtn = domConstruct.create("button", {
 				innerHTML: "World",
 				className: this.externalControlsContainer ? "map-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors" : "",
-				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500;"
+				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; transition: background-color 0.2s;"
 			}, toggleBtnContainer);
 
 			this.usViewBtn = domConstruct.create("button", {
 				innerHTML: "United States",
 				className: this.externalControlsContainer ? "map-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active" : "",
-				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500;"
+				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; transition: background-color 0.2s;"
 			}, toggleBtnContainer);
+
+			this.stateViewBtn = domConstruct.create("button", {
+				innerHTML: "State",
+				className: this.externalControlsContainer ? "map-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; transition: background-color 0.2s;"
+			}, toggleBtnContainer);
+
+			// Current view indicator - hidden by default
+			this.viewIndicatorNode = domConstruct.create("div", {
+				className: this.externalControlsContainer ? "ml-3 px-3 py-1 bg-maage-primary-50 text-maage-primary-700 rounded-md text-sm font-medium" : "",
+				style: this.externalControlsContainer ? "display: none;" : "display: none; margin-left: 12px; padding: 6px 16px; background-color: #ecf3f0; color: #496f5d; border-radius: 6px; font-size: 14px; font-weight: 500;",
+				innerHTML: "Viewing: United States"
+			}, this.controlsNode);
 
 			// State dropdown
 			this.stateDropdownNode = domConstruct.create("select", {
@@ -211,14 +224,21 @@ define([
 			domConstruct.create("option", {
 				value: "",
 				innerHTML: "Select a state...",
-				selected: true
+				selected: false
 			}, this.stateDropdownNode);
 
 			Object.keys(this.stateNameToFips).forEach(lang.hitch(this, function (stateName) {
-				domConstruct.create("option", {
+				const option = domConstruct.create("option", {
 					value: this.stateNameToFips[stateName],
 					innerHTML: stateName
 				}, this.stateDropdownNode);
+				
+				// Set Illinois as default
+				if (stateName === "Illinois") {
+					option.selected = true;
+					this.selectedState = this.stateNameToFips[stateName];
+					this.selectedStateName = stateName;
+				}
 			}));
 
 			// Back button
@@ -270,6 +290,14 @@ define([
 				innerHTML: '<div style="text-align: center;">Loading map data...</div>'
 			}, this.mapContainer);
 
+			// Create map title overlay
+			this.mapTitleNode = domConstruct.create("div", {
+				style: "position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.95); " +
+					"padding: 10px 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); " +
+					"font-size: 18px; font-weight: 600; color: #496f5d; border: 2px solid #98bdac;",
+				innerHTML: "United States"
+			}, this.mapContainer);
+
 			// Create color scale legend
 			this.legendNode = domConstruct.create("div", {
 				style: "position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); " +
@@ -284,6 +312,15 @@ define([
 		_setupEventHandlers: function () {
 			on(this.worldViewBtn, "click", lang.hitch(this, "switchToWorldView"));
 			on(this.usViewBtn, "click", lang.hitch(this, "switchToUSView"));
+			on(this.stateViewBtn, "click", lang.hitch(this, function () {
+				// Switch to state view with the selected state (Illinois by default)
+				if (this.selectedState && this.selectedStateName) {
+					this.switchToStateView(this.selectedState, this.selectedStateName);
+				} else {
+					// Fallback to Illinois if no state selected
+					this.switchToStateView("17", "Illinois");
+				}
+			}));
 			on(this.stateDropdownNode, "change", lang.hitch(this, function (evt) {
 				const stateCode = evt.target.value;
 				if (stateCode) {
@@ -878,9 +915,20 @@ define([
 		},
 
 		_updateButtonStyles: function () {
+			// Update map title overlay
+			if (this.mapTitleNode) {
+				if (this.currentView === "world") {
+					this.mapTitleNode.innerHTML = "World";
+				} else if (this.currentView === "us") {
+					this.mapTitleNode.innerHTML = "United States";
+				} else if (this.currentView === "state" && this.selectedStateName) {
+					this.mapTitleNode.innerHTML = this.selectedStateName;
+				}
+			}
+
 			if (this.externalControlsContainer) {
 				// Handle class-based styling for external controls
-				[this.worldViewBtn, this.usViewBtn].forEach(btn => {
+				[this.worldViewBtn, this.usViewBtn, this.stateViewBtn].forEach(btn => {
 					btn.classList.remove("active");
 				});
 
@@ -891,30 +939,36 @@ define([
 					this.backButtonNode.style.display = "none";
 				} else if (this.currentView === "us") {
 					this.usViewBtn.classList.add("active");
-					this.stateDropdownNode.style.display = "inline-block";
+					this.stateDropdownNode.style.display = "none";
 					this.backButtonNode.style.display = "none";
 				} else {
-					this.usViewBtn.classList.add("active");
+					// State view
+					this.stateViewBtn.classList.add("active");
 					this.stateDropdownNode.style.display = "inline-block";
 					this.backButtonNode.style.display = "inline-block";
 				}
 			} else {
 				// Handle inline style for standalone widget
-				[this.worldViewBtn, this.usViewBtn].forEach(btn => {
+				[this.worldViewBtn, this.usViewBtn, this.stateViewBtn].forEach(btn => {
 					btn.style.backgroundColor = "#6c757d";
+					btn.style.boxShadow = "none";
 				});
 
-				// Set active button
+				// Set active button with enhanced styling
 				if (this.currentView === "world") {
 					this.worldViewBtn.style.backgroundColor = "#98bdac";
+					this.worldViewBtn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
 					this.stateDropdownNode.style.display = "none";
 					this.backButtonNode.style.display = "none";
 				} else if (this.currentView === "us") {
 					this.usViewBtn.style.backgroundColor = "#98bdac";
-					this.stateDropdownNode.style.display = "inline-block";
+					this.usViewBtn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+					this.stateDropdownNode.style.display = "none";
 					this.backButtonNode.style.display = "none";
 				} else {
-					this.usViewBtn.style.backgroundColor = "#98bdac";
+					// State view
+					this.stateViewBtn.style.backgroundColor = "#98bdac";
+					this.stateViewBtn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
 					this.stateDropdownNode.style.display = "inline-block";
 					this.backButtonNode.style.display = "inline-block";
 				}
