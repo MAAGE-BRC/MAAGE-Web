@@ -352,9 +352,8 @@ define([
 				checkAndCreate();
 			};
 
-			// Create summary widget
 			this.createSummaryWidget();
-			
+
 			this.createLocationChart();
 			this.createMapChart();
 			createChart(
@@ -716,7 +715,7 @@ define([
 				},
 				lang.hitch(this, function (chart)
 				{
-					// Get all years from the data instead of limiting to last 10
+
 					const query = `${this.state.search}&facet((field,collection_year),(mincount,1))&limit(0)`;
 					const queryOptions = { headers: { Accept: "application/solr+json" } };
 
@@ -728,7 +727,6 @@ define([
 								const yearFacets = res.facet_counts.facet_fields.collection_year;
 								const chartData = [];
 
-								// Process all years found in the data
 								for (let i = 0; i < yearFacets.length; i += 2)
 								{
 									const year = parseInt(yearFacets[i], 10);
@@ -742,10 +740,8 @@ define([
 									}
 								}
 
-								// Sort in descending order (newest first)
 								chartData.sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
-								// Update the chart without color gradient to get individual colors
 								chart.updateChart({
 									data: chartData,
 									colorGradient: false
@@ -856,15 +852,15 @@ define([
 		{
 			if (!this.summaryNode || !this.state || !this.state.search) return;
 
-			// Create the summary widget
-			if (this.summaryWidget) {
+			if (this.summaryWidget)
+			{
 				this.summaryWidget.destroy();
 			}
 
 			this.summaryWidget = new GenomeListSummary({
 				state: this.state
 			});
-			
+
 			this.summaryWidget.placeAt(this.summaryNode);
 			this.summaryWidget.startup();
 		},
