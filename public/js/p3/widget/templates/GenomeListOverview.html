@@ -1,14 +1,26 @@
 <div class="genome-list-overview-dashboard p-4 sm:p-6 bg-maage-bg">
 	<div class="mb-4 sm:mb-6">
-		<div class="chart-section w-full relative">
-			<h3 class="chart-title">Genome Distribution</h3>
-			<div class="absolute top-3 right-3 toggle-buttons flex gap-2" data-dojo-attach-point="mapControlsContainer">
-				<!-- Map controls will be moved here from D3Choropleth widget -->
+		<div class="flex flex-wrap gap-2 sm:gap-4">
+			<!-- Summary Statistics Widget (25% width) -->
+			<div class="chart-section w-full lg:w-[calc(25%-0.5rem)]">
+				<h3 class="chart-title">Summary Statistics</h3>
+				<div
+					data-dojo-attach-point="summaryNode"
+					class="summary-container"
+				></div>
 			</div>
-			<div
-				data-dojo-attach-point="mapChartNode"
-				class="chart-container map-chart-container"
-			></div>
+			
+			<!-- Map Widget (75% width) -->
+			<div class="chart-section w-full lg:w-[calc(75%-0.5rem)] relative">
+				<h3 class="chart-title">Genome Distribution</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-2" data-dojo-attach-point="mapControlsContainer">
+					<!-- Map controls will be moved here from D3Choropleth widget -->
+				</div>
+				<div
+					data-dojo-attach-point="mapChartNode"
+					class="chart-container map-chart-container"
+				></div>
+			</div>
 		</div>
 	</div>
 

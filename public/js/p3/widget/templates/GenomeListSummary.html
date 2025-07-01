@@ -1,0 +1,58 @@
+<div class="genome-list-summary">
+	<div data-dojo-attach-point="loadingNode" class="flex items-center justify-center p-8">
+		<div class="text-center">
+			<div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+			<div class="mt-2 text-sm text-gray-600">Loading summary...</div>
+		</div>
+	</div>
+	
+	<div data-dojo-attach-point="contentNode" class="hidden">
+		<div class="summary-section mb-4">
+			<h4 class="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Genome Counts</h4>
+			<div class="space-y-2">
+				<div class="summary-item">
+					<span class="summary-label">Total Genomes</span>
+					<span data-dojo-attach-point="totalGenomesNode" class="summary-value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="summary-label">Complete</span>
+					<span data-dojo-attach-point="completeGenomesNode" class="summary-value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="summary-label">WGS</span>
+					<span data-dojo-attach-point="wgsGenomesNode" class="summary-value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="summary-label">Plasmids</span>
+					<span data-dojo-attach-point="plasmidsNode" class="summary-value">0</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="summary-section mb-4">
+			<h4 class="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Diversity</h4>
+			<div class="space-y-2">
+				<div class="summary-item">
+					<span class="summary-label">Unique Genera</span>
+					<span data-dojo-attach-point="uniqueGeneraNode" class="summary-value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="summary-label">Unique Species</span>
+					<span data-dojo-attach-point="uniqueSpeciesNode" class="summary-value">0</span>
+				</div>
+				<div class="summary-item">
+					<span class="summary-label">Unique Hosts</span>
+					<span data-dojo-attach-point="uniqueHostsNode" class="summary-value">0</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="summary-section">
+			<h4 class="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Collection Period</h4>
+			<div class="summary-item">
+				<span class="summary-label">Years</span>
+				<span data-dojo-attach-point="dateRangeNode" class="summary-value">N/A</span>
+			</div>
+		</div>
+	</div>
+</div>

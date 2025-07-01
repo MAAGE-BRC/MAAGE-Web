@@ -14,7 +14,8 @@ define([
 	"./EChartHorizontalBar",
 	"./EChartAMRStackedBar",
 	"./D3Choropleth",
-	"p3/store/AMRJsonRest"
+	"p3/store/AMRJsonRest",
+	"./GenomeListSummary"
 ], function (
 	declare,
 	lang,
@@ -31,7 +32,8 @@ define([
 	HorizontalBar,
 	AMRStackedBar,
 	Choropleth,
-	AMRStore
+	AMRStore,
+	GenomeListSummary
 )
 {
 	return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
@@ -43,6 +45,7 @@ define([
 		currentLocationView: "state",
 		amrChart: null,
 		mapChart: null,
+		summaryWidget: null,
 
 		postCreate: function ()
 		{
@@ -349,6 +352,9 @@ define([
 				checkAndCreate();
 			};
 
+			// Create summary widget
+			this.createSummaryWidget();
+			
 			this.createLocationChart();
 			this.createMapChart();
 			createChart(
@@ -846,6 +852,23 @@ define([
 			if (this.mapChart) this.mapChart.resize();
 		},
 
+		createSummaryWidget: function ()
+		{
+			if (!this.summaryNode || !this.state || !this.state.search) return;
+
+			// Create the summary widget
+			if (this.summaryWidget) {
+				this.summaryWidget.destroy();
+			}
+
+			this.summaryWidget = new GenomeListSummary({
+				state: this.state
+			});
+			
+			this.summaryWidget.placeAt(this.summaryNode);
+			this.summaryWidget.startup();
+		},
+
 		destroy: function ()
 		{
 			this.inherited(arguments);
@@ -864,6 +887,11 @@ define([
 			{
 				this.mapChart.destroy();
 				this.mapChart = null;
+			}
+			if (this.summaryWidget)
+			{
+				this.summaryWidget.destroy();
+				this.summaryWidget = null;
 			}
 		},
 	});

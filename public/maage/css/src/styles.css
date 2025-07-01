@@ -2714,3 +2714,28 @@ div#bv-brc-page-container > div.page-content {
       .map-zoom-btn:hover {
         @apply bg-gray-200;
       }
+
+      /* Genome List Summary styles */
+      .genome-list-summary {
+        @apply h-full;
+      }
+      
+      .summary-container {
+        @apply h-full min-h-[300px];
+      }
+      
+      .summary-section {
+        @apply border-b border-gray-200 pb-3 last:border-b-0;
+      }
+      
+      .summary-item {
+        @apply flex justify-between items-center py-1;
+      }
+      
+      .summary-label {
+        @apply text-sm text-gray-600;
+      }
+      
+      .summary-value {
+        @apply text-sm font-semibold text-gray-900;
+      }
