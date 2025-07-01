@@ -56,11 +56,77 @@ define([
 			"West Virginia": "54", "Wisconsin": "55", "Wyoming": "56"
 		},
 
-		countryNameToISO: {
-			"United States": "USA", "United Kingdom": "GBR", "Canada": "CAN",
-			"China": "CHN", "India": "IND", "Brazil": "BRA", "Russia": "RUS",
-			"Japan": "JPN", "Germany": "DEU", "France": "FRA", "Italy": "ITA",
-			"Spain": "ESP", "Australia": "AUS"
+		// Comprehensive mapping between TopoJSON country names and isolation_country values
+		countryNameMapping: {
+			// North America
+			"United States of America": ["USA", "United States", "US"],
+			"Canada": ["CAN", "Canada"],
+			"Mexico": ["MEX", "Mexico"],
+			
+			// Europe
+			"United Kingdom": ["United Kingdom", "UK", "GBR", "Great Britain"],
+			"Germany": ["Germany", "DEU"],
+			"France": ["France", "FRA"],
+			"Italy": ["Italy", "ITA"],
+			"Spain": ["Spain", "ESP"],
+			"Netherlands": ["Netherlands", "NLD", "Holland"],
+			"Belgium": ["Belgium", "BEL"],
+			"Switzerland": ["Switzerland", "CHE"],
+			"Austria": ["Austria", "AUT"],
+			"Denmark": ["Denmark", "DNK"],
+			"Sweden": ["Sweden", "SWE"],
+			"Norway": ["Norway", "NOR"],
+			"Finland": ["Finland", "FIN"],
+			"Poland": ["Poland", "POL"],
+			"Czech Republic": ["Czech Republic", "CZE", "Czechia"],
+			"Portugal": ["Portugal", "PRT"],
+			"Greece": ["Greece", "GRC"],
+			"Ireland": ["Ireland", "IRL"],
+			"Hungary": ["Hungary", "HUN"],
+			"Romania": ["Romania", "ROU"],
+			
+			// Asia
+			"China": ["China", "CHN", "People's Republic of China"],
+			"Japan": ["Japan", "JPN"],
+			"India": ["India", "IND"],
+			"South Korea": ["South Korea", "KOR", "Korea, South", "Republic of Korea"],
+			"Thailand": ["Thailand", "THA"],
+			"Vietnam": ["Vietnam", "VNM", "Viet Nam"],
+			"Singapore": ["Singapore", "SGP"],
+			"Malaysia": ["Malaysia", "MYS"],
+			"Indonesia": ["Indonesia", "IDN"],
+			"Philippines": ["Philippines", "PHL"],
+			"Bangladesh": ["Bangladesh", "BGD"],
+			"Pakistan": ["Pakistan", "PAK"],
+			"Turkey": ["Turkey", "TUR"],
+			"Israel": ["Israel", "ISR"],
+			"Saudi Arabia": ["Saudi Arabia", "SAU"],
+			"United Arab Emirates": ["United Arab Emirates", "UAE"],
+			
+			// South America
+			"Brazil": ["Brazil", "BRA"],
+			"Argentina": ["Argentina", "ARG"],
+			"Chile": ["Chile", "CHL"],
+			"Peru": ["Peru", "PER"],
+			"Colombia": ["Colombia", "COL"],
+			"Venezuela": ["Venezuela", "VEN"],
+			"Ecuador": ["Ecuador", "ECU"],
+			
+			// Africa
+			"South Africa": ["South Africa", "ZAF"],
+			"Nigeria": ["Nigeria", "NGA"],
+			"Egypt": ["Egypt", "EGY"],
+			"Kenya": ["Kenya", "KEN"],
+			"Ethiopia": ["Ethiopia", "ETH"],
+			"Ghana": ["Ghana", "GHA"],
+			"Morocco": ["Morocco", "MAR"],
+			
+			// Oceania
+			"Australia": ["Australia", "AUS"],
+			"New Zealand": ["New Zealand", "NZL"],
+			
+			// Russia (transcontinental)
+			"Russia": ["Russia", "RUS", "Russian Federation"]
 		},
 
 		postCreate: function () {
@@ -608,27 +674,58 @@ define([
 			if (!this.genomeData || !this.genomeData.countryData) return null;
 			
 			const props = feature.properties || {};
-			const countryName = props.NAME || props.name || "";
-			const normalized = countryName.toLowerCase().replace(/[^a-z]/g, "");
+			const topoJsonName = props.NAME || props.name || "";
 			
-			// Build lookup with same logic as EChartChoropleth
-			const countryLookup = {};
-			Object.keys(this.genomeData.countryData).forEach(country => {
-				const norm = country.toLowerCase().replace(/[^a-z]/g, "");
-				countryLookup[norm] = this.genomeData.countryData[country];
-				countryLookup[country] = this.genomeData.countryData[country];
-			});
+			// Debug logging for first few countries
+			if (!this._debuggedCountries) {
+				this._debuggedCountries = 0;
+			}
+			if (this._debuggedCountries < 5) {
+				console.log("D3Choropleth: Country lookup", {
+					topoJsonName: topoJsonName,
+					availableDataKeys: Object.keys(this.genomeData.countryData).slice(0, 10)
+				});
+				this._debuggedCountries++;
+			}
 			
 			let count = 0;
-			if (countryLookup[countryName]) {
-				count = countryLookup[countryName];
-			} else if (countryLookup[normalized]) {
-				count = countryLookup[normalized];
+			let matchedKey = null;
+			
+			// First, try direct match with the data
+			if (this.genomeData.countryData[topoJsonName]) {
+				count = this.genomeData.countryData[topoJsonName];
+				matchedKey = topoJsonName;
+			} else {
+				// Use our mapping to find matches
+				const possibleNames = this.countryNameMapping[topoJsonName];
+				if (possibleNames) {
+					for (let i = 0; i < possibleNames.length; i++) {
+						const name = possibleNames[i];
+						if (this.genomeData.countryData[name]) {
+							count = this.genomeData.countryData[name];
+							matchedKey = name;
+							break;
+						}
+					}
+				}
+				
+				// If still no match, try normalized comparison
+				if (!count) {
+					const normalized = topoJsonName.toLowerCase().replace(/[^a-z]/g, "");
+					Object.keys(this.genomeData.countryData).forEach(dataKey => {
+						const dataNorm = dataKey.toLowerCase().replace(/[^a-z]/g, "");
+						if (dataNorm === normalized) {
+							count = this.genomeData.countryData[dataKey];
+							matchedKey = dataKey;
+						}
+					});
+				}
 			}
 			
 			if (!count) return null;
 			
-			const metadata = this.genomeData.countryMetadata && this.genomeData.countryMetadata[countryName];
+			// Use the matched key to get metadata
+			const metadata = this.genomeData.countryMetadata && this.genomeData.countryMetadata[matchedKey];
 			
 			return {
 				count: count,
