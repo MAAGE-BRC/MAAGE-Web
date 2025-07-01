@@ -24,6 +24,7 @@ define([
 		
 		// DOM nodes
 		controlsNode: null,
+		externalControlsContainer: null, // Container provided by parent widget
 		mapContainer: null,
 		svg: null,
 		g: null,
@@ -105,29 +106,40 @@ define([
 			// Create main container
 			this.domNode.style.cssText = "display: flex; flex-direction: column; height: 100%; min-height: 450px;";
 			
-			// Create controls
-			this.controlsNode = domConstruct.create("div", {
-				style: "display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;"
-			}, this.domNode);
+			// Create controls either in external container or within widget
+			if (this.externalControlsContainer) {
+				this.controlsNode = this.externalControlsContainer;
+				// Clear any existing content
+				this.controlsNode.innerHTML = "";
+			} else {
+				// Create controls within widget
+				this.controlsNode = domConstruct.create("div", {
+					style: "display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;"
+				}, this.domNode);
+			}
 
 			// View toggle buttons
-			const toggleContainer = domConstruct.create("div", {
-				style: "display: flex; gap: 8px;"
+			const toggleBtnContainer = domConstruct.create("div", {
+				className: this.externalControlsContainer ? "flex gap-0.5 bg-gray-100 rounded-md p-0.5" : "",
+				style: this.externalControlsContainer ? "" : "display: flex; gap: 8px;"
 			}, this.controlsNode);
 
 			this.worldViewBtn = domConstruct.create("button", {
 				innerHTML: "World",
-				style: "padding: 6px 16px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500;"
-			}, toggleContainer);
+				className: this.externalControlsContainer ? "map-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500;"
+			}, toggleBtnContainer);
 
 			this.usViewBtn = domConstruct.create("button", {
 				innerHTML: "United States",
-				style: "padding: 6px 16px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500;"
-			}, toggleContainer);
+				className: this.externalControlsContainer ? "map-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active" : "",
+				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500;"
+			}, toggleBtnContainer);
 
 			// State dropdown
 			this.stateDropdownNode = domConstruct.create("select", {
-				style: "padding: 6px 16px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; cursor: pointer; background-color: white;"
+				className: this.externalControlsContainer ? "px-2 py-0.5 text-xs font-medium border border-gray-300 rounded-md bg-white" : "",
+				style: this.externalControlsContainer ? "" : "padding: 6px 16px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; cursor: pointer; background-color: white;"
 			}, this.controlsNode);
 
 			domConstruct.create("option", {
@@ -145,34 +157,44 @@ define([
 
 			// Back button
 			this.backButtonNode = domConstruct.create("button", {
-				style: "padding: 6px 16px; background-color: #5f94ab; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; display: none;",
+				className: this.externalControlsContainer ? "px-2 py-0.5 text-xs font-medium rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors" : "",
+				style: this.externalControlsContainer ? "display: none;" : "padding: 6px 16px; background-color: #5f94ab; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; display: none;",
 				innerHTML: "← Back"
 			}, this.controlsNode);
 
 			// Zoom controls
 			const zoomControls = domConstruct.create("div", {
-				style: "display: flex; gap: 4px; background-color: #f3f4f6; border-radius: 8px; padding: 4px;"
+				className: this.externalControlsContainer ? "flex gap-0.5 bg-gray-100 rounded-md p-0.5" : "",
+				style: this.externalControlsContainer ? "" : "display: flex; gap: 4px; background-color: #f3f4f6; border-radius: 8px; padding: 4px;"
 			}, this.controlsNode);
 
 			this.zoomInBtn = domConstruct.create("button", {
 				innerHTML: "+",
-				style: "width: 32px; height: 32px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
+				className: this.externalControlsContainer ? "map-zoom-btn px-1.5 py-0.5 text-xs font-bold rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "width: 32px; height: 32px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
 			}, zoomControls);
 
 			this.zoomOutBtn = domConstruct.create("button", {
 				innerHTML: "−",
-				style: "width: 32px; height: 32px; background-color: #5f94ab; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
+				className: this.externalControlsContainer ? "map-zoom-btn px-1.5 py-0.5 text-xs font-bold rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "width: 32px; height: 32px; background-color: #5f94ab; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
 			}, zoomControls);
 
 			this.zoomResetBtn = domConstruct.create("button", {
 				innerHTML: "⟲",
-				style: "width: 32px; height: 32px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
+				className: this.externalControlsContainer ? "map-zoom-btn px-1.5 py-0.5 text-xs font-bold rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "width: 32px; height: 32px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
 			}, zoomControls);
 
-			// Map container
-			this.mapContainer = domConstruct.create("div", {
-				style: "flex: 1; position: relative; overflow: hidden;"
-			}, this.domNode);
+			// Map container - use domNode directly when using external controls
+			if (this.externalControlsContainer) {
+				this.mapContainer = this.domNode;
+				this.mapContainer.style.cssText = "position: relative; overflow: hidden; height: 100%;";
+			} else {
+				this.mapContainer = domConstruct.create("div", {
+					style: "flex: 1; position: relative; overflow: hidden;"
+				}, this.domNode);
+			}
 
 			// Create loading indicator
 			this.loadingIndicator = domConstruct.create("div", {
@@ -716,24 +738,46 @@ define([
 		},
 
 		_updateButtonStyles: function () {
-			// Reset all buttons
-			[this.worldViewBtn, this.usViewBtn].forEach(btn => {
-				btn.style.backgroundColor = "#6c757d";
-			});
+			if (this.externalControlsContainer) {
+				// Handle class-based styling for external controls
+				[this.worldViewBtn, this.usViewBtn].forEach(btn => {
+					btn.classList.remove("active");
+				});
 
-			// Set active button
-			if (this.currentView === "world") {
-				this.worldViewBtn.style.backgroundColor = "#98bdac";
-				this.stateDropdownNode.style.display = "none";
-				this.backButtonNode.style.display = "none";
-			} else if (this.currentView === "us") {
-				this.usViewBtn.style.backgroundColor = "#98bdac";
-				this.stateDropdownNode.style.display = "inline-block";
-				this.backButtonNode.style.display = "none";
+				// Set active button
+				if (this.currentView === "world") {
+					this.worldViewBtn.classList.add("active");
+					this.stateDropdownNode.style.display = "none";
+					this.backButtonNode.style.display = "none";
+				} else if (this.currentView === "us") {
+					this.usViewBtn.classList.add("active");
+					this.stateDropdownNode.style.display = "inline-block";
+					this.backButtonNode.style.display = "none";
+				} else {
+					this.usViewBtn.classList.add("active");
+					this.stateDropdownNode.style.display = "inline-block";
+					this.backButtonNode.style.display = "inline-block";
+				}
 			} else {
-				this.usViewBtn.style.backgroundColor = "#98bdac";
-				this.stateDropdownNode.style.display = "inline-block";
-				this.backButtonNode.style.display = "inline-block";
+				// Handle inline style for standalone widget
+				[this.worldViewBtn, this.usViewBtn].forEach(btn => {
+					btn.style.backgroundColor = "#6c757d";
+				});
+
+				// Set active button
+				if (this.currentView === "world") {
+					this.worldViewBtn.style.backgroundColor = "#98bdac";
+					this.stateDropdownNode.style.display = "none";
+					this.backButtonNode.style.display = "none";
+				} else if (this.currentView === "us") {
+					this.usViewBtn.style.backgroundColor = "#98bdac";
+					this.stateDropdownNode.style.display = "inline-block";
+					this.backButtonNode.style.display = "none";
+				} else {
+					this.usViewBtn.style.backgroundColor = "#98bdac";
+					this.stateDropdownNode.style.display = "inline-block";
+					this.backButtonNode.style.display = "inline-block";
+				}
 			}
 		},
 

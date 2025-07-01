@@ -528,7 +528,8 @@ define([
 				Choropleth,
 				{
 					title: "Genome Distribution",
-					theme: "maage-echarts-theme"
+					theme: "maage-echarts-theme",
+					externalControlsContainer: this.mapControlsContainer
 				},
 				lang.hitch(this, function (chart)
 				{

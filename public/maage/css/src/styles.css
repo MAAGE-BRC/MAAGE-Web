@@ -2697,3 +2697,20 @@ div#bv-brc-page-container > div.page-content {
       .p-6 {
         padding: 1.5rem;
       }
+
+      /* Map control button styles */
+      .map-view-btn {
+        @apply text-gray-700 hover:text-gray-900 hover:bg-gray-200;
+      }
+      
+      .map-view-btn.active {
+        @apply bg-primary text-white hover:bg-primary hover:text-white;
+      }
+      
+      .map-zoom-btn {
+        @apply text-gray-700 hover:text-gray-900 hover:bg-gray-200;
+      }
+      
+      .map-zoom-btn:hover {
+        @apply bg-gray-200;
+      }

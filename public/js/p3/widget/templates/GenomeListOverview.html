@@ -1,7 +1,10 @@
 <div class="genome-list-overview-dashboard p-4 sm:p-6 bg-maage-bg">
 	<div class="mb-4 sm:mb-6">
-		<div class="chart-section w-full">
+		<div class="chart-section w-full relative">
 			<h3 class="chart-title">Genome Distribution</h3>
+			<div class="absolute top-3 right-3 toggle-buttons flex gap-2" data-dojo-attach-point="mapControlsContainer">
+				<!-- Map controls will be moved here from D3Choropleth widget -->
+			</div>
 			<div
 				data-dojo-attach-point="mapChartNode"
 				class="chart-container map-chart-container"
