@@ -13,7 +13,7 @@ define([
 	"./EChartStackedBar",
 	"./EChartHorizontalBar",
 	"./EChartAMRStackedBar",
-	"./EChartChoropleth",
+	"./D3Choropleth",
 	"p3/store/AMRJsonRest"
 ], function (
 	declare,
