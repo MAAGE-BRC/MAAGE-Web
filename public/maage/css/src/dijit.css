@@ -1,0 +1,60 @@
+.dijitTextBox,
+.dijitComboBox,
+.dijitSelect {
+  border: 1px solid #dee2e6 !important;
+  border-radius: 0.5rem !important;
+  padding: 0.625rem 1rem !important;
+  width: 100% !important;
+  transition: all 0.2s ease !important;
+}
+
+.dijitTextBox:hover,
+.dijitComboBox:hover,
+.dijitSelect:hover {
+  border-color: #98bdac !important;
+}
+
+.dijitTextBoxFocused,
+.dijitComboBoxFocused,
+.dijitSelectFocused {
+  border-color: #98bdac !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(152, 189, 172, 0.2) !important;
+}
+
+.dijitButton .dijitButtonNode {
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.dijitCheckBox {
+  border-radius: 0.25rem !important;
+}
+
+.dijitPlaceHolder {
+  color: #6c757d !important;
+}
+
+.dijitArrowButton {
+  border-left: none !important;
+  background: transparent !important;
+}
+
+.PanelForm {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.formFieldsContainer {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+}

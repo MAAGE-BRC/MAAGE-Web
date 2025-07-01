@@ -119,7 +119,7 @@ const staticHeaders = {
 
 app.use('/js/' + packageJSON.version + '/', [
   express.static(path.join(__dirname, 'public/js/release/'), staticHeaders),
-  express.static(path.join(__dirname, 'public/js/'), staticHeaders)
+  express.static(path.join(__dirname, 'public/js/'),staticHeaders)
 ]);
 
 app.use('/js/', express.static(path.join(__dirname, 'public/js/')));
@@ -135,15 +135,15 @@ app.use('/public/pdfs/', [
   function (req, res, next) {
     res.redirect('https://docs.patricbrc.org/tutorial/');
   }
-]);
+ ]);
 
 app.use('/css', express.static(path.join(__dirname, 'public/css')));
 
 app.use((req, res, next) => {
   if (maintenanceMode && !req.url.startsWith('/admin')) {
-    res.status(503).render('errors/503', { title: '503 Service Unavailable' });
+  res.status(503).render('errors/503', { title: '503 Service Unavailable' });
   } else {
-    next();
+  next();
   }
 });
 
