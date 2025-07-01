@@ -107,37 +107,79 @@
   flex-shrink: 0;
 }
 
-/* GenomeListSummary widget styles */
+/* GenomeListSummary widget - Modern Spreadsheet Style */
 .genome-list-summary {
   @apply h-full;
 }
 
-.summary-table {
-  @apply space-y-1;
+.spreadsheet-table {
+  @apply w-full border-collapse;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
 }
 
-.summary-section-header {
-  @apply pt-3 pb-2 border-b border-gray-100;
+/* Table Header */
+.spreadsheet-header {
+  @apply flex bg-gray-50 border-b-2 border-gray-300;
 }
 
-.summary-section-header:first-child {
-  @apply pt-0;
+.spreadsheet-header-cell {
+  @apply px-3 py-2 text-xs font-bold text-gray-700 uppercase tracking-wider border-r border-gray-300;
 }
 
-.summary-section-title {
-  @apply text-xs font-semibold text-gray-500 uppercase tracking-wider;
+.spreadsheet-header-cell:last-child {
+  @apply border-r-0;
 }
 
-.summary-table-row {
-  @apply flex items-center justify-between py-2 px-3 rounded-md hover:bg-gray-50 transition-colors duration-150;
+/* Column Widths */
+.metric-label-col {
+  @apply flex-1;
 }
 
-.summary-table-label {
-  @apply text-sm text-gray-700 font-medium;
+.value-col {
+  @apply w-20 text-right;
 }
 
-.summary-table-value {
-  @apply text-sm font-bold text-gray-900 tabular-nums;
+/* Section Dividers */
+.spreadsheet-section-divider {
+  @apply bg-blue-50 border-b border-gray-200 px-3 py-1;
+}
+
+.spreadsheet-section-label {
+  @apply text-xs font-semibold text-blue-700 uppercase tracking-wider;
+}
+
+/* Table Rows */
+.spreadsheet-row {
+  @apply flex border-b border-gray-200 hover:bg-blue-50 transition-colors duration-150;
+}
+
+.spreadsheet-row.row-even {
+  @apply bg-white;
+}
+
+.spreadsheet-row.row-odd {
+  @apply bg-gray-50;
+}
+
+.spreadsheet-row:hover {
+  @apply bg-blue-50;
+}
+
+/* Table Cells */
+.spreadsheet-cell {
+  @apply px-3 py-2 text-sm border-r border-gray-200;
+}
+
+.spreadsheet-cell:last-child {
+  @apply border-r-0;
+}
+
+.spreadsheet-cell.metric-label-col {
+  @apply text-gray-700 font-medium;
+}
+
+.spreadsheet-cell.value-col {
+  @apply text-gray-900 font-bold tabular-nums;
 }
 
 /* Map placeholder containers */
