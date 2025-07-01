@@ -308,21 +308,24 @@ define([
 			const promises = [
 				// World atlas for world view
 				request("/maage/maps/world-atlas/countries-110m.json", { handleAs: "json" }),
-				// US counties atlas for both US states and individual state county views
+				// US states with Albers projection for proper AK/HI positioning
+				request("/maage/maps/us-atlas/states-albers-10m.json", { handleAs: "json" }),
+				// US counties atlas for detailed state views
 				request("/maage/maps/us-atlas/counties-10m.json", { handleAs: "json" })
 			];
 
 			Promise.all(promises).then(
-				lang.hitch(this, function ([worldTopo, countiesAtlas])
+				lang.hitch(this, function ([worldTopo, statesAlbers, countiesAtlas])
 				{
 					// Process world map data
 					const worldGeo = topojson.feature(worldTopo, worldTopo.objects.countries);
 					echarts.registerMap("world", worldGeo);
 					this.worldMapData = worldGeo;
 
-					// Extract states from counties atlas for US view
-					const statesGeo = topojson.feature(countiesAtlas, countiesAtlas.objects.states);
-					// No coordinate flipping needed for standard projection
+					// Use Albers projection states for US view (Alaska/Hawaii positioned)
+					const statesGeo = topojson.feature(statesAlbers, statesAlbers.objects.states);
+					// Apply coordinate flipping for Albers projection
+					this._flipCoordinates(statesGeo);
 					echarts.registerMap("usa-states", statesGeo);
 					this.usStatesMapData = statesGeo;
 
@@ -352,6 +355,30 @@ define([
 			);
 		},
 
+		_flipCoordinates: function (geoData)
+		{
+			// Flip coordinates for Albers projection to work properly with ECharts
+			geoData.features.forEach(function (feature)
+			{
+				if (feature.geometry && feature.geometry.coordinates)
+				{
+					const flipCoords = function (coords)
+					{
+						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number")
+						{
+							return coords.map(function (coord)
+							{
+								return [coord[0], -coord[1]];
+							});
+						} else
+						{
+							return coords.map(flipCoords);
+						}
+					};
+					feature.geometry.coordinates = flipCoords(feature.geometry.coordinates);
+				}
+			});
+		},
 
 		switchToWorldView: function ()
 		{
@@ -474,8 +501,8 @@ define([
 			{
 				mapName = "usa-states";
 				chartData = this._processUSStateData(this.genomeData.stateData || {});
-				// Increase zoom for better default US view
-				zoom = 1.5;
+				// Significantly increase zoom to fill widget space like demo
+				zoom = 2.5;
 				center = ["50%", "50%"];
 			} else
 			{
