@@ -6,7 +6,8 @@ define([
 	"echarts",
 	"dojo/dom-construct",
 	"dojo/on",
-], function (declare, EChart, lang, request, echarts, domConstruct, on)
+	"d3v7"
+], function (declare, EChart, lang, request, echarts, domConstruct, on, d3)
 {
 	return declare([EChart], {
 		baseClass: "EChartChoropleth",
@@ -308,29 +309,26 @@ define([
 			const promises = [
 				// World atlas for world view
 				request("/maage/maps/world-atlas/countries-110m.json", { handleAs: "json" }),
-				// US states with Albers projection for proper AK/HI positioning
-				request("/maage/maps/us-atlas/states-albers-10m.json", { handleAs: "json" }),
-				// US counties atlas for detailed state views
+				// US counties atlas for both states and counties (will extract states)
 				request("/maage/maps/us-atlas/counties-10m.json", { handleAs: "json" })
 			];
 
 			Promise.all(promises).then(
-				lang.hitch(this, function ([worldTopo, statesAlbers, countiesAtlas])
+				lang.hitch(this, function ([worldTopo, usAtlas])
 				{
 					// Process world map data
 					const worldGeo = topojson.feature(worldTopo, worldTopo.objects.countries);
 					echarts.registerMap("world", worldGeo);
 					this.worldMapData = worldGeo;
 
-					// Use Albers projection states for US view (Alaska/Hawaii positioned)
-					const statesGeo = topojson.feature(statesAlbers, statesAlbers.objects.states);
-					// Apply coordinate flipping for Albers projection
-					this._flipCoordinates(statesGeo);
-					echarts.registerMap("usa-states", statesGeo);
-					this.usStatesMapData = statesGeo;
+					// Extract states from US atlas and apply AlbersUSA projection
+					const statesGeo = topojson.feature(usAtlas, usAtlas.objects.states);
+					const projectedStatesGeo = this._applyAlbersUSAProjection(statesGeo);
+					echarts.registerMap("usa-states", projectedStatesGeo);
+					this.usStatesMapData = projectedStatesGeo;
 
 					// Use counties for detailed views
-					const countiesGeo = topojson.feature(countiesAtlas, countiesAtlas.objects.counties);
+					const countiesGeo = topojson.feature(usAtlas, usAtlas.objects.counties);
 					echarts.registerMap("usa-counties", countiesGeo);
 					this.usCountiesMapData = countiesGeo;
 
@@ -355,29 +353,48 @@ define([
 			);
 		},
 
-		_flipCoordinates: function (geoData)
+		_applyAlbersUSAProjection: function (geoData)
 		{
-			// Flip coordinates for Albers projection to work properly with ECharts
-			geoData.features.forEach(function (feature)
-			{
-				if (feature.geometry && feature.geometry.coordinates)
-				{
-					const flipCoords = function (coords)
-					{
-						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number")
-						{
-							return coords.map(function (coord)
-							{
-								return [coord[0], -coord[1]];
+			// Check if D3 is available
+			if (!d3) {
+				console.warn("D3 not available, using original coordinates");
+				return geoData;
+			}
+
+			// Create a copy of the geoData to avoid modifying the original
+			const projectedGeoData = JSON.parse(JSON.stringify(geoData));
+			
+			// Create AlbersUSA projection similar to demo
+			// This automatically repositions Alaska and Hawaii and flattens the projection
+			const projection = d3.geoAlbersUsa()
+				.scale(1000)   // Larger scale for better visibility
+				.translate([500, 300]);  // Center in widget coordinate space
+			
+			// Transform all coordinates using the projection
+			projectedGeoData.features.forEach(function (feature) {
+				if (feature.geometry && feature.geometry.coordinates) {
+					const transformCoords = function (coords) {
+						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number") {
+							// This is a coordinate pair [lng, lat]
+							return coords.map(function (coord) {
+								const projected = projection(coord);
+								if (projected) {
+									// Flip Y coordinate for ECharts (screen coordinates)
+									// ECharts expects Y to increase downward
+									return [projected[0], -projected[1]];
+								}
+								return coord; // Fallback to original if projection fails
 							});
-						} else
-						{
-							return coords.map(flipCoords);
+						} else {
+							// This is a nested array of coordinates
+							return coords.map(transformCoords);
 						}
 					};
-					feature.geometry.coordinates = flipCoords(feature.geometry.coordinates);
+					feature.geometry.coordinates = transformCoords(feature.geometry.coordinates);
 				}
 			});
+			
+			return projectedGeoData;
 		},
 
 		switchToWorldView: function ()
@@ -501,8 +518,8 @@ define([
 			{
 				mapName = "usa-states";
 				chartData = this._processUSStateData(this.genomeData.stateData || {});
-				// Significantly increase zoom to fill widget space like demo
-				zoom = 2.5;
+				// Lower zoom since projection coordinates are already scaled
+				zoom = 1.0;
 				center = ["50%", "50%"];
 			} else
 			{
