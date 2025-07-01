@@ -56,7 +56,7 @@ define([
 			"West Virginia": "54", "Wisconsin": "55", "Wyoming": "56"
 		},
 
-		// Comprehensive mapping between TopoJSON country names and isolation_country values
+		// Mapping between TopoJSON country names and isolation_country values
 		countryNameMapping: {
 			// North America
 			"United States of America": ["USA", "United States", "US"],
@@ -631,17 +631,33 @@ define([
 		},
 
 		_showTooltip: function (event, d, type) {
-			let data, content;
+			let data, content, displayName;
+			
+			// Debug logging for first tooltip
+			if (!this._debuggedTooltip) {
+				console.log("D3Choropleth: Tooltip debug", {
+					type: type,
+					properties: d.properties,
+					id: d.id
+				});
+				this._debuggedTooltip = true;
+			}
 			
 			if (type === "country") {
 				data = this._getCountryData(d);
-				content = `<div><strong>${d.properties.NAME || "Unknown"}</strong></div>`;
+				// Try multiple property names for country
+				displayName = d.properties.NAME || d.properties.name || d.properties.ADMIN || d.properties.admin || "Unknown";
+				content = `<div><strong>${displayName}</strong></div>`;
 			} else if (type === "state") {
 				data = this._getStateData(d);
-				content = `<div><strong>${d.properties.name || "Unknown"}</strong></div>`;
+				// Try multiple property names for state
+				displayName = d.properties.name || d.properties.NAME || d.properties.STATE_NAME || "Unknown";
+				content = `<div><strong>${displayName}</strong></div>`;
 			} else {
 				data = this._getCountyData(d);
-				content = `<div><strong>${d.properties.name || "Unknown"}</strong></div>`;
+				// Try multiple property names for county
+				displayName = d.properties.name || d.properties.NAME || d.properties.COUNTY || "Unknown";
+				content = `<div><strong>${displayName}</strong></div>`;
 			}
 
 			if (data) {
@@ -651,6 +667,15 @@ define([
 					content += `<div style="font-weight: bold; margin-bottom: 4px;">Top Genera:</div>`;
 					data.genera.slice(0, 5).forEach(g => {
 						content += `<div><em>${g.genus}</em>: ${g.count} (${g.percentage}%)</div>`;
+					});
+					content += `</div>`;
+				}
+				// Add hosts for country/state views
+				if ((type === "country" || type === "state") && data.hosts && data.hosts.length > 0) {
+					content += `<div style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 8px;">`;
+					content += `<div style="font-weight: bold; margin-bottom: 4px;">Top Hosts:</div>`;
+					data.hosts.slice(0, 5).forEach(h => {
+						content += `<div>${h.host}: ${h.count} (${h.percentage}%)</div>`;
 					});
 					content += `</div>`;
 				}
@@ -674,7 +699,7 @@ define([
 			if (!this.genomeData || !this.genomeData.countryData) return null;
 			
 			const props = feature.properties || {};
-			const topoJsonName = props.NAME || props.name || "";
+			const topoJsonName = props.NAME || props.name || props.ADMIN || props.admin || "";
 			
 			// Debug logging for first few countries
 			if (!this._debuggedCountries) {
@@ -683,6 +708,7 @@ define([
 			if (this._debuggedCountries < 5) {
 				console.log("D3Choropleth: Country lookup", {
 					topoJsonName: topoJsonName,
+					allProperties: props,
 					availableDataKeys: Object.keys(this.genomeData.countryData).slice(0, 10)
 				});
 				this._debuggedCountries++;
