@@ -13,8 +13,9 @@ define([
 	"./EChartStackedBar",
 	"./EChartHorizontalBar",
 	"./EChartAMRStackedBar",
-	"./EChartChoropleth",
-	"p3/store/AMRJsonRest"
+	"./D3Choropleth",
+	"p3/store/AMRJsonRest",
+	"./GenomeListSummary"
 ], function (
 	declare,
 	lang,
@@ -31,7 +32,8 @@ define([
 	HorizontalBar,
 	AMRStackedBar,
 	Choropleth,
-	AMRStore
+	AMRStore,
+	GenomeListSummary
 )
 {
 	return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
@@ -43,6 +45,7 @@ define([
 		currentLocationView: "state",
 		amrChart: null,
 		mapChart: null,
+		summaryWidget: null,
 
 		postCreate: function ()
 		{
@@ -349,6 +352,8 @@ define([
 				checkAndCreate();
 			};
 
+			this.createSummaryWidget();
+
 			this.createLocationChart();
 			this.createMapChart();
 			createChart(
@@ -528,7 +533,8 @@ define([
 				Choropleth,
 				{
 					title: "Genome Distribution",
-					theme: "maage-echarts-theme"
+					theme: "maage-echarts-theme",
+					externalControlsContainer: this.mapControlsContainer
 				},
 				lang.hitch(this, function (chart)
 				{
@@ -709,7 +715,7 @@ define([
 				},
 				lang.hitch(this, function (chart)
 				{
-					// Get all years from the data instead of limiting to last 10
+
 					const query = `${this.state.search}&facet((field,collection_year),(mincount,1))&limit(0)`;
 					const queryOptions = { headers: { Accept: "application/solr+json" } };
 
@@ -721,7 +727,6 @@ define([
 								const yearFacets = res.facet_counts.facet_fields.collection_year;
 								const chartData = [];
 
-								// Process all years found in the data
 								for (let i = 0; i < yearFacets.length; i += 2)
 								{
 									const year = parseInt(yearFacets[i], 10);
@@ -735,10 +740,8 @@ define([
 									}
 								}
 
-								// Sort in descending order (newest first)
 								chartData.sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
-								// Update the chart without color gradient to get individual colors
 								chart.updateChart({
 									data: chartData,
 									colorGradient: false
@@ -845,6 +848,23 @@ define([
 			if (this.mapChart) this.mapChart.resize();
 		},
 
+		createSummaryWidget: function ()
+		{
+			if (!this.summaryNode || !this.state || !this.state.search) return;
+
+			if (this.summaryWidget)
+			{
+				this.summaryWidget.destroy();
+			}
+
+			this.summaryWidget = new GenomeListSummary({
+				state: this.state
+			});
+
+			this.summaryWidget.placeAt(this.summaryNode);
+			this.summaryWidget.startup();
+		},
+
 		destroy: function ()
 		{
 			this.inherited(arguments);
@@ -863,6 +883,11 @@ define([
 			{
 				this.mapChart.destroy();
 				this.mapChart = null;
+			}
+			if (this.summaryWidget)
+			{
+				this.summaryWidget.destroy();
+				this.summaryWidget = null;
 			}
 		},
 	});

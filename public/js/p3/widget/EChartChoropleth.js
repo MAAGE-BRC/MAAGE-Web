@@ -6,7 +6,8 @@ define([
 	"echarts",
 	"dojo/dom-construct",
 	"dojo/on",
-], function (declare, EChart, lang, request, echarts, domConstruct, on)
+	"d3v7"
+], function (declare, EChart, lang, request, echarts, domConstruct, on, d3)
 {
 	return declare([EChart], {
 		baseClass: "EChartChoropleth",
@@ -309,27 +310,23 @@ define([
 
 				request("/maage/maps/world-atlas/countries-110m.json", { handleAs: "json" }),
 
-				request("/maage/maps/us-atlas/states-albers-10m.json", { handleAs: "json" }),
-
 				request("/maage/maps/us-atlas/counties-10m.json", { handleAs: "json" })
 			];
 
 			Promise.all(promises).then(
-				lang.hitch(this, function ([worldTopo, statesTopo, countiesTopo])
+				lang.hitch(this, function ([worldTopo, usAtlas])
 				{
 
 					const worldGeo = topojson.feature(worldTopo, worldTopo.objects.countries);
 					echarts.registerMap("world", worldGeo);
 					this.worldMapData = worldGeo;
 
-					const statesGeo = topojson.feature(statesTopo, statesTopo.objects.states);
+					const statesGeo = topojson.feature(usAtlas, usAtlas.objects.states);
+					const projectedStatesGeo = this._applyAlbersUSAProjection(statesGeo);
+					echarts.registerMap("usa-states", projectedStatesGeo);
+					this.usStatesMapData = projectedStatesGeo;
 
-					this._flipCoordinates(statesGeo);
-					echarts.registerMap("usa-states", statesGeo);
-					this.usStatesMapData = statesGeo;
-
-					const countiesGeo = topojson.feature(countiesTopo, countiesTopo.objects.counties);
-
+					const countiesGeo = topojson.feature(usAtlas, usAtlas.objects.counties);
 					echarts.registerMap("usa-counties", countiesGeo);
 					this.usCountiesMapData = countiesGeo;
 
@@ -354,29 +351,51 @@ define([
 			);
 		},
 
-		_flipCoordinates: function (geoData)
+		_applyAlbersUSAProjection: function (geoData)
 		{
 
-			geoData.features.forEach(function (feature)
+			if (!d3)
+			{
+				console.warn("D3 not available, using original coordinates");
+				return geoData;
+			}
+
+			const projectedGeoData = JSON.parse(JSON.stringify(geoData));
+
+			const projection = d3.geoAlbersUsa()
+				.scale(1000)
+				.translate([500, 300]);
+
+			projectedGeoData.features.forEach(function (feature)
 			{
 				if (feature.geometry && feature.geometry.coordinates)
 				{
-					const flipCoords = function (coords)
+					const transformCoords = function (coords)
 					{
 						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number")
 						{
+
 							return coords.map(function (coord)
 							{
-								return [coord[0], -coord[1]];
+								const projected = projection(coord);
+								if (projected)
+								{
+
+									return [projected[0], -projected[1]];
+								}
+								return coord;
 							});
 						} else
 						{
-							return coords.map(flipCoords);
+
+							return coords.map(transformCoords);
 						}
 					};
-					feature.geometry.coordinates = flipCoords(feature.geometry.coordinates);
+					feature.geometry.coordinates = transformCoords(feature.geometry.coordinates);
 				}
 			});
+
+			return projectedGeoData;
 		},
 
 		switchToWorldView: function ()
@@ -494,10 +513,13 @@ define([
 			{
 				mapName = "world";
 				chartData = this._processWorldData(this.genomeData.countryData || {});
+
+				zoom = 1.2;
 			} else if (this.currentView === "us")
 			{
 				mapName = "usa-states";
 				chartData = this._processUSStateData(this.genomeData.stateData || {});
+
 				zoom = 1.0;
 				center = ["50%", "50%"];
 			} else
@@ -509,7 +531,8 @@ define([
 					this.currentView,
 					this.selectedStateName
 				);
-				zoom = 0.9;
+
+				zoom = 1.3;
 			}
 
 			const values = chartData.map(item => item.value).filter(v => v > 0);
@@ -664,9 +687,28 @@ define([
 				}]
 			};
 
-			if (this.currentView === "us")
+			this.chart.off("click");
+
+			if (this.currentView === "world")
 			{
-				this.chart.off("click");
+
+				this.chart.on("click", lang.hitch(this, function (params)
+				{
+					if (params.data && params.data.name)
+					{
+
+						if (params.data.name === "United States of America" ||
+							params.data.name === "United States" ||
+							params.data.name === "USA")
+						{
+							this.switchToUSView();
+						}
+					}
+				}));
+			}
+			else if (this.currentView === "us")
+			{
+
 				this.chart.on("click", lang.hitch(this, function (params)
 				{
 					if (params.data && params.data.stateCode)
@@ -675,9 +717,6 @@ define([
 						this.switchToStateView(params.data.stateCode, params.data.name);
 					}
 				}));
-			} else
-			{
-				this.chart.off("click");
 			}
 
 			this.chart.setOption(option, true);
@@ -927,39 +966,51 @@ define([
 		_getVisualMapPieces: function (max)
 		{
 
+			const greenShades = [
+				"#f0f5f3",
+				"#e1ebe6",
+				"#d2e1d9",
+				"#c3d7cc",
+				"#b4cdbf",
+				"#a5c3b2",
+				"#98bdac",
+				"#8ba89c",
+				"#7e938c"
+			];
+
 			if (max <= 10)
 			{
 				return [
-					{ min: 1, max: 2, label: "1-2", color: "#e8f5ef" },
-					{ min: 3, max: 5, label: "3-5", color: "#b8d9ca" },
-					{ min: 6, max: 10, label: "6-10", color: "#98bdac" }
+					{ min: 1, max: 2, label: "1-2", color: greenShades[0] },
+					{ min: 3, max: 5, label: "3-5", color: greenShades[3] },
+					{ min: 6, max: 10, label: "6-10", color: greenShades[6] }
 				];
 			} else if (max <= 100)
 			{
 				return [
-					{ min: 1, max: 10, label: "1-10", color: "#e8f5ef" },
-					{ min: 11, max: 25, label: "11-25", color: "#c5e2d5" },
-					{ min: 26, max: 50, label: "26-50", color: "#98bdac" },
-					{ min: 51, max: 100, label: "51-100", color: "#6ea089" }
+					{ min: 1, max: 10, label: "1-10", color: greenShades[0] },
+					{ min: 11, max: 25, label: "11-25", color: greenShades[2] },
+					{ min: 26, max: 50, label: "26-50", color: greenShades[4] },
+					{ min: 51, max: 100, label: "51-100", color: greenShades[6] }
 				];
 			} else if (max <= 1000)
 			{
 				return [
-					{ min: 1, max: 10, label: "1-10", color: "#e8f5ef" },
-					{ min: 11, max: 50, label: "11-50", color: "#c5e2d5" },
-					{ min: 51, max: 100, label: "51-100", color: "#98bdac" },
-					{ min: 101, max: 500, label: "101-500", color: "#6ea089" },
-					{ min: 501, max: 1000, label: "501-1K", color: "#57856f" }
+					{ min: 1, max: 10, label: "1-10", color: greenShades[0] },
+					{ min: 11, max: 50, label: "11-50", color: greenShades[2] },
+					{ min: 51, max: 100, label: "51-100", color: greenShades[4] },
+					{ min: 101, max: 500, label: "101-500", color: greenShades[6] },
+					{ min: 501, max: 1000, label: "501-1K", color: greenShades[8] }
 				];
 			} else
 			{
 				return [
-					{ min: 1, max: 50, label: "1-50", color: "#e8f5ef" },
-					{ min: 51, max: 100, label: "51-100", color: "#c5e2d5" },
-					{ min: 101, max: 500, label: "101-500", color: "#98bdac" },
-					{ min: 501, max: 1000, label: "501-1K", color: "#6ea089" },
-					{ min: 1001, max: 5000, label: "1K-5K", color: "#57856f" },
-					{ min: 5001, label: ">5K", color: "#3d5c4f" }
+					{ min: 1, max: 50, label: "1-50", color: greenShades[0] },
+					{ min: 51, max: 100, label: "51-100", color: greenShades[2] },
+					{ min: 101, max: 500, label: "101-500", color: greenShades[4] },
+					{ min: 501, max: 1000, label: "501-1K", color: greenShades[6] },
+					{ min: 1001, max: 5000, label: "1K-5K", color: greenShades[7] },
+					{ min: 5001, label: ">5K", color: greenShades[8] }
 				];
 			}
 		},
