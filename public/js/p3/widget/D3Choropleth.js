@@ -69,6 +69,20 @@ define([
 			this._loadDependencies();
 		},
 
+		showLoading: function () {
+			// Show loading indicator
+			if (this.loadingIndicator) {
+				this.loadingIndicator.style.display = "block";
+			}
+		},
+
+		hideLoading: function () {
+			// Hide loading indicator
+			if (this.loadingIndicator) {
+				this.loadingIndicator.style.display = "none";
+			}
+		},
+
 		_loadDependencies: function () {
 			// Load D3 and topojson dynamically
 			require(["d3v7", "topojson-client"], lang.hitch(this, function (d3, topojson) {
@@ -160,6 +174,14 @@ define([
 				style: "flex: 1; position: relative; overflow: hidden;"
 			}, this.domNode);
 
+			// Create loading indicator
+			this.loadingIndicator = domConstruct.create("div", {
+				style: "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); " +
+					"background: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; " +
+					"box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 14px; color: #333; display: none;",
+				innerHTML: '<div style="text-align: center;">Loading map data...</div>'
+			}, this.mapContainer);
+
 			// SVG and tooltip will be created when map data loads
 			this._setupEventHandlers();
 		},
@@ -250,6 +272,8 @@ define([
 				return;
 			}
 
+			this.showLoading();
+
 			const promises = [
 				request("/maage/maps/world-atlas/countries-110m.json", { handleAs: "json" }),
 				request("/maage/maps/us-atlas/counties-10m.json", { handleAs: "json" })
@@ -261,6 +285,7 @@ define([
 					this.usMapData = usAtlas;
 					
 					this._setupSVG();
+					this.hideLoading();
 					
 					if (this.genomeData) {
 						this.updateChart(this.genomeData);
@@ -270,6 +295,7 @@ define([
 				}),
 				lang.hitch(this, function (err) {
 					console.error("Failed to load map data:", err);
+					this.hideLoading();
 				})
 			);
 		},
@@ -277,7 +303,15 @@ define([
 		updateChart: function (data) {
 			this.genomeData = data;
 			
+			// Debug logging
+			console.log("D3Choropleth updateChart called with data:", data);
+			
 			if (!this.worldMapData || !this.usMapData || !this.svg) {
+				console.log("D3Choropleth: Missing required resources", {
+					worldMapData: !!this.worldMapData,
+					usMapData: !!this.usMapData,
+					svg: !!this.svg
+				});
 				return;
 			}
 
@@ -290,6 +324,7 @@ define([
 					...Object.values(data.countyData || {})
 				];
 				maxValue = Math.max(...allCounts, 0);
+				console.log("D3Choropleth: Max value for color scale:", maxValue);
 			}
 			
 			this._setupColorScale(maxValue);
@@ -519,11 +554,29 @@ define([
 
 		_getCountryData: function (feature) {
 			if (!this.genomeData || !this.genomeData.countryData) return null;
-			const countryName = feature.properties.NAME;
-			const count = this.genomeData.countryData[countryName];
-			const metadata = this.genomeData.countryMetadata && this.genomeData.countryMetadata[countryName];
+			
+			const props = feature.properties || {};
+			const countryName = props.NAME || props.name || "";
+			const normalized = countryName.toLowerCase().replace(/[^a-z]/g, "");
+			
+			// Build lookup with same logic as EChartChoropleth
+			const countryLookup = {};
+			Object.keys(this.genomeData.countryData).forEach(country => {
+				const norm = country.toLowerCase().replace(/[^a-z]/g, "");
+				countryLookup[norm] = this.genomeData.countryData[country];
+				countryLookup[country] = this.genomeData.countryData[country];
+			});
+			
+			let count = 0;
+			if (countryLookup[countryName]) {
+				count = countryLookup[countryName];
+			} else if (countryLookup[normalized]) {
+				count = countryLookup[normalized];
+			}
 			
 			if (!count) return null;
+			
+			const metadata = this.genomeData.countryMetadata && this.genomeData.countryMetadata[countryName];
 			
 			return {
 				count: count,
@@ -535,11 +588,40 @@ define([
 
 		_getStateData: function (feature) {
 			if (!this.genomeData || !this.genomeData.stateData) return null;
-			const stateName = feature.properties.name;
-			const count = this.genomeData.stateData[stateName];
-			const metadata = this.genomeData.stateMetadata && this.genomeData.stateMetadata[stateName];
+			
+			const props = feature.properties || {};
+			const stateName = props.name || props.NAME || "";
+			const normalized = stateName.toLowerCase().replace(/[^a-z]/g, "");
+			
+			// Build lookup with same logic as EChartChoropleth
+			const stateLookup = {};
+			Object.keys(this.genomeData.stateData).forEach(state => {
+				const norm = state.toLowerCase().replace(/[^a-z]/g, "");
+				stateLookup[norm] = this.genomeData.stateData[state];
+				stateLookup[state] = this.genomeData.stateData[state];
+			});
+			
+			// Debug first state only
+			if (!this._debuggedFirstState) {
+				console.log("D3Choropleth: First state lookup", {
+					stateName: stateName,
+					normalized: normalized,
+					availableStates: Object.keys(this.genomeData.stateData).slice(0, 5),
+					lookupKeys: Object.keys(stateLookup).slice(0, 10)
+				});
+				this._debuggedFirstState = true;
+			}
+			
+			let count = 0;
+			if (stateLookup[stateName]) {
+				count = stateLookup[stateName];
+			} else if (stateLookup[normalized]) {
+				count = stateLookup[normalized];
+			}
 			
 			if (!count) return null;
+			
+			const metadata = this.genomeData.stateMetadata && this.genomeData.stateMetadata[stateName];
 			
 			return {
 				count: count,
@@ -551,11 +633,29 @@ define([
 
 		_getCountyData: function (feature) {
 			if (!this.genomeData || !this.genomeData.countyData) return null;
-			const countyKey = feature.properties.name;
-			const count = this.genomeData.countyData[countyKey];
-			const metadata = this.genomeData.countyMetadata && this.genomeData.countyMetadata[countyKey];
+			
+			const props = feature.properties || {};
+			const countyName = props.name || props.NAME || "";
+			const normalized = countyName.toLowerCase().replace(/[^a-z]/g, "");
+			
+			// Build lookup with same logic as EChartChoropleth
+			const countyLookup = {};
+			Object.keys(this.genomeData.countyData).forEach(county => {
+				const norm = county.toLowerCase().replace(/[^a-z]/g, "");
+				countyLookup[norm] = this.genomeData.countyData[county];
+				countyLookup[county] = this.genomeData.countyData[county];
+			});
+			
+			let count = 0;
+			if (countyLookup[countyName]) {
+				count = countyLookup[countyName];
+			} else if (countyLookup[normalized]) {
+				count = countyLookup[normalized];
+			}
 			
 			if (!count) return null;
+			
+			const metadata = this.genomeData.countyMetadata && this.genomeData.countyMetadata[countyName];
 			
 			return {
 				count: count,
@@ -645,7 +745,7 @@ define([
 		},
 
 		resize: function () {
-			if (this.svg) {
+			if (this.svg && this.mapContainer) {
 				const containerRect = this.mapContainer.getBoundingClientRect();
 				const width = containerRect.width || 800;
 				const height = containerRect.height || 450;
