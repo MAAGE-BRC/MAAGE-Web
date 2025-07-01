@@ -43,19 +43,11 @@
   href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
 
 <script src="/maage/js/echarts/v5.4.3/echarts.js"></script>
-<script src="/maage/js/echarts/themes/maage.js"></script>
+<script src="/maage/js/echarts/themes/maage-echarts-theme.js"></script>
+<script src="/maage/js/echarts/themes/theme-new.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
 <script src="/maage/js/data-api/maage_client.js"></script>
-<script>
-    const maageSVC = new MAAGEClient();
-    // later maageSVC.init(endpoint, token)
-</script>
-<script>
-  maageSVC.init('https://www.maage-brc.org/api');
-  var schema = maageSVC.getSchema('genome');
-  console.log('Schema loaded:', schema);
-</script>
 
 <link rel="stylesheet" href="/maage/gridstack/gridstack.min.css">
 <link rel="stylesheet" href="/maage/css/dist/maage.css">
 <link rel="stylesheet" href="/maage/css/src/styles.css">
-

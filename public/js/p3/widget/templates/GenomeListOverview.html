@@ -1,54 +1,139 @@
-<div class="bg-maage-bg p-4 md:p-6">
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-      <div data-dojo-attach-point="countryWidget"
-           data-dojo-type="p3/widget/ECDoughnut"
-           data-dojo-props="facetField:'isolation_country', chartTitle:'Isolation Countries', maxSlices:10">
-      </div>
-    </div>
-    
-    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-      <div data-dojo-attach-point="hostGroupWidget"
-           data-dojo-type="p3/widget/ECDoughnut"
-           data-dojo-props="facetField:'host_common_name', chartTitle:'Host Distribution'">
-      </div>
-    </div>
-    
-    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-      <div data-dojo-attach-point="yearWidget"
-           data-dojo-type="p3/widget/ECBarchart"
-           data-dojo-props="facetField:'collection_year', chartTitle:'Collection Year', sortByCount:false">
-      </div>
-    </div>
-  </div>
-  
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-      <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-    <div data-dojo-attach-point="isolationSourceWidget"
-         data-dojo-type="p3/widget/ECDoughnut"
-         data-dojo-props="facetField:'isolation_source', chartTitle:'Isolation Sources', maxSlices:10">
-    </div>
-  </div>
-    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-      <div data-dojo-attach-point="serovarWidget"
-           data-dojo-type="p3/widget/ECBarchart"
-           data-dojo-props="facetField:'serovar', chartTitle:'Top Serotypes', maxBars:10">
-      </div>
-    </div>
-    
-    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-      <div data-dojo-attach-point="amrWidget"
-           data-dojo-type="p3/widget/ECBarchart"
-           data-dojo-props="facetField:'antimicrobial_resistance', chartTitle:'AMR Genes'">
-      </div>
-    </div>
-  </div>
+<div class="genome-list-overview-dashboard p-4 sm:p-6 bg-maage-bg">
+	<div class="mb-4 sm:mb-6">
+		<div class="flex flex-wrap gap-2 sm:gap-4">
+			<div class="chart-section w-full lg:w-[calc(25%-0.5rem)]">
+				<h3 class="chart-title">Genome List Summary</h3>
+				<div data-dojo-attach-point="summaryNode"
+					 class="summary-container"></div>
+			</div>
 
-  <div class="mt-6">
-    <div class="bg-maage-surface rounded-lg shadow-sm p-4">
-      <h3 class="text-lg font-heading font-medium border-b border-maage-border pb-2 mb-4">
-        Additional Metadata Visualizations
-      </h3>
-    </div>
-  </div>
+			<div class="chart-section w-full lg:w-[calc(75%-0.5rem)] relative">
+				<h3 class="chart-title">Geographic Distribution</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-2"
+					 data-dojo-attach-point="mapControlsContainer"></div>
+				<div data-dojo-attach-point="mapChartNode"
+					 class="chart-container map-chart-container"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="flex flex-col w-full lg:w-[calc(33.333%-0.5rem)]">
+			<div class="chart-section">
+				<h3 class="chart-title">Host Distribution</h3>
+				<div data-dojo-attach-point="hostChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+		<div class="chart-section w-full md:w-[calc(75%-0.75rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Collection Year</h3>
+			<div data-dojo-attach-point="yearlyCountChartNode"
+				 class="chart-container"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0 relative">
+			<h3 class="chart-title">Antimicrobial Resistance Profile</h3>
+			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+				 data-dojo-attach-point="amrControlsContainer">
+				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+					<button type="button"
+							data-dojo-attach-point="amrCountBtn"
+							class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+						Count
+					</button>
+					<button type="button"
+							data-dojo-attach-point="amrPercentBtn"
+							class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						Percent
+					</button>
+				</div>
+				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+					<button type="button"
+							data-dojo-attach-point="amrSortNameBtn"
+							class="amr-sort-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+						Name
+					</button>
+					<button type="button"
+							data-dojo-attach-point="amrSortValueBtn"
+							class="amr-sort-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						Value
+					</button>
+				</div>
+			</div>
+			<div data-dojo-attach-point="amrChartNode"
+				 class="chart-container"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0 relative">
+			<h3 class="chart-title">Isolate Location</h3>
+			<div class="absolute top-3 right-3 toggle-buttons flex gap-0.5 bg-gray-100 rounded-md p-0.5"
+				 data-dojo-attach-point="locationToggleContainer">
+				<button type="button"
+						data-dojo-attach-point="countryToggleBtn"
+						data-location-type="country"
+						class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors">
+					Country
+				</button>
+				<button type="button"
+						data-dojo-attach-point="stateToggleBtn"
+						data-location-type="state"
+						class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors active">
+					State
+				</button>
+				<button type="button"
+						data-dojo-attach-point="countyToggleBtn"
+						data-location-type="county"
+						class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors">
+					County
+				</button>
+				<button type="button"
+						data-dojo-attach-point="cityToggleBtn"
+						data-location-type="city"
+						class="location-toggle-btn px-2 py-0.5 font-medium rounded transition-colors">
+					City
+				</button>
+			</div>
+			<div data-dojo-attach-point="locationChartNode"
+				 class="chart-container"></div>
+		</div>
+
+		<div class="chart-section w-full md:w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Isolation Sources</h3>
+			<div data-dojo-attach-point="sourceChartNode"
+				 class="chart-container"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Top Serotypes</h3>
+			<div data-dojo-attach-point="serotypeChartNode"
+				 class="chart-container"></div>
+		</div>
+
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Serotype Distribution (Last 10 Years)</h3>
+			<div data-dojo-attach-point="serotypeOverTimeChartNode"
+				 class="chart-container"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">placeholder</h3>
+			<div class="chart-container"></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">placeholder</h3>
+			<div class="chart-container"></div>
+		</div>
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">placeholder</h3>
+			<div class="chart-container"></div>
+		</div>
+	</div>
 </div>
