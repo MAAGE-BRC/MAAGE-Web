@@ -182,6 +182,13 @@ define([
 				innerHTML: '<div style="text-align: center;">Loading map data...</div>'
 			}, this.mapContainer);
 
+			// Create color scale legend
+			this.legendNode = domConstruct.create("div", {
+				style: "position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); " +
+					"padding: 12px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); " +
+					"font-size: 12px; color: #333; display: none;"
+			}, this.mapContainer);
+
 			// SVG and tooltip will be created when map data loads
 			this._setupEventHandlers();
 		},
@@ -209,12 +216,22 @@ define([
 		},
 
 		_setupColorScale: function (maxValue) {
-			// MAAGE green color scale
-			const domain = maxValue ? [0, maxValue] : [0, 10];
+			// MAAGE green color scale with better variation for lower values
 			if (this.d3) {
+				// Use a logarithmic scale to better show variation among smaller values
+				// Add 1 to avoid log(0) issues
+				// Use a wider color range from very light to darker green for better distinction
 				this.colorScale = this.d3.scaleSequential()
-					.domain(domain)
-					.interpolator(this.d3.interpolateRgb("#e8f5e8", "#98bdac"));
+					.domain([0, Math.log10(maxValue + 1)])
+					.interpolator(this.d3.interpolateRgb("#f0f9f0", "#2d6a4f"))
+					.clamp(true);
+				
+				// Create a wrapper function that handles the log transformation
+				this._originalColorScale = this.colorScale;
+				this.colorScale = (value) => {
+					if (value === 0) return "#f8f9fa"; // No data color
+					return this._originalColorScale(Math.log10(value + 1));
+				};
 			}
 		},
 
@@ -328,6 +345,7 @@ define([
 			}
 			
 			this._setupColorScale(maxValue);
+			this._updateLegend(maxValue);
 
 			if (this.currentView === "world") {
 				this.drawWorldView();
@@ -717,6 +735,78 @@ define([
 				this.stateDropdownNode.style.display = "inline-block";
 				this.backButtonNode.style.display = "inline-block";
 			}
+		},
+
+		_updateLegend: function (maxValue) {
+			if (!this.legendNode || !this.d3 || !maxValue) {
+				if (this.legendNode) this.legendNode.style.display = "none";
+				return;
+			}
+
+			// Clear existing content
+			this.legendNode.innerHTML = "";
+			
+			// Create gradient bar
+			const gradientId = "colorGradient" + Math.random().toString(36).substr(2, 9);
+			const legendSvg = this.d3.select(this.legendNode)
+				.append("svg")
+				.attr("width", 200)
+				.attr("height", 60);
+
+			// Define gradient
+			const gradient = legendSvg.append("defs")
+				.append("linearGradient")
+				.attr("id", gradientId)
+				.attr("x1", "0%")
+				.attr("y1", "0%")
+				.attr("x2", "100%")
+				.attr("y2", "0%");
+
+			// Add color stops using the same colors as the map
+			const numStops = 10;
+			for (let i = 0; i <= numStops; i++) {
+				const value = (i / numStops) * maxValue;
+				gradient.append("stop")
+					.attr("offset", (i / numStops * 100) + "%")
+					.attr("stop-color", this.colorScale(value));
+			}
+
+			// Draw gradient bar
+			legendSvg.append("rect")
+				.attr("x", 10)
+				.attr("y", 10)
+				.attr("width", 180)
+				.attr("height", 20)
+				.style("fill", "url(#" + gradientId + ")")
+				.style("stroke", "#ccc")
+				.style("stroke-width", 1);
+
+			// Add labels
+			legendSvg.append("text")
+				.attr("x", 10)
+				.attr("y", 45)
+				.style("font-size", "11px")
+				.style("fill", "#333")
+				.text("0");
+
+			legendSvg.append("text")
+				.attr("x", 190)
+				.attr("y", 45)
+				.style("font-size", "11px")
+				.style("fill", "#333")
+				.style("text-anchor", "end")
+				.text(maxValue.toLocaleString());
+
+			// Add title
+			legendSvg.append("text")
+				.attr("x", 100)
+				.attr("y", 55)
+				.style("font-size", "11px")
+				.style("fill", "#666")
+				.style("text-anchor", "middle")
+				.text("Genome Count");
+
+			this.legendNode.style.display = "block";
 		},
 
 		zoomIn: function () {
