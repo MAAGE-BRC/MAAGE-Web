@@ -107,6 +107,39 @@
   flex-shrink: 0;
 }
 
+/* GenomeListSummary widget styles */
+.genome-list-summary {
+  @apply h-full;
+}
+
+.summary-table {
+  @apply space-y-1;
+}
+
+.summary-section-header {
+  @apply pt-3 pb-2 border-b border-gray-100;
+}
+
+.summary-section-header:first-child {
+  @apply pt-0;
+}
+
+.summary-section-title {
+  @apply text-xs font-semibold text-gray-500 uppercase tracking-wider;
+}
+
+.summary-table-row {
+  @apply flex items-center justify-between py-2 px-3 rounded-md hover:bg-gray-50 transition-colors duration-150;
+}
+
+.summary-table-label {
+  @apply text-sm text-gray-700 font-medium;
+}
+
+.summary-table-value {
+  @apply text-sm font-bold text-gray-900 tabular-nums;
+}
+
 /* Map placeholder containers */
 .chart-section [data-dojo-attach-point="mapLegendNode"],
 .chart-section [data-dojo-attach-point="mapStatsNode"] {
