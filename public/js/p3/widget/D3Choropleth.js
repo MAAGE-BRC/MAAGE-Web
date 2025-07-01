@@ -231,25 +231,25 @@ define([
 			// Zoom controls
 			const zoomControls = domConstruct.create("div", {
 				className: this.externalControlsContainer ? "flex gap-0.5 bg-gray-100 rounded-md p-0.5" : "",
-				style: this.externalControlsContainer ? "" : "display: flex; gap: 4px; background-color: #f3f4f6; border-radius: 8px; padding: 4px;"
+				style: this.externalControlsContainer ? "" : "display: flex; gap: 6px; background-color: #f3f4f6; border-radius: 10px; padding: 6px;"
 			}, this.controlsNode);
 
 			this.zoomInBtn = domConstruct.create("button", {
 				innerHTML: "+",
-				className: this.externalControlsContainer ? "map-zoom-btn px-1.5 py-0.5 text-xs font-bold rounded transition-colors" : "",
-				style: this.externalControlsContainer ? "" : "width: 32px; height: 32px; background-color: #98bdac; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
+				className: this.externalControlsContainer ? "map-zoom-btn px-2 py-1 text-sm font-bold rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "width: 40px; height: 40px; background-color: #98bdac; color: white; border-radius: 8px; border: none; cursor: pointer; font-size: 24px; font-weight: bold;"
 			}, zoomControls);
 
 			this.zoomOutBtn = domConstruct.create("button", {
 				innerHTML: "−",
-				className: this.externalControlsContainer ? "map-zoom-btn px-1.5 py-0.5 text-xs font-bold rounded transition-colors" : "",
-				style: this.externalControlsContainer ? "" : "width: 32px; height: 32px; background-color: #5f94ab; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
+				className: this.externalControlsContainer ? "map-zoom-btn px-2 py-1 text-sm font-bold rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "width: 40px; height: 40px; background-color: #5f94ab; color: white; border-radius: 8px; border: none; cursor: pointer; font-size: 24px; font-weight: bold;"
 			}, zoomControls);
 
 			this.zoomResetBtn = domConstruct.create("button", {
 				innerHTML: "⟲",
-				className: this.externalControlsContainer ? "map-zoom-btn px-1.5 py-0.5 text-xs font-bold rounded transition-colors" : "",
-				style: this.externalControlsContainer ? "" : "width: 32px; height: 32px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 18px; font-weight: bold;"
+				className: this.externalControlsContainer ? "map-zoom-btn px-2 py-1 text-sm font-bold rounded transition-colors" : "",
+				style: this.externalControlsContainer ? "" : "width: 40px; height: 40px; background-color: #6c757d; color: white; border-radius: 8px; border: none; cursor: pointer; font-size: 24px; font-weight: bold;"
 			}, zoomControls);
 
 			// Map container - use domNode directly when using external controls
