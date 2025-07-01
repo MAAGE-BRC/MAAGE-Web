@@ -380,6 +380,10 @@ define([
 
 		switchToWorldView: function () {
 			this.currentView = "world";
+			// Reset the dropdown when switching to world view
+			if (this.stateDropdownNode) {
+				this.stateDropdownNode.value = "";
+			}
 			this._updateButtonStyles();
 			this.drawWorldView();
 		},
@@ -388,6 +392,10 @@ define([
 			this.currentView = "us";
 			this.selectedState = null;
 			this.selectedStateName = null;
+			// Reset the dropdown when switching to US view
+			if (this.stateDropdownNode) {
+				this.stateDropdownNode.value = "";
+			}
 			this._updateButtonStyles();
 			this.drawUSView();
 		},
@@ -396,6 +404,10 @@ define([
 			this.currentView = "state";
 			this.selectedState = stateCode;
 			this.selectedStateName = stateName;
+			// Update the dropdown to reflect the selected state
+			if (this.stateDropdownNode) {
+				this.stateDropdownNode.value = stateCode;
+			}
 			this._updateButtonStyles();
 			this.drawStateView(stateCode, stateName);
 		},
