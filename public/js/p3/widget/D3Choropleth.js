@@ -6,40 +6,35 @@ define([
 	"dojo/request",
 	"dojo/dom-construct",
 	"dojo/on"
-], function (declare, WidgetBase, TemplatedMixin, lang, request, domConstruct, on) {
-	
+], function (declare, WidgetBase, TemplatedMixin, lang, request, domConstruct, on)
+{
+
 	return declare([WidgetBase, TemplatedMixin], {
 		baseClass: "D3Choropleth",
 		templateString: "<div></div>",
 		title: "",
 
-		// Map data storage
 		worldMapData: null,
 		usMapData: null,
-		
-		// Current state
+
 		currentView: "us",
 		selectedState: null,
 		selectedStateName: null,
-		
-		// DOM nodes
+
 		controlsNode: null,
-		externalControlsContainer: null, // Container provided by parent widget
+		externalControlsContainer: null,
 		mapContainer: null,
 		svg: null,
 		g: null,
 		tooltip: null,
-		
-		// D3 objects
+
 		projection: null,
 		path: null,
 		colorScale: null,
-		
-		// Data
+
 		genomeData: null,
 		metadata: null,
-		
-		// State mappings
+
 		stateNameToFips: {
 			"Alabama": "01", "Alaska": "02", "Arizona": "04", "Arkansas": "05",
 			"California": "06", "Colorado": "08", "Connecticut": "09", "Delaware": "10",
@@ -56,14 +51,12 @@ define([
 			"West Virginia": "54", "Wisconsin": "55", "Wyoming": "56"
 		},
 
-		// Mapping between TopoJSON country names and isolation_country values
 		countryNameMapping: {
-			// North America
+
 			"United States of America": ["USA", "United States", "US"],
 			"Canada": ["CAN", "Canada"],
 			"Mexico": ["MEX", "Mexico"],
-			
-			// Europe
+
 			"United Kingdom": ["United Kingdom", "UK", "GBR", "Great Britain"],
 			"Germany": ["Germany", "DEU"],
 			"France": ["France", "FRA"],
@@ -84,8 +77,7 @@ define([
 			"Ireland": ["Ireland", "IRL"],
 			"Hungary": ["Hungary", "HUN"],
 			"Romania": ["Romania", "ROU"],
-			
-			// Asia
+
 			"China": ["China", "CHN", "People's Republic of China"],
 			"Japan": ["Japan", "JPN"],
 			"India": ["India", "IND"],
@@ -102,8 +94,7 @@ define([
 			"Israel": ["Israel", "ISR"],
 			"Saudi Arabia": ["Saudi Arabia", "SAU"],
 			"United Arab Emirates": ["United Arab Emirates", "UAE"],
-			
-			// South America
+
 			"Brazil": ["Brazil", "BRA"],
 			"Argentina": ["Argentina", "ARG"],
 			"Chile": ["Chile", "CHL"],
@@ -111,8 +102,7 @@ define([
 			"Colombia": ["Colombia", "COL"],
 			"Venezuela": ["Venezuela", "VEN"],
 			"Ecuador": ["Ecuador", "ECU"],
-			
-			// Africa
+
 			"South Africa": ["South Africa", "ZAF"],
 			"Nigeria": ["Nigeria", "NGA"],
 			"Egypt": ["Egypt", "EGY"],
@@ -120,71 +110,79 @@ define([
 			"Ethiopia": ["Ethiopia", "ETH"],
 			"Ghana": ["Ghana", "GHA"],
 			"Morocco": ["Morocco", "MAR"],
-			
-			// Oceania
+
 			"Australia": ["Australia", "AUS"],
 			"New Zealand": ["New Zealand", "NZL"],
-			
-			// Russia (transcontinental)
+
 			"Russia": ["Russia", "RUS", "Russian Federation"]
 		},
 
-		postCreate: function () {
+		postCreate: function ()
+		{
 			this.inherited(arguments);
 			this._setupDOM();
 			this._setupColorScale();
 			this._loadDependencies();
 		},
 
-		showLoading: function () {
-			// Show loading indicator
-			if (this.loadingIndicator) {
+		showLoading: function ()
+		{
+
+			if (this.loadingIndicator)
+			{
 				this.loadingIndicator.style.display = "block";
 			}
 		},
 
-		hideLoading: function () {
-			// Hide loading indicator
-			if (this.loadingIndicator) {
+		hideLoading: function ()
+		{
+
+			if (this.loadingIndicator)
+			{
 				this.loadingIndicator.style.display = "none";
 			}
 		},
 
-		_loadDependencies: function () {
-			// Load D3 and topojson dynamically
-			require(["d3v7", "topojson-client"], lang.hitch(this, function (d3, topojson) {
-				// Make available to widget
+		_loadDependencies: function ()
+		{
+
+			require(["d3v7", "topojson-client"], lang.hitch(this, function (d3, topojson)
+			{
+
 				this.d3 = d3;
 				this.topojson = topojson;
-				// Now load map data
+
 				this.loadMapData();
 			}));
 		},
 
-		startup: function () {
+		startup: function ()
+		{
 			this.inherited(arguments);
-			if (this.genomeData) {
+			if (this.genomeData)
+			{
 				this.updateChart(this.genomeData);
 			}
 		},
 
-		_setupDOM: function () {
-			// Create main container
+		_setupDOM: function ()
+		{
+
 			this.domNode.style.cssText = "display: flex; flex-direction: column; height: 100%; min-height: 450px;";
-			
-			// Create controls either in external container or within widget
-			if (this.externalControlsContainer) {
+
+			if (this.externalControlsContainer)
+			{
 				this.controlsNode = this.externalControlsContainer;
-				// Clear any existing content
+
 				this.controlsNode.innerHTML = "";
-			} else {
-				// Create controls within widget
+			} else
+			{
+
 				this.controlsNode = domConstruct.create("div", {
 					style: "display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;"
 				}, this.domNode);
 			}
 
-			// View toggle buttons
 			const toggleBtnContainer = domConstruct.create("div", {
 				className: this.externalControlsContainer ? "flex gap-0.5 bg-gray-100 rounded-md p-0.5" : "",
 				style: this.externalControlsContainer ? "" : "display: flex; gap: 8px;"
@@ -208,14 +206,12 @@ define([
 				style: this.externalControlsContainer ? "" : "padding: 6px 16px; background-color: #6c757d; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; transition: background-color 0.2s;"
 			}, toggleBtnContainer);
 
-			// Current view indicator - hidden by default
 			this.viewIndicatorNode = domConstruct.create("div", {
 				className: this.externalControlsContainer ? "ml-3 px-3 py-1 bg-maage-primary-50 text-maage-primary-700 rounded-md text-sm font-medium" : "",
 				style: this.externalControlsContainer ? "display: none;" : "display: none; margin-left: 12px; padding: 6px 16px; background-color: #ecf3f0; color: #496f5d; border-radius: 6px; font-size: 14px; font-weight: 500;",
 				innerHTML: "Viewing: United States"
 			}, this.controlsNode);
 
-			// State dropdown
 			this.stateDropdownNode = domConstruct.create("select", {
 				className: this.externalControlsContainer ? "px-2 py-0.5 text-xs font-medium border border-gray-300 rounded-md bg-white" : "",
 				style: this.externalControlsContainer ? "" : "padding: 6px 16px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 15px; cursor: pointer; background-color: white;"
@@ -227,28 +223,27 @@ define([
 				selected: false
 			}, this.stateDropdownNode);
 
-			Object.keys(this.stateNameToFips).forEach(lang.hitch(this, function (stateName) {
+			Object.keys(this.stateNameToFips).forEach(lang.hitch(this, function (stateName)
+			{
 				const option = domConstruct.create("option", {
 					value: this.stateNameToFips[stateName],
 					innerHTML: stateName
 				}, this.stateDropdownNode);
-				
-				// Set Illinois as default
-				if (stateName === "Illinois") {
+
+				if (stateName === "Illinois")
+				{
 					option.selected = true;
 					this.selectedState = this.stateNameToFips[stateName];
 					this.selectedStateName = stateName;
 				}
 			}));
 
-			// Back button
 			this.backButtonNode = domConstruct.create("button", {
 				className: this.externalControlsContainer ? "px-2 py-0.5 text-xs font-medium rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors" : "",
 				style: this.externalControlsContainer ? "display: none;" : "padding: 6px 16px; background-color: #5f94ab; color: white; border-radius: 6px; border: none; cursor: pointer; font-size: 15px; font-weight: 500; display: none;",
 				innerHTML: "← Back"
 			}, this.controlsNode);
 
-			// Zoom controls
 			const zoomControls = domConstruct.create("div", {
 				className: this.externalControlsContainer ? "flex gap-0.5 bg-gray-100 rounded-md p-0.5" : "",
 				style: this.externalControlsContainer ? "" : "display: flex; gap: 6px; background-color: #f3f4f6; border-radius: 10px; padding: 6px;"
@@ -272,17 +267,17 @@ define([
 				style: this.externalControlsContainer ? "" : "width: 40px; height: 40px; background-color: #6c757d; color: white; border-radius: 8px; border: none; cursor: pointer; font-size: 24px; font-weight: bold;"
 			}, zoomControls);
 
-			// Map container - use domNode directly when using external controls
-			if (this.externalControlsContainer) {
+			if (this.externalControlsContainer)
+			{
 				this.mapContainer = this.domNode;
 				this.mapContainer.style.cssText = "position: relative; overflow: hidden; height: 100%;";
-			} else {
+			} else
+			{
 				this.mapContainer = domConstruct.create("div", {
 					style: "flex: 1; position: relative; overflow: hidden;"
 				}, this.domNode);
 			}
 
-			// Create loading indicator
 			this.loadingIndicator = domConstruct.create("div", {
 				style: "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); " +
 					"background: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; " +
@@ -290,7 +285,6 @@ define([
 				innerHTML: '<div style="text-align: center;">Loading map data...</div>'
 			}, this.mapContainer);
 
-			// Create map title overlay
 			this.mapTitleNode = domConstruct.create("div", {
 				style: "position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.95); " +
 					"padding: 10px 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); " +
@@ -298,40 +292,47 @@ define([
 				innerHTML: "United States"
 			}, this.mapContainer);
 
-			// Create color scale legend
 			this.legendNode = domConstruct.create("div", {
 				style: "position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); " +
 					"padding: 12px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); " +
 					"font-size: 12px; color: #333; display: none;"
 			}, this.mapContainer);
 
-			// SVG and tooltip will be created when map data loads
 			this._setupEventHandlers();
 		},
 
-		_setupEventHandlers: function () {
+		_setupEventHandlers: function ()
+		{
 			on(this.worldViewBtn, "click", lang.hitch(this, "switchToWorldView"));
 			on(this.usViewBtn, "click", lang.hitch(this, "switchToUSView"));
-			on(this.stateViewBtn, "click", lang.hitch(this, function () {
-				// Switch to state view with the selected state (Illinois by default)
-				if (this.selectedState && this.selectedStateName) {
+			on(this.stateViewBtn, "click", lang.hitch(this, function ()
+			{
+
+				if (this.selectedState && this.selectedStateName)
+				{
 					this.switchToStateView(this.selectedState, this.selectedStateName);
-				} else {
-					// Fallback to Illinois if no state selected
+				} else
+				{
+
 					this.switchToStateView("17", "Illinois");
 				}
 			}));
-			on(this.stateDropdownNode, "change", lang.hitch(this, function (evt) {
+			on(this.stateDropdownNode, "change", lang.hitch(this, function (evt)
+			{
 				const stateCode = evt.target.value;
-				if (stateCode) {
+				if (stateCode)
+				{
 					const stateName = this._getStateNameByCode(stateCode);
-					if (stateName) {
+					if (stateName)
+					{
 						this.switchToStateView(stateCode, stateName);
 					}
 				}
 			}));
-			on(this.backButtonNode, "click", lang.hitch(this, function () {
-				if (this.currentView !== "world" && this.currentView !== "us") {
+			on(this.backButtonNode, "click", lang.hitch(this, function ()
+			{
+				if (this.currentView !== "world" && this.currentView !== "us")
+				{
 					this.switchToUSView();
 				}
 			}));
@@ -340,30 +341,32 @@ define([
 			on(this.zoomResetBtn, "click", lang.hitch(this, "resetZoom"));
 		},
 
-		_setupColorScale: function (maxValue) {
-			// MAAGE green color scale with better variation for lower values
-			if (this.d3) {
-				// Use a logarithmic scale to better show variation among smaller values
-				// Add 1 to avoid log(0) issues
-				// Use a wider color range from very light to darker green for better distinction
+		_setupColorScale: function (maxValue)
+		{
+
+			if (this.d3)
+			{
+
 				this.colorScale = this.d3.scaleSequential()
 					.domain([0, Math.log10(maxValue + 1)])
 					.interpolator(this.d3.interpolateRgb("#f0f9f0", "#2d6a4f"))
 					.clamp(true);
-				
-				// Create a wrapper function that handles the log transformation
+
 				this._originalColorScale = this.colorScale;
-				this.colorScale = (value) => {
-					if (value === 0) return "#f8f9fa"; // No data color
+				this.colorScale = (value) =>
+				{
+					if (value === 0) return "#f8f9fa";
 					return this._originalColorScale(Math.log10(value + 1));
 				};
 			}
 		},
 
-		_setupSVG: function () {
+		_setupSVG: function ()
+		{
 			if (!this.d3) return;
-			
-			if (this.svg) {
+
+			if (this.svg)
+			{
 				this.svg.remove();
 			}
 
@@ -379,21 +382,21 @@ define([
 
 			this.g = this.svg.append("g");
 
-			// Setup zoom behavior
 			const zoom = this.d3.zoom()
 				.scaleExtent([0.5, 8])
-				.on("zoom", (event) => {
+				.on("zoom", (event) =>
+				{
 					this.g.attr("transform", event.transform);
 				});
 
 			this.svg.call(zoom);
 			this.zoomBehavior = zoom;
 
-			// Create tooltip
-			if (this.tooltip) {
+			if (this.tooltip)
+			{
 				this.tooltip.remove();
 			}
-			
+
 			this.tooltip = this.d3.select(this.mapContainer)
 				.append("div")
 				.style("position", "absolute")
@@ -408,8 +411,10 @@ define([
 				.style("border", "1px solid rgba(255, 255, 255, 0.1)");
 		},
 
-		loadMapData: function () {
-			if (!this.d3 || !this.topojson) {
+		loadMapData: function ()
+		{
+			if (!this.d3 || !this.topojson)
+			{
 				console.warn("D3 or topojson not available");
 				return;
 			}
@@ -422,33 +427,38 @@ define([
 			];
 
 			Promise.all(promises).then(
-				lang.hitch(this, function ([worldTopo, usAtlas]) {
+				lang.hitch(this, function ([worldTopo, usAtlas])
+				{
 					this.worldMapData = worldTopo;
 					this.usMapData = usAtlas;
-					
+
 					this._setupSVG();
 					this.hideLoading();
-					
-					if (this.genomeData) {
+
+					if (this.genomeData)
+					{
 						this.updateChart(this.genomeData);
-					} else {
+					} else
+					{
 						this.switchToUSView();
 					}
 				}),
-				lang.hitch(this, function (err) {
+				lang.hitch(this, function (err)
+				{
 					console.error("Failed to load map data:", err);
 					this.hideLoading();
 				})
 			);
 		},
 
-		updateChart: function (data) {
+		updateChart: function (data)
+		{
 			this.genomeData = data;
-			
-			// Debug logging
+
 			console.log("D3Choropleth updateChart called with data:", data);
-			
-			if (!this.worldMapData || !this.usMapData || !this.svg) {
+
+			if (!this.worldMapData || !this.usMapData || !this.svg)
+			{
 				console.log("D3Choropleth: Missing required resources", {
 					worldMapData: !!this.worldMapData,
 					usMapData: !!this.usMapData,
@@ -457,9 +467,9 @@ define([
 				return;
 			}
 
-			// Calculate max value for color scale
 			let maxValue = 0;
-			if (data) {
+			if (data)
+			{
 				const allCounts = [
 					...Object.values(data.countryData || {}),
 					...Object.values(data.stateData || {}),
@@ -468,63 +478,72 @@ define([
 				maxValue = Math.max(...allCounts, 0);
 				console.log("D3Choropleth: Max value for color scale:", maxValue);
 			}
-			
+
 			this._setupColorScale(maxValue);
 			this._updateLegend(maxValue);
 
-			if (this.currentView === "world") {
+			if (this.currentView === "world")
+			{
 				this.drawWorldView();
-			} else if (this.currentView === "us") {
+			} else if (this.currentView === "us")
+			{
 				this.drawUSView();
-			} else {
+			} else
+			{
 				this.drawStateView(this.selectedState, this.selectedStateName);
 			}
 		},
 
-		switchToWorldView: function () {
+		switchToWorldView: function ()
+		{
 			this.currentView = "world";
-			// Reset the dropdown when switching to world view
-			if (this.stateDropdownNode) {
+
+			if (this.stateDropdownNode)
+			{
 				this.stateDropdownNode.value = "";
 			}
 			this._updateButtonStyles();
 			this.drawWorldView();
 		},
 
-		switchToUSView: function () {
+		switchToUSView: function ()
+		{
 			this.currentView = "us";
 			this.selectedState = null;
 			this.selectedStateName = null;
-			// Reset the dropdown when switching to US view
-			if (this.stateDropdownNode) {
+
+			if (this.stateDropdownNode)
+			{
 				this.stateDropdownNode.value = "";
 			}
 			this._updateButtonStyles();
 			this.drawUSView();
 		},
 
-		switchToStateView: function (stateCode, stateName) {
+		switchToStateView: function (stateCode, stateName)
+		{
 			this.currentView = "state";
 			this.selectedState = stateCode;
 			this.selectedStateName = stateName;
-			// Update the dropdown to reflect the selected state
-			if (this.stateDropdownNode) {
+
+			if (this.stateDropdownNode)
+			{
 				this.stateDropdownNode.value = stateCode;
 			}
 			this._updateButtonStyles();
 			this.drawStateView(stateCode, stateName);
 		},
 
-		drawWorldView: function () {
+		drawWorldView: function ()
+		{
 			if (!this.d3 || !this.topojson || !this.worldMapData) return;
-			
+
 			this.g.selectAll("*").remove();
 
 			const containerRect = this.mapContainer.getBoundingClientRect();
 			const width = containerRect.width || 800;
 			const height = containerRect.height || 450;
 
-			// World projection
 			this.projection = this.d3.geoNaturalEarth1()
 				.scale(150)
 				.translate([width / 2, height / 2]);
@@ -538,7 +557,8 @@ define([
 				.join("path")
 				.attr("class", "country")
 				.attr("d", this.path)
-				.attr("fill", (d) => {
+				.attr("fill", (d) =>
+				{
 					const countryData = this._getCountryData(d);
 					return countryData ? this.colorScale(countryData.value) : "#f8f9fa";
 				})
@@ -547,13 +567,14 @@ define([
 				.style("cursor", "pointer")
 				.on("mouseover", (event, d) => this._showTooltip(event, d, "country"))
 				.on("mouseout", () => this._hideTooltip())
-				.on("click", (event, d) => {
-					// Check multiple property names for USA
+				.on("click", (event, d) =>
+				{
+
 					const countryName = d.properties.NAME || d.properties.name || d.properties.ADMIN || d.properties.admin || "";
-					
-					// Check if this is the United States using various possible names
+
 					const usaNames = ["United States of America", "United States", "USA", "US"];
-					if (usaNames.some(name => countryName === name || countryName.includes("United States"))) {
+					if (usaNames.some(name => countryName === name || countryName.includes("United States")))
+					{
 						this.switchToUSView();
 					}
 				});
@@ -561,16 +582,16 @@ define([
 			this.resetZoom();
 		},
 
-		drawUSView: function () {
+		drawUSView: function ()
+		{
 			if (!this.d3 || !this.topojson || !this.usMapData) return;
-			
+
 			this.g.selectAll("*").remove();
 
 			const containerRect = this.mapContainer.getBoundingClientRect();
 			const width = containerRect.width || 800;
 			const height = containerRect.height || 450;
 
-			// US AlbersUSA projection for proper Alaska/Hawaii positioning
 			this.projection = this.d3.geoAlbersUsa()
 				.scale(1000)
 				.translate([width / 2, height / 2]);
@@ -584,7 +605,8 @@ define([
 				.join("path")
 				.attr("class", "state")
 				.attr("d", this.path)
-				.attr("fill", (d) => {
+				.attr("fill", (d) =>
+				{
 					const stateData = this._getStateData(d);
 					return stateData ? this.colorScale(stateData.value) : "#f8f9fa";
 				})
@@ -593,15 +615,16 @@ define([
 				.style("cursor", "pointer")
 				.on("mouseover", (event, d) => this._showTooltip(event, d, "state"))
 				.on("mouseout", () => this._hideTooltip())
-				.on("click", (event, d) => {
+				.on("click", (event, d) =>
+				{
 					const stateCode = d.id;
 					const stateName = d.properties.name;
-					if (stateCode && stateName) {
+					if (stateCode && stateName)
+					{
 						this.switchToStateView(stateCode, stateName);
 					}
 				});
 
-			// Add state borders
 			this.g.append("path")
 				.datum(this.topojson.mesh(this.usMapData, this.usMapData.objects.states, (a, b) => a !== b))
 				.attr("fill", "none")
@@ -612,33 +635,32 @@ define([
 			this.resetZoom();
 		},
 
-		drawStateView: function (stateCode, stateName) {
+		drawStateView: function (stateCode, stateName)
+		{
 			if (!this.d3 || !this.topojson || !this.usMapData) return;
-			
+
 			this.g.selectAll("*").remove();
 
 			const containerRect = this.mapContainer.getBoundingClientRect();
 			const width = containerRect.width || 800;
 			const height = containerRect.height || 450;
 
-			// Filter counties for the selected state
 			const allCounties = this.topojson.feature(this.usMapData, this.usMapData.objects.counties);
 			const stateCounties = allCounties.features.filter(d => d.id.startsWith(stateCode));
 
-			if (stateCounties.length === 0) {
+			if (stateCounties.length === 0)
+			{
 				console.warn("No county data for state:", stateName);
 				this.switchToUSView();
 				return;
 			}
 
-			// Create state bounds for projection
 			const stateBounds = { type: "FeatureCollection", features: stateCounties };
 
-			// Mercator projection fitted to state bounds
 			this.projection = this.d3.geoMercator();
 			const padding = 20;
 			this.projection.fitExtent(
-				[[padding, padding], [width - padding, height - padding]], 
+				[[padding, padding], [width - padding, height - padding]],
 				stateBounds
 			);
 
@@ -649,7 +671,8 @@ define([
 				.join("path")
 				.attr("class", "county")
 				.attr("d", this.path)
-				.attr("fill", (d) => {
+				.attr("fill", (d) =>
+				{
 					const countyData = this._getCountyData(d);
 					return countyData ? this.colorScale(countyData.value) : "#f8f9fa";
 				})
@@ -659,9 +682,8 @@ define([
 				.on("mouseover", (event, d) => this._showTooltip(event, d, "county"))
 				.on("mouseout", () => this._hideTooltip());
 
-			// Add county borders
 			this.g.append("path")
-				.datum(this.topojson.mesh(this.usMapData, this.usMapData.objects.counties, 
+				.datum(this.topojson.mesh(this.usMapData, this.usMapData.objects.counties,
 					(a, b) => a !== b && a.id.slice(0, 2) === stateCode && b.id.slice(0, 2) === stateCode))
 				.attr("fill", "none")
 				.attr("stroke", "#e2e8f0")
@@ -672,11 +694,12 @@ define([
 			this.resetZoom();
 		},
 
-		_showTooltip: function (event, d, type) {
+		_showTooltip: function (event, d, type)
+		{
 			let data, content, displayName;
-			
-			// Debug logging for first tooltip
-			if (!this._debuggedTooltip) {
+
+			if (!this._debuggedTooltip)
+			{
 				console.log("D3Choropleth: Tooltip debug", {
 					type: type,
 					properties: d.properties,
@@ -684,44 +707,53 @@ define([
 				});
 				this._debuggedTooltip = true;
 			}
-			
-			if (type === "country") {
+
+			if (type === "country")
+			{
 				data = this._getCountryData(d);
-				// Try multiple property names for country
+
 				displayName = d.properties.NAME || d.properties.name || d.properties.ADMIN || d.properties.admin || "Unknown";
 				content = `<div><strong>${displayName}</strong></div>`;
-			} else if (type === "state") {
+			} else if (type === "state")
+			{
 				data = this._getStateData(d);
-				// Try multiple property names for state
+
 				displayName = d.properties.name || d.properties.NAME || d.properties.STATE_NAME || "Unknown";
 				content = `<div><strong>${displayName}</strong></div>`;
-			} else {
+			} else
+			{
 				data = this._getCountyData(d);
-				// Try multiple property names for county
+
 				displayName = d.properties.name || d.properties.NAME || d.properties.COUNTY || "Unknown";
 				content = `<div><strong>${displayName}</strong></div>`;
 			}
 
-			if (data) {
+			if (data)
+			{
 				content += `<div>Genomes: ${data.count || 0}</div>`;
-				if (data.genera && data.genera.length > 0) {
+				if (data.genera && data.genera.length > 0)
+				{
 					content += `<div style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 8px;">`;
 					content += `<div style="font-weight: bold; margin-bottom: 4px;">Top Genera:</div>`;
-					data.genera.slice(0, 5).forEach(g => {
+					data.genera.slice(0, 5).forEach(g =>
+					{
 						content += `<div><em>${g.genus}</em>: ${g.count} (${g.percentage}%)</div>`;
 					});
 					content += `</div>`;
 				}
-				// Add hosts for country/state views
-				if ((type === "country" || type === "state") && data.hosts && data.hosts.length > 0) {
+
+				if ((type === "country" || type === "state") && data.hosts && data.hosts.length > 0)
+				{
 					content += `<div style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 8px;">`;
 					content += `<div style="font-weight: bold; margin-bottom: 4px;">Top Hosts:</div>`;
-					data.hosts.slice(0, 5).forEach(h => {
+					data.hosts.slice(0, 5).forEach(h =>
+					{
 						content += `<div>${h.host}: ${h.count} (${h.percentage}%)</div>`;
 					});
 					content += `</div>`;
 				}
-			} else {
+			} else
+			{
 				content += `<div>No data available</div>`;
 			}
 
@@ -733,21 +765,24 @@ define([
 				.style("top", (y - 15) + "px");
 		},
 
-		_hideTooltip: function () {
+		_hideTooltip: function ()
+		{
 			this.tooltip.style("opacity", 0);
 		},
 
-		_getCountryData: function (feature) {
+		_getCountryData: function (feature)
+		{
 			if (!this.genomeData || !this.genomeData.countryData) return null;
-			
+
 			const props = feature.properties || {};
 			const topoJsonName = props.NAME || props.name || props.ADMIN || props.admin || "";
-			
-			// Debug logging for first few countries
-			if (!this._debuggedCountries) {
+
+			if (!this._debuggedCountries)
+			{
 				this._debuggedCountries = 0;
 			}
-			if (this._debuggedCountries < 5) {
+			if (this._debuggedCountries < 5)
+			{
 				console.log("D3Choropleth: Country lookup", {
 					topoJsonName: topoJsonName,
 					allProperties: props,
@@ -755,46 +790,51 @@ define([
 				});
 				this._debuggedCountries++;
 			}
-			
+
 			let count = 0;
 			let matchedKey = null;
-			
-			// First, try direct match with the data
-			if (this.genomeData.countryData[topoJsonName]) {
+
+			if (this.genomeData.countryData[topoJsonName])
+			{
 				count = this.genomeData.countryData[topoJsonName];
 				matchedKey = topoJsonName;
-			} else {
-				// Use our mapping to find matches
+			} else
+			{
+
 				const possibleNames = this.countryNameMapping[topoJsonName];
-				if (possibleNames) {
-					for (let i = 0; i < possibleNames.length; i++) {
+				if (possibleNames)
+				{
+					for (let i = 0; i < possibleNames.length; i++)
+					{
 						const name = possibleNames[i];
-						if (this.genomeData.countryData[name]) {
+						if (this.genomeData.countryData[name])
+						{
 							count = this.genomeData.countryData[name];
 							matchedKey = name;
 							break;
 						}
 					}
 				}
-				
-				// If still no match, try normalized comparison
-				if (!count) {
+
+				if (!count)
+				{
 					const normalized = topoJsonName.toLowerCase().replace(/[^a-z]/g, "");
-					Object.keys(this.genomeData.countryData).forEach(dataKey => {
+					Object.keys(this.genomeData.countryData).forEach(dataKey =>
+					{
 						const dataNorm = dataKey.toLowerCase().replace(/[^a-z]/g, "");
-						if (dataNorm === normalized) {
+						if (dataNorm === normalized)
+						{
 							count = this.genomeData.countryData[dataKey];
 							matchedKey = dataKey;
 						}
 					});
 				}
 			}
-			
+
 			if (!count) return null;
-			
-			// Use the matched key to get metadata
+
 			const metadata = this.genomeData.countryMetadata && this.genomeData.countryMetadata[matchedKey];
-			
+
 			return {
 				count: count,
 				value: count,
@@ -803,23 +843,24 @@ define([
 			};
 		},
 
-		_getStateData: function (feature) {
+		_getStateData: function (feature)
+		{
 			if (!this.genomeData || !this.genomeData.stateData) return null;
-			
+
 			const props = feature.properties || {};
 			const stateName = props.name || props.NAME || "";
 			const normalized = stateName.toLowerCase().replace(/[^a-z]/g, "");
-			
-			// Build lookup with same logic as EChartChoropleth
+
 			const stateLookup = {};
-			Object.keys(this.genomeData.stateData).forEach(state => {
+			Object.keys(this.genomeData.stateData).forEach(state =>
+			{
 				const norm = state.toLowerCase().replace(/[^a-z]/g, "");
 				stateLookup[norm] = this.genomeData.stateData[state];
 				stateLookup[state] = this.genomeData.stateData[state];
 			});
-			
-			// Debug first state only
-			if (!this._debuggedFirstState) {
+
+			if (!this._debuggedFirstState)
+			{
 				console.log("D3Choropleth: First state lookup", {
 					stateName: stateName,
 					normalized: normalized,
@@ -828,18 +869,20 @@ define([
 				});
 				this._debuggedFirstState = true;
 			}
-			
+
 			let count = 0;
-			if (stateLookup[stateName]) {
+			if (stateLookup[stateName])
+			{
 				count = stateLookup[stateName];
-			} else if (stateLookup[normalized]) {
+			} else if (stateLookup[normalized])
+			{
 				count = stateLookup[normalized];
 			}
-			
+
 			if (!count) return null;
-			
+
 			const metadata = this.genomeData.stateMetadata && this.genomeData.stateMetadata[stateName];
-			
+
 			return {
 				count: count,
 				value: count,
@@ -848,32 +891,35 @@ define([
 			};
 		},
 
-		_getCountyData: function (feature) {
+		_getCountyData: function (feature)
+		{
 			if (!this.genomeData || !this.genomeData.countyData) return null;
-			
+
 			const props = feature.properties || {};
 			const countyName = props.name || props.NAME || "";
 			const normalized = countyName.toLowerCase().replace(/[^a-z]/g, "");
-			
-			// Build lookup with same logic as EChartChoropleth
+
 			const countyLookup = {};
-			Object.keys(this.genomeData.countyData).forEach(county => {
+			Object.keys(this.genomeData.countyData).forEach(county =>
+			{
 				const norm = county.toLowerCase().replace(/[^a-z]/g, "");
 				countyLookup[norm] = this.genomeData.countyData[county];
 				countyLookup[county] = this.genomeData.countyData[county];
 			});
-			
+
 			let count = 0;
-			if (countyLookup[countyName]) {
+			if (countyLookup[countyName])
+			{
 				count = countyLookup[countyName];
-			} else if (countyLookup[normalized]) {
+			} else if (countyLookup[normalized])
+			{
 				count = countyLookup[normalized];
 			}
-			
+
 			if (!count) return null;
-			
+
 			const metadata = this.genomeData.countyMetadata && this.genomeData.countyMetadata[countyName];
-			
+
 			return {
 				count: count,
 				value: count,
@@ -881,9 +927,10 @@ define([
 			};
 		},
 
-		_formatGenera: function (genera) {
+		_formatGenera: function (genera)
+		{
 			if (!genera) return [];
-			
+
 			const total = Object.values(genera).reduce((sum, count) => sum + count, 0);
 			return Object.entries(genera)
 				.map(([genus, count]) => ({
@@ -894,9 +941,10 @@ define([
 				.sort((a, b) => b.count - a.count);
 		},
 
-		_formatBreakdown: function (breakdown) {
+		_formatBreakdown: function (breakdown)
+		{
 			if (!breakdown) return [];
-			
+
 			const total = Object.values(breakdown).reduce((sum, count) => sum + count, 0);
 			return Object.entries(breakdown)
 				.map(([name, count]) => ({
@@ -907,66 +955,81 @@ define([
 				.sort((a, b) => b.count - a.count);
 		},
 
-		_getStateNameByCode: function (code) {
-			for (const [name, fips] of Object.entries(this.stateNameToFips)) {
+		_getStateNameByCode: function (code)
+		{
+			for (const [name, fips] of Object.entries(this.stateNameToFips))
+			{
 				if (fips === code) return name;
 			}
 			return null;
 		},
 
-		_updateButtonStyles: function () {
-			// Update map title overlay
-			if (this.mapTitleNode) {
-				if (this.currentView === "world") {
+		_updateButtonStyles: function ()
+		{
+
+			if (this.mapTitleNode)
+			{
+				if (this.currentView === "world")
+				{
 					this.mapTitleNode.innerHTML = "World";
-				} else if (this.currentView === "us") {
+				} else if (this.currentView === "us")
+				{
 					this.mapTitleNode.innerHTML = "United States";
-				} else if (this.currentView === "state" && this.selectedStateName) {
+				} else if (this.currentView === "state" && this.selectedStateName)
+				{
 					this.mapTitleNode.innerHTML = this.selectedStateName;
 				}
 			}
 
-			if (this.externalControlsContainer) {
-				// Handle class-based styling for external controls
-				[this.worldViewBtn, this.usViewBtn, this.stateViewBtn].forEach(btn => {
+			if (this.externalControlsContainer)
+			{
+
+				[this.worldViewBtn, this.usViewBtn, this.stateViewBtn].forEach(btn =>
+				{
 					btn.classList.remove("active");
 				});
 
-				// Set active button
-				if (this.currentView === "world") {
+				if (this.currentView === "world")
+				{
 					this.worldViewBtn.classList.add("active");
 					this.stateDropdownNode.style.display = "none";
 					this.backButtonNode.style.display = "none";
-				} else if (this.currentView === "us") {
+				} else if (this.currentView === "us")
+				{
 					this.usViewBtn.classList.add("active");
 					this.stateDropdownNode.style.display = "none";
 					this.backButtonNode.style.display = "none";
-				} else {
-					// State view
+				} else
+				{
+
 					this.stateViewBtn.classList.add("active");
 					this.stateDropdownNode.style.display = "inline-block";
 					this.backButtonNode.style.display = "inline-block";
 				}
-			} else {
-				// Handle inline style for standalone widget
-				[this.worldViewBtn, this.usViewBtn, this.stateViewBtn].forEach(btn => {
+			} else
+			{
+
+				[this.worldViewBtn, this.usViewBtn, this.stateViewBtn].forEach(btn =>
+				{
 					btn.style.backgroundColor = "#6c757d";
 					btn.style.boxShadow = "none";
 				});
 
-				// Set active button with enhanced styling
-				if (this.currentView === "world") {
+				if (this.currentView === "world")
+				{
 					this.worldViewBtn.style.backgroundColor = "#98bdac";
 					this.worldViewBtn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
 					this.stateDropdownNode.style.display = "none";
 					this.backButtonNode.style.display = "none";
-				} else if (this.currentView === "us") {
+				} else if (this.currentView === "us")
+				{
 					this.usViewBtn.style.backgroundColor = "#98bdac";
 					this.usViewBtn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
 					this.stateDropdownNode.style.display = "none";
 					this.backButtonNode.style.display = "none";
-				} else {
-					// State view
+				} else
+				{
+
 					this.stateViewBtn.style.backgroundColor = "#98bdac";
 					this.stateViewBtn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
 					this.stateDropdownNode.style.display = "inline-block";
@@ -975,23 +1038,22 @@ define([
 			}
 		},
 
-		_updateLegend: function (maxValue) {
-			if (!this.legendNode || !this.d3 || !maxValue) {
+		_updateLegend: function (maxValue)
+		{
+			if (!this.legendNode || !this.d3 || !maxValue)
+			{
 				if (this.legendNode) this.legendNode.style.display = "none";
 				return;
 			}
 
-			// Clear existing content
 			this.legendNode.innerHTML = "";
-			
-			// Create gradient bar
+
 			const gradientId = "colorGradient" + Math.random().toString(36).substr(2, 9);
 			const legendSvg = this.d3.select(this.legendNode)
 				.append("svg")
 				.attr("width", 200)
 				.attr("height", 60);
 
-			// Define gradient
 			const gradient = legendSvg.append("defs")
 				.append("linearGradient")
 				.attr("id", gradientId)
@@ -1000,16 +1062,15 @@ define([
 				.attr("x2", "100%")
 				.attr("y2", "0%");
 
-			// Add color stops using the same colors as the map
 			const numStops = 10;
-			for (let i = 0; i <= numStops; i++) {
+			for (let i = 0; i <= numStops; i++)
+			{
 				const value = (i / numStops) * maxValue;
 				gradient.append("stop")
 					.attr("offset", (i / numStops * 100) + "%")
 					.attr("stop-color", this.colorScale(value));
 			}
 
-			// Draw gradient bar
 			legendSvg.append("rect")
 				.attr("x", 10)
 				.attr("y", 10)
@@ -1019,7 +1080,6 @@ define([
 				.style("stroke", "#ccc")
 				.style("stroke-width", 1);
 
-			// Add labels
 			legendSvg.append("text")
 				.attr("x", 10)
 				.attr("y", 45)
@@ -1035,7 +1095,6 @@ define([
 				.style("text-anchor", "end")
 				.text(maxValue.toLocaleString());
 
-			// Add title
 			legendSvg.append("text")
 				.attr("x", 100)
 				.attr("y", 55)
@@ -1047,24 +1106,30 @@ define([
 			this.legendNode.style.display = "block";
 		},
 
-		zoomIn: function () {
-			if (this.zoomBehavior && this.svg) {
+		zoomIn: function ()
+		{
+			if (this.zoomBehavior && this.svg)
+			{
 				this.svg.transition().duration(300).call(
 					this.zoomBehavior.scaleBy, 1.5
 				);
 			}
 		},
 
-		zoomOut: function () {
-			if (this.zoomBehavior && this.svg) {
+		zoomOut: function ()
+		{
+			if (this.zoomBehavior && this.svg)
+			{
 				this.svg.transition().duration(300).call(
 					this.zoomBehavior.scaleBy, 1 / 1.5
 				);
 			}
 		},
 
-		resetZoom: function () {
-			if (this.zoomBehavior && this.svg && this.d3) {
+		resetZoom: function ()
+		{
+			if (this.zoomBehavior && this.svg && this.d3)
+			{
 				this.svg.transition().duration(500).call(
 					this.zoomBehavior.transform,
 					this.d3.zoomIdentity
@@ -1072,26 +1137,30 @@ define([
 			}
 		},
 
-		resize: function () {
-			if (this.svg && this.mapContainer) {
+		resize: function ()
+		{
+			if (this.svg && this.mapContainer)
+			{
 				const containerRect = this.mapContainer.getBoundingClientRect();
 				const width = containerRect.width || 800;
 				const height = containerRect.height || 450;
-				
+
 				this.svg
 					.attr("width", width)
 					.attr("height", height);
-					
-				// Redraw current view with new dimensions
+
 				this.updateChart(this.genomeData);
 			}
 		},
 
-		destroy: function () {
-			if (this.svg) {
+		destroy: function ()
+		{
+			if (this.svg)
+			{
 				this.svg.remove();
 			}
-			if (this.tooltip) {
+			if (this.tooltip)
+			{
 				this.tooltip.remove();
 			}
 			this.inherited(arguments);

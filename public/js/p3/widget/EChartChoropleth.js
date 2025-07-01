@@ -307,27 +307,25 @@ define([
 			}
 
 			const promises = [
-				// World atlas for world view
+
 				request("/maage/maps/world-atlas/countries-110m.json", { handleAs: "json" }),
-				// US counties atlas for both states and counties (will extract states)
+
 				request("/maage/maps/us-atlas/counties-10m.json", { handleAs: "json" })
 			];
 
 			Promise.all(promises).then(
 				lang.hitch(this, function ([worldTopo, usAtlas])
 				{
-					// Process world map data
+
 					const worldGeo = topojson.feature(worldTopo, worldTopo.objects.countries);
 					echarts.registerMap("world", worldGeo);
 					this.worldMapData = worldGeo;
 
-					// Extract states from US atlas and apply AlbersUSA projection
 					const statesGeo = topojson.feature(usAtlas, usAtlas.objects.states);
 					const projectedStatesGeo = this._applyAlbersUSAProjection(statesGeo);
 					echarts.registerMap("usa-states", projectedStatesGeo);
 					this.usStatesMapData = projectedStatesGeo;
 
-					// Use counties for detailed views
 					const countiesGeo = topojson.feature(usAtlas, usAtlas.objects.counties);
 					echarts.registerMap("usa-counties", countiesGeo);
 					this.usCountiesMapData = countiesGeo;
@@ -355,45 +353,48 @@ define([
 
 		_applyAlbersUSAProjection: function (geoData)
 		{
-			// Check if D3 is available
-			if (!d3) {
+
+			if (!d3)
+			{
 				console.warn("D3 not available, using original coordinates");
 				return geoData;
 			}
 
-			// Create a copy of the geoData to avoid modifying the original
 			const projectedGeoData = JSON.parse(JSON.stringify(geoData));
-			
-			// Create AlbersUSA projection similar to demo
-			// This automatically repositions Alaska and Hawaii and flattens the projection
+
 			const projection = d3.geoAlbersUsa()
-				.scale(1000)   // Larger scale for better visibility
-				.translate([500, 300]);  // Center in widget coordinate space
-			
-			// Transform all coordinates using the projection
-			projectedGeoData.features.forEach(function (feature) {
-				if (feature.geometry && feature.geometry.coordinates) {
-					const transformCoords = function (coords) {
-						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number") {
-							// This is a coordinate pair [lng, lat]
-							return coords.map(function (coord) {
+				.scale(1000)
+				.translate([500, 300]);
+
+			projectedGeoData.features.forEach(function (feature)
+			{
+				if (feature.geometry && feature.geometry.coordinates)
+				{
+					const transformCoords = function (coords)
+					{
+						if (Array.isArray(coords[0]) && typeof coords[0][0] === "number")
+						{
+
+							return coords.map(function (coord)
+							{
 								const projected = projection(coord);
-								if (projected) {
-									// Flip Y coordinate for ECharts (screen coordinates)
-									// ECharts expects Y to increase downward
+								if (projected)
+								{
+
 									return [projected[0], -projected[1]];
 								}
-								return coord; // Fallback to original if projection fails
+								return coord;
 							});
-						} else {
-							// This is a nested array of coordinates
+						} else
+						{
+
 							return coords.map(transformCoords);
 						}
 					};
 					feature.geometry.coordinates = transformCoords(feature.geometry.coordinates);
 				}
 			});
-			
+
 			return projectedGeoData;
 		},
 
@@ -512,13 +513,13 @@ define([
 			{
 				mapName = "world";
 				chartData = this._processWorldData(this.genomeData.countryData || {});
-				// Slightly increase zoom for world view
+
 				zoom = 1.2;
 			} else if (this.currentView === "us")
 			{
 				mapName = "usa-states";
 				chartData = this._processUSStateData(this.genomeData.stateData || {});
-				// Lower zoom since projection coordinates are already scaled
+
 				zoom = 1.0;
 				center = ["50%", "50%"];
 			} else
@@ -530,7 +531,7 @@ define([
 					this.currentView,
 					this.selectedStateName
 				);
-				// Increase zoom for state views as well
+
 				zoom = 1.3;
 			}
 
@@ -686,18 +687,17 @@ define([
 				}]
 			};
 
-			// Set up click handlers based on current view
 			this.chart.off("click");
-			
+
 			if (this.currentView === "world")
 			{
-				// Click on USA to navigate to US view
+
 				this.chart.on("click", lang.hitch(this, function (params)
 				{
 					if (params.data && params.data.name)
 					{
-						// Check if clicked country is USA
-						if (params.data.name === "United States of America" || 
+
+						if (params.data.name === "United States of America" ||
 							params.data.name === "United States" ||
 							params.data.name === "USA")
 						{
@@ -708,7 +708,7 @@ define([
 			}
 			else if (this.currentView === "us")
 			{
-				// Click on state to navigate to state view
+
 				this.chart.on("click", lang.hitch(this, function (params)
 				{
 					if (params.data && params.data.stateCode)
@@ -965,17 +965,17 @@ define([
 
 		_getVisualMapPieces: function (max)
 		{
-			// MAAGE green color scheme based on #98bdac (matching demo)
+
 			const greenShades = [
-				"#f0f5f3",  // Lightest shade
+				"#f0f5f3",
 				"#e1ebe6",
 				"#d2e1d9",
 				"#c3d7cc",
 				"#b4cdbf",
 				"#a5c3b2",
-				"#98bdac",  // Base color
+				"#98bdac",
 				"#8ba89c",
-				"#7e938c"   // Darkest shade
+				"#7e938c"
 			];
 
 			if (max <= 10)

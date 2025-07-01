@@ -1,65 +1,70 @@
 <div class="genome-list-summary bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-	<div data-dojo-attach-point="loadingNode" class="flex items-center justify-center p-8">
+	<div data-dojo-attach-point="loadingNode"
+		 class="flex items-center justify-center p-8">
 		<div class="text-center">
 			<div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
 			<div class="mt-2 text-sm text-gray-600">Loading summary...</div>
 		</div>
 	</div>
-	
-	<div data-dojo-attach-point="contentNode" class="hidden">
-		<!-- Modern Spreadsheet Table -->
+
+	<div data-dojo-attach-point="contentNode"
+		 class="hidden">
 		<div class="spreadsheet-table">
-			<!-- Table Header -->
 			<!-- <div class="spreadsheet-header">
 				<div class="spreadsheet-header-cell metric-label-col">Metric</div>
 				<div class="spreadsheet-header-cell value-col">Value</div>
 			</div> -->
-			
-			<!-- Genome Counts Section -->
+
 			<div class="spreadsheet-section-divider">
 				<span class="spreadsheet-section-label">Genome</span>
 			</div>
 			<div class="spreadsheet-row row-even">
 				<div class="spreadsheet-cell metric-label-col">Total Genomes</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="totalGenomesNode">0</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="totalGenomesNode">0</div>
 			</div>
 			<div class="spreadsheet-row row-odd">
 				<div class="spreadsheet-cell metric-label-col">Complete</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="completeGenomesNode">0</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="completeGenomesNode">0</div>
 			</div>
 			<div class="spreadsheet-row row-even">
 				<div class="spreadsheet-cell metric-label-col">WGS</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="wgsGenomesNode">0</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="wgsGenomesNode">0</div>
 			</div>
 			<div class="spreadsheet-row row-odd">
 				<div class="spreadsheet-cell metric-label-col">Plasmids</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="plasmidsNode">0</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="plasmidsNode">0</div>
 			</div>
-			
-			<!-- Diversity Section -->
+
 			<div class="spreadsheet-section-divider">
 				<span class="spreadsheet-section-label">Diversity</span>
 			</div>
 			<div class="spreadsheet-row row-even">
 				<div class="spreadsheet-cell metric-label-col">Genera</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="uniqueGeneraNode">0</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="uniqueGeneraNode">0</div>
 			</div>
 			<div class="spreadsheet-row row-odd">
 				<div class="spreadsheet-cell metric-label-col">Species</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="uniqueSpeciesNode">0</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="uniqueSpeciesNode">0</div>
 			</div>
 			<div class="spreadsheet-row row-even">
 				<div class="spreadsheet-cell metric-label-col">Hosts</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="uniqueHostsNode">0</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="uniqueHostsNode">0</div>
 			</div>
-			
-			<!-- Collection Period Section -->
+
 			<div class="spreadsheet-section-divider">
 				<span class="spreadsheet-section-label">Collection Period</span>
 			</div>
 			<div class="spreadsheet-row row-odd">
 				<div class="spreadsheet-cell metric-label-col">Years</div>
-				<div class="spreadsheet-cell value-col" data-dojo-attach-point="dateRangeNode">N/A</div>
+				<div class="spreadsheet-cell value-col"
+					 data-dojo-attach-point="dateRangeNode">N/A</div>
 			</div>
 		</div>
 	</div>

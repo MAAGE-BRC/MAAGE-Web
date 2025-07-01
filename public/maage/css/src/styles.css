@@ -1,4 +1,4 @@
-/* Map Controls */
+
 .map-controls {
   @apply flex gap-2 mb-2;
 }
@@ -7,7 +7,6 @@
   @apply transition-colors duration-200;
 }
 
-/* Map view toggle buttons */
 .map-view-btn {
   @apply bg-gray-500 text-white hover:bg-gray-600;
 }
@@ -16,19 +15,16 @@
   @apply bg-maage-primary-400 text-white shadow-sm;
 }
 
-/* Map zoom buttons */
 .map-zoom-btn {
   @apply bg-gray-500 text-white hover:bg-gray-600;
 }
 
-/* Map chart container style */
 .genome-list-overview-dashboard .map-chart-container {
   min-height: 500px !important;
   height: 500px !important;
   padding: 20px;
 }
 
-/* Metric cards container - handle 6 cards layout */
 .metric-cards-container {
   display: flex;
   flex-wrap: wrap;
@@ -59,7 +55,6 @@
   }
 }
 
-/* Metric list styles for dashboard KPIs */
 .metric-list {
   max-height: 100px;
   overflow-y: auto;
@@ -68,10 +63,9 @@
   margin: 0 auto;
   width: 90%;
   max-width: 200px;
-  padding-right: 6px; /* Add space for scrollbar */
+  padding-right: 6px;
 }
 
-/* Custom scrollbar for metric lists */
 .metric-list::-webkit-scrollbar {
   width: 6px;
 }
@@ -121,7 +115,6 @@
   flex-shrink: 0;
 }
 
-/* GenomeListSummary widget - Modern Spreadsheet Style with MAAGE Colors */
 .genome-list-summary {
   height: 100%;
 }
@@ -132,7 +125,6 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Table Header */
 .spreadsheet-header {
   display: flex;
   background-color: var(--maage-primary-50);
@@ -153,7 +145,6 @@
   border-right: 0;
 }
 
-/* Column Widths */
 .metric-label-col {
   flex: 1;
 }
@@ -163,7 +154,6 @@
   text-align: right;
 }
 
-/* Section Dividers */
 .spreadsheet-section-divider {
   background-color: var(--maage-secondary-50);
   border-bottom: 1px solid var(--maage-secondary-200);
@@ -178,7 +168,6 @@
   letter-spacing: 0.05em;
 }
 
-/* Table Rows */
 .spreadsheet-row {
   display: flex;
   border-bottom: 1px solid #dee2e6;
@@ -197,7 +186,6 @@
   background-color: var(--maage-primary-50) !important;
 }
 
-/* Table Cells */
 .spreadsheet-cell {
   padding: 8px 12px;
   font-size: 14px;
@@ -219,7 +207,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Map placeholder containers */
 .chart-section [data-dojo-attach-point="mapLegendNode"],
 .chart-section [data-dojo-attach-point="mapStatsNode"] {
   min-height: 165px;
@@ -233,15 +220,13 @@
 }
 
 :root {
-  /* font families */
+ 
   --maage-font-heading: 'Poppins', sans-serif;
   --maage-font-body: 'Inter', sans-serif;
   --maage-font-mono: 'IBM Plex Mono', monospace;
 
-  /* sizing */
   --max-w-maage: 1400px;
 
-  /* primary (muted green) */
   --maage-primary-50: #f9fbfa;
   --maage-primary-100: #ecf3f0;
   --maage-primary-200: #d6e5de;
@@ -254,7 +239,6 @@
   --maage-primary-900: #324d41;
   --maage-primary-950: #1c2b24;
 
-  /* secondary (muted blue) */
   --maage-secondary-50: #eef4f7;
   --maage-secondary-100: #dce9ef;
   --maage-secondary-200: #c1d8e1;
@@ -267,7 +251,6 @@
   --maage-secondary-900: #2e4a56;
   --maage-secondary-950: #22363f;
 
-  /* tertiary (muted yellow) */
   --maage-tertiary-50: #fdfaf2;
   --maage-tertiary-100: #fbf6e9;
   --maage-tertiary-200: #f8edd8;
@@ -280,7 +263,6 @@
   --maage-tertiary-900: #946729;
   --maage-tertiary-950: #6d461d;
 
-  /* quaternary (muted purple) */
   --maage-quaternary-50: #f6f6f9;
   --maage-quaternary-100: #efeff5;
   --maage-quaternary-200: #dfdfec;
@@ -293,7 +275,6 @@
   --maage-quaternary-900: #48435b;
   --maage-quaternary-950: #2a2839;
 
-  /* quinary (muted red) */
   --maage-quinary-50: #fbf6f5;
   --maage-quinary-100: #f8eceb;
   --maage-quinary-200: #f1dbda;
@@ -306,7 +287,6 @@
   --maage-quinary-900: #6c323a;
   --maage-quinary-950: #491d22;
 
-  /* gray neutral */
   --maage-gray-neutral-50: #f5f5f5;
   --maage-gray-neutral-100: #ededed;
   --maage-gray-neutral-200: #dedede;
@@ -319,7 +299,6 @@
   --maage-gray-neutral-900: #333333;
   --maage-gray-neutral-950: #262626;
 
-  /* gray cool */
   --maage-gray-cool-50: #f9fafb;
   --maage-gray-cool-100: #f3f4f6;
   --maage-gray-cool-200: #e5e7eb;
@@ -332,7 +311,6 @@
   --maage-gray-cool-900: #111828;
   --maage-gray-cool-950: #030712;
 
-  /* gray warm */
   --maage-gray-warm-50: #f8f8f7;
   --maage-gray-warm-100: #eeeeec;
   --maage-gray-warm-200: #dfdfdc;
@@ -345,7 +323,6 @@
   --maage-gray-warm-900: #484742;
   --maage-gray-warm-950: #2b2a27;
 
-  /* background */
   --maage-background: #f8f9fa !important;
   --maage-bg: #f8f9fa !important;
   --maage-bg-default: #f8f9fa !important;
@@ -357,11 +334,9 @@
   --maage-bg-strong: #dee2e6;
   --maage-bg-inverse: #ffffff;
 
-  /* surface & borders */
   --maage-surface: #ffffff;
   --maage-border: #dee2e6;
 
-  /* text */
   --maage-text-default: #212529;
   --maage-text-muted: #495057;
   --maage-text-subtle: #6c757d;
@@ -375,7 +350,6 @@
   --maage-text-quaternary: var(--maage-quaternary-500);
   --maage-text-quinary: var(--maage-quinary-500);
 
-  /* semantic */
 --maage-success-50: #f4f9f6;
 --maage-success-100: #e7efe9;
 --maage-success-200: #cfe0d4;
@@ -556,7 +530,6 @@
     --maage-bg-dark-900: #6b6b6b;
 }
 
-/* scoped reset */
 #maage.scoped-reset,
 #maage.scoped-reset * {
   all: unset;
@@ -633,7 +606,6 @@
   font-style: italic;
 }
 
-/* scoped all: unset - forms */
 .maage-base-form input,
 .maage-base-form textarea,
 .maage-base-form select,
@@ -648,7 +620,6 @@
   color: inherit;
 }
 
-/* text reset utilities */
 .text-reset-basic {
   all: unset;
   display: inline;
@@ -710,7 +681,6 @@
   display: initial;
 }
 
-/* global styles */
 html,
 body {
   font-size: 16px;
@@ -868,7 +838,7 @@ div.PerspectiveHeader > span.PerspectiveTotalCount {
 
 div#dijit_layout_TabContainer_0_tablist > div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
   z-index: 3;
-  /* text-wrap-mode: nowrap; */ 
+  
   white-space: nowrap;
   white-space-collapse: collapse;
   border-color: var(--maage-secondary-500) #b5bcc7 #b5bcc7;
@@ -936,7 +906,7 @@ div.selectedList {
   margin: 0 0 2px;
   min-height: 21px;
   text-align: center;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   padding: 0;
 }
@@ -1126,15 +1096,14 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(1) > span.dijitReset.dijitInline.dijitButtonNode {
   font-family: Poppins;
   font-weight: normal;
-  /* white-space-collapse: collapse; */
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
 }
 
 span#dijit_form_DropDownButton_1 {
   font-family: Poppins;
   font-weight: normal;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   background-repeat: repeat-x;
 }
@@ -1162,7 +1131,7 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:nth-child(4) > span.dijitReset.dijitInline.dijitButtonNode {
   transition: background-color 0.3s;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   white-space-collapse: collapse;
   font-weight: normal;
@@ -1170,7 +1139,7 @@ span.dijit.dijitReset.dijitInline.dijitDropDownButton.topMenuButton.showOnLoad:n
 
 span#dijit_form_DropDownButton_3 {
   font-weight: normal;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   background-repeat: repeat-x;
 }
@@ -1217,7 +1186,7 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_5 {
   font-weight: normal;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   background-repeat: repeat-x;
 }
@@ -1229,7 +1198,7 @@ span#dijit_form_DropDownButton_5_label {
 
 span#dijit_form_DropDownButton_6 {
   font-weight: normal;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   background-repeat: repeat-x;
 }
@@ -1498,7 +1467,7 @@ span#dijit_form_DropDownButton_0 {
   display: block;
   text-align: center;
   white-space-collapse: collapse;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   background-repeat: repeat-x;
   border-style: initial;
@@ -1526,7 +1495,7 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_1 {
   background-repeat: repeat-x;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   color: #26292c;
   font-weight: 500;
@@ -1541,7 +1510,7 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_2 {
   background-repeat: repeat-x;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   color: #26292c;
   font-weight: 500;
@@ -1556,7 +1525,7 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_3 {
   background-repeat: repeat-x;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   color: #34383c;
   font-weight: 500;
@@ -1571,7 +1540,7 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_4 {
   background-repeat: repeat-x;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   color: #26292c;
   font-weight: 500;
@@ -1586,7 +1555,7 @@ div#bv-brc-header-container > div:nth-child(2) > span.dijit.dijitReset.dijitInli
 
 span#dijit_form_DropDownButton_5 {
   background-repeat: repeat-x;
-  /* text-wrap-mode: nowrap; */
+ 
   white-space: nowrap;
   color: #26292c;
   font-weight: 500;
@@ -1885,7 +1854,7 @@ div.space-y-4 > div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.b
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16'%3E%3Cpath fill='%23689f86' d='M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http:
   background-repeat: no-repeat;
   opacity: 0;
   transition:
@@ -1910,7 +1879,7 @@ div.space-y-4 > div.flex.items-start.gap-3.p-3.rounded-lg.bg-primary-50.border.b
   width: 12px;
   height: 12px;
   margin-left: 5px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='12' height='12'%3E%3Cpath fill='%23689f86' d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http:
   background-repeat: no-repeat;
   vertical-align: middle;
 }
@@ -2635,13 +2604,11 @@ div#bv-brc-page-container > div.page-content {
   background-color: var(--maage-bg) !important;
 }
 
-      /* Base dashboard styles */
       .genome-list-overview-dashboard {
         min-height: 100vh;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
 
-      /* Metric Cards */
       .metric-card {
         background: white;
         border: 1px solid #e5e7eb;
@@ -2690,7 +2657,6 @@ div#bv-brc-page-container > div.page-content {
         padding-top: 12px;
       }
 
-      /* Ensure metric-list takes similar space as metric-value */
       .metric-card .metric-list {
         flex: 1;
         display: flex;
@@ -2698,7 +2664,6 @@ div#bv-brc-page-container > div.page-content {
         justify-content: center;
       }
 
-      /* Chart Sections */
       .chart-section {
         background: white;
         border: 1px solid #e5e7eb;
@@ -2726,7 +2691,6 @@ div#bv-brc-page-container > div.page-content {
         padding: 20px;
       }
 
-      /* Map Placeholder */
       .map-placeholder {
         min-height: 400px;
         display: flex;
@@ -2742,19 +2706,16 @@ div#bv-brc-page-container > div.page-content {
         font-size: 1rem;
       }
 
-      /* EChart specific styling */
       .genome-list-overview-dashboard [data-dojo-attach-point*="ChartNode"] {
         width: 100%;
         height: 100%;
         min-height: 300px;
       }
 
-      /* AMR Chart specific - taller for better readability */
       .genome-list-overview-dashboard [data-dojo-attach-point="amrChartNode"] {
         min-height: 400px;
       }
 
-      /* Responsive adjustments */
       @media (max-width: 1024px) {
         .metric-value {
           font-size: 1.5rem;
@@ -2765,7 +2726,6 @@ div#bv-brc-page-container > div.page-content {
         }
       }
 
-      /* Tailwind utilities for grid system */
       .grid {
         display: grid;
       }
@@ -2810,7 +2770,6 @@ div#bv-brc-page-container > div.page-content {
         padding: 1.5rem;
       }
 
-      /* Map control button styles */
       .map-view-btn {
         @apply text-gray-700 hover:text-gray-900 hover:bg-gray-200;
       }
@@ -2827,7 +2786,6 @@ div#bv-brc-page-container > div.page-content {
         @apply bg-gray-200;
       }
 
-      /* Genome List Summary styles */
       .genome-list-summary {
         @apply h-full;
       }
