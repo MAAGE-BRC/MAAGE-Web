@@ -511,7 +511,12 @@ define([
 				.on("mouseover", (event, d) => this._showTooltip(event, d, "country"))
 				.on("mouseout", () => this._hideTooltip())
 				.on("click", (event, d) => {
-					if (d.properties.NAME === "United States of America") {
+					// Check multiple property names for USA
+					const countryName = d.properties.NAME || d.properties.name || d.properties.ADMIN || d.properties.admin || "";
+					
+					// Check if this is the United States using various possible names
+					const usaNames = ["United States of America", "United States", "USA", "US"];
+					if (usaNames.some(name => countryName === name || countryName.includes("United States"))) {
 						this.switchToUSView();
 					}
 				});
