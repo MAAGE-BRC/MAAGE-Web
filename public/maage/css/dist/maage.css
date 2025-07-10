@@ -1484,6 +1484,10 @@ video {
   background-color: rgb(152 189 172 / var(--tw-bg-opacity, 1));
 }
 
+.bg-maage-primary-400\/10 {
+  background-color: rgb(152 189 172 / 0.1);
+}
+
 .bg-maage-primary-400\/50 {
   background-color: rgb(152 189 172 / 0.5);
 }
@@ -1491,15 +1495,6 @@ video {
 .bg-maage-primary-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 247 245 / var(--tw-bg-opacity, 1));
-}
-
-.bg-maage-primary-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(110 160 137 / var(--tw-bg-opacity, 1));
-}
-
-.bg-maage-primary-500\/10 {
-  background-color: rgb(110 160 137 / 0.1);
 }
 
 .bg-maage-quaternary-100 {
