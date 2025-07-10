@@ -45,14 +45,24 @@ define([
 		mapChart: null,
 		summaryWidget: null,
 		sequencingCentersChart: null,
+		taxonomyChart: null,
 
 		postCreate: function ()
 		{
 			this.inherited(arguments);
 			this.genomeStore = new GenomeStore({});
 			this.amrStore = new AMRStore({});
+			this.currentTaxonomyField = "genus"; // Default to genus
 
 			this.own(
+				on(this.genusBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchTaxonomyView("genus");
+				})),
+				on(this.speciesBtn, "click", lang.hitch(this, function ()
+				{
+					this.switchTaxonomyView("species");
+				})),
 				on(this.amrCountBtn, "click", lang.hitch(this, function ()
 				{
 					this.switchAMRView("count");
@@ -98,6 +108,18 @@ define([
 			}
 		},
 
+
+		switchTaxonomyView: function (field)
+		{
+			if (this.currentTaxonomyField === field || !this.taxonomyChart) return;
+
+			this.currentTaxonomyField = field;
+			domClass.toggle(this.genusBtn, "active", field === "genus");
+			domClass.toggle(this.speciesBtn, "active", field === "species");
+
+			// Recreate the chart with the new field
+			this.createTaxonomyChart();
+		},
 
 		switchAMRView: function (viewMode)
 		{
@@ -320,12 +342,7 @@ define([
 
 			this.createMapChart();
 			this.createSequencingCentersChart();
-			createChart(
-				Doughnut,
-				this.speciesChartNode,
-				`${baseQuery}&facet((field,species),(mincount,1),(limit,10))&limit(0)`,
-				"maage-muted"
-			);
+			this.createTaxonomyChart();
 			createChart(
 				VerticalBar,
 				this.hostChartNode,
@@ -479,6 +496,107 @@ define([
 					);
 
 					this.sequencingCentersChart = chart;
+				})
+			);
+		},
+
+		createTaxonomyChart: function ()
+		{
+			if (!this.speciesChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			const field = this.currentTaxonomyField; // Use the current taxonomy field
+			const query = `${baseQuery}&facet((field,${field}),(mincount,1),(limit,10))&limit(0)`;
+
+			// If we have an existing chart, destroy it
+			if (this.taxonomyChart)
+			{
+				this.taxonomyChart.destroy();
+				this.taxonomyChart = null;
+			}
+
+			this._createChartWhenReady(
+				this.speciesChartNode,
+				Doughnut,
+				{
+					title: `${field.charAt(0).toUpperCase() + field.slice(1)} Distribution`,
+					theme: "maage-muted",
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
+							{
+								const data = this._processFacets(res.facet_counts.facet_fields[field]);
+
+								const option = {
+									tooltip: {
+										trigger: "item",
+										formatter: "{b}: {c} ({d}%)",
+									},
+									legend: {
+										type: data.length > 20 ? 'scroll' : 'plain',
+										orient: 'horizontal',
+										bottom: '5%',
+										left: 'center',
+										width: '90%',
+										data: data.map((item) => item.name),
+										itemGap: 8,
+										itemWidth: 18,
+										itemHeight: 10,
+										textStyle: {
+											fontSize: 11
+										},
+										pageButtonItemGap: 5,
+										pageButtonGap: 15,
+										pageIconSize: 12,
+										pageTextStyle: {
+											fontSize: 10
+										}
+									},
+									grid: {
+										top: '10%',
+										bottom: '25%'
+									},
+									series: [
+										{
+											name: `${field.charAt(0).toUpperCase() + field.slice(1)} Distribution`,
+											type: "pie",
+											radius: ["40%", "60%"],
+											center: ['50%', '40%'],
+											avoidLabelOverlap: false,
+											label: { show: false },
+											emphasis: {
+												label: { show: true, fontSize: "14", fontWeight: "bold" },
+											},
+											labelLine: { show: false },
+											data: data,
+										},
+									],
+								};
+								chart.chart.setOption(option);
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.taxonomyChart = chart;
 				})
 			);
 		},
@@ -839,6 +957,11 @@ define([
 			{
 				this.sequencingCentersChart.destroy();
 				this.sequencingCentersChart = null;
+			}
+			if (this.taxonomyChart)
+			{
+				this.taxonomyChart.destroy();
+				this.taxonomyChart = null;
 			}
 			if (this.summaryWidget)
 			{

@@ -34,8 +34,23 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Species Distribution</h3>
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0 relative">
+			<h3 class="chart-title">Taxonomic Distribution</h3>
+			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+				 data-dojo-attach-point="taxonomyControlsContainer">
+				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+					<button type="button"
+							data-dojo-attach-point="genusBtn"
+							class="taxonomy-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+						Genus
+					</button>
+					<button type="button"
+							data-dojo-attach-point="speciesBtn"
+							class="taxonomy-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						Species
+					</button>
+				</div>
+			</div>
 			<div data-dojo-attach-point="speciesChartNode"
 				 class="chart-container"></div>
 		</div>
