@@ -54,71 +54,165 @@
 										Data
 									</h2>
 								</div>
-								<p class="text-gray-700 mb-6 text-base">
-									Upload and analyze your genomic data in a secure private workspace with our comprehensive suite of tools.
+								<p class="text-gray-700 mb-4 text-lg">
+									Upload and analyze your genomic data in a secure private workspace with our
+									comprehensive suite of
+									tools.
 								</p>
-								<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-									<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-										<div class="flex items-center mb-3">
-											<i data-lucide="search" class="h-5 w-5 text-gray-600 mr-2"></i>
-											<h3 class="font-semibold text-gray-800 text-base">Search</h3>
+								<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+									<div
+										class="bg-maage-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-3">
+											<i data-lucide="search" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Search</h3>
 										</div>
-										<ul class="space-y-1.5">
-											<li><a href="/searches/TaxaSearch" class="maage-link text-sm">Taxa</a></li>
-											<li><a href="/searches/GenomeSearch" class="maage-link text-sm">Genomes</a></li>
-											<li><a href="/searches/GenomicFeatureSearch" class="maage-link text-sm">Features</a></li>
-											<li><a href="/searches/SpecialtyGeneSearch" class="maage-link text-sm">Specialty Genes</a></li>
-											<li class="mt-2">
-												<a href="/searches" class="inline-flex items-center maage-link text-sm">
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="/searches/TaxaSearch" class="maage-link">
+													Taxa
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/searches/GenomeSearch" class="maage-link">
+													Genomes
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/searches/GenomicFeatureSearch" class="maage-link">
+													Features
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/searches/SpecialtyGeneSearch" class="maage-link">
+													Specialty Genes
+												</a>
+											</li>
+											<li class="flex items-center mt-5 font-medium">
+												<a href="/searches" class="inline-flex items-center maage-link text-md">
 													View All
-													<i data-lucide="arrow-right" class="ml-1 h-3 w-3"></i>
+													<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
 												</a>
 											</li>
 										</ul>
 									</div>
-									<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-										<div class="flex items-center mb-3">
-											<i data-lucide="chart-pie" class="h-5 w-5 text-gray-600 mr-2"></i>
-											<h3 class="font-semibold text-gray-800 text-base">Analyze</h3>
+									<div
+										class="bg-maage-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-3">
+											<i data-lucide="chart-pie"
+												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Analyze</h3>
 										</div>
-										<ul class="space-y-1.5">
-											<li><a href="/app/Assembly2" class="maage-link text-sm">Assembly</a></li>
-											<li><a href="/app/Annotation" class="maage-link text-sm">Annotation</a></li>
-											<li><a href="/app/Homology" class="maage-link text-sm">BLAST</a></li>
-											<li><a href="/app/MSA" class="maage-link text-sm">MSA</a></li>
-											<li class="mt-2">
-												<a href="/tools" class="inline-flex items-center maage-link text-sm">
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="/app/Assembly2" class="maage-link text-md">
+													Assembly
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/app/Annotation" class="maage-link text-md">
+													Annotation
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/app/Homology" class="maage-link text-md">
+													BLAST
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/app/MSA" class="maage-link text-md">
+													MSA
+												</a>
+											</li>
+											<li
+												class="flex items-center mt-5 text-maage-secondary-600 text-md font-medium">
+												<a href="/tools" class="inline-flex items-center maage-link text-md">
 													View All
-													<i data-lucide="arrow-right" class="ml-1 h-3 w-3"></i>
+													<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
 												</a>
 											</li>
 										</ul>
 									</div>
-									<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-										<div class="flex items-center mb-3">
-											<i data-lucide="server" class="h-5 w-5 text-gray-600 mr-2"></i>
-											<h3 class="font-semibold text-gray-800 text-base">Data</h3>
+									<div
+										class="bg-maage-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-4">
+											<i data-lucide="server" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Data</h3>
 										</div>
-										<ul class="space-y-1.5">
-											<li><a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html" class="maage-link text-sm">Access Workspace</a></li>
-											<li><a href="https://www.maage-brc.org/docs/quick_references/workspaces/groups.html" class="maage-link text-sm">Save Search Results</a></li>
-											<li><a href="https://www.maage-brc.org/docs/quick_references/workspaces/data_upload.html" class="maage-link text-sm">Upload Data</a></li>
-											<li><a href="https://www.maage-brc.org/docs/quick_references/workspaces/jobs.html" class="maage-link text-sm">Analysis Jobs</a></li>
-											<li><a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces" class="maage-link text-sm">Share & Publish</a></li>
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html"
+													class="maage-link">
+													Access Workspace
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/groups.html"
+													class="maage-link">
+													Save Search Results
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/data_upload.html"
+													class="maage-link">
+													Upload Data
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/jobs.html"
+													class="maage-link">
+													Analysis Jobs
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces"
+													class="maage-link">
+													Share & Publish
+												</a>
+											</li>
 
 										</ul>
 									</div>
-									<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-										<div class="flex items-center mb-3">
-											<i data-lucide="arrow-up-down" class="h-5 w-5 text-gray-600 mr-2"></i>
-											<h3 class="font-semibold text-gray-800 text-base">Access</h3>
+									<div
+										class="bg-maage-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-3">
+											<i data-lucide="arrow-up-down"
+												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Access</h3>
 										</div>
-										<ul class="space-y-1.5">
-											<li><a href="https://www.maage-brc.org/docs/cli_tutorial/index.html" class="maage-link text-sm">CLI tools</a></li>
-											<li><a href="https://www.bv-brc.org/api/doc/" class="maage-link text-sm">Data API</a></li>
-											<li><a href="https://www.maage-brc.org/docs/quick_references/ftp.html" class="maage-link text-sm">File Transfers</a></li>
-											<li class="border-t border-gray-300 pt-1.5 mt-1.5"><a href="/workspace/public" class="maage-link text-sm">Public Workspaces</a></li>
-											<li><a href="/workspace/public/maage@bvbrc/MAAGE%20Workshop" class="maage-link text-sm">MAAGE Workshop</a></li>
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/cli_tutorial/index.html"
+													class="maage-link">
+													CLI tools
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.bv-brc.org/api/doc/" class="maage-link">
+													Data API
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/ftp.html"
+													class="maage-link">
+													File Transfers
+												</a>
+											</li>
+											<hr>
+											<li class="flex items-center">
+												<a href="/workspace/public" class="maage-link">
+													Public Workspaces
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/workspace/public/maage@bvbrc/MAAGE%20Workshop"
+													class="maage-link">
+													MAAGE Workshop
+												</a>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -136,93 +230,149 @@
 										text-decoration: underline;
 									}
 								</style>
-								<div class="mt-6 flex flex-wrap gap-3 justify-center">
+								<div class="mt-8 flex flex-wrap gap-4 justify-center">
 									<a href="https://www.maage-brc.org/docs/quick_start/index.html"
-										class="navigationLinkOut btn-guide-links inline-flex items-center px-5 py-2 rounded-md bg-maage-secondary-500 text-white font-medium text-sm shadow hover:bg-maage-secondary-600 focus:outline-none focus:ring-2 focus:ring-maage-secondary-300 transition-colors duration-200">
-										<i data-lucide="zap" class="mr-2 h-4 w-4"></i>
+										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-secondary-300 transition-colors duration-200 text-sm">
+										<i data-lucide="zap" class="mr-2 h-5 w-5"></i>
 										Quick Start
 									</a>
 									<a href="https://www.maage-brc.org/docs/quick_references/index.html"
-										class="navigationLinkOut btn-guide-links inline-flex items-center px-5 py-2 rounded-md bg-maage-secondary-500 text-white font-medium text-sm shadow hover:bg-maage-secondary-600 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 transition-colors duration-200">
-										<i data-lucide="book-open" class="mr-2 h-4 w-4"></i>
+										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 transition-colors duration-200 text-sm">
+										<i data-lucide="book-open" class="mr-2 h-5 w-5"></i>
 										Reference Guides
 									</a>
 									<a href="https://www.maage-brc.org/docs/tutorial/index.html"
-										class="navigationLinkOut btn-guide-links inline-flex items-center px-5 py-2 rounded-md bg-maage-secondary-500 text-white font-medium text-sm shadow hover:bg-maage-secondary-600 focus:outline-none focus:ring-2 focus:ring-maage-tertiary-300 transition-colors duration-200">
-										<i data-lucide="badge-help" class="mr-2 h-4 w-4"></i>
+										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-tertiary-300 transition-colors duration-200 text-sm">
+										<i data-lucide="badge-help" class="mr-2 h-5 w-5"></i>
 										Tutorials
 									</a>
 								</div>
 							</section>
-							<section class="bg-white shadow-md rounded-lg p-6">
-								<div class="flex items-center mb-6">
-									<i data-lucide="activity" class="h-8 w-8 text-maage-text/90 mr-2"></i>
-									<h2 class="text-2xl font-semibold text-maage-text/90 font-poppins">Active Outbreaks</h2>
+							<section
+								class="bg-gradient-to-r from-maage-secondary-50 to-maage-primary-50 shadow-md rounded-lg p-6">
+								<div class="flex items-center justify-between mb-6">
+									<div class="flex items-center">
+										<?xml version="1.0"?>
+										<svg class="h-8 w-8 m-[6px] fill-[var(--maage-text)/90]"
+											xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+											<path
+												d="M216 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h24v40.7c-38.8 3.3-74.1 18.7-102.3 42.4l-28.8-28.8s0 0 0 0l17-17c6.2-6.2 6.2-16.4 0-22.6 -6.2-6.2-16.4-6.2-22.6 0l-56.6 56.6c-6.2 6.2-6.2 16.4 0 22.6 6.2 6.2 16.4 6.2 22.6 0l17-17s0 0 0 0l28.8 28.8C91.4 165.9 76 201.2 72.7 240H32v-24c0-8.8-7.2-16-16-16s-16 7.2-16 16v80c0 8.8 7.2 16 16 16s16-7.2 16-16v-24h40.7c3.3 38.8 18.7 74.1 42.4 102.3l-28.8 28.8s0 0 0 0l-17-17c-6.2-6.2-16.4-6.2-22.6 0 -6.2 6.2-6.2 16.4 0 22.6l56.6 56.6c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6l-17-17s0 0 0 0l28.8-28.8c28.2 23.7 63.5 39 102.3 42.4V480h-24c-8.8 0-16 7.2-16 16s7.2 16 16 16h80c8.8 0 16-7.2 16-16s-7.2-16-16-16h-24v-40.7c38.8-3.3 74.1-18.7 102.3-42.4l28.8 28.8s0 0 0 0l-17 17c-6.2 6.2-6.2 16.4 0 22.6 6.2 6.2 16.4 6.2 22.6 0l56.6-56.6c6.2-6.2 6.2-16.4 0-22.6 -6.2-6.2-16.4-6.2-22.6 0l-17 17s0 0 0 0l-28.8-28.8c23.7-28.2 39-63.5 42.4-102.3H480v24c0 8.8 7.2 16 16 16s16-7.2 16-16v-80c0-8.8-7.2-16-16-16s-16 7.2-16 16v24h-40.7c-3.3-38.8-18.7-74.1-42.4-102.3l28.8-28.8s0 0 0 0l17 17c6.2 6.2 16.4 6.2 22.6 0 6.2-6.2 6.2-16.4 0-22.6l-56.6-56.6c-6.2-6.2-16.4-6.2-22.6 0 -6.2 6.2-6.2 16.4 0 22.6l17 17s0 0 0 0l-28.8 28.8C346.1 91.4 310.8 76 272 72.7V32h24c8.8 0 16-7.2 16-16s-7.2-16-16-16h-80Zm40 104v0c83.94 0 152 68.05 152 152 0 83.94-68.06 152-152 152v0c-83.95 0-152-68.06-152-152 0-83.95 68.05-152 152-152Zm-64 104v0c8.83 0 16 7.16 16 16 0 8.83-7.17 16-16 16v0c-8.84 0-16-7.17-16-16 0-8.84 7.16-16 16-16Zm0 64v0c26.5 0 48-21.5 48-48 0-26.51-21.5-48-48-48v0c-26.51 0-48 21.49-48 48 0 26.5 21.49 48 48 48Zm112 56v0c13.25 0 24-10.75 24-24 0-13.26-10.75-24-24-24v0c-13.26 0-24 10.74-24 24 0 13.25 10.74 24 24 24Z">
+											</path>
+										</svg>
+										<h2 class="text-2xl font-semibold text-maage-text/90 font-poppins">Active
+											Outbreaks</h2>
+									</div>
 								</div>
-								<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-									<div class="bg-maage-primary-100 rounded-lg overflow-hidden">
+								<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+									<div
+										class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all">
+										<div class="bg-maage-primary-400 p-4 text-white">
+											<div class="flex justify-between items-center">
+												<h3 class="text-lg font-semibold">Mpox</h3>
+												<span
+													class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">High
+													Alert</span>
+											</div>
+										</div>
 										<div class="p-4">
-											<div class="flex justify-between items-start mb-3">
-												<h3 class="text-xl font-semibold text-gray-800">Mpox</h3>
-												<span class="text-xs font-medium bg-red-100 text-red-700 px-2 py-1 rounded">High Alert</span>
-											</div>
-											<div class="space-y-2 mb-3">
-												<div class="flex justify-between items-center">
-													<span class="text-sm text-gray-600">New Cases</span>
-													<span class="text-sm font-semibold">+124 <span class="text-red-600 text-xs">↑15%</span></span>
+											<div class="flex items-center justify-between mb-3">
+												<div>
+													<p class="text-xs text-gray-500">New Cases</p>
+													<p class="text-sm font-semibold">
+														+124
+														<span class="text-maage-primary-400 text-xs">↑15%</span>
+													</p>
 												</div>
-												<div class="flex justify-between items-center">
-													<span class="text-sm text-gray-600">Regions</span>
-													<span class="text-sm font-semibold">12 states</span>
+												<div>
+													<p class="text-xs text-gray-500">Regions</p>
+													<p class="text-sm font-semibold">12 states</p>
 												</div>
 											</div>
-											<a href="/dashboard" class="text-maage-secondary-600 hover:text-maage-secondary-700 text-sm font-medium inline-flex items-center">
+											<a href="/dashboard"
+												class="text-maage-primary-400 hover:text-maage-primary-400/75 text-sm font-medium flex items-center mt-2">
 												View Dashboard
-												<i data-lucide="arrow-right" class="ml-1 h-3 w-3"></i>
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													data-lucide="arrow-right"
+													class="lucide lucide-arrow-right ml-1 h-3.5 w-3.5">
+													<path d="M5 12h14"></path>
+													<path d="m12 5 7 7-7 7"></path>
+												</svg>
 											</a>
 										</div>
 									</div>
-									<div class="bg-maage-tertiary-100 rounded-lg overflow-hidden">
+									<div
+										class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all">
+										<div class="bg-maage-tertiary-500 p-4 text-white">
+											<div class="flex justify-between items-center">
+												<h3 class="text-lg font-semibold">A/H5N1</h3>
+												<span
+													class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Moderate</span>
+											</div>
+										</div>
 										<div class="p-4">
-											<div class="flex justify-between items-start mb-3">
-												<h3 class="text-xl font-semibold text-gray-800">A/H5N1</h3>
-												<span class="text-xs font-medium bg-yellow-100 text-yellow-700 px-2 py-1 rounded">Moderate</span>
-											</div>
-											<div class="space-y-2 mb-3">
-												<div class="flex justify-between items-center">
-													<span class="text-sm text-gray-600">New Cases</span>
-													<span class="text-sm font-semibold">+87 <span class="text-yellow-600 text-xs">↑8%</span></span>
+											<div class="flex items-center justify-between mb-3">
+												<div>
+													<p class="text-xs text-gray-500">New Cases</p>
+													<p class="text-sm font-semibold">
+														+87
+														<span class="text-maage-tertiary-400 text-xs">↑8%</span>
+													</p>
 												</div>
-												<div class="flex justify-between items-center">
-													<span class="text-sm text-gray-600">Regions</span>
-													<span class="text-sm font-semibold">9 states</span>
+												<div>
+													<p class="text-xs text-gray-500">Regions</p>
+													<p class="text-sm font-semibold">9 states</p>
 												</div>
 											</div>
-											<a href="/dashboard" class="text-maage-secondary-600 hover:text-maage-secondary-700 text-sm font-medium inline-flex items-center">
+											<a href="/dashboard"
+												class="text-maage-tertiary-500 hover:text-maage-tertiary-500/80 text-sm font-medium flex items-center mt-2">
 												View Dashboard
-												<i data-lucide="arrow-right" class="ml-1 h-3 w-3"></i>
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													data-lucide="arrow-right"
+													class="lucide lucide-arrow-right ml-1 h-3.5 w-3.5">
+													<path d="M5 12h14"></path>
+													<path d="m12 5 7 7-7 7"></path>
+												</svg>
 											</a>
 										</div>
 									</div>
-									<div class="bg-maage-secondary-100 rounded-lg overflow-hidden">
+									<div
+										class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all">
+										<div class="bg-maage-secondary-500 p-4 text-white">
+											<div class="flex justify-between items-center">
+												<h3 class="text-lg font-semibold">SARS-CoV-2</h3>
+												<span
+													class="text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Ongoing</span>
+											</div>
+										</div>
 										<div class="p-4">
-											<div class="flex justify-between items-start mb-3">
-												<h3 class="text-xl font-semibold text-gray-800">SARS-CoV-2</h3>
-												<span class="text-xs font-medium bg-blue-100 text-blue-700 px-2 py-1 rounded">Ongoing</span>
-											</div>
-											<div class="space-y-2 mb-3">
-												<div class="flex justify-between items-center">
-													<span class="text-sm text-gray-600">New Cases</span>
-													<span class="text-sm font-semibold">+215 <span class="text-green-600 text-xs">↓3%</span></span>
+											<div class="flex items-center justify-between mb-3">
+												<div>
+													<p class="text-xs text-gray-500">New Cases</p>
+													<p class="text-sm font-semibold">
+														+215
+														<span class="text-maage-primary-400 text-xs">↓3%</span>
+													</p>
 												</div>
-												<div class="flex justify-between items-center">
-													<span class="text-sm text-gray-600">Regions</span>
-													<span class="text-sm font-semibold">All states</span>
+												<div>
+													<p class="text-xs text-gray-500">Regions</p>
+													<p class="text-sm font-semibold">All states</p>
 												</div>
 											</div>
-											<a href="/dashboard" class="text-maage-secondary-600 hover:text-maage-secondary-700 text-sm font-medium inline-flex items-center">
+											<a href="/dashboard"
+												class="text-maage-secondary-500 hover:text-maage-secondary-500/75 text-sm font-medium flex items-center mt-2">
 												View Dashboard
-												<i data-lucide="arrow-right" class="ml-1 h-3 w-3"></i>
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													data-lucide="arrow-right"
+													class="lucide lucide-arrow-right ml-1 h-3.5 w-3.5">
+													<path d="M5 12h14"></path>
+													<path d="m12 5 7 7-7 7"></path>
+												</svg>
 											</a>
 										</div>
 									</div>
