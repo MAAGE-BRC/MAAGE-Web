@@ -1,8 +1,6 @@
 define([
   'dojo/_base/declare',
   'dojo/_base/lang',
-  'dojo/dom-class',
-  'dojo/on',
   './SearchBase',
   'dojo/text!./templates/ProteinSearch.html',
   './TextInputEncoder',
@@ -12,8 +10,6 @@ define([
 ], function (
   declare,
   lang,
-  domClass,
-  on,
   SearchBase,
   template,
   TextInputEncoder,
@@ -29,68 +25,43 @@ define([
   return declare([SearchBase], {
     templateString: template,
     searchAppName: 'Protein Search',
-    pageTitle: 'Protein Search | MAAGE',
     dataKey: 'genome_feature',
     resultUrlBase: '/view/FeatureList/?',
     resultUrlHash: '#view_tab=features',
-    baseClass: 'ProteinSearchModern',
-    
     postCreate: function () {
-      // Build the stores for dropdown widgets
-      this.pathogenGroupNode.set('store', pathogenGroupStore)
-      this.hostGroupNode.set('store', hostGroupStore)
+      this.inherited(arguments)
+
+      this.pathogenGroupNode.store = pathogenGroupStore
+      this.hostGroupNode.store = hostGroupStore
 
       storeBuilder('genome', 'host_common_name').then(lang.hitch(this, (store) => {
-        this.hostNameNode.set('store', store)
+        this.hostNameNode.store = store
       }))
 
       storeBuilder('genome', 'geographic_group').then(lang.hitch(this, (store) => {
-        this.geographicGroupNode.set('store', store)
+        this.geographicGroupNode.store = store
       }))
 
       storeBuilder('genome', 'isolation_country').then(lang.hitch(this, (store) => {
-        this.isolationCountryNode.set('store', store)
+        this.isolationCountryNode.store = store
       }))
 
       storeBuilder('genome', 'subtype').then(lang.hitch(this, (store) => {
-        this.subtypeNode.set('store', store)
+        this.subtypeNode.store = store
       }))
 
       storeBuilder('genome', 'segment').then(lang.hitch(this, (store) => {
-        this.segmentNode.set('store', store)
+        this.segmentNode.store = store
       }))
 
       storeBuilder('genome', 'season').then(lang.hitch(this, (store) => {
-        this.seasonNode.set('store', store)
+        this.seasonNode.store = store
       }))
 
       storeBuilder('genome', 'lineage').then(lang.hitch(this, (store) => {
-        this.lineageNode.set('store', store)
+        this.lineageNode.store = store
       }))
 
-      this.inherited(arguments)
-      
-      // Set up additional criteria toggle
-      this._setupAdditionalCriteria()
-    },
-
-    _setupAdditionalCriteria: function () {
-      // Initially hide the "no criteria" message if there are already criteria
-      if (this.AdvancedSearchPanel && this.AdvancedSearchPanel.children.length > 0) {
-        domClass.add(this.noCriteriaMessage, 'hidden')
-      }
-
-      // Handle add criteria button click
-      if (this.addCriteriaBtn) {
-        on(this.addCriteriaBtn, 'click', lang.hitch(this, function(e) {
-          e.preventDefault()
-          // This will trigger the inherited advanced search functionality
-          if (this.AdvancedSearchPanel && this.AdvancedSearchPanel.addCriterion) {
-            this.AdvancedSearchPanel.addCriterion()
-            domClass.add(this.noCriteriaMessage, 'hidden')
-          }
-        }))
-      }
     },
     onPathogenGroupChange: function () {
       if (this.pathogenGroupNode.get('value') === '11320') {
@@ -247,16 +218,6 @@ define([
         return query + genomeQuery
       } else {
         return query
-      }
-    },
-
-    // Override reset to also reset the additional criteria UI
-    onReset: function () {
-      this.inherited(arguments)
-      
-      // Show the "no criteria" message again
-      if (this.noCriteriaMessage) {
-        domClass.remove(this.noCriteriaMessage, 'hidden')
       }
     }
   })
