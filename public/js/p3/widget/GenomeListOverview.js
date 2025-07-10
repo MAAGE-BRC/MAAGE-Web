@@ -41,8 +41,6 @@ define([
 		templateString: Template,
 		state: null,
 		charts: [],
-		locationChart: null,
-		currentLocationView: "state",
 		amrChart: null,
 		mapChart: null,
 		summaryWidget: null,
@@ -54,22 +52,6 @@ define([
 			this.amrStore = new AMRStore({});
 
 			this.own(
-				on(this.countryToggleBtn, "click", lang.hitch(this, function ()
-				{
-					this.switchLocationView("country");
-				})),
-				on(this.stateToggleBtn, "click", lang.hitch(this, function ()
-				{
-					this.switchLocationView("state");
-				})),
-				on(this.countyToggleBtn, "click", lang.hitch(this, function ()
-				{
-					this.switchLocationView("county");
-				})),
-				on(this.cityToggleBtn, "click", lang.hitch(this, function ()
-				{
-					this.switchLocationView("city");
-				})),
 				on(this.amrCountBtn, "click", lang.hitch(this, function ()
 				{
 					this.switchAMRView("count");
@@ -115,25 +97,6 @@ define([
 			}
 		},
 
-		switchLocationView: function (viewType)
-		{
-			if (this.currentLocationView === viewType) return;
-
-			this.currentLocationView = viewType;
-
-			domClass.toggle(this.countryToggleBtn, "active", viewType === "country");
-			domClass.toggle(this.stateToggleBtn, "active", viewType === "state");
-			domClass.toggle(this.countyToggleBtn, "active", viewType === "county");
-			domClass.toggle(this.cityToggleBtn, "active", viewType === "city");
-
-			if (this.locationChart)
-			{
-				this.locationChart.destroy();
-				this.locationChart = null;
-			}
-
-			this.createLocationChart();
-		},
 
 		switchAMRView: function (viewMode)
 		{
@@ -354,7 +317,6 @@ define([
 
 			this.createSummaryWidget();
 
-			this.createLocationChart();
 			this.createMapChart();
 			createChart(
 				VerticalBar,
@@ -420,109 +382,6 @@ define([
 			checkAndCreate();
 		},
 
-		createLocationChart: function ()
-		{
-			if (!this.locationChartNode || !this.state || !this.state.search) return;
-
-			const baseQuery = this.state.search;
-
-			const fieldMap = {
-				country: "isolation_country",
-				state: "state_province",
-				county: "county",
-				city: "city"
-			};
-
-			const field = fieldMap[this.currentLocationView];
-
-			const needsLimit = this.currentLocationView === "county" || this.currentLocationView === "city";
-			const query = `${baseQuery}&facet((field,${field}),(mincount,1)${needsLimit ? ",(limit,10)" : ""})&limit(0)`;
-
-			this._createChartWhenReady(
-				this.locationChartNode,
-				Doughnut,
-				{
-					title: "",
-					theme: "maage-muted"
-				},
-				lang.hitch(this, function (chart)
-				{
-					const queryOptions = { headers: { Accept: "application/solr+json" } };
-
-					this.genomeStore.query(query, queryOptions).then(
-						lang.hitch(this, function (res)
-						{
-							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
-							{
-								const data = this._processFacets(res.facet_counts.facet_fields[field]);
-
-								const option = {
-									tooltip: {
-										trigger: "item",
-										formatter: "{b}: {c} ({d}%)",
-									},
-									legend: {
-										type: data.length > 20 ? 'scroll' : 'plain',
-										orient: 'horizontal',
-										bottom: '5%',
-										left: 'center',
-										width: '90%',
-										data: data.map((item) => item.name),
-										itemGap: 8,
-										itemWidth: 18,
-										itemHeight: 10,
-										textStyle: {
-											fontSize: 11
-										},
-										pageButtonItemGap: 5,
-										pageButtonGap: 15,
-										pageIconSize: 12,
-										pageTextStyle: {
-											fontSize: 10
-										}
-									},
-									grid: {
-										top: '10%',
-										bottom: '25%'
-									},
-									series: [
-										{
-											name: "Distribution",
-											type: "pie",
-											radius: ["40%", "60%"],
-											center: ['50%', '40%'],
-											avoidLabelOverlap: false,
-											label: { show: false },
-											emphasis: {
-												label: { show: true, fontSize: "14", fontWeight: "bold" },
-											},
-											labelLine: { show: false },
-											data: data,
-										},
-									],
-								};
-								chart.chart.setOption(option);
-							}
-							chart.hideLoading();
-
-							setTimeout(() =>
-							{
-								if (chart.resize)
-								{
-									chart.resize();
-								}
-							}, 50);
-						}),
-						lang.hitch(this, function ()
-						{
-							chart.hideLoading();
-						})
-					);
-
-					this.locationChart = chart;
-				})
-			);
-		},
 
 		createMapChart: function ()
 		{
@@ -843,7 +702,6 @@ define([
 		{
 			this.inherited(arguments);
 			if (this.charts) this.charts.forEach((c) => c.resize());
-			if (this.locationChart) this.locationChart.resize();
 			if (this.amrChart) this.amrChart.resize();
 			if (this.mapChart) this.mapChart.resize();
 		},
@@ -869,11 +727,6 @@ define([
 		{
 			this.inherited(arguments);
 			if (this.charts) this.charts.forEach((c) => c.destroy());
-			if (this.locationChart)
-			{
-				this.locationChart.destroy();
-				this.locationChart = null;
-			}
 			if (this.amrChart)
 			{
 				this.amrChart.destroy();
