@@ -60,8 +60,8 @@
                     <p class="text-maage-text-muted mb-6 font-body">
                         Upload and analyze your genomic data in a secure private workspace with our comprehensive suite of tools.
                     </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" style="display: grid;">
-                        <div class="bg-white p-4 rounded-lg border border-maage-border" style="min-width: 0;">
+                    <div class="analyze-data-grid w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
                             <div class="flex items-center mb-3">
                                 <i class="fas fa-search text-maage-primary-500 mr-2 text-sm"></i>
                                 <h3 class="text-base font-heading font-medium text-maage-text">
@@ -87,7 +87,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="bg-white p-4 rounded-lg border border-maage-border" style="min-width: 0;">
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
                             <div class="flex items-center mb-3">
                                 <i class="fas fa-chart-line text-maage-primary-500 mr-2 text-sm"></i>
                                 <h3 class="text-base font-heading font-medium text-maage-text">
@@ -113,7 +113,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="bg-white p-4 rounded-lg border border-maage-border" style="min-width: 0;">
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
                             <div class="flex items-center mb-3">
                                 <i class="fas fa-database text-maage-primary-500 mr-2 text-sm"></i>
                                 <h3 class="text-base font-heading font-medium text-maage-text">
@@ -138,7 +138,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="bg-white p-4 rounded-lg border border-maage-border" style="min-width: 0;">
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
                             <div class="flex items-center mb-3">
                                 <i class="fas fa-server text-maage-primary-500 mr-2 text-sm"></i>
                                 <h3 class="text-base font-heading font-medium text-maage-text">
@@ -180,10 +180,148 @@
                     </div>
                 </section>
 
-                <!-- Placeholder Section 2 -->
+                <!-- Active Outbreaks Section -->
                 <section class="bg-maage-surface rounded-lg shadow-sm p-6 w-full">
-                    <div class="h-48 flex items-center justify-center">
-                        <p class="text-maage-text-muted font-body">Placeholder Section 2</p>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-maage-tertiary-500/20 flex items-center justify-center mr-3">
+                                <i class="fas fa-biohazard text-maage-tertiary-500 text-lg"></i>
+                            </div>
+                            <h2 class="text-2xl font-heading font-semibold text-maage-text">
+                                Active Outbreaks
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="active-outbreaks-grid w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                        <div class="border border-maage-primary-400/30 rounded-lg overflow-hidden">
+                            <div class="flex items-center justify-between bg-maage-primary-500/10 p-3">
+                                <h3 class="font-heading font-medium text-maage-primary-600">
+                                    Mpox
+                                </h3>
+                                <span class="bg-maage-primary-500 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                                    High Alert
+                                </span>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">New Cases</div>
+                                        <div class="flex items-center font-medium text-sm">
+                                            +124
+                                            <span class="ml-1 text-xs text-maage-primary-600">
+                                                +15%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">Regions</div>
+                                        <div class="font-medium text-sm">12</div>
+                                    </div>
+                                </div>
+                                <div class="h-1.5 w-full bg-maage-bg-muted rounded-full mb-3">
+                                    <div
+                                        class="h-1.5 bg-maage-primary-500 rounded-full"
+                                        style="width: 75%;"
+                                    ></div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center text-sm transition-colors"
+                                >
+                                    View Dashboard
+                                    <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="border border-maage-secondary-500/30 rounded-lg overflow-hidden">
+                            <div class="flex items-center justify-between bg-maage-secondary-500/10 p-3">
+                                <h3 class="font-heading font-medium text-maage-secondary-600">
+                                    A/H5N1
+                                </h3>
+                                <span class="bg-maage-secondary-500 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                                    Moderate
+                                </span>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">New Cases</div>
+                                        <div class="flex items-center font-medium text-sm">
+                                            +87
+                                            <span class="ml-1 text-xs text-maage-secondary-600">
+                                                +8%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">Regions</div>
+                                        <div class="font-medium text-sm">9</div>
+                                    </div>
+                                </div>
+                                <div class="h-1.5 w-full bg-maage-bg-muted rounded-full mb-3">
+                                    <div
+                                        class="h-1.5 bg-maage-secondary-500 rounded-full"
+                                        style="width: 45%;"
+                                    ></div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center text-sm transition-colors"
+                                >
+                                    View Dashboard
+                                    <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="border border-maage-tertiary-500/30 rounded-lg overflow-hidden">
+                            <div class="flex items-center justify-between bg-maage-tertiary-500/10 p-3">
+                                <h3 class="font-heading font-medium text-maage-tertiary-600">
+                                    SARS-CoV-2
+                                </h3>
+                                <span class="bg-maage-secondary-500 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                                    Ongoing
+                                </span>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">New Cases</div>
+                                        <div class="flex items-center font-medium text-sm">
+                                            +215
+                                            <span class="ml-1 text-xs text-maage-tertiary-600">
+                                                -3%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">Regions</div>
+                                        <div class="font-medium text-sm">All</div>
+                                    </div>
+                                </div>
+                                <div class="h-1.5 w-full bg-maage-bg-muted rounded-full mb-3">
+                                    <div
+                                        class="h-1.5 bg-maage-tertiary-500 rounded-full"
+                                        style="width: 30%;"
+                                    ></div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center text-sm transition-colors"
+                                >
+                                    View Dashboard
+                                    <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <a
+                            href="/outbreaks/overview"
+                            class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center transition-colors"
+                        >
+                            View All Outbreaks
+                            <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                        </a>
                     </div>
                 </section>
             </main>

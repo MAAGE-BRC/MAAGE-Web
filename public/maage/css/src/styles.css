@@ -2774,6 +2774,40 @@ div#bv-brc-page-container > div.page-content {
         grid-template-columns: repeat(1, minmax(0, 1fr));
       }
       
+      /* Fix for analyze data grid */
+      .analyze-data-grid {
+        display: grid !important;
+      }
+      
+      @media (min-width: 640px) {
+        .analyze-data-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+      }
+      
+      @media (min-width: 1024px) {
+        .analyze-data-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        }
+      }
+      
+      /* Fix for active outbreaks grid */
+      .active-outbreaks-grid {
+        display: grid !important;
+      }
+      
+      @media (min-width: 640px) {
+        .active-outbreaks-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+      }
+      
+      @media (min-width: 1024px) {
+        .active-outbreaks-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+      }
+      
       @media (min-width: 768px) {
         .md\\:grid-cols-2 {
           grid-template-columns: repeat(2, minmax(0, 1fr));

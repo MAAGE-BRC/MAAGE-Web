@@ -754,6 +754,10 @@ video {
   margin-left: 0.25rem;
 }
 
+.ml-1\.5 {
+  margin-left: 0.375rem;
+}
+
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -857,6 +861,10 @@ video {
 
 .h-1 {
   height: 0.25rem;
+}
+
+.h-1\.5 {
+  height: 0.375rem;
 }
 
 .h-10 {
@@ -1308,6 +1316,10 @@ video {
   border-color: rgb(236 243 240 / var(--tw-border-opacity, 1));
 }
 
+.border-maage-primary-400\/30 {
+  border-color: rgb(152 189 172 / 0.3);
+}
+
 .border-maage-secondary-100 {
   --tw-border-opacity: 1;
   border-color: rgb(220 233 239 / var(--tw-border-opacity, 1));
@@ -1316,6 +1328,14 @@ video {
 .border-maage-secondary-300 {
   --tw-border-opacity: 1;
   border-color: rgb(160 193 207 / var(--tw-border-opacity, 1));
+}
+
+.border-maage-secondary-500\/30 {
+  border-color: rgb(95 148 171 / 0.3);
+}
+
+.border-maage-tertiary-500\/30 {
+  border-color: rgb(231 199 136 / 0.3);
 }
 
 .border-red-300 {
@@ -1371,6 +1391,11 @@ video {
   background-color: rgb(248 249 250 / var(--tw-bg-opacity, 1));
 }
 
+.bg-maage-bg-muted {
+  --tw-bg-opacity: 1;
+  background-color: rgb(233 236 239 / var(--tw-bg-opacity, 1));
+}
+
 .bg-maage-primary-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(236 243 240 / var(--tw-bg-opacity, 1));
@@ -1393,6 +1418,10 @@ video {
 .bg-maage-primary-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(110 160 137 / var(--tw-bg-opacity, 1));
+}
+
+.bg-maage-primary-500\/10 {
+  background-color: rgb(110 160 137 / 0.1);
 }
 
 .bg-maage-quaternary-100 {
@@ -1424,6 +1453,10 @@ video {
   background-color: rgb(95 148 171 / var(--tw-bg-opacity, 1));
 }
 
+.bg-maage-secondary-500\/10 {
+  background-color: rgb(95 148 171 / 0.1);
+}
+
 .bg-maage-secondary-500\/20 {
   background-color: rgb(95 148 171 / 0.2);
 }
@@ -1441,6 +1474,14 @@ video {
 .bg-maage-tertiary-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(231 199 136 / var(--tw-bg-opacity, 1));
+}
+
+.bg-maage-tertiary-500\/10 {
+  background-color: rgb(231 199 136 / 0.1);
+}
+
+.bg-maage-tertiary-500\/20 {
+  background-color: rgb(231 199 136 / 0.2);
 }
 
 .bg-white {
