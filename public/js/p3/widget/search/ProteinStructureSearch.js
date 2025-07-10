@@ -4,7 +4,7 @@ define([
   'dojo/dom-class',
   'dojo/on',
   './SearchBase',
-  'dojo/text!./templates/ProteinStructureSearchNew.html',
+  'dojo/text!./templates/ProteinStructureSearch.html',
   './TextInputEncoder',
   './FacetStoreBuilder'
 ], function (

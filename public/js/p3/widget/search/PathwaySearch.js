@@ -4,7 +4,7 @@ define([
   'dojo/dom-class',
   'dojo/on',
   './SearchBase',
-  'dojo/text!./templates/PathwaySearchNew.html',
+  'dojo/text!./templates/PathwaySearch.html',
   './TextInputEncoder',
   './FacetStoreBuilder',
   './PathogenGroups',

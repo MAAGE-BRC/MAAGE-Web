@@ -4,7 +4,7 @@ define([
   'dojo/dom-class',
   'dojo/on',
   './SearchBase',
-  'dojo/text!./templates/SpecialtyGeneSearchNew.html',
+  'dojo/text!./templates/SpecialtyGeneSearch.html',
   './TextInputEncoder',
   './FacetStoreBuilder',
   './PathogenGroups',
