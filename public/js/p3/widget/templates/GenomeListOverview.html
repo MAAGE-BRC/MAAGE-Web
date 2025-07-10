@@ -27,6 +27,22 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="flex flex-col w-full lg:w-[calc(33.333%-0.5rem)]">
+			<div class="chart-section">
+				<h3 class="chart-title">Host Distribution</h3>
+				<div data-dojo-attach-point="hostChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<div class="chart-section w-full md:w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Isolation Sources</h3>
+			<div data-dojo-attach-point="sourceChartNode"
+				 class="chart-container"></div>
+		</div>
+	</div>
+
+		<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0 relative">
 			<h3 class="chart-title">Antimicrobial Resistance Profile</h3>
 			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
@@ -62,24 +78,8 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div class="flex flex-col w-full lg:w-[calc(33.333%-0.5rem)]">
-			<div class="chart-section">
-				<h3 class="chart-title">Host Distribution</h3>
-				<div data-dojo-attach-point="hostChartNode"
-					 class="chart-container"></div>
-			</div>
-		</div>
-
-		<div class="chart-section w-full md:w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Isolation Sources</h3>
-			<div data-dojo-attach-point="sourceChartNode"
-				 class="chart-container"></div>
-		</div>
-	</div>
-
-	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Top Serotypes</h3>
+			<h3 class="chart-title">Serotypes</h3>
 			<div data-dojo-attach-point="serotypeChartNode"
 				 class="chart-container"></div>
 		</div>
