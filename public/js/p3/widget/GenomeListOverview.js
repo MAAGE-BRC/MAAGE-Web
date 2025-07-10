@@ -661,7 +661,7 @@ define([
 
 			this._createChartWhenReady(
 				this.yearlyCountChartNode,
-				HorizontalBar,
+				VerticalBar,
 				{
 					title: "",
 					theme: "maage-echarts-theme"
@@ -687,18 +687,15 @@ define([
 									if (!isNaN(year) && count > 0)
 									{
 										chartData.push({
-											year: year.toString(),
+											name: year.toString(),
 											value: count
 										});
 									}
 								}
 
-								chartData.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+								chartData.sort((a, b) => parseInt(a.name) - parseInt(b.name));
 
-								chart.updateChart({
-									data: chartData,
-									colorGradient: false
-								});
+								chart.updateChart(chartData);
 							}
 							chart.hideLoading();
 
