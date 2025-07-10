@@ -2807,6 +2807,292 @@ div#bv-brc-page-container > div.page-content {
           grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
         }
       }
+
+      /* MAAGE Home Page Enhancements */
+      #maage-home {
+        position: relative;
+        background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+      }
+
+      /* Subtle background pattern */
+      #maage-home::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 600px;
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(152, 189, 172, 0.03) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(95, 148, 171, 0.03) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(231, 199, 136, 0.02) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      #maage-home > div {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Hero Section Enhancements */
+      #maage-home .bg-maage-surface {
+        background: rgba(255, 255, 255, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(152, 189, 172, 0.1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+      }
+
+      #maage-home .bg-maage-surface:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Search Box Enhancement */
+      .maage-global-search {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+        border: 1px solid rgba(152, 189, 172, 0.2) !important;
+        transition: all 0.3s ease;
+      }
+
+      .maage-global-search:hover {
+        border-color: rgba(152, 189, 172, 0.4) !important;
+        box-shadow: 0 2px 8px rgba(152, 189, 172, 0.1) !important;
+      }
+
+      /* Hero Search Section Gradient Background */
+      #maage-home section:first-child {
+        position: relative;
+        overflow: hidden;
+      }
+
+      #maage-home section:first-child::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(152, 189, 172, 0.08) 0%, transparent 70%);
+        animation: subtleRotate 30s linear infinite;
+        pointer-events: none;
+      }
+
+      #maage-home section:first-child::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(95, 148, 171, 0.06) 0%, transparent 70%);
+        animation: subtleRotate 40s linear infinite reverse;
+        pointer-events: none;
+      }
+
+      @keyframes subtleRotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Search container within hero */
+      #maage-home section:first-child > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Enhanced search container background */
+      #maage-home section:first-child .backdrop-blur-sm {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.95) 100%) !important;
+        border: 1px solid rgba(152, 189, 172, 0.15) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+      }
+
+      /* Card Hover Effects for Analyze Data */
+      .analyze-data-grid > div {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .analyze-data-grid > div::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #98bdac 0%, #5f94ab 50%, #e7c788 100%);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .analyze-data-grid > div:hover::before {
+        transform: translateX(0);
+      }
+
+      .analyze-data-grid > div:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: rgba(152, 189, 172, 0.3);
+      }
+
+      /* Icon Enhancements */
+      .analyze-data-grid i {
+        transition: all 0.3s ease;
+      }
+
+      .analyze-data-grid > div:hover i {
+        transform: scale(1.1);
+      }
+
+      /* Link Hover Animations */
+      .analyze-data-grid a {
+        position: relative;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+
+      .analyze-data-grid a::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: currentColor;
+        transition: width 0.3s ease;
+      }
+
+      .analyze-data-grid a:hover::after {
+        width: 100%;
+      }
+
+      /* Button Enhancements */
+      #maage-home a.bg-maage-primary-400 {
+        background: linear-gradient(135deg, #98bdac 0%, #88ad9c 100%);
+        box-shadow: 0 2px 4px rgba(152, 189, 172, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #maage-home a.bg-maage-primary-400:hover {
+        background: linear-gradient(135deg, #88ad9c 0%, #789d8c 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(152, 189, 172, 0.4);
+      }
+
+      #maage-home a.bg-white {
+        background: rgba(255, 255, 255, 0.9);
+        transition: all 0.3s ease;
+      }
+
+      #maage-home a.bg-white:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Active Outbreaks Card Enhancements */
+      .active-outbreaks-grid > div {
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+      }
+
+      .active-outbreaks-grid > div:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Progress Bar Animations */
+      .active-outbreaks-grid .bg-maage-bg-muted {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .active-outbreaks-grid .bg-maage-bg-muted::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        to {
+          left: 100%;
+        }
+      }
+
+      /* Sidebar Component Enhancements */
+      #maage-home aside > div {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(152, 189, 172, 0.1);
+      }
+
+      #maage-home aside > div:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        border-color: rgba(152, 189, 172, 0.2);
+      }
+
+      /* Typography Enhancements */
+      #maage-home h1 {
+        background: linear-gradient(135deg, #364144 0%, #495057 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      #maage-home h2 {
+        position: relative;
+        display: inline-block;
+      }
+
+      #maage-home h2::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: linear-gradient(90deg, #98bdac 0%, transparent 100%);
+      }
+
+      /* Smooth Scroll Behavior */
+      #maage-home * {
+        scroll-behavior: smooth;
+      }
+
+      /* Focus States */
+      #maage-home a:focus,
+      #maage-home button:focus {
+        outline: 2px solid rgba(152, 189, 172, 0.5);
+        outline-offset: 2px;
+      }
+
+      /* Loading Animation for Future Use */
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .loading-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
       
       @media (min-width: 768px) {
         .md\\:grid-cols-2 {
