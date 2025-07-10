@@ -2637,8 +2637,12 @@ video {
     width: 85%;
   }
 
-  .md\:w-\[calc\(75\%-0\.75rem\)\] {
-    width: calc(75% - 0.75rem);
+  .md\:w-\[calc\(33\.333\%-0\.667rem\)\] {
+    width: calc(33.333% - 0.667rem);
+  }
+
+  .md\:w-\[calc\(66\.667\%-0\.667rem\)\] {
+    width: calc(66.667% - 0.667rem);
   }
 
   .md\:w-full {

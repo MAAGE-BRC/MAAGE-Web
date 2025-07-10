@@ -44,6 +44,7 @@ define([
 		amrChart: null,
 		mapChart: null,
 		summaryWidget: null,
+		sequencingCentersChart: null,
 
 		postCreate: function ()
 		{
@@ -318,6 +319,7 @@ define([
 			this.createSummaryWidget();
 
 			this.createMapChart();
+			this.createSequencingCentersChart();
 			createChart(
 				VerticalBar,
 				this.hostChartNode,
@@ -382,6 +384,98 @@ define([
 			checkAndCreate();
 		},
 
+		createSequencingCentersChart: function ()
+		{
+			if (!this.sequencingCentersChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			const query = `${baseQuery}&facet((field,sequencing_centers),(mincount,1),(limit,10))&limit(0)`;
+
+			this._createChartWhenReady(
+				this.sequencingCentersChartNode,
+				Doughnut,
+				{
+					title: "",
+					theme: "maage-muted"
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields.sequencing_centers)
+							{
+								const data = this._processFacets(res.facet_counts.facet_fields.sequencing_centers);
+
+								const option = {
+									tooltip: {
+										trigger: "item",
+										formatter: "{b}: {c} ({d}%)",
+									},
+									legend: {
+										type: data.length > 20 ? 'scroll' : 'plain',
+										orient: 'horizontal',
+										bottom: '5%',
+										left: 'center',
+										width: '90%',
+										data: data.map((item) => item.name),
+										itemGap: 8,
+										itemWidth: 18,
+										itemHeight: 10,
+										textStyle: {
+											fontSize: 11
+										},
+										pageButtonItemGap: 5,
+										pageButtonGap: 15,
+										pageIconSize: 12,
+										pageTextStyle: {
+											fontSize: 10
+										}
+									},
+									grid: {
+										top: '10%',
+										bottom: '25%'
+									},
+									series: [
+										{
+											name: "Sequencing Centers",
+											type: "pie",
+											radius: ["40%", "60%"],
+											center: ['50%', '40%'],
+											avoidLabelOverlap: false,
+											label: { show: false },
+											emphasis: {
+												label: { show: true, fontSize: "14", fontWeight: "bold" },
+											},
+											labelLine: { show: false },
+											data: data,
+										},
+									],
+								};
+								chart.chart.setOption(option);
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.sequencingCentersChart = chart;
+				})
+			);
+		},
 
 		createMapChart: function ()
 		{
@@ -704,6 +798,7 @@ define([
 			if (this.charts) this.charts.forEach((c) => c.resize());
 			if (this.amrChart) this.amrChart.resize();
 			if (this.mapChart) this.mapChart.resize();
+			if (this.sequencingCentersChart) this.sequencingCentersChart.resize();
 		},
 
 		createSummaryWidget: function ()
@@ -736,6 +831,11 @@ define([
 			{
 				this.mapChart.destroy();
 				this.mapChart = null;
+			}
+			if (this.sequencingCentersChart)
+			{
+				this.sequencingCentersChart.destroy();
+				this.sequencingCentersChart = null;
 			}
 			if (this.summaryWidget)
 			{
