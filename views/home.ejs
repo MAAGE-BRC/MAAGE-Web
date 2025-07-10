@@ -1,5 +1,166 @@
-<div id="maage-home">
+<div id="maage-home" class="min-h-screen bg-maage-bg">
     <script src="https://kit.fontawesome.com/4bb90511c9.js"
             crossorigin="anonymous"></script>
+    
+    <!-- Main Container with max width -->
+    <div class="mx-auto max-w-maage px-4 sm:px-6 lg:px-8">
+        <!-- Two Column Layout Container -->
+        <div class="flex flex-col lg:flex-row lg:gap-8 py-8">
+            <!-- Main Content Area - 3/4 width on desktop -->
+            <main class="flex-1 lg:w-3/4">
+                <!-- Hero Section -->
+                <section class="bg-maage-surface rounded-lg shadow-sm p-6 mb-6">
+                    <h1 class="text-3xl font-heading font-semibold text-maage-text mb-4">
+                        Welcome to MAAGE
+                    </h1>
+                    <p class="text-maage-text-muted font-body leading-relaxed">
+                        The Midwest Alliance for Applied Genomic Epidemiology platform empowers public health agencies 
+                        to detect and monitor infectious diseases through comprehensive genomic surveillance.
+                    </p>
+                </section>
 
+                <!-- Featured Content Cards -->
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-maage-surface rounded-lg shadow-sm p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-dna text-maage-primary-500 text-2xl mr-3"></i>
+                            <h2 class="text-xl font-heading font-medium text-maage-text">Genome Analysis</h2>
+                        </div>
+                        <p class="text-maage-text-muted font-body text-sm leading-relaxed">
+                            Access and analyze bacterial and viral genomic data with advanced bioinformatics tools.
+                        </p>
+                    </div>
+
+                    <div class="bg-maage-surface rounded-lg shadow-sm p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-chart-line text-maage-secondary-500 text-2xl mr-3"></i>
+                            <h2 class="text-xl font-heading font-medium text-maage-text">Data Visualization</h2>
+                        </div>
+                        <p class="text-maage-text-muted font-body text-sm leading-relaxed">
+                            Create interactive visualizations to explore epidemiological patterns and trends.
+                        </p>
+                    </div>
+
+                    <div class="bg-maage-surface rounded-lg shadow-sm p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-shield-virus text-maage-tertiary-600 text-2xl mr-3"></i>
+                            <h2 class="text-xl font-heading font-medium text-maage-text">AMR Surveillance</h2>
+                        </div>
+                        <p class="text-maage-text-muted font-body text-sm leading-relaxed">
+                            Monitor antimicrobial resistance patterns across different pathogens and regions.
+                        </p>
+                    </div>
+
+                    <div class="bg-maage-surface rounded-lg shadow-sm p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-users text-maage-quaternary-500 text-2xl mr-3"></i>
+                            <h2 class="text-xl font-heading font-medium text-maage-text">Collaboration</h2>
+                        </div>
+                        <p class="text-maage-text-muted font-body text-sm leading-relaxed">
+                            Share data and insights with public health partners across the Midwest region.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Additional Content Section -->
+                <section class="bg-maage-surface rounded-lg shadow-sm p-6">
+                    <h2 class="text-2xl font-heading font-medium text-maage-text mb-4">
+                        Recent Updates
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-maage-primary-400 pl-4">
+                            <h3 class="font-heading font-medium text-maage-text">Enhanced Map Visualizations</h3>
+                            <p class="text-maage-text-subtle text-sm font-body mt-1">
+                                New interactive choropleth maps with county-level genomic data distribution.
+                            </p>
+                        </div>
+                        <div class="border-l-4 border-maage-secondary-400 pl-4">
+                            <h3 class="font-heading font-medium text-maage-text">AMR Profile Analysis</h3>
+                            <p class="text-maage-text-subtle text-sm font-body mt-1">
+                                Updated antimicrobial resistance charts with percentage and count views.
+                            </p>
+                        </div>
+                        <div class="border-l-4 border-maage-tertiary-500 pl-4">
+                            <h3 class="font-heading font-medium text-maage-text">Dashboard Improvements</h3>
+                            <p class="text-maage-text-subtle text-sm font-body mt-1">
+                                Redesigned genome overview dashboard with enhanced metrics and visualizations.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Sidebar - 1/4 width on desktop -->
+            <aside class="lg:w-1/4 mt-8 lg:mt-0">
+                <!-- Quick Links -->
+                <div class="bg-maage-surface rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-lg font-heading font-medium text-maage-text mb-4">
+                        Quick Links
+                    </h3>
+                    <nav class="space-y-2">
+                        <a href="/view/Genome" class="block text-maage-text-link hover:text-maage-secondary-600 font-body text-sm">
+                            <i class="fas fa-microscope mr-2"></i>Browse Genomes
+                        </a>
+                        <a href="/workspace" class="block text-maage-text-link hover:text-maage-secondary-600 font-body text-sm">
+                            <i class="fas fa-folder mr-2"></i>My Workspace
+                        </a>
+                        <a href="/app" class="block text-maage-text-link hover:text-maage-secondary-600 font-body text-sm">
+                            <i class="fas fa-tools mr-2"></i>Analysis Tools
+                        </a>
+                        <a href="/help" class="block text-maage-text-link hover:text-maage-secondary-600 font-body text-sm">
+                            <i class="fas fa-question-circle mr-2"></i>Help & Documentation
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Statistics Widget -->
+                <div class="bg-maage-surface rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-lg font-heading font-medium text-maage-text mb-4">
+                        Platform Statistics
+                    </h3>
+                    <dl class="space-y-3">
+                        <div class="flex justify-between">
+                            <dt class="text-maage-text-muted font-body text-sm">Total Genomes</dt>
+                            <dd class="text-maage-text font-mono text-sm font-medium">2,847,392</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-maage-text-muted font-body text-sm">Bacterial Species</dt>
+                            <dd class="text-maage-text font-mono text-sm font-medium">1,234</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-maage-text-muted font-body text-sm">Viral Species</dt>
+                            <dd class="text-maage-text font-mono text-sm font-medium">456</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="text-maage-text-muted font-body text-sm">AMR Profiles</dt>
+                            <dd class="text-maage-text font-mono text-sm font-medium">89,234</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- News/Announcements -->
+                <div class="bg-maage-surface rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-heading font-medium text-maage-text mb-4">
+                        Announcements
+                    </h3>
+                    <div class="space-y-3">
+                        <article class="pb-3 border-b border-maage-border last:border-b-0">
+                            <time class="text-xs text-maage-text-subtle font-body">January 10, 2025</time>
+                            <h4 class="text-sm font-medium text-maage-text mt-1 font-heading">System Maintenance</h4>
+                            <p class="text-xs text-maage-text-muted font-body mt-1">
+                                Scheduled maintenance on January 15, 2025 from 2-4 AM CST.
+                            </p>
+                        </article>
+                        <article class="pb-3 border-b border-maage-border last:border-b-0">
+                            <time class="text-xs text-maage-text-subtle font-body">January 5, 2025</time>
+                            <h4 class="text-sm font-medium text-maage-text mt-1 font-heading">New Features Released</h4>
+                            <p class="text-xs text-maage-text-muted font-body mt-1">
+                                Enhanced search capabilities and improved data export options now available.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
 </div>
