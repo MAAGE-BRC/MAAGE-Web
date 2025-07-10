@@ -1,3 +1,237 @@
+/* Map Controls */
+.map-controls {
+  @apply flex gap-2 mb-2;
+}
+
+.map-controls button {
+  @apply transition-colors duration-200;
+}
+
+/* Map view toggle buttons */
+.map-view-btn {
+  @apply bg-gray-500 text-white hover:bg-gray-600;
+}
+
+.map-view-btn.active {
+  @apply bg-maage-primary-400 text-white shadow-sm;
+}
+
+/* Map zoom buttons */
+.map-zoom-btn {
+  @apply bg-gray-500 text-white hover:bg-gray-600;
+}
+
+/* Map chart container style */
+.genome-list-overview-dashboard .map-chart-container {
+  min-height: 500px !important;
+  height: 500px !important;
+  padding: 20px;
+}
+
+/* Metric cards container - handle 6 cards layout */
+.metric-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (min-width: 1280px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 calc(16.666% - 0.42rem);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 calc(33.333% - 0.667rem);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 639px) {
+  .metric-cards-container .metric-card {
+    flex: 0 0 100%;
+  }
+}
+
+/* Metric list styles for dashboard KPIs */
+.metric-list {
+  max-height: 100px;
+  overflow-y: auto;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 200px;
+  padding-right: 6px; /* Add space for scrollbar */
+}
+
+/* Custom scrollbar for metric lists */
+.metric-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.metric-list::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.metric-list::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+.metric-list::-webkit-scrollbar-thumb:hover {
+  background: #c0c0c0;
+}
+
+.metric-list .metric-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.metric-list .metric-list-item:last-child {
+  border-bottom: none;
+}
+
+.metric-list .metric-list-label {
+  color: #495057;
+  font-weight: 500;
+  text-align: left;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 0.75rem;
+}
+
+.metric-list .metric-list-value {
+  color: #212529;
+  font-weight: 600;
+  text-align: right;
+  min-width: 45px;
+  flex-shrink: 0;
+}
+
+/* GenomeListSummary widget - Modern Spreadsheet Style with MAAGE Colors */
+.genome-list-summary {
+  height: 100%;
+}
+
+.spreadsheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Table Header */
+.spreadsheet-header {
+  display: flex;
+  background-color: var(--maage-primary-50);
+  border-bottom: 2px solid var(--maage-primary-200);
+}
+
+.spreadsheet-header-cell {
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--maage-primary-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-right: 1px solid var(--maage-primary-200);
+}
+
+.spreadsheet-header-cell:last-child {
+  border-right: 0;
+}
+
+/* Column Widths */
+.metric-label-col {
+  flex: 1;
+}
+
+.value-col {
+  width: 120px;
+  text-align: right;
+}
+
+/* Section Dividers */
+.spreadsheet-section-divider {
+  background-color: var(--maage-secondary-50);
+  border-bottom: 1px solid var(--maage-secondary-200);
+  padding: 4px 12px;
+}
+
+.spreadsheet-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--maage-secondary-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Table Rows */
+.spreadsheet-row {
+  display: flex;
+  border-bottom: 1px solid #dee2e6;
+  transition: background-color 0.15s ease;
+}
+
+.spreadsheet-row.row-even {
+  background-color: #ffffff;
+}
+
+.spreadsheet-row.row-odd {
+  background-color: #f8f9fa;
+}
+
+.spreadsheet-row:hover {
+  background-color: var(--maage-primary-50) !important;
+}
+
+/* Table Cells */
+.spreadsheet-cell {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-right: 1px solid #dee2e6;
+}
+
+.spreadsheet-cell:last-child {
+  border-right: 0;
+}
+
+.spreadsheet-cell.metric-label-col {
+  color: #495057;
+  font-weight: 500;
+}
+
+.spreadsheet-cell.value-col {
+  color: #212529;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Map placeholder containers */
+.chart-section [data-dojo-attach-point="mapLegendNode"],
+.chart-section [data-dojo-attach-point="mapStatsNode"] {
+  min-height: 165px;
+  height: 165px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border: 1px dashed #dee2e6;
+  color: #6c757d;
+}
+
 :root {
   /* font families */
   --maage-font-heading: 'Poppins', sans-serif;
@@ -539,7 +773,6 @@ div#bv-brc-home.maage-background {
 
 #maage-home {
   background-color: var(--maage-bg-default);
-  padding-top: 50px;
 }
 
 #maage-page {
@@ -2398,3 +2631,543 @@ div.searchResultsContainer .searchResult .resultHead a:hover {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+div#bv-brc-page-container > div.page-content {
+  background-color: var(--maage-bg) !important;
+}
+
+      /* Base dashboard styles */
+      .genome-list-overview-dashboard {
+        min-height: 100vh;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+
+      /* Metric Cards */
+      .metric-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 140px;
+        position: relative;
+      }
+
+      .metric-card:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .metric-header {
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #6b7280;
+        margin-bottom: 8px;
+      }
+
+      .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+        line-height: 1;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .metric-label {
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin-top: auto;
+        padding-top: 12px;
+      }
+
+      /* Ensure metric-list takes similar space as metric-value */
+      .metric-card .metric-list {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* Chart Sections */
+      .chart-section {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chart-title {
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 16px 20px;
+        background-color: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+        margin: 0;
+        color: #374151;
+      }
+
+      .chart-container {
+        flex: 1;
+        min-height: 300px;
+        padding: 20px;
+      }
+
+      /* Map Placeholder */
+      .map-placeholder {
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .placeholder-text {
+        color: #9ca3af;
+        font-style: italic;
+        font-size: 1rem;
+      }
+
+      /* EChart specific styling */
+      .genome-list-overview-dashboard [data-dojo-attach-point*="ChartNode"] {
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+      }
+
+      /* AMR Chart specific - taller for better readability */
+      .genome-list-overview-dashboard [data-dojo-attach-point="amrChartNode"] {
+        min-height: 400px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1024px) {
+        .metric-value {
+          font-size: 1.5rem;
+        }
+        
+        .chart-container {
+          min-height: 250px;
+        }
+      }
+
+      /* Tailwind utilities for grid system */
+      .grid {
+        display: grid;
+      }
+      
+      .grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+      
+      /* Fix for analyze data grid */
+      .analyze-data-grid {
+        display: grid !important;
+      }
+      
+      @media (min-width: 640px) {
+        .analyze-data-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+      }
+      
+      @media (min-width: 1024px) {
+        .analyze-data-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        }
+      }
+      
+      /* Fix for active outbreaks grid */
+      .active-outbreaks-grid {
+        display: grid !important;
+      }
+      
+      @media (min-width: 640px) {
+        .active-outbreaks-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+      }
+      
+      @media (min-width: 1024px) {
+        .active-outbreaks-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+      }
+
+      /* MAAGE Home Page Enhancements */
+      #maage-home {
+        position: relative;
+        background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+      }
+
+      /* Subtle background pattern */
+      #maage-home::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 600px;
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(152, 189, 172, 0.03) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(95, 148, 171, 0.03) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(231, 199, 136, 0.02) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      #maage-home > div {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Hero Section Enhancements */
+      #maage-home .bg-maage-surface {
+        background: rgba(255, 255, 255, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(152, 189, 172, 0.1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+      }
+
+      #maage-home .bg-maage-surface:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Search Box Enhancement */
+      .maage-global-search {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+        border: 1px solid rgba(152, 189, 172, 0.2) !important;
+        transition: all 0.3s ease;
+      }
+
+      .maage-global-search:hover {
+        border-color: rgba(152, 189, 172, 0.4) !important;
+        box-shadow: 0 2px 8px rgba(152, 189, 172, 0.1) !important;
+      }
+
+      /* Hero Search Section Gradient Background */
+      #maage-home section:first-child {
+        position: relative;
+        overflow: hidden;
+      }
+
+      #maage-home section:first-child::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(152, 189, 172, 0.08) 0%, transparent 70%);
+        animation: subtleRotate 30s linear infinite;
+        pointer-events: none;
+      }
+
+      #maage-home section:first-child::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(95, 148, 171, 0.06) 0%, transparent 70%);
+        animation: subtleRotate 40s linear infinite reverse;
+        pointer-events: none;
+      }
+
+      @keyframes subtleRotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Search container within hero */
+      #maage-home section:first-child > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Enhanced search container background */
+      #maage-home section:first-child .backdrop-blur-sm {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.95) 100%) !important;
+        border: 1px solid rgba(152, 189, 172, 0.15) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+      }
+
+      /* Card Hover Effects for Analyze Data */
+      .analyze-data-grid > div {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .analyze-data-grid > div::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #98bdac 0%, #5f94ab 50%, #e7c788 100%);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .analyze-data-grid > div:hover::before {
+        transform: translateX(0);
+      }
+
+      .analyze-data-grid > div:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: rgba(152, 189, 172, 0.3);
+      }
+
+      /* Icon Enhancements */
+      .analyze-data-grid i {
+        transition: all 0.3s ease;
+      }
+
+      .analyze-data-grid > div:hover i {
+        transform: scale(1.1);
+      }
+
+      /* Link Hover Animations */
+      .analyze-data-grid a {
+        position: relative;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+
+      .analyze-data-grid a::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: currentColor;
+        transition: width 0.3s ease;
+      }
+
+      .analyze-data-grid a:hover::after {
+        width: 100%;
+      }
+
+      /* Button Enhancements */
+      #maage-home a.bg-maage-primary-400 {
+        background: linear-gradient(135deg, #98bdac 0%, #88ad9c 100%);
+        box-shadow: 0 2px 4px rgba(152, 189, 172, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      #maage-home a.bg-maage-primary-400:hover {
+        background: linear-gradient(135deg, #88ad9c 0%, #789d8c 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(152, 189, 172, 0.4);
+      }
+
+      #maage-home a.bg-white {
+        background: rgba(255, 255, 255, 0.9);
+        transition: all 0.3s ease;
+      }
+
+      #maage-home a.bg-white:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Active Outbreaks Card Enhancements */
+      .active-outbreaks-grid > div {
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+      }
+
+      .active-outbreaks-grid > div:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Progress Bar Animations */
+      .active-outbreaks-grid .bg-maage-bg-muted {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .active-outbreaks-grid .bg-maage-bg-muted::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        to {
+          left: 100%;
+        }
+      }
+
+      /* Sidebar Component Enhancements */
+      #maage-home aside > div {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(152, 189, 172, 0.1);
+      }
+
+      #maage-home aside > div:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        border-color: rgba(152, 189, 172, 0.2);
+      }
+
+      /* Typography Enhancements */
+      #maage-home h1 {
+        background: linear-gradient(135deg, #364144 0%, #495057 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      #maage-home h2 {
+        position: relative;
+        display: inline-block;
+      }
+
+      #maage-home h2::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: linear-gradient(90deg, #98bdac 0%, transparent 100%);
+      }
+
+      /* Smooth Scroll Behavior */
+      #maage-home * {
+        scroll-behavior: smooth;
+      }
+
+      /* Focus States */
+      #maage-home a:focus,
+      #maage-home button:focus {
+        outline: 2px solid rgba(152, 189, 172, 0.5);
+        outline-offset: 2px;
+      }
+
+      /* Loading Animation for Future Use */
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .loading-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      @media (min-width: 768px) {
+        .md\\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      
+      @media (min-width: 1024px) {
+        .lg\\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        
+        .lg\\:grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        
+        .lg\\:grid-cols-4 {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+      
+      .gap-4 {
+        gap: 1rem;
+      }
+      
+      .gap-6 {
+        gap: 1.5rem;
+      }
+      
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
+      
+      .p-6 {
+        padding: 1.5rem;
+      }
+
+      /* Map control button styles */
+      .map-view-btn {
+        @apply text-gray-700 hover:text-gray-900 hover:bg-gray-200;
+      }
+      
+      .map-view-btn.active {
+        @apply bg-primary text-white hover:bg-primary hover:text-white;
+      }
+      
+      .map-zoom-btn {
+        @apply text-gray-700 hover:text-gray-900 hover:bg-gray-200;
+      }
+      
+      .map-zoom-btn:hover {
+        @apply bg-gray-200;
+      }
+
+      /* Genome List Summary styles */
+      .genome-list-summary {
+        @apply h-full;
+      }
+      
+      .summary-container {
+        @apply h-full min-h-[300px];
+      }
+      
+      .summary-section {
+        @apply border-b border-gray-200 pb-3 last:border-b-0;
+      }
+      
+      .summary-item {
+        @apply flex justify-between items-center py-1;
+      }
+      
+      .summary-label {
+        @apply text-sm text-gray-600;
+      }
+      
+      .summary-value {
+        @apply text-sm font-semibold text-gray-900;
+      }

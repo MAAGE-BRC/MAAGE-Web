@@ -59,9 +59,9 @@
 									comprehensive suite of
 									tools.
 								</p>
-								<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+								<div class="maage-cards-grid">
 									<div
-										class="bg-maage-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										class="bg-maage-primary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
 										<div class="card-header flex items-center mb-3">
 											<i data-lucide="search" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
 											<h3 class="card-heading font-semibold text-maage-gray-800"
@@ -97,7 +97,7 @@
 										</ul>
 									</div>
 									<div
-										class="bg-maage-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										class="bg-maage-secondary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
 										<div class="card-header flex items-center mb-3">
 											<i data-lucide="chart-pie"
 												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
@@ -135,7 +135,7 @@
 										</ul>
 									</div>
 									<div
-										class="bg-maage-primary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										class="bg-maage-primary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
 										<div class="card-header flex items-center mb-4">
 											<i data-lucide="server" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
 											<h3 class="card-heading font-semibold text-maage-gray-800"
@@ -176,7 +176,7 @@
 										</ul>
 									</div>
 									<div
-										class="bg-maage-secondary-50 rounded-lg p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										class="bg-maage-secondary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
 										<div class="card-header flex items-center mb-3">
 											<i data-lucide="arrow-up-down"
 												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
@@ -229,6 +229,80 @@
 										color: var(--maage-text-link) !important;
 										text-decoration: underline;
 									}
+
+									/* Force horizontal layout on desktop */
+									.maage-cards-grid {
+										display: grid !important;
+									}
+
+									/* Mobile: 1 column */
+									@media (max-width: 639px) {
+										.maage-cards-grid {
+											grid-template-columns: 1fr !important;
+											gap: 1rem !important;
+										}
+									}
+
+									/* Tablet: 2 columns */
+									@media (min-width: 640px) and (max-width: 1023px) {
+										.maage-cards-grid {
+											grid-template-columns: repeat(2, 1fr) !important;
+											gap: 1rem !important;
+										}
+									}
+
+									/* Desktop: 4 columns horizontal */
+									@media (min-width: 1024px) {
+										.maage-cards-grid {
+											grid-template-columns: repeat(4, 1fr) !important;
+											gap: 1.5rem !important;
+										}
+										
+										.maage-cards-grid > div {
+											height: 100%;
+											display: flex;
+											flex-direction: column;
+										}
+										
+										.maage-cards-grid .card-list {
+											flex-grow: 1;
+										}
+									}
+
+									/* Outbreak Cards Grid Styles */
+									.outbreak-cards-grid {
+										display: grid !important;
+									}
+
+									/* Mobile: 1 column */
+									@media (max-width: 639px) {
+										.outbreak-cards-grid {
+											grid-template-columns: 1fr !important;
+											gap: 1rem !important;
+										}
+									}
+
+									/* Tablet: 1 column (stacked) */
+									@media (min-width: 640px) and (max-width: 1023px) {
+										.outbreak-cards-grid {
+											grid-template-columns: 1fr !important;
+											gap: 1.25rem !important;
+										}
+									}
+
+									/* Desktop: 3 columns horizontal */
+									@media (min-width: 1024px) {
+										.outbreak-cards-grid {
+											grid-template-columns: repeat(3, 1fr) !important;
+											gap: 1.5rem !important;
+										}
+										
+										.outbreak-cards-grid > div {
+											height: 100%;
+											display: flex;
+											flex-direction: column;
+										}
+									}
 								</style>
 								<div class="mt-8 flex flex-wrap gap-4 justify-center">
 									<a href="https://www.maage-brc.org/docs/quick_start/index.html"
@@ -263,7 +337,7 @@
 											Outbreaks</h2>
 									</div>
 								</div>
-								<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+								<div class="outbreak-cards-grid">
 									<div
 										class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all">
 										<div class="bg-maage-primary-400 p-4 text-white">

@@ -1,0 +1,86 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+    //   "**/public/js/xstyle": true,
+    //   "**/public/js/put-selector": true,
+    //   "**/public/js/dbind": true,
+    //   "**/public/js/dgrid": true,
+    //   "**/public/js/rql": true,
+    //   "**/public/js/dojo": true,
+    //   "**/public/js/dijit": true,
+    //   "**/public/js/dojox": true,
+    //   "**/public/js/util": true,
+    //   "**/public/js/msa": true,
+    //   "**/public/js/FileSaver": true,
+    //   "**/public/js/jDataView": true,
+    //   "**/public/js/json-schema": true,
+    //   "**/public/js/jszlib": true,
+    //   "**/public/js/lazyload": true,
+    //   "**/public/js/raphael": true,
+    //   "**/public/js/circulus": true,
+    //   "**/public/js/d3": true,
+    //   "**/public/js/phyloview": true,
+    //   "**/public/js/autotrack": true,
+    //   "**/public/js/mauve_viewer": true,
+    //   "**/public/js/heatmap": true,
+    //   "**/public/js/archaeopteryx/archaeopteryx-js": true
+    },
+    "search.exclude": {
+    //   "**/public/js/xstyle": true,
+    //   "**/public/js/put-selector": true,
+    //   "**/public/js/dbind": true,
+    //   "**/public/js/dgrid": true,
+    //   "**/public/js/rql": true,
+    //   "**/public/js/dojo": true,
+    //   "**/public/js/dijit": true,
+    //   "**/public/js/dojox": true,
+    //   "**/public/js/util": true,
+    //   "**/public/js/msa": true,
+    //   "**/public/js/FileSaver": true,
+    //   "**/public/js/jDataView": true,
+    //   "**/public/js/json-schema": true,
+    //   "**/public/js/jszlib": true,
+    //   "**/public/js/lazyload": true,
+    //   "**/public/js/raphael": true,
+    //   "**/public/js/circulus": true,
+    //   "**/public/js/d3": true,
+    //   "**/public/js/phyloview": true,
+    //   "**/public/js/autotrack": true,
+    //   "**/public/js/mauve_viewer": true,
+    //   "**/public/js/heatmap": true,
+    //   "**/public/js/archaeopteryx/archaeopteryx-js": true
+    },
+    "github.copilot.advanced": {
+      "excludePaths": [
+        // "public/js/xstyle",
+        // "public/js/put-selector",
+        // "public/js/dbind",
+        // "public/js/dgrid",
+        // "public/js/rql",
+        // "public/js/dojo",
+        // "public/js/dijit",
+        // "public/js/dojox",
+        // "public/js/util",
+        // "public/js/msa",
+        // "public/js/FileSaver",
+        // "public/js/jDataView",
+        // "public/js/json-schema",
+        // "public/js/jszlib",
+        // "public/js/lazyload",
+        // "public/js/raphael",
+        // "public/js/circulus",
+        // "public/js/d3",
+        // "public/js/phyloview",
+        //"public/js/autotrack",
+        // "public/js/mauve_viewer",
+        // "public/js/heatmap",
+        // "public/js/archaeopteryx/archaeopteryx-js"
+      ]
+    }
+  }
+}

@@ -50,6 +50,7 @@ p3-web.conf-prod.maage
 
 # macOS
 .DS_Store
+**/.DS_Store
 .AppleDouble
 .LSOverride
 
@@ -144,9 +145,12 @@ out/
 node_repl_history
 
 # Editors, IDEs, Terminals, AI, etc
-# Should often be handled by excludes 
+# Should often be handled by excludes
 .vscode/
 *.code-workspace
+.github/copilot-instructions.md
+.github/
+!maage-web.code-workspace
 .idea/
 .zed/
 .fleet/

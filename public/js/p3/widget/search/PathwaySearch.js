@@ -1,6 +1,8 @@
 define([
   'dojo/_base/declare',
   'dojo/_base/lang',
+  'dojo/dom-class',
+  'dojo/on',
   './SearchBase',
   'dojo/text!./templates/PathwaySearch.html',
   './TextInputEncoder',
@@ -9,6 +11,8 @@ define([
 ], function (
   declare,
   lang,
+  domClass,
+  on,
   SearchBase,
   template,
   TextInputEncoder,
@@ -23,21 +27,45 @@ define([
   return declare([SearchBase], {
     templateString: template,
     searchAppName: 'Pathway Search',
-    pageTitle: 'Pathway Search | BV-BRC',
+    pageTitle: 'Pathway Search | MAAGE',
     dataKey: 'pathway',
     resultUrlBase: '/view/PathwayList/?',
     resultUrlHash: '#view_tab',
+    baseClass: 'PathwaySearchModern',
+    
     postCreate: function () {
-      this.inherited(arguments)
-
-      this.pathogenGroupNode.store = pathogenGroupStore
+      // Build the stores for dropdown widgets
+      this.pathogenGroupNode.set('store', pathogenGroupStore)
       storeBuilder('pathway_ref', 'pathway_name').then(lang.hitch(this, (store) => {
-        this.pathwayNameNode.store = store
+        this.pathwayNameNode.set('store', store)
       }))
       storeBuilder('pathway_ref', 'pathway_class').then(lang.hitch(this, (store) => {
-        this.pathwayClassNode.store = store
+        this.pathwayClassNode.set('store', store)
       }))
 
+      this.inherited(arguments)
+      
+      // Set up additional criteria toggle
+      this._setupAdditionalCriteria()
+    },
+
+    _setupAdditionalCriteria: function () {
+      // Initially hide the "no criteria" message if there are already criteria
+      if (this.AdvancedSearchPanel && this.AdvancedSearchPanel.children.length > 0) {
+        domClass.add(this.noCriteriaMessage, 'hidden')
+      }
+
+      // Handle add criteria button click
+      if (this.addCriteriaBtn) {
+        on(this.addCriteriaBtn, 'click', lang.hitch(this, function(e) {
+          e.preventDefault()
+          // This will trigger the inherited advanced search functionality
+          if (this.AdvancedSearchPanel && this.AdvancedSearchPanel.addCriterion) {
+            this.AdvancedSearchPanel.addCriterion()
+            domClass.add(this.noCriteriaMessage, 'hidden')
+          }
+        }))
+      }
     },
     buildQuery: function () {
       let queryArr = []
@@ -111,6 +139,16 @@ define([
         return query + genomeQuery
       } else {
         return query
+      }
+    },
+
+    // Override reset to also reset the additional criteria UI
+    onReset: function () {
+      this.inherited(arguments)
+      
+      // Show the "no criteria" message again
+      if (this.noCriteriaMessage) {
+        domClass.remove(this.noCriteriaMessage, 'hidden')
       }
     }
   })
