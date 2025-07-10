@@ -321,6 +321,12 @@ define([
 			this.createMapChart();
 			this.createSequencingCentersChart();
 			createChart(
+				Doughnut,
+				this.speciesChartNode,
+				`${baseQuery}&facet((field,species),(mincount,1),(limit,10))&limit(0)`,
+				"maage-muted"
+			);
+			createChart(
 				VerticalBar,
 				this.hostChartNode,
 				`${baseQuery}&facet((field,host_common_name),(mincount,1),(limit,10))&limit(0)`,
