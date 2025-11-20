@@ -1,3 +1,0 @@
-# Changelog
-
-*auto generated*
