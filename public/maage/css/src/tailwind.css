@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .dijit-wrapper .dijit {
+    @apply w-full;
+  }
+
+  .dijit-wrapper .dijitSelect,
+  .dijit-wrapper .dijitTextBox,
+  .dijit-wrapper .dijitFilteringSelect {
+    @apply w-full px-3 py-2 text-md border border-gray-300 rounded-md;
+    @apply focus:outline-none focus:ring-2 focus:ring-maage-secondary-500 focus:border-transparent;
+  }
+
+  .dijit-wrapper .dijitInputInner {
+    @apply w-full border-0 outline-none bg-transparent;
+  }
+
+  .TaxaSearchModern {
+    @apply min-h-screen bg-maage-bg;
+  }
+
+  .TaxaSearchModern .dijitButton {
+    @apply transition-colors;
+  }
+
+  .location-toggle-btn {
+    @apply bg-transparent text-gray-500 text-xs;
+  }
+
+  .location-toggle-btn:hover {
+    @apply bg-gray-200 text-gray-700;
+  }
+
+  .location-toggle-btn.active {
+    @apply bg-white text-gray-900 shadow-sm;
+  }
+
+  .amr-view-btn,
+  .amr-sort-btn,
+  .taxonomy-view-btn {
+    @apply bg-transparent text-gray-500;
+  }
+
+  .amr-view-btn:hover,
+  .amr-sort-btn:hover,
+  .taxonomy-view-btn:hover {
+    @apply bg-gray-200 text-gray-700;
+  }
+
+  .amr-view-btn.active,
+  .amr-sort-btn.active,
+  .taxonomy-view-btn.active {
+    @apply bg-white text-gray-900 shadow-sm;
+  }
+}

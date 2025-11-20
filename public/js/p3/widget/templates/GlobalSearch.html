@@ -1,0 +1,60 @@
+<div class="GlobalSearch">
+  <table style="width:100%;" class="GStable">
+    <tbody class="GSbody">
+      <tr>
+
+        <td class="gs-data-types-dropdown" style="width:120px">
+          <div class="relative w-full">
+            <span data-dojo-attach-point="searchFilter" data-dojo-type="dijit/form/Select"
+              class="w-full text-sm border border-gray-300 rounded-md appearance-none pr-8"
+              style="display:inline-block;width:100%">
+              <option selected="true" value="everything">All Data Types</option>
+              <option value="genomes">Genomes</option>
+              <option value="genome_features">Features</option>
+              <option value="proteins">Proteins</option>
+              <option value="sp_genes">Specialty Genes</option>
+              <option value="protein_structures">Protein Structures</option>
+              <option value="pathways">Pathways</option>
+              <option value="subsystems">Subsystems</option>
+              <option value="taxonomy">Taxa</option>
+            </span>
+            <i
+              class="fa-solid fa-chevron-down absolute right-2 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 pointer-events-none"></i>
+          </div>
+        </td>
+
+        <td class="gs-input">
+          <label id="globalSearch" class="sr-only">Global Search</label>
+          <input aria-labelledby="globalSearch" placeholder="Find a gene, genome, microarray, etc" style="width:100%;"
+            data-dojo-type="dijit/form/TextBox" data-dojo-attach-event="onChange:onInputChange,keypress:onKeypress"
+            data-dojo-attach-point="searchInput" class="form-control" />
+        </td>
+
+        <td class="gs-advanced-search" style="width:1em;padding:2px;font-size:1em;">
+          <i class="fa fa-1x icon-search" data-dojo-attach-event="click:onClickAdvanced" title="Advanced Search"></i>
+        </td>
+
+        <td class="gs-help" style="width:1em;padding:2px;font-size:1em;">
+          <i class="fa fa-1x icon-question-circle-o NonmodalDialogButton" rel="help:/misc/GlobalSearchOptions"
+            title="Select search options from the dropdown list. Click to view the help information"></i>
+        </td>
+
+        <td class="gs-options-dropdown" style="width:50px">
+          <div class="relative w-full">
+            <span data-dojo-attach-point="searchOption" data-dojo-type="dijit/form/Select"
+              class="w-full text-sm border border-gray-300 rounded-md appearance-none pr-6"
+              style="display:inline-block;width:100%">
+              <option selected="true" value="option_and">All terms</option>
+              <option value="option_or">Any term</option>
+              <option value="option_and2">All exact terms</option>
+              <option value="option_or2">Any exact term</option>
+            </span>
+            <i
+              class="fa-solid fa-chevron-down absolute right-2 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 pointer-events-none"></i>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

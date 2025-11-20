@@ -1,0 +1,332 @@
+.poppins-thin {
+  font-family: "Poppins", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.inter-100 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.inter-200 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.inter-300 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.inter-400 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.inter-500 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.inter-600 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.inter-700 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.inter-800 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.inter-900 {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.noto-sans-100 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.noto-sans-200 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.noto-sans-300 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.noto-sans-400 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto-sans-500 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.noto-sans-600 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.noto-sans-700 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.noto-sans-800 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.noto-sans-900 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.noto-serif-100 {
+  font-family: "Noto Serif", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.noto-serif-200 {
+  font-family: "Noto Serif", serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.noto-serif-300 {
+  font-family: "Noto Serif", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.noto-serif-400 {
+  font-family: "Noto Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto-serif-500 {
+  font-family: "Noto Serif", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.noto-serif-600 {
+  font-family: "Noto Serif", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.noto-serif-700 {
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.noto-serif-800 {
+  font-family: "Noto Serif", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.noto-serif-900 {
+  font-family: "Noto Serif", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.noto-code-100 {
+  font-family: "Noto Code", monospace;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.noto-code-200 {
+  font-family: "Noto Code", monospace;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.noto-code-300 {
+  font-family: "Noto Code", monospace;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.noto-code-400 {
+  font-family: "Noto Code", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto-code-500 {
+  font-family: "Noto Code", monospace;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.noto-code-600 {
+  font-family: "Noto Code", monospace;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.noto-code-700 {
+  font-family: "Noto Code", monospace;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.noto-code-800 {
+  font-family: "Noto Code", monospace;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.noto-code-900 {
+  font-family: "Noto Code", monospace;
+  font-weight: 900;
+  font-style: normal;
+}

@@ -1,0 +1,23 @@
+<form dojoAttachPoint="containerNode" class="PanelForm App ${baseClass}"
+  dojoAttachEvent="onsubmit:_onSubmit,onchange:validate">
+  <div class="appTemplate">
+    <div class="appTitle">
+      <span class="breadcrumb">Services</span>
+      <h1 class="appHeader">${applicationLabel}
+      </h1>
+      <p>${applicationDescription} For further explanation, please see the ${applicationLabel} Service <a
+          href="${docsServiceURL}${applicationHelp}" target="_blank">User Guide</a> and
+        <a href="${docsServiceURL}${tutorialLink}" target="_blank">Tutorial</a>.
+      </p>
+      <br>
+      <div class="infobox iconbox infobutton dialoginfo">
+        <i class="fa icon-lock fa-1x" title="Please log in with your ViPR or PATRIC account use this service"></i>
+        <span class="text-[16px] font-inter text-center">Please sign in with your MAAGE account in order to use this service.</span> 
+      </div>
+      
+    </div>
+    <div class="LoginForm" data-dojo-type="p3/widget/LoginForm"
+      style="display: inlin-block;width:500px; margin-left:auto;margin-right:auto;font-size:1.1em;margin-bottom:20px;margin-top:10px;padding:10px;">
+    </div>
+  </div>
+</form>

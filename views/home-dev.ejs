@@ -1,0 +1,383 @@
+<div id="maage-home"
+     class="min-h-screen bg-maage-bg">
+    <script src="https://kit.fontawesome.com/4bb90511c9.js"
+            crossorigin="anonymous"></script>
+
+    <!-- Main Container with max width -->
+    <div class="mx-auto max-w-maage px-4 sm:px-6 lg:px-8">
+        <!-- Two Column Layout Container -->
+        <div class="flex flex-col lg:flex-row lg:gap-8 py-8">
+            <!-- Main Content Area - 3/4 width on desktop -->
+            <main class="flex-1 lg:w-3/4">
+                <!-- Hero Search Section -->
+                <section class="bg-maage-surface rounded-lg shadow-sm p-6 mb-6">
+                    <h1 class="text-4xl font-semibold text-secondary-900 mb-4 font-poppins leading-tight">
+                        Midwest Alliance for<br>
+                        Applied Genomic Epidemiology
+                    </h1>
+
+                    <p class="text-gray-700 mb-6 text-lg font-light max-w-3xl">
+                        The Midwest Alliance for Applied Genomic Epidemiology (MAAGE) aims to
+                        develop a genomic
+                        surveillance platform to enhance infectious disease detection and tracking
+                        while providing
+                        educational resources for public health and healthcare professionals.
+                    </p>
+                    <div class="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-md border border-primary-200">
+                        <div class="flex items-center mb-6">
+                            <i data-lucide="database"
+                               class="h-8 w-8 text-maage-text/90 mr-2"></i>
+                            <h2 class="text-2xl font-semibold text-maage-text/90 font-poppins">
+                                Search
+                                Data
+                            </h2>
+                        </div>
+
+                        <div class="maage-global-search bg-white border border-gray-200 shadow-sm rounded-lg px-4 py-3">
+                            <div class="flex flex-col md:flex-row md:items-center gap-2">
+                                <div class="flex-grow">
+                                    <div data-dojo-type="p3/widget/maage/MAAGEGlobalSearch"
+                                         data-dojo-attach-point="maageSearchWidget"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Analyze Data Section -->
+                <section class="bg-maage-surface rounded-lg shadow-sm p-6 mb-6 w-full">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-maage-secondary-500/20 flex items-center justify-center mr-3">
+                            <i class="fas fa-chart-bar text-maage-secondary-500 text-lg"></i>
+                        </div>
+                        <h2 class="text-2xl font-heading font-semibold text-maage-text">
+                            Analyze Data
+                        </h2>
+                    </div>
+                    <p class="text-maage-text-muted mb-6 font-body">
+                        Upload and analyze your genomic data in a secure private workspace with our comprehensive suite of tools.
+                    </p>
+                    <div class="analyze-data-grid w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-search text-maage-primary-400 mr-2 text-sm"></i>
+                                <h3 class="text-base font-heading font-medium text-maage-text">
+                                    Search
+                                </h3>
+                            </div>
+                            <ul class="space-y-1 text-sm">
+                                <li>
+                                    <a href="/searches/TaxaSearch" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Taxa
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/searches/GenomeSearch" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Genomes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/searches/GenomicFeatureSearch" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Features
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/searches/SpecialtyGeneSearch" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Specialty Genes
+                                    </a>
+                                </li>
+                                <li class="mt-2">
+                                    <a href="/searches" class="flex items-center text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors font-medium">
+                                        <span>View All</span>
+                                        <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-chart-line text-maage-primary-400 mr-2 text-sm"></i>
+                                <h3 class="text-base font-heading font-medium text-maage-text">
+                                    Analyze
+                                </h3>
+                            </div>
+                            <ul class="space-y-1 text-sm">
+                                <li>
+                                    <a href="/app/Assembly2" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Assembly
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/app/Annotation" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Annotation
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/app/Homology" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        BLAST
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/app/MSA" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        MSA
+                                    </a>
+                                </li>
+                                <li class="mt-2">
+                                    <a href="/tools" class="flex items-center text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors font-medium">
+                                        <span>View All</span>
+                                        <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-database text-maage-primary-400 mr-2 text-sm"></i>
+                                <h3 class="text-base font-heading font-medium text-maage-text">
+                                    Data
+                                </h3>
+                            </div>
+                            <ul class="space-y-1 text-sm">
+                                <li>
+                                    <a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Access Workspace
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.maage-brc.org/docs/quick_references/workspaces/groups.html" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Save Search Results
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.maage-brc.org/docs/quick_references/workspaces/data_upload.html" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Upload Data
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.maage-brc.org/docs/quick_references/workspaces/jobs.html" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Analysis Jobs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Share & Publish
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-maage-border">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-server text-maage-primary-400 mr-2 text-sm"></i>
+                                <h3 class="text-base font-heading font-medium text-maage-text">
+                                    Access
+                                </h3>
+                            </div>
+                            <ul class="space-y-1 text-sm">
+                                <li>
+                                    <a href="https://www.maage-brc.org/docs/cli_tutorial/index.html" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        CLI tools
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.bv-brc.org/api/doc/" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Data API
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.maage-brc.org/docs/quick_references/ftp.html" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        File Transfers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/workspace/public" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        Public Workspaces
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/workspace/public/maage@bvbrc/MAAGE%20Workshop" class="text-maage-secondary-600 hover:text-maage-secondary-700 transition-colors block">
+                                        MAAGE Workshop
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://www.maage-brc.org/docs/quick_start/index.html" class="bg-maage-primary-400 hover:bg-maage-primary-600 text-white px-4 py-2 rounded-md font-medium inline-flex items-center transition-colors text-sm font-body">
+                            <i class="fas fa-bolt mr-2"></i>
+                            Quick Start
+                        </a>
+                        <a href="https://www.maage-brc.org/docs/quick_references/index.html" class="bg-white border border-maage-border hover:bg-maage-bg-subtle text-maage-text px-4 py-2 rounded-md font-medium inline-flex items-center transition-colors text-sm font-body">
+                            <i class="fas fa-book mr-2"></i>
+                            Reference Guides
+                        </a>
+                        <a href="https://www.maage-brc.org/docs/tutorial/index.html" class="bg-white border border-maage-border hover:bg-maage-bg-subtle text-maage-text px-4 py-2 rounded-md font-medium inline-flex items-center transition-colors text-sm font-body">
+                            <i class="fas fa-users mr-2"></i>
+                            Tutorials
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Active Outbreaks Section -->
+                <section class="bg-maage-surface rounded-lg shadow-sm p-6 w-full">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-maage-tertiary-500/20 flex items-center justify-center mr-3">
+                                <i class="fas fa-biohazard text-maage-tertiary-500 text-lg"></i>
+                            </div>
+                            <h2 class="text-2xl font-heading font-semibold text-maage-text">
+                                Active Outbreaks
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="active-outbreaks-grid w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                        <div class="border border-maage-primary-400/30 rounded-lg overflow-hidden">
+                            <div class="flex items-center justify-between bg-maage-primary-400/10 p-3">
+                                <h3 class="font-heading font-medium text-maage-primary-600">
+                                    Mpox
+                                </h3>
+                                <span class="bg-maage-primary-400 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                                    High Alert
+                                </span>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">New Cases</div>
+                                        <div class="flex items-center font-medium text-sm">
+                                            +124
+                                            <span class="ml-1 text-xs text-maage-primary-600">
+                                                +15%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">Regions</div>
+                                        <div class="font-medium text-sm">12</div>
+                                    </div>
+                                </div>
+                                <div class="h-1.5 w-full bg-maage-bg-muted rounded-full mb-3">
+                                    <div
+                                        class="h-1.5 bg-maage-primary-400 rounded-full"
+                                        style="width: 75%;"
+                                    ></div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center text-sm transition-colors"
+                                >
+                                    View Dashboard
+                                    <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="border border-maage-secondary-500/30 rounded-lg overflow-hidden">
+                            <div class="flex items-center justify-between bg-maage-secondary-500/10 p-3">
+                                <h3 class="font-heading font-medium text-maage-secondary-600">
+                                    A/H5N1
+                                </h3>
+                                <span class="bg-maage-secondary-500 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                                    Moderate
+                                </span>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">New Cases</div>
+                                        <div class="flex items-center font-medium text-sm">
+                                            +87
+                                            <span class="ml-1 text-xs text-maage-secondary-600">
+                                                +8%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">Regions</div>
+                                        <div class="font-medium text-sm">9</div>
+                                    </div>
+                                </div>
+                                <div class="h-1.5 w-full bg-maage-bg-muted rounded-full mb-3">
+                                    <div
+                                        class="h-1.5 bg-maage-secondary-500 rounded-full"
+                                        style="width: 45%;"
+                                    ></div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center text-sm transition-colors"
+                                >
+                                    View Dashboard
+                                    <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="border border-maage-tertiary-500/30 rounded-lg overflow-hidden">
+                            <div class="flex items-center justify-between bg-maage-tertiary-500/10 p-3">
+                                <h3 class="font-heading font-medium text-maage-tertiary-600">
+                                    SARS-CoV-2
+                                </h3>
+                                <span class="bg-maage-secondary-500 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                                    Ongoing
+                                </span>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex justify-between mb-3">
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">New Cases</div>
+                                        <div class="flex items-center font-medium text-sm">
+                                            +215
+                                            <span class="ml-1 text-xs text-maage-tertiary-600">
+                                                -3%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-maage-text-subtle mb-1">Regions</div>
+                                        <div class="font-medium text-sm">All</div>
+                                    </div>
+                                </div>
+                                <div class="h-1.5 w-full bg-maage-bg-muted rounded-full mb-3">
+                                    <div
+                                        class="h-1.5 bg-maage-tertiary-500 rounded-full"
+                                        style="width: 30%;"
+                                    ></div>
+                                </div>
+                                <a
+                                    href="#"
+                                    class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center text-sm transition-colors"
+                                >
+                                    View Dashboard
+                                    <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <a
+                            href="/outbreaks/overview"
+                            class="text-maage-secondary-600 hover:text-maage-secondary-700 font-medium flex items-center transition-colors"
+                        >
+                            View All Outbreaks
+                            <i class="fas fa-arrow-right ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Sidebar - 1/4 width on desktop -->
+            <aside class="lg:w-1/4 mt-8 lg:mt-0 space-y-6">
+                <!-- Quick Links -->
+                <%- include('quick-links') %>
+
+                <!-- Latest News -->
+                <%- include('news') %>
+
+                <!-- Upcoming Events -->
+                <%- include('events') %>
+            </aside>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <%- include('footer') %>
+</div>
