@@ -1,3 +1,0 @@
-[submodule "public/js/msa"]
-	path = public/js/msa
-	url = https://github.com/aswarren/msa.git
