@@ -349,6 +349,10 @@ define([
         domClass.add(this.cancelButton.domNode, 'dijitHidden');
       }
 
+      if (this.mailingListSignup && window.App.mailinglistURL) {
+        this.mailingListSignup.innerHTML = 'Click <a href="' + window.App.mailinglistURL + '" target="_blank" class="text-maage-secondary-600 font-medium">HERE</a> to sign up for the MAAGE mailing list.';
+      }
+
       // console.log(window.App.authorizationToken);
       if (window.App.authorizationToken !== null && window.App.authorizationToken !== undefined) {
         this.auth = true;
@@ -362,7 +366,7 @@ define([
           w.destroy()
         })
         domConstruct.destroy(this.setPasswordForm)
-        this.notificationsContainer.innerHTML = 'Click <a href="https://lists.bv-brc.org/mailman/listinfo/all-users" target="_blank">HERE</a> to manage your BV-BRC mailing list subscription.'
+        this.notificationsContainer.innerHTML = 'Click <a href="' + window.App.mailinglistURL + '" target="_blank" class="text-maage-secondary-600 font-medium">HERE</a> to manage your MAAGE mailing list subscription.'
         domClass.add(this.registrationHeading, 'dijitHidden')
 
         if (this.userprofileStored.email_verified){
