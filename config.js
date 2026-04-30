@@ -23,7 +23,7 @@ const defaults = {
   userServiceURL: '',
   localStorageCheckInterval: 86400,
   enableDevTools: false,
-  reportProblemEmailAddress: 'help@bv-brc.org',
+  reportProblemEmailAddress: 'help@maage-brc.org',
   sequenceSubmissionNotificationEmailAddress: ['gbsubmit@bvbrc.org'],
   'email': {
     'localSendmail': false,
