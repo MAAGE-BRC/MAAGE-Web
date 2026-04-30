@@ -407,14 +407,10 @@
 											tools, and events.
 										</p>
 
-										<div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-											<input type="email" placeholder="Your Email Address"
-												class="flex h-10 w-full rounded-md border border-gray/20 bg-gray/10 px-3 py-2 text-md text-maage-text placeholder:text-maage-text/50 focus:outline-none focus:ring-2 focus:ring-maage-300 focus:ring-offset-2" />
-											<button
-												class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-maage-secondary-500 hover:bg-maage-secondary-600 text-white h-10 px-4 py-2">
-												Subscribe
-											</button>
-										</div>
+										<a href="<%= request.applicationOptions.mailinglistURL %>" target="_blank" rel="noopener noreferrer"
+											class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-maage-secondary-500 hover:bg-maage-secondary-600 text-white h-10 px-6 py-2">
+											Subscribe
+										</a>
 									</div>
 								</div>
 							</div>
