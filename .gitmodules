@@ -71,4 +71,4 @@
 	branch = master
 [submodule "microbetrace-src"]
 	path = microbetrace-src
-	url = https://github.com/CDCgov/MicrobeTrace.git
+	url = https://github.com/BV-BRC-dependencies/MicrobeTrace.git
