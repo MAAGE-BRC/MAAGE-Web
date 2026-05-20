@@ -51,10 +51,10 @@ router.get("/announcements", function (req, res) {
   });
 });
 
-/* GET calendar page. */
-router.get("/calendar", function (req, res) {
+/* GET events page. */
+router.get("/events", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("pages/calendar", {
+  res.render("pages/events", {
     title: "PATRIC",
     request: req,
     response: res,

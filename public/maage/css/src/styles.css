@@ -1697,22 +1697,39 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
 }
 
 .PerspectiveHeader {
-  /* Use flexbox to keep all elements on one line */
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.4em;
+  row-gap: 0;
   align-items: baseline;
-  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+}
+
+.PerspectiveHeader > * {
+  grid-column: 2;
+}
+
+.PerspectiveHeader .PerspectiveQueryRow {
+  grid-column: 2;
+  line-height: 1.4;
 }
 
 .PerspectiveHeader i.fa.PerspectiveIcon {
   color: var(--maage-primary-500) !important;
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  float: none !important;
+  margin: 0 !important;
 }
 
 .patric .PerspectiveHeader div.PerspectiveType {
   font-size: 17px !important;
   font-weight: 500 !important;
-  /* Make the label inline within the flex container */
-  display: inline;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
 }
 
 .PerspectiveHeader span.queryModel {
@@ -1734,6 +1751,10 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
   color: var(--maage-primary-500);
   font-size: 1.1em !important;
   font-family: 'Inter', sans-serif !important;
+}
+
+.PerspectiveHeader span.PerspectiveQuery {
+  /* inline within QueryRow */
 }
 
 .PerspectiveHeader .PerspectiveTotalCount {
