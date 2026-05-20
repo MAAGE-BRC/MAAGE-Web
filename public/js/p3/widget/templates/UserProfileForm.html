@@ -46,7 +46,7 @@
             <tr><td style="width:15%;text-align:right;vertical-align:top;">Interests:</td><td colspan="2"><div rows="5" name="interests" style="height:75px;max-width:99%" data-dojo-type="dijit/form/SimpleTextarea" value=""></div></td></tr>
           </tbody>
       </table>
-      <p class="HideWithAuth">Click <a href="https://lists.bv-brc.org/mailman/listinfo/all-users" target="_blank">HERE</a> to sign up for the BV-BRC mailing list.</p>
+      <p class="HideWithAuth" data-dojo-attach-point="mailingListSignup"></p>
     </div>
     <div class="" data-dojo-attach-point="setPasswordForm" style="max-width:580px; display:block; border: 1px solid gray;margin:4px;margin-top: 28px;margin-bottom:28px; padding:4px;padding-top:8px;">
       <span style="position:relative;top: -17px; border: none; background: #fff;padding: 4px; color: #333;font-weight:600;">Set Password</span>
@@ -123,11 +123,5 @@
       <div class="changePWbutton" data-dojo-attach-event="click: onResetClick" style="margin:auto" data-dojo-attach-point="cPWbutton" type="button" data-dojo-type="dijit/form/Button">Change Password</div>
     </form>
     <div class="pwError" style="color:red; margin-top:20px;display:none"><p>The passwords do not match, please fix</p></div>
-  </div>
-  <div data-dojo-attach-point="brcAds" class="" style="padding:8px;margin:8px;font-size:1em;border:1px solid #333;">
-    <h3>About Bioinformatics Resource Centers</h3>
-    <p style="margin-bottom:8px;">The <a href="https://www.niaid.nih.gov/research/bioinformatics-resource-centers" target="_blank">Bioinformatics Resource Centers</a> (BRCs) for Infectious Diseases program was initiated in 2004 with the main objective of providing public access to computational platforms and analysis tools that enable collecting, archiving, updating, and integrating a variety of genomics and related research data relevant to infectious diseases and pathogens and their interaction with hosts.</p>
-    <p style="margin-bottom:8px;">Visit our partner Bioinformatics Resource Center, VEuPathDB, and <a href="https://veupathdb.org/veupathdb/app/user/login?destination=https://veupathdb.org">login</a> there or <a href="https://veupathdb.org/veupathdb/app/user/registration">register</a>.</p>
-    <p>Sign up for cross-BRC email alerts <a href="https://lists.brcgateway.org/mailman/listinfo/brc-all">here</a>.</p>
   </div>
 </div>
