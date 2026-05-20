@@ -72,3 +72,4 @@
 [submodule "microbetrace-src"]
 	path = microbetrace-src
 	url = https://github.com/BV-BRC-dependencies/MicrobeTrace.git
+	branch = maage-stable
