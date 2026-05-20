@@ -376,20 +376,7 @@
 
 									<div class="max-w-3xl mx-auto">
 										<div class="bg-white rounded-2xl shadow-sm border border-maage-100 p-8 md:p-10">
-											<p class="text-center text-lg">This project has been funded in whole or in
-												part by...</p>
-
-											<div class="mt-10 grid grid-cols-2 md:grid-cols-3 gap-8">
-												<div class="flex items-center justify-center p-4 bg-gray-50 rounded-lg">
-													<div class="w-full h-12 bg-gray-200 rounded animate-pulse"></div>
-												</div>
-												<div class="flex items-center justify-center p-4 bg-gray-50 rounded-lg">
-													<div class="w-full h-12 bg-gray-200 rounded animate-pulse"></div>
-												</div>
-												<div class="flex items-center justify-center p-4 bg-gray-50 rounded-lg">
-													<div class="w-full h-12 bg-gray-200 rounded animate-pulse"></div>
-												</div>
-											</div>
+											<p class="text-center text-lg">This project is supported by the Centers for Disease Control and Prevention (CDC) of the U.S. Department of Health and Human Services (HHS) through a financial assistance award to the Illinois Department of Public Health (IDPH). The contents are solely the responsibility of IDPH and its partners and do not necessarily represent the official views of, nor imply endorsement by, CDC/HHS or the U.S. Government.</p>
 										</div>
 									</div>
 								</div>
@@ -407,14 +394,10 @@
 											tools, and events.
 										</p>
 
-										<div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-											<input type="email" placeholder="Your Email Address"
-												class="flex h-10 w-full rounded-md border border-gray/20 bg-gray/10 px-3 py-2 text-md text-maage-text placeholder:text-maage-text/50 focus:outline-none focus:ring-2 focus:ring-maage-300 focus:ring-offset-2" />
-											<button
-												class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-maage-secondary-500 hover:bg-maage-secondary-600 text-white h-10 px-4 py-2">
-												Subscribe
-											</button>
-										</div>
+										<a href="<%= request.applicationOptions.mailinglistURL %>" target="_blank" rel="noopener noreferrer"
+											class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-maage-secondary-500 hover:bg-maage-secondary-600 text-white h-10 px-6 py-2">
+											Subscribe
+										</a>
 									</div>
 								</div>
 							</div>

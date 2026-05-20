@@ -23,7 +23,7 @@ define([
   return declare([SearchBase], {
     templateString: template,
     searchAppName: 'Specialty Gene Search',
-    pageTitle: 'Specialty Gene Search | BV-BRC',
+    pageTitle: 'Specialty Gene Search | MAAGE',
     dataKey: 'sp_gene',
     resultUrlBase: '/view/SpecialtyGeneList/?',
     resultUrlHash: '#view_tab=specialtyGenes&filter=false',

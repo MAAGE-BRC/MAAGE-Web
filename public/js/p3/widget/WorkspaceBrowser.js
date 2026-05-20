@@ -158,7 +158,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/view/PathwayService' + path, target: 'blank' });
+          Topic.publish('/navigate', { href: '/view/PathwayService' + encodePath(path), target: 'blank' });
         } else {
           console.log('Error: could not find pathways data file');
         }
@@ -177,7 +177,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/view/ProteinFamiliesService' + path, target: 'blank' });
+          Topic.publish('/navigate', { href: '/view/ProteinFamiliesService' + encodePath(path), target: 'blank' });
         } else {
           console.log('Error: could not find pathways data file');
         }
@@ -196,7 +196,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/view/SubsystemService' + path, target: 'blank' });
+          Topic.publish('/navigate', { href: '/view/SubsystemService' + encodePath(path), target: 'blank' });
         } else {
           console.log('Error: could not find pathways data file');
         }
@@ -574,7 +574,31 @@ define([
         var dataType = (self.actionPanel.currentContainerWidget.containerType == 'genome_group') ? 'genome' : 'genome_feature';
         var currentQuery = self.actionPanel.currentContainerWidget.get('query');
 
-        window.open(window.App.dataServiceURL + '/' + dataType + '/' + currentQuery + '&http_authorization=' + encodeURIComponent(window.App.authorizationToken) + '&http_accept=' + rel + '&http_download=true');
+        var baseUrl = window.App.dataServiceURL + '/' + dataType + '/?http_accept=' + rel + '&http_download=true';
+
+        var form = domConstruct.create('form', {
+          style: 'display: none;',
+          id: 'downloadForm',
+          enctype: 'application/x-www-form-urlencoded',
+          name: 'downloadForm',
+          method: 'post',
+          action: baseUrl
+        }, document.body);
+        domConstruct.create('input', {
+          type: 'hidden',
+          value: encodeURIComponent(currentQuery),
+          name: 'rql'
+        }, form);
+        // Add authorization as form field for POST requests
+        if (window.App.authorizationToken) {
+          domConstruct.create('input', {
+            type: 'hidden',
+            value: window.App.authorizationToken,
+            name: 'http_authorization'
+          }, form);
+        }
+        form.submit();
+
         popup.close(downloadTT);
       });
 
@@ -609,14 +633,36 @@ define([
         var dataType = type === 'genome_group' ? 'genome' : 'genome_feature';
         var currentQuery = self.getQuery(selection[0]);
 
-        var urlStr = window.App.dataServiceURL + '/' + dataType + '/' + currentQuery + '&http_authorization=' +
-          encodeURIComponent(window.App.authorizationToken) + '&http_accept=' + rel + '&limit(25000)&http_download=true';
-
         // cursorMark requires a sort on an unique key
-        urlStr += type === 'genome_group' ? '&sort(+genome_id)' : '&sort(+feature_id)';
+        var sortField = type === 'genome_group' ? 'genome_id' : 'feature_id';
+        var query = currentQuery + '&limit(25000)&sort(+' + sortField + ')';
 
-        window.open(urlStr);
-        popup.close(downloadTT);
+        var baseUrl = window.App.dataServiceURL + '/' + dataType + '/?http_accept=' + rel + '&http_download=true';
+
+        var form = domConstruct.create('form', {
+          style: 'display: none;',
+          id: 'downloadForm',
+          enctype: 'application/x-www-form-urlencoded',
+          name: 'downloadForm',
+          method: 'post',
+          action: baseUrl
+        }, document.body);
+        domConstruct.create('input', {
+          type: 'hidden',
+          value: encodeURIComponent(query),
+          name: 'rql'
+        }, form);
+        // Add authorization as form field for POST requests
+        if (window.App.authorizationToken) {
+          domConstruct.create('input', {
+            type: 'hidden',
+            value: window.App.authorizationToken,
+            name: 'http_authorization'
+          }, form);
+        }
+        form.submit();
+
+        popup.close(downloadTTSelect);
       });
 
       this.actionPanel.addAction('SelectDownloadTable', 'fa icon-download fa-2x', {
@@ -700,7 +746,7 @@ define([
       }, function (selection) {
         var sel = selection[0],
           path = sel.path + '.' + sel.name + '/TaxonomicReport.html';
-        Topic.publish('/navigate', { href: '/workspace' + path });
+        Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
       }, false);
 
       this.browserHeader.addAction('ViewGenomeAlignment', 'fa icon-eye fa-2x', {
@@ -896,7 +942,7 @@ define([
         console.log('self.actionPanel.currentContainerWidget.containerType', self.actionPanel.currentContainerWidget.containerType);
         console.log('self.browserHeader', self.browserHeader);
         var path = self.actionPanel.currentContainerWidget.getReportPath();
-        Topic.publish('/navigate', { href: '/workspace' + path });
+        Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
       }, false);
 
       this.browserHeader.addAction('ViewCGASarsFullGenomeReport', 'fa icon-eye fa-2x', {
@@ -913,7 +959,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find FullGenomeReport.html');
         }
@@ -938,7 +984,7 @@ define([
             })
           );
           if (path) {
-            Topic.publish("/navigate", { href: "/workspace" + path });
+            Topic.publish("/navigate", { href: "/workspace" + encodePath(path) });
           } else {
             console.log("Error: could not find DockingReport.html");
           }
@@ -990,7 +1036,7 @@ define([
               }
             }));
             if (path) {
-              Topic.publish('/navigate', { href: '/workspace' + path });
+              Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
             } else {
               console.log('Error: could not find ', pipeline, ' report');
             }
@@ -1029,7 +1075,7 @@ define([
             }
           }));
           if (path) {
-            Topic.publish('/navigate', { href: '/workspace' + path });
+            Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
           } else {
             console.log('Error: could not find ', pipeline, ' report');
           }
@@ -1050,7 +1096,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find BinningReport.html');
         }
@@ -1070,7 +1116,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find MetagenomicReadMappingReport.html');
         }
@@ -1090,7 +1136,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find Primer Design report');
         }
@@ -2147,8 +2193,6 @@ define([
 
       var parts = this.path.split('/').filter(function (x) {
         return x != '';
-      }).map(function (c) {
-        return decodeURIComponent(c);
       });
 
       var obj;
@@ -2158,15 +2202,17 @@ define([
             metadata: { type: 'folder' }, type: 'folder', path: '/', isPublic: true
           };
         } else {
-          var val = '/' + val.split('/').slice(2).join('/');
-          obj = WorkspaceManager.getObject(val, true);
+          // Use this.path (decoded) rather than val (still encoded from URL)
+          var decodedPublicPath = '/' + this.path.split('/').slice(2).join('/');
+          obj = WorkspaceManager.getObject(decodedPublicPath, true);
         }
       } else if (!parts[1]) {
         obj = {
           metadata: { type: 'folder' }, type: 'folder', path: '/' + window.App.user.id, isWorkspace: true
         };
       } else {
-        obj = WorkspaceManager.getObject(val, true);
+        // Use this.path (decoded) rather than val (still encoded from URL)
+        obj = WorkspaceManager.getObject(this.path, true);
       }
 
       // console.log('in WorkspaceBrowser this.path', this.path);

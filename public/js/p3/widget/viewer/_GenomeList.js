@@ -316,8 +316,8 @@ define([
       this.viewer.addChild(this.specialtyGenes);
       // this.viewer.addChild(this.proteinFeatures);
       // this.viewer.addChild(this.epitope);
-      this.viewer.addChild(this.pathways);
-      this.viewer.addChild(this.subsystems);
+      // this.viewer.addChild(this.pathways);
+      // this.viewer.addChild(this.subsystems);
       // this.viewer.addChild(this.experiments);
       // this.viewer.addChild(this.interactions);
       this.viewer.addChild(this.surveillance);
@@ -325,8 +325,20 @@ define([
       this.viewer.addChild(this.sfvt);
     },
     onSetTotalGenomes: function (attr, oldVal, newVal) {
+      var _self = this;
       const genomeCount = newVal
-      this.totalCountNode.innerHTML = ` ( ${genomeCount} Genomes ) `;
+      this.totalCountNode.textContent = ` ( ${genomeCount} Genomes ) `;
+
+      // Force layout recalculation to prevent overlap with tabs
+      // Use setTimeout to ensure DOM updates are complete before resize
+      setTimeout(function () {
+        if (_self.viewHeader && _self.viewHeader.resize) {
+          _self.viewHeader.resize();
+        }
+        if (_self.resize) {
+          _self.resize();
+        }
+      }, 0);
 
       if (genomeCount > 500) {
         // this.getReferenceAndRepresentativeGenomes(genomeCount);
