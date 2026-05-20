@@ -93,8 +93,9 @@ MAGE origins are configured in `public/microbetrace/assets/embed/partner-allowli
       "origins": [
         "http://localhost:3000",
         "https://localhost:3000",
-        "https://www.maage.org",
-        "https://maage.org"
+        "https://www.maage-brc.org",
+        "https://maage-brc.org",
+        "https://dev.maage-brc.org"
       ]
     }
   }
