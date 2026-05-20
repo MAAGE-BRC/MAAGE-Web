@@ -114,6 +114,9 @@ NTUSER.INI
 /src/
 public/js/release/
 
+# MicrobeTrace (built from submodule)
+public/microbetrace/
+
 # testing & coverage
 coverage/
 jest.config.js
@@ -156,7 +159,6 @@ node_repl_history
 *.swp
 .project
 .warp
-CLAUDE.md
 CLAUDE.local.md
 .augment-guidelines
 .qodo

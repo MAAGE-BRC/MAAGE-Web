@@ -20,7 +20,8 @@ define([
     viewableTypes: ['txt', 'html', 'json', 'csv', 'tsv', 'diffexp_experiment',
       'diffexp_expression', 'diffexp_mapping', 'diffexp_sample', 'pdf',
       'diffexp_input_data', 'diffexp_input_metadata', 'svg', 'gif', 'png', 'jpg',
-      'aligned_dna_fasta', 'aligned_protein_fasta', 'feature_dna_fasta', 'feature_protein_fasta', 'pdb'],
+      'aligned_dna_fasta', 'aligned_protein_fasta', 'feature_dna_fasta', 'feature_protein_fasta', 'pdb',
+      'microbetrace_session'],
 
     knownUploadTypes: {
       unspecified: {
@@ -192,6 +193,11 @@ define([
         label: 'XML',
         formats: ['.xml'],
         description: 'An xml file.'
+      },
+      microbetrace_session: {
+        label: 'MicrobeTrace Session',
+        formats: ['.microbetrace'],
+        description: 'A MicrobeTrace molecular epidemiology session file.'
       }
     },
 
@@ -234,7 +240,8 @@ define([
       wig: { label: 'wig', value: 'wig' },
       xls: { label: 'xls', value: 'xls' },
       xlsx: { label: 'xlsx', value: 'xlsx' },
-      xml: { label: 'xml', value: 'xml' }
+      xml: { label: 'xml', value: 'xml' },
+      microbetrace_session: { label: 'microbetrace_session', value: 'microbetrace_session' }
     },
 
     getDefaultFolder: function (type) {
@@ -682,7 +689,8 @@ define([
       if (!path) {
         throw new Error('Invalid Path(s) to retrieve');
       }
-      path = decodeURIComponent(path);
+      // Note: paths should already be decoded by callers (e.g., WorkspaceBrowser._setPathAttr)
+      // Do not decode here as it would corrupt paths containing literal % characters
       return Deferred.when(this.api('Workspace.get', [{
         objects: [path],
         metadata_only: metadataOnly
@@ -994,9 +1002,8 @@ define([
       if (!(paths instanceof Array)) {
         paths = [paths];
       }
-      paths = paths.map(function (p) {
-        return decodeURIComponent(p);
-      });
+      // Note: paths should already be decoded by callers
+      // Do not decode here as it would corrupt paths containing literal % characters
       return Deferred.when(this.api('Workspace.get', [{
         objects: paths,
         metadata_only: metadataOnly
@@ -1064,7 +1071,8 @@ define([
     },
 
     getFolderContents: function (path, showHidden, recursive, filterPublic) {
-      path = decodeURIComponent(path);
+      // Note: paths should already be decoded by callers (e.g., WorkspaceBrowser._setPathAttr)
+      // Do not decode here as it would corrupt paths containing literal % characters
 
       var _self = this;
       return Deferred.when(

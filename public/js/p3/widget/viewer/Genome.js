@@ -244,8 +244,9 @@ define([
       }
 
       var parts = state.pathname.split('/');
-      this.set('genome_id', parts[parts.length - 1]);
-      state.genome_id = parts[parts.length - 1];
+      var genome_id = decodeURIComponent(parts[parts.length - 1]);
+      this.set('genome_id', genome_id);
+      state.genome_id = genome_id;
       state.genome_ids = [state.genome_id];
 
 
@@ -400,11 +401,11 @@ define([
       // this.viewer.addChild(this.phylogeny);
       this.viewer.addChild(this.browser);
       // this.viewer.addChild(this.circular);
-      // this.viewer.addChild(this.sequences);
+      this.viewer.addChild(this.sequences);
       this.viewer.addChild(this.features);
       // this.viewer.addChild(this.proteins);
       // this.viewer.addChild(this.structures);
-      // this.viewer.addChild(this.specialtyGenes);
+      this.viewer.addChild(this.specialtyGenes);
       // this.viewer.addChild(this.proteinFeatures);
       // this.viewer.addChild(this.proteinFamilies);
       // this.viewer.addChild(this.pathways);

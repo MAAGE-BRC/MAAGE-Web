@@ -109,8 +109,9 @@ define([
 
     onSetState: function (attr, oldState, state) {
       var parts = this.state.pathname.split('/');
-      this.set('feature_id', parts[parts.length - 1]);
-      state.feature_id = parts[parts.length - 1];
+      var feature_id = decodeURIComponent(parts[parts.length - 1]);
+      this.set('feature_id', feature_id);
+      state.feature_id = feature_id;
 
       if (state && state.feature_id && !state.feature) {
         if (oldState && oldState.feature_id) {
@@ -169,6 +170,7 @@ define([
           this.changeToVirusContext();
         }
 	*/
+        this.resize();
       }));
 
       var content = [];
@@ -185,7 +187,7 @@ define([
         content.push(feature.product);
       }
 
-      this.totalCountNode.innerHTML = '<br/>' + content.map(function (d) {
+      this.totalCountNode.innerHTML = content.map(function (d) {
         return '<span><b>' + d + '</b></span>';
       }).join(' <span class="pipe">|</span> ');
     },

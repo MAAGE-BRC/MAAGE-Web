@@ -864,6 +864,8 @@ span.PerspectiveQuery > a.navigationLink:nth-child(7) {
 
 div.PerspectiveHeader > span.PerspectiveTotalCount {
   color: var(--maage-secondary-500);
+  /* Prevent layout shift by ensuring a minimum width for the loading text */
+  white-space: nowrap;
 }
 
 div#dijit_layout_TabContainer_0_tablist > div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
@@ -1375,6 +1377,25 @@ span#dijit_form_DropDownButton_6_label {
   font-weight: 600;
 }
 
+#p3header-search .GlobalSearch,
+#p3header-search .GlobalSearch .dijitSelect,
+#p3header-search .GlobalSearch .dijitTextBox,
+#p3header-search .GlobalSearch .dijitInputField,
+#p3header-search .GlobalSearch .dijitPlaceHolder,
+#p3header-search .GlobalSearch input,
+#p3header-search .GlobalSearch select,
+#p3header-search .GlobalSearch .dijitSelectLabel,
+#mobile-searchbar .GlobalSearch,
+#mobile-searchbar .GlobalSearch .dijitSelect,
+#mobile-searchbar .GlobalSearch .dijitTextBox,
+#mobile-searchbar .GlobalSearch .dijitInputField,
+#mobile-searchbar .GlobalSearch .dijitPlaceHolder,
+#mobile-searchbar .GlobalSearch input,
+#mobile-searchbar .GlobalSearch select,
+#mobile-searchbar .GlobalSearch .dijitSelectLabel {
+  font-family: 'Poppins', sans-serif !important;
+}
+
 .gs-input input {
   border: none !important;
   outline: none !important;
@@ -1675,13 +1696,40 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
   color: var(--maage-secondary-800);
 }
 
+.PerspectiveHeader {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.4em;
+  row-gap: 0;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+}
+
+.PerspectiveHeader > * {
+  grid-column: 2;
+}
+
+.PerspectiveHeader .PerspectiveQueryRow {
+  grid-column: 2;
+  line-height: 1.4;
+}
+
 .PerspectiveHeader i.fa.PerspectiveIcon {
   color: var(--maage-primary-500) !important;
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  float: none !important;
+  margin: 0 !important;
 }
 
 .patric .PerspectiveHeader div.PerspectiveType {
   font-size: 17px !important;
   font-weight: 500 !important;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
 }
 
 .PerspectiveHeader span.queryModel {
@@ -1705,8 +1753,13 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
   font-family: 'Inter', sans-serif !important;
 }
 
+.PerspectiveHeader span.PerspectiveQuery {
+  /* inline within QueryRow */
+}
+
 .PerspectiveHeader .PerspectiveTotalCount {
   color: var(--maage-secondary-700) !important;
+  white-space: nowrap;
 }
 
 div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
@@ -2301,20 +2354,20 @@ div#maage-homepage {
 
 .footer-wrapper .footer {
   background-color: rgb(60, 103, 126);
-  padding-top: 43.2px;
-  min-height: 300px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  min-height: auto;
   border: 0;
   margin: 0;
 }
 
 .footer-wrapper .footer-container {
-  max-width: 1280px;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 14.4px;
-  padding-right: 14.4px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   width: 100%;
-  margin: 0 43px;
   border: 0;
 }
 
