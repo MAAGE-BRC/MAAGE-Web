@@ -6,7 +6,7 @@ define([
 
   return new Memory({
     data: [
-      { name: '----- Bacterial Pathogens -----', id: '' },
+      { name: '----- Priority Bacterial Pathogens -----', id: '' },
       { name: 'Acinetobacter baumannii', id: 470 },
       { name: 'Bordetella pertussis', id: 520 },
       { name: 'Campylobacter jejuni', id: 197 },
@@ -29,7 +29,7 @@ define([
       { name: 'Streptococcus pyogenes', id: 1314 },
       { name: 'Vibrio spp.', id: 662 },
 
-      { name: '----- Viruses -----', id: '' },
+      { name: '----- Priority Viral Pathogens -----', id: '' },
       { name: 'Hepatitis A virus', id: 12092 },
       { name: 'Hepatitis B virus', id: 10407 },
       { name: 'Hepatitis C virus', id: 11103 },
