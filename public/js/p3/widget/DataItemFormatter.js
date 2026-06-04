@@ -3066,12 +3066,12 @@ define([
       return div;
     },
     genome_meta_table_names: function () {
-      return ['Pathogen Identity', 'Outbreak & Collection Context', 'Host & Environment Information', 'Genomic Clustering & Typing', 'Genome Quality', 'Sequence & Assembly Info', 'Database References', 'Additional Info'];
+      return ['Organism Identity', 'Outbreak & Collection Context', 'Host & Environment Information', 'Genomic Clustering & Typing', 'Genome Quality', 'Sequence & Assembly Info', 'Database References', 'Additional Info'];
     },
 
     genome_meta_spec: function () {
       var spec = {
-        'Pathogen Identity': [{
+        'Organism Identity': [{
           name: 'Genome ID',
           text: 'genome_id',
           link: '/view/Genome/',
