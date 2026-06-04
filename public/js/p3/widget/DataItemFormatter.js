@@ -8,19 +8,31 @@ define([
   query, PathJoin, request, when
 ) {
 
-  function renderNoInfoFound(sectionName, parent) {
-    domConstruct.create('tr', {
-      innerHTML: '<td></td><td class="DataItemSectionNotFound">None available</td>'
-    }, parent);
+  function renderNoInfoFound() {
+    var tr = domConstruct.create('tr', {});
+    domConstruct.create('td', {}, tr);
+    domConstruct.create('td', {
+      'class': 'DataItemSectionNotFound',
+      textContent: 'None available'
+    }, tr);
+    return tr;
   }
 
   function renderSectionHeader(title) {
     var tr = domConstruct.create('tr', {});
-    domConstruct.create('td', {
-      innerHTML: title,
+    var td = domConstruct.create('td', {
       'class': 'DataItemSectionHead',
-      colspan: 2
+      colspan: 2,
+      style: 'cursor:pointer;'
     }, tr);
+    domConstruct.create('strong', { textContent: title }, td);
+    var toggle = domConstruct.create('span', {
+      'class': 'DataItemSectionToggle',
+      textContent: '-',
+      style: 'float:right;font-weight:700;font-size:18px;line-height:1;color:#1f2937;padding-left:12px;margin-right:8px;'
+    }, td);
+    tr._sectionHeaderCell = td;
+    tr._sectionToggleNode = toggle;
 
     return tr;
   }
@@ -153,8 +165,10 @@ define([
     var tbody = domConstruct.create('tbody', {}, table);
 
     sections.forEach(function (section) {
+      var sectionRows = [];
+      var header;
       if (!mini) {
-        var header = renderSectionHeader(section);
+        header = renderSectionHeader(section);
         domConstruct.place(header, tbody);
       }
 
@@ -163,13 +177,39 @@ define([
         var row = renderProperty(column, item, options);
         if (row) {
           domConstruct.place(row, tbody);
+          sectionRows.push(row);
           rowCount++;
         }
       });
 
       // if no data found, say so
-      if (!rowCount && !mini)
-      { renderNoInfoFound(section, tbody); }
+      if (!rowCount && !mini) {
+        var noInfoRow = renderNoInfoFound();
+        domConstruct.place(noInfoRow, tbody);
+        sectionRows.push(noInfoRow);
+      }
+
+      if (!mini) {
+        on(header, 'click', function () {
+          var collapsed = !domClass.contains(header, 'sectionCollapsed');
+
+          sectionRows.forEach(function (row) {
+            if (collapsed) {
+              domClass.add(row, 'hidden');
+            } else {
+              domClass.remove(row, 'hidden');
+            }
+          });
+
+          if (collapsed) {
+            domClass.add(header, 'sectionCollapsed');
+            header._sectionToggleNode.textContent = '+';
+          } else {
+            domClass.remove(header, 'sectionCollapsed');
+            header._sectionToggleNode.textContent = '-';
+          }
+        });
+      }
     });
   }
 
@@ -3021,31 +3061,17 @@ define([
       var div = domConstruct.create('div');
       displayHeader(div, item.genome_name, 'fa icon-genome fa-2x', '/view/Genome/' + item.genome_id, options);
 
-      var chromosomes = item.chromosomes || 0;
-      var plasmids = item.plasmids || 0;
-      var contigs = item.contigs || 0;
-      var summary = 'Length: ' + item.genome_length + 'bp, ' +
-        (chromosomes ? 'Chromosomes: ' + chromosomes + ', ' : '') +
-        (plasmids ? 'Plasmids: ' + plasmids + ', ' : '') +
-        (contigs ? 'Contigs: ' + contigs : '');
-
-      domConstruct.create('div', {
-        innerHTML: summary,
-        'class': 'DataItemSummary',
-        nowrap: 'nowrap'
-      }, div);
-
       displayDetailBySections(item, metadataGenomeSummaryID, metadataGenomeSummaryValue, div, options);
 
       return div;
     },
     genome_meta_table_names: function () {
-      return ['General Info', 'Taxonomy Info', 'Status', 'Type Info', 'Database Cross Reference', 'Sequence Info', 'Genome Statistics', 'Annotation Statistics', 'Genome Quality', 'Isolate Info', 'Host Info', 'Phenotype Info', 'Additional Info'];
+      return ['Pathogen Identity', 'Outbreak & Collection Context', 'Host & Environment Information', 'Genomic Clustering & Typing', 'Genome Quality', 'Sequence & Assembly Info', 'Database References', 'Additional Info'];
     },
 
     genome_meta_spec: function () {
       var spec = {
-        'General Info': [{
+        'Pathogen Identity': [{
           name: 'Genome ID',
           text: 'genome_id',
           link: '/view/Genome/',
@@ -3059,45 +3085,10 @@ define([
           text: 'other_names',
           mini: true,
           editable: true
-        }
-        ],
-
-        'Taxonomy Info': [{
-          name: 'Taxon ID',
-          text: 'taxon_id',
-          link: 'http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id='
         }, {
-          name: 'Superkingdom',
-          text: 'superkingdom',
+          name: 'Genome Quality',
+          text: 'genome_quality',
         }, {
-          name: 'Kingdom',
-          text: 'kingdom',
-        }, {
-          name: 'Phylum',
-          text: 'phylum',
-        }, {
-          name: 'Class',
-          text: 'class',
-        }, {
-          name: 'Order',
-          text: 'order',
-        }, {
-          name: 'Family',
-          text: 'family',
-        }, {
-          name: 'Genus',
-          text: 'genus',
-        }, {
-          name: 'Species',
-          text: 'species',
-        }],
-
-        'Status': [{
-          name: 'Genome Status',
-          text: 'genome_status',
-        }],
-
-        'Type Info': [{
           name: 'Strain',
           text: 'strain',
           editable: true
@@ -3114,120 +3105,12 @@ define([
           text: 'pathovar',
           editable: true
         }, {
-          name: 'MLST',
-          text: 'mlst',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(mlst,' + obj.mlst + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.mlst +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: true
-        }, {
-          name: 'cgMLST_id',
-          text: 'cgmlst_id',
-          editable: false
-        }, {
-          name: 'cgMLST HC0',
-          text: 'cgmlst_hc0',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(cgmlst_hc0,' + obj.cgmlst_hc0 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.cgmlst_hc0 +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: false
-        }, {
-          name: 'cgMLST HC2',
-          text: 'cgmlst_hc2',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(cgmlst_hc2,' + obj.cgmlst_hc2 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.cgmlst_hc2 +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: false
-        }, {
-          name: 'cgMLST HC5',
-          text: 'cgmlst_hc5',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(cgmlst_hc5,' + obj.cgmlst_hc5 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.cgmlst_hc5 +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: false
-        }, {
-          name: 'cgMLST HC10',
-          text: 'cgmlst_hc10',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(cgmlst_hc10,' + obj.cgmlst_hc10 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.cgmlst_hc10 +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: false
-        }, {
-          name: 'cgMLST HC20',
-          text: 'cgmlst_hc20',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(cgmlst_hc20,' + obj.cgmlst_hc20 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.cgmlst_hc20 +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: false
-        }, {
-          name: 'cgMLST HC50',
-          text: 'cgmlst_hc50',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(cgmlst_hc50,' + obj.cgmlst_hc50 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.cgmlst_hc50 +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: false
-        }, {
-          name: 'cgMLST HC100',
-          text: 'cgmlst_hc100',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="/view/GenomeList/?and(eq(cgmlst_hc100,' + obj.cgmlst_hc100 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
-                obj.cgmlst_hc100 +
-              '</a>',
-              { obj: obj }
-            );
-          },
-          editable: false
-        }, {
           name: 'Segment',
           text: 'segment',
           editable: true
         }, {
           name: 'Subtype',
           text: 'subtype',
-          editable: true
-        }, {
-          name: 'H Type',
-          text: 'h_type',
-          editable: true
-        }, {
-          name: 'N Type',
-          text: 'n_type',
           editable: true
         }, {
           name: 'H1 Clade Global',
@@ -3262,38 +3145,6 @@ define([
           text: 'subclade',
           editable: true
         }, {
-          name: 'Other Typing',
-          text: 'other_typing',
-          editable: true
-        }, {
-          name: 'Culture Collection',
-          text: 'culture_collection',
-          editable: true,
-          link: function (obj) {
-            var ids = obj.culture_collection.split(',');
-
-            // culture collection may be a csv list
-            var parts = ids.map(function (id) {
-              var name = id.trim();
-
-              // match "ATCC xxxxx" or "ATCC:xxxxx"
-              var regex = /ATCC[\s:]([\w-]*)/g;
-              var matches = regex.exec(id);
-              if (!matches || !matches.length) return id;
-
-              // get actual id number
-              var id = matches[1];
-
-              return lang.replace(
-                '<a href="https://www.atcc.org/Products/All/{id}.aspx" target="_blank">{name}</a>', {
-                  id: id,
-                  name: name
-                });
-            });
-
-            return parts.join(', ');
-          }
-        }, {
           name: 'Type Strain',
           text: 'type_strain',
           editable: true
@@ -3303,188 +3154,7 @@ define([
           editable: true
         }],
 
-        'Database Cross Reference': [{
-          name: 'Completion Date',
-          text: 'completion_date',
-          editable: true,
-          type: 'date'
-        }, {
-          name: 'Publication',
-          text: 'publication',
-          link: 'http://www.ncbi.nlm.nih.gov/pubmed/',
-          editable: true
-        }, {
-          name: 'Authors',
-          text: 'authors',
-          editable: true
-        }, {
-          name: 'BioProject Accession',
-          text: 'bioproject_accession',
-          link: 'http://www.ncbi.nlm.nih.gov/bioproject/?term=',
-          mini: true,
-          editable: true
-        }, {
-          name: 'BioSample Accession',
-          text: 'biosample_accession',
-          link: 'http://www.ncbi.nlm.nih.gov/biosample/',
-          mini: true,
-          editable: true
-        }, {
-          name: 'Assembly Accession',
-          text: 'assembly_accession',
-          link: 'http://www.ncbi.nlm.nih.gov/assembly/',
-          editable: true
-        }, {
-          name: 'SRA Accession',
-          text: 'sra_accession',
-          link: function (obj) {
-            return lang.replace(
-              '<a href="http://www.ncbi.nlm.nih.gov/sra/?term={1}" target="_blank">{0}</a>',
-              [obj.sra_accession, obj.sra_accession.split(',').join('+OR+')]
-            );
-          },
-          editable: true
-        }, {
-          name: 'Genbank Accessions',
-          text: 'genbank_accessions',
-          link: 'http://www.ncbi.nlm.nih.gov/nuccore/',
-          editable: true
-        }],
-
-        'Sequence Info': [{
-          name: 'Sequencing Centers',
-          text: 'sequencing_centers',
-          editable: true
-        }, {
-          name: 'Sequencing Status',
-          text: 'sequencing_status',
-          editable: true
-        }, {
-          name: 'Sequencing Platform',
-          text: 'sequencing_platform',
-          editable: true
-        }, {
-          name: 'Sequencing Depth',
-          text: 'sequencing_depth',
-          editable: true
-        }, {
-          name: 'Assembly Method',
-          text: 'assembly_method',
-          editable: true
-        }],
-
-        'Genome Statistics': [{
-          name: 'Chromosomes',
-          text: 'chromosomes',
-        }, {
-          name: 'Plasmids',
-          text: 'plasmids',
-        }, {
-          name: 'Segments',
-          text: 'segments',
-        }, {
-          name: 'Contigs',
-          text: 'contigs',
-          link: function (obj) {
-            return lang.replace('<a href="/view/Genome/{obj.genome_id}#view_tab=sequences">{obj.contigs}</a>', { obj: obj });
-          }
-        }, {
-          name: 'Genome Length',
-          text: 'genome_length',
-        }, {
-          name: 'GC Content',
-          text: 'gc_content',
-        }, {
-          name: 'Contig L50',
-          text: 'contig_l50',
-        }, {
-          name: 'Contig N50',
-          text: 'contig_n50',
-        }],
-
-        'Annotation Statistics': [{
-          name: 'tRNA',
-          text: 'trna',
-        }, {
-          name: 'rRNA',
-          text: 'rrna',
-        }, {
-          name: 'Mat Peptide',
-          text: 'mat_peptide',
-        }, {
-          name: 'CDS',
-          text: 'cds',
-        }, {
-          name: 'CDS Ratio',
-          text: 'cds_ratio',
-        }, {
-          name: 'Hypothetical CDS',
-          text: 'hypothetical_cds',
-        }, {
-          name: 'Hypothetical CDS Ratio',
-          text: 'hypothetical_cds_ratio',
-        }, {
-          name: 'Partial CDS',
-          text: 'partial_cds',
-        }, {
-          name: 'Partial CDS Ratio',
-          text: 'partial_cds_ratio',
-        }, {
-          name: 'PLFAM CDS',
-          text: 'plfam_cds',
-        }, {
-          name: 'PLFAM CDS Ratio',
-          text: 'plfam_cds_ratio',
-        }, {
-          name: 'Core Families',
-          text: 'core_families',
-        }, {
-          name: 'Core Family Ratio',
-          text: 'core_family_ratio',
-        }, {
-          name: 'Missing Core Family IDs',
-          text: 'missing_core_family_ids',
-        }],
-
-        'Genome Quality': [{
-          name: 'Coarse Consistency',
-          text: 'coarse_consistency',
-        }, {
-          name: 'Fine Consistency',
-          text: 'fine_consistency',
-        }, {
-          name: 'CheckM Completeness',
-          text: 'checkm_completeness',
-        }, {
-          name: 'CheckM Contamination',
-          text: 'checkm_contamination',
-        }, {
-          name: 'Genome Quality Flags',
-          text: 'genome_quality_flags',
-        }, {
-          name: 'Genome Quality',
-          text: 'genome_quality',
-        }, {
-          name: 'Nearest Genomes',
-          text: 'nearest_genomes',
-          link: 'http://www.ncbi.nlm.nih.gov/genome/?term=',
-          editable: true
-        }, {
-          name: 'Outgroup Genomes',
-          text: 'outgroup_genomes',
-          link: 'http://www.ncbi.nlm.nih.gov/genome/?term=',
-          editable: true
-        }],
-
-        'Isolate Info': [{
-          name: 'Isolation Source',
-          text: 'isolation_source',
-          editable: true
-        }, {
-          name: 'Isolation Comments',
-          text: 'isolation_comments',
-          editable: true
-        }, {
+        'Outbreak & Collection Context': [{
           name: 'Collection Date',
           text: 'collection_date',
           editable: true
@@ -3521,18 +3191,30 @@ define([
           text: 'geographic_location',
           editable: true
         }, {
+          name: 'Isolation Comments',
+          text: 'isolation_comments',
+          editable: true
+        }, {
           name: 'Other Environmental',
           text: 'other_environmental',
           editable: true
         }],
 
-        'Host Info': [{
+        'Host & Environment Information': [{
+          name: 'Disease',
+          text: 'disease',
+          editable: true
+        }, {
           name: 'Host Name',
           text: 'host_name',
           editable: true
         }, {
           name: 'Host Common Name',
           text: 'host_common_name',
+          editable: true
+        }, {
+          name: 'Host Group',
+          text: 'host_group',
           editable: true
         }, {
           name: 'Host Gender',
@@ -3547,8 +3229,12 @@ define([
           text: 'host_health',
           editable: true
         }, {
-          name: 'Host Group',
-          text: 'host_group',
+          name: 'Isolation Source',
+          text: 'isolation_source',
+          editable: true
+        }, {
+          name: 'Other Clinical',
+          text: 'other_clinical',
           editable: true
         }, {
           name: 'Lab Host',
@@ -3558,55 +3244,149 @@ define([
           name: 'Passage',
           text: 'passage',
           editable: true
+        }],
+
+        'Genomic Clustering & Typing': [{
+          name: 'MLST',
+          text: 'mlst',
+          link: function (obj) {
+            return lang.replace(
+              '<a href="/view/GenomeList/?and(eq(mlst,' + obj.mlst + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+                obj.mlst +
+              '</a>',
+              { obj: obj }
+            );
+          },
+          editable: true
         }, {
-          name: 'Other Clinical',
-          text: 'other_clinical',
+          name: 'cgMLST Cluster (HC10)',
+          text: 'cgmlst_hc10',
+          link: function (obj) {
+            return lang.replace(
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc10,' + obj.cgmlst_hc10 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+                obj.cgmlst_hc10 +
+              '</a>',
+              { obj: obj }
+            );
+          },
+          editable: false
+        }],
+
+        'Genome Quality': [{
+          name: 'Genome Length',
+          text: 'genome_length',
+        }, {
+          name: 'Contigs',
+          text: 'contigs',
+          link: function (obj) {
+            return lang.replace('<a href="/view/Genome/{obj.genome_id}#view_tab=sequences">{obj.contigs}</a>', { obj: obj });
+          }
+        }, {
+          name: 'Coarse Consistency',
+          text: 'coarse_consistency',
+        }, {
+          name: 'Fine Consistency',
+          text: 'fine_consistency',
+        }, {
+          name: 'CheckM Completeness',
+          text: 'checkm_completeness',
+        }, {
+          name: 'CheckM Contamination',
+          text: 'checkm_contamination',
+        }, {
+          name: 'Genome Quality Flags',
+          text: 'genome_quality_flags',
+        }, {
+          name: 'Genome Quality',
+          text: 'genome_quality',
+        }, {
+          name: 'Nearest Genomes',
+          text: 'nearest_genomes',
+          link: 'http://www.ncbi.nlm.nih.gov/genome/?term=',
+          editable: true
+        }, {
+          name: 'Outgroup Genomes',
+          text: 'outgroup_genomes',
+          link: 'http://www.ncbi.nlm.nih.gov/genome/?term=',
           editable: true
         }],
 
-        'Phenotype Info': [{
-          name: 'Phenotype',
-          text: 'phenotype',
+        'Sequence & Assembly Info': [{
+          name: 'Chromosomes',
+          text: 'chromosomes',
+        }, {
+          name: 'Plasmids',
+          text: 'plasmids',
+        }, {
+          name: 'Segments',
+          text: 'segments',
+        }, {
+          name: 'Sequencing Platform',
+          text: 'sequencing_platform',
           editable: true
         }, {
-          name: 'Gram Stain',
-          text: 'gram_stain',
+          name: 'Sequencing Depth',
+          text: 'sequencing_depth',
           editable: true
         }, {
-          name: 'Cell Shape',
-          text: 'cell_shape',
+          name: 'Assembly Method',
+          text: 'assembly_method',
           editable: true
         }, {
-          name: 'Motility',
-          text: 'motility',
+          name: 'Sequencing Centers',
+          text: 'sequencing_centers',
           editable: true
         }, {
-          name: 'Sporulation',
-          text: 'sporulation',
+          name: 'Sequencing Status',
+          text: 'sequencing_status',
+          editable: true
+        }],
+
+        'Database References': [{
+          name: 'BioProject Accession',
+          text: 'bioproject_accession',
+          link: 'http://www.ncbi.nlm.nih.gov/bioproject/?term=',
+          mini: true,
           editable: true
         }, {
-          name: 'Temperature Range',
-          text: 'temperature_range',
+          name: 'BioSample Accession',
+          text: 'biosample_accession',
+          link: 'http://www.ncbi.nlm.nih.gov/biosample/',
+          mini: true,
           editable: true
         }, {
-          name: 'Optimal Temperature',
-          text: 'optimal_temperature',
+          name: 'Assembly Accession',
+          text: 'assembly_accession',
+          link: 'http://www.ncbi.nlm.nih.gov/assembly/',
           editable: true
         }, {
-          name: 'Salinity',
-          text: 'salinity',
+          name: 'SRA Accession',
+          text: 'sra_accession',
+          link: function (obj) {
+            return lang.replace(
+              '<a href="http://www.ncbi.nlm.nih.gov/sra/?term={1}" target="_blank">{0}</a>',
+              [obj.sra_accession, obj.sra_accession.split(',').join('+OR+')]
+            );
+          },
           editable: true
         }, {
-          name: 'Oxygen Requirement',
-          text: 'oxygen_requirement',
+          name: 'Genbank Accessions',
+          text: 'genbank_accessions',
+          link: 'http://www.ncbi.nlm.nih.gov/nuccore/',
           editable: true
         }, {
-          name: 'Habitat',
-          text: 'habitat',
+          name: 'Completion Date',
+          text: 'completion_date',
+          editable: true,
+          type: 'date'
+        }, {
+          name: 'Publication',
+          text: 'publication',
+          link: 'http://www.ncbi.nlm.nih.gov/pubmed/',
           editable: true
         }, {
-          name: 'Disease',
-          text: 'disease',
+          name: 'Authors',
+          text: 'authors',
           editable: true
         }],
 
