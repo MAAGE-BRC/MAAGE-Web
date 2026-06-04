@@ -5,7 +5,7 @@ define([
   '../util/PathJoin', './SelectionToGroup', './GenomeFeatureSummary', './DataItemFormatter',
   './ExternalItemFormatter', './DownloadTooltipDialog', 'dijit/form/TextBox', 'dijit/form/Form', './Confirmation',
   './InputList', 'dijit/form/SimpleTextarea', 'dijit/form/DateTextBox', './MetaEditor',
-  '../DataAPI', './PermissionEditor', './ServicesTooltipDialog', 'dijit/popup'
+  '../DataAPI', './PermissionEditor', './ServicesTooltipDialog', 'dijit/popup', '../WorkspaceManager', 'dojo/_base/Deferred', './RerunUtility'
 ], function (
   declare, lang, on, xhr, Topic,
   domClass, domQuery, domStyle, Template, domConstruct,
@@ -13,7 +13,7 @@ define([
   PathJoin, SelectionToGroup, GenomeFeatureSummary, DataItemFormatter,
   ExternalItemFormatter, DownloadTooltipDialog, TextBox, Form, Confirmation,
   InputList, TextArea, DateTextBox, MetaEditor,
-  DataAPI, PermissionEditor, ServicesTooltipDialog, popup
+  DataAPI, PermissionEditor, ServicesTooltipDialog, popup, WorkspaceManager, Deferred, RerunUtility
 ) {
 
   return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
@@ -48,6 +48,7 @@ define([
       } else {
         domConstruct.empty(this.genomeSummaryNode);
         domConstruct.empty(this.pubmedSummaryNode);
+        this.resetOutbreakAssessment();
         domConstruct.place(domConstruct.toDom('<br><h4>Genome not found</h4>'), this.genomeSummaryNode, 'first');
         domConstruct.place(domConstruct.toDom('Not available'), this.pubmedSummaryNode, 'first');
       }
@@ -64,7 +65,9 @@ define([
         return;
       }
       this.genome = genome;
+      this._clusterGenomeIds = null;
 
+      this.createOutbreakAssessment(genome);
       this.createSummary(genome);
       this.createPubMed(genome);
       this.createExternalLinks(genome);
@@ -91,6 +94,367 @@ define([
       } else {
         domStyle.set(domQuery('div.ActionButtonWrapper.btnShareGenome')[0], 'display', 'none');
       }
+    },
+
+    toRqlValue: function (val) {
+      if (val === undefined || val === null || val === '') {
+        return '';
+      }
+      var str = String(val);
+      if (/^-?\d+(\.\d+)?$/.test(str)) {
+        return str;
+      }
+      return encodeURIComponent('"' + str.replace(/"/g, '\\"') + '"');
+    },
+
+    buildOutbreakFilter: function (genome) {
+      var hc10 = this.toRqlValue(genome.cgmlst_hc10);
+      var species = this.toRqlValue(genome.species);
+
+      if (!hc10 || !species) {
+        return null;
+      }
+
+      return 'and(eq(cgmlst_hc10,' + hc10 + '),eq(species,' + species + '))';
+    },
+
+    normalizeDateLabel: function (val) {
+      if (!val) {
+        return null;
+      }
+      var text = String(val);
+      if (text.length >= 10 && text.indexOf('-') > -1) {
+        return text.substring(0, 10);
+      }
+      return text;
+    },
+
+    formatDateRange: function (startDate, endDate) {
+      var start = this.normalizeDateLabel(startDate);
+      var end = this.normalizeDateLabel(endDate);
+
+      if (!start && !end) {
+        return 'Not available';
+      }
+      if (!start) {
+        return end;
+      }
+      if (!end) {
+        return start;
+      }
+      if (start === end) {
+        return start;
+      }
+      return start + ' to ' + end;
+    },
+
+    setAssessmentText: function (node, label, value) {
+      if (!node) {
+        return;
+      }
+
+      domConstruct.empty(node);
+      domConstruct.create('span', {
+        className: 'assessmentAttributeName',
+        textContent: label + ': '
+      }, node);
+
+      domConstruct.create('span', {
+        className: 'assessmentAttributeValue',
+        textContent: value || 'Not available'
+      }, node);
+    },
+
+    resetOutbreakAssessment: function () {
+      this.setAssessmentText(this.outbreakCgmlstNode, 'cgMLST Cluster (HC10)', 'Not available');
+      this.setAssessmentText(this.outbreakClusterSizeNode, 'Cluster Size', 'Not available');
+      this.setAssessmentText(this.outbreakCountriesNode, 'Countries', 'Not available');
+      this.setAssessmentText(this.outbreakStatesNode, 'US States', 'Not available');
+      this.setAssessmentText(this.outbreakDateRangeNode, 'Date Range', 'Not available');
+
+      if (this.outbreakViewClusterLink) {
+        this.outbreakViewClusterLink.removeAttribute('href');
+        this.outbreakViewClusterLink.className = 'assessmentAction disabled';
+      }
+    },
+
+    createOutbreakAssessment: function (genome) {
+      this.resetOutbreakAssessment();
+      this._clusterGenomeIds = genome && genome.genome_id ? [genome.genome_id] : [];
+
+      if (!genome) {
+        return;
+      }
+
+      this.setAssessmentText(this.outbreakCgmlstNode, 'cgMLST Cluster (HC10)', genome.cgmlst_hc10 || 'Not available');
+
+      var fallbackCountry = genome.isolation_country || 'Not available';
+      this.setAssessmentText(this.outbreakCountriesNode, 'Countries', fallbackCountry);
+
+      var fallbackState = genome.state_province || genome.isolation_country || 'Not available';
+      this.setAssessmentText(this.outbreakStatesNode, 'US States', fallbackState);
+
+      var fallbackDate = this.normalizeDateLabel(genome.collection_date) || genome.collection_year || 'Not available';
+      this.setAssessmentText(this.outbreakDateRangeNode, 'Date Range', this.formatDateRange(fallbackDate, fallbackDate));
+
+      var outbreakFilter = this.buildOutbreakFilter(genome);
+
+      if (outbreakFilter && this.outbreakViewClusterLink) {
+        this.outbreakViewClusterLink.href = '/view/GenomeList/?' + outbreakFilter + '#view_tab=genomes';
+        this.outbreakViewClusterLink.className = 'assessmentAction';
+      }
+
+      if (!outbreakFilter) {
+        return;
+      }
+
+      var query = '/?' + outbreakFilter + '&select(genome_id,state_province,isolation_country,collection_date,collection_year)&limit(25000)';
+
+      xhr.get(PathJoin(this.apiServiceUrl, 'genome') + query, {
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        handleAs: 'json'
+      }).then(lang.hitch(this, function (genomes) {
+        if (!genomes || !genomes.length) {
+          return;
+        }
+
+        this._clusterGenomeIds = genomes.map(function (g) {
+          return g.genome_id;
+        }).filter(function (id) {
+          return !!id;
+        });
+
+        this.setAssessmentText(this.outbreakClusterSizeNode, 'Cluster Size', genomes.length + ' isolates');
+
+        var stateSet = {};
+        var countrySet = {};
+        var dates = [];
+
+        genomes.forEach(function (g) {
+          var state = g.state_province || g.isolation_country;
+          if (state) {
+            stateSet[state] = true;
+          }
+
+          var country = g.isolation_country;
+          if (country) {
+            countrySet[country] = true;
+          }
+
+          var sampleDate = g.collection_date || g.collection_year;
+          if (sampleDate) {
+            dates.push(String(sampleDate));
+          }
+        });
+
+        var countries = Object.keys(countrySet).sort();
+        if (countries.length) {
+          this.setAssessmentText(this.outbreakCountriesNode, 'Countries', countries.slice(0, 5).join(', ') + (countries.length > 5 ? ', ...' : ''));
+        }
+
+        var states = Object.keys(stateSet).sort();
+        if (states.length) {
+          this.setAssessmentText(this.outbreakStatesNode, 'US States', states.slice(0, 5).join(', ') + (states.length > 5 ? ', ...' : ''));
+        }
+
+        if (dates.length) {
+          dates.sort();
+          this.setAssessmentText(this.outbreakDateRangeNode, 'Date Range', this.formatDateRange(dates[0], dates[dates.length - 1]));
+        }
+      }), function (err) {
+        console.error('Error retrieving outbreak assessment data:', err);
+      });
+    },
+
+    getClusterGenomeIds: function () {
+      var def = new Deferred();
+
+      if (this._clusterGenomeIds && this._clusterGenomeIds.length) {
+        def.resolve(this._clusterGenomeIds.slice());
+        return def;
+      }
+
+      if (!this.genome || !this.genome.genome_id) {
+        def.resolve([]);
+        return def;
+      }
+
+      var outbreakFilter = this.buildOutbreakFilter(this.genome);
+      if (!outbreakFilter) {
+        def.resolve([this.genome.genome_id]);
+        return def;
+      }
+
+      var query = '/?' + outbreakFilter + '&select(genome_id)&limit(25000)';
+      xhr.get(PathJoin(this.apiServiceUrl, 'genome') + query, {
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        handleAs: 'json'
+      }).then(lang.hitch(this, function (genomes) {
+        var ids = [];
+        if (genomes && genomes.length) {
+          ids = genomes.map(function (g) {
+            return g.genome_id;
+          }).filter(function (id) {
+            return !!id;
+          });
+        }
+
+        if (!ids.length && this.genome && this.genome.genome_id) {
+          ids = [this.genome.genome_id];
+        }
+
+        this._clusterGenomeIds = ids.slice();
+        def.resolve(ids);
+      }), lang.hitch(this, function () {
+        def.resolve(this.genome && this.genome.genome_id ? [this.genome.genome_id] : []);
+      }));
+
+      return def;
+    },
+
+    saveTempGenomeGroup: function (genomeIds) {
+      var def = new Deferred();
+
+      if (!genomeIds || !genomeIds.length) {
+        def.resolve(null);
+        return def;
+      }
+
+      var hiddenGroupPath = WorkspaceManager.getDefaultFolder() + '/home/._tmp_groups';
+      var groupName = 'tmp_cluster_group_' + Date.now();
+      var groupPath = hiddenGroupPath + '/' + groupName;
+
+      WorkspaceManager.createFolder(hiddenGroupPath).then(function () {
+        WorkspaceManager.createGroup(groupName, 'genome_group', hiddenGroupPath, 'genome_id', genomeIds).then(function () {
+          def.resolve(groupPath);
+        }, function () {
+          def.resolve(null);
+        });
+      }, function () {
+        WorkspaceManager.createGroup(groupName, 'genome_group', hiddenGroupPath, 'genome_id', genomeIds).then(function () {
+          def.resolve(groupPath);
+        }, function () {
+          def.resolve(null);
+        });
+      });
+
+      return def;
+    },
+
+    onCopyOutbreakSummary: function () {
+      if (!this.genome || !navigator.clipboard) {
+        return;
+      }
+
+      var lines = [
+        this.outbreakCgmlstNode ? this.outbreakCgmlstNode.textContent : '',
+        this.outbreakClusterSizeNode ? this.outbreakClusterSizeNode.textContent : '',
+        this.outbreakCountriesNode ? this.outbreakCountriesNode.textContent : '',
+        this.outbreakStatesNode ? this.outbreakStatesNode.textContent : '',
+        this.outbreakDateRangeNode ? this.outbreakDateRangeNode.textContent : ''
+      ].filter(Boolean);
+
+      navigator.clipboard.writeText(lines.join('\n')).then(function () {
+        Topic.publish('/Notification', {
+          message: 'Outbreak assessment copied.',
+          type: 'message'
+        });
+      });
+    },
+
+    onRunCodonTree: function (evt) {
+      if (evt) {
+        evt.preventDefault();
+      }
+      if (!window.App.user || !window.App.user.id) {
+        Topic.publish('/login');
+        return;
+      }
+
+      if (!this.genome) {
+        return;
+      }
+
+      this.getClusterGenomeIds().then(lang.hitch(this, function (ids) {
+        this.saveTempGenomeGroup(ids).then(lang.hitch(this, function (groupPath) {
+          if (groupPath) {
+            RerunUtility.rerun(JSON.stringify({ genome_groups: [groupPath] }), 'CodonTree', window, Topic);
+            return;
+          }
+
+          Topic.publish('/Notification', {
+            message: 'Unable to create temporary cluster genome group. Opening service without prefill.',
+            type: 'warning'
+          });
+          RerunUtility.rerun(JSON.stringify({ genome_ids: ids || [] }), 'CodonTree', window, Topic);
+        }));
+      }));
+    },
+
+    onRunCoreGenomeMlST: function (evt) {
+      if (evt) {
+        evt.preventDefault();
+      }
+      if (!window.App.user || !window.App.user.id) {
+        Topic.publish('/login');
+        return;
+      }
+
+      this.getClusterGenomeIds().then(lang.hitch(this, function (ids) {
+        this.saveTempGenomeGroup(ids).then(lang.hitch(this, function (groupPath) {
+          if (groupPath) {
+            RerunUtility.rerun(JSON.stringify({
+              input_genome_group: groupPath,
+              select_genomegroup: [groupPath]
+            }), 'CoreGenomeMLST', window, Topic);
+            return;
+          }
+
+          Topic.publish('/Notification', {
+            message: 'Unable to create temporary cluster genome group. Opening cgMLST service without prefill.',
+            type: 'warning'
+          });
+          Topic.publish('/navigate', { href: '/app/CoreGenomeMLST', target: 'blank' });
+        }));
+      }));
+    },
+
+    onRunWholeGenomeSNP: function (evt) {
+      if (evt) {
+        evt.preventDefault();
+      }
+      if (!window.App.user || !window.App.user.id) {
+        Topic.publish('/login');
+        return;
+      }
+
+      this.getClusterGenomeIds().then(lang.hitch(this, function (ids) {
+        this.saveTempGenomeGroup(ids).then(lang.hitch(this, function (groupPath) {
+          if (groupPath) {
+            RerunUtility.rerun(JSON.stringify({
+              input_genome_group: groupPath,
+              select_genomegroup: [groupPath]
+            }), 'WholeGenomeSNPAnalysis', window, Topic);
+            return;
+          }
+
+          Topic.publish('/Notification', {
+            message: 'Unable to create temporary cluster genome group. Opening wgSNP service without prefill.',
+            type: 'warning'
+          });
+          Topic.publish('/navigate', { href: '/app/WholeGenomeSNPAnalysis', target: 'blank' });
+        }));
+      }));
     },
 
     createSummary: function (genome) {

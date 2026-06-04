@@ -8,6 +8,26 @@
   </div>
 
   <div class="column-prime">
+    <div class="section outbreakStatusHeroSection">
+      <div data-dojo-attach-point="outbreakAssessmentNode">
+        <div class="outbreakAssessmentBox">
+          <div class="assessmentTitle">OUTBREAK ASSESSMENT</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakCgmlstNode">cgMLST Cluster (HC10): Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakClusterSizeNode">Cluster Size: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakCountriesNode">Countries: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakStatesNode">US States: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakDateRangeNode">Date Range: Not available</div>
+
+          <div class="assessmentActions">
+            <a class="assessmentAction" data-dojo-attach-point="outbreakViewClusterLink" target="_blank">View Cluster</a>
+            <a class="assessmentAction" href="#" data-dojo-attach-event="onclick:onRunCodonTree">Build Phylogenetic Tree</a>
+            <a class="assessmentAction" href="#" data-dojo-attach-event="onclick:onRunCoreGenomeMlST">Run cgMLST</a>
+            <a class="assessmentAction" href="#" data-dojo-attach-event="onclick:onRunWholeGenomeSNP">Run wgSNP</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="section hidden">
       <h3 class="close section-title" title="Antimicrobial resistance data from antimicrobial susceptibility testing"><span class="wrap">Antimicrobial Resistance</span></h3>
       <div class="apSummaryWidget" data-dojo-attach-point="apSummaryWidget"
