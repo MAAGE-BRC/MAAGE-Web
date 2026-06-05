@@ -113,16 +113,32 @@
         </div>
       </div>
       <div class="clear"></div>
-</div>
-<div class="section">
-  <h3 class="close section-title"><span class="wrap">External Tools</span></h3>
-  <div class="SummaryWidget" data-dojo-attach-point="externalLinkNode"></div>
-</div>
-<div class="section">
-  <h3 class="section-title close2x" title="Recent PubMed articles relevant to the current context"><span class="wrap">Recent PubMed Articles</span></h3>
-  <div data-dojo-attach-point="pubmedSummaryNode">
-    Loading...
+    </div>
+    <div class="section amrStatusCardSection">
+      <div class="outbreakAssessmentBox amrAssessmentBox">
+        <div class="assessmentTitle">DISEASE OUTBREAK ALERTS</div>
+        <div class="amrAssessmentBody">
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertQueryNode">Query Term: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertCoverageNode">Source Coverage: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertSummaryNode">Summary: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertHeadlinesNode">Latest Headlines: Not available</div>
+          <div class="assessmentActions">
+            <a class="assessmentAction disabled" data-dojo-attach-point="outbreakAlertWhoLink" target="_blank">WHO DON</a>
+            <a class="assessmentAction disabled" data-dojo-attach-point="outbreakAlertHealthMapLink" target="_blank">HealthMap</a>
+            <a class="assessmentAction disabled" data-dojo-attach-point="outbreakAlertPromedLink" target="_blank">ProMED</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3 class="close section-title"><span class="wrap">External Tools</span></h3>
+      <div class="SummaryWidget" data-dojo-attach-point="externalLinkNode"></div>
+    </div>
+    <div class="section">
+      <h3 class="section-title close2x" title="Recent PubMed articles relevant to the current context"><span class="wrap">Recent PubMed Articles</span></h3>
+      <div data-dojo-attach-point="pubmedSummaryNode">
+        Loading...
+      </div>
+    </div>
   </div>
-</div>
-</div>
 </div>

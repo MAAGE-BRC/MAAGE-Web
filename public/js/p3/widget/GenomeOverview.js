@@ -49,6 +49,7 @@ define([
         domConstruct.empty(this.genomeSummaryNode);
         domConstruct.empty(this.pubmedSummaryNode);
         this.resetOutbreakAssessment();
+        this.resetOutbreakAlertAssessment();
         this.resetAmrAssessment();
         this.resetVirulenceAssessment();
         domConstruct.place(domConstruct.toDom('<br><h4>Genome not found</h4>'), this.genomeSummaryNode, 'first');
@@ -70,6 +71,7 @@ define([
       this._clusterGenomeIds = null;
 
       this.createOutbreakAssessment(genome);
+      this.createOutbreakAlertAssessment(genome);
       this.createAmrAssessment(genome);
       this.createVirulenceAssessment(genome);
       this.createSummary(genome);
@@ -180,6 +182,117 @@ define([
         this.outbreakViewClusterLink.removeAttribute('href');
         this.outbreakViewClusterLink.className = 'assessmentAction disabled';
       }
+    },
+
+    resetOutbreakAlertAssessment: function () {
+      this.setAssessmentText(this.outbreakAlertQueryNode, 'Query Term', 'Not available');
+      this.setAssessmentText(this.outbreakAlertCoverageNode, 'Source Coverage', 'Not available');
+      this.setAssessmentText(this.outbreakAlertSummaryNode, 'Summary', 'Not available');
+      this.setAssessmentText(this.outbreakAlertHeadlinesNode, 'Latest Headlines', 'Not available');
+
+      [this.outbreakAlertWhoLink, this.outbreakAlertHealthMapLink, this.outbreakAlertPromedLink].forEach(function (linkNode) {
+        if (!linkNode) {
+          return;
+        }
+        linkNode.removeAttribute('href');
+        linkNode.className = 'assessmentAction disabled';
+      });
+    },
+
+    createOutbreakAlertAssessment: function (genome) {
+      this.resetOutbreakAlertAssessment();
+
+      if (!genome || !genome.species) {
+        return;
+      }
+
+      var species = String(genome.species).trim();
+      if (!species) {
+        return;
+      }
+
+      var altTerm = '';
+      if (genome.genome_name) {
+        var words = String(genome.genome_name).trim().split(/\s+/).filter(function (w) {
+          return !!w;
+        });
+        if (words.length >= 2) {
+          altTerm = words[0] + ' ' + words[1];
+        }
+      }
+
+      if (altTerm && altTerm.toLowerCase() === species.toLowerCase()) {
+        altTerm = '';
+      }
+
+      var queryTermLabel = altTerm ? (species + ' | ' + altTerm) : species;
+      this.setAssessmentText(this.outbreakAlertQueryNode, 'Query Term', queryTermLabel);
+
+      var queryUrl = '/outbreaks/alerts?species=' + encodeURIComponent(species) + '&count=8';
+      if (altTerm) {
+        queryUrl += '&altTerm=' + encodeURIComponent(altTerm);
+      }
+
+      xhr.get(queryUrl, {
+        headers: {
+          accept: 'application/json',
+          'X-Requested-With': null
+        },
+        handleAs: 'json'
+      }).then(lang.hitch(this, function (data) {
+        if (!this.genome || this.genome.species !== species) {
+          return;
+        }
+
+        var totals = data && data.totals ? data.totals : {};
+        var whoCount = Number(totals.WHO) || 0;
+        var healthMapCount = Number(totals.HealthMap) || 0;
+        var promedCount = Number(totals.ProMED) || 0;
+        var coverage = 'WHO (' + whoCount + '), HealthMap (' + healthMapCount + '), ProMED (' + promedCount + ')';
+        this.setAssessmentText(this.outbreakAlertCoverageNode, 'Source Coverage', coverage);
+
+        if (data && data.queryTerms && data.queryTerms.length) {
+          this.setAssessmentText(this.outbreakAlertQueryNode, 'Query Term', data.queryTerms.join(' | '));
+        }
+
+        this.setAssessmentText(
+          this.outbreakAlertSummaryNode,
+          'Summary',
+          (data && data.summary) ? data.summary : ('No recent matching alerts found for ' + species + '.')
+        );
+
+        var highlights = data && Array.isArray(data.highlights) ? data.highlights : [];
+        var headlineSummary = 'Not available';
+        if (highlights.length) {
+          headlineSummary = highlights.slice(0, 3).map(function (item) {
+            return item.source + ': ' + item.title;
+          }).join(' | ');
+        }
+        this.setAssessmentText(this.outbreakAlertHeadlinesNode, 'Latest Headlines', headlineSummary);
+
+        var sourceUrls = data && data.sourceUrls ? data.sourceUrls : {};
+        var linkMap = [
+          { node: this.outbreakAlertWhoLink, url: sourceUrls.who },
+          { node: this.outbreakAlertHealthMapLink, url: sourceUrls.healthmap },
+          { node: this.outbreakAlertPromedLink, url: sourceUrls.promed }
+        ];
+
+        linkMap.forEach(function (entry) {
+          if (!entry.node) {
+            return;
+          }
+          if (entry.url) {
+            entry.node.href = entry.url;
+            entry.node.className = 'assessmentAction';
+          } else {
+            entry.node.removeAttribute('href');
+            entry.node.className = 'assessmentAction disabled';
+          }
+        });
+      }), lang.hitch(this, function (err) {
+        console.error('Error retrieving disease outbreak alerts:', err);
+        this.setAssessmentText(this.outbreakAlertSummaryNode, 'Summary', 'Unable to retrieve outbreak alerts at this time.');
+      }));
     },
 
     resetAmrAssessment: function () {
