@@ -3282,6 +3282,19 @@ define([
             return lang.replace('<a href="/view/Genome/{obj.genome_id}#view_tab=sequences">{obj.contigs}</a>', { obj: obj });
           }
         }, {
+          name: 'CDS',
+          text: 'cds',
+          link: function (obj) {
+            var cdsValue = (obj.cds !== undefined && obj.cds !== null) ? obj.cds : obj.CDS;
+            if (cdsValue === undefined || cdsValue === null || cdsValue === '') {
+              return '';
+            }
+            return lang.replace(
+              '<a href="/view/Genome/{obj.genome_id}#view_tab=features&filter=and(eq(feature_type,CDS),eq(annotation,PATRIC))">{cds}</a>',
+              { obj: obj, cds: String(cdsValue) }
+            );
+          }
+        }, {
           name: 'Coarse Consistency',
           text: 'coarse_consistency',
         }, {
