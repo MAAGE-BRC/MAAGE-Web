@@ -28,10 +28,21 @@
       </div>
     </div>
 
-    <div class="section hidden">
-      <h3 class="close section-title" title="Antimicrobial resistance data from antimicrobial susceptibility testing"><span class="wrap">Antimicrobial Resistance</span></h3>
-      <div class="apSummaryWidget" data-dojo-attach-point="apSummaryWidget"
-      data-dojo-type="p3/widget/AMRPanelSummary"></div>
+    <div class="section amrStatusCardSection">
+      <div class="outbreakAssessmentBox amrAssessmentBox">
+        <div class="assessmentTitle">ANTIMICROBIAL RESISTANCE</div>
+        <div class="amrAssessmentBody">
+          <div class="assessmentLine" data-dojo-attach-point="amrKnownResistantNode" style="display:none;">Resistant To: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrResistantNode">Resistant: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrKnownSusceptibleNode" style="display:none;">Susceptible To: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrSusceptibleNode">Susceptible: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrGenesByClassNode">AMR Genes By Class: Not available</div>
+          <div class="assessmentActions">
+            <a class="assessmentAction" data-dojo-attach-point="amrPhenotypesLink" target="_blank">AMR Phenotypes</a>
+            <a class="assessmentAction" data-dojo-attach-point="amrGenesLink" target="_blank">AMR Genes</a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="section">

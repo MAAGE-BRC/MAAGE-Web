@@ -932,6 +932,10 @@ div.pubmed ul li {
     margin-top: 8px;
 }
 
+.patric .GenomeOverview .amrStatusCardSection {
+    margin-top: 10px;
+}
+
 .patric .GenomeOverview .outbreakAssessmentBox {
     border: 1px solid #dbe7e2;
     border-radius: 8px;
@@ -1012,6 +1016,14 @@ div.pubmed ul li {
     color: #7a8d84;
     cursor: default;
     pointer-events: none;
+}
+
+.patric .GenomeOverview .amrAssessmentBox {
+    padding-bottom: 0;
+}
+
+.patric .GenomeOverview .amrAssessmentBody {
+    padding: 8px 10px 10px;
 }
 
 @media screen and (max-width: 1200px) {

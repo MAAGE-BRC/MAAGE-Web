@@ -24,7 +24,7 @@ define([
     genome: null,
     state: null,
     context: 'bacteria',
-    bacteriSummaryWidgets: ['apSummaryWidget', 'gfSummaryWidget', 'spgSummaryWidget'],
+    bacteriSummaryWidgets: ['gfSummaryWidget', 'spgSummaryWidget'],
     virusSummaryWidgets: ['gfSummaryWidget'],
     docsServiceURL: window.App.docsServiceURL,
     tutorialLink: 'quick_references/organisms_genome/overview.html',
@@ -49,6 +49,7 @@ define([
         domConstruct.empty(this.genomeSummaryNode);
         domConstruct.empty(this.pubmedSummaryNode);
         this.resetOutbreakAssessment();
+        this.resetAmrAssessment();
         domConstruct.place(domConstruct.toDom('<br><h4>Genome not found</h4>'), this.genomeSummaryNode, 'first');
         domConstruct.place(domConstruct.toDom('Not available'), this.pubmedSummaryNode, 'first');
       }
@@ -68,6 +69,7 @@ define([
       this._clusterGenomeIds = null;
 
       this.createOutbreakAssessment(genome);
+      this.createAmrAssessment(genome);
       this.createSummary(genome);
       this.createPubMed(genome);
       this.createExternalLinks(genome);
@@ -176,6 +178,235 @@ define([
         this.outbreakViewClusterLink.removeAttribute('href');
         this.outbreakViewClusterLink.className = 'assessmentAction disabled';
       }
+    },
+
+    resetAmrAssessment: function () {
+      this.setAssessmentText(this.amrKnownSusceptibleNode, 'Susceptible To', 'Not available');
+      this.setAssessmentText(this.amrSusceptibleNode, 'Likely Susceptible To', 'Not available');
+      this.setAssessmentText(this.amrKnownResistantNode, 'Resistant To', 'Not available');
+      this.setAssessmentText(this.amrResistantNode, 'Likely Resistant To', 'Not available');
+      this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', 'Not available');
+
+      if (this.amrKnownSusceptibleNode) {
+        domStyle.set(this.amrKnownSusceptibleNode, 'display', 'none');
+      }
+
+      if (this.amrKnownResistantNode) {
+        domStyle.set(this.amrKnownResistantNode, 'display', 'none');
+      }
+
+      if (this.amrPhenotypesLink) {
+        this.amrPhenotypesLink.removeAttribute('href');
+        this.amrPhenotypesLink.className = 'assessmentAction disabled';
+      }
+
+      if (this.amrGenesLink) {
+        this.amrGenesLink.removeAttribute('href');
+        this.amrGenesLink.className = 'assessmentAction disabled';
+      }
+    },
+
+    createAmrGenesByClassSummary: function (genome) {
+      this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', 'Not available');
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      var query = 'and(eq(genome_id,' + this.toRqlValue(genome.genome_id) + '),eq(property,%22Antibiotic%20Resistance%22),eq(source,%22NDARO%22))'
+        + '&limit(1)&facet((field,antibiotics_class),(mincount,1))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'sp_gene') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var facetFields = data && data.facet_counts ? data.facet_counts.facet_fields : null;
+        var classFacet = facetFields ? facetFields.antibiotics_class : null;
+
+        if (!classFacet) {
+          return;
+        }
+
+        var entries = [];
+        if (Array.isArray(classFacet)) {
+          for (var i = 0; i < classFacet.length; i += 2) {
+            var k = classFacet[i];
+            var v = classFacet[i + 1];
+            if (k && v) {
+              entries.push({ name: String(k), count: Number(v) || 0 });
+            }
+          }
+        } else {
+          Object.keys(classFacet).forEach(function (key) {
+            var count = Number(classFacet[key]) || 0;
+            if (key && count > 0) {
+              entries.push({ name: String(key), count: count });
+            }
+          });
+        }
+
+        if (!entries.length) {
+          return;
+        }
+
+        entries.sort(function (a, b) {
+          if (b.count === a.count) {
+            return a.name.localeCompare(b.name);
+          }
+          return b.count - a.count;
+        });
+
+        var summary = entries.slice(0, 6).map(function (item) {
+          return item.name + ' (' + item.count + ')';
+        }).join(', ');
+
+        if (entries.length > 6) {
+          summary += ', ...';
+        }
+
+        this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', summary);
+      }), function (err) {
+        console.error('Error retrieving AMR genes by class summary:', err);
+      });
+    },
+
+    createAmrAssessment: function (genome) {
+      this.resetAmrAssessment();
+      this.createAmrGenesByClassSummary(genome);
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      if (this.amrPhenotypesLink) {
+        this.amrPhenotypesLink.href = '/view/Genome/' + genome.genome_id + '#view_tab=amr';
+        this.amrPhenotypesLink.className = 'assessmentAction';
+      }
+
+      if (this.amrGenesLink) {
+        this.amrGenesLink.href = '/view/Genome/' + genome.genome_id + '#view_tab=specialtyGenes&filter=eq(property,%22Antibiotic%20Resistance%22)';
+        this.amrGenesLink.className = 'assessmentAction';
+      }
+
+      var query = 'eq(genome_id,' + this.toRqlValue(genome.genome_id) + ')' +
+        '&limit(1)&facet((pivot,(resistant_phenotype,evidence,antibiotic)),(mincount,1),(method,enum))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'genome_amr') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var pivots = data && data.facet_counts && data.facet_counts.facet_pivot
+          ? data.facet_counts.facet_pivot['resistant_phenotype,evidence,antibiotic']
+          : null;
+
+        if (!pivots || !pivots.length) {
+          return;
+        }
+
+        var phenotypeData = {
+          susceptible: { computational: [], laboratory: [] },
+          resistant: { computational: [], laboratory: [] }
+        };
+
+        var addUnique = function (arr, values) {
+          var seen = {};
+          arr.forEach(function (item) {
+            seen[item] = true;
+          });
+          values.forEach(function (item) {
+            if (item && !seen[item]) {
+              seen[item] = true;
+              arr.push(item);
+            }
+          });
+        };
+
+        pivots.forEach(function (phenotype) {
+          var phenotypeValue = phenotype && phenotype.value ? String(phenotype.value).trim() : '';
+          var phenotypeKey = phenotypeValue.toLowerCase();
+          if (phenotypeKey !== 'susceptible' && phenotypeKey !== 'resistant') {
+            return;
+          }
+
+          var methods = Array.isArray(phenotype.pivot)
+            ? phenotype.pivot
+            : (phenotype.pivot ? Object.keys(phenotype.pivot).map(function (k) { return phenotype.pivot[k]; }) : []);
+
+          methods.forEach(function (method) {
+            var methodValue = method && method.value ? String(method.value).toLowerCase() : '';
+            var isComputed = (methodValue === 'computational method');
+            var isLab = (methodValue === 'laboratory method');
+            if (!isComputed && !isLab) {
+              return;
+            }
+
+            var antibioticPivots = Array.isArray(method.pivot)
+              ? method.pivot
+              : (method.pivot ? Object.keys(method.pivot).map(function (k) { return method.pivot[k]; }) : []);
+
+            var antibiotics = antibioticPivots.map(function (pv) {
+              return pv && pv.value ? String(pv.value).trim() : '';
+            }).filter(function (val) {
+              return val.length > 0;
+            });
+
+            if (!antibiotics.length) {
+              return;
+            }
+
+            var target = phenotypeData[phenotypeKey];
+            var methodBucket = isComputed ? 'computational' : 'laboratory';
+            addUnique(target[methodBucket], antibiotics);
+          });
+        });
+
+        var knownSusceptible = phenotypeData.susceptible.laboratory;
+        var knownResistant = phenotypeData.resistant.laboratory;
+        var likelySusceptible = phenotypeData.susceptible.computational;
+        var likelyResistant = phenotypeData.resistant.computational;
+
+        if (this.amrKnownSusceptibleNode) {
+          domStyle.set(this.amrKnownSusceptibleNode, 'display', knownSusceptible.length ? 'block' : 'none');
+        }
+        if (this.amrKnownResistantNode) {
+          domStyle.set(this.amrKnownResistantNode, 'display', knownResistant.length ? 'block' : 'none');
+        }
+
+        this.setAssessmentText(
+          this.amrKnownSusceptibleNode,
+          'Susceptible To',
+          knownSusceptible.length ? knownSusceptible.join(', ') : 'Not available'
+        );
+        this.setAssessmentText(
+          this.amrSusceptibleNode,
+          'Likely Susceptible To',
+          likelySusceptible.length ? likelySusceptible.join(', ') : 'Not available'
+        );
+        this.setAssessmentText(
+          this.amrKnownResistantNode,
+          'Resistant To',
+          knownResistant.length ? knownResistant.join(', ') : 'Not available'
+        );
+        this.setAssessmentText(
+          this.amrResistantNode,
+          'Likely Resistant To',
+          likelyResistant.length ? likelyResistant.join(', ') : 'Not available'
+        );
+      }), function (err) {
+        console.error('Error retrieving AMR assessment data:', err);
+      });
     },
 
     createOutbreakAssessment: function (genome) {
