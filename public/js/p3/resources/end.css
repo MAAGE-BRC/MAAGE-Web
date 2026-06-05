@@ -999,6 +999,7 @@ div.pubmed ul li {
     text-decoration: none;
     font-family: "Didact Gothic", Arial, Helvetica, sans-serif;
     font-size: 12px;
+    font-weight: bold;
     line-height: 1.25;
     transition: background-color .15s ease, border-color .15s ease, color .15s ease;
 }
