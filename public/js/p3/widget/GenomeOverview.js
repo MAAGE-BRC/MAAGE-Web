@@ -580,7 +580,7 @@ define([
       var fallbackCountry = genome.isolation_country || 'Not available';
       this.setAssessmentText(this.outbreakCountriesNode, 'Countries', fallbackCountry);
 
-      var fallbackState = genome.state_province || genome.isolation_country || 'Not available';
+      var fallbackState = genome.state_province || 'Not available';
       this.setAssessmentText(this.outbreakStatesNode, 'US States', fallbackState);
 
       var fallbackDate = this.normalizeDateLabel(genome.collection_date) || genome.collection_year || 'Not available';
@@ -625,7 +625,7 @@ define([
         var dates = [];
 
         genomes.forEach(function (g) {
-          var state = g.state_province || g.isolation_country;
+          var state = g.state_province;
           if (state) {
             stateSet[state] = true;
           }
