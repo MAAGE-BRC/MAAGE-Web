@@ -850,7 +850,7 @@ define([
       var self = this;
       domConstruct.empty(self.genomeSummaryNode);
 
-      domConstruct.place(DataItemFormatter(genome, 'genome_data', {}), self.genomeSummaryNode, 'first');
+      domConstruct.place(DataItemFormatter(genome, 'genome_data', { hideHeader: true }), self.genomeSummaryNode, 'first');
 
       // if user owns genome, add edit button
       if (window.App.user && genome.owner == window.App.user.id) {

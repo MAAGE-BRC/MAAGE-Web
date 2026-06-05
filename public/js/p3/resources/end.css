@@ -932,6 +932,10 @@ div.pubmed ul li {
     margin-top: 8px;
 }
 
+.patric .GenomeOverview .genomeMetadataCardSection {
+    margin-top: 8px;
+}
+
 .patric .GenomeOverview .amrStatusCardSection {
     margin-top: 10px;
 }
@@ -1025,6 +1029,10 @@ div.pubmed ul li {
 
 .patric .GenomeOverview .amrAssessmentBody {
     padding: 8px 10px 10px;
+}
+
+.patric .GenomeOverview .genomeMetadataBody {
+    padding: 8px 12px 12px;
 }
 
 @media screen and (max-width: 1200px) {

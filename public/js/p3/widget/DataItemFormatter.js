@@ -3059,7 +3059,9 @@ define([
       var metadataGenomeSummaryValue = this.genome_meta_spec();
 
       var div = domConstruct.create('div');
-      displayHeader(div, item.genome_name, 'fa icon-genome fa-2x', '/view/Genome/' + item.genome_id, options);
+      if (!options.hideHeader) {
+        displayHeader(div, item.genome_name, 'fa icon-genome fa-2x', '/view/Genome/' + item.genome_id, options);
+      }
 
       displayDetailBySections(item, metadataGenomeSummaryID, metadataGenomeSummaryValue, div, options);
 
