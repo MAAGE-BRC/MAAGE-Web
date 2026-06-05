@@ -186,6 +186,7 @@ define([
       this.setAssessmentText(this.amrKnownResistantNode, 'Resistant To', 'Not available');
       this.setAssessmentText(this.amrResistantNode, 'Likely Resistant To', 'Not available');
       this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', 'Not available');
+      this.setAssessmentText(this.amrGenesBySourceNode, 'AMR Genes By Source', 'Not available');
 
       if (this.amrKnownSusceptibleNode) {
         domStyle.set(this.amrKnownSusceptibleNode, 'display', 'none');
@@ -276,9 +277,80 @@ define([
       });
     },
 
+    createAmrGenesBySourceSummary: function (genome) {
+      this.setAssessmentText(this.amrGenesBySourceNode, 'AMR Genes By Source', 'Not available');
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      var query = 'and(eq(genome_id,' + this.toRqlValue(genome.genome_id) + '),eq(property,%22Antibiotic%20Resistance%22))'
+        + '&limit(1)&facet((field,source),(mincount,1))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'sp_gene') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var facetFields = data && data.facet_counts ? data.facet_counts.facet_fields : null;
+        var sourceFacet = facetFields ? facetFields.source : null;
+
+        if (!sourceFacet) {
+          return;
+        }
+
+        var entries = [];
+        if (Array.isArray(sourceFacet)) {
+          for (var i = 0; i < sourceFacet.length; i += 2) {
+            var k = sourceFacet[i];
+            var v = sourceFacet[i + 1];
+            if (k && v) {
+              entries.push({ name: String(k), count: Number(v) || 0 });
+            }
+          }
+        } else {
+          Object.keys(sourceFacet).forEach(function (key) {
+            var count = Number(sourceFacet[key]) || 0;
+            if (key && count > 0) {
+              entries.push({ name: String(key), count: count });
+            }
+          });
+        }
+
+        if (!entries.length) {
+          return;
+        }
+
+        entries.sort(function (a, b) {
+          if (b.count === a.count) {
+            return a.name.localeCompare(b.name);
+          }
+          return b.count - a.count;
+        });
+
+        var summary = entries.slice(0, 6).map(function (item) {
+          return item.name + ' (' + item.count + ')';
+        }).join(', ');
+
+        if (entries.length > 6) {
+          summary += ', ...';
+        }
+
+        this.setAssessmentText(this.amrGenesBySourceNode, 'AMR Genes By Source', summary);
+      }), function (err) {
+        console.error('Error retrieving AMR genes by source summary:', err);
+      });
+    },
+
     createAmrAssessment: function (genome) {
       this.resetAmrAssessment();
       this.createAmrGenesByClassSummary(genome);
+      this.createAmrGenesBySourceSummary(genome);
 
       if (!genome || !genome.genome_id) {
         return;
