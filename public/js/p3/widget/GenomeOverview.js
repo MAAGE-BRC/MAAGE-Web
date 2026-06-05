@@ -298,10 +298,10 @@ define([
     },
 
     resetAmrAssessment: function () {
-      this.setAssessmentText(this.amrKnownSusceptibleNode, 'Susceptible To', 'Not available');
-      this.setAssessmentText(this.amrSusceptibleNode, 'Likely Susceptible To', 'Not available');
-      this.setAssessmentText(this.amrKnownResistantNode, 'Resistant To', 'Not available');
-      this.setAssessmentText(this.amrResistantNode, 'Likely Resistant To', 'Not available');
+      this.setAssessmentText(this.amrKnownSusceptibleNode, 'Susceptible To (Based On AST)', 'Not available');
+      this.setAssessmentText(this.amrSusceptibleNode, 'Susceptible To (Based On Computational Prediction)', 'Not available');
+      this.setAssessmentText(this.amrKnownResistantNode, 'Resistant To (Based On AST)', 'Not available');
+      this.setAssessmentText(this.amrResistantNode, 'Resistant To (Based On Computational Prediction)', 'Not available');
       this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', 'Not available');
       this.setAssessmentText(this.amrGenesBySourceNode, 'AMR Genes By Source', 'Not available');
 
@@ -575,22 +575,22 @@ define([
 
         this.setAssessmentText(
           this.amrKnownSusceptibleNode,
-          'Susceptible To',
+          'Susceptible To (Based On AST)',
           knownSusceptible.length ? knownSusceptible.join(', ') : 'Not available'
         );
         this.setAssessmentText(
           this.amrSusceptibleNode,
-          'Likely Susceptible To',
+          'Susceptible To (Based On Computational Prediction)',
           likelySusceptible.length ? likelySusceptible.join(', ') : 'Not available'
         );
         this.setAssessmentText(
           this.amrKnownResistantNode,
-          'Resistant To',
+          'Resistant To (Based On AST)',
           knownResistant.length ? knownResistant.join(', ') : 'Not available'
         );
         this.setAssessmentText(
           this.amrResistantNode,
-          'Likely Resistant To',
+          'Resistant To (Based On Computational Prediction)',
           likelyResistant.length ? likelyResistant.join(', ') : 'Not available'
         );
       }), function (err) {
