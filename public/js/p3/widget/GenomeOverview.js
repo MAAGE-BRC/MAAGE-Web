@@ -190,7 +190,7 @@ define([
       this.setAssessmentText(this.outbreakAlertSummaryNode, 'Summary', 'Not available');
       this.setAssessmentText(this.outbreakAlertHeadlinesNode, 'Latest Headlines', 'Not available');
 
-      [this.outbreakAlertWhoLink, this.outbreakAlertHealthMapLink, this.outbreakAlertPromedLink].forEach(function (linkNode) {
+      [this.outbreakAlertWhoLink, this.outbreakAlertHealthMapLink, this.outbreakAlertPromedLink, this.outbreakAlertGoogleNewsLink].forEach(function (linkNode) {
         if (!linkNode) {
           return;
         }
@@ -248,7 +248,8 @@ define([
         var whoCount = Number(totals.WHO) || 0;
         var healthMapCount = Number(totals.HealthMap) || 0;
         var promedCount = Number(totals.ProMED) || 0;
-        var coverage = 'WHO (' + whoCount + '), HealthMap (' + healthMapCount + '), ProMED (' + promedCount + ')';
+        var googleNewsCount = Number(totals.GoogleNews) || 0;
+        var coverage = 'WHO (' + whoCount + '), HealthMap (' + healthMapCount + '), ProMED (' + promedCount + '), Google News (' + googleNewsCount + ')';
         this.setAssessmentText(this.outbreakAlertCoverageNode, 'Source Coverage', coverage);
 
         if (data && data.queryTerms && data.queryTerms.length) {
@@ -274,7 +275,8 @@ define([
         var linkMap = [
           { node: this.outbreakAlertWhoLink, url: sourceUrls.who },
           { node: this.outbreakAlertHealthMapLink, url: sourceUrls.healthmap },
-          { node: this.outbreakAlertPromedLink, url: sourceUrls.promed }
+          { node: this.outbreakAlertPromedLink, url: sourceUrls.promed },
+          { node: this.outbreakAlertGoogleNewsLink, url: sourceUrls.googleNews }
         ];
 
         linkMap.forEach(function (entry) {
@@ -1023,7 +1025,37 @@ define([
 
     createPubMed: function (genome) {
       domConstruct.empty(this.pubmedSummaryNode);
-      domConstruct.place(ExternalItemFormatter(genome, 'pubmed_data', {}), this.pubmedSummaryNode, 'first');
+
+      var species = genome && genome.species ? String(genome.species).trim() : '';
+      var altTerm = '';
+      if (genome && genome.genome_name) {
+        var words = String(genome.genome_name).trim().split(/\s+/).filter(function (w) {
+          return !!w;
+        });
+        if (words.length >= 2) {
+          altTerm = words[0] + ' ' + words[1];
+        }
+      }
+      if (altTerm && species && altTerm.toLowerCase() === species.toLowerCase()) {
+        altTerm = '';
+      }
+
+      var organismTerm;
+      if (species && altTerm) {
+        organismTerm = '("' + species + '" OR "' + altTerm + '")';
+      } else if (species) {
+        organismTerm = '"' + species + '"';
+      } else if (altTerm) {
+        organismTerm = '"' + altTerm + '"';
+      } else if (genome && genome.genome_name) {
+        organismTerm = '"' + String(genome.genome_name).trim() + '"';
+      } else {
+        organismTerm = '';
+      }
+
+      var term = organismTerm ? organismTerm + ' AND outbreak' : 'outbreak';
+
+      domConstruct.place(ExternalItemFormatter(term, 'pubmed_data', { retmax: 3 }), this.pubmedSummaryNode, 'first');
     },
 
     onAddGenome: function () {

@@ -64,7 +64,10 @@ define([
 
         if (pubmedList.esearchresult.count > 0) {
           var pmids = pubmedList.esearchresult.idlist;
-          var retmax = 5;
+          var retmax = options && options.retmax ? options.retmax : 5;
+          if (pmids.length > retmax) {
+            pmids = pmids.slice(0, retmax);
+          }
           var eutilSummaryURL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=' + pmids + '&retmax=' + retmax + '&retmode=json';
 
           xhr.get(eutilSummaryURL, {

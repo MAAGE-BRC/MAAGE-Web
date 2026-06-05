@@ -62,7 +62,8 @@ function buildSourceUrlMap(term) {
   return {
     who: 'https://www.who.int/emergencies/disease-outbreak-news?query=' + encoded,
     healthmap: 'https://www.healthmap.org/en/?q=' + encoded,
-    promed: 'https://promedmail.org/?s=' + encoded
+    promed: 'https://promedmail.org/?s=' + encoded,
+    googleNews: 'https://news.google.com/search?q=' + encoded + '&hl=en-US&gl=US&ceid=US%3Aen'
   };
 }
 
@@ -119,13 +120,29 @@ async function fetchWhoAlerts(termLower, tokens, maxItems) {
     .slice(0, maxItems);
 }
 
-function buildGoogleNewsRssUrl(term, siteDomain) {
-  var query = '"' + term + '" site:' + siteDomain + ' outbreak';
+function buildGoogleNewsRssUrl(term, siteDomain, includeOutbreak) {
+  var query = String(term || '').trim();
+  if (includeOutbreak) {
+    query += ' outbreak';
+  }
+  if (siteDomain) {
+    query += ' site:' + siteDomain;
+  }
   return 'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=' + encodeURIComponent(query);
 }
 
+async function fetchGoogleNewsAlerts(term, termLower, tokens, maxItems) {
+  var rawItems = await parseFeed(buildGoogleNewsRssUrl(term, null, false));
+
+  return rawItems
+    .map(function (item) { return normalizeFeedItem('Google News', item); })
+    .filter(function (item) { return item.link; })
+    .sort(function (a, b) { return (b.pubDate || '').localeCompare(a.pubDate || ''); })
+    .slice(0, maxItems);
+}
+
 async function fetchPromedAlerts(term, maxItems) {
-  var rawItems = await parseFeed(buildGoogleNewsRssUrl(term, 'promedmail.org'));
+  var rawItems = await parseFeed(buildGoogleNewsRssUrl(term, 'promedmail.org', true));
 
   return rawItems
     .map(function (item) {
@@ -141,7 +158,7 @@ async function fetchPromedAlerts(term, maxItems) {
 }
 
 async function fetchHealthMapAlerts(term, termLower, tokens, maxItems) {
-  var rawItems = await parseFeed(buildGoogleNewsRssUrl(term, 'healthmap.org'));
+  var rawItems = await parseFeed(buildGoogleNewsRssUrl(term, 'healthmap.org', true));
 
   return rawItems
     .map(function (item) { return normalizeFeedItem('HealthMap', item); })
@@ -153,11 +170,11 @@ async function fetchHealthMapAlerts(term, termLower, tokens, maxItems) {
 function summarizeAlerts(species, totals, highlights) {
   var total = totals.total || 0;
   if (!total) {
-    return 'No recent matching alerts found for ' + species + ' in WHO, HealthMap, or ProMED.';
+    return 'No recent matching alerts found for ' + species + ' in WHO, HealthMap, ProMED, or Google News.';
   }
 
   var prefix = 'Found ' + total + ' recent alerts for ' + species +
-    ' across WHO (' + totals.WHO + '), HealthMap (' + totals.HealthMap + '), and ProMED (' + totals.ProMED + ').';
+    ' across WHO (' + totals.WHO + '), HealthMap (' + totals.HealthMap + '), ProMED (' + totals.ProMED + '), and Google News (' + totals.GoogleNews + ').';
 
   if (!highlights.length) {
     return prefix;
@@ -243,6 +260,17 @@ async function fetchPromedAlertsForTerms(termContexts, maxItems) {
   return mergeAlertsByUniq(all, maxItems);
 }
 
+async function fetchGoogleNewsAlertsForTerms(termContexts, maxItems) {
+  var all = [];
+  for (var i = 0; i < termContexts.length; i++) {
+    var ctx = termContexts[i];
+    var alerts = await fetchGoogleNewsAlerts(ctx.term, ctx.lower, ctx.tokens, maxItems);
+    all = all.concat(alerts);
+  }
+
+  return mergeAlertsByUniq(all, maxItems);
+}
+
 router.get('/alerts', async function (req, res) {
   var species = normalizeText(req.query.species, 150);
   if (!species || species.length < 3) {
@@ -264,10 +292,11 @@ router.get('/alerts', async function (req, res) {
   var results = await Promise.allSettled([
     fetchWhoAlertsForTerms(termContexts, count),
     fetchHealthMapAlertsForTerms(termContexts, count),
-    fetchPromedAlertsForTerms(termContexts, count)
+    fetchPromedAlertsForTerms(termContexts, count),
+    fetchGoogleNewsAlertsForTerms(termContexts, count)
   ]);
 
-  var bySource = { WHO: [], HealthMap: [], ProMED: [] };
+  var bySource = { WHO: [], HealthMap: [], ProMED: [], GoogleNews: [] };
   var sourceErrors = [];
 
   if (results[0].status === 'fulfilled') {
@@ -291,7 +320,14 @@ router.get('/alerts', async function (req, res) {
     console.error('ProMED alert retrieval failed:', results[2].reason);
   }
 
-  var highlights = bySource.WHO.concat(bySource.HealthMap, bySource.ProMED)
+  if (results[3].status === 'fulfilled') {
+    bySource.GoogleNews = results[3].value;
+  } else {
+    sourceErrors.push('Google News');
+    console.error('Google News alert retrieval failed:', results[3].reason);
+  }
+
+  var highlights = bySource.WHO.concat(bySource.HealthMap, bySource.ProMED, bySource.GoogleNews)
     .sort(function (a, b) {
       return (b.pubDate || '').localeCompare(a.pubDate || '');
     })
@@ -300,7 +336,8 @@ router.get('/alerts', async function (req, res) {
   var totals = {
     WHO: bySource.WHO.length,
     HealthMap: bySource.HealthMap.length,
-    ProMED: bySource.ProMED.length
+    ProMED: bySource.ProMED.length,
+    GoogleNews: bySource.GoogleNews.length
   };
   totals.total = totals.WHO + totals.HealthMap + totals.ProMED;
 
