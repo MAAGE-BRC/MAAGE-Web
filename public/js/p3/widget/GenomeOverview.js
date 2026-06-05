@@ -50,6 +50,7 @@ define([
         domConstruct.empty(this.pubmedSummaryNode);
         this.resetOutbreakAssessment();
         this.resetAmrAssessment();
+        this.resetVirulenceAssessment();
         domConstruct.place(domConstruct.toDom('<br><h4>Genome not found</h4>'), this.genomeSummaryNode, 'first');
         domConstruct.place(domConstruct.toDom('Not available'), this.pubmedSummaryNode, 'first');
       }
@@ -70,6 +71,7 @@ define([
 
       this.createOutbreakAssessment(genome);
       this.createAmrAssessment(genome);
+      this.createVirulenceAssessment(genome);
       this.createSummary(genome);
       this.createPubMed(genome);
       this.createExternalLinks(genome);
@@ -478,6 +480,90 @@ define([
         );
       }), function (err) {
         console.error('Error retrieving AMR assessment data:', err);
+      });
+    },
+
+    resetVirulenceAssessment: function () {
+      this.setAssessmentText(this.vfBySourceNode, 'Virulence Factors By Source', 'Not available');
+
+      if (this.vfGenesLink) {
+        this.vfGenesLink.removeAttribute('href');
+        this.vfGenesLink.className = 'assessmentAction disabled';
+      }
+    },
+
+    createVirulenceAssessment: function (genome) {
+      this.resetVirulenceAssessment();
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      if (this.vfGenesLink) {
+        this.vfGenesLink.href = '/view/Genome/' + genome.genome_id + '#view_tab=specialtyGenes&filter=eq(property,%22Virulence%20Factor%22)';
+        this.vfGenesLink.className = 'assessmentAction';
+      }
+
+      var query = 'and(eq(genome_id,' + this.toRqlValue(genome.genome_id) + '),eq(property,%22Virulence%20Factor%22))'
+        + '&limit(1)&facet((field,source),(mincount,1))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'sp_gene') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var facetFields = data && data.facet_counts ? data.facet_counts.facet_fields : null;
+        var sourceFacet = facetFields ? facetFields.source : null;
+
+        if (!sourceFacet) {
+          return;
+        }
+
+        var entries = [];
+        if (Array.isArray(sourceFacet)) {
+          for (var i = 0; i < sourceFacet.length; i += 2) {
+            var k = sourceFacet[i];
+            var v = sourceFacet[i + 1];
+            if (k && v) {
+              entries.push({ name: String(k), count: Number(v) || 0 });
+            }
+          }
+        } else {
+          Object.keys(sourceFacet).forEach(function (key) {
+            var count = Number(sourceFacet[key]) || 0;
+            if (key && count > 0) {
+              entries.push({ name: String(key), count: count });
+            }
+          });
+        }
+
+        if (!entries.length) {
+          return;
+        }
+
+        entries.sort(function (a, b) {
+          if (b.count === a.count) {
+            return a.name.localeCompare(b.name);
+          }
+          return b.count - a.count;
+        });
+
+        var summary = entries.slice(0, 6).map(function (item) {
+          return item.name + ' (' + item.count + ')';
+        }).join(', ');
+
+        if (entries.length > 6) {
+          summary += ', ...';
+        }
+
+        this.setAssessmentText(this.vfBySourceNode, 'Virulence Factors By Source', summary);
+      }), function (err) {
+        console.error('Error retrieving virulence factors by source summary:', err);
       });
     },
 
