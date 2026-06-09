@@ -124,6 +124,9 @@
 .patric .apSummaryWidget.SummaryWidget .field-resistant_phenotype {
     width: 20%;
 }
+.patric .apSummaryWidget.SummaryWidget .dgrid-preload {
+    display: none !important;
+}
 
 /* Genomic Features at genome overview */
 .patric .gfSummaryWidget.SummaryWidget .chartNode,

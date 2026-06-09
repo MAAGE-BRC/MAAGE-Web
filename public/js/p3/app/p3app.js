@@ -872,7 +872,7 @@ define([
           innerHTML: ws.name
         }, d);
         domConstruct.create('br', {}, d);
-        ['Genome Groups', 'Feature Groups', 'Experiment Groups'].forEach(group => {
+        ['Genome Groups', 'Feature Groups'].forEach(group => {
           domConstruct.create('a', {
             'class': 'navigationLink',
             style: { 'padding-left': '16px' },
@@ -884,7 +884,7 @@ define([
       }
 
       if (wsMobileNode) {
-        ['home', 'Genome Groups', 'Feature Groups', 'Experiment Groups'].forEach(group => {
+        ['home', 'Genome Groups', 'Feature Groups'].forEach(group => {
           domConstruct.create('a', {
             style: { 'padding-left': '16px' },
             href: `/workspace${ws.path}/${encodeURIComponent(group)}`,

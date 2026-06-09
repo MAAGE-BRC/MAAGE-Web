@@ -50,7 +50,6 @@ define([
 
       data = data.facet_counts.facet_pivot['resistant_phenotype,evidence,antibiotic'];
       var byPhenotypes = [];
-
       data.forEach(function (phenotype) {
         phenotype.pivot.forEach(function (method) {
           var antibiotics = method.pivot.map(function (pv) {
@@ -58,7 +57,7 @@ define([
           });
 
           // Check for method values
-          if (method.value.toLowerCase() === 'computational method' || method.value.toLowerCase() === 'laboratory method') {
+          if (method.value && (method.value.toLowerCase() === 'computational method' || method.value.toLowerCase() === 'laboratory method')) {
             var isComputed = (method.value.toLowerCase() === 'computational method');
             byPhenotypes.push({
               resistant_phenotype: phenotype.value,
