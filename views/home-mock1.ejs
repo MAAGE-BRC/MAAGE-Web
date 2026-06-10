@@ -100,412 +100,647 @@
 							</section>
 						</div>
 
-						<!-- Row 1 Right: Upcoming Events -->
+						<!-- Row 1 Right: Events & Announcements Carousel -->
 						<div class="md:col-start-2 md:row-start-1">
-							<section
-								class="bg-white p-6 rounded-xl shadow-md hover:shadow-md transition-shadow duration-300 h-full">
-								<h2
-									class="text-xl font-semibold text-maage-text/90 mb-4 font-poppins flex items-center">
-									Upcoming Events
-								</h2>
-								<div class="space-y-4" data-dojo-attach-point="eventsContainer">
-									<div class="flex gap-3 bg-maage-primary-50">
-										<div
-											class="bg-maage-primary-100 text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
-											<span class="block text-sm font-bold">TBD</span>
-											<span class="block text-xl font-bold">—</span>
-										</div>
-										<div>
-											<h3 class="font-medium text-gray-800">Webinar: Introduction to MAAGE</h3>
-											<p class="text-sm text-gray-700">Date &amp; Time: TBD</p>
-											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
-												href="/announcements">Learn More</a>
-										</div>
-									</div>
-									<div class="flex gap-3">
-										<div class="text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
-											<span class="block text-sm font-bold">TBD</span>
-											<span class="block text-xl font-bold">—</span>
-										</div>
-										<div>
-											<h3 class="font-medium text-gray-800">Workshop: Genomic Epidemiology Using MAAGE</h3>
-											<p class="text-sm text-gray-700">Date &amp; Location: TBD</p>
-											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
-												href="/announcements">Learn More</a>
-										</div>
-									</div>
-								</div>
-								<div class="mt-4 text-center">
-									<a href="/events"
-										class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
-										View Events
-										<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-									</a>
-								</div>
-							</section>
-						</div>
-
-						<!-- Row 2 Left: Analyze Data -->
-						<div class="md:col-start-1 md:row-start-2">
-							<section class="bg-white shadow-md rounded-lg p-6 h-full">
-								<div class="flex items-center mb-6">
-									<i data-lucide="sheet" class="h-8 w-8 text-maage-text/90 mr-2"></i>
-									<h2 class="text-2xl font-semibold text-maage-text/90 font-poppins">Analyze
-										Data
+							<section class="bg-white p-6 rounded-xl shadow-md h-full flex flex-col" id="mock1-sidebar-carousel">
+								<!-- Tab Header -->
+								<div class="flex items-center justify-between mb-4">
+									<h2 class="text-xl font-semibold text-maage-text/90 font-poppins mock1-carousel-title" id="mock1-carousel-title">
+										Upcoming Events
 									</h2>
-								</div>
-								<p class="text-gray-700 mb-4 text-lg">
-									Upload and analyze your genomic data in a secure private workspace with our
-									comprehensive suite of
-									tools.
-								</p>
-								<div class="maage-cards-grid">
-									<div
-										class="bg-maage-primary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
-										<div class="card-header flex items-center mb-3">
-											<i data-lucide="search" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
-											<h3 class="card-heading font-semibold text-maage-gray-800"
-												style="font-size:16px;">Search</h3>
-										</div>
-										<ul class="card-list space-y-2.5">
-											<li class="flex items-center">
-												<a href="/searches/TaxaSearch" class="maage-link">
-													Taxa
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="/searches/GenomeSearch" class="maage-link">
-													Genomes
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="/searches/GenomicFeatureSearch" class="maage-link">
-													Features
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="/searches/SpecialtyGeneSearch" class="maage-link">
-													Specialty Genes
-												</a>
-											</li>
-											<li class="flex items-center mt-5 font-medium">
-												<a href="/searches" class="inline-flex items-center maage-link text-md">
-													View All
-													<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-												</a>
-											</li>
-										</ul>
-									</div>
-									<div
-										class="bg-maage-secondary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
-										<div class="card-header flex items-center mb-3">
-											<i data-lucide="chart-pie"
-												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
-											<h3 class="card-heading font-semibold text-maage-gray-800"
-												style="font-size:16px;">Analyze</h3>
-										</div>
-										<ul class="card-list space-y-2.5">
-											<li class="flex items-center">
-												<a href="/app/Assembly2" class="maage-link text-md">
-													Assembly
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="/app/Annotation" class="maage-link text-md">
-													Annotation
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="/app/Homology" class="maage-link text-md">
-													BLAST
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="/app/MSA" class="maage-link text-md">
-													MSA
-												</a>
-											</li>
-											<li
-												class="flex items-center mt-5 text-maage-secondary-600 text-md font-medium">
-												<a href="/tools" class="inline-flex items-center maage-link text-md">
-													View All
-													<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-												</a>
-											</li>
-										</ul>
-									</div>
-									<div
-										class="bg-maage-primary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
-										<div class="card-header flex items-center mb-4">
-											<i data-lucide="server" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
-											<h3 class="card-heading font-semibold text-maage-gray-800"
-												style="font-size:16px;">Data</h3>
-										</div>
-										<ul class="card-list space-y-2.5">
-											<li class="flex items-center">
-												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html"
-													class="maage-link">
-													Access Workspace
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/groups.html"
-													class="maage-link">
-													Save Search Results
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/data_upload.html"
-													class="maage-link">
-													Upload Data
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/jobs.html"
-													class="maage-link">
-													Analysis Jobs
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces"
-													class="maage-link">
-													Share & Publish
-												</a>
-											</li>
-
-										</ul>
-									</div>
-									<div
-										class="bg-maage-secondary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
-										<div class="card-header flex items-center mb-3">
-											<i data-lucide="arrow-up-down"
-												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
-											<h3 class="card-heading font-semibold text-maage-gray-800"
-												style="font-size:16px;">Access</h3>
-										</div>
-										<ul class="card-list space-y-2.5">
-											<li class="flex items-center">
-												<a href="https://www.maage-brc.org/docs/cli_tutorial/index.html"
-													class="maage-link">
-													CLI tools
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="https://www.bv-brc.org/api/doc/" class="maage-link">
-													Data API
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="https://www.maage-brc.org/docs/quick_references/ftp.html"
-													class="maage-link">
-													File Transfers
-												</a>
-											</li>
-											<hr>
-											<li class="flex items-center">
-												<a href="/workspace/public" class="maage-link">
-													Public Workspaces
-												</a>
-											</li>
-											<li class="flex items-center">
-												<a href="/workspace/public/maage@bvbrc/MAAGE%20Workshop"
-													class="maage-link">
-													MAAGE Workshop
-												</a>
-											</li>
-										</ul>
+									<div class="flex gap-1">
+										<button class="mock1-carousel-arrow" id="mock1-carousel-prev" aria-label="Previous">
+											<i data-lucide="chevron-left" class="h-4 w-4"></i>
+										</button>
+										<button class="mock1-carousel-arrow" id="mock1-carousel-next" aria-label="Next">
+											<i data-lucide="chevron-right" class="h-4 w-4"></i>
+										</button>
 									</div>
 								</div>
-								<style>
-									.maage-link,
-									.maage-link:visited {
-										color: var(--maage-text-link) !important;
-										text-decoration: none;
-										transition: color 0.15s;
-									}
 
-									.maage-link:hover,
-									.maage-link:focus {
-										color: var(--maage-text-link) !important;
-										text-decoration: underline;
-									}
+								<div class="mock1-carousel-viewport">
+								<!-- Slide: Events -->
+								<div class="mock1-carousel-slide mock1-carousel-slide--active" id="mock1-slide-events">
+									<div class="space-y-4 flex-1">
+										<div class="flex gap-3 bg-maage-primary-50 rounded-lg p-2">
+											<div class="bg-maage-primary-100 text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
+												<span class="block text-sm font-bold">TBD</span>
+												<span class="block text-xl font-bold">—</span>
+											</div>
+											<div>
+												<h3 class="font-medium text-gray-800">Webinar: Introduction to MAAGE</h3>
+												<p class="text-sm text-gray-700">Date &amp; Time: TBD</p>
+												<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
+													href="/announcements">Learn More</a>
+											</div>
+										</div>
+										<div class="flex gap-3 rounded-lg p-2">
+											<div class="text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
+												<span class="block text-sm font-bold">TBD</span>
+												<span class="block text-xl font-bold">—</span>
+											</div>
+											<div>
+												<h3 class="font-medium text-gray-800">Workshop: Genomic Epidemiology Using MAAGE</h3>
+												<p class="text-sm text-gray-700">Date &amp; Location: TBD</p>
+												<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
+													href="/announcements">Learn More</a>
+											</div>
+										</div>
+									</div>
+									<div class="mt-4 text-center">
+										<a href="/events"
+											class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
+											View Events
+											<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+										</a>
+									</div>
+								</div>
 
-									.maage-cards-grid {
-										display: grid !important;
-									}
+								<!-- Slide: Announcements -->
+								<div class="mock1-carousel-slide" id="mock1-slide-announcements">
+									<div class="space-y-3 flex-1">
+										<div class="hover:bg-maage-primary-50 p-2 rounded-lg">
+											<div class="flex items-center text-sm text-gray-500 mb-1">
+												<span>Coming Soon</span>
+												<span class="mx-2">&bull;</span>
+												<span>Announcement</span>
+											</div>
+											<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Public Launch of the MAAGE Platform</a></h3>
+											<p class="text-sm text-gray-600">We are excited to announce the upcoming public launch of the MAAGE platform.</p>
+										</div>
+										<div class="hover:bg-maage-primary-50 p-2 rounded-lg">
+											<div class="flex items-center text-sm text-gray-500 mb-1">
+												<span>Date: TBD</span>
+												<span class="mx-2">&bull;</span>
+												<span>Webinar</span>
+											</div>
+											<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Webinar: Introduction to MAAGE</a></h3>
+											<p class="text-sm text-gray-600">Join us for an introductory webinar covering the core features of the MAAGE platform.</p>
+										</div>
+									</div>
+									<div class="mt-4 text-center">
+										<a href="/announcements"
+											class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
+											View Announcements
+											<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+										</a>
+									</div>
+								</div>
+								</div><!-- /mock1-carousel-viewport -->
 
-									@media (max-width: 639px) {
-										.maage-cards-grid {
-											grid-template-columns: 1fr !important;
-											gap: 1rem !important;
-										}
-									}
-
-									@media (min-width: 640px) and (max-width: 1023px) {
-										.maage-cards-grid {
-											grid-template-columns: repeat(2, 1fr) !important;
-											gap: 1rem !important;
-										}
-									}
-
-									@media (min-width: 1024px) {
-										.maage-cards-grid {
-											grid-template-columns: repeat(4, 1fr) !important;
-											gap: 1.5rem !important;
-										}
-										
-										.maage-cards-grid > div {
-											height: 100%;
-											display: flex;
-											flex-direction: column;
-										}
-										
-										.maage-cards-grid .card-list {
-											flex-grow: 1;
-										}
-									}
-
-									/* Mock-1 Short Cards */
-									.mock1-short-cards {
-										display: grid;
-										grid-template-columns: repeat(3, 1fr);
-										gap: 1.25rem;
-									}
-
-									@media (max-width: 767px) {
-										.mock1-short-cards {
-											grid-template-columns: 1fr;
-										}
-									}
-
-									.mock1-card {
-										display: flex;
-										flex-direction: column;
-										background: rgba(255, 255, 255, 0.92);
-										border-radius: 0.75rem;
-										padding: 1.5rem;
-										box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-										border: 1px solid rgba(0, 0, 0, 0.04);
-										transition: box-shadow 0.2s, transform 0.2s;
-										text-decoration: none;
-										color: inherit;
-									}
-
-									.mock1-card:hover {
-										box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-										transform: translateY(-2px);
-										text-decoration: none;
-										color: inherit;
-									}
-
-									.mock1-card-header {
-										display: flex;
-										align-items: center;
-										gap: 0.75rem;
-										margin-bottom: 0.5rem;
-									}
-
-									.mock1-card-icon {
-										color: #324d41;
-										flex-shrink: 0;
-									}
-
-									.mock1-card-title {
-										font-size: 1.1rem;
-										font-weight: 600;
-										color: #1e293b;
-										font-family: 'Poppins', sans-serif;
-									}
-
-									.mock1-card-body {
-										flex: 1;
-									}
-
-									.mock1-card-desc {
-										font-size: 0.9rem;
-										color: #4b5563;
-										line-height: 1.5;
-										margin-bottom: 1rem;
-									}
-
-									.mock1-card-arrow {
-										color: #324d41;
-										margin-top: auto;
-										display: flex;
-										justify-content: flex-end;
-										stroke-width: 2.5;
-									}
-
-									.mock1-card-arrow svg {
-										stroke-width: 2.5;
-									}
-								</style>
-								<div class="mt-8 flex flex-wrap gap-4 justify-center">
-									<a href="https://www.maage-brc.org/docs/quick_start/index.html"
-										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-secondary-300 transition-colors duration-200 text-sm">
-										<i data-lucide="zap" class="mr-2 h-5 w-5"></i>
-										Quick Start
-									</a>
-									<a href="https://www.maage-brc.org/docs/quick_references/index.html"
-										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 transition-colors duration-200 text-sm">
-										<i data-lucide="book-open" class="mr-2 h-5 w-5"></i>
-										Reference Guides
-									</a>
-									<a href="https://www.maage-brc.org/docs/tutorial/index.html"
-										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-tertiary-300 transition-colors duration-200 text-sm">
-										<i data-lucide="badge-help" class="mr-2 h-5 w-5"></i>
-										Tutorials
-									</a>
+								<!-- Dots -->
+								<div class="flex justify-center gap-2 mt-3">
+									<span class="mock1-carousel-dot mock1-carousel-dot--active" id="mock1-dot-0"></span>
+									<span class="mock1-carousel-dot" id="mock1-dot-1"></span>
 								</div>
 							</section>
 						</div>
 
-						<!-- Row 2 Right: News and Announcements -->
-						<div class="md:col-start-2 md:row-start-2">
-							<section class="bg-white shadow-md rounded-lg p-6 h-full">
-								<div class="flex items-center mb-4">
-									<h2 class="text-maage=text/90 text-xl font-semibold font-poppins">Announcements</h2>
-								</div>
-								<div class="space-y-2">
-									<div class="hover:bg-maage-primary-50 p-1">
-										<div class="flex items-center text-sm text-gray-500 mb-1">
-											<span>Coming Soon</span>
-											<span class="mx-2">•</span>
-											<span>Announcement</span>
+						<script>
+							(function() {
+								var slides = ['mock1-slide-events', 'mock1-slide-announcements'];
+								var titles = ['Upcoming Events', 'Announcements'];
+								var current = 0;
+
+								function show(idx) {
+									slides.forEach(function(id, i) {
+										var el = document.getElementById(id);
+										if (i === idx) {
+											el.classList.add('mock1-carousel-slide--active');
+										} else {
+											el.classList.remove('mock1-carousel-slide--active');
+										}
+									});
+									document.getElementById('mock1-carousel-title').textContent = titles[idx];
+									document.getElementById('mock1-dot-0').className = 'mock1-carousel-dot' + (idx === 0 ? ' mock1-carousel-dot--active' : '');
+									document.getElementById('mock1-dot-1').className = 'mock1-carousel-dot' + (idx === 1 ? ' mock1-carousel-dot--active' : '');
+									current = idx;
+								}
+
+								document.getElementById('mock1-carousel-prev').addEventListener('click', function() {
+									show(current === 0 ? slides.length - 1 : current - 1);
+								});
+								document.getElementById('mock1-carousel-next').addEventListener('click', function() {
+									show(current === slides.length - 1 ? 0 : current + 1);
+								});
+								document.getElementById('mock1-dot-0').addEventListener('click', function() { show(0); });
+								document.getElementById('mock1-dot-1').addEventListener('click', function() { show(1); });
+							})();
+						</script>
+
+						<!-- Row 2: Workflow Cards + I Have Box -->
+						<div style="grid-column: 1 / -1;">
+							<div class="mock1-row2-grid">
+								<!-- Workflow Cards -->
+								<div class="mock1-workflow-pair">
+									<!-- Workflow Card 1 -->
+									<div class="mock1-workflow-card">
+										<div class="mock1-workflow-header">
+											<span class="mock1-workflow-number">1</span>
+											<h3 class="mock1-workflow-title">Investigate a Suspected Outbreak</h3>
 										</div>
-										<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Public Launch of the MAAGE Platform</a></h3>
-										<p class="text-sm text-gray-600">We are excited to announce the upcoming public launch of the MAAGE platform, providing state and local public health agencies with cutting-edge genomic surveillance tools.</p>
+										<p class="mock1-workflow-desc">Determine if isolates are related and part of an existing cluster.</p>
+										<ul class="mock1-workflow-steps">
+											<li>
+												<a href="#" onclick="console.log('Genome Assembly'); return false;">
+													<i data-lucide="box" class="h-4 w-4"></i>
+													<span>Genome Assembly</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('cgMLST Typing'); return false;">
+													<i data-lucide="dna" class="h-4 w-4"></i>
+													<span>cgMLST Typing</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('Cluster Detection'); return false;">
+													<i data-lucide="network" class="h-4 w-4"></i>
+													<span>Cluster Detection</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('HierCC Assignment'); return false;">
+													<i data-lucide="git-merge" class="h-4 w-4"></i>
+													<span>HierCC Assignment</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('Outbreak Comparison'); return false;">
+													<i data-lucide="diff" class="h-4 w-4"></i>
+													<span>Outbreak Comparison</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('Phylogenetic Analysis'); return false;">
+													<i data-lucide="tree-deciduous" class="h-4 w-4"></i>
+													<span>Phylogenetic Analysis</span>
+												</a>
+											</li>
+										</ul>
 									</div>
-									<div class="hover:bg-maage-primary-50 p-1">
-										<div class="flex items-center text-sm text-gray-500 mb-1">
-											<span>Date &amp; Time: TBD</span>
-											<span class="mx-2">•</span>
-											<span>Webinar</span>
+
+									<!-- Workflow Card 2 -->
+									<div class="mock1-workflow-card">
+										<div class="mock1-workflow-header">
+											<span class="mock1-workflow-number mock1-workflow-number--teal">2</span>
+											<h3 class="mock1-workflow-title">Identify & Characterize a New Sample</h3>
 										</div>
-										<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Webinar: Introduction to MAAGE</a></h3>
-										<p class="text-sm text-gray-600">Join us for an introductory webinar covering the core features of the MAAGE platform, including genomic surveillance workflows and data visualization tools.</p>
+										<p class="mock1-workflow-desc">Start with sequence data to identify the pathogen and characterize an isolate.</p>
+										<ul class="mock1-workflow-steps">
+											<li>
+												<a href="#" onclick="console.log('FASTQ Reads'); return false;">
+													<i data-lucide="file-text" class="h-4 w-4"></i>
+													<span>FASTQ Reads</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('Assembly'); return false;">
+													<i data-lucide="layers" class="h-4 w-4"></i>
+													<span>Assembly</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('Species Identification'); return false;">
+													<i data-lucide="scan-search" class="h-4 w-4"></i>
+													<span>Species Identification</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('AMR Detection'); return false;">
+													<i data-lucide="shield-alert" class="h-4 w-4"></i>
+													<span>AMR Detection</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('Serotype / Lineage'); return false;">
+													<i data-lucide="git-branch" class="h-4 w-4"></i>
+													<span>Serotype / Lineage</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" onclick="console.log('MLST / cgMLST'); return false;">
+													<i data-lucide="dna" class="h-4 w-4"></i>
+													<span>MLST / cgMLST</span>
+												</a>
+											</li>
+										</ul>
 									</div>
 								</div>
-								<div class="mt-4 text-center">
-									<a href="/announcements"
-										class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
-										View Announcements
-										<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-									</a>
+
+								<!-- I Have... Box -->
+								<div class="mock1-ihave-box">
+									<h3 class="mock1-ihave-title">I Have...</h3>
+									<div class="mock1-ihave-list">
+										<a href="#" class="mock1-ihave-row" onclick="console.log('Start New Investigation'); return false;">
+											<div class="mock1-ihave-left">
+												<i data-lucide="file-text" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--blue"></i>
+												<span class="mock1-ihave-label">FASTQ reads</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<span class="mock1-ihave-action">Start New Investigation</span>
+												<i data-lucide="chevron-right" class="h-4 w-4"></i>
+											</div>
+										</a>
+										<a href="#" class="mock1-ihave-row" onclick="console.log('Typing & Cluster Detection'); return false;">
+											<div class="mock1-ihave-left">
+												<i data-lucide="git-merge" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--purple"></i>
+												<span class="mock1-ihave-label">Assembled genomes</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<span class="mock1-ihave-action">Typing & Cluster Detection</span>
+												<i data-lucide="chevron-right" class="h-4 w-4"></i>
+											</div>
+										</a>
+										<a href="#" class="mock1-ihave-row" onclick="console.log('Comparative Analysis'); return false;">
+											<div class="mock1-ihave-left">
+												<i data-lucide="database" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--green"></i>
+												<span class="mock1-ihave-label">Genome IDs / Accession numbers</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<span class="mock1-ihave-action">Comparative Analysis</span>
+												<i data-lucide="chevron-right" class="h-4 w-4"></i>
+											</div>
+										</a>
+										<a href="#" class="mock1-ihave-row" onclick="console.log('Outbreak Investigation'); return false;">
+											<div class="mock1-ihave-left">
+												<i data-lucide="bug" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--red"></i>
+												<span class="mock1-ihave-label">Suspected outbreak</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<span class="mock1-ihave-action">Outbreak Investigation</span>
+												<i data-lucide="chevron-right" class="h-4 w-4"></i>
+											</div>
+										</a>
+										<a href="#" class="mock1-ihave-row" onclick="console.log('Viral Analysis Workflow'); return false;">
+											<div class="mock1-ihave-left">
+												<i data-lucide="dna" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--indigo"></i>
+												<span class="mock1-ihave-label">Viral sequences</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<span class="mock1-ihave-action">Viral Analysis Workflow</span>
+												<i data-lucide="chevron-right" class="h-4 w-4"></i>
+											</div>
+										</a>
+										<a href="#" class="mock1-ihave-row" onclick="console.log('AMR Analysis'); return false;">
+											<div class="mock1-ihave-left">
+												<i data-lucide="shield" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--teal"></i>
+												<span class="mock1-ihave-label">AMR question</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<span class="mock1-ihave-action">AMR Analysis</span>
+												<i data-lucide="chevron-right" class="h-4 w-4"></i>
+											</div>
+										</a>
+									</div>
 								</div>
-							</section>
+							</div>
 						</div>
 
-						<style>
-							.maage-home .home-card li a:hover {
-								text-decoration: underline;
-							}
-						</style>
 					</div>
+				</section>
 			</div>
 		</div>
 	</div>
 </div>
+
+<style>
+	/* Mock-1 Short Cards */
+	.mock1-short-cards {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 767px) {
+		.mock1-short-cards {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.mock1-card {
+		display: flex;
+		flex-direction: column;
+		background: rgba(255, 255, 255, 0.92);
+		border-radius: 0.75rem;
+		padding: 1.5rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+		border: 1px solid rgba(0, 0, 0, 0.04);
+		transition: box-shadow 0.2s, transform 0.2s;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.mock1-card:hover {
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		transform: translateY(-2px);
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.mock1-card-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.mock1-card-icon {
+		color: #324d41;
+		flex-shrink: 0;
+	}
+
+	.mock1-card-title {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: #1e293b;
+		font-family: 'Poppins', sans-serif;
+	}
+
+	.mock1-card-body {
+		flex: 1;
+	}
+
+	.mock1-card-desc {
+		font-size: 0.9rem;
+		color: #4b5563;
+		line-height: 1.5;
+		margin-bottom: 1rem;
+	}
+
+	.mock1-card-arrow {
+		color: #324d41;
+		margin-top: auto;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.mock1-card-arrow svg {
+		stroke-width: 2.5;
+	}
+
+	/* Mock-1 Row 2 Layout */
+	.mock1-row2-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		align-items: start;
+	}
+
+	@media (max-width: 767px) {
+		.mock1-row2-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Workflow Cards */
+	.mock1-workflow-pair {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 639px) {
+		.mock1-workflow-pair {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.mock1-workflow-card {
+		background: #fff;
+		border-radius: 0.75rem;
+		padding: 1.5rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+		border: 1px solid #e5e7eb;
+	}
+
+	.mock1-workflow-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.mock1-workflow-number {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		background: #1e3a5f;
+		color: #fff;
+		font-weight: 700;
+		font-size: 0.9rem;
+		flex-shrink: 0;
+	}
+
+	.mock1-workflow-number--teal {
+		background: #0d9488;
+	}
+
+	.mock1-workflow-title {
+		font-size: 1.05rem;
+		font-weight: 700;
+		color: #1e293b;
+		font-family: 'Poppins', sans-serif;
+		line-height: 1.3;
+	}
+
+	.mock1-workflow-desc {
+		font-size: 0.85rem;
+		color: #6b7280;
+		margin-bottom: 1rem;
+		line-height: 1.4;
+	}
+
+	.mock1-workflow-steps {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.mock1-workflow-steps li a {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.4rem 0.5rem;
+		border-radius: 0.375rem;
+		color: #374151;
+		font-size: 0.9rem;
+		text-decoration: none;
+		transition: background 0.15s, color 0.15s;
+	}
+
+	.mock1-workflow-steps li a:hover {
+		background: #f0fdfa;
+		color: #0d9488;
+		text-decoration: none;
+	}
+
+	.mock1-workflow-steps li a i {
+		color: #6b7280;
+		flex-shrink: 0;
+	}
+
+	.mock1-workflow-steps li a:hover i {
+		color: #0d9488;
+	}
+
+	/* I Have... Box */
+	.mock1-ihave-box {
+		background: #fff;
+		border-radius: 0.75rem;
+		padding: 1.5rem;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+		border: 1px solid #e5e7eb;
+	}
+
+	.mock1-ihave-title {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #1e293b;
+		margin-bottom: 1rem;
+		font-family: 'Poppins', sans-serif;
+	}
+
+	.mock1-ihave-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.mock1-ihave-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.85rem 1rem;
+		border-bottom: 1px solid #f3f4f6;
+		text-decoration: none;
+		color: inherit;
+		transition: background 0.15s;
+		border-radius: 0.375rem;
+	}
+
+	.mock1-ihave-row:last-child {
+		border-bottom: none;
+	}
+
+	.mock1-ihave-row:hover {
+		background: #f8fafc;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.mock1-ihave-left {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.mock1-ihave-icon {
+		flex-shrink: 0;
+	}
+
+	.mock1-ihave-icon--blue { color: #3b82f6; }
+	.mock1-ihave-icon--purple { color: #8b5cf6; }
+	.mock1-ihave-icon--green { color: #10b981; }
+	.mock1-ihave-icon--red { color: #ef4444; }
+	.mock1-ihave-icon--indigo { color: #6366f1; }
+	.mock1-ihave-icon--teal { color: #0d9488; }
+
+	.mock1-ihave-label {
+		font-size: 0.95rem;
+		font-weight: 500;
+		color: #1e293b;
+	}
+
+	.mock1-ihave-right {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.mock1-ihave-action {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: #1e3a5f;
+	}
+
+	.mock1-ihave-right i {
+		color: #6b7280;
+	}
+
+	.mock1-ihave-row:hover .mock1-ihave-action {
+		color: #0d9488;
+	}
+
+	.mock1-ihave-row:hover .mock1-ihave-right i {
+		color: #0d9488;
+	}
+
+	/* Carousel */
+	.mock1-carousel-viewport {
+		position: relative;
+		flex: 1;
+	}
+
+	.mock1-carousel-slide {
+		display: flex;
+		flex-direction: column;
+		visibility: hidden;
+		opacity: 0;
+		transition: opacity 0.25s, visibility 0.25s;
+	}
+
+	.mock1-carousel-slide:not(:first-child) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.mock1-carousel-slide--active {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.mock1-carousel-arrow {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: 50%;
+		border: 1px solid #e5e7eb;
+		background: #fff;
+		color: #374151;
+		cursor: pointer;
+		transition: background 0.15s, border-color 0.15s;
+	}
+
+	.mock1-carousel-arrow:hover {
+		background: #f3f4f6;
+		border-color: #d1d5db;
+	}
+
+	.mock1-carousel-dot {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 50%;
+		background: #d1d5db;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+
+	.mock1-carousel-dot--active {
+		background: #0d9488;
+	}
+</style>
+
 <section
 	style="overflow:hidden;border-color:rgb(228, 228, 231);box-sizing:border-box;border-width:0px;border-style:solid;">
 	<%- include('footer') %>
