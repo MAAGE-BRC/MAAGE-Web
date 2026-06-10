@@ -1,10 +1,18 @@
 var express = require("express");
 var router = express.Router();
 
+const HOME_VARIANTS = {
+  default: "home",
+  dev: "home-dev",
+  temp: "home-temp",
+  mock1: "home-mock1",
+};
+
 /* GET home. */
 router.get("/", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  res.render("index", { title: "PATRIC", request: req, response: res });
+  const variantKey = req.query.variant && HOME_VARIANTS[req.query.variant] ? req.query.variant : "default";
+  res.render("index", { title: "PATRIC", request: req, response: res, homeVariant: variantKey });
 });
 
 /* GET demo */

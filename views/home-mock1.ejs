@@ -1,0 +1,512 @@
+<style>
+  #p3header-search,
+  #mobile-search-icon {
+    display: none !important;
+  }
+</style>
+<div id="maage-homepage" class="pb-10 bg-[#f8f9fa]">
+	<div id="bv-brc-home" class="bg-[#f8f9fa]">
+		<div class="maage-home">
+			<div class="maage-home-container pt-[15px]">
+				<section class="max-w-maage mx-auto px-4 sm:px-6 lg:px-8 maage-home-content">
+					<div class="p-2"></div>
+					<div style="display:grid;grid-template-columns:calc(75% - 1rem) calc(25% - 1rem);gap:2rem;align-items:stretch;" class="maage-home-grid">
+						<!-- Row 1 Left: Hero + Short Cards -->
+						<div class="md:col-start-1 md:row-start-1">
+							<section
+								class="bg-maage-primary-200 shadow-md rounded-lg p-6 overflow-hidden relative h-full">
+								<div class="relative z-10 space-y-6">
+									<div>
+										<h1
+											class="text-4xl font-semibold text-secondary-900 mb-4 font-poppins leading-tight">
+											Genomic Surveillance and<br>
+											Outbreak Investigation Platform
+										</h1>
+										<p class="text-gray-700 mb-6 text-lg font-light max-w-3xl">
+											Identify pathogens, characterize genomes, detect clusters, and investigate
+											transmission using bacterial and viral genomic sequencing data.
+										</p>
+
+										<!-- Short Cards -->
+										<div class="mock1-short-cards">
+											<a href="/app/Assembly2" class="mock1-card">
+												<div class="mock1-card-header">
+													<div class="mock1-card-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+															<path d="M12 2v4"/>
+															<path d="M12 18v4"/>
+															<path d="M4.93 4.93l2.83 2.83"/>
+															<path d="M16.24 16.24l2.83 2.83"/>
+															<path d="M2 12h4"/>
+															<path d="M18 12h4"/>
+															<path d="M4.93 19.07l2.83-2.83"/>
+															<path d="M16.24 7.76l2.83-2.83"/>
+															<circle cx="12" cy="12" r="4"/>
+															<path d="M12 8v8"/>
+														</svg>
+													</div>
+													<h3 class="mock1-card-title">Start New Investigation</h3>
+												</div>
+												<div class="mock1-card-body">
+													<p class="mock1-card-desc">Upload FASTQ files from one or more samples to begin an analysis.</p>
+												</div>
+												<div class="mock1-card-arrow">
+													<i data-lucide="arrow-right" class="h-5 w-5"></i>
+												</div>
+											</a>
+
+											<a href="/searches/GenomeSearch" class="mock1-card">
+												<div class="mock1-card-header">
+													<div class="mock1-card-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+															<circle cx="11" cy="11" r="8"/>
+															<path d="m21 21-4.3-4.3"/>
+															<circle cx="11" cy="11" r="3"/>
+														</svg>
+													</div>
+													<h3 class="mock1-card-title">Explore Surveillance Data</h3>
+												</div>
+												<div class="mock1-card-body">
+													<p class="mock1-card-desc">Search public genomes, outbreaks, clusters, and metadata.</p>
+												</div>
+												<div class="mock1-card-arrow">
+													<i data-lucide="arrow-right" class="h-5 w-5"></i>
+												</div>
+											</a>
+
+											<a href="/dashboard" class="mock1-card">
+												<div class="mock1-card-header">
+													<div class="mock1-card-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+															<path d="M3 3v18h18"/>
+															<rect x="7" y="13" width="3" height="5" rx="0.5"/>
+															<rect x="12" y="9" width="3" height="9" rx="0.5"/>
+															<rect x="17" y="5" width="3" height="13" rx="0.5"/>
+														</svg>
+													</div>
+													<h3 class="mock1-card-title">View Surveillance Dashboards</h3>
+												</div>
+												<div class="mock1-card-body">
+													<p class="mock1-card-desc">Monitor circulating pathogens, emerging clusters, and AMR trends.</p>
+												</div>
+												<div class="mock1-card-arrow">
+													<i data-lucide="arrow-right" class="h-5 w-5"></i>
+												</div>
+											</a>
+										</div>
+
+									</div>
+								</div>
+							</section>
+						</div>
+
+						<!-- Row 1 Right: Upcoming Events -->
+						<div class="md:col-start-2 md:row-start-1">
+							<section
+								class="bg-white p-6 rounded-xl shadow-md hover:shadow-md transition-shadow duration-300 h-full">
+								<h2
+									class="text-xl font-semibold text-maage-text/90 mb-4 font-poppins flex items-center">
+									Upcoming Events
+								</h2>
+								<div class="space-y-4" data-dojo-attach-point="eventsContainer">
+									<div class="flex gap-3 bg-maage-primary-50">
+										<div
+											class="bg-maage-primary-100 text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
+											<span class="block text-sm font-bold">TBD</span>
+											<span class="block text-xl font-bold">—</span>
+										</div>
+										<div>
+											<h3 class="font-medium text-gray-800">Webinar: Introduction to MAAGE</h3>
+											<p class="text-sm text-gray-700">Date &amp; Time: TBD</p>
+											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
+												href="/announcements">Learn More</a>
+										</div>
+									</div>
+									<div class="flex gap-3">
+										<div class="text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
+											<span class="block text-sm font-bold">TBD</span>
+											<span class="block text-xl font-bold">—</span>
+										</div>
+										<div>
+											<h3 class="font-medium text-gray-800">Workshop: Genomic Epidemiology Using MAAGE</h3>
+											<p class="text-sm text-gray-700">Date &amp; Location: TBD</p>
+											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
+												href="/announcements">Learn More</a>
+										</div>
+									</div>
+								</div>
+								<div class="mt-4 text-center">
+									<a href="/events"
+										class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
+										View Events
+										<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+									</a>
+								</div>
+							</section>
+						</div>
+
+						<!-- Row 2 Left: Analyze Data -->
+						<div class="md:col-start-1 md:row-start-2">
+							<section class="bg-white shadow-md rounded-lg p-6 h-full">
+								<div class="flex items-center mb-6">
+									<i data-lucide="sheet" class="h-8 w-8 text-maage-text/90 mr-2"></i>
+									<h2 class="text-2xl font-semibold text-maage-text/90 font-poppins">Analyze
+										Data
+									</h2>
+								</div>
+								<p class="text-gray-700 mb-4 text-lg">
+									Upload and analyze your genomic data in a secure private workspace with our
+									comprehensive suite of
+									tools.
+								</p>
+								<div class="maage-cards-grid">
+									<div
+										class="bg-maage-primary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-3">
+											<i data-lucide="search" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Search</h3>
+										</div>
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="/searches/TaxaSearch" class="maage-link">
+													Taxa
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/searches/GenomeSearch" class="maage-link">
+													Genomes
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/searches/GenomicFeatureSearch" class="maage-link">
+													Features
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/searches/SpecialtyGeneSearch" class="maage-link">
+													Specialty Genes
+												</a>
+											</li>
+											<li class="flex items-center mt-5 font-medium">
+												<a href="/searches" class="inline-flex items-center maage-link text-md">
+													View All
+													<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div
+										class="bg-maage-secondary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-3">
+											<i data-lucide="chart-pie"
+												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Analyze</h3>
+										</div>
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="/app/Assembly2" class="maage-link text-md">
+													Assembly
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/app/Annotation" class="maage-link text-md">
+													Annotation
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/app/Homology" class="maage-link text-md">
+													BLAST
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/app/MSA" class="maage-link text-md">
+													MSA
+												</a>
+											</li>
+											<li
+												class="flex items-center mt-5 text-maage-secondary-600 text-md font-medium">
+												<a href="/tools" class="inline-flex items-center maage-link text-md">
+													View All
+													<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div
+										class="bg-maage-primary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-4">
+											<i data-lucide="server" class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Data</h3>
+										</div>
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html"
+													class="maage-link">
+													Access Workspace
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/groups.html"
+													class="maage-link">
+													Save Search Results
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/data_upload.html"
+													class="maage-link">
+													Upload Data
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/jobs.html"
+													class="maage-link">
+													Analysis Jobs
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/workspaces/workspace.html#creating-and-sharing-workspaces"
+													class="maage-link">
+													Share & Publish
+												</a>
+											</li>
+
+										</ul>
+									</div>
+									<div
+										class="bg-maage-secondary-50 rounded-lg p-4 lg:p-5 shadow-md border border-gray-100 hover:border-maage-secondary-200 transition-colors">
+										<div class="card-header flex items-center mb-3">
+											<i data-lucide="arrow-up-down"
+												class="h-5 w-5 text-maage-secondary-800 mr-2"></i>
+											<h3 class="card-heading font-semibold text-maage-gray-800"
+												style="font-size:16px;">Access</h3>
+										</div>
+										<ul class="card-list space-y-2.5">
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/cli_tutorial/index.html"
+													class="maage-link">
+													CLI tools
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.bv-brc.org/api/doc/" class="maage-link">
+													Data API
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="https://www.maage-brc.org/docs/quick_references/ftp.html"
+													class="maage-link">
+													File Transfers
+												</a>
+											</li>
+											<hr>
+											<li class="flex items-center">
+												<a href="/workspace/public" class="maage-link">
+													Public Workspaces
+												</a>
+											</li>
+											<li class="flex items-center">
+												<a href="/workspace/public/maage@bvbrc/MAAGE%20Workshop"
+													class="maage-link">
+													MAAGE Workshop
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<style>
+									.maage-link,
+									.maage-link:visited {
+										color: var(--maage-text-link) !important;
+										text-decoration: none;
+										transition: color 0.15s;
+									}
+
+									.maage-link:hover,
+									.maage-link:focus {
+										color: var(--maage-text-link) !important;
+										text-decoration: underline;
+									}
+
+									.maage-cards-grid {
+										display: grid !important;
+									}
+
+									@media (max-width: 639px) {
+										.maage-cards-grid {
+											grid-template-columns: 1fr !important;
+											gap: 1rem !important;
+										}
+									}
+
+									@media (min-width: 640px) and (max-width: 1023px) {
+										.maage-cards-grid {
+											grid-template-columns: repeat(2, 1fr) !important;
+											gap: 1rem !important;
+										}
+									}
+
+									@media (min-width: 1024px) {
+										.maage-cards-grid {
+											grid-template-columns: repeat(4, 1fr) !important;
+											gap: 1.5rem !important;
+										}
+										
+										.maage-cards-grid > div {
+											height: 100%;
+											display: flex;
+											flex-direction: column;
+										}
+										
+										.maage-cards-grid .card-list {
+											flex-grow: 1;
+										}
+									}
+
+									/* Mock-1 Short Cards */
+									.mock1-short-cards {
+										display: grid;
+										grid-template-columns: repeat(3, 1fr);
+										gap: 1.25rem;
+									}
+
+									@media (max-width: 767px) {
+										.mock1-short-cards {
+											grid-template-columns: 1fr;
+										}
+									}
+
+									.mock1-card {
+										display: flex;
+										flex-direction: column;
+										background: rgba(255, 255, 255, 0.92);
+										border-radius: 0.75rem;
+										padding: 1.5rem;
+										box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+										border: 1px solid rgba(0, 0, 0, 0.04);
+										transition: box-shadow 0.2s, transform 0.2s;
+										text-decoration: none;
+										color: inherit;
+									}
+
+									.mock1-card:hover {
+										box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+										transform: translateY(-2px);
+										text-decoration: none;
+										color: inherit;
+									}
+
+									.mock1-card-header {
+										display: flex;
+										align-items: center;
+										gap: 0.75rem;
+										margin-bottom: 0.5rem;
+									}
+
+									.mock1-card-icon {
+										color: #324d41;
+										flex-shrink: 0;
+									}
+
+									.mock1-card-title {
+										font-size: 1.1rem;
+										font-weight: 600;
+										color: #1e293b;
+										font-family: 'Poppins', sans-serif;
+									}
+
+									.mock1-card-body {
+										flex: 1;
+									}
+
+									.mock1-card-desc {
+										font-size: 0.9rem;
+										color: #4b5563;
+										line-height: 1.5;
+										margin-bottom: 1rem;
+									}
+
+									.mock1-card-arrow {
+										color: #324d41;
+										margin-top: auto;
+										display: flex;
+										justify-content: flex-end;
+										stroke-width: 2.5;
+									}
+
+									.mock1-card-arrow svg {
+										stroke-width: 2.5;
+									}
+								</style>
+								<div class="mt-8 flex flex-wrap gap-4 justify-center">
+									<a href="https://www.maage-brc.org/docs/quick_start/index.html"
+										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-secondary-300 transition-colors duration-200 text-sm">
+										<i data-lucide="zap" class="mr-2 h-5 w-5"></i>
+										Quick Start
+									</a>
+									<a href="https://www.maage-brc.org/docs/quick_references/index.html"
+										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 transition-colors duration-200 text-sm">
+										<i data-lucide="book-open" class="mr-2 h-5 w-5"></i>
+										Reference Guides
+									</a>
+									<a href="https://www.maage-brc.org/docs/tutorial/index.html"
+										class="navigationLinkOut btn-guide-links inline-flex items-center px-6 py-2.5 rounded-lg bg-maage-secondary-500 text-white font-medium shadow hover:bg-maage-secondary-500/80 focus:outline-none focus:ring-2 focus:ring-maage-tertiary-300 transition-colors duration-200 text-sm">
+										<i data-lucide="badge-help" class="mr-2 h-5 w-5"></i>
+										Tutorials
+									</a>
+								</div>
+							</section>
+						</div>
+
+						<!-- Row 2 Right: News and Announcements -->
+						<div class="md:col-start-2 md:row-start-2">
+							<section class="bg-white shadow-md rounded-lg p-6 h-full">
+								<div class="flex items-center mb-4">
+									<h2 class="text-maage=text/90 text-xl font-semibold font-poppins">Announcements</h2>
+								</div>
+								<div class="space-y-2">
+									<div class="hover:bg-maage-primary-50 p-1">
+										<div class="flex items-center text-sm text-gray-500 mb-1">
+											<span>Coming Soon</span>
+											<span class="mx-2">•</span>
+											<span>Announcement</span>
+										</div>
+										<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Public Launch of the MAAGE Platform</a></h3>
+										<p class="text-sm text-gray-600">We are excited to announce the upcoming public launch of the MAAGE platform, providing state and local public health agencies with cutting-edge genomic surveillance tools.</p>
+									</div>
+									<div class="hover:bg-maage-primary-50 p-1">
+										<div class="flex items-center text-sm text-gray-500 mb-1">
+											<span>Date &amp; Time: TBD</span>
+											<span class="mx-2">•</span>
+											<span>Webinar</span>
+										</div>
+										<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Webinar: Introduction to MAAGE</a></h3>
+										<p class="text-sm text-gray-600">Join us for an introductory webinar covering the core features of the MAAGE platform, including genomic surveillance workflows and data visualization tools.</p>
+									</div>
+								</div>
+								<div class="mt-4 text-center">
+									<a href="/announcements"
+										class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
+										View Announcements
+										<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+									</a>
+								</div>
+							</section>
+						</div>
+
+						<style>
+							.maage-home .home-card li a:hover {
+								text-decoration: underline;
+							}
+						</style>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section
+	style="overflow:hidden;border-color:rgb(228, 228, 231);box-sizing:border-box;border-width:0px;border-style:solid;">
+	<%- include('footer') %>
+</section>
