@@ -376,6 +376,16 @@ define([
         _self.navigate(newState);
       });
 
+      Router.register('/dashboard(/.*)?', function (params, path) {
+        var newState = getState(params, path);
+
+        newState.widgetClass = 'p3/widget/viewer/DashboardContainer';
+        newState.requireAuth = false;
+        newState.pageTitle = 'Surveillance Dashboard | MAAGE';
+
+        _self.navigate(newState);
+      });
+
       Router.register('/searches(/.*)', function (params, path) {
         let newState = getState(params, path);
         let parts = newState.pathname.split('/');

@@ -3224,3 +3224,126 @@ div#bv-brc-page-container > div.page-content {
       .summary-value {
         @apply text-sm font-semibold text-gray-900;
       }
+
+/* =====================================================
+   SidebarViewerBase - Sidebar TOC + Content Panel Layout
+   ===================================================== 
+   
+   Visual Hierarchy Strategy:
+   - Page/Canvas background: #f5f7f8 (cool off-white)
+   - Sidebar background: #ffffff (pure white, elevated)
+   - Content cards: #ffffff (pure white on cool canvas)
+   - Active sidebar item: #edf5f1 (tinted green, distinct from white)
+   
+   This creates clear visual separation between:
+   1. Navigation sidebar (white, elevated with border/shadow)
+   2. Main content canvas (cool off-white)
+   3. White content cards (stand out against canvas)
+*/
+
+.SidebarViewer {
+  background: #f5f7f8;
+}
+
+/* Sidebar container */
+.SidebarTOC {
+  background: #ffffff;
+  border-right: 1px solid #d0d6db;
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.02);
+}
+
+.SidebarTOC .dijitContentPaneLoading,
+.SidebarTOC .dijitContentPaneError {
+  display: none;
+}
+
+.sidebar-toc-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-toc-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--maage-text-muted, #495057);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 16px 16px 12px 16px;
+  background: #fafbfc;
+  border-bottom: 1px solid #e5e9ed;
+}
+
+.sidebar-toc-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.sidebar-toc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar-toc-item:hover {
+  background-color: #f8f9fb;
+}
+
+.sidebar-toc-item.active {
+  background-color: #edf5f1;
+  border-left-color: #5b967f;
+}
+
+.sidebar-toc-item-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--maage-text-subtle, #6c757d);
+  margin-top: 2px;
+}
+
+.sidebar-toc-item.active .sidebar-toc-item-icon {
+  color: var(--maage-primary-600, #57856f);
+}
+
+.sidebar-toc-item-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sidebar-toc-item-title {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--maage-text, #212529);
+  line-height: 1.4;
+}
+
+.sidebar-toc-item.active .sidebar-toc-item-title {
+  color: var(--maage-primary-700, #496f5d);
+  font-weight: 600;
+}
+
+.sidebar-toc-item-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  color: var(--maage-text-subtle, #6c757d);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+/* Main content panel */
+.SidebarMainPanel {
+  background: #f5f7f8;
+}
+
+.SidebarMainPanel .dijitContentPaneLoading,
+.SidebarMainPanel .dijitContentPaneError {
+  display: none;
+}

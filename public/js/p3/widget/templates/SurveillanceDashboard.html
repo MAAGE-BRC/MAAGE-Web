@@ -1,0 +1,100 @@
+<div class="surveillance-dashboard bg-maage-bg" style="overflow-y: auto; padding: 0;">
+	<!-- Dashboard Charts -->
+	<div class="p-4 sm:p-6">
+
+		<!-- Row 1: Summary + Map -->
+		<div class="flex flex-wrap gap-4 mb-4">
+			<div class="chart-section w-full lg:w-[calc(25%-0.5rem)]">
+				<h3 class="chart-title">Summary</h3>
+				<div data-dojo-attach-point="summaryNode" class="summary-container"></div>
+			</div>
+			<div class="chart-section w-full lg:w-[calc(75%-0.5rem)] relative">
+				<h3 class="chart-title">Geographic Distribution</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-2"
+					 data-dojo-attach-point="mapControlsContainer"></div>
+				<div data-dojo-attach-point="mapChartNode"
+					 class="chart-container map-chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Row 2: Time Series + Pathogen Breakdown -->
+		<div class="flex flex-wrap gap-4 mb-4">
+			<div class="chart-section w-full md:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0">
+				<h3 class="chart-title">Collection Timeline</h3>
+				<div data-dojo-attach-point="timelineChartNode"
+					 class="chart-container"></div>
+			</div>
+			<div class="chart-section w-full md:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+				<h3 class="chart-title">Pathogen Distribution</h3>
+				<div data-dojo-attach-point="pathogenChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Row 3: Cluster Summary + AMR / Host -->
+		<div class="flex flex-wrap gap-4 mb-4">
+			<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0 relative">
+				<h3 class="chart-title">Cluster Summary</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+					 data-dojo-attach-point="clusterControlsContainer">
+					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+						<button type="button"
+								data-dojo-attach-point="clusterHC5Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							HC5
+						</button>
+						<button type="button"
+								data-dojo-attach-point="clusterHC10Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							HC10
+						</button>
+						<button type="button"
+								data-dojo-attach-point="clusterHC20Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							HC20
+						</button>
+						<button type="button"
+								data-dojo-attach-point="clusterHC50Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							HC50
+						</button>
+					</div>
+				</div>
+				<div data-dojo-attach-point="clusterChartNode"
+					 class="chart-container"></div>
+			</div>
+			<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+				<h3 class="chart-title">Host Distribution</h3>
+				<div data-dojo-attach-point="hostChartNode"
+					 class="chart-container"></div>
+			</div>
+			<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0 relative">
+				<h3 class="chart-title">AMR Profile</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+					 data-dojo-attach-point="amrControlsContainer">
+					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+						<button type="button"
+								data-dojo-attach-point="amrCountBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							Count
+						</button>
+						<button type="button"
+								data-dojo-attach-point="amrPercentBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							Percent
+						</button>
+					</div>
+				</div>
+				<div data-dojo-attach-point="amrChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Row 4: Recent Genomes Table -->
+		<div class="chart-section w-full">
+			<h3 class="chart-title">Recent Genomes</h3>
+			<div data-dojo-attach-point="recentGenomesNode"
+				 class="recent-genomes-container"></div>
+		</div>
+	</div>
+</div>
