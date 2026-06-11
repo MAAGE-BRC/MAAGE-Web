@@ -17,7 +17,8 @@ define([
 	"../EChartStackedBar",
 	"../EChartAMRStackedBar",
 	"../D3Choropleth",
-	"../GenomeListSummary"
+	"../GenomeListSummary",
+	"p3/util/DashboardStorage"
 ], function (
 	declare,
 	lang,
@@ -37,9 +38,26 @@ define([
 	StackedBar,
 	AMRStackedBar,
 	Choropleth,
-	GenomeListSummary
+	GenomeListSummary,
+	DashboardStorage
 )
 {
+	// Map chart IDs to their attach-point section node names and create method names
+	var CHART_META = {
+		summary:        { section: "summarySection",       create: "createSummaryWidget" },
+		map:            { section: "mapSection",           create: "createMapChart" },
+		timeline:       { section: "timelineSection",      create: "createTimelineChart" },
+		pathogen:       { section: "pathogenSection",      create: "createPathogenChart" },
+		cluster:        { section: "clusterSection",       create: "createClusterChart" },
+		host:           { section: "hostSection",          create: "createHostChart" },
+		isolationSource:{ section: "isolationSourceSection", create: "createIsolationSourceChart" },
+		genomeQuality:  { section: "genomeQualitySection",   create: "createGenomeQualityChart" },
+		hostGroup:      { section: "hostGroupSection",       create: "createHostGroupChart" },
+		serovarTimeline:{ section: "serovarTimelineSection",  create: "createSerovarTimelineChart" },
+		amr:            { section: "amrSection",           create: "createAMRChart" },
+		recentGenomes:  { section: "recentGenomesSection", create: "createRecentGenomesTable" }
+	};
+
 	return declare([ContentPane, Templated, _WidgetsInTemplateMixin], {
 		baseClass: "SurveillanceDashboard",
 		templateString: Template,
@@ -56,6 +74,15 @@ define([
 		// Display hints set by DashboardContainer based on the active preset
 		timelineMode: "bar",       // "bar" or "stacked"
 		pathogenField: "species",  // "species" or "serovar"
+
+		// Layout config: { visibleCharts: string[], chartOrder: string[] }
+		// Set by DashboardContainer from DashboardStorage
+		layoutConfig: null,
+
+		// Internal state for debouncing loads
+		_loadTimer: null,
+		_dashboardLoaded: false,
+		_loadGeneration: 0,
 
 		postCreate: function ()
 		{
@@ -99,13 +126,10 @@ define([
 		startup: function ()
 		{
 			this.inherited(arguments);
-			// Load if a query was set during construction
-			if (this.query)
+			// Load if a query was set during construction and hasn't been loaded yet
+			if (this.query && !this._dashboardLoaded)
 			{
-				setTimeout(lang.hitch(this, function ()
-				{
-					this.loadDashboard();
-				}), 100);
+				this._scheduleLoad();
 			}
 		},
 
@@ -117,8 +141,25 @@ define([
 
 			if (this._started && oldQuery !== this.query && this.query)
 			{
-				this.loadDashboard();
+				this._scheduleLoad();
 			}
+		},
+
+		/**
+		 * Debounce dashboard loading to prevent multiple rapid calls.
+		 * Cancels any pending load and schedules a new one.
+		 */
+		_scheduleLoad: function ()
+		{
+			if (this._loadTimer)
+			{
+				clearTimeout(this._loadTimer);
+			}
+			this._loadTimer = setTimeout(lang.hitch(this, function ()
+			{
+				this._loadTimer = null;
+				this.loadDashboard();
+			}), 150);
 		},
 
 		// Display hint setters (no reload — query change triggers reload)
@@ -130,6 +171,13 @@ define([
 		_setPathogenFieldAttr: function (field)
 		{
 			this._set("pathogenField", field || "species");
+		},
+
+		_setLayoutConfigAttr: function (config)
+		{
+			this._set("layoutConfig", config || null);
+			// Layout changes are applied on next loadDashboard() call.
+			// DashboardContainer explicitly calls loadDashboard() after setting this.
 		},
 
 		switchClusterView: function (field)
@@ -157,16 +205,64 @@ define([
 
 		loadDashboard: function ()
 		{
+			this._dashboardLoaded = true;
+			this._loadGeneration++;
 			this.destroyCharts();
+			this._applyLayout();
 
-			this.createSummaryWidget();
-			this.createMapChart();
-			this.createTimelineChart();
-			this.createPathogenChart();
-			this.createClusterChart();
-			this.createHostChart();
-			this.createAMRChart();
-			this.createRecentGenomesTable();
+			var layout = this.layoutConfig || DashboardStorage.getEffectiveLayout();
+			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_CHART_IDS;
+			var chartOrder = layout.chartOrder || DashboardStorage.DEFAULT_CHART_IDS;
+
+			// Only create charts that are visible
+			var self = this;
+			chartOrder.forEach(function (chartId)
+			{
+				if (visibleCharts.indexOf(chartId) === -1) return;
+				var meta = CHART_META[chartId];
+				if (meta && typeof self[meta.create] === "function")
+				{
+					self[meta.create]();
+				}
+			});
+		},
+
+		/**
+		 * Apply layout config: reorder DOM nodes and toggle visibility.
+		 */
+		_applyLayout: function ()
+		{
+			var layout = this.layoutConfig || DashboardStorage.getEffectiveLayout();
+			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_CHART_IDS;
+			var chartOrder = layout.chartOrder || DashboardStorage.DEFAULT_CHART_IDS;
+			var container = this.chartsContainerNode;
+			if (!container) return;
+
+			// Reorder: place each section node in order
+			var self = this;
+			chartOrder.forEach(function (chartId)
+			{
+				var meta = CHART_META[chartId];
+				if (!meta) return;
+				var sectionNode = self[meta.section];
+				if (sectionNode)
+				{
+					domConstruct.place(sectionNode, container, "last");
+				}
+			});
+
+			// Show/hide based on visibleCharts
+			DashboardStorage.DEFAULT_CHART_IDS.forEach(function (chartId)
+			{
+				var meta = CHART_META[chartId];
+				if (!meta) return;
+				var sectionNode = self[meta.section];
+				if (sectionNode)
+				{
+					var isVisible = visibleCharts.indexOf(chartId) !== -1;
+					domClass.toggle(sectionNode, "chart-block-hidden", !isVisible);
+				}
+			});
 		},
 
 		// ----- Shared helpers -----
@@ -248,8 +344,12 @@ define([
 			if (!node) return;
 
 			var self = this;
+			var generation = this._loadGeneration;
 			var checkAndCreate = function ()
 			{
+				// Abort if a newer load has started
+				if (self._loadGeneration !== generation) return;
+
 				var rect = node.getBoundingClientRect();
 				if (rect.width > 0 && rect.height > 0)
 				{
@@ -260,7 +360,7 @@ define([
 
 					setTimeout(function ()
 					{
-						if (chart.resize) chart.resize();
+						if (self._loadGeneration === generation && chart.resize) chart.resize();
 					}, 100);
 
 					dataLoader(chart);
@@ -450,72 +550,41 @@ define([
 			if (!this.timelineChartNode) return;
 
 			var baseQuery = this.query;
+			var query = baseQuery + "&facet((field,collection_year),(mincount,1))&limit(0)";
 
-			if (this.timelineMode === "stacked")
-			{
-				var query = baseQuery + "&facet((pivot,(collection_year,serovar)),(mincount,1))&limit(0)";
-
-				this._createChartWhenReady(
-					this.timelineChartNode,
-					StackedBar,
-					{ title: "", theme: "maage-muted" },
-					lang.hitch(this, function (chart)
-					{
-						var queryOptions = { headers: { Accept: "application/solr+json" } };
-						this.genomeStore.query(query, queryOptions).then(
-							lang.hitch(this, function (res)
+			this._createChartWhenReady(
+				this.timelineChartNode,
+				VerticalBar,
+				{ title: "", theme: "maage-echarts-theme" },
+				lang.hitch(this, function (chart)
+				{
+					var queryOptions = { headers: { Accept: "application/solr+json" } };
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields.collection_year)
 							{
-								var pivotKey = "collection_year,serovar";
-								var pivotData = res.facet_counts.facet_pivot[pivotKey];
-								if (pivotData)
+								var yearFacets = res.facet_counts.facet_fields.collection_year;
+								var chartData = [];
+								for (var i = 0; i < yearFacets.length; i += 2)
 								{
-									chart.updateChart(this._processPivotFacets(pivotData));
-								}
-								chart.hideLoading();
-								setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
-							}),
-							function () { chart.hideLoading(); }
-						);
-					})
-				);
-			} else
-			{
-				var query = baseQuery + "&facet((field,collection_year),(mincount,1))&limit(0)";
-
-				this._createChartWhenReady(
-					this.timelineChartNode,
-					VerticalBar,
-					{ title: "", theme: "maage-echarts-theme" },
-					lang.hitch(this, function (chart)
-					{
-						var queryOptions = { headers: { Accept: "application/solr+json" } };
-						this.genomeStore.query(query, queryOptions).then(
-							lang.hitch(this, function (res)
-							{
-								if (res && res.facet_counts && res.facet_counts.facet_fields.collection_year)
-								{
-									var yearFacets = res.facet_counts.facet_fields.collection_year;
-									var chartData = [];
-									for (var i = 0; i < yearFacets.length; i += 2)
+									var year = parseInt(yearFacets[i], 10);
+									var count = yearFacets[i + 1];
+									if (!isNaN(year) && count > 0)
 									{
-										var year = parseInt(yearFacets[i], 10);
-										var count = yearFacets[i + 1];
-										if (!isNaN(year) && count > 0)
-										{
-											chartData.push({ name: year.toString(), value: count });
-										}
+										chartData.push({ name: year.toString(), value: count });
 									}
-									chartData.sort(function (a, b) { return parseInt(a.name) - parseInt(b.name); });
-									chart.updateChart(chartData.slice(-10));
 								}
-								chart.hideLoading();
-								setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
-							}),
-							function () { chart.hideLoading(); }
-						);
-					})
-				);
-			}
+								chartData.sort(function (a, b) { return parseInt(a.name) - parseInt(b.name); });
+								chart.updateChart(chartData.slice(-10));
+							}
+							chart.hideLoading();
+							setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
+						}),
+						function () { chart.hideLoading(); }
+					);
+				})
+			);
 		},
 
 		createPathogenChart: function ()
@@ -732,6 +801,189 @@ define([
 										});
 									}
 								}));
+							}
+							chart.hideLoading();
+							setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
+						}),
+						function () { chart.hideLoading(); }
+					);
+				})
+			);
+		},
+
+		createIsolationSourceChart: function ()
+		{
+			if (!this.isolationSourceChartNode) return;
+
+			var baseQuery = this.query;
+			var field = "isolation_source";
+			var query = baseQuery + "&facet((field," + field + "),(mincount,1),(limit,10))&limit(0)";
+
+			this._createChartWhenReady(
+				this.isolationSourceChartNode,
+				Doughnut,
+				{ title: "", theme: "maage-muted" },
+				lang.hitch(this, function (chart)
+				{
+					var queryOptions = { headers: { Accept: "application/solr+json" } };
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
+							{
+								var data = this._processFacets(res.facet_counts.facet_fields[field]);
+								chart.updateChart(data);
+
+								chart.chart.on("click", lang.hitch(this, function (params)
+								{
+									if (params.componentType === "series")
+									{
+										var val = params.name;
+										var encodedVal = /[^a-zA-Z0-9_.-]/.test(val)
+											? '"' + val.replace(/\//g, '%2F').replace(/:/g, '%3A').replace(/\s/g, '%20') + '"'
+											: val;
+										var q = this.query;
+										var newQuery = q.startsWith("and(")
+											? q.slice(0, -1) + ",eq(" + field + "," + encodedVal + "))"
+											: "and(" + q + ",eq(" + field + "," + encodedVal + "))";
+										Topic.publish("/navigate", {
+											href: "/view/GenomeList/?" + newQuery + "#view_tab=genomes"
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+							setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
+						}),
+						function () { chart.hideLoading(); }
+					);
+				})
+			);
+		},
+
+		createGenomeQualityChart: function ()
+		{
+			if (!this.genomeQualityChartNode) return;
+
+			var baseQuery = this.query;
+			var field = "genome_quality";
+			var query = baseQuery + "&facet((field," + field + "),(mincount,1),(limit,10))&limit(0)";
+
+			this._createChartWhenReady(
+				this.genomeQualityChartNode,
+				Doughnut,
+				{ title: "", theme: "maage-muted" },
+				lang.hitch(this, function (chart)
+				{
+					var queryOptions = { headers: { Accept: "application/solr+json" } };
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
+							{
+								var data = this._processFacets(res.facet_counts.facet_fields[field]);
+								chart.updateChart(data);
+
+								chart.chart.on("click", lang.hitch(this, function (params)
+								{
+									if (params.componentType === "series")
+									{
+										var val = params.name;
+										var encodedVal = /[^a-zA-Z0-9_.-]/.test(val)
+											? '"' + val.replace(/\//g, '%2F').replace(/:/g, '%3A').replace(/\s/g, '%20') + '"'
+											: val;
+										var q = this.query;
+										var newQuery = q.startsWith("and(")
+											? q.slice(0, -1) + ",eq(" + field + "," + encodedVal + "))"
+											: "and(" + q + ",eq(" + field + "," + encodedVal + "))";
+										Topic.publish("/navigate", {
+											href: "/view/GenomeList/?" + newQuery + "#view_tab=genomes"
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+							setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
+						}),
+						function () { chart.hideLoading(); }
+					);
+				})
+			);
+		},
+
+		createHostGroupChart: function ()
+		{
+			if (!this.hostGroupChartNode) return;
+
+			var baseQuery = this.query;
+			var field = "host_group";
+			var query = baseQuery + "&facet((field," + field + "),(mincount,1),(limit,10))&limit(0)";
+
+			this._createChartWhenReady(
+				this.hostGroupChartNode,
+				Doughnut,
+				{ title: "", theme: "maage-muted" },
+				lang.hitch(this, function (chart)
+				{
+					var queryOptions = { headers: { Accept: "application/solr+json" } };
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
+							{
+								var data = this._processFacets(res.facet_counts.facet_fields[field]);
+								chart.updateChart(data);
+
+								chart.chart.on("click", lang.hitch(this, function (params)
+								{
+									if (params.componentType === "series")
+									{
+										var val = params.name;
+										var encodedVal = /[^a-zA-Z0-9_.-]/.test(val)
+											? '"' + val.replace(/\//g, '%2F').replace(/:/g, '%3A').replace(/\s/g, '%20') + '"'
+											: val;
+										var q = this.query;
+										var newQuery = q.startsWith("and(")
+											? q.slice(0, -1) + ",eq(" + field + "," + encodedVal + "))"
+											: "and(" + q + ",eq(" + field + "," + encodedVal + "))";
+										Topic.publish("/navigate", {
+											href: "/view/GenomeList/?" + newQuery + "#view_tab=genomes"
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+							setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
+						}),
+						function () { chart.hideLoading(); }
+					);
+				})
+			);
+		},
+
+		createSerovarTimelineChart: function ()
+		{
+			if (!this.serovarTimelineChartNode) return;
+
+			var baseQuery = this.query;
+			var query = baseQuery + "&facet((pivot,(collection_year,serovar)),(mincount,1))&limit(0)";
+
+			this._createChartWhenReady(
+				this.serovarTimelineChartNode,
+				StackedBar,
+				{ title: "", theme: "maage-muted" },
+				lang.hitch(this, function (chart)
+				{
+					var queryOptions = { headers: { Accept: "application/solr+json" } };
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							var pivotKey = "collection_year,serovar";
+							if (res && res.facet_counts && res.facet_counts.facet_pivot &&
+								res.facet_counts.facet_pivot[pivotKey])
+							{
+								var pivotData = res.facet_counts.facet_pivot[pivotKey];
+								chart.updateChart(this._processPivotFacets(pivotData));
 							}
 							chart.hideLoading();
 							setTimeout(function () { if (chart.resize) chart.resize(); }, 50);
@@ -984,6 +1236,10 @@ define([
 			if (this.pathogenChartNode) domConstruct.empty(this.pathogenChartNode);
 			if (this.clusterChartNode) domConstruct.empty(this.clusterChartNode);
 			if (this.hostChartNode) domConstruct.empty(this.hostChartNode);
+			if (this.isolationSourceChartNode) domConstruct.empty(this.isolationSourceChartNode);
+			if (this.genomeQualityChartNode) domConstruct.empty(this.genomeQualityChartNode);
+			if (this.hostGroupChartNode) domConstruct.empty(this.hostGroupChartNode);
+			if (this.serovarTimelineChartNode) domConstruct.empty(this.serovarTimelineChartNode);
 			if (this.amrChartNode) domConstruct.empty(this.amrChartNode);
 			if (this.summaryNode) domConstruct.empty(this.summaryNode);
 			if (this.recentGenomesNode) domConstruct.empty(this.recentGenomesNode);
@@ -992,14 +1248,22 @@ define([
 		resize: function ()
 		{
 			this.inherited(arguments);
-			if (this.charts) this.charts.forEach(function (c) { c.resize(); });
-			if (this.mapChart) this.mapChart.resize();
-			if (this.amrChart) this.amrChart.resize();
-			if (this.clusterChart) this.clusterChart.resize();
+			if (this.charts) this.charts.forEach(function (c)
+			{
+				try { if (c && c.resize) c.resize(); } catch (e) { /* chart may be disposed */ }
+			});
+			try { if (this.mapChart && this.mapChart.resize) this.mapChart.resize(); } catch (e) {}
+			try { if (this.amrChart && this.amrChart.resize) this.amrChart.resize(); } catch (e) {}
+			try { if (this.clusterChart && this.clusterChart.resize) this.clusterChart.resize(); } catch (e) {}
 		},
 
 		destroy: function ()
 		{
+			if (this._loadTimer)
+			{
+				clearTimeout(this._loadTimer);
+				this._loadTimer = null;
+			}
 			this.destroyCharts();
 			this.inherited(arguments);
 		}

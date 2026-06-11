@@ -8,7 +8,10 @@ define([
 	"dijit/layout/ContentPane",
 	"../FilterContainerActionBar",
 	"../AdvancedSearchFields",
-	"./SurveillanceDashboard"
+	"./SurveillanceDashboard",
+	"p3/util/DashboardStorage",
+	"../DashboardLayoutEditor",
+	"../Confirmation"
 ], function (
 	declare,
 	lang,
@@ -19,7 +22,10 @@ define([
 	ContentPane,
 	FilterContainerActionBar,
 	AdvancedSearchFields,
-	SurveillanceDashboard
+	SurveillanceDashboard,
+	DashboardStorage,
+	DashboardLayoutEditor,
+	Confirmation
 ) {
 
 	var DASHBOARD_FACET_FIELDS = AdvancedSearchFields["genome"].filter(function (ff)
@@ -97,6 +103,7 @@ define([
 
 		_firstView: false,
 		_currentPresetId: null,
+		_currentSavedDashboard: null,
 		filterPanel: null,
 		dashboardContent: null,
 		viewHeader: null,
@@ -121,6 +128,23 @@ define([
 				state.hashParams = {};
 			}
 
+			// The global hash parser in p3app.js splits on "&", which breaks
+			// RQL expressions that contain "&" (e.g., from genome list URLs).
+			// Re-extract the filter from the raw hash to get the full value.
+			if (state.hash && state.hash.indexOf("filter=") === 0)
+			{
+				state.hashParams.filter = state.hash.substring("filter=".length);
+			}
+
+			// Validate that the filter has balanced parentheses.
+			// Malformed filters (from bad URL hashes) would cause API 400 errors.
+			if (state.hashParams.filter && !this._hasBalancedParens(state.hashParams.filter))
+			{
+				console.warn("DashboardContainer: discarding malformed filter (unbalanced parens):",
+					state.hashParams.filter);
+				state.hashParams.filter = null;
+			}
+
 			// If no filter, apply the default preset filter and update the URL
 			if (!state.hashParams.filter)
 			{
@@ -141,27 +165,47 @@ define([
 			// Sync preset selector to match current filter
 			var currentFilter = state.hashParams.filter || "";
 			var presetId = detectPreset(currentFilter);
+			var savedDashboard = DashboardStorage.findDashboardByFilter(currentFilter);
+
 			if (presetId && presetId !== this._currentPresetId)
 			{
 				this._currentPresetId = presetId;
+				this._currentSavedDashboard = null;
 				this.presetSelector.value = presetId;
 				this._updateHeaderForPreset(presetId);
 			}
+			else if (savedDashboard)
+			{
+				this._currentPresetId = null;
+				this._currentSavedDashboard = savedDashboard;
+				this.presetSelector.value = savedDashboard.id;
+				this.dashboardTitleNode.textContent = savedDashboard.name;
+				this.dashboardDescriptionNode.textContent = "Saved dashboard";
+			}
 			else if (!presetId && this._currentPresetId)
 			{
-				// Custom query, not a known preset
+				// Custom query, not a known preset or saved dashboard
 				this._currentPresetId = null;
+				this._currentSavedDashboard = null;
 				this.dashboardTitleNode.textContent = "Surveillance Dashboard";
 				this.dashboardDescriptionNode.textContent = "Custom filtered view";
 			}
 
 			// Forward state to filter panel — this is what makes facets load
 			// and renders filter buttons for the preset filters.
+			// The filter panel needs state.search as a base query for facet counts.
+			// The dashboard route doesn't have a URL search query, so we provide
+			// a catch-all base so getFacets() constructs valid RQL.
 			if (this.filterPanel)
 			{
-				this.filterPanel.set("state", lang.mixin({}, state, {
+				var filterState = lang.mixin({}, state, {
 					hashParams: lang.mixin({}, state.hashParams)
-				}));
+				});
+				if (!filterState.search)
+				{
+					filterState.search = "keyword(*)";
+				}
+				this.filterPanel.set("state", filterState);
 			}
 
 			// Push the filter as the query to charts
@@ -169,10 +213,30 @@ define([
 			{
 				var query = state.hashParams.filter || "";
 
-				// Pass display hints from the current preset (or last known)
-				var preset = presetId ? PRESETS[presetId] : (this._currentPresetId ? PRESETS[this._currentPresetId] : null);
-				this.dashboardContent.set("timelineMode", preset ? preset.timelineMode : "bar");
-				this.dashboardContent.set("pathogenField", preset ? preset.pathogenField : "species");
+				// Determine display hints: saved dashboard > preset > defaults
+				var timelineMode = "bar";
+				var pathogenField = "species";
+
+				if (savedDashboard)
+				{
+					timelineMode = savedDashboard.timelineMode || "bar";
+					pathogenField = savedDashboard.pathogenField || "species";
+				}
+				else if (presetId && PRESETS[presetId])
+				{
+					timelineMode = PRESETS[presetId].timelineMode;
+					pathogenField = PRESETS[presetId].pathogenField;
+				}
+				else
+				{
+					// Auto-detect for custom queries
+					var hints = DashboardStorage.detectDisplayHints(query);
+					timelineMode = hints.timelineMode;
+					pathogenField = hints.pathogenField;
+				}
+
+				this.dashboardContent.set("timelineMode", timelineMode);
+				this.dashboardContent.set("pathogenField", pathogenField);
 				this.dashboardContent.set("query", query);
 			}
 		},
@@ -189,9 +253,12 @@ define([
 
 			// 3. Dashboard chart content (region: center)
 			var initialState = this.state || {};
+			var layoutConfig = DashboardStorage.getEffectiveLayout();
+
 			this.dashboardContent = new SurveillanceDashboard({
 				region: "center",
-				query: (initialState.hashParams && initialState.hashParams.filter) || ""
+				query: (initialState.hashParams && initialState.hashParams.filter) || "",
+				layoutConfig: layoutConfig
 			});
 
 			this.addChild(this.viewHeader);
@@ -240,27 +307,106 @@ define([
 				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer min-w-[220px]"
 			}, controlsArea);
 
+			this._populatePresetSelector();
+
+			// On preset change, navigate with the preset filter as the hash
+			on(this.presetSelector, "change", lang.hitch(this, function (evt)
+			{
+				var selectedValue = evt.target.value;
+
+				// Check built-in presets first
+				var preset = PRESETS[selectedValue];
+				if (preset)
+				{
+					var filter = resolveQuery(preset.filter);
+					Topic.publish("/navigate", {
+						href: "/dashboard/#filter=" + filter
+					});
+					return;
+				}
+
+				// Check saved dashboards
+				var savedDashboards = DashboardStorage.getSavedDashboards();
+				var saved = null;
+				for (var i = 0; i < savedDashboards.length; i++)
+				{
+					if (savedDashboards[i].id === selectedValue)
+					{
+						saved = savedDashboards[i];
+						break;
+					}
+				}
+				if (saved)
+				{
+					Topic.publish("/navigate", {
+						href: "/dashboard/#filter=" + saved.filter
+					});
+				}
+			}));
+
+			// Customize button
+			var customizeBtn = domConstruct.create("button", {
+				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer transition-colors",
+				title: "Customize dashboard layout",
+				innerHTML: '<span class="fa icon-cog2" style="margin-right: 4px;"></span>Customize'
+			}, controlsArea);
+
+			on(customizeBtn, "click", lang.hitch(this, "_openLayoutEditor"));
+
+			// Manage saved dashboards button
+			this.manageSavedBtn = domConstruct.create("button", {
+				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer transition-colors",
+				title: "Manage saved dashboards",
+				innerHTML: '<span class="fa icon-list2" style="margin-right: 4px;"></span>Manage'
+			}, controlsArea);
+
+			// Only show manage button if there are saved dashboards
+			var savedCount = DashboardStorage.getSavedDashboards().length;
+			this.manageSavedBtn.style.display = savedCount > 0 ? "" : "none";
+
+			on(this.manageSavedBtn, "click", lang.hitch(this, "_openManageSavedDialog"));
+		},
+
+		_populatePresetSelector: function ()
+		{
+			domConstruct.empty(this.presetSelector);
+
+			// Built-in presets group
+			var builtInGroup = domConstruct.create("optgroup", {
+				label: "Built-in Dashboards"
+			}, this.presetSelector);
+
 			var keys = Object.keys(PRESETS);
 			for (var i = 0; i < keys.length; i++)
 			{
 				domConstruct.create("option", {
 					value: keys[i],
 					textContent: PRESETS[keys[i]].title
-				}, this.presetSelector);
+				}, builtInGroup);
 			}
 
-			// On preset change, navigate with the preset filter as the hash
-			on(this.presetSelector, "change", lang.hitch(this, function (evt)
+			// Saved dashboards group
+			var savedDashboards = DashboardStorage.getSavedDashboards();
+			if (savedDashboards.length > 0)
 			{
-				var presetId = evt.target.value;
-				var preset = PRESETS[presetId];
-				if (!preset) return;
+				var savedGroup = domConstruct.create("optgroup", {
+					label: "Saved Dashboards"
+				}, this.presetSelector);
 
-				var filter = resolveQuery(preset.filter);
-				Topic.publish("/navigate", {
-					href: "/dashboard/#filter=" + filter
+				savedDashboards.forEach(function (sd)
+				{
+					domConstruct.create("option", {
+						value: sd.id,
+						textContent: sd.name
+					}, savedGroup);
 				});
-			}));
+			}
+
+			// Update manage button visibility
+			if (this.manageSavedBtn)
+			{
+				this.manageSavedBtn.style.display = savedDashboards.length > 0 ? "" : "none";
+			}
 		},
 
 		_updateHeaderForPreset: function (presetId)
@@ -270,6 +416,115 @@ define([
 
 			this.dashboardTitleNode.textContent = preset.title;
 			this.dashboardDescriptionNode.textContent = preset.description;
+		},
+
+		_openLayoutEditor: function ()
+		{
+			var self = this;
+			var editor = new DashboardLayoutEditor({
+				onSave: function (config)
+				{
+					// Refresh the dashboard with new layout
+					if (self.dashboardContent)
+					{
+						self.dashboardContent.set("layoutConfig", config);
+						// Force reload to re-create charts in new order
+						if (self.dashboardContent.query)
+						{
+							self.dashboardContent.loadDashboard();
+						}
+					}
+				}
+			});
+			editor.show();
+		},
+
+		_openManageSavedDialog: function ()
+		{
+			var self = this;
+			var savedDashboards = DashboardStorage.getSavedDashboards();
+
+			if (savedDashboards.length === 0)
+			{
+				return;
+			}
+
+			var dlg = new Confirmation({
+				title: "Manage Saved Dashboards",
+				okLabel: "Done",
+				cancelLabel: null,
+				closeOnOK: true,
+				onConfirm: function ()
+				{
+					// Refresh preset selector in case names changed or items deleted
+					self._populatePresetSelector();
+				}
+			});
+
+			var container = domConstruct.create("div", {
+				className: "dashboard-manage-list",
+				style: "min-width: 340px;"
+			});
+
+			savedDashboards.forEach(function (sd)
+			{
+				var row = domConstruct.create("div", {
+					className: "manage-row"
+				}, container);
+
+				// Editable name
+				var nameInput = domConstruct.create("input", {
+					className: "manage-name",
+					type: "text",
+					value: sd.name
+				}, row);
+
+				on(nameInput, "blur", function ()
+				{
+					var newName = nameInput.value.trim();
+					if (newName && newName !== sd.name)
+					{
+						DashboardStorage.renameDashboard(sd.id, newName);
+						sd.name = newName;
+					}
+					else if (!newName)
+					{
+						nameInput.value = sd.name;
+					}
+				});
+
+				on(nameInput, "keydown", function (evt)
+				{
+					if (evt.key === "Enter")
+					{
+						nameInput.blur();
+					}
+				});
+
+				// Delete button
+				var deleteBtn = domConstruct.create("button", {
+					className: "manage-delete-btn",
+					innerHTML: "&#10005;",
+					title: "Delete this saved dashboard"
+				}, row);
+
+				on(deleteBtn, "click", function ()
+				{
+					DashboardStorage.deleteDashboard(sd.id);
+					domConstruct.destroy(row);
+
+					// If no more saved dashboards, close the dialog
+					var remaining = DashboardStorage.getSavedDashboards();
+					if (remaining.length === 0)
+					{
+						dlg.hideAndDestroy();
+						self._populatePresetSelector();
+					}
+				});
+			});
+
+			domConstruct.place(container, dlg.containerNode, "first");
+			dlg.show();
 		},
 
 		_createFilterPanel: function ()
@@ -299,6 +554,19 @@ define([
 					});
 				}
 			}));
+		},
+
+		_hasBalancedParens: function (str)
+		{
+			if (!str) return true;
+			var count = 0;
+			for (var i = 0; i < str.length; i++)
+			{
+				if (str[i] === "(") count++;
+				else if (str[i] === ")") count--;
+				if (count < 0) return false;
+			}
+			return count === 0;
 		},
 
 		_listen: function ()

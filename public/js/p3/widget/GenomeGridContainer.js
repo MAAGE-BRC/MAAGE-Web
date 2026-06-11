@@ -2,13 +2,15 @@ define([
   'dojo/_base/declare', 'dojo/on', 'dojo/dom-construct',
   'dijit/popup', 'dijit/TooltipDialog',
   './GenomeGrid', './AdvancedSearchFields', './GridContainer',
-  '../util/PathJoin'
+  '../util/PathJoin',
+  './SaveDashboardDialog'
 
 ], function (
   declare, on, domConstruct,
   popup, TooltipDialog,
   GenomeGrid, AdvancedSearchFields, GridContainer,
-  PathJoin
+  PathJoin,
+  SaveDashboardDialog
 ) {
 
   const dfc = '<div>Download Table As...</div><div class="wsActionTooltip" rel="text/tsv">Text</div><div class="wsActionTooltip" rel="text/csv">CSV</div><div class="wsActionTooltip" rel="application/vnd.openxmlformats">Excel</div>';
@@ -89,6 +91,59 @@ define([
             around: this.containerActionBar._actions.DownloadTable.button,
             orient: ['below']
           });
+        },
+        true,
+        'left'
+      ],
+      [
+        'SaveAsDashboard',
+        'fa icon-dashboard fa-2x',
+        {
+          label: 'DASHBOARD',
+          multiple: false,
+          validTypes: ['*'],
+          tooltip: 'Save current filters as a dashboard view',
+          persistent: true
+        },
+        function () {
+          // Build the combined filter query from the current grid state
+          const _self = this;
+          let filter = '';
+
+          if (_self.state) {
+            const baseSearch = _self.state.search || '';
+            const hashFilter = (_self.state.hashParams && _self.state.hashParams.filter) || '';
+
+            if (baseSearch && hashFilter) {
+              // Combine base search query params with hash filter
+              // The base search is typically a URL query string like ?eq(genus,Salmonella)
+              const baseQuery = baseSearch.replace(/^\?/, '');
+              if (baseQuery) {
+                filter = 'and(' + baseQuery + ',' + hashFilter + ')';
+              } else {
+                filter = hashFilter;
+              }
+            } else if (hashFilter) {
+              filter = hashFilter;
+            } else if (baseSearch) {
+              filter = baseSearch.replace(/^\?/, '');
+            }
+          }
+
+          // Fallback to grid query if state is not available
+          if (!filter && _self.grid) {
+            filter = _self.grid.get('query') || '';
+          }
+
+          if (!filter) {
+            // Nothing to save
+            return;
+          }
+
+          const dlg = new SaveDashboardDialog({
+            filter: filter
+          });
+          dlg.show();
         },
         true,
         'left'
