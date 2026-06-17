@@ -6,6 +6,8 @@ define([], function ()
 	var DEFAULT_CHARTS = [
 		{ id: "summary", label: "Summary" },
 		{ id: "map", label: "Geographic Distribution" },
+		{ id: "serovarTimeline", label: "Serovars Over Time" },
+		{ id: "amr", label: "AMR Profile" },
 		{ id: "timeline", label: "Collection Timeline" },
 		{ id: "pathogen", label: "Serovar" },
 		{ id: "cluster", label: "Cluster Summary" },
@@ -13,8 +15,6 @@ define([], function ()
 		{ id: "isolationSource", label: "Isolation Source" },
 		{ id: "genomeQuality", label: "Genome Quality" },
 		{ id: "hostGroup", label: "Host Group" },
-		{ id: "serovarTimeline", label: "Serovars Over Time" },
-		{ id: "amr", label: "AMR Profile" },
 		{ id: "recentGenomes", label: "Recent Genomes" }
 	];
 

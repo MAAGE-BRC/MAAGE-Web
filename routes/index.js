@@ -11,7 +11,7 @@ const HOME_VARIANTS = {
 /* GET home. */
 router.get("/", function (req, res) {
   req.applicationModule = "p3/app/p3app";
-  const variantKey = req.query.variant && HOME_VARIANTS[req.query.variant] ? req.query.variant : "default";
+  const variantKey = req.query.variant && HOME_VARIANTS[req.query.variant] ? req.query.variant : "mock1";
   res.render("index", { title: "PATRIC", request: req, response: res, homeVariant: variantKey });
 });
 

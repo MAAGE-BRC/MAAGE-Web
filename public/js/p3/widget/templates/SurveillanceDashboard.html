@@ -23,6 +23,41 @@
 			</div>
 		</div>
 
+		<!-- Serovars Over Time -->
+		<div data-chart-id="serovarTimeline" data-dojo-attach-point="serovarTimelineSection"
+			 class="chart-block chart-block-2-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Serovars Over Time</h3>
+				<div data-dojo-attach-point="serovarTimelineChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- AMR Profile -->
+		<div data-chart-id="amr" data-dojo-attach-point="amrSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full relative">
+				<h3 class="chart-title">AMR Profile</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+					 data-dojo-attach-point="amrControlsContainer">
+					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+						<button type="button"
+								data-dojo-attach-point="amrCountBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							Count
+						</button>
+						<button type="button"
+								data-dojo-attach-point="amrPercentBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							Percent
+						</button>
+					</div>
+				</div>
+				<div data-dojo-attach-point="amrChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
 		<!-- Collection Timeline -->
 		<div data-chart-id="timeline" data-dojo-attach-point="timelineSection"
 			 class="chart-block chart-block-2-3">
@@ -114,41 +149,6 @@
 			<div class="chart-section h-full">
 				<h3 class="chart-title">Host Group</h3>
 				<div data-dojo-attach-point="hostGroupChartNode"
-					 class="chart-container"></div>
-			</div>
-		</div>
-
-		<!-- Serovars Over Time -->
-		<div data-chart-id="serovarTimeline" data-dojo-attach-point="serovarTimelineSection"
-			 class="chart-block chart-block-2-3">
-			<div class="chart-section h-full">
-				<h3 class="chart-title">Serovars Over Time</h3>
-				<div data-dojo-attach-point="serovarTimelineChartNode"
-					 class="chart-container"></div>
-			</div>
-		</div>
-
-		<!-- AMR Profile -->
-		<div data-chart-id="amr" data-dojo-attach-point="amrSection"
-			 class="chart-block chart-block-1-3">
-			<div class="chart-section h-full relative">
-				<h3 class="chart-title">AMR Profile</h3>
-				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
-					 data-dojo-attach-point="amrControlsContainer">
-					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
-						<button type="button"
-								data-dojo-attach-point="amrCountBtn"
-								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
-							Count
-						</button>
-						<button type="button"
-								data-dojo-attach-point="amrPercentBtn"
-								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
-							Percent
-						</button>
-					</div>
-				</div>
-				<div data-dojo-attach-point="amrChartNode"
 					 class="chart-container"></div>
 			</div>
 		</div>
