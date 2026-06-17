@@ -1221,31 +1221,36 @@ define([
       // MicrobeTrace viewer action for compatible file types
       this.actionPanel.addAction('ViewMicrobeTrace', 'fa icon-network fa-2x', {
         label: 'MicrobeTrace',
-        multiple: false,
+        multiple: true,
+        allowMultiTypes: true,
+        max: 5,
         validTypes: ['fasta', 'csv', 'tsv', 'nwk', 'newick', 'microbetrace', 'microbetrace_session'],
         tooltip: 'Open in MicrobeTrace molecular epidemiology tool'
       }, function (selection, container) {
-        var obj = selection[0];
-        console.log('[MicrobeTrace] Selection obj:', obj);
-        console.log('[MicrobeTrace] obj.path:', obj.path);
-        console.log('[MicrobeTrace] obj.name:', obj.name);
-        // Build the filepath - path should be the directory, name is the filename
-        // But check if path already ends with the filename
-        var path = obj.path || '';
-        var name = obj.name || '';
-        var filepath;
-        if (path.endsWith(name + '/') || path.endsWith(name)) {
-          // Path already contains the filename
-          filepath = path.replace(/\/$/, ''); // Remove trailing slash if present
-        } else {
-          // Need to append the filename
-          if (!path.endsWith('/')) {
-            path = path + '/';
+        function buildFilepath(obj) {
+          var p = obj.path || '';
+          var n = obj.name || '';
+          if (p.endsWith(n + '/') || p.endsWith(n)) {
+            return p.replace(/\/$/, '');
           }
-          filepath = path + name;
+          if (!p.endsWith('/')) {
+            p = p + '/';
+          }
+          return p + n;
         }
-        console.log('[MicrobeTrace] Navigating to filepath:', filepath);
-        Topic.publish('/navigate', { href: '/view/MicrobeTrace' + encodePath(filepath) });
+
+        var primaryPath = buildFilepath(selection[0]);
+        var href = '/view/MicrobeTrace' + encodePath(primaryPath);
+
+        if (selection.length > 1) {
+          var extras = selection.slice(1).map(function (obj) {
+            return 'extraFile=' + encodeURIComponent(buildFilepath(obj));
+          });
+          href += '?' + extras.join('&');
+        }
+
+        console.log('[MicrobeTrace] Navigating to href:', href);
+        Topic.publish('/navigate', { href: href });
       }, false);
 
       this.browserHeader.addAction('ViewNwkXml', 'fa icon-eye fa-2x', {
