@@ -3270,6 +3270,121 @@ div#bv-brc-page-container > div.page-content {
         display: none !important;
       }
 
+      /* Dashboard filter action bar (dashboard-only modern minimal refresh) */
+      .DashboardFilterActionBar {
+        background: var(--maage-bg, #f8f9fa);
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .DashboardFilterActionBar .dashboardFilterToolbar {
+        margin: 8px !important;
+      }
+
+      .DashboardFilterActionBar .dashboardFilterToolbar table {
+        width: 100%;
+        background: #ffffff !important;
+        border: 1px solid #dce3e8;
+        border-radius: 10px;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+      }
+
+      .DashboardFilterActionBar .dashboardFilterLeft,
+      .DashboardFilterActionBar .dashboardFilterCenter,
+      .DashboardFilterActionBar .dashboardFilterRight {
+        background: transparent !important;
+        padding: 8px !important;
+        vertical-align: middle;
+      }
+
+      .DashboardFilterActionBar .dashboardFilterCenter {
+        border-left: 1px solid #e5e7eb !important;
+      }
+
+      .DashboardFilterActionBar .ActionButtonWrapper {
+        border: 1px solid #d0d6db;
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 2px 6px;
+        margin-right: 6px;
+      }
+
+      .DashboardFilterActionBar .ActionButtonWrapper .ActionButton {
+        color: #4b5563 !important;
+      }
+
+      .DashboardFilterActionBar .ActionButtonWrapper .ActionButtonText {
+        color: #1f2937 !important;
+        font-size: 11px !important;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .DashboardFilterActionBar .dijitTextBox {
+        border-color: #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .DashboardFilterActionBar .dijitTextBoxFocused {
+        border-color: #6d9e89;
+        box-shadow: 0 0 0 3px rgba(109, 158, 137, 0.15);
+      }
+
+      .DashboardFilterActionBar .dashboardFacetPanel {
+        margin: 0 8px 8px 8px;
+        border: 1px solid #dce3e8;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .DashboardFilterActionBar .FullFilterView,
+      .DashboardFilterActionBar .FullFilterControl {
+        background: #f2f5f7 !important;
+      }
+
+      .DashboardFilterActionBar .FacetFilter {
+        border-right: 1px solid #dce3e8;
+      }
+
+      .DashboardFilterActionBar .facetHeader {
+        background: #edf2f5;
+        border-bottom: 1px solid #dce3e8;
+      }
+
+      .DashboardFilterActionBar .facetCategory {
+        color: #334155;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      .DashboardFilterActionBar .FacetValue {
+        border-bottom: 1px solid #eef2f5;
+        color: #475569;
+      }
+
+      .DashboardFilterActionBar .FacetValue.selected {
+        background: #dcefe6;
+        color: #1f513d;
+      }
+
+      .DashboardFilterActionBar .selectedList {
+        background: #edf5f1;
+        color: #1f513d;
+        border: 1px solid #d2e6dc;
+        border-radius: 999px;
+        margin: 0 0 6px;
+        min-height: 24px;
+        line-height: 22px;
+        padding: 0 10px;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: thin;
+      }
+
       /* Dashboard Layout Editor styles */
       .dashboard-layout-editor .chart-row {
         display: flex;

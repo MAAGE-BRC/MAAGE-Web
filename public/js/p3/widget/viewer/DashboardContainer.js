@@ -6,7 +6,7 @@ define([
 	"dojo/topic",
 	"./Base",
 	"dijit/layout/ContentPane",
-	"../FilterContainerActionBar",
+	"../DashboardFilterActionBar",
 	"../AdvancedSearchFields",
 	"./SurveillanceDashboard",
 	"p3/util/DashboardStorage",
@@ -20,7 +20,7 @@ define([
 	Topic,
 	Base,
 	ContentPane,
-	FilterContainerActionBar,
+	DashboardFilterActionBar,
 	AdvancedSearchFields,
 	SurveillanceDashboard,
 	DashboardStorage,
@@ -529,7 +529,7 @@ define([
 
 		_createFilterPanel: function ()
 		{
-			this.filterPanel = new FilterContainerActionBar({
+			this.filterPanel = new DashboardFilterActionBar({
 				region: "top",
 				layoutPriority: 7,
 				splitter: true,
