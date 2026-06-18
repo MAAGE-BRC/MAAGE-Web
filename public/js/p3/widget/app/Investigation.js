@@ -32,6 +32,13 @@ define([
         widgetClass: 'p3/widget/app/ComprehensiveGenomeAnalysis'
       },
       {
+        id: 'MyGenomes',
+        title: 'My Genomes',
+        icon: 'icon-lock3',
+        description: 'View your private genomes',
+        widgetClass: 'p3/widget/app/InvestigationMyGenomes'
+      },
+      {
         id: 'CoreGenomeMLST',
         title: 'Core Genome MLST',
         icon: 'icon-cluster',
