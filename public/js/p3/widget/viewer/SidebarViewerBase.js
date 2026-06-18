@@ -30,7 +30,8 @@ define([
   //   title       - display label in the sidebar
   //   icon        - (optional) CSS class for an icon next to the title
   //   content     - (optional) static HTML string to display in the main panel
-  //   widgetClass - (optional) AMD module path to a widget to instantiate in the main panel
+  //   widgetCtor  - (optional) pre-loaded widget constructor to instantiate in the main panel
+  //   widgetClass - (optional) AMD module path to a widget to dynamically load and instantiate
   //   description - (optional) short subtitle shown below the title in the sidebar
 
   return declare([BorderContainer], {
@@ -44,7 +45,7 @@ define([
     perspectiveLabel: 'Sidebar Viewer',
     perspectiveIconClass: 'icon-info',
     sidebarTitle: 'Contents',
-    panels: [],       // Array of { id, title, icon?, content?, widgetClass?, description? }
+    panels: [],       // Array of { id, title, icon?, content?, widgetCtor?, widgetClass?, description? }
     defaultPanel: null, // defaults to first panel id if not set
 
     // -- Internal state --
@@ -277,8 +278,17 @@ define([
         // Static HTML content
         domConstruct.place(domConstruct.toDom(panel.content), this.mainPanel.containerNode, 'only');
         this.mainPanel.resize();
+      } else if (panel.widgetCtor) {
+        // Pre-loaded widget constructor (imported via define())
+        var widget = new panel.widgetCtor({
+          style: 'width: 100%; height: 100%;'
+        });
+        domConstruct.place(widget.domNode, this.mainPanel.containerNode, 'only');
+        widget.startup();
+        this._activePanelWidget = widget;
+        this.mainPanel.resize();
       } else if (panel.widgetClass) {
-        // Dynamic widget loading
+        // Dynamic widget loading via AMD path string
         var self = this;
         require([panel.widgetClass], function (WidgetCtor) {
           var widget = new WidgetCtor({

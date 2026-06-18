@@ -1,11 +1,13 @@
 define([
   'dojo/_base/declare',
   'dojo/text!./templates/InvestigationOverview.html',
-  '../viewer/SidebarViewerBase'
+  '../viewer/SidebarViewerBase',
+  './InvestigationGenomeBrowser'
 ], function (
   declare,
   OverviewHTML,
-  SidebarViewerBase
+  SidebarViewerBase,
+  InvestigationGenomeBrowser
 ) {
 
   return declare([SidebarViewerBase], {
@@ -39,7 +41,7 @@ define([
       {
         id: 'WholeGenomeSNPAnalysis',
         title: 'Whole Genome SNP Analysis',
-        icon: 'icon-selection-SNP',
+        icon: 'icon-selection-Sequence',
         description: 'Identify SNPs for outbreak tracking',
         widgetClass: 'p3/widget/app/WholeGenomeSNPAnalysis'
       },
@@ -53,9 +55,16 @@ define([
       {
         id: 'MetagenomicReadMapping',
         title: 'Metagenomic Read Mapping',
-        icon: 'icon-reads',
+        icon: 'icon-fasta',
         description: 'Optional pre-assembly screening of raw reads',
         widgetClass: 'p3/widget/app/MetagenomicReadMapping'
+      },
+      {
+        id: 'GenomeBrowser',
+        title: 'Genome Browser',
+        icon: 'icon-genome-browser',
+        description: 'Browse genome annotations and features',
+        widgetCtor: InvestigationGenomeBrowser
       }
     ]
   });

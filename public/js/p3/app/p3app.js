@@ -407,13 +407,15 @@ define([
 
       Router.register('/app(/.*)', function (params, path) {
         // console.log("view URL Callback", arguments);
-
-        var parts = path.split('/');
+        // Parse with getState so hash fragments (e.g. #view_tab=GenomeBrowser)
+        // don't end up in the AMD widget module path on reload.
+        var newState = getState(params, path);
+        var parts = newState.pathname.split('/');
         parts.shift();
         var type = parts.shift();
         // for rerun functionality
-        var type_parts = type.split('?');
-        var type = type_parts[0];
+        var type_parts = (type || '').split('?');
+        type = type_parts[0];
         // var rerun_key = type_parts[1]; // JSP: not used
         var viewerParams;
         /* istanbul ignore if */
@@ -423,8 +425,6 @@ define([
           viewerParams = '';
         }
         // console.log("Parts:", parts, type, viewerParams)
-
-        var newState = populateState(params);
 
         // console.log("Parts:", parts, type, path)
         newState.widgetClass = 'p3/widget/app/' + type;

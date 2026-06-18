@@ -62,10 +62,10 @@ define([
           // unfooling the highlighting `~!@#$%^&*()_|+\-=?;:'",<>\s]/g, ''), '*');
 
 
-          if (_self.extraSearch) {
+          if (_self.extraSearch && Array.isArray(_self.extraSearch)) {
             var components = ['eq(' + _self.searchAttr + ',' + searchAttrStripped + ')'];
             _self.extraSearch.forEach(lang.hitch(this, function (attr) {
-              components.push('eq(' + attr, searchAttrStripped + ')');
+              components.push('eq(' + attr + ',' + searchAttrStripped + ')');
             }));
             q = '?or(' + components.join(',') + ')';
           }
