@@ -254,32 +254,6 @@
             </div>
           </div>
         </div>
-        <% if (!request.production) { %>
-        <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
-          <span class="navigation-item" style="display: flex; align-items: center;">
-            <span class="heading-text-reset-hard" style="color: #e8a838;">
-              Dev Variants
-            </span>
-            <i data-lucide="chevron-down" class="h-5 w-5 ml-1" style="color: #e8a838;"></i>
-          </span>
-          <div data-dojo-type="p3/widget/TooltipDialog">
-            <div class="menuHeader">Home Variants</div>
-            <div class="maage-nav-item">
-              <a class="maage-nav-link" href="/" style="<% if (typeof homeVariant !== 'undefined' && homeVariant === 'default') { %>font-weight: bold;<% } %>">Default</a>
-            </div>
-            <div class="maage-nav-item">
-              <a class="maage-nav-link" href="/?variant=dev" style="<% if (typeof homeVariant !== 'undefined' && homeVariant === 'dev') { %>font-weight: bold;<% } %>">Dev</a>
-            </div>
-            <div class="maage-nav-item">
-              <a class="maage-nav-link" href="/?variant=temp" style="<% if (typeof homeVariant !== 'undefined' && homeVariant === 'temp') { %>font-weight: bold;<% } %>">Temp</a>
-            </div>
-            <div style="height: 0.5px; background-color: #e8a838; margin: 0.6rem 0;"></div>
-            <div class="maage-nav-item">
-              <a class="maage-nav-link" href="/?variant=mock1" style="<% if (typeof homeVariant !== 'undefined' && homeVariant === 'mock1') { %>font-weight: bold;<% } %>">Mock-1</a>
-            </div>
-          </div>
-        </div>
-        <% } %>
       </div>
 
       <div id="p3header-search" style="width: 120px;flex-grow: 0.85;margin-right: 10px;">

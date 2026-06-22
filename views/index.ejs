@@ -12,15 +12,7 @@
 			<%- include('navbar') %>
 			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
 				style="padding:0px;border:0px solid #ddd;background:inherit;">
-				<% if (homeVariant === 'dev') { %>
-				<%- include('home-dev') %>
-			<% } else if (homeVariant === 'temp') { %>
-				<%- include('home-temp') %>
-			<% } else if (homeVariant === 'mock1') { %>
 				<%- include('home-mock1') %>
-			<% } else { %>
-				<%- include('home') %>
-			<% } %>
 			</div>
 		</div>
 		<%- include('javascript') %>

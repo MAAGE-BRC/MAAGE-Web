@@ -3555,6 +3555,49 @@ div#bv-brc-page-container > div.page-content {
         color: #dc2626;
       }
 
+      /* Dashboard header action buttons */
+      .dashboard-header-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 14px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--maage-secondary-600, #447188);
+        background: #ffffff;
+        border: 1px solid var(--maage-secondary-300, #a0c4d4);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+        white-space: nowrap;
+        line-height: 1.4;
+      }
+
+      .dashboard-header-btn:hover {
+        background: var(--maage-secondary-50, #eef5f8);
+        border-color: var(--maage-secondary-400, #7caabb);
+      }
+
+      .dashboard-header-btn:active {
+        background: var(--maage-secondary-100, #d6e8ef);
+      }
+
+      .dashboard-header-btn:focus-visible {
+        outline: 2px solid var(--maage-primary-300, #8fc4a7);
+        outline-offset: 2px;
+      }
+
+      .dashboard-header-btn.active {
+        background: var(--maage-secondary-500, #548fa6);
+        color: #ffffff;
+        border-color: var(--maage-secondary-500, #548fa6);
+      }
+
+      .dashboard-header-btn.active:hover {
+        background: var(--maage-secondary-600, #447188);
+        border-color: var(--maage-secondary-600, #447188);
+      }
+
 /* =====================================================
    SidebarViewerBase - Sidebar TOC + Content Panel Layout
    ===================================================== 

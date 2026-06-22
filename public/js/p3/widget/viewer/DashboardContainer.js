@@ -10,8 +10,7 @@ define([
 	"../AdvancedSearchFields",
 	"./SurveillanceDashboard",
 	"p3/util/DashboardStorage",
-	"../DashboardLayoutEditor",
-	"../Confirmation"
+	"../DashboardLayoutEditor"
 ], function (
 	declare,
 	lang,
@@ -24,8 +23,7 @@ define([
 	AdvancedSearchFields,
 	SurveillanceDashboard,
 	DashboardStorage,
-	DashboardLayoutEditor,
-	Confirmation
+	DashboardLayoutEditor
 ) {
 
 	var DASHBOARD_FACET_FIELDS = AdvancedSearchFields["genome"].filter(function (ff)
@@ -104,6 +102,7 @@ define([
 		_firstView: false,
 		_currentPresetId: null,
 		_currentSavedDashboard: null,
+		_filterVisible: false,
 		filterPanel: null,
 		dashboardContent: null,
 		viewHeader: null,
@@ -208,19 +207,6 @@ define([
 				this.dashboardDescriptionNode.textContent = "Custom filtered view";
 			}
 
-			// Update manage button visibility
-			if (this.manageSavedBtn && DashboardStorage.isLoggedIn())
-			{
-				var self = this;
-				when(DashboardStorage.getSavedDashboards(), function (saved)
-				{
-					if (self.manageSavedBtn)
-					{
-						self.manageSavedBtn.style.display = (saved && saved.length > 0) ? "" : "none";
-					}
-				});
-			}
-
 			// Forward state to filter panel
 			if (this.filterPanel)
 			{
@@ -297,6 +283,12 @@ define([
 			this.addChild(this.filterPanel);
 			this.addChild(this.dashboardContent);
 
+			// Hide the splitter that BorderContainer created for the filter panel
+			if (this.filterPanel._splitterWidget && this.filterPanel._splitterWidget.domNode)
+			{
+				this.filterPanel._splitterWidget.domNode.style.display = "none";
+			}
+
 			this._listen();
 
 			this._firstView = true;
@@ -304,6 +296,8 @@ define([
 
 		_createViewHeader: function ()
 		{
+			var BTN_CLASS = "dashboard-header-btn";
+
 			this.viewHeader = new ContentPane({
 				region: "top",
 				"class": "DashboardHeader",
@@ -311,7 +305,7 @@ define([
 			});
 
 			var headerWrapper = domConstruct.create("div", {
-				className: "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2"
+				style: "display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;"
 			}, this.viewHeader.containerNode);
 
 			var titleArea = domConstruct.create("div", {}, headerWrapper);
@@ -327,40 +321,26 @@ define([
 			}, titleArea);
 
 			var controlsArea = domConstruct.create("div", {
-				className: "flex items-center gap-3"
+				style: "display: flex; align-items: center; gap: 8px; margin-left: auto;"
 			}, headerWrapper);
+
+			// Filters toggle button
+			this.filterToggleBtn = domConstruct.create("button", {
+				className: BTN_CLASS,
+				title: "Show or hide the filter panel",
+				innerHTML: '<span class="fa icon-filter" style="margin-right: 5px;"></span>Filters'
+			}, controlsArea);
+
+			on(this.filterToggleBtn, "click", lang.hitch(this, "_toggleFilterPanel"));
 
 			// Customize button
 			var customizeBtn = domConstruct.create("button", {
-				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer transition-colors",
+				className: BTN_CLASS,
 				title: "Customize dashboard layout",
-				innerHTML: '<span class="fa icon-cog2" style="margin-right: 4px;"></span>Customize'
+				innerHTML: '<span class="fa icon-cog2" style="margin-right: 5px;"></span>Customize'
 			}, controlsArea);
 
 			on(customizeBtn, "click", lang.hitch(this, "_openLayoutEditor"));
-
-			// Manage saved dashboards button (only shown when logged in and has saved dashboards)
-			this.manageSavedBtn = domConstruct.create("button", {
-				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer transition-colors",
-				title: "Manage saved dashboards",
-				innerHTML: '<span class="fa icon-list2" style="margin-right: 4px;"></span>Manage',
-				style: "display: none;"
-			}, controlsArea);
-
-			on(this.manageSavedBtn, "click", lang.hitch(this, "_openManageSavedDialog"));
-
-			// Update manage button visibility after dashboards load
-			if (DashboardStorage.isLoggedIn())
-			{
-				var self = this;
-				when(DashboardStorage.getSavedDashboards(), function (dashboards)
-				{
-					if (self.manageSavedBtn)
-					{
-						self.manageSavedBtn.style.display = dashboards.length > 0 ? "" : "none";
-					}
-				});
-			}
 		},
 
 		_updateHeaderForPreset: function (presetId)
@@ -370,6 +350,47 @@ define([
 
 			this.dashboardTitleNode.textContent = preset.title;
 			this.dashboardDescriptionNode.textContent = preset.description;
+		},
+
+		_toggleFilterPanel: function ()
+		{
+			if (!this.filterPanel) return;
+
+			this._filterVisible = !this._filterVisible;
+
+			// The splitter is a separate DOM node created by BorderContainer
+			var splitter = this.filterPanel._splitterWidget;
+
+			if (this._filterVisible)
+			{
+				this.filterPanel.set("minimized", false);
+				this.filterPanel.domNode.style.display = "";
+				if (splitter && splitter.domNode)
+				{
+					splitter.domNode.style.display = "";
+				}
+				this.filterPanel.resize({ h: this.filterPanel.minSize + 150 });
+
+				if (this.filterToggleBtn)
+				{
+					this.filterToggleBtn.classList.add("active");
+				}
+			}
+			else
+			{
+				this.filterPanel.set("minimized", true);
+				this.filterPanel.domNode.style.display = "none";
+				if (splitter && splitter.domNode)
+				{
+					splitter.domNode.style.display = "none";
+				}
+
+				if (this.filterToggleBtn)
+				{
+					this.filterToggleBtn.classList.remove("active");
+				}
+			}
+			this.resize();
 		},
 
 		/**
@@ -415,120 +436,6 @@ define([
 			editor.show();
 		},
 
-		_openManageSavedDialog: function ()
-		{
-			if (!DashboardStorage.isLoggedIn()) return;
-
-			var self = this;
-
-			when(DashboardStorage.getSavedDashboards(), function (savedDashboards)
-			{
-				if (!savedDashboards || savedDashboards.length === 0)
-				{
-					return;
-				}
-
-				var dlg = new Confirmation({
-					title: "Manage Saved Dashboards",
-					okLabel: "Done",
-					cancelLabel: null,
-					closeOnOK: true,
-					onConfirm: function ()
-					{
-						// Update manage button visibility after changes
-						when(DashboardStorage.getSavedDashboards(), function (remaining)
-						{
-							if (self.manageSavedBtn)
-							{
-								self.manageSavedBtn.style.display = (remaining && remaining.length > 0) ? "" : "none";
-							}
-						});
-					}
-				});
-
-				var container = domConstruct.create("div", {
-					className: "dashboard-manage-list",
-					style: "min-width: 340px;"
-				});
-
-				savedDashboards.forEach(function (sd)
-				{
-					var row = domConstruct.create("div", {
-						className: "manage-row"
-					}, container);
-
-					// Editable name
-					var nameInput = domConstruct.create("input", {
-						className: "manage-name",
-						type: "text",
-						value: sd.name
-					}, row);
-
-					on(nameInput, "blur", function ()
-					{
-						var newName = nameInput.value.trim();
-						if (newName && newName !== sd.name)
-						{
-							when(DashboardStorage.renameDashboard(sd, newName), function ()
-							{
-								sd.name = newName;
-							}, function (err)
-							{
-								console.error("Failed to rename dashboard", err);
-								nameInput.value = sd.name;
-							});
-						}
-						else if (!newName)
-						{
-							nameInput.value = sd.name;
-						}
-					});
-
-					on(nameInput, "keydown", function (evt)
-					{
-						if (evt.key === "Enter")
-						{
-							nameInput.blur();
-						}
-					});
-
-					// Delete button
-					var deleteBtn = domConstruct.create("button", {
-						className: "manage-delete-btn",
-						innerHTML: "&#10005;",
-						title: "Delete this saved dashboard"
-					}, row);
-
-					on(deleteBtn, "click", function ()
-					{
-						when(DashboardStorage.deleteDashboard(sd._wsPath), function ()
-						{
-							domConstruct.destroy(row);
-
-							// If no more saved dashboards, close the dialog
-							when(DashboardStorage.getSavedDashboards(), function (remaining)
-							{
-								if (!remaining || remaining.length === 0)
-								{
-									dlg.hideAndDestroy();
-									if (self.manageSavedBtn)
-									{
-										self.manageSavedBtn.style.display = "none";
-									}
-								}
-							});
-						}, function (err)
-						{
-							console.error("Failed to delete dashboard", err);
-						});
-					});
-				});
-
-				domConstruct.place(container, dlg.containerNode, "first");
-				dlg.show();
-			});
-		},
-
 		_createFilterPanel: function ()
 		{
 			this.filterPanel = new DashboardFilterActionBar({
@@ -542,6 +449,11 @@ define([
 				state: lang.mixin({}, this.state),
 				currentContainerWidget: this
 			});
+
+			// Start hidden — user toggles via the Filters button
+			this.filterPanel.set("minimized", true);
+			this.filterPanel.domNode.style.display = "none";
+			this._filterVisible = false;
 
 			this.filterPanel.watch("filter", lang.hitch(this, function (attr, oldVal, newVal)
 			{
@@ -573,35 +485,7 @@ define([
 
 		_listen: function ()
 		{
-			on(this.domNode, "ToggleFilters", lang.hitch(this, function ()
-			{
-				if (!this.filterPanel && this.getFilterPanel)
-				{
-					this.filterPanel = this.getFilterPanel();
-					this.filterPanel.region = "top";
-					this.filterPanel.splitter = true;
-					this.layoutPriority = 2;
-					this.addChild(this.filterPanel);
-				}
-				else if (this.filterPanel)
-				{
-					if (this.filterPanel.minimized)
-					{
-						this.filterPanel.set("minimized", false);
-						this.filterPanel.resize({
-							h: this.filterPanel.minSize + 150
-						});
-					}
-					else
-					{
-						this.filterPanel.set("minimized", true);
-						this.filterPanel.resize({
-							h: this.filterPanel.minSize
-						});
-					}
-					this.resize();
-				}
-			}));
+			on(this.domNode, "ToggleFilters", lang.hitch(this, "_toggleFilterPanel"));
 		}
 	});
 });
