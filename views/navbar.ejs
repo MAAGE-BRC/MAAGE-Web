@@ -245,7 +245,7 @@
             </div>
           </div>
         </div>
-        <% if (!request.production) { %>
+        <% if (request.production) { %>
         <div class="topMenuButton showOnLoad dijitHidden maage-nav-menu" data-dojo-type="dijit/form/DropDownButton">
           <span class="navigation-item" style="display: flex; align-items: center;">
             <span class="heading-text-reset-hard" style="color: #e8a838;">
