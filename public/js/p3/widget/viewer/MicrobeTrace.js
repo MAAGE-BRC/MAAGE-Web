@@ -21,6 +21,7 @@ define([
   'dojo/topic',
   '../../WorkspaceManager',
   '../../util/encodePath',
+  '../../util/microbeTraceHandoff',
   '../formatter'
 ], function (
   declare,
@@ -33,6 +34,7 @@ define([
   Topic,
   WorkspaceManager,
   encodePath,
+  microbeTraceHandoff,
   formatter
 ) {
   return declare([BorderContainer], {
@@ -239,7 +241,7 @@ define([
 
       // MicrobeTrace icon
       domConstruct.create('div', {
-        innerHTML: '<i class="fa icon-network" style="font-size: 64px; color: #17a2b8;"></i>',
+        innerHTML: '<img src="/maage/img/microbetrace-icon.svg" alt="MicrobeTrace" style="width: 64px; height: 64px;">',
         style: 'margin-bottom: 20px;'
       }, card);
 
@@ -332,15 +334,6 @@ define([
       var _self = this;
       var files = this._files || [];
 
-      if (!files.length) {
-        Topic.publish('/Notification', {
-          message: 'File content not loaded. Please try again.',
-          type: 'error'
-        });
-        return;
-      }
-
-      // Build files array for the payload
       var filesPayload = files.map(function (f) {
         return {
           name: f.filename,
@@ -349,93 +342,13 @@ define([
         };
       });
 
-      var datasetName = files.map(function (f) { return f.filename; }).join(' + ');
-
-      var partnerId = 'maage';
-      var nonce = 'maage-' + Date.now() + '-' + Math.random().toString(16).slice(2);
-
-      var payload = {
-        type: 'MT_HANDOFF_TRANSFER',
-        version: 1,
-        partnerId: partnerId,
-        nonce: nonce,
-        metadata: {
-          datasetName: datasetName,
-          sourceApp: 'MAAGE'
-        },
-        files: filesPayload
-      };
-
-      console.log('[MicrobeTrace] Opening receiver with partnerId:', partnerId, 'nonce:', nonce, 'files:', filesPayload.length);
-
-      var receiverUrl = '/microbetrace/assets/embed/receiver.html?partnerId=' +
-                        encodeURIComponent(partnerId) + '&nonce=' + encodeURIComponent(nonce);
-
-      var receiverWindow = window.open(receiverUrl, '_blank');
-
-      if (!receiverWindow) {
-        Topic.publish('/Notification', {
-          message: 'Could not open popup. Please allow popups for this site.',
-          type: 'error'
-        });
-        return;
-      }
-
-      // Listen for the READY message from the receiver
-      var messageHandler = function (event) {
-        if (!event.data || event.data.type !== 'MT_HANDOFF_READY') {
-          return;
+      microbeTraceHandoff({
+        files: filesPayload,
+        onSuccess: function () {
+          if (_self._workspaceDir) {
+            Topic.publish('/navigate', { href: '/workspace' + encodePath(_self._workspaceDir) });
+          }
         }
-        if (event.data.partnerId !== partnerId || event.data.nonce !== nonce) {
-          return;
-        }
-
-        console.log('[MicrobeTrace] Receiver is ready, sending payload');
-        try {
-          receiverWindow.postMessage(payload, '*');
-          console.log('[MicrobeTrace] Payload sent');
-        } catch (e) {
-          console.error('[MicrobeTrace] Failed to send payload:', e);
-        }
-      };
-
-      window.addEventListener('message', messageHandler);
-      setTimeout(function () {
-        window.removeEventListener('message', messageHandler);
-      }, 60000);
-
-      // Listen for stored confirmation and navigate back to workspace
-      var storedHandler = function (event) {
-        if (!event.data || event.data.type !== 'MT_HANDOFF_TRANSFER' || event.data.status !== 'stored') {
-          return;
-        }
-        if (event.data.partnerId !== partnerId || event.data.nonce !== nonce) {
-          return;
-        }
-
-        console.log('[MicrobeTrace] Handoff stored successfully with ID:', event.data.handoffId);
-        window.removeEventListener('message', storedHandler);
-        window.removeEventListener('message', messageHandler);
-
-        Topic.publish('/Notification', {
-          message: 'MicrobeTrace loaded with ' + datasetName,
-          type: 'success'
-        });
-
-        // Navigate back to the workspace directory
-        if (_self._workspaceDir) {
-          Topic.publish('/navigate', { href: '/workspace' + encodePath(_self._workspaceDir) });
-        }
-      };
-
-      window.addEventListener('message', storedHandler);
-      setTimeout(function () {
-        window.removeEventListener('message', storedHandler);
-      }, 60000);
-
-      Topic.publish('/Notification', {
-        message: 'Opening MicrobeTrace with ' + datasetName,
-        type: 'info'
       });
     },
 
@@ -581,7 +494,7 @@ define([
           return 'fa icon-tree';
         case 'json':
         case 'microbetrace':
-          return 'fa icon-network';
+          return 'icon-microbetrace';
         default:
           return 'fa icon-file-text-o';
       }

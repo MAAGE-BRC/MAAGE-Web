@@ -6,7 +6,7 @@ define([
   './Confirmation', './SelectionToGroup', 'dijit/Dialog', 'dijit/TooltipDialog',
   'dijit/popup', 'dijit/form/Select', './ContainerActionBar', './GroupExplore', './PerspectiveToolTip',
   'dijit/form/TextBox', './WorkspaceObjectSelector', './PermissionEditor', './ServicesTooltipDialog',
-  'dojo/promise/all', '../util/encodePath', 'dojo/when', 'dojo/request', './TsvCsvFeatures', './RerunUtility', './viewer/JobResult',
+  'dojo/promise/all', '../util/encodePath', '../util/microbeTraceHandoff', 'dojo/when', 'dojo/request', './TsvCsvFeatures', './RerunUtility', './viewer/JobResult',
   'dojo/NodeList-traverse', './app/Homology', './app/GenomeAlignment', './app/PhylogeneticTree'
 ], function (
   declare, BorderContainer, on, query,
@@ -16,7 +16,7 @@ define([
   Confirmation, SelectionToGroup, Dialog, TooltipDialog,
   popup, Select, ContainerActionBar, GroupExplore, PerspectiveToolTipDialog,
   TextBox, WSObjectSelector, PermissionEditor, ServicesTooltipDialog,
-  All, encodePath, when, request, tsvCsvFeatures, rerunUtility, JobResult, NodeList_traverse, Homology, GenomeAlignment, PhylogeneticTree
+  All, encodePath, microbeTraceHandoff, when, request, tsvCsvFeatures, rerunUtility, JobResult, NodeList_traverse, Homology, GenomeAlignment, PhylogeneticTree
 ) {
 
   var mmc = '<div class="wsActionTooltip" rel="dna">Nucleotide</div><div class="wsActionTooltip" rel="protein">Amino Acid</div>';
@@ -1219,8 +1219,8 @@ define([
       }, false);
 
       // MicrobeTrace viewer action for compatible file types
-      this.actionPanel.addAction('ViewMicrobeTrace', 'fa icon-network fa-2x', {
-        label: 'MicrobeTrace',
+      this.actionPanel.addAction('ViewMicrobeTrace', 'icon-microbetrace fa-2x', {
+        label: 'MICROBE<br>TRACE',
         multiple: true,
         allowMultiTypes: true,
         max: 5,
@@ -1645,6 +1645,51 @@ define([
           alert('The genome browser could not be opened. No genome id or no streamable files were found.');
           throw (err);
         }
+      }, false);
+
+      // MicrobeTrace action for cgMLST and wgSNP job results
+      this.browserHeader.addAction('ViewInMicrobeTrace', 'icon-microbetrace fa-2x', {
+        label: 'MICROBE<br>TRACE',
+        multiple: false,
+        validTypes: ['CoreGenomeMLST', 'WholeGenomeSNPAnalysis'],
+        tooltip: 'Open results in MicrobeTrace molecular epidemiology tool'
+      }, function (selection) {
+        var widget = self.actionPanel.currentContainerWidget;
+        if (!widget || typeof widget.getMicrobeTraceFiles !== 'function') {
+          alert('MicrobeTrace data is not available for this job result.');
+          return;
+        }
+
+        var mtFiles = widget.getMicrobeTraceFiles();
+        if (!mtFiles.length) {
+          alert('No MicrobeTrace-compatible output files found in this job result.');
+          return;
+        }
+
+        var paths = mtFiles.map(function (f) { return f.path; });
+
+        WorkspaceManager.getObjects(paths, false).then(function (results) {
+          var filesPayload = results.map(function (result, idx) {
+            var content = result.data;
+            if (typeof content === 'object' && content !== null) {
+              content = JSON.stringify(content);
+            }
+            var file = {
+              name: mtFiles[idx].name,
+              kind: mtFiles[idx].kind,
+              contents: (content || '').trim()
+            };
+            if (mtFiles[idx].options) {
+              file.options = mtFiles[idx].options;
+            }
+            return file;
+          });
+
+          microbeTraceHandoff({ files: filesPayload });
+        }).catch(function (err) {
+          console.error('[MicrobeTrace] Failed to load job result files:', err);
+          alert('Failed to load files for MicrobeTrace: ' + (err.message || err));
+        });
       }, false);
 
       this.actionPanel.addAction('ExperimentGeneList', 'fa icon-list-unordered fa-2x', {
@@ -2418,6 +2463,12 @@ define([
                   break;
                 case 'Homology':
                   d = 'p3/widget/viewer/BlastJobResult';
+                  break;
+                case 'CoreGenomeMLST':
+                  d = 'p3/widget/viewer/CoreGenomeMLSTResult';
+                  break;
+                case 'WholeGenomeSNPAnalysis':
+                  d = 'p3/widget/viewer/WholeGenomeSNPResult';
                   break;
                 default:
                   console.log('Using the default JobResult viewer. A viewer could not be found for id: ' + id);
