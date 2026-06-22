@@ -106,6 +106,11 @@ define([
           persistent: true
         },
         function () {
+          // Require login for workspace-backed dashboard storage
+          if (!window.App || !window.App.user) {
+            return;
+          }
+
           // Build the combined filter query from the current grid state
           const _self = this;
           let filter = '';

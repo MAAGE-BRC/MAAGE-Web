@@ -2,8 +2,8 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/on",
+	"dojo/when",
 	"dojo/dom-construct",
-	"dojo/topic",
 	"./Base",
 	"dijit/layout/ContentPane",
 	"../DashboardFilterActionBar",
@@ -16,8 +16,8 @@ define([
 	declare,
 	lang,
 	on,
+	when,
 	domConstruct,
-	Topic,
 	Base,
 	ContentPane,
 	DashboardFilterActionBar,
@@ -162,7 +162,26 @@ define([
 				this.onFirstView();
 			}
 
-			// Sync preset selector to match current filter
+			// Load saved dashboards from workspace (async), then apply state
+			var self = this;
+			when(DashboardStorage.getSavedDashboards(), function (dashboards)
+			{
+				self._applyState(state, dashboards);
+			}, function (err)
+			{
+				console.warn("DashboardContainer: failed to load saved dashboards", err);
+				self._applyState(state, []);
+			});
+		},
+
+		/**
+		 * Apply state after dashboards have been loaded.
+		 * This was previously inline in onSetState but is now deferred
+		 * until the workspace dashboards are available.
+		 */
+		_applyState: function (state, dashboards)
+		{
+			// Identify the current dashboard from the filter
 			var currentFilter = state.hashParams.filter || "";
 			var presetId = detectPreset(currentFilter);
 			var savedDashboard = DashboardStorage.findDashboardByFilter(currentFilter);
@@ -171,18 +190,16 @@ define([
 			{
 				this._currentPresetId = presetId;
 				this._currentSavedDashboard = null;
-				this.presetSelector.value = presetId;
 				this._updateHeaderForPreset(presetId);
 			}
 			else if (savedDashboard)
 			{
 				this._currentPresetId = null;
 				this._currentSavedDashboard = savedDashboard;
-				this.presetSelector.value = savedDashboard.id;
 				this.dashboardTitleNode.textContent = savedDashboard.name;
 				this.dashboardDescriptionNode.textContent = "Saved dashboard";
 			}
-			else if (!presetId && this._currentPresetId)
+			else if (!presetId)
 			{
 				// Custom query, not a known preset or saved dashboard
 				this._currentPresetId = null;
@@ -191,11 +208,20 @@ define([
 				this.dashboardDescriptionNode.textContent = "Custom filtered view";
 			}
 
-			// Forward state to filter panel — this is what makes facets load
-			// and renders filter buttons for the preset filters.
-			// The filter panel needs state.search as a base query for facet counts.
-			// The dashboard route doesn't have a URL search query, so we provide
-			// a catch-all base so getFacets() constructs valid RQL.
+			// Update manage button visibility
+			if (this.manageSavedBtn && DashboardStorage.isLoggedIn())
+			{
+				var self = this;
+				when(DashboardStorage.getSavedDashboards(), function (saved)
+				{
+					if (self.manageSavedBtn)
+					{
+						self.manageSavedBtn.style.display = (saved && saved.length > 0) ? "" : "none";
+					}
+				});
+			}
+
+			// Forward state to filter panel
 			if (this.filterPanel)
 			{
 				var filterState = lang.mixin({}, state, {
@@ -213,14 +239,19 @@ define([
 			{
 				var query = state.hashParams.filter || "";
 
-				// Determine display hints: saved dashboard > preset > defaults
+				// Determine display hints and layout
 				var timelineMode = "bar";
 				var pathogenField = "species";
+				var layoutConfig = DashboardStorage.getDefaultLayout();
 
 				if (savedDashboard)
 				{
 					timelineMode = savedDashboard.timelineMode || "bar";
 					pathogenField = savedDashboard.pathogenField || "species";
+					if (savedDashboard.layout)
+					{
+						layoutConfig = savedDashboard.layout;
+					}
 				}
 				else if (presetId && PRESETS[presetId])
 				{
@@ -235,6 +266,7 @@ define([
 					pathogenField = hints.pathogenField;
 				}
 
+				this.dashboardContent.set("layoutConfig", layoutConfig);
 				this.dashboardContent.set("timelineMode", timelineMode);
 				this.dashboardContent.set("pathogenField", pathogenField);
 				this.dashboardContent.set("query", query);
@@ -253,7 +285,7 @@ define([
 
 			// 3. Dashboard chart content (region: center)
 			var initialState = this.state || {};
-			var layoutConfig = DashboardStorage.getEffectiveLayout();
+			var layoutConfig = DashboardStorage.getDefaultLayout();
 
 			this.dashboardContent = new SurveillanceDashboard({
 				region: "center",
@@ -298,52 +330,6 @@ define([
 				className: "flex items-center gap-3"
 			}, headerWrapper);
 
-			domConstruct.create("label", {
-				className: "text-sm font-medium text-maage-text-muted",
-				textContent: "Dashboard:"
-			}, controlsArea);
-
-			this.presetSelector = domConstruct.create("select", {
-				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer min-w-[220px]"
-			}, controlsArea);
-
-			this._populatePresetSelector();
-
-			// On preset change, navigate with the preset filter as the hash
-			on(this.presetSelector, "change", lang.hitch(this, function (evt)
-			{
-				var selectedValue = evt.target.value;
-
-				// Check built-in presets first
-				var preset = PRESETS[selectedValue];
-				if (preset)
-				{
-					var filter = resolveQuery(preset.filter);
-					Topic.publish("/navigate", {
-						href: "/dashboard/#filter=" + filter
-					});
-					return;
-				}
-
-				// Check saved dashboards
-				var savedDashboards = DashboardStorage.getSavedDashboards();
-				var saved = null;
-				for (var i = 0; i < savedDashboards.length; i++)
-				{
-					if (savedDashboards[i].id === selectedValue)
-					{
-						saved = savedDashboards[i];
-						break;
-					}
-				}
-				if (saved)
-				{
-					Topic.publish("/navigate", {
-						href: "/dashboard/#filter=" + saved.filter
-					});
-				}
-			}));
-
 			// Customize button
 			var customizeBtn = domConstruct.create("button", {
 				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer transition-colors",
@@ -353,59 +339,27 @@ define([
 
 			on(customizeBtn, "click", lang.hitch(this, "_openLayoutEditor"));
 
-			// Manage saved dashboards button
+			// Manage saved dashboards button (only shown when logged in and has saved dashboards)
 			this.manageSavedBtn = domConstruct.create("button", {
 				className: "px-3 py-1.5 text-sm bg-maage-surface border border-maage-border rounded-md text-maage-text hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 cursor-pointer transition-colors",
 				title: "Manage saved dashboards",
-				innerHTML: '<span class="fa icon-list2" style="margin-right: 4px;"></span>Manage'
+				innerHTML: '<span class="fa icon-list2" style="margin-right: 4px;"></span>Manage',
+				style: "display: none;"
 			}, controlsArea);
 
-			// Only show manage button if there are saved dashboards
-			var savedCount = DashboardStorage.getSavedDashboards().length;
-			this.manageSavedBtn.style.display = savedCount > 0 ? "" : "none";
-
 			on(this.manageSavedBtn, "click", lang.hitch(this, "_openManageSavedDialog"));
-		},
 
-		_populatePresetSelector: function ()
-		{
-			domConstruct.empty(this.presetSelector);
-
-			// Built-in presets group
-			var builtInGroup = domConstruct.create("optgroup", {
-				label: "Built-in Dashboards"
-			}, this.presetSelector);
-
-			var keys = Object.keys(PRESETS);
-			for (var i = 0; i < keys.length; i++)
+			// Update manage button visibility after dashboards load
+			if (DashboardStorage.isLoggedIn())
 			{
-				domConstruct.create("option", {
-					value: keys[i],
-					textContent: PRESETS[keys[i]].title
-				}, builtInGroup);
-			}
-
-			// Saved dashboards group
-			var savedDashboards = DashboardStorage.getSavedDashboards();
-			if (savedDashboards.length > 0)
-			{
-				var savedGroup = domConstruct.create("optgroup", {
-					label: "Saved Dashboards"
-				}, this.presetSelector);
-
-				savedDashboards.forEach(function (sd)
+				var self = this;
+				when(DashboardStorage.getSavedDashboards(), function (dashboards)
 				{
-					domConstruct.create("option", {
-						value: sd.id,
-						textContent: sd.name
-					}, savedGroup);
+					if (self.manageSavedBtn)
+					{
+						self.manageSavedBtn.style.display = dashboards.length > 0 ? "" : "none";
+					}
 				});
-			}
-
-			// Update manage button visibility
-			if (this.manageSavedBtn)
-			{
-				this.manageSavedBtn.style.display = savedDashboards.length > 0 ? "" : "none";
 			}
 		},
 
@@ -418,10 +372,32 @@ define([
 			this.dashboardDescriptionNode.textContent = preset.description;
 		},
 
+		/**
+		 * Get the currently active dashboard (saved or null).
+		 */
+		getActiveDashboard: function ()
+		{
+			return this._currentSavedDashboard || null;
+		},
+
+		/**
+		 * Get the current layout config from the dashboard content widget.
+		 */
+		getCurrentLayoutConfig: function ()
+		{
+			if (this.dashboardContent && this.dashboardContent.layoutConfig)
+			{
+				return this.dashboardContent.layoutConfig;
+			}
+			return DashboardStorage.getDefaultLayout();
+		},
+
 		_openLayoutEditor: function ()
 		{
 			var self = this;
 			var editor = new DashboardLayoutEditor({
+				activeDashboard: this._currentSavedDashboard,
+				layoutConfig: this.getCurrentLayoutConfig(),
 				onSave: function (config)
 				{
 					// Refresh the dashboard with new layout
@@ -441,90 +417,116 @@ define([
 
 		_openManageSavedDialog: function ()
 		{
+			if (!DashboardStorage.isLoggedIn()) return;
+
 			var self = this;
-			var savedDashboards = DashboardStorage.getSavedDashboards();
 
-			if (savedDashboards.length === 0)
+			when(DashboardStorage.getSavedDashboards(), function (savedDashboards)
 			{
-				return;
-			}
-
-			var dlg = new Confirmation({
-				title: "Manage Saved Dashboards",
-				okLabel: "Done",
-				cancelLabel: null,
-				closeOnOK: true,
-				onConfirm: function ()
+				if (!savedDashboards || savedDashboards.length === 0)
 				{
-					// Refresh preset selector in case names changed or items deleted
-					self._populatePresetSelector();
+					return;
 				}
-			});
 
-			var container = domConstruct.create("div", {
-				className: "dashboard-manage-list",
-				style: "min-width: 340px;"
-			});
-
-			savedDashboards.forEach(function (sd)
-			{
-				var row = domConstruct.create("div", {
-					className: "manage-row"
-				}, container);
-
-				// Editable name
-				var nameInput = domConstruct.create("input", {
-					className: "manage-name",
-					type: "text",
-					value: sd.name
-				}, row);
-
-				on(nameInput, "blur", function ()
-				{
-					var newName = nameInput.value.trim();
-					if (newName && newName !== sd.name)
+				var dlg = new Confirmation({
+					title: "Manage Saved Dashboards",
+					okLabel: "Done",
+					cancelLabel: null,
+					closeOnOK: true,
+					onConfirm: function ()
 					{
-						DashboardStorage.renameDashboard(sd.id, newName);
-						sd.name = newName;
-					}
-					else if (!newName)
-					{
-						nameInput.value = sd.name;
+						// Update manage button visibility after changes
+						when(DashboardStorage.getSavedDashboards(), function (remaining)
+						{
+							if (self.manageSavedBtn)
+							{
+								self.manageSavedBtn.style.display = (remaining && remaining.length > 0) ? "" : "none";
+							}
+						});
 					}
 				});
 
-				on(nameInput, "keydown", function (evt)
-				{
-					if (evt.key === "Enter")
-					{
-						nameInput.blur();
-					}
+				var container = domConstruct.create("div", {
+					className: "dashboard-manage-list",
+					style: "min-width: 340px;"
 				});
 
-				// Delete button
-				var deleteBtn = domConstruct.create("button", {
-					className: "manage-delete-btn",
-					innerHTML: "&#10005;",
-					title: "Delete this saved dashboard"
-				}, row);
-
-				on(deleteBtn, "click", function ()
+				savedDashboards.forEach(function (sd)
 				{
-					DashboardStorage.deleteDashboard(sd.id);
-					domConstruct.destroy(row);
+					var row = domConstruct.create("div", {
+						className: "manage-row"
+					}, container);
 
-					// If no more saved dashboards, close the dialog
-					var remaining = DashboardStorage.getSavedDashboards();
-					if (remaining.length === 0)
+					// Editable name
+					var nameInput = domConstruct.create("input", {
+						className: "manage-name",
+						type: "text",
+						value: sd.name
+					}, row);
+
+					on(nameInput, "blur", function ()
 					{
-						dlg.hideAndDestroy();
-						self._populatePresetSelector();
-					}
+						var newName = nameInput.value.trim();
+						if (newName && newName !== sd.name)
+						{
+							when(DashboardStorage.renameDashboard(sd, newName), function ()
+							{
+								sd.name = newName;
+							}, function (err)
+							{
+								console.error("Failed to rename dashboard", err);
+								nameInput.value = sd.name;
+							});
+						}
+						else if (!newName)
+						{
+							nameInput.value = sd.name;
+						}
+					});
+
+					on(nameInput, "keydown", function (evt)
+					{
+						if (evt.key === "Enter")
+						{
+							nameInput.blur();
+						}
+					});
+
+					// Delete button
+					var deleteBtn = domConstruct.create("button", {
+						className: "manage-delete-btn",
+						innerHTML: "&#10005;",
+						title: "Delete this saved dashboard"
+					}, row);
+
+					on(deleteBtn, "click", function ()
+					{
+						when(DashboardStorage.deleteDashboard(sd._wsPath), function ()
+						{
+							domConstruct.destroy(row);
+
+							// If no more saved dashboards, close the dialog
+							when(DashboardStorage.getSavedDashboards(), function (remaining)
+							{
+								if (!remaining || remaining.length === 0)
+								{
+									dlg.hideAndDestroy();
+									if (self.manageSavedBtn)
+									{
+										self.manageSavedBtn.style.display = "none";
+									}
+								}
+							});
+						}, function (err)
+						{
+							console.error("Failed to delete dashboard", err);
+						});
+					});
 				});
+
+				domConstruct.place(container, dlg.containerNode, "first");
+				dlg.show();
 			});
-
-			domConstruct.place(container, dlg.containerNode, "first");
-			dlg.show();
 		},
 
 		_createFilterPanel: function ()

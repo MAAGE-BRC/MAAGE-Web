@@ -210,7 +210,7 @@ define([
 			this.destroyCharts();
 			this._applyLayout();
 
-			var layout = this.layoutConfig || DashboardStorage.getEffectiveLayout();
+			var layout = this.layoutConfig || DashboardStorage.getDefaultLayout();
 			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_CHART_IDS;
 			var chartOrder = layout.chartOrder || DashboardStorage.DEFAULT_CHART_IDS;
 
@@ -232,7 +232,7 @@ define([
 		 */
 		_applyLayout: function ()
 		{
-			var layout = this.layoutConfig || DashboardStorage.getEffectiveLayout();
+			var layout = this.layoutConfig || DashboardStorage.getDefaultLayout();
 			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_CHART_IDS;
 			var chartOrder = layout.chartOrder || DashboardStorage.DEFAULT_CHART_IDS;
 			var container = this.chartsContainerNode;

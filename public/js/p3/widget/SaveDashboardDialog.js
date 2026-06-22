@@ -2,6 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/on",
+	"dojo/when",
 	"dojo/dom-construct",
 	"dojo/topic",
 	"./Confirmation",
@@ -10,6 +11,7 @@ define([
 	declare,
 	lang,
 	on,
+	when,
 	domConstruct,
 	Topic,
 	Confirmation,
@@ -29,8 +31,12 @@ define([
 		timelineMode: null,
 		pathogenField: null,
 
+		// Optional layout config to save with the dashboard
+		layoutConfig: null,
+
 		_nameInput: null,
 		_errorNode: null,
+		_saving: false,
 
 		postCreate: function ()
 		{
@@ -44,6 +50,24 @@ define([
 				className: "save-dashboard-dialog",
 				style: "min-width: 380px;"
 			});
+
+			// Login check
+			if (!DashboardStorage.isLoggedIn())
+			{
+				domConstruct.create("div", {
+					style: "padding: 16px; color: #dc2626; font-weight: 500;",
+					textContent: "You must be logged in to save dashboards."
+				}, container);
+
+				domConstruct.place(container, this.containerNode, "first");
+
+				// Disable the OK button
+				if (this.okButton)
+				{
+					this.okButton.set("disabled", true);
+				}
+				return;
+			}
 
 			// Name field
 			var nameGroup = domConstruct.create("div", {
@@ -137,6 +161,14 @@ define([
 
 		onConfirm: function ()
 		{
+			if (this._saving) return;
+
+			if (!DashboardStorage.isLoggedIn())
+			{
+				this._showError("You must be logged in to save dashboards.");
+				return;
+			}
+
 			var name = this._nameInput ? this._nameInput.value.trim() : "";
 
 			// Validate
@@ -158,15 +190,23 @@ define([
 				return;
 			}
 
-			// Save
+			// Save (async)
+			this._saving = true;
 			var hints = this._getHints();
-			var saved = DashboardStorage.saveDashboard(name, this.filter, hints);
+			var layout = this.layoutConfig || DashboardStorage.getDefaultLayout();
+			var self = this;
 
-			// Close dialog
-			this.hideAndDestroy();
-
-			// Show success notification with link to open dashboard
-			this._showSuccessNotification(saved);
+			when(DashboardStorage.saveDashboard(name, this.filter, hints, layout), function (saved)
+			{
+				self._saving = false;
+				self.hideAndDestroy();
+				self._showSuccessNotification(saved);
+			}, function (err)
+			{
+				self._saving = false;
+				console.error("SaveDashboardDialog: save failed", err);
+				self._showError("Failed to save dashboard. Please try again.");
+			});
 		},
 
 		_showError: function (msg)

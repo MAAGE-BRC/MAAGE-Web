@@ -2,6 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/on",
+	"dojo/when",
 	"dojo/dom-class",
 	"dojo/dom-construct",
 	"dijit/_WidgetBase",
@@ -14,6 +15,7 @@ define([
 	declare,
 	lang,
 	on,
+	when,
 	domClass,
 	domConstruct,
 	_WidgetBase,
@@ -33,6 +35,12 @@ define([
 		_chartOrder: null,
 		_rowNodes: null,
 
+		// The active saved dashboard (if any) — set by the dialog wrapper
+		activeDashboard: null,
+
+		// The current layout config to initialize from
+		layoutConfig: null,
+
 		// Callback set by the dialog wrapper
 		onSave: function (config) {},
 		onCancel: function () {},
@@ -42,8 +50,8 @@ define([
 			this.inherited(arguments);
 			this._rowNodes = {};
 
-			// Initialize from stored layout
-			var layout = DashboardStorage.getEffectiveLayout();
+			// Initialize from provided layout config or defaults
+			var layout = this.layoutConfig || DashboardStorage.getDefaultLayout();
 			this._visibleCharts = layout.visibleCharts.slice();
 			this._chartOrder = layout.chartOrder.slice();
 
@@ -152,8 +160,25 @@ define([
 				visibleCharts: this._visibleCharts.slice(),
 				chartOrder: this._chartOrder.slice()
 			};
-			DashboardStorage.saveLayout(config);
-			this.onSave(config);
+
+			// If there's an active saved dashboard, persist the layout to workspace
+			if (this.activeDashboard && this.activeDashboard._wsPath && DashboardStorage.isLoggedIn())
+			{
+				when(DashboardStorage.updateDashboard(this.activeDashboard, { layout: config }), lang.hitch(this, function ()
+				{
+					this.onSave(config);
+				}), lang.hitch(this, function (err)
+				{
+					console.error("DashboardLayoutEditor: failed to save layout to workspace", err);
+					// Still apply locally even if workspace save fails
+					this.onSave(config);
+				}));
+			}
+			else
+			{
+				// No active dashboard — layout is transient (applies to current session only)
+				this.onSave(config);
+			}
 		},
 
 		_onCancel: function ()
@@ -163,7 +188,6 @@ define([
 
 		_onReset: function ()
 		{
-			DashboardStorage.resetLayout();
 			this._visibleCharts = DashboardStorage.DEFAULT_CHART_IDS.slice();
 			this._chartOrder = DashboardStorage.DEFAULT_CHART_IDS.slice();
 			this._renderList();
@@ -174,6 +198,12 @@ define([
 	return declare([], {
 		_dialog: null,
 		_editor: null,
+
+		// The active saved dashboard (if any)
+		activeDashboard: null,
+
+		// The current layout config to initialize the editor with
+		layoutConfig: null,
 
 		/**
 		 * Callback invoked when user saves a new layout.
@@ -196,6 +226,8 @@ define([
 			var self = this;
 
 			this._editor = new EditorContent({
+				activeDashboard: this.activeDashboard,
+				layoutConfig: this.layoutConfig,
 				onSave: function (config)
 				{
 					self._dialog.hide();
