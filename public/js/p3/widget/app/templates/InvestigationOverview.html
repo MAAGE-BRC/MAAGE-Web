@@ -1,0 +1,142 @@
+<div class="p-6 sm:p-8 bg-maage-bg min-h-full">
+  <!-- Page Title -->
+  <div class="mb-8">
+    <h1 class="text-2xl sm:text-3xl font-heading font-semibold text-maage-text mb-3">
+      Epidemiology Investigation
+    </h1>
+    <p class="text-base text-maage-text-muted max-w-3xl leading-relaxed">
+      The Epidemiology Investigation workflow provides a streamlined pipeline for genomic
+      surveillance and outbreak analysis. Start from raw sequencing reads or assembled contigs,
+      produce annotated genomes, identify clusters among public data, and perform in-depth
+      comparative analyses -- all within a single integrated workspace.
+    </p>
+  </div>
+
+  <!-- Workflow Overview -->
+  <div class="mb-8 p-5 bg-maage-surface border border-maage-border rounded-lg">
+    <h2 class="text-lg font-heading font-semibold text-maage-text mb-3">
+      How It Works
+    </h2>
+    <div class="text-sm text-maage-text-muted leading-relaxed space-y-3">
+      <p>
+        Begin by assembling and annotating your genome with <strong>Comprehensive Genome Analysis</strong>.
+        Upload a raw read file (FASTQ) or start from assembled contigs. CGA will compute the
+        assembly, annotate the genome, and provide a user-friendly summary of your organism.
+      </p>
+      <p>
+        If your organism is supported, allele calling is automatically performed by
+        <strong>ChewBBACA</strong> followed by hierarchical clustering via
+        <strong>HierCC</strong> (Hierarchical Clustering of cgMLST) against our public genome
+        database. Use these cluster assignments to discover similar public genomes and identify
+        potential outbreak connections.
+      </p>
+      <p>
+        The assembled genome becomes the jumping-off point for deeper analysis. From here you
+        can launch any of the downstream services described below, as well as other genome-accepting
+        and comparative genome services available on the platform
+        <span class="text-maage-text-muted italic">[links to genome services and comparative services]</span>.
+      </p>
+    </div>
+  </div>
+
+  <!-- Service Cards -->
+  <h2 class="text-lg font-heading font-semibold text-maage-text mb-4">
+    Investigation Services
+  </h2>
+  <div class="flex flex-wrap gap-4">
+
+    <!-- Comprehensive Genome Analysis -->
+    <div class="w-full bg-maage-surface border-2 border-maage-primary-300 rounded-lg p-5 hover:shadow-md transition-shadow">
+      <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 w-10 h-10 bg-maage-primary-100 rounded-lg flex items-center justify-center">
+          <i class="icon-genome text-maage-primary-600" style="font-size: 20px;"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <h3 class="text-base font-heading font-semibold text-maage-text">Comprehensive Genome Analysis</h3>
+            <span class="text-xs font-medium text-maage-primary-700 bg-maage-primary-100 px-2 py-0.5 rounded-full">Start Here</span>
+          </div>
+          <p class="text-sm text-maage-text-muted leading-relaxed">
+            Upload raw reads or assembled contigs to produce an annotated genome. CGA performs
+            assembly, annotation, and provides a comprehensive summary of your organism. For
+            supported organisms, allele calling (ChewBBACA) and hierarchical clustering (HierCC)
+            are run automatically against public genomes, giving you immediate cluster assignments
+            to identify related isolates.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Genome MLST -->
+    <div class="w-full md:w-[calc(50%-0.5rem)] bg-maage-surface border border-maage-border rounded-lg p-5 hover:shadow-md transition-shadow">
+      <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 w-10 h-10 bg-maage-tertiary-100 rounded-lg flex items-center justify-center">
+          <i class="icon-cluster text-maage-tertiary-700" style="font-size: 20px;"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-heading font-semibold text-maage-text mb-1">Core Genome MLST</h3>
+          <p class="text-sm text-maage-text-muted leading-relaxed">
+            Analyze a specific group of assembled and annotated genomes with ChewBBACA. Unlike
+            the automatic clustering in CGA (which compares against all public genomes), this
+            service lets you cluster only the genomes in your selected group -- mixing public
+            and private data or analyzing exclusively private genomes. Produces a report detailing
+            which genomes are similar and where they differ at the gene level. Trees are generated
+            using GrapeTree's MSTree V2 algorithm.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Whole Genome SNP Analysis -->
+    <div class="w-full md:w-[calc(50%-0.5rem)] bg-maage-surface border border-maage-border rounded-lg p-5 hover:shadow-md transition-shadow">
+      <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 w-10 h-10 bg-maage-quaternary-100 rounded-lg flex items-center justify-center">
+          <i class="icon-selection-SNP text-maage-quaternary-600" style="font-size: 20px;"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-heading font-semibold text-maage-text mb-1">Whole Genome SNP Analysis</h3>
+          <p class="text-sm text-maage-text-muted leading-relaxed">
+            Identify Single Nucleotide Polymorphisms (SNPs) within a group of genomes using
+            kSNP4. This service produces a report showing which genomes are similar and where
+            they differ at the SNP level, organized into three categories: <strong>All SNPs</strong>
+            identified across all genomes, <strong>Core SNPs</strong> present in every genome,
+            and <strong>Majority SNPs</strong> present in a configurable percentage threshold.
+            Compare genomes using a distance matrix and heatmap to understand shared and
+            distinguishing variants. Supports Maximum Likelihood, Neighbor Joining, and
+            Parsimony tree methods.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phylogenetic Tree -->
+    <div class="w-full md:w-[calc(50%-0.5rem)] bg-maage-surface border border-maage-border rounded-lg p-5 hover:shadow-md transition-shadow">
+      <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 w-10 h-10 bg-maage-quinary-100 rounded-lg flex items-center justify-center">
+          <i class="icon-tree text-maage-quinary-600" style="font-size: 20px;"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-heading font-semibold text-maage-text mb-1">Phylogenetic Tree</h3>
+          <p class="text-sm text-maage-text-muted leading-relaxed">
+            Construct custom phylogenetic trees and map your metadata using the Codon Tree method.
+            Visualize evolutionary relationships and transmission patterns across your investigation
+            samples. Note that other services also produce trees: cgMLST generates trees via
+            GrapeTree's MSTree V2 algorithm, and Whole Genome SNP Analysis produces trees using
+            Maximum Likelihood, Neighbor Joining, and Parsimony methods.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Getting Started Note -->
+  <div class="mt-8 p-4 bg-maage-info-100 border border-maage-info-300 rounded-lg">
+    <p class="text-sm text-maage-info-800">
+      <strong>Getting started:</strong> Select a service from the sidebar on the left to open
+      its submission form. Begin with <strong>Comprehensive Genome Analysis</strong> to assemble
+      and annotate your genome. Once your genome is ready, use the downstream services to
+      investigate clusters, identify SNPs, and build phylogenetic trees.
+    </p>
+  </div>
+</div>

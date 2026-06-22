@@ -3239,3 +3239,499 @@ div#bv-brc-page-container > div.page-content {
       .summary-value {
         @apply text-sm font-semibold text-gray-900;
       }
+
+      /* =============================================
+         Dashboard Chart Blocks — layout system
+         ============================================= */
+
+      /* The container uses flex-wrap; each chart-block
+         controls its own width at each breakpoint. */
+      .surveillance-dashboard .chartsContainerNode,
+      .surveillance-dashboard [data-dojo-attach-point="chartsContainerNode"] {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .chart-block {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+
+      /* Full-width blocks */
+      .chart-block-full {
+        width: 100%;
+      }
+
+      /* At md+ breakpoints, apply proportional widths */
+      @media (min-width: 1024px) {
+        .chart-block-sm {
+          width: calc(25% - 0.75rem);
+        }
+        .chart-block-lg {
+          width: calc(75% - 0.25rem);
+        }
+        .chart-block-2-3 {
+          width: calc(66.667% - 0.5rem);
+        }
+        .chart-block-1-3 {
+          width: calc(33.333% - 0.667rem);
+        }
+      }
+
+      /* Hidden chart blocks */
+      .chart-block-hidden {
+        display: none !important;
+      }
+
+      /* Dashboard filter action bar (dashboard-only modern minimal refresh) */
+      .DashboardFilterActionBar {
+        background: var(--maage-bg, #f8f9fa);
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .DashboardFilterActionBar .dashboardFilterToolbar {
+        margin: 8px !important;
+      }
+
+      .DashboardFilterActionBar .dashboardFilterToolbar table {
+        width: 100%;
+        background: #ffffff !important;
+        border: 1px solid #dce3e8;
+        border-radius: 10px;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+      }
+
+      .DashboardFilterActionBar .dashboardFilterLeft,
+      .DashboardFilterActionBar .dashboardFilterCenter,
+      .DashboardFilterActionBar .dashboardFilterRight {
+        background: transparent !important;
+        padding: 8px !important;
+        vertical-align: middle;
+      }
+
+      .DashboardFilterActionBar .dashboardFilterCenter {
+        border-left: 1px solid #e5e7eb !important;
+      }
+
+      .DashboardFilterActionBar .ActionButtonWrapper {
+        border: 1px solid #d0d6db;
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 2px 6px;
+        margin-right: 6px;
+      }
+
+      .DashboardFilterActionBar .ActionButtonWrapper .ActionButton {
+        color: #4b5563 !important;
+      }
+
+      .DashboardFilterActionBar .ActionButtonWrapper .ActionButtonText {
+        color: #1f2937 !important;
+        font-size: 11px !important;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .DashboardFilterActionBar .dijitTextBox {
+        border-color: #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .DashboardFilterActionBar .dijitTextBoxFocused {
+        border-color: #6d9e89;
+        box-shadow: 0 0 0 3px rgba(109, 158, 137, 0.15);
+      }
+
+      .DashboardFilterActionBar .dashboardFacetPanel {
+        margin: 0 8px 8px 8px;
+        border: 1px solid #dce3e8;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .DashboardFilterActionBar .FullFilterView,
+      .DashboardFilterActionBar .FullFilterControl {
+        background: #f2f5f7 !important;
+      }
+
+      .DashboardFilterActionBar .FacetFilter {
+        border-right: 1px solid #dce3e8;
+      }
+
+      .DashboardFilterActionBar .facetHeader {
+        background: #edf2f5;
+        border-bottom: 1px solid #dce3e8;
+      }
+
+      .DashboardFilterActionBar .facetCategory {
+        color: #334155;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      .DashboardFilterActionBar .FacetValue {
+        border-bottom: 1px solid #eef2f5;
+        color: #475569;
+      }
+
+      .DashboardFilterActionBar .FacetValue.selected {
+        background: #dcefe6;
+        color: #1f513d;
+      }
+
+      .DashboardFilterActionBar .selectedList {
+        background: #edf5f1;
+        color: #1f513d;
+        border: 1px solid #d2e6dc;
+        border-radius: 999px;
+        margin: 0 0 6px;
+        min-height: 24px;
+        line-height: 22px;
+        padding: 0 10px;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: thin;
+      }
+
+      /* Dashboard Layout Editor styles */
+      .dashboard-layout-editor .chart-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+        background: #ffffff;
+        transition: background-color 0.15s;
+      }
+
+      .dashboard-layout-editor .chart-row:hover {
+        background: #f9fafb;
+      }
+
+      .dashboard-layout-editor .chart-row.disabled {
+        opacity: 0.5;
+        background: #f3f4f6;
+      }
+
+      .dashboard-layout-editor .chart-row-label {
+        flex: 1;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+      }
+
+      .dashboard-layout-editor .chart-row-btn {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        background: #ffffff;
+        color: #6b7280;
+        cursor: pointer;
+        font-size: 0.75rem;
+        line-height: 1;
+        transition: all 0.15s;
+      }
+
+      .dashboard-layout-editor .chart-row-btn:hover {
+        background: #f3f4f6;
+        color: #374151;
+        border-color: #9ca3af;
+      }
+
+      .dashboard-layout-editor .chart-row-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .dashboard-layout-editor .chart-row-btn:disabled:hover {
+        background: #ffffff;
+        color: #6b7280;
+        border-color: #d1d5db;
+      }
+
+      /* Save Dashboard Dialog styles */
+      .save-dashboard-dialog .field-group {
+        margin-bottom: 1rem;
+      }
+
+      .save-dashboard-dialog .field-label {
+        display: block;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 0.25rem;
+      }
+
+      .save-dashboard-dialog .field-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        color: #1f2937;
+        outline: none;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+
+      .save-dashboard-dialog .field-input:focus {
+        border-color: #6d9e89;
+        box-shadow: 0 0 0 3px rgba(109, 158, 137, 0.15);
+      }
+
+      .save-dashboard-dialog .field-hint {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-top: 0.25rem;
+      }
+
+      .save-dashboard-dialog .query-preview {
+        background: #f3f4f6;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        font-family: monospace;
+        color: #6b7280;
+        word-break: break-all;
+        max-height: 80px;
+        overflow-y: auto;
+      }
+
+      .save-dashboard-dialog .error-msg {
+        color: #dc2626;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      /* Dashboard manage panel styles */
+      .dashboard-manage-list .manage-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .dashboard-manage-list .manage-row:last-child {
+        border-bottom: none;
+      }
+
+      .dashboard-manage-list .manage-name {
+        flex: 1;
+        font-size: 0.8125rem;
+        color: #374151;
+        cursor: text;
+        padding: 0.25rem 0.5rem;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        transition: border-color 0.15s;
+      }
+
+      .dashboard-manage-list .manage-name:hover {
+        border-color: #d1d5db;
+      }
+
+      .dashboard-manage-list .manage-name:focus {
+        outline: none;
+        border-color: #6d9e89;
+        background: #ffffff;
+      }
+
+      .dashboard-manage-list .manage-delete-btn {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 4px;
+        background: transparent;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 0.875rem;
+        transition: all 0.15s;
+      }
+
+      .dashboard-manage-list .manage-delete-btn:hover {
+        background: #fef2f2;
+        color: #dc2626;
+      }
+
+      /* Dashboard header action buttons */
+      .dashboard-header-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 14px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--maage-secondary-600, #447188);
+        background: #ffffff;
+        border: 1px solid var(--maage-secondary-300, #a0c4d4);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+        white-space: nowrap;
+        line-height: 1.4;
+      }
+
+      .dashboard-header-btn:hover {
+        background: var(--maage-secondary-50, #eef5f8);
+        border-color: var(--maage-secondary-400, #7caabb);
+      }
+
+      .dashboard-header-btn:active {
+        background: var(--maage-secondary-100, #d6e8ef);
+      }
+
+      .dashboard-header-btn:focus-visible {
+        outline: 2px solid var(--maage-primary-300, #8fc4a7);
+        outline-offset: 2px;
+      }
+
+      .dashboard-header-btn.active {
+        background: var(--maage-secondary-500, #548fa6);
+        color: #ffffff;
+        border-color: var(--maage-secondary-500, #548fa6);
+      }
+
+      .dashboard-header-btn.active:hover {
+        background: var(--maage-secondary-600, #447188);
+        border-color: var(--maage-secondary-600, #447188);
+      }
+
+/* =====================================================
+   SidebarViewerBase - Sidebar TOC + Content Panel Layout
+   ===================================================== 
+   
+   Visual Hierarchy Strategy:
+   - Page/Canvas background: #f5f7f8 (cool off-white)
+   - Sidebar background: #ffffff (pure white, elevated)
+   - Content cards: #ffffff (pure white on cool canvas)
+   - Active sidebar item: #edf5f1 (tinted green, distinct from white)
+   
+   This creates clear visual separation between:
+   1. Navigation sidebar (white, elevated with border/shadow)
+   2. Main content canvas (cool off-white)
+   3. White content cards (stand out against canvas)
+*/
+
+.SidebarViewer {
+  background: #f5f7f8;
+}
+
+/* Sidebar container */
+.SidebarTOC {
+  background: #ffffff;
+  border-right: 1px solid #d0d6db;
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.02);
+}
+
+.SidebarTOC .dijitContentPaneLoading,
+.SidebarTOC .dijitContentPaneError {
+  display: none;
+}
+
+.sidebar-toc-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-toc-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--maage-text-muted, #495057);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 16px 16px 12px 16px;
+  background: #fafbfc;
+  border-bottom: 1px solid #e5e9ed;
+}
+
+.sidebar-toc-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.sidebar-toc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar-toc-item:hover {
+  background-color: #f8f9fb;
+}
+
+.sidebar-toc-item.active {
+  background-color: #edf5f1;
+  border-left-color: #5b967f;
+}
+
+.sidebar-toc-item-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--maage-text-subtle, #6c757d);
+  margin-top: 2px;
+}
+
+.sidebar-toc-item.active .sidebar-toc-item-icon {
+  color: var(--maage-primary-600, #57856f);
+}
+
+.sidebar-toc-item-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sidebar-toc-item-title {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--maage-text, #212529);
+  line-height: 1.4;
+}
+
+.sidebar-toc-item.active .sidebar-toc-item-title {
+  color: var(--maage-primary-700, #496f5d);
+  font-weight: 600;
+}
+
+.sidebar-toc-item-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  color: var(--maage-text-subtle, #6c757d);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+/* Main content panel */
+.SidebarMainPanel {
+  background: #f5f7f8;
+}
+
+.SidebarMainPanel .dijitContentPaneLoading,
+.SidebarMainPanel .dijitContentPaneError {
+  display: none;
+}

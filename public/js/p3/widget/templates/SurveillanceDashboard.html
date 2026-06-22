@@ -1,0 +1,167 @@
+<div class="surveillance-dashboard bg-maage-bg" style="overflow-y: auto; padding: 0;">
+	<!-- Dashboard Charts — each block is independently orderable/hideable -->
+	<div class="p-4 sm:p-6" data-dojo-attach-point="chartsContainerNode">
+
+		<!-- Summary -->
+		<div data-chart-id="summary" data-dojo-attach-point="summarySection"
+			 class="chart-block chart-block-sm">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Summary</h3>
+				<div data-dojo-attach-point="summaryNode" class="summary-container"></div>
+			</div>
+		</div>
+
+		<!-- Geographic Distribution -->
+		<div data-chart-id="map" data-dojo-attach-point="mapSection"
+			 class="chart-block chart-block-lg">
+			<div class="chart-section h-full relative">
+				<h3 class="chart-title">Geographic Distribution</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-2"
+					 data-dojo-attach-point="mapControlsContainer"></div>
+				<div data-dojo-attach-point="mapChartNode"
+					 class="chart-container map-chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Serovars Over Time -->
+		<div data-chart-id="serovarTimeline" data-dojo-attach-point="serovarTimelineSection"
+			 class="chart-block chart-block-2-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Serovars Over Time</h3>
+				<div data-dojo-attach-point="serovarTimelineChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- AMR Profile -->
+		<div data-chart-id="amr" data-dojo-attach-point="amrSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full relative">
+				<h3 class="chart-title">AMR Profile</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+					 data-dojo-attach-point="amrControlsContainer">
+					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+						<button type="button"
+								data-dojo-attach-point="amrCountBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							Count
+						</button>
+						<button type="button"
+								data-dojo-attach-point="amrPercentBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							Percent
+						</button>
+					</div>
+				</div>
+				<div data-dojo-attach-point="amrChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Collection Timeline -->
+		<div data-chart-id="timeline" data-dojo-attach-point="timelineSection"
+			 class="chart-block chart-block-2-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Collection Timeline</h3>
+				<div data-dojo-attach-point="timelineChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Pathogen Distribution -->
+		<div data-chart-id="pathogen" data-dojo-attach-point="pathogenSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Serovar</h3>
+				<div data-dojo-attach-point="pathogenChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Cluster Summary -->
+		<div data-chart-id="cluster" data-dojo-attach-point="clusterSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full relative">
+				<h3 class="chart-title">Cluster Summary</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+					 data-dojo-attach-point="clusterControlsContainer">
+					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+						<button type="button"
+								data-dojo-attach-point="clusterHC5Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							HC5
+						</button>
+						<button type="button"
+								data-dojo-attach-point="clusterHC10Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							HC10
+						</button>
+						<button type="button"
+								data-dojo-attach-point="clusterHC20Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							HC20
+						</button>
+						<button type="button"
+								data-dojo-attach-point="clusterHC50Btn"
+								class="cluster-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							HC50
+						</button>
+					</div>
+				</div>
+				<div data-dojo-attach-point="clusterChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Host Distribution -->
+		<div data-chart-id="host" data-dojo-attach-point="hostSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Host Distribution</h3>
+				<div data-dojo-attach-point="hostChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Isolation Source -->
+		<div data-chart-id="isolationSource" data-dojo-attach-point="isolationSourceSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Isolation Source</h3>
+				<div data-dojo-attach-point="isolationSourceChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Genome Quality -->
+		<div data-chart-id="genomeQuality" data-dojo-attach-point="genomeQualitySection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Genome Quality</h3>
+				<div data-dojo-attach-point="genomeQualityChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Host Group -->
+		<div data-chart-id="hostGroup" data-dojo-attach-point="hostGroupSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Host Group</h3>
+				<div data-dojo-attach-point="hostGroupChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Recent Genomes -->
+		<div data-chart-id="recentGenomes" data-dojo-attach-point="recentGenomesSection"
+			 class="chart-block chart-block-full">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Recent Genomes</h3>
+				<div data-dojo-attach-point="recentGenomesNode"
+					 class="recent-genomes-container"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
