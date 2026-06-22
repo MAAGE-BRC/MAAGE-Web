@@ -1,7 +1,13 @@
-define([], function ()
+define([
+	"dojo/Deferred",
+	"dojo/when",
+	"p3/WorkspaceManager"
+], function (
+	Deferred,
+	when,
+	WorkspaceManager
+)
 {
-	var STORAGE_KEY = "maage_dashboard_config";
-
 	// Canonical chart definitions — order here is the default order
 	var DEFAULT_CHARTS = [
 		{ id: "summary", label: "Summary" },
@@ -20,50 +26,193 @@ define([], function ()
 
 	var DEFAULT_CHART_IDS = DEFAULT_CHARTS.map(function (c) { return c.id; });
 
-	function _read()
+	var FOLDER_NAME = ".dashboards";
+
+	// In-memory cache
+	var _cache = null;       // Array of dashboard objects, or null if not loaded
+	var _cacheLoaded = false;
+	var _folderEnsured = false;
+
+	/**
+	 * Get the WorkspaceManager singleton (imported as AMD dependency).
+	 */
+	function _getWM()
 	{
-		try
-		{
-			var raw = localStorage.getItem(STORAGE_KEY);
-			if (raw)
-			{
-				return JSON.parse(raw);
-			}
-		}
-		catch (e)
-		{
-			console.warn("DashboardStorage: failed to read localStorage", e);
-		}
-		return null;
+		return WorkspaceManager;
 	}
 
-	function _write(data)
+	/**
+	 * Get the hidden .dashboards folder path for the current user.
+	 * Returns null if not logged in.
+	 */
+	function _getFolderPath()
 	{
-		try
-		{
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-		}
-		catch (e)
-		{
-			console.warn("DashboardStorage: failed to write localStorage", e);
-		}
+		var wm = _getWM();
+		if (!wm || !wm.userId) return null;
+		return "/" + wm.userId + "/home/" + FOLDER_NAME;
 	}
 
-	function _getOrInit()
+	/**
+	 * Check if the user is logged in.
+	 */
+	function _isLoggedIn()
 	{
-		var data = _read();
-		if (!data)
+		return !!(window.App && window.App.user);
+	}
+
+	/**
+	 * Ensure the .dashboards folder exists. Creates it if missing.
+	 * Returns a Deferred that resolves when the folder is ready.
+	 */
+	function _ensureFolder()
+	{
+		var def = new Deferred();
+
+		if (_folderEnsured)
 		{
-			data = {
-				layout: null,
-				savedDashboards: []
-			};
+			def.resolve(true);
+			return def;
 		}
-		if (!data.savedDashboards)
+
+		var folderPath = _getFolderPath();
+		if (!folderPath)
 		{
-			data.savedDashboards = [];
+			def.reject(new Error("Not logged in"));
+			return def;
+		}
+
+		var wm = _getWM();
+		when(wm.createFolder(folderPath), function ()
+		{
+			_folderEnsured = true;
+			def.resolve(true);
+		}, function (err)
+		{
+			// Folder likely already exists — that's fine
+			_folderEnsured = true;
+			def.resolve(true);
+		});
+
+		return def;
+	}
+
+	/**
+	 * Sanitize a dashboard name for use as a workspace object name.
+	 * Removes characters that are problematic in workspace paths.
+	 */
+	function _sanitizeName(name)
+	{
+		// Remove path separators and leading dots
+		return name.replace(/[\/\\]/g, "_").replace(/^\.+/, "").trim();
+	}
+
+	/**
+	 * Build the full workspace path for a dashboard by name.
+	 */
+	function _dashboardPath(name)
+	{
+		var folderPath = _getFolderPath();
+		if (!folderPath) return null;
+		return folderPath + "/" + _sanitizeName(name);
+	}
+
+	/**
+	 * Parse dashboard content from workspace object data.
+	 * The workspace may return data as string or object.
+	 */
+	function _parseData(data)
+	{
+		if (!data) return null;
+		if (typeof data === "string")
+		{
+			try { return JSON.parse(data); }
+			catch (e) { return null; }
 		}
 		return data;
+	}
+
+	/**
+	 * Load all dashboards from the workspace into cache.
+	 * Returns a Deferred that resolves with the array of dashboards.
+	 */
+	function _loadAll()
+	{
+		var def = new Deferred();
+
+		if (_cacheLoaded && _cache !== null)
+		{
+			def.resolve(_cache);
+			return def;
+		}
+
+		if (!_isLoggedIn())
+		{
+			_cache = [];
+			_cacheLoaded = true;
+			def.resolve(_cache);
+			return def;
+		}
+
+		when(_ensureFolder(), function ()
+		{
+			var folderPath = _getFolderPath();
+			var wm = _getWM();
+
+			// List all objects in .dashboards (showHidden=true since the folder itself is hidden)
+			when(wm.getFolderContents(folderPath, true, false), function (items)
+			{
+				if (!items || items.length === 0)
+				{
+					_cache = [];
+					_cacheLoaded = true;
+					def.resolve(_cache);
+					return;
+				}
+
+				// Fetch full content for each dashboard object
+				var paths = items.map(function (item) { return item.path; });
+				when(wm.getObjects(paths, false), function (results)
+				{
+					_cache = [];
+					if (results && results.length)
+					{
+						results.forEach(function (obj)
+						{
+							var data = _parseData(obj.data);
+							if (data && data.name)
+							{
+								// Attach workspace metadata for path-based operations
+								data._wsPath = obj.metadata.path;
+								data._wsName = obj.metadata.name;
+								_cache.push(data);
+							}
+						});
+					}
+					_cacheLoaded = true;
+					def.resolve(_cache);
+				}, function (err)
+				{
+					console.warn("DashboardStorage: error loading dashboard contents", err);
+					_cache = [];
+					_cacheLoaded = true;
+					def.resolve(_cache);
+				});
+			}, function (err)
+			{
+				console.warn("DashboardStorage: error listing .dashboards folder", err);
+				_cache = [];
+				_cacheLoaded = true;
+				def.resolve(_cache);
+			});
+		}, function (err)
+		{
+			console.warn("DashboardStorage: error ensuring folder", err);
+			_cache = [];
+			_cacheLoaded = true;
+			def.resolve(_cache);
+		});
+
+		return def;
 	}
 
 	return {
@@ -79,139 +228,273 @@ define([], function ()
 		DEFAULT_CHART_IDS: DEFAULT_CHART_IDS,
 
 		/**
-		 * Get the current layout config.
-		 * Returns { visibleCharts: string[], chartOrder: string[] } or null if using defaults.
+		 * Check if the user is logged in (required for workspace operations).
 		 */
-		getLayout: function ()
+		isLoggedIn: function ()
 		{
-			var data = _getOrInit();
-			return data.layout || null;
-		},
-
-		/**
-		 * Save a layout config.
-		 * @param {Object} config - { visibleCharts: string[], chartOrder: string[] }
-		 */
-		saveLayout: function (config)
-		{
-			var data = _getOrInit();
-			data.layout = {
-				visibleCharts: config.visibleCharts || DEFAULT_CHART_IDS.slice(),
-				chartOrder: config.chartOrder || DEFAULT_CHART_IDS.slice()
-			};
-			_write(data);
-		},
-
-		/**
-		 * Reset layout to defaults (remove custom layout).
-		 */
-		resetLayout: function ()
-		{
-			var data = _getOrInit();
-			data.layout = null;
-			_write(data);
-		},
-
-		/**
-		 * Get the effective layout — saved or default.
-		 * Always returns a valid config object.
-		 */
-		getEffectiveLayout: function ()
-		{
-			var layout = this.getLayout();
-			if (layout)
-			{
-				return layout;
-			}
-			return {
-				visibleCharts: DEFAULT_CHART_IDS.slice(),
-				chartOrder: DEFAULT_CHART_IDS.slice()
-			};
+			return _isLoggedIn();
 		},
 
 		/**
 		 * Get all saved dashboards.
-		 * Returns an array of { id, name, filter, timelineMode, pathogenField, createdAt }.
+		 * Returns a Deferred that resolves with an array of dashboard objects.
+		 * Each dashboard: { name, filter, timelineMode, pathogenField, layout, createdAt, _wsPath, _wsName }
 		 */
 		getSavedDashboards: function ()
 		{
-			var data = _getOrInit();
-			return data.savedDashboards || [];
+			return _loadAll();
 		},
 
 		/**
-		 * Save a new dashboard configuration.
+		 * Save a new dashboard configuration to the workspace.
 		 * @param {string} name - user-provided name
 		 * @param {string} filter - the RQL filter query
-		 * @param {Object} hints - { timelineMode, pathogenField } (optional, will auto-detect if omitted)
-		 * @returns {Object} the saved dashboard object
+		 * @param {Object} hints - { timelineMode, pathogenField }
+		 * @param {Object} layout - { visibleCharts: string[], chartOrder: string[] }
+		 * @returns {Deferred} resolves with the saved dashboard object
 		 */
-		saveDashboard: function (name, filter, hints)
+		saveDashboard: function (name, filter, hints, layout)
 		{
-			var data = _getOrInit();
+			var def = new Deferred();
 
+			if (!_isLoggedIn())
+			{
+				def.reject(new Error("Login required to save dashboards"));
+				return def;
+			}
+
+			var self = this;
 			var detected = this.detectDisplayHints(filter);
 			var dashboard = {
-				id: "sd_" + Date.now(),
 				name: name,
 				filter: filter,
 				timelineMode: (hints && hints.timelineMode) || detected.timelineMode,
 				pathogenField: (hints && hints.pathogenField) || detected.pathogenField,
+				layout: layout || {
+					visibleCharts: DEFAULT_CHART_IDS.slice(),
+					chartOrder: DEFAULT_CHART_IDS.slice()
+				},
 				createdAt: Date.now()
 			};
 
-			data.savedDashboards.push(dashboard);
-			_write(data);
-			return dashboard;
+			var sanitizedName = _sanitizeName(name);
+			var folderPath = _getFolderPath();
+
+			when(_ensureFolder(), function ()
+			{
+				var wm = _getWM();
+				when(wm.create({
+					path: folderPath + "/",
+					name: sanitizedName,
+					type: "unspecified",
+					userMeta: {},
+					content: JSON.stringify(dashboard)
+				}, false, false), function (meta)
+				{
+					// Add workspace path info and update cache
+					dashboard._wsPath = meta.path;
+					dashboard._wsName = meta.name;
+					if (_cache)
+					{
+						_cache.push(dashboard);
+					}
+					def.resolve(dashboard);
+				}, function (err)
+				{
+					console.error("DashboardStorage: error saving dashboard", err);
+					def.reject(err);
+				});
+			}, function (err)
+			{
+				def.reject(err);
+			});
+
+			return def;
 		},
 
 		/**
-		 * Delete a saved dashboard by ID.
-		 * @param {string} id
-		 * @returns {boolean} true if found and deleted
+		 * Update an existing dashboard in the workspace.
+		 * @param {Object} dashboard - dashboard object with _wsPath and _wsName
+		 * @param {Object} updates - fields to update (merged into existing data)
+		 * @returns {Deferred}
 		 */
-		deleteDashboard: function (id)
+		updateDashboard: function (dashboard, updates)
 		{
-			var data = _getOrInit();
-			var before = data.savedDashboards.length;
-			data.savedDashboards = data.savedDashboards.filter(function (d) { return d.id !== id; });
-			_write(data);
-			return data.savedDashboards.length < before;
+			var def = new Deferred();
+
+			if (!_isLoggedIn() || !dashboard || !dashboard._wsPath)
+			{
+				def.reject(new Error("Invalid dashboard or not logged in"));
+				return def;
+			}
+
+			// Merge updates into dashboard data
+			var updated = {};
+			var fields = ["name", "filter", "timelineMode", "pathogenField", "layout", "createdAt"];
+			fields.forEach(function (f)
+			{
+				updated[f] = (updates && updates[f] !== undefined) ? updates[f] : dashboard[f];
+			});
+
+			var wm = _getWM();
+			var meta = {
+				path: dashboard._wsPath.substring(0, dashboard._wsPath.lastIndexOf("/") + 1),
+				name: dashboard._wsName,
+				type: "unspecified",
+				userMeta: {}
+			};
+
+			when(wm.updateObject(meta, updated), function ()
+			{
+				// Update cache entry
+				if (_cache)
+				{
+					for (var i = 0; i < _cache.length; i++)
+					{
+						if (_cache[i]._wsPath === dashboard._wsPath)
+						{
+							fields.forEach(function (f)
+							{
+								_cache[i][f] = updated[f];
+							});
+							break;
+						}
+					}
+				}
+				def.resolve(updated);
+			}, function (err)
+			{
+				console.error("DashboardStorage: error updating dashboard", err);
+				def.reject(err);
+			});
+
+			return def;
+		},
+
+		/**
+		 * Delete a saved dashboard by its workspace path.
+		 * @param {string} wsPath - the full workspace path
+		 * @returns {Deferred} resolves with true if deleted
+		 */
+		deleteDashboard: function (wsPath)
+		{
+			var def = new Deferred();
+
+			if (!_isLoggedIn() || !wsPath)
+			{
+				def.reject(new Error("Invalid path or not logged in"));
+				return def;
+			}
+
+			var wm = _getWM();
+			when(wm.deleteObjects([wsPath], false, true), function ()
+			{
+				// Remove from cache
+				if (_cache)
+				{
+					_cache = _cache.filter(function (d) { return d._wsPath !== wsPath; });
+				}
+				def.resolve(true);
+			}, function (err)
+			{
+				console.error("DashboardStorage: error deleting dashboard", err);
+				def.reject(err);
+			});
+
+			return def;
 		},
 
 		/**
 		 * Rename a saved dashboard.
-		 * @param {string} id
+		 * Since the name is the workspace object name, this requires a copy+delete (move).
+		 * @param {Object} dashboard - dashboard object with _wsPath, _wsName
 		 * @param {string} newName
-		 * @returns {boolean} true if found and renamed
+		 * @returns {Deferred}
 		 */
-		renameDashboard: function (id, newName)
+		renameDashboard: function (dashboard, newName)
 		{
-			var data = _getOrInit();
-			var dashboard = data.savedDashboards.find(function (d) { return d.id === id; });
-			if (dashboard)
+			var def = new Deferred();
+
+			if (!_isLoggedIn() || !dashboard || !dashboard._wsPath)
 			{
-				dashboard.name = newName;
-				_write(data);
-				return true;
+				def.reject(new Error("Invalid dashboard or not logged in"));
+				return def;
 			}
-			return false;
+
+			var sanitizedNew = _sanitizeName(newName);
+			var folderPath = _getFolderPath();
+			var oldPath = dashboard._wsPath;
+			var newPath = folderPath + "/" + sanitizedNew;
+			var self = this;
+
+			// Update the content's name field as well
+			var updatedContent = {
+				name: newName,
+				filter: dashboard.filter,
+				timelineMode: dashboard.timelineMode,
+				pathogenField: dashboard.pathogenField,
+				layout: dashboard.layout,
+				createdAt: dashboard.createdAt
+			};
+
+			var wm = _getWM();
+
+			// Create new object with updated name, then delete old
+			when(wm.create({
+				path: folderPath + "/",
+				name: sanitizedNew,
+				type: "unspecified",
+				userMeta: {},
+				content: JSON.stringify(updatedContent)
+			}, false, false), function (meta)
+			{
+				// Delete old object
+				when(wm.deleteObjects([oldPath], false, true), function ()
+				{
+					// Update cache
+					if (_cache)
+					{
+						for (var i = 0; i < _cache.length; i++)
+						{
+							if (_cache[i]._wsPath === oldPath)
+							{
+								_cache[i].name = newName;
+								_cache[i]._wsPath = meta.path;
+								_cache[i]._wsName = meta.name;
+								break;
+							}
+						}
+					}
+					def.resolve(updatedContent);
+				}, function (err)
+				{
+					// New object was created but old wasn't deleted — not ideal but recoverable
+					console.warn("DashboardStorage: rename created new but failed to delete old", err);
+					def.resolve(updatedContent);
+				});
+			}, function (err)
+			{
+				console.error("DashboardStorage: error renaming dashboard", err);
+				def.reject(err);
+			});
+
+			return def;
 		},
 
 		/**
-		 * Find a saved dashboard by its resolved filter string.
-		 * @param {string} filter
-		 * @returns {Object|null}
+		 * Find a saved dashboard by its filter string.
+		 * Requires dashboards to be pre-loaded in cache.
+		 * Returns the dashboard object or null (synchronous, uses cache).
+		 * Call getSavedDashboards() first to ensure cache is populated.
 		 */
 		findDashboardByFilter: function (filter)
 		{
-			if (!filter) return null;
-			var dashboards = this.getSavedDashboards();
-			for (var i = 0; i < dashboards.length; i++)
+			if (!filter || !_cache) return null;
+			for (var i = 0; i < _cache.length; i++)
 			{
-				if (dashboards[i].filter === filter)
+				if (_cache[i].filter === filter)
 				{
-					return dashboards[i];
+					return _cache[i];
 				}
 			}
 			return null;
@@ -237,18 +520,41 @@ define([], function ()
 		},
 
 		/**
-		 * Check if a dashboard name already exists.
+		 * Check if a dashboard name already exists (synchronous, uses cache).
+		 * Call getSavedDashboards() first to ensure cache is populated.
 		 * @param {string} name
 		 * @returns {boolean}
 		 */
 		nameExists: function (name)
 		{
-			var dashboards = this.getSavedDashboards();
+			if (!_cache) return false;
 			var lowerName = name.toLowerCase().trim();
-			return dashboards.some(function (d)
+			return _cache.some(function (d)
 			{
 				return d.name.toLowerCase().trim() === lowerName;
 			});
+		},
+
+		/**
+		 * Get the default layout configuration (hardcoded defaults).
+		 * Used when no saved dashboard is active.
+		 * @returns {{ visibleCharts: string[], chartOrder: string[] }}
+		 */
+		getDefaultLayout: function ()
+		{
+			return {
+				visibleCharts: DEFAULT_CHART_IDS.slice(),
+				chartOrder: DEFAULT_CHART_IDS.slice()
+			};
+		},
+
+		/**
+		 * Invalidate the in-memory cache, forcing a reload on next access.
+		 */
+		invalidateCache: function ()
+		{
+			_cache = null;
+			_cacheLoaded = false;
 		}
 	};
 });

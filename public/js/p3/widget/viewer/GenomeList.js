@@ -205,6 +205,9 @@ define([
     },
 
     _createSaveDashboardButton: function () {
+      // Only show the save button when logged in (workspace storage requires auth)
+      if (!window.App || !window.App.user) return;
+
       // Find the query row in the header (created by TabViewerBase.postCreate)
       if (!this.totalCountNode || !this.totalCountNode.parentNode) return;
 

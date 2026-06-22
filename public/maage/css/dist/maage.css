@@ -1301,10 +1301,6 @@ video {
   border-top-width: 1px;
 }
 
-.border-dashed {
-  border-style: dashed;
-}
-
 .border-\[\#5f94ab\] {
   --tw-border-opacity: 1;
   border-color: rgb(95 148 171 / var(--tw-border-opacity, 1));

@@ -1,13 +1,11 @@
 define([
   'dojo/_base/declare',
   'dojo/text!./templates/InvestigationOverview.html',
-  '../viewer/SidebarViewerBase',
-  './InvestigationGenomeBrowser'
+  '../viewer/SidebarViewerBase'
 ], function (
   declare,
   OverviewHTML,
-  SidebarViewerBase,
-  InvestigationGenomeBrowser
+  SidebarViewerBase
 ) {
 
   return declare([SidebarViewerBase], {
@@ -58,20 +56,6 @@ define([
         icon: 'icon-tree',
         description: 'Build phylogenetic trees from selected genomes',
         widgetClass: 'p3/widget/app/PhylogeneticTree'
-      },
-      {
-        id: 'MetagenomicReadMapping',
-        title: 'Metagenomic Read Mapping',
-        icon: 'icon-fasta',
-        description: 'Optional pre-assembly screening of raw reads',
-        widgetClass: 'p3/widget/app/MetagenomicReadMapping'
-      },
-      {
-        id: 'GenomeBrowser',
-        title: 'Genome Browser',
-        icon: 'icon-genome-browser',
-        description: 'Browse genome annotations and features',
-        widgetCtor: InvestigationGenomeBrowser
       }
     ]
   });
