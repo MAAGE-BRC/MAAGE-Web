@@ -1219,8 +1219,8 @@ define([
       }, false);
 
       // MicrobeTrace viewer action for compatible file types
-      this.actionPanel.addAction('ViewMicrobeTrace', 'fa icon-network fa-2x', {
-        label: 'MicrobeTrace',
+      this.actionPanel.addAction('ViewMicrobeTrace', 'icon-microbetrace fa-2x', {
+        label: 'MICROBE<br>TRACE',
         multiple: true,
         allowMultiTypes: true,
         max: 5,
@@ -1545,8 +1545,8 @@ define([
       }, false);
 
       // MicrobeTrace action for cgMLST and wgSNP job results
-      this.browserHeader.addAction('ViewInMicrobeTrace', 'fa icon-network fa-2x', {
-        label: 'MICROBETRACE',
+      this.browserHeader.addAction('ViewInMicrobeTrace', 'icon-microbetrace fa-2x', {
+        label: 'MICROBE<br>TRACE',
         multiple: false,
         validTypes: ['CoreGenomeMLST', 'WholeGenomeSNPAnalysis'],
         tooltip: 'Open results in MicrobeTrace molecular epidemiology tool'

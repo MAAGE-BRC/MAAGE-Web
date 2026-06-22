@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Connecting lines -->
+  <line x1="16" y1="14" x2="7" y2="6" stroke="#fff" stroke-width="1.5"/>
+  <line x1="16" y1="14" x2="26" y2="7" stroke="#fff" stroke-width="1.5"/>
+  <line x1="16" y1="14" x2="8" y2="26" stroke="#fff" stroke-width="1.5"/>
+  <line x1="16" y1="14" x2="26" y2="24" stroke="#fff" stroke-width="1.5"/>
+  <line x1="7" y1="6" x2="26" y2="7" stroke="#fff" stroke-width="1"/>
+  <line x1="8" y1="26" x2="26" y2="24" stroke="#fff" stroke-width="1"/>
+  <!-- Central node -->
+  <circle cx="16" cy="14" r="5.5" fill="#fff"/>
+  <!-- Top-left node -->
+  <circle cx="7" cy="6" r="3" fill="#fff"/>
+  <!-- Top-right node -->
+  <circle cx="26" cy="7" r="2.5" fill="#fff"/>
+  <!-- Bottom-left node -->
+  <circle cx="8" cy="26" r="3" fill="#fff"/>
+  <!-- Bottom-right node -->
+  <circle cx="26" cy="24" r="2.5" fill="#fff"/>
+</svg>

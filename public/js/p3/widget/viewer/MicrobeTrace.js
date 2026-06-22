@@ -241,7 +241,7 @@ define([
 
       // MicrobeTrace icon
       domConstruct.create('div', {
-        innerHTML: '<i class="fa icon-network" style="font-size: 64px; color: #17a2b8;"></i>',
+        innerHTML: '<img src="/maage/img/microbetrace-icon.svg" alt="MicrobeTrace" style="width: 64px; height: 64px;">',
         style: 'margin-bottom: 20px;'
       }, card);
 
@@ -494,7 +494,7 @@ define([
           return 'fa icon-tree';
         case 'json':
         case 'microbetrace':
-          return 'fa icon-network';
+          return 'icon-microbetrace';
         default:
           return 'fa icon-file-text-o';
       }
