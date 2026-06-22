@@ -981,6 +981,10 @@ div.ActionButton.icon-microbetrace {
 
 .BrowserHeader div.ActionButton.icon-microbetrace {
   background-image: url('/maage/img/microbetrace-icon-dark.svg');
+  background-size: 28px 28px;
+  width: 36px !important;
+  height: 36px !important;
+  margin-top: 4px;
 }
 
 div#maage-page {
