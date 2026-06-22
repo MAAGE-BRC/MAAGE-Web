@@ -10,6 +10,7 @@ module.exports = {
     "./public/js/p3/widget/templates/TaxaSearch.html",
     "./public/js/p3/widget/search/templates/TaxaSearch.html",
     "./public/js/p3/widget/GenomeListOverview.js",
+    "./public/js/p3/widget/app/templates/InvestigationOverview.html",
   ],
   theme: {
     extend: {

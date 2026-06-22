@@ -1,20 +1,67 @@
 <div>
   <div class="column-sub">
-    <div class="section">
-      <div data-dojo-attach-point="genomeSummaryNode">
-        Loading Genome Summary...
+    <div class="section genomeMetadataCardSection">
+      <div class="outbreakAssessmentBox genomeMetadataCardBox">
+        <div class="assessmentTitle">GENOME METADATA</div>
+        <div class="genomeMetadataBody" data-dojo-attach-point="genomeSummaryNode">
+          Loading Genome Summary...
+        </div>
       </div>
     </div>
   </div>
 
   <div class="column-prime">
-    <div class="section hidden">
-      <h3 class="close section-title" title="Antimicrobial resistance data from antimicrobial susceptibility testing"><span class="wrap">Antimicrobial Resistance</span></h3>
-      <div class="apSummaryWidget" data-dojo-attach-point="apSummaryWidget"
-      data-dojo-type="p3/widget/AMRPanelSummary"></div>
+    <div class="section outbreakStatusHeroSection">
+      <div data-dojo-attach-point="outbreakAssessmentNode">
+        <div class="outbreakAssessmentBox">
+          <div class="assessmentTitle">CLUSTER ASSESSMENT</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakCgmlstNode">cgMLST Cluster (HC10): Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakClusterSizeNode">Cluster Size: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakCountriesNode">Countries: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakStatesNode">US States: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakDateRangeNode">Date Range: Not available</div>
+
+          <div class="assessmentActions">
+            <a class="assessmentAction" data-dojo-attach-point="outbreakViewClusterLink" target="_blank">View Cluster</a>
+            <a class="assessmentAction" href="#" data-dojo-attach-event="onclick:onRunCodonTree">Build Phylogenetic Tree</a>
+            <a class="assessmentAction" href="#" data-dojo-attach-event="onclick:onRunCoreGenomeMlST">Run cgMLST</a>
+            <a class="assessmentAction" href="#" data-dojo-attach-event="onclick:onRunWholeGenomeSNP">Run wgSNP</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="section">
+    <div class="section amrStatusCardSection">
+      <div class="outbreakAssessmentBox amrAssessmentBox">
+        <div class="assessmentTitle">ANTIMICROBIAL RESISTANCE</div>
+        <div class="amrAssessmentBody">
+          <div class="assessmentLine" data-dojo-attach-point="amrKnownResistantNode" style="display:none;">Resistant To (Based On AST): Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrResistantNode">Resistant: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrKnownSusceptibleNode" style="display:none;">Susceptible To (Based On AST): Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrSusceptibleNode">Susceptible: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrGenesByClassNode">AMR Genes By Class: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="amrGenesBySourceNode">AMR Genes By Source: Not available</div>
+          <div class="assessmentActions">
+            <a class="assessmentAction" data-dojo-attach-point="amrPhenotypesLink" target="_blank">AMR Phenotypes</a>
+            <a class="assessmentAction" data-dojo-attach-point="amrGenesLink" target="_blank">AMR Genes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section amrStatusCardSection">
+      <div class="outbreakAssessmentBox amrAssessmentBox">
+        <div class="assessmentTitle">VIRULENCE FACTORS</div>
+        <div class="amrAssessmentBody">
+          <div class="assessmentLine" data-dojo-attach-point="vfBySourceNode">Virulence Factors By Source: Not available</div>
+          <div class="assessmentActions">
+            <a class="assessmentAction" data-dojo-attach-point="vfGenesLink" target="_blank">Virulence Factors</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section hidden">
       <h3 style="margin-bottom:-26px" class="close section-title" title="Summary of genomic features annotated by BV-BRC and GenBank/RefSeq"><span class="wrap">Genomic Features</span></h3>
       <div class="gfSummaryWidget" data-dojo-attach-point="gfSummaryWidget"
       data-dojo-type="p3/widget/GenomeFeatureSummary"></div>
@@ -29,7 +76,7 @@
     </div>
     -->
 
-    <div class="section">
+    <div class="section hidden">
       <h3 style="margin-bottom:-26px;margin-top:40px" class="close section-title" title="Genes of special interest to infectious disease researchers, such as virulence factors, antimicrobial resistance genes, human homologs, and potential drug targets"><span class="wrap">Specialty Genes</span></h3>
       <div class="spgSummaryWidget" data-dojo-attach-point="spgSummaryWidget"
       data-dojo-type="p3/widget/SpecialtyGeneSummary"></div>
@@ -39,7 +86,7 @@
   </div>
 
   <div class="column-opt">
-    <div class="section">
+    <!--<div class="section">
       <div class="BrowserHeader right">
         <div class="ActionButtonWrapper" data-dojo-attach-event="onclick:onGenomeServiceSelection" style="margin-top: 2px" data-dojo-attach-point="genomeServiceSelectionButton">
           <div class="ActionButton fa icon-cog fa-2x"></div>
@@ -66,16 +113,37 @@
         </div>
       </div>
       <div class="clear"></div>
-</div>
-<div class="section">
-  <h3 class="close section-title"><span class="wrap">External Tools</span></h3>
-  <div class="SummaryWidget" data-dojo-attach-point="externalLinkNode"></div>
-</div>
-<div class="section">
-  <h3 class="section-title close2x" title="Recent PubMed articles relevant to the current context"><span class="wrap">Recent PubMed Articles</span></h3>
-  <div data-dojo-attach-point="pubmedSummaryNode">
-    Loading...
+    </div>-->
+    <div class="section amrStatusCardSection">
+      <div class="outbreakAssessmentBox amrAssessmentBox">
+        <div class="assessmentTitle">DISEASE OUTBREAK ALERTS</div>
+        <div class="amrAssessmentBody">
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertQueryNode">Query Term: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertCoverageNode">Source Coverage: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertSummaryNode">Summary: Not available</div>
+          <div class="assessmentLine" data-dojo-attach-point="outbreakAlertHeadlinesNode">Latest Headlines: Not available</div>
+          <div class="assessmentActions">
+            <a class="assessmentAction disabled" data-dojo-attach-point="outbreakAlertWhoLink" target="_blank">WHO DON</a>
+            <a class="assessmentAction disabled" data-dojo-attach-point="outbreakAlertHealthMapLink" target="_blank">HealthMap</a>
+            <a class="assessmentAction disabled" data-dojo-attach-point="outbreakAlertPromedLink" target="_blank">ProMED</a>
+            <a class="assessmentAction disabled" data-dojo-attach-point="outbreakAlertGoogleNewsLink" target="_blank">Google News</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div class="section">
+      <h3 class="close section-title"><span class="wrap">External Tools</span></h3>
+      <div class="SummaryWidget" data-dojo-attach-point="externalLinkNode"></div>
+    </div>-->
+    <div class="section amrStatusCardSection">
+      <div class="outbreakAssessmentBox amrAssessmentBox" title="Recent PubMed articles relevant to the current context">
+        <div class="assessmentTitle">RECENT PUBMED ARTICLES</div>
+        <div class="amrAssessmentBody">
+          <div data-dojo-attach-point="pubmedSummaryNode">
+            Loading...
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 </div>

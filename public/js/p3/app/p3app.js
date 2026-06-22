@@ -376,6 +376,16 @@ define([
         _self.navigate(newState);
       });
 
+      Router.register('/dashboard(/.*)?', function (params, path) {
+        var newState = getState(params, path);
+
+        newState.widgetClass = 'p3/widget/viewer/DashboardContainer';
+        newState.requireAuth = false;
+        newState.pageTitle = 'Surveillance Dashboard | MAAGE';
+
+        _self.navigate(newState);
+      });
+
       Router.register('/searches(/.*)', function (params, path) {
         let newState = getState(params, path);
         let parts = newState.pathname.split('/');
@@ -397,13 +407,15 @@ define([
 
       Router.register('/app(/.*)', function (params, path) {
         // console.log("view URL Callback", arguments);
-
-        var parts = path.split('/');
+        // Parse with getState so hash fragments (e.g. #view_tab=GenomeBrowser)
+        // don't end up in the AMD widget module path on reload.
+        var newState = getState(params, path);
+        var parts = newState.pathname.split('/');
         parts.shift();
         var type = parts.shift();
         // for rerun functionality
-        var type_parts = type.split('?');
-        var type = type_parts[0];
+        var type_parts = (type || '').split('?');
+        type = type_parts[0];
         // var rerun_key = type_parts[1]; // JSP: not used
         var viewerParams;
         /* istanbul ignore if */
@@ -413,8 +425,6 @@ define([
           viewerParams = '';
         }
         // console.log("Parts:", parts, type, viewerParams)
-
-        var newState = populateState(params);
 
         // console.log("Parts:", parts, type, path)
         newState.widgetClass = 'p3/widget/app/' + type;
@@ -872,7 +882,7 @@ define([
           innerHTML: ws.name
         }, d);
         domConstruct.create('br', {}, d);
-        ['Genome Groups', 'Feature Groups', 'Experiment Groups'].forEach(group => {
+        ['Genome Groups', 'Feature Groups'].forEach(group => {
           domConstruct.create('a', {
             'class': 'navigationLink',
             style: { 'padding-left': '16px' },
@@ -884,7 +894,7 @@ define([
       }
 
       if (wsMobileNode) {
-        ['home', 'Genome Groups', 'Feature Groups', 'Experiment Groups'].forEach(group => {
+        ['home', 'Genome Groups', 'Feature Groups'].forEach(group => {
           domConstruct.create('a', {
             style: { 'padding-left': '16px' },
             href: `/workspace${ws.path}/${encodeURIComponent(group)}`,

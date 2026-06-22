@@ -79,6 +79,20 @@ define([
             parsed.byCategory[key].push(val);
           }
           break;
+        case 'in':
+          key = decodeURIComponent(term.args[0]);
+          // The RQL parser produces args[1] as an array of values
+          var inVals = Array.isArray(term.args[1]) ? term.args[1] : term.args.slice(1);
+          inVals = inVals.map(function (v) { return decodeURIComponent(String(v)); });
+          inVals.forEach(function (v) {
+            parsed.selected.push({ field: key, value: v, op: 'eq' });
+          });
+          if (!parsed.byCategory[key]) {
+            parsed.byCategory[key] = inVals;
+          } else {
+            parsed.byCategory[key] = parsed.byCategory[key].concat(inVals);
+          }
+          break;
         case 'keyword':
           parsed.keywords.push(term.args[0]);
           break;
