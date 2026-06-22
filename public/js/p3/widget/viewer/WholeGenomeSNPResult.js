@@ -62,16 +62,16 @@ define([
         var name = obj.name || '';
         var lowerName = name.toLowerCase();
 
-        // Maximum Likelihood tree only
-        if (lowerName === 'tree.snps_all.ml.tre') {
+        // Maximum Likelihood tree from Core_SNPs
+        if (lowerName === 'tree.snps_all.ml.tre' && obj.path.indexOf('Core_SNPs') > -1) {
           files.push({ path: obj.path, name: name, kind: 'newick' });
         }
-        // Distance report: link data
-        else if (lowerName === 'all_ksnpdist.report') {
-          files.push({ path: obj.path, name: name, kind: 'link' });
+        // Distance report from Core_SNPs: link data
+        else if (lowerName === 'core_ksnpdist.report') {
+          files.push({ path: obj.path, name: name, kind: 'link', options: { field1: 'genome_id_1', field2: 'genome_id_2', field3: 'distance' } });
         }
         // Metadata: node data
-        else if (lowerName === 'all_metadata.tsv') {
+        else if (lowerName === 'metadata.tsv') {
           files.push({ path: obj.path, name: name, kind: 'node' });
         }
       });

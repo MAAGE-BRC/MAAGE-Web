@@ -37,7 +37,7 @@ define([
         }
         // Distance report: link data
         else if (lowerName === 'cgmlst_distance.report') {
-          files.push({ path: obj.path, name: name, kind: 'link' });
+          files.push({ path: obj.path, name: name, kind: 'link', options: { field1: 'genome_id_1', field2: 'genome_id_2', field3: 'distance' } });
         }
         // Metadata: node data
         else if (lowerName === 'metadata.tsv' || lowerName === 'bvbrc_metadata.tsv') {

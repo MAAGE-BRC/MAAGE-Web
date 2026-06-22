@@ -1571,11 +1571,15 @@ define([
             if (typeof content === 'object' && content !== null) {
               content = JSON.stringify(content);
             }
-            return {
+            var file = {
               name: mtFiles[idx].name,
               kind: mtFiles[idx].kind,
               contents: (content || '').trim()
             };
+            if (mtFiles[idx].options) {
+              file.options = mtFiles[idx].options;
+            }
+            return file;
           });
 
           microbeTraceHandoff({ files: filesPayload });
