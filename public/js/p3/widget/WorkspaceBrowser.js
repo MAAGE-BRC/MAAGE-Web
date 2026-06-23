@@ -1219,7 +1219,7 @@ define([
       }, false);
 
       // MicrobeTrace viewer action for compatible file types
-      this.actionPanel.addAction('ViewMicrobeTrace', 'icon-microbetrace fa-2x', {
+      this.actionPanel.addAction('ViewMicrobeTrace', 'icon-microbetrace', {
         label: 'MICROBE<br>TRACE',
         multiple: true,
         allowMultiTypes: true,
@@ -1330,7 +1330,7 @@ define([
         "ViewCoreGenomeMLSTReport",
         "fa icon-eye fa-2x",
         {
-          label: "REPORT",
+          label: "REPORT<br>&nbsp;",
           multiple: false,
           validTypes: ["CoreGenomeMLST"],
           tooltip: "View Whole Core Genome MLST Report",
@@ -1382,7 +1382,7 @@ define([
         "ViewWholeGenomeSNPAnalysisReport",
         "fa icon-eye fa-2x",
         {
-          label: "REPORT",
+          label: "REPORT<br>&nbsp;",
           multiple: false,
           validTypes: ["WholeGenomeSNPAnalysis"],
           tooltip: "View Whole Genome SNP Analysis Report",
@@ -1648,7 +1648,7 @@ define([
       }, false);
 
       // MicrobeTrace action for cgMLST and wgSNP job results
-      this.browserHeader.addAction('ViewInMicrobeTrace', 'icon-microbetrace fa-2x', {
+      this.browserHeader.addAction('ViewInMicrobeTrace', 'icon-microbetrace', {
         label: 'MICROBE<br>TRACE',
         multiple: false,
         validTypes: ['CoreGenomeMLST', 'WholeGenomeSNPAnalysis'],
