@@ -1668,15 +1668,15 @@ define([
 
         var paths = mtFiles.map(function (f) { return f.path; });
 
-        // Load files and default style in parallel
+        // Load files, default style, and dashboard config in parallel
         All([
           WorkspaceManager.getObjects(paths, false),
-          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } })
+          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } }),
+          request('/maage/config/microbetrace-dashboard.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } })
         ]).then(function (responses) {
           var results = responses[0];
           var style = responses[1];
-          console.log('[MicrobeTrace] Style loaded:', style ? 'yes, keys: ' + Object.keys(style).join(',') : 'NO');
-          console.log('[MicrobeTrace] Style widgets default-view:', style && style.widgets ? style.widgets['default-view'] : 'none');
+          var dashboard = responses[2];
 
           var filesPayload = results.map(function (result, idx) {
             var content = result.data;
@@ -1696,7 +1696,8 @@ define([
 
           microbeTraceHandoff({
             files: filesPayload,
-            style: style
+            style: style,
+            dashboard: dashboard
           });
         }).catch(function (err) {
           console.error('[MicrobeTrace] Failed to load job result files:', err);
