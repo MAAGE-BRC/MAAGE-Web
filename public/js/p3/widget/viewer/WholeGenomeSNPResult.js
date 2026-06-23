@@ -58,12 +58,16 @@ define([
       var files = [];
       var objs = this._allResultObjects || this._resultObjects || [];
 
+      console.log('[WholeGenomeSNP] getMicrobeTraceFiles scanning', objs.length, 'objects');
       objs.forEach(function (obj) {
         var name = obj.name || '';
         var lowerName = name.toLowerCase();
+        if (lowerName.endsWith('.tre') || lowerName.endsWith('.report') || lowerName.endsWith('.tsv')) {
+          console.log('[WholeGenomeSNP] candidate:', name, 'path:', obj.path);
+        }
 
         // Maximum Likelihood tree from Core_SNPs
-        if (lowerName === 'tree.snps_all.ml.tre' && obj.path.indexOf('Core_SNPs') > -1) {
+        if (lowerName.endsWith('.ml.tre') && obj.path.indexOf('Core_SNPs') > -1) {
           files.push({ path: obj.path, name: name, kind: 'newick' });
         }
         // Distance report from Core_SNPs: link data

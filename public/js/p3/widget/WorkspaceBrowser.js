@@ -1671,10 +1671,12 @@ define([
         // Load files and default style in parallel
         All([
           WorkspaceManager.getObjects(paths, false),
-          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json' })
+          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } })
         ]).then(function (responses) {
           var results = responses[0];
           var style = responses[1];
+          console.log('[MicrobeTrace] Style loaded:', style ? 'yes, keys: ' + Object.keys(style).join(',') : 'NO');
+          console.log('[MicrobeTrace] Style widgets default-view:', style && style.widgets ? style.widgets['default-view'] : 'none');
 
           var filesPayload = results.map(function (result, idx) {
             var content = result.data;
