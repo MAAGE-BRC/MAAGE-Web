@@ -26,7 +26,6 @@ var jobs = require('./routes/jobs');
 var systemStatus = require('./routes/systemStatus');
 var help = require('./routes/help');
 var microbetrace = require('./routes/microbetrace');
-var dashboard = require('./routes/dashboard');
 var app = express();
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
@@ -227,7 +226,6 @@ app.use('/status', systemStatus);  // system status page
 app.use('/help', help);
 app.use('/microbetrace', microbetrace);
 app.use('/uploads', uploads);
-app.use('/dashboard', dashboard);
 app.use('/users', users);
 
 // MTB Taxon Overview Route

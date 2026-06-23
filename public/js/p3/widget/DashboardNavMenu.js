@@ -98,7 +98,7 @@ define([
 
 				var link = domConstruct.create("a", {
 					className: "navigationLink maage-nav-link",
-					href: "/dashboard/#filter=" + resolveQuery(preset.filter),
+					href: "/view/Dashboard/#filter=" + resolveQuery(preset.filter),
 					textContent: preset.title
 				}, item);
 			});
@@ -137,7 +137,7 @@ define([
 
 							domConstruct.create("a", {
 								className: "navigationLink maage-nav-link",
-								href: "/dashboard/#filter=" + sd.filter,
+								href: "/view/Dashboard/#filter=" + sd.filter,
 								textContent: sd.name
 							}, item);
 						}));

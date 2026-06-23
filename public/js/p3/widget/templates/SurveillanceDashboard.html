@@ -1,7 +1,9 @@
 <div class="surveillance-dashboard bg-maage-bg" style="overflow-y: auto; padding: 0;">
 	<!-- Dashboard Charts — each block is independently orderable/hideable -->
+	<!-- Default order and sizing matches GenomeListOverview (Taxon view) -->
 	<div class="p-4 sm:p-6" data-dojo-attach-point="chartsContainerNode">
 
+		<!-- Row 1: Summary (25%) + Map (75%) -->
 		<!-- Summary -->
 		<div data-chart-id="summary" data-dojo-attach-point="summarySection"
 			 class="chart-block chart-block-sm">
@@ -23,41 +25,7 @@
 			</div>
 		</div>
 
-		<!-- Serovars Over Time -->
-		<div data-chart-id="serovarTimeline" data-dojo-attach-point="serovarTimelineSection"
-			 class="chart-block chart-block-2-3">
-			<div class="chart-section h-full">
-				<h3 class="chart-title">Serovars Over Time</h3>
-				<div data-dojo-attach-point="serovarTimelineChartNode"
-					 class="chart-container"></div>
-			</div>
-		</div>
-
-		<!-- AMR Profile -->
-		<div data-chart-id="amr" data-dojo-attach-point="amrSection"
-			 class="chart-block chart-block-1-3">
-			<div class="chart-section h-full relative">
-				<h3 class="chart-title">AMR Profile</h3>
-				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
-					 data-dojo-attach-point="amrControlsContainer">
-					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
-						<button type="button"
-								data-dojo-attach-point="amrCountBtn"
-								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
-							Count
-						</button>
-						<button type="button"
-								data-dojo-attach-point="amrPercentBtn"
-								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
-							Percent
-						</button>
-					</div>
-				</div>
-				<div data-dojo-attach-point="amrChartNode"
-					 class="chart-container"></div>
-			</div>
-		</div>
-
+		<!-- Row 2: Collection Timeline (2/3) + Pathogen (1/3) -->
 		<!-- Collection Timeline -->
 		<div data-chart-id="timeline" data-dojo-attach-point="timelineSection"
 			 class="chart-block chart-block-2-3">
@@ -78,6 +46,38 @@
 			</div>
 		</div>
 
+		<!-- Row 3: Host (1/3) + Isolation Source (1/3) + Genome Quality (1/3) -->
+		<!-- Host Distribution -->
+		<div data-chart-id="host" data-dojo-attach-point="hostSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Host Distribution</h3>
+				<div data-dojo-attach-point="hostChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Isolation Source -->
+		<div data-chart-id="isolationSource" data-dojo-attach-point="isolationSourceSection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Isolation Source</h3>
+				<div data-dojo-attach-point="isolationSourceChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Genome Quality -->
+		<div data-chart-id="genomeQuality" data-dojo-attach-point="genomeQualitySection"
+			 class="chart-block chart-block-1-3">
+			<div class="chart-section h-full">
+				<h3 class="chart-title">Genome Quality</h3>
+				<div data-dojo-attach-point="genomeQualityChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Row 4: Cluster (1/3) + Serovars Over Time (1/3) + Host Group (1/3) -->
 		<!-- Cluster Summary -->
 		<div data-chart-id="cluster" data-dojo-attach-point="clusterSection"
 			 class="chart-block chart-block-1-3">
@@ -113,32 +113,12 @@
 			</div>
 		</div>
 
-		<!-- Host Distribution -->
-		<div data-chart-id="host" data-dojo-attach-point="hostSection"
+		<!-- Serovars Over Time -->
+		<div data-chart-id="serovarTimeline" data-dojo-attach-point="serovarTimelineSection"
 			 class="chart-block chart-block-1-3">
 			<div class="chart-section h-full">
-				<h3 class="chart-title">Host Distribution</h3>
-				<div data-dojo-attach-point="hostChartNode"
-					 class="chart-container"></div>
-			</div>
-		</div>
-
-		<!-- Isolation Source -->
-		<div data-chart-id="isolationSource" data-dojo-attach-point="isolationSourceSection"
-			 class="chart-block chart-block-1-3">
-			<div class="chart-section h-full">
-				<h3 class="chart-title">Isolation Source</h3>
-				<div data-dojo-attach-point="isolationSourceChartNode"
-					 class="chart-container"></div>
-			</div>
-		</div>
-
-		<!-- Genome Quality -->
-		<div data-chart-id="genomeQuality" data-dojo-attach-point="genomeQualitySection"
-			 class="chart-block chart-block-1-3">
-			<div class="chart-section h-full">
-				<h3 class="chart-title">Genome Quality</h3>
-				<div data-dojo-attach-point="genomeQualityChartNode"
+				<h3 class="chart-title">Serovars Over Time</h3>
+				<div data-dojo-attach-point="serovarTimelineChartNode"
 					 class="chart-container"></div>
 			</div>
 		</div>
@@ -153,6 +133,33 @@
 			</div>
 		</div>
 
+		<!-- Row 5: AMR Profile (2/3) -->
+		<!-- AMR Profile -->
+		<div data-chart-id="amr" data-dojo-attach-point="amrSection"
+			 class="chart-block chart-block-2-3">
+			<div class="chart-section h-full relative">
+				<h3 class="chart-title">AMR Profile</h3>
+				<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+					 data-dojo-attach-point="amrControlsContainer">
+					<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+						<button type="button"
+								data-dojo-attach-point="amrCountBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							Count
+						</button>
+						<button type="button"
+								data-dojo-attach-point="amrPercentBtn"
+								class="amr-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							Percent
+						</button>
+					</div>
+				</div>
+				<div data-dojo-attach-point="amrChartNode"
+					 class="chart-container"></div>
+			</div>
+		</div>
+
+		<!-- Row 6: Recent Genomes (full) -->
 		<!-- Recent Genomes -->
 		<div data-chart-id="recentGenomes" data-dojo-attach-point="recentGenomesSection"
 			 class="chart-block chart-block-full">

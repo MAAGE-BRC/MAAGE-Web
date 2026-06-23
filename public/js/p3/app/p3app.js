@@ -345,7 +345,14 @@ define([
         parts.shift();
         var type = parts.shift();
 
-        newState.widgetClass = 'p3/widget/viewer/' + type;
+        // Dashboard uses DashboardContainer rather than a plain "Dashboard" viewer
+        if (type === 'Dashboard') {
+          newState.widgetClass = 'p3/widget/viewer/DashboardContainer';
+          newState.requireAuth = false;
+          newState.pageTitle = 'Surveillance Dashboard | MAAGE';
+        } else {
+          newState.widgetClass = 'p3/widget/viewer/' + type;
+        }
 
         _self.navigate(newState);
       });
@@ -372,16 +379,6 @@ define([
         newState.set = 'path';
         newState.requireAuth = false;
         newState.pageTitle = 'System Status | BV-BRC';
-
-        _self.navigate(newState);
-      });
-
-      Router.register('/dashboard(/.*)?', function (params, path) {
-        var newState = getState(params, path);
-
-        newState.widgetClass = 'p3/widget/viewer/DashboardContainer';
-        newState.requireAuth = false;
-        newState.pageTitle = 'Surveillance Dashboard | MAAGE';
 
         _self.navigate(newState);
       });

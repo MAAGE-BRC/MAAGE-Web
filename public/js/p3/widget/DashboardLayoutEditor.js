@@ -239,7 +239,7 @@ define([
 
 		_onReset: function ()
 		{
-			this._visibleCharts = DashboardStorage.DEFAULT_CHART_IDS.slice();
+			this._visibleCharts = DashboardStorage.DEFAULT_VISIBLE_CHART_IDS.slice();
 			this._chartOrder = DashboardStorage.DEFAULT_CHART_IDS.slice();
 			this._renderList();
 		}
