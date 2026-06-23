@@ -1668,7 +1668,14 @@ define([
 
         var paths = mtFiles.map(function (f) { return f.path; });
 
-        WorkspaceManager.getObjects(paths, false).then(function (results) {
+        // Load files and default style in parallel
+        All([
+          WorkspaceManager.getObjects(paths, false),
+          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json' })
+        ]).then(function (responses) {
+          var results = responses[0];
+          var style = responses[1];
+
           var filesPayload = results.map(function (result, idx) {
             var content = result.data;
             if (typeof content === 'object' && content !== null) {
@@ -1687,8 +1694,7 @@ define([
 
           microbeTraceHandoff({
             files: filesPayload,
-            defaultView: 'Phylogenetic Tree',
-            nodeLabel: 'genome_name'
+            style: style
           });
         }).catch(function (err) {
           console.error('[MicrobeTrace] Failed to load job result files:', err);
