@@ -1658,12 +1658,10 @@ define([
 
         All([
           WorkspaceManager.getObjects(paths, false),
-          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } }),
-          request('/maage/config/microbetrace-dashboard.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } })
+          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } })
         ]).then(function (responses) {
           var results = responses[0];
           var style = responses[1];
-          var dashboard = responses[2];
 
           var filesPayload = results.map(function (result, idx) {
             var content = result.data;
@@ -1683,8 +1681,7 @@ define([
 
           microbeTraceHandoff({
             files: filesPayload,
-            style: style,
-            dashboard: dashboard
+            style: style
           });
         }).catch(function (err) {
           console.error('[MicrobeTrace] Failed to load job result files:', err);
