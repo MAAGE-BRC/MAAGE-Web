@@ -20,6 +20,7 @@ define([
 {
 	return declare([Confirmation], {
 		title: "Save as Dashboard",
+		content: "",
 		okLabel: "Save Dashboard",
 		cancelLabel: "Cancel",
 		closeOnOK: false,
@@ -90,25 +91,6 @@ define([
 				className: "error-msg",
 				style: "display: none;"
 			}, nameGroup);
-
-			// Display hints preview
-			var hints = this._getHints();
-			var hintsGroup = domConstruct.create("div", {
-				className: "field-group"
-			}, container);
-
-			domConstruct.create("label", {
-				className: "field-label",
-				textContent: "Display Settings (auto-detected)"
-			}, hintsGroup);
-
-			var hintsText = "Timeline: " + (hints.timelineMode === "stacked" ? "Stacked bars" : "Simple bars")
-				+ "  |  Pathogen field: " + (hints.pathogenField === "serovar" ? "Serovar" : "Species");
-
-			domConstruct.create("div", {
-				className: "field-hint",
-				textContent: hintsText
-			}, hintsGroup);
 
 			// Query preview
 			var queryGroup = domConstruct.create("div", {
