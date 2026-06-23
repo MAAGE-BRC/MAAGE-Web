@@ -1685,7 +1685,11 @@ define([
             return file;
           });
 
-          microbeTraceHandoff({ files: filesPayload });
+          microbeTraceHandoff({
+            files: filesPayload,
+            defaultView: 'Phylogenetic Tree',
+            nodeLabel: 'genome_name'
+          });
         }).catch(function (err) {
           console.error('[MicrobeTrace] Failed to load job result files:', err);
           alert('Failed to load files for MicrobeTrace: ' + (err.message || err));

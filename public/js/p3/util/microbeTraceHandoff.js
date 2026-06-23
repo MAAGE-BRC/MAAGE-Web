@@ -39,15 +39,19 @@ define([
     var partnerId = 'maage';
     var nonce = 'maage-' + Date.now() + '-' + Math.random().toString(16).slice(2);
 
+    var metadata = {
+      datasetName: datasetName,
+      sourceApp: 'MAAGE'
+    };
+    if (opts.defaultView) { metadata.defaultView = opts.defaultView; }
+    if (opts.nodeLabel) { metadata.nodeLabel = opts.nodeLabel; }
+
     var payload = {
       type: 'MT_HANDOFF_TRANSFER',
       version: 1,
       partnerId: partnerId,
       nonce: nonce,
-      metadata: {
-        datasetName: datasetName,
-        sourceApp: 'MAAGE'
-      },
+      metadata: metadata,
       files: files
     };
 
