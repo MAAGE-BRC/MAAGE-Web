@@ -46,7 +46,6 @@ define([
     if (opts.defaultView) { metadata.defaultView = opts.defaultView; }
     if (opts.nodeLabel) { metadata.nodeLabel = opts.nodeLabel; }
     if (opts.style) { metadata.style = opts.style; }
-    if (opts.dashboard) { metadata.dashboard = opts.dashboard; }
 
     var payload = {
       type: 'MT_HANDOFF_TRANSFER',
