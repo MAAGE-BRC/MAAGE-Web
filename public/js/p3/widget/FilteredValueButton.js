@@ -12,6 +12,7 @@ define([
     templateString: template,
     baseClass: 'FilteredValueButton',
     category: '',
+    displayLabel: '',
     selected: null,
 
     _setSelectedAttr: function (selected) {
@@ -64,6 +65,9 @@ define([
     },
     postCreate: function () {
       this.inherited(arguments);
+      if (this.displayLabel) {
+        this.categoryLabelNode.textContent = this.displayLabel;
+      }
     }
   });
 });

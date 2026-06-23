@@ -40,6 +40,11 @@ define([
     return out;
   }
 
+  // Map of field names to human-readable labels for the filter action bar
+  var FIELD_LABELS = {
+    'taxon_lineage_ids': 'Taxon ID'
+  };
+
   function parseQuery(filter) {
     let _parsed
     try {
@@ -54,10 +59,11 @@ define([
       selected: [],
       byCategory: {},
       byRange: {},
-      keywords: []
+      keywords: [],
+      wrapperMap: {}  // field -> wrapper name (e.g. 'genome') for fields inside data type wrappers
     };
 
-    function walk(term) {
+    function walk(term, wrapper) {
       // console.log('Walk: ', term.name, ' Args: ', term.args)
       let key, val
       switch (term.name) {
@@ -65,19 +71,27 @@ define([
         case 'or':
         case 'not':
           term.args.forEach(function (t) {
-            walk(t);
+            walk(t, wrapper);
+          });
+          break;
+        case 'genome':
+          // Data type wrapper — recursively walk inner content with wrapper context
+          // so that reconstruction preserves the genome() envelope
+          term.args.forEach(function (t) {
+            walk(t, 'genome');
           });
           break;
         case 'eq':
         case 'ne':
           key = decodeURIComponent(term.args[0]);
           val = decodeURIComponent(term.args[1]);
-          parsed.selected.push({ field: key, value: val, op: term.name });
+          parsed.selected.push({ field: key, value: val, op: term.name, wrapper: wrapper });
           if (!parsed.byCategory[key]) {
             parsed.byCategory[key] = [val];
           } else {
             parsed.byCategory[key].push(val);
           }
+          if (wrapper) { parsed.wrapperMap[key] = wrapper; }
           break;
         case 'in':
           key = decodeURIComponent(term.args[0]);
@@ -85,13 +99,14 @@ define([
           var inVals = Array.isArray(term.args[1]) ? term.args[1] : term.args.slice(1);
           inVals = inVals.map(function (v) { return decodeURIComponent(String(v)); });
           inVals.forEach(function (v) {
-            parsed.selected.push({ field: key, value: v, op: 'eq' });
+            parsed.selected.push({ field: key, value: v, op: 'eq', wrapper: wrapper });
           });
           if (!parsed.byCategory[key]) {
             parsed.byCategory[key] = inVals;
           } else {
             parsed.byCategory[key] = parsed.byCategory[key].concat(inVals);
           }
+          if (wrapper) { parsed.wrapperMap[key] = wrapper; }
           break;
         case 'keyword':
           parsed.keywords.push(term.args[0]);
@@ -100,16 +115,18 @@ define([
         case 'lt':
           key = decodeURIComponent(term.args[0]);
           val = decodeURIComponent(term.args[1]);
-          parsed.selected.push({ field: key, value: val, op: term.name });
+          parsed.selected.push({ field: key, value: val, op: term.name, wrapper: wrapper });
           parsed.byRange[key] = val
+          if (wrapper) { parsed.wrapperMap[key] = wrapper; }
           break;
         // eslint-disable-next-line no-case-declarations
         case 'between':
           key = decodeURIComponent(term.args[0]);
           const lb = decodeURIComponent(term.args[1]);
           const ub = decodeURIComponent(term.args[2]);
-          parsed.selected.push({ field: key, value: [lb, ub], op: term.name });
+          parsed.selected.push({ field: key, value: [lb, ub], op: term.name, wrapper: wrapper });
           parsed.byRange[key] = [lb, ub]
+          if (wrapper) { parsed.wrapperMap[key] = wrapper; }
           break
         default:
           // console.log('Skipping Unused term: ', term.name, term.args);
@@ -201,12 +218,20 @@ define([
         }
       });
 
-      this.set('query', state.search);
+      var hasFilter = parsedFilter && parsedFilter.selected && parsedFilter.selected.length > 0;
+      if (hasFilter) {
+        // When a filter is active, set the base query without triggering _setQueryAttr's
+        // unfiltered bulk facet fetch — _updateFilteredCounts below handles per-category
+        // requests with the correct cross-filters applied.
+        this._set('query', state.search);
+      } else {
+        this.set('query', state.search);
+      }
 
       // for each of the facet widgets, get updated facet counts and update the content.
       Object.keys(this._ffWidgets).forEach(function (category) {
         this._ffWidgets[category].clearSelection();
-        this._updateFilteredCounts(category, parsedFilter ? parsedFilter.byCategory : false, parsedFilter ? parsedFilter.keywords : []);
+        this._updateFilteredCounts(category, parsedFilter ? parsedFilter.byCategory : false, parsedFilter ? parsedFilter.keywords : [], parsedFilter ? parsedFilter.wrapperMap : {}, parsedFilter ? parsedFilter.selected : []);
       }, this);
 
       // for each of the selected items in the filter, toggle the item on in  ffWidgets
@@ -222,12 +247,38 @@ define([
           } else {
             qval = `${sel.op}(${sel.field},${encodeURIComponent(sel.value)})`
           }
+          // Preserve data type wrapper (e.g. genome()) so filter reconstruction
+          // round-trips correctly
+          if (sel.wrapper) {
+            qval = `${sel.wrapper}(${qval})`;
+          }
           if (this._filter[sel.field].indexOf(qval) < 0) {
             this._filter[sel.field].push(qval);
           }
 
-          if (this._ffWidgets[sel.field] && sel.op === 'eq') {
-            this._ffWidgets[sel.field].toggle(sel.value, true);
+          if (this._ffWidgets[sel.field]) {
+            if (sel.op === 'eq') {
+              this._ffWidgets[sel.field].toggle(sel.value, true);
+            } else if (sel.op === 'gt' || sel.op === 'lt' || sel.op === 'between') {
+              // For range operators on numeric facets, populate the range inputs
+              // and reveal the search section so the active range is visible
+              var w = this._ffWidgets[sel.field];
+              if (sel.op === 'gt' && w.facetRangeMin) {
+                w.facetRangeMin.set('value', sel.value);
+              } else if (sel.op === 'lt' && w.facetRangeMax) {
+                w.facetRangeMax.set('value', sel.value);
+              } else if (sel.op === 'between' && w.facetRangeMin && w.facetRangeMax) {
+                w.facetRangeMin.set('value', sel.value[0]);
+                w.facetRangeMax.set('value', sel.value[1]);
+              }
+              // Show the search/range section and mark the category as selected
+              if (w.searchNode) {
+                domClass.remove(w.searchNode, 'dijitHidden');
+              }
+              if (w.categoryNode) {
+                domClass.add(w.categoryNode, 'selected');
+              }
+            }
           }
         }, this);
       } else {
@@ -251,6 +302,7 @@ define([
           if (!this._ffValueButtons[cat]) {
             const ffv = this._ffValueButtons[cat] = new FilteredValueButton({
               category: cat,
+              displayLabel: FIELD_LABELS[cat] || '',
               selected: selectedVals
             });
             domConstruct.place(ffv.domNode, this.centerButtons, 'last');
@@ -276,6 +328,7 @@ define([
           if (!this._ffValueButtons[cat]) {
             const ffv = this._ffValueButtons[cat] = new FilteredValueButton({
               category: cat,
+              displayLabel: FIELD_LABELS[cat] || '',
               selected: [selectedVal]
             });
             domConstruct.place(ffv.domNode, this.centerButtons, 'last');
@@ -588,8 +641,10 @@ define([
       }), true, this.containerNode);
     },
 
-    _updateFilteredCounts: function (category, selectionMap, keywords) {
+    _updateFilteredCounts: function (category, selectionMap, keywords, wrapperMap, selected) {
       selectionMap = selectionMap || {};
+      wrapperMap = wrapperMap || {};
+      selected = selected || [];
       const cats = Object.keys(selectionMap);
       const w = this._ffWidgets[category];
 
@@ -612,15 +667,37 @@ define([
 
       scats.forEach(function (cat) {
         if (selectionMap[cat]) {
+          var catWrapper = wrapperMap[cat];
+          var eqExpr;
           if (selectionMap[cat].length == 1) {
-            ffilter.push('eq(' + encodeURIComponent(cat) + ',' + encodeURIComponent(selectionMap[cat][0]) + ')');
+            eqExpr = 'eq(' + encodeURIComponent(cat) + ',' + encodeURIComponent(selectionMap[cat][0]) + ')';
           } else if (selectionMap[cat].length > 1) {
-            ffilter.push('or(' + selectionMap[cat].map(function (c) {
+            eqExpr = 'or(' + selectionMap[cat].map(function (c) {
               return 'eq(' + encodeURIComponent(cat) + ',' + encodeURIComponent(c) + ')';
-            }).join(',') + ')');
+            }).join(',') + ')';
+          }
+          if (eqExpr) {
+            ffilter.push(catWrapper ? catWrapper + '(' + eqExpr + ')' : eqExpr);
           }
         }
       }, this);
+
+      // Include range-based filters (gt, lt, between) for other categories
+      selected.forEach(function (sel) {
+        if (sel.field === category) return;
+        if (sel.op !== 'gt' && sel.op !== 'lt' && sel.op !== 'between') return;
+
+        var rangeExpr;
+        if (sel.op === 'between') {
+          rangeExpr = 'between(' + encodeURIComponent(sel.field) + ',' + encodeURIComponent(sel.value[0]) + ',' + encodeURIComponent(sel.value[1]) + ')';
+        } else {
+          rangeExpr = sel.op + '(' + encodeURIComponent(sel.field) + ',' + encodeURIComponent(sel.value) + ')';
+        }
+        if (sel.wrapper) {
+          rangeExpr = sel.wrapper + '(' + rangeExpr + ')';
+        }
+        ffilter.push(rangeExpr);
+      });
 
       if (ffilter.length < 1) {
         ffilter = '';
@@ -685,6 +762,7 @@ define([
           if (!this._ffValueButtons[cat]) {
             const ffv = this._ffValueButtons[cat] = new FilteredValueButton({
               category: cat,
+              displayLabel: FIELD_LABELS[cat] || '',
               selected: byCat[cat]
             });
             domConstruct.place(ffv.domNode, this.centerButtons, 'last');
