@@ -15,6 +15,13 @@ define([
 
     _allResultObjects: null,
 
+    // SNP set definitions: folder name, distance report name
+    _snpSets: {
+      'All': { folder: 'All_SNPs', report: 'all_ksnpdist.report' },
+      'Majority': { folder: 'Majority_SNPs', report: 'majority_ksnpdist.report' },
+      'Core': { folder: 'Core_SNPs', report: 'core_ksnpdist.report' }
+    },
+
     _setDataAttr: function (data) {
       this.data = data;
       if (data.autoMeta.parameters.output_path != data.path) {
@@ -26,15 +33,13 @@ define([
       var _self = this;
 
       WorkspaceManager.getObject(this._hiddenPath, true).otherwise(function () {
-        // Hidden folder not found — handled by base class pattern
+        // Hidden folder not found
       });
 
       // Use recursive listing to find files in nested subdirectories
       WorkspaceManager.getFolderContents(this._hiddenPath, true, true)
         .then(function (objs) {
           _self._allResultObjects = objs;
-          // Set _resultObjects to the full recursive listing
-          // so the file browser shows all files
           _self._resultObjects = objs;
           _self.setupResultType();
           _self.refresh();
@@ -49,32 +54,61 @@ define([
     },
 
     /**
+     * getAvailableSNPSets - Return which SNP sets are available in this job
+     *
+     * Returns array of { id, label } for sets that have tree files
+     */
+    getAvailableSNPSets: function () {
+      var objs = this._allResultObjects || this._resultObjects || [];
+      var available = [];
+      var sets = this._snpSets;
+
+      Object.keys(sets).forEach(function (setId) {
+        var folder = sets[setId].folder;
+        var hasTree = objs.some(function (obj) {
+          return obj.name && obj.name.toLowerCase().endsWith('.ml.tre') &&
+                 obj.path && obj.path.indexOf(folder) > -1;
+        });
+        if (hasTree) {
+          available.push({ id: setId, label: setId + ' SNPs' });
+        }
+      });
+
+      return available;
+    },
+
+    /**
      * getMicrobeTraceFiles - Locate output files for MicrobeTrace handoff
      *
-     * Returns array of { path, name, kind } where kind is one of:
-     *   'newick', 'link', 'node'
+     * @param {string} [snpSet='Core'] - Which SNP set to use: 'All', 'Majority', or 'Core'
+     * Returns array of { path, name, kind } objects
      */
-    getMicrobeTraceFiles: function () {
+    getMicrobeTraceFiles: function (snpSet) {
+      snpSet = snpSet || 'Core';
+      var setDef = this._snpSets[snpSet];
+      if (!setDef) {
+        console.error('[WholeGenomeSNP] Unknown SNP set:', snpSet);
+        return [];
+      }
+
       var files = [];
       var objs = this._allResultObjects || this._resultObjects || [];
+      var folder = setDef.folder;
+      var reportName = setDef.report;
 
-      console.log('[WholeGenomeSNP] getMicrobeTraceFiles scanning', objs.length, 'objects');
       objs.forEach(function (obj) {
         var name = obj.name || '';
         var lowerName = name.toLowerCase();
-        if (lowerName.endsWith('.tre') || lowerName.endsWith('.report') || lowerName.endsWith('.tsv')) {
-          console.log('[WholeGenomeSNP] candidate:', name, 'path:', obj.path);
-        }
 
-        // Maximum Likelihood tree from Core_SNPs
-        if (lowerName.endsWith('.ml.tre') && obj.path.indexOf('Core_SNPs') > -1) {
+        // Maximum Likelihood tree from the selected SNP set
+        if (lowerName.endsWith('.ml.tre') && obj.path.indexOf(folder) > -1) {
           files.push({ path: obj.path, name: name, kind: 'newick' });
         }
-        // Distance report from Core_SNPs: link data
-        else if (lowerName === 'core_ksnpdist.report') {
+        // Distance report from the selected SNP set
+        else if (lowerName === reportName) {
           files.push({ path: obj.path, name: name, kind: 'link', options: { field1: 'genome_id_1', field2: 'genome_id_2', field3: 'distance' } });
         }
-        // Metadata: node data
+        // Metadata (always from job root)
         else if (lowerName === 'metadata.tsv') {
           files.push({ path: obj.path, name: name, kind: 'node' });
         }
