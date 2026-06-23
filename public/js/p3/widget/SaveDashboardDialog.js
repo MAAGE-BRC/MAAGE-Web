@@ -229,7 +229,7 @@ define([
 			on(linkNode, "click", function ()
 			{
 				Topic.publish("/navigate", {
-					href: "/dashboard/#filter=" + saved.filter
+					href: "/view/Dashboard/#filter=" + saved.filter
 				});
 				domConstruct.destroy(toast);
 			});

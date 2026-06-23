@@ -4,11 +4,18 @@ define([
 	"dojo/on",
 	"dojo/when",
 	"dojo/dom-construct",
+	"dojo/topic",
 	"./Base",
 	"dijit/layout/ContentPane",
+	"../TabContainer",
 	"../DashboardFilterActionBar",
 	"../AdvancedSearchFields",
 	"./SurveillanceDashboard",
+	"../GenomeGridContainer",
+	"../AMRPanelGridContainer",
+	"../SequenceGridContainer",
+	"../FeatureGridContainer",
+	"../SpecialtyGeneGridContainer",
 	"p3/util/DashboardStorage",
 	"../DashboardLayoutEditor",
 	"../SaveDashboardDialog"
@@ -18,11 +25,18 @@ define([
 	on,
 	when,
 	domConstruct,
+	Topic,
 	Base,
 	ContentPane,
+	TabContainer,
 	DashboardFilterActionBar,
 	AdvancedSearchFields,
 	SurveillanceDashboard,
+	GenomeGridContainer,
+	AMRPanelGridContainer,
+	SequenceGridContainer,
+	FeatureGridContainer,
+	SpecialtyGeneGridContainer,
 	DashboardStorage,
 	DashboardLayoutEditor,
 	SaveDashboardDialog
@@ -98,6 +112,7 @@ define([
 		design: "headline",
 		gutters: false,
 		state: null,
+		defaultTab: "overview",
 		apiServer: window.App.dataServiceURL,
 		dataModel: "genome",
 
@@ -109,6 +124,7 @@ define([
 		_filterVisible: false,
 		filterPanel: null,
 		dashboardContent: null,
+		viewer: null,
 		viewHeader: null,
 
 		postCreate: function ()
@@ -120,6 +136,56 @@ define([
 		{
 			if (this._started) return;
 			this.inherited(arguments);
+		},
+
+		/**
+		 * Override Base.onUpdateHash to preserve the dashboard filter when
+		 * switching tabs. The default handler replaces hashParams entirely
+		 * when evt.hashParams is present (e.g., from TabController), which
+		 * would drop the filter hash param.
+		 */
+		onUpdateHash: function (evt)
+		{
+			if (!this.state)
+			{
+				this.state = {};
+			}
+			if (!this.state.hashParams)
+			{
+				this.state.hashParams = {};
+			}
+
+			// Preserve the current filter value before merging
+			var currentFilter = this.state.hashParams.filter;
+
+			if (evt.hashParams)
+			{
+				this.state.hashParams = evt.hashParams;
+			}
+			if (evt.hashProperty)
+			{
+				this.state.hashParams[evt.hashProperty] = evt.value;
+			}
+
+			// Restore the filter if it was dropped during a tab switch
+			if (currentFilter && !this.state.hashParams.filter)
+			{
+				this.state.hashParams.filter = currentFilter;
+			}
+
+			var l = window.location.pathname + window.location.search + "#" + Object.keys(this.state.hashParams).map(function (key)
+			{
+				if (key && this.state.hashParams[key])
+				{
+					return key + "=" + this.state.hashParams[key];
+				}
+				return "";
+			}, this).filter(function (x)
+			{
+				return !!x;
+			}).join("&");
+
+			Topic.publish("/navigate", { href: l });
 		},
 
 		onSetState: function (attr, oldVal, state)
@@ -134,9 +200,27 @@ define([
 			// The global hash parser in p3app.js splits on "&", which breaks
 			// RQL expressions that contain "&" (e.g., from genome list URLs).
 			// Re-extract the filter from the raw hash to get the full value.
-			if (state.hash && state.hash.indexOf("filter=") === 0)
+			if (state.hash)
 			{
-				state.hashParams.filter = state.hash.substring("filter=".length);
+				// Parse the raw hash to extract filter and view_tab values
+				// The hash may contain: filter=<rql>&view_tab=<tab>
+				// But RQL expressions can contain "&", so we parse carefully.
+				var hash = state.hash;
+
+				// Extract view_tab if present (always at the end, simple value)
+				var viewTabMatch = hash.match(/[&]view_tab=([^&]*)/);
+				if (viewTabMatch)
+				{
+					state.hashParams.view_tab = viewTabMatch[1];
+					// Remove view_tab from hash before extracting filter
+					hash = hash.replace(/[&]view_tab=[^&]*/, "");
+				}
+
+				// Extract filter (everything after "filter=")
+				if (hash.indexOf("filter=") === 0)
+				{
+					state.hashParams.filter = hash.substring("filter=".length);
+				}
 			}
 
 			// Validate that the filter has balanced parentheses.
@@ -148,6 +232,12 @@ define([
 				state.hashParams.filter = null;
 			}
 
+			// Ensure view_tab has a default
+			if (!state.hashParams.view_tab)
+			{
+				state.hashParams.view_tab = this.defaultTab;
+			}
+
 			// If no filter, apply the default preset filter and update the URL
 			if (!state.hashParams.filter)
 			{
@@ -155,7 +245,8 @@ define([
 				state.hashParams.filter = resolveQuery(defaultPreset.filter);
 				window.history.replaceState(
 					state, "",
-					"/dashboard/#filter=" + state.hashParams.filter
+					"/view/Dashboard/#filter=" + state.hashParams.filter
+						+ "&view_tab=" + state.hashParams.view_tab
 				);
 			}
 
@@ -163,6 +254,17 @@ define([
 			if (!this._firstView)
 			{
 				this.onFirstView();
+			}
+
+			// Select the active tab
+			if (this.viewer && state.hashParams.view_tab)
+			{
+				var vt = this[state.hashParams.view_tab];
+				if (vt)
+				{
+					vt.set("visible", true);
+					this.viewer.selectChild(vt);
+				}
 			}
 
 			// Load saved dashboards from workspace (async), then apply state
@@ -239,12 +341,41 @@ define([
 				this.filterPanel.set("state", filterState);
 			}
 
-			// Push the filter as the query to charts
-			if (this.dashboardContent)
-			{
-				var query = state.hashParams.filter || "";
+			// Propagate state to the active tab
+			this.setActivePanelState();
 
-				// Determine display hints and layout
+			this._updateSaveButton();
+		},
+
+		/**
+		 * Propagate state to the currently active tab panel.
+		 * For the Overview tab, passes query + layout/display config to SurveillanceDashboard.
+		 * For grid tabs (genomes, amr, etc.), constructs a state object with the
+		 * dashboard filter as the search query.
+		 */
+		setActivePanelState: function ()
+		{
+			if (!this.state) return;
+
+			var active = (this.state.hashParams && this.state.hashParams.view_tab)
+				? this.state.hashParams.view_tab
+				: this.defaultTab;
+			var activeTab = this[active];
+
+			if (!activeTab)
+			{
+				console.warn("DashboardContainer: active tab not found:", active);
+				return;
+			}
+
+			var currentFilter = (this.state.hashParams && this.state.hashParams.filter) || "";
+			var presetId = detectPreset(currentFilter);
+			var savedDashboard = DashboardStorage.findDashboardByFilter(currentFilter);
+
+			if (active === "overview")
+			{
+				// Overview tab is the SurveillanceDashboard — push query + display hints
+				var query = currentFilter;
 				var timelineMode = "bar";
 				var pathogenField = "species";
 				var layoutConfig = DashboardStorage.getDefaultLayout();
@@ -276,8 +407,42 @@ define([
 				this.dashboardContent.set("pathogenField", pathogenField);
 				this.dashboardContent.set("query", query);
 			}
+			else
+			{
+				// Grid tabs — construct a state object with the filter as the search query.
+				// The grid containers expect state.search to contain an RQL query.
+				// For feature/sequence tabs, we need to wrap in genome() join.
+				var gridSearch;
+				if (active === "features" || active === "sequences" || active === "specialtyGenes")
+				{
+					// These tabs query non-genome endpoints and need a join
+					gridSearch = "genome(" + currentFilter + ")";
+				}
+				else
+				{
+					// genomes and amr tabs query the genome/amr endpoints directly
+					gridSearch = currentFilter;
+				}
 
-			this._updateSaveButton();
+				var activeQueryState = {
+					search: gridSearch ? ("?" + gridSearch) : "",
+					hashParams: {
+						view_tab: active
+					}
+				};
+
+				activeTab.set("state", activeQueryState);
+			}
+
+			// Update page title
+			if (activeTab.title)
+			{
+				var pageTitle = "Dashboard " + activeTab.title + " | MAAGE";
+				if (window.document.title !== pageTitle)
+				{
+					window.document.title = pageTitle;
+				}
+			}
 		},
 
 		onFirstView: function ()
@@ -290,19 +455,77 @@ define([
 			// 2. Filter panel (region: top, splitter — same pattern as GridContainer)
 			this._createFilterPanel();
 
-			// 3. Dashboard chart content (region: center)
+			// 3. Tab container (region: center)
+			this.viewer = new TabContainer({
+				region: "center",
+				"class": "DashboardTabContainer"
+			});
+
+			// 4. Create tabs
 			var initialState = this.state || {};
 			var layoutConfig = DashboardStorage.getDefaultLayout();
 
+			// Overview tab — the existing SurveillanceDashboard
 			this.dashboardContent = new SurveillanceDashboard({
-				region: "center",
+				title: "Overview",
+				id: this.viewer.id + "_overview",
 				query: (initialState.hashParams && initialState.hashParams.filter) || "",
 				layoutConfig: layoutConfig
 			});
+			this.overview = this.dashboardContent;
 
+			// Genomes tab
+			this.genomes = new GenomeGridContainer({
+				title: "Genomes",
+				id: this.viewer.id + "_genomes",
+				enableFilterPanel: false,
+				disabled: false
+			});
+
+			// AMR Phenotypes tab
+			this.amr = new AMRPanelGridContainer({
+				title: "AMR Phenotypes",
+				id: this.viewer.id + "_amr",
+				enableFilterPanel: false,
+				disabled: false
+			});
+
+			// Sequences tab
+			this.sequences = new SequenceGridContainer({
+				title: "Sequences",
+				id: this.viewer.id + "_sequences",
+				enableFilterPanel: false,
+				disabled: false
+			});
+
+			// Features tab
+			this.features = new FeatureGridContainer({
+				title: "Features",
+				id: this.viewer.id + "_features",
+				enableFilterPanel: false,
+				disabled: false
+			});
+
+			// Specialty Genes tab
+			this.specialtyGenes = new SpecialtyGeneGridContainer({
+				title: "Specialty Genes",
+				id: this.viewer.id + "_specialtyGenes",
+				enableFilterPanel: false,
+				disabled: false
+			});
+
+			// Add tabs to the tab container
+			this.viewer.addChild(this.overview);
+			this.viewer.addChild(this.genomes);
+			this.viewer.addChild(this.amr);
+			this.viewer.addChild(this.sequences);
+			this.viewer.addChild(this.features);
+			this.viewer.addChild(this.specialtyGenes);
+
+			// Add children to the BorderContainer
 			this.addChild(this.viewHeader);
 			this.addChild(this.filterPanel);
-			this.addChild(this.dashboardContent);
+			this.addChild(this.viewer);
 
 			// Hide the splitter that BorderContainer created for the filter panel
 			if (this.filterPanel._splitterWidget && this.filterPanel._splitterWidget.domNode)

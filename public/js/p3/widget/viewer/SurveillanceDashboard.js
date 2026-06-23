@@ -211,7 +211,7 @@ define([
 			this._applyLayout();
 
 			var layout = this.layoutConfig || DashboardStorage.getDefaultLayout();
-			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_CHART_IDS;
+			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_VISIBLE_CHART_IDS;
 			var chartOrder = layout.chartOrder || DashboardStorage.DEFAULT_CHART_IDS;
 
 			// Only create charts that are visible
@@ -233,7 +233,7 @@ define([
 		_applyLayout: function ()
 		{
 			var layout = this.layoutConfig || DashboardStorage.getDefaultLayout();
-			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_CHART_IDS;
+			var visibleCharts = layout.visibleCharts || DashboardStorage.DEFAULT_VISIBLE_CHART_IDS;
 			var chartOrder = layout.chartOrder || DashboardStorage.DEFAULT_CHART_IDS;
 			var container = this.chartsContainerNode;
 			if (!container) return;
@@ -1074,7 +1074,7 @@ define([
 			}, this.recentGenomesNode);
 
 			var baseQuery = this.query;
-			var query = baseQuery + "&select(genome_id,genome_name,species,serovar,state_province,collection_date,host_common_name,genome_status)&sort(-date_inserted)&limit(20)";
+			var query = baseQuery + "&select(genome_id,genome_name,species,serovar,state_province,collection_date,date_inserted,host_common_name,genome_status)&sort(-date_inserted)&limit(10)";
 			var queryOptions = { headers: { Accept: "application/json" } };
 
 			this.genomeStore.query(query, queryOptions).then(
@@ -1111,6 +1111,7 @@ define([
 						{ label: "Serotype", field: "serovar" },
 						{ label: "Location", field: "state_province" },
 						{ label: "Collection Date", field: "collection_date" },
+						{ label: "Date Inserted", field: "date_inserted" },
 						{ label: "Host", field: "host_common_name" },
 						{ label: "Status", field: "genome_status" }
 					];
@@ -1165,6 +1166,20 @@ define([
 										+ (statusColors[val] || "bg-gray-100 text-gray-800"),
 									textContent: val
 								}, td);
+							} else if (col.field === "date_inserted" && val !== "-")
+							{
+								// Format ISO timestamp to a readable date
+								try
+								{
+									var d = new Date(val);
+									td.textContent = d.toLocaleDateString(undefined, {
+										year: "numeric", month: "short", day: "numeric"
+									});
+									td.title = val;
+								} catch (e)
+								{
+									td.textContent = val;
+								}
 							} else
 							{
 								td.textContent = val;

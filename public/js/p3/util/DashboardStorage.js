@@ -8,23 +8,27 @@ define([
 	WorkspaceManager
 )
 {
-	// Canonical chart definitions — order here is the default order
+	// Canonical chart definitions — order and sizing matches GenomeListOverview (Taxon view).
+	// hidden: true means the chart is not shown in the default layout (but can be enabled by the user).
 	var DEFAULT_CHARTS = [
-		{ id: "summary", label: "Summary" },
-		{ id: "map", label: "Geographic Distribution" },
-		{ id: "serovarTimeline", label: "Serovars Over Time" },
-		{ id: "amr", label: "AMR Profile" },
-		{ id: "timeline", label: "Collection Timeline" },
-		{ id: "pathogen", label: "Serovar" },
-		{ id: "cluster", label: "Cluster Summary" },
-		{ id: "host", label: "Host Distribution" },
-		{ id: "isolationSource", label: "Isolation Source" },
-		{ id: "genomeQuality", label: "Genome Quality" },
-		{ id: "hostGroup", label: "Host Group" },
-		{ id: "recentGenomes", label: "Recent Genomes" }
+		{ id: "summary",         label: "Summary",                hidden: false },
+		{ id: "map",             label: "Geographic Distribution", hidden: false },
+		{ id: "timeline",        label: "Collection Timeline",    hidden: false },
+		{ id: "pathogen",        label: "Serovar",                hidden: false },
+		{ id: "host",            label: "Host Distribution",      hidden: false },
+		{ id: "isolationSource", label: "Isolation Source",        hidden: false },
+		{ id: "genomeQuality",   label: "Genome Quality",         hidden: true },
+		{ id: "cluster",         label: "Cluster Summary",        hidden: false },
+		{ id: "serovarTimeline", label: "Serovars Over Time",     hidden: true },
+		{ id: "hostGroup",       label: "Host Group",             hidden: true },
+		{ id: "amr",             label: "AMR Profile",            hidden: false },
+		{ id: "recentGenomes",   label: "Recent Genomes",         hidden: false }
 	];
 
 	var DEFAULT_CHART_IDS = DEFAULT_CHARTS.map(function (c) { return c.id; });
+
+	// Charts visible by default (those without hidden: true)
+	var DEFAULT_VISIBLE_CHART_IDS = DEFAULT_CHARTS.filter(function (c) { return !c.hidden; }).map(function (c) { return c.id; });
 
 	var FOLDER_NAME = ".dashboards";
 
@@ -223,9 +227,14 @@ define([
 		CHART_DEFINITIONS: DEFAULT_CHARTS,
 
 		/**
-		 * Default chart IDs in default order.
+		 * All chart IDs in default order.
 		 */
 		DEFAULT_CHART_IDS: DEFAULT_CHART_IDS,
+
+		/**
+		 * Chart IDs that are visible by default (excludes hidden charts).
+		 */
+		DEFAULT_VISIBLE_CHART_IDS: DEFAULT_VISIBLE_CHART_IDS,
 
 		/**
 		 * Check if the user is logged in (required for workspace operations).
@@ -271,7 +280,7 @@ define([
 				timelineMode: (hints && hints.timelineMode) || detected.timelineMode,
 				pathogenField: (hints && hints.pathogenField) || detected.pathogenField,
 				layout: layout || {
-					visibleCharts: DEFAULT_CHART_IDS.slice(),
+					visibleCharts: DEFAULT_VISIBLE_CHART_IDS.slice(),
 					chartOrder: DEFAULT_CHART_IDS.slice()
 				},
 				createdAt: Date.now()
@@ -543,7 +552,7 @@ define([
 		getDefaultLayout: function ()
 		{
 			return {
-				visibleCharts: DEFAULT_CHART_IDS.slice(),
+				visibleCharts: DEFAULT_VISIBLE_CHART_IDS.slice(),
 				chartOrder: DEFAULT_CHART_IDS.slice()
 			};
 		},
