@@ -3598,6 +3598,85 @@ div#bv-brc-page-container > div.page-content {
         border-color: var(--maage-secondary-600, #447188);
       }
 
+      /* Save button area — split button with optional dropdown */
+      .dashboard-save-area {
+        position: relative;
+        display: inline-flex;
+        z-index: 1000;
+      }
+
+      .dashboard-save-btn {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+
+      .dashboard-save-area .dashboard-save-dropdown-btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: -1px;
+      }
+
+      .dashboard-save-area .dashboard-save-dropdown-btn + .dashboard-save-btn,
+      .dashboard-save-area:has(.dashboard-save-dropdown-btn:not([style*="display: none"])) .dashboard-save-btn {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .dashboard-save-primary {
+        background: var(--maage-primary-500, #4a9e6e);
+        color: #ffffff;
+        border-color: var(--maage-primary-500, #4a9e6e);
+      }
+
+      .dashboard-save-primary:hover {
+        background: var(--maage-primary-600, #3a7e58);
+        border-color: var(--maage-primary-600, #3a7e58);
+      }
+
+      .dashboard-header-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      .dashboard-save-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 4px;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        z-index: 1000;
+        min-width: 200px;
+        overflow: hidden;
+      }
+
+      .dashboard-save-menu-item {
+        display: block;
+        width: 100%;
+        padding: 10px 14px;
+        border: none;
+        background: none;
+        font-size: 0.8125rem;
+        color: #374151;
+        text-align: left;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .dashboard-save-menu-item:hover {
+        background: #f3f4f6;
+      }
+
+      .dashboard-save-menu-item:first-child {
+        border-bottom: 1px solid #e5e7eb;
+      }
+
 /* =====================================================
    SidebarViewerBase - Sidebar TOC + Content Panel Layout
    ===================================================== 

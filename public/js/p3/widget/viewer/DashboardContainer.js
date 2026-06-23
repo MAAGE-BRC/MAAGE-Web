@@ -10,7 +10,8 @@ define([
 	"../AdvancedSearchFields",
 	"./SurveillanceDashboard",
 	"p3/util/DashboardStorage",
-	"../DashboardLayoutEditor"
+	"../DashboardLayoutEditor",
+	"../SaveDashboardDialog"
 ], function (
 	declare,
 	lang,
@@ -23,7 +24,8 @@ define([
 	AdvancedSearchFields,
 	SurveillanceDashboard,
 	DashboardStorage,
-	DashboardLayoutEditor
+	DashboardLayoutEditor,
+	SaveDashboardDialog
 ) {
 
 	var DASHBOARD_FACET_FIELDS = AdvancedSearchFields["genome"].filter(function (ff)
@@ -102,6 +104,8 @@ define([
 		_firstView: false,
 		_currentPresetId: null,
 		_currentSavedDashboard: null,
+		_originDashboard: null,
+		_isDirty: false,
 		_filterVisible: false,
 		filterPanel: null,
 		dashboardContent: null,
@@ -185,26 +189,41 @@ define([
 			var presetId = detectPreset(currentFilter);
 			var savedDashboard = DashboardStorage.findDashboardByFilter(currentFilter);
 
-			if (presetId && presetId !== this._currentPresetId)
+			if (presetId)
 			{
 				this._currentPresetId = presetId;
 				this._currentSavedDashboard = null;
+				this._originDashboard = null;
+				this._isDirty = false;
 				this._updateHeaderForPreset(presetId);
 			}
 			else if (savedDashboard)
 			{
 				this._currentPresetId = null;
 				this._currentSavedDashboard = savedDashboard;
+				this._originDashboard = savedDashboard;
+				this._isDirty = false;
 				this.dashboardTitleNode.textContent = savedDashboard.name;
 				this.dashboardDescriptionNode.textContent = "Saved dashboard";
 			}
-			else if (!presetId)
+			else
 			{
-				// Custom query, not a known preset or saved dashboard
 				this._currentPresetId = null;
 				this._currentSavedDashboard = null;
-				this.dashboardTitleNode.textContent = "Surveillance Dashboard";
-				this.dashboardDescriptionNode.textContent = "Custom filtered view";
+
+				if (this._originDashboard)
+				{
+					// Filter was modified from a saved dashboard
+					this._isDirty = true;
+					this.dashboardTitleNode.textContent = this._originDashboard.name;
+					this.dashboardDescriptionNode.textContent = "Unsaved changes";
+				}
+				else
+				{
+					this._isDirty = false;
+					this.dashboardTitleNode.textContent = "Surveillance Dashboard";
+					this.dashboardDescriptionNode.textContent = "Custom filtered view";
+				}
 			}
 
 			// Forward state to filter panel
@@ -257,6 +276,8 @@ define([
 				this.dashboardContent.set("pathogenField", pathogenField);
 				this.dashboardContent.set("query", query);
 			}
+
+			this._updateSaveButton();
 		},
 
 		onFirstView: function ()
@@ -301,7 +322,7 @@ define([
 			this.viewHeader = new ContentPane({
 				region: "top",
 				"class": "DashboardHeader",
-				style: "padding: 12px 16px 8px 16px; background: var(--maage-bg, #f8f9fa); overflow: hidden;"
+				style: "padding: 12px 16px 8px 16px; background: var(--maage-bg, #f8f9fa); overflow: visible;"
 			});
 
 			var headerWrapper = domConstruct.create("div", {
@@ -341,6 +362,58 @@ define([
 			}, controlsArea);
 
 			on(customizeBtn, "click", lang.hitch(this, "_openLayoutEditor"));
+
+			// Save button area (contextual: save / save-as / dropdown)
+			this._saveArea = domConstruct.create("span", {
+				className: "dashboard-save-area",
+				style: "position: relative; display: inline-flex;"
+			}, controlsArea);
+
+			this._saveBtn = domConstruct.create("button", {
+				className: BTN_CLASS + " dashboard-save-btn",
+				title: "Save dashboard",
+				innerHTML: '<span class="fa icon-save2" style="margin-right: 5px;"></span>Save'
+			}, this._saveArea);
+
+			on(this._saveBtn, "click", lang.hitch(this, "_onSaveClick"));
+
+			// Dropdown caret for "Save as New" when overwrite is available
+			this._saveDropdownBtn = domConstruct.create("button", {
+				className: BTN_CLASS + " dashboard-save-dropdown-btn",
+				title: "More save options",
+				innerHTML: '<span class="fa icon-chevron-down"></span>',
+				style: "display: none;"
+			}, this._saveArea);
+
+			on(this._saveDropdownBtn, "click", lang.hitch(this, "_onSaveDropdownClick"));
+
+			// Dropdown menu
+			this._saveMenu = domConstruct.create("div", {
+				className: "dashboard-save-menu",
+				style: "display: none;"
+			}, this._saveArea);
+
+			var saveOverwriteItem = domConstruct.create("button", {
+				className: "dashboard-save-menu-item",
+				textContent: "Save"
+			}, this._saveMenu);
+			on(saveOverwriteItem, "click", lang.hitch(this, "_doSaveOverwrite"));
+
+			var saveAsNewItem = domConstruct.create("button", {
+				className: "dashboard-save-menu-item",
+				textContent: "Save as New Dashboard"
+			}, this._saveMenu);
+			on(saveAsNewItem, "click", lang.hitch(this, "_doSaveAsNew"));
+
+			// Close the dropdown when clicking elsewhere
+			on(document.body, "click", lang.hitch(this, function (evt)
+			{
+				if (this._saveMenu && this._saveMenu.style.display !== "none"
+					&& !this._saveArea.contains(evt.target))
+				{
+					this._saveMenu.style.display = "none";
+				}
+			}));
 		},
 
 		_updateHeaderForPreset: function (presetId)
@@ -434,6 +507,187 @@ define([
 				}
 			});
 			editor.show();
+		},
+
+		/**
+		 * Update the save button appearance based on current state.
+		 * - Saved dashboard, no changes: hidden (nothing to save)
+		 * - Saved dashboard, dirty: show "Save" with dropdown for "Save as New"
+		 * - Preset or custom (no origin): show "Save as Dashboard"
+		 */
+		_updateSaveButton: function ()
+		{
+			if (!this._saveBtn) return;
+
+			var loggedIn = DashboardStorage.isLoggedIn();
+
+			if (!loggedIn)
+			{
+				this._saveArea.style.display = "none";
+				return;
+			}
+
+			this._saveArea.style.display = "";
+
+			if (this._originDashboard && this._isDirty)
+			{
+				// Modified from a saved dashboard — primary action is overwrite, dropdown has "Save as New"
+				this._saveBtn.innerHTML = '<span class="fa icon-save2" style="margin-right: 5px;"></span>Save';
+				this._saveBtn.title = 'Save changes to "' + this._originDashboard.name + '"';
+				this._saveBtn.disabled = false;
+				this._saveBtn.classList.add("dashboard-save-primary");
+				this._saveDropdownBtn.style.display = "";
+			}
+			else if (this._currentSavedDashboard && !this._isDirty)
+			{
+				// Viewing a saved dashboard with no changes — nothing to save
+				this._saveBtn.innerHTML = '<span class="fa icon-checkmark" style="margin-right: 5px;"></span>Saved';
+				this._saveBtn.title = "No unsaved changes";
+				this._saveBtn.disabled = true;
+				this._saveBtn.classList.remove("dashboard-save-primary");
+				this._saveDropdownBtn.style.display = "none";
+			}
+			else
+			{
+				// Preset or custom filter — offer "Save as Dashboard"
+				this._saveBtn.innerHTML = '<span class="fa icon-save2" style="margin-right: 5px;"></span>Save as Dashboard';
+				this._saveBtn.title = "Save current view as a named dashboard";
+				this._saveBtn.disabled = false;
+				this._saveBtn.classList.remove("dashboard-save-primary");
+				this._saveDropdownBtn.style.display = "none";
+			}
+
+			// Always close the menu on state change
+			if (this._saveMenu) this._saveMenu.style.display = "none";
+		},
+
+		_onSaveClick: function ()
+		{
+			if (this._originDashboard && this._isDirty)
+			{
+				this._doSaveOverwrite();
+			}
+			else
+			{
+				this._doSaveAsNew();
+			}
+		},
+
+		_onSaveDropdownClick: function (evt)
+		{
+			evt.stopPropagation();
+			if (!this._saveMenu) return;
+			var visible = this._saveMenu.style.display !== "none";
+			this._saveMenu.style.display = visible ? "none" : "";
+		},
+
+		_doSaveOverwrite: function ()
+		{
+			if (this._saveMenu) this._saveMenu.style.display = "none";
+
+			var origin = this._originDashboard;
+			if (!origin || !origin._wsPath) return;
+
+			var currentFilter = "";
+			if (this.state && this.state.hashParams)
+			{
+				currentFilter = this.state.hashParams.filter || "";
+			}
+
+			var updates = {
+				filter: currentFilter,
+				timelineMode: this.dashboardContent ? this.dashboardContent.timelineMode : origin.timelineMode,
+				pathogenField: this.dashboardContent ? this.dashboardContent.pathogenField : origin.pathogenField,
+				layout: this.getCurrentLayoutConfig()
+			};
+
+			var self = this;
+			when(DashboardStorage.updateDashboard(origin, updates), function ()
+			{
+				// The origin dashboard object was updated in cache by DashboardStorage.
+				// Re-apply state so identity match works again.
+				self._currentSavedDashboard = origin;
+				self._isDirty = false;
+				self.dashboardDescriptionNode.textContent = "Saved dashboard";
+				self._updateSaveButton();
+				self._showToast('Dashboard "' + origin.name + '" saved.');
+			}, function (err)
+			{
+				console.error("DashboardContainer: overwrite failed", err);
+				self._showToast("Failed to save. Please try again.", true);
+			});
+		},
+
+		_doSaveAsNew: function ()
+		{
+			if (this._saveMenu) this._saveMenu.style.display = "none";
+
+			var currentFilter = "";
+			if (this.state && this.state.hashParams)
+			{
+				currentFilter = this.state.hashParams.filter || "";
+			}
+
+			var self = this;
+			var dialog = new SaveDashboardDialog({
+				filter: currentFilter,
+				timelineMode: this.dashboardContent ? this.dashboardContent.timelineMode : null,
+				pathogenField: this.dashboardContent ? this.dashboardContent.pathogenField : null,
+				layoutConfig: this.getCurrentLayoutConfig()
+			});
+
+			// After the dialog saves successfully, refresh state so the
+			// new dashboard is recognized as the active saved dashboard.
+			var origHideAndDestroy = dialog.hideAndDestroy;
+			dialog.hideAndDestroy = function ()
+			{
+				origHideAndDestroy.apply(dialog, arguments);
+				// Re-apply state so identity picks up the newly saved dashboard
+				when(DashboardStorage.getSavedDashboards(), function (dashboards)
+				{
+					var saved = DashboardStorage.findDashboardByFilter(currentFilter);
+					if (saved)
+					{
+						self._originDashboard = saved;
+						self._currentSavedDashboard = saved;
+						self._isDirty = false;
+						self.dashboardTitleNode.textContent = saved.name;
+						self.dashboardDescriptionNode.textContent = "Saved dashboard";
+						self._updateSaveButton();
+					}
+				});
+			};
+
+			dialog.show();
+		},
+
+		_showToast: function (message, isError)
+		{
+			var bgColor = isError ? "#fef2f2" : "#ffffff";
+			var borderColor = isError ? "#fca5a5" : "#d1d5db";
+			var textColor = isError ? "#991b1b" : "#374151";
+
+			var toast = domConstruct.create("div", {
+				style: "position: fixed; bottom: 24px; right: 24px; z-index: 10000;"
+					+ "background: " + bgColor + "; border: 1px solid " + borderColor + "; border-radius: 8px;"
+					+ "box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 12px 16px;"
+					+ "max-width: 360px; font-size: 0.875rem; color: " + textColor + ";"
+					+ "transition: opacity 0.3s;"
+			}, document.body);
+
+			toast.textContent = message;
+
+			setTimeout(function ()
+			{
+				if (toast && toast.parentNode)
+				{
+					toast.style.opacity = "0";
+					setTimeout(function ()
+					{
+						if (toast && toast.parentNode) domConstruct.destroy(toast);
+					}, 300);
+				}
+			}, 4000);
 		},
 
 		_createFilterPanel: function ()
