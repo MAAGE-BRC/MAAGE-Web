@@ -1647,20 +1647,8 @@ define([
         }
       }, false);
 
-      // MicrobeTrace action for cgMLST and wgSNP job results
-      this.browserHeader.addAction('ViewInMicrobeTrace', 'icon-microbetrace', {
-        label: 'MICROBE<br>TRACE',
-        multiple: false,
-        validTypes: ['CoreGenomeMLST', 'WholeGenomeSNPAnalysis'],
-        tooltip: 'Open results in MicrobeTrace molecular epidemiology tool'
-      }, function (selection) {
-        var widget = self.actionPanel.currentContainerWidget;
-        if (!widget || typeof widget.getMicrobeTraceFiles !== 'function') {
-          alert('MicrobeTrace data is not available for this job result.');
-          return;
-        }
-
-        var mtFiles = widget.getMicrobeTraceFiles();
+      // Helper: load files and launch MicrobeTrace handoff
+      function launchMicrobeTraceWithFiles(mtFiles) {
         if (!mtFiles.length) {
           alert('No MicrobeTrace-compatible output files found in this job result.');
           return;
@@ -1668,7 +1656,6 @@ define([
 
         var paths = mtFiles.map(function (f) { return f.path; });
 
-        // Load files and default style in parallel
         All([
           WorkspaceManager.getObjects(paths, false),
           request('/maage/config/microbetrace-default-style.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } })
@@ -1699,6 +1686,76 @@ define([
         }).catch(function (err) {
           console.error('[MicrobeTrace] Failed to load job result files:', err);
           alert('Failed to load files for MicrobeTrace: ' + (err.message || err));
+        });
+      }
+
+      // SNP set selection dropdown for wgSNP jobs
+      var snpSetTT = new TooltipDialog({
+        content: '',
+        onMouseLeave: function () {
+          popup.close(snpSetTT);
+        }
+      });
+
+      on(snpSetTT.domNode, 'click', function (evt) {
+        var target = evt.target;
+        while (target && !target.attributes.rel && target !== snpSetTT.domNode) {
+          target = target.parentNode;
+        }
+        if (!target || !target.attributes || !target.attributes.rel) return;
+
+        popup.close(snpSetTT);
+        var snpSet = target.attributes.rel.value;
+        var widget = self.actionPanel.currentContainerWidget;
+        if (widget && typeof widget.getMicrobeTraceFiles === 'function') {
+          launchMicrobeTraceWithFiles(widget.getMicrobeTraceFiles(snpSet));
+        }
+      });
+
+      // MicrobeTrace action for cgMLST job results (direct launch)
+      this.browserHeader.addAction('ViewInMicrobeTrace', 'icon-microbetrace', {
+        label: 'MICROBE<br>TRACE',
+        multiple: false,
+        validTypes: ['CoreGenomeMLST'],
+        tooltip: 'Open results in MicrobeTrace molecular epidemiology tool'
+      }, function (selection) {
+        var widget = self.actionPanel.currentContainerWidget;
+        if (!widget || typeof widget.getMicrobeTraceFiles !== 'function') {
+          alert('MicrobeTrace data is not available for this job result.');
+          return;
+        }
+        launchMicrobeTraceWithFiles(widget.getMicrobeTraceFiles());
+      }, false);
+
+      // MicrobeTrace action for wgSNP job results (dropdown for SNP set selection)
+      this.browserHeader.addAction('ViewInMicrobeTraceSNP', 'icon-microbetrace', {
+        label: 'MICROBE<br>TRACE',
+        multiple: false,
+        validTypes: ['WholeGenomeSNPAnalysis'],
+        tooltip: 'Open results in MicrobeTrace - select SNP set'
+      }, function (selection) {
+        var widget = self.actionPanel.currentContainerWidget;
+        if (!widget || typeof widget.getAvailableSNPSets !== 'function') {
+          alert('MicrobeTrace data is not available for this job result.');
+          return;
+        }
+
+        var sets = widget.getAvailableSNPSets();
+        if (!sets.length) {
+          alert('No SNP sets with tree files found in this job result.');
+          return;
+        }
+
+        // Build dropdown content
+        var content = sets.map(function (s) {
+          return '<div class="wsActionTooltip" rel="' + s.id + '">' + s.label + '</div>';
+        }).join('');
+        snpSetTT.set('content', content);
+
+        popup.open({
+          popup: snpSetTT,
+          around: self.browserHeader._actions.ViewInMicrobeTraceSNP.button,
+          orient: ['below']
         });
       }, false);
 
