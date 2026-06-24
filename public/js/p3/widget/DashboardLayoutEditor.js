@@ -64,6 +64,8 @@ define([
 			);
 		},
 
+		_dragSrcIndex: null,
+
 		_renderList: function ()
 		{
 			domConstruct.empty(this.chartListNode);
@@ -82,12 +84,19 @@ define([
 				if (!def) return;
 
 				var isVisible = self._visibleCharts.indexOf(chartId) !== -1;
-				var isFirst = index === 0;
-				var isLast = index === self._chartOrder.length - 1;
 
 				var row = domConstruct.create("div", {
-					className: "chart-row" + (isVisible ? "" : " disabled")
+					className: "chart-row" + (isVisible ? "" : " disabled"),
+					draggable: "true"
 				}, self.chartListNode);
+				row.setAttribute("data-index", index);
+
+				// Drag handle
+				domConstruct.create("span", {
+					className: "chart-row-drag-handle",
+					innerHTML: "&#x2630;",
+					title: "Drag to reorder"
+				}, row);
 
 				// Checkbox
 				var cb = domConstruct.create("input", {
@@ -118,36 +127,78 @@ define([
 					textContent: def.label
 				}, row);
 
-				// Up button
-				var upBtn = domConstruct.create("button", {
-					className: "chart-row-btn",
-					innerHTML: "&#9650;",
-					title: "Move up",
-					disabled: isFirst
-				}, row);
-
-				on(upBtn, "click", lang.hitch(self, function (idx)
+				// Drag events
+				on(row, "dragstart", lang.hitch(self, function (idx, evt)
 				{
-					if (idx <= 0) return;
-					var item = this._chartOrder.splice(idx, 1)[0];
-					this._chartOrder.splice(idx - 1, 0, item);
-					this._renderList();
+					this._dragSrcIndex = idx;
+					evt.dataTransfer.effectAllowed = "move";
+					evt.dataTransfer.setData("text/plain", idx.toString());
+					setTimeout(function () { domClass.add(row, "dragging"); }, 0);
 				}, index));
 
-				// Down button
-				var downBtn = domConstruct.create("button", {
-					className: "chart-row-btn",
-					innerHTML: "&#9660;",
-					title: "Move down",
-					disabled: isLast
-				}, row);
-
-				on(downBtn, "click", lang.hitch(self, function (idx)
+				on(row, "dragend", function ()
 				{
-					if (idx >= this._chartOrder.length - 1) return;
-					var item = this._chartOrder.splice(idx, 1)[0];
-					this._chartOrder.splice(idx + 1, 0, item);
-					this._renderList();
+					domClass.remove(row, "dragging");
+					// Clean up all drop indicators
+					var rows = self.chartListNode.querySelectorAll(".chart-row");
+					for (var r = 0; r < rows.length; r++)
+					{
+						domClass.remove(rows[r], "drag-over-above");
+						domClass.remove(rows[r], "drag-over-below");
+					}
+				});
+
+				on(row, "dragover", lang.hitch(self, function (idx, evt)
+				{
+					evt.preventDefault();
+					evt.dataTransfer.dropEffect = "move";
+
+					var rect = row.getBoundingClientRect();
+					var midY = rect.top + rect.height / 2;
+
+					// Clean up indicators on all rows first
+					var rows = self.chartListNode.querySelectorAll(".chart-row");
+					for (var r = 0; r < rows.length; r++)
+					{
+						domClass.remove(rows[r], "drag-over-above");
+						domClass.remove(rows[r], "drag-over-below");
+					}
+
+					if (evt.clientY < midY)
+					{
+						domClass.add(row, "drag-over-above");
+					}
+					else
+					{
+						domClass.add(row, "drag-over-below");
+					}
+				}, index));
+
+				on(row, "dragleave", function ()
+				{
+					domClass.remove(row, "drag-over-above");
+					domClass.remove(row, "drag-over-below");
+				});
+
+				on(row, "drop", lang.hitch(self, function (targetIdx, evt)
+				{
+					evt.preventDefault();
+					evt.stopPropagation();
+
+					var srcIdx = self._dragSrcIndex;
+					if (srcIdx === null || srcIdx === targetIdx) return;
+
+					var rect = row.getBoundingClientRect();
+					var midY = rect.top + rect.height / 2;
+					var insertBefore = evt.clientY < midY;
+
+					var item = self._chartOrder.splice(srcIdx, 1)[0];
+					var dest = insertBefore ? targetIdx : targetIdx + 1;
+					if (srcIdx < targetIdx) dest--;
+					self._chartOrder.splice(dest, 0, item);
+
+					self._dragSrcIndex = null;
+					self._renderList();
 				}, index));
 
 				self._rowNodes[chartId] = row;
@@ -188,7 +239,7 @@ define([
 
 		_onReset: function ()
 		{
-			this._visibleCharts = DashboardStorage.DEFAULT_CHART_IDS.slice();
+			this._visibleCharts = DashboardStorage.DEFAULT_VISIBLE_CHART_IDS.slice();
 			this._chartOrder = DashboardStorage.DEFAULT_CHART_IDS.slice();
 			this._renderList();
 		}

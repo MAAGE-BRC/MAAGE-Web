@@ -3408,13 +3408,15 @@ div#bv-brc-page-container > div.page-content {
       .dashboard-layout-editor .chart-row {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.625rem;
         padding: 0.5rem 0.75rem;
         border: 1px solid #e5e7eb;
         border-radius: 6px;
         margin-bottom: 0.5rem;
         background: #ffffff;
-        transition: background-color 0.15s;
+        cursor: grab;
+        transition: background-color 0.15s, box-shadow 0.15s, opacity 0.15s;
+        user-select: none;
       }
 
       .dashboard-layout-editor .chart-row:hover {
@@ -3426,44 +3428,37 @@ div#bv-brc-page-container > div.page-content {
         background: #f3f4f6;
       }
 
+      .dashboard-layout-editor .chart-row.dragging {
+        opacity: 0.35;
+      }
+
+      .dashboard-layout-editor .chart-row.drag-over-above {
+        box-shadow: 0 -2px 0 0 var(--maage-primary-400, #6db88a);
+      }
+
+      .dashboard-layout-editor .chart-row.drag-over-below {
+        box-shadow: 0 2px 0 0 var(--maage-primary-400, #6db88a);
+      }
+
+      .dashboard-layout-editor .chart-row-drag-handle {
+        color: #9ca3af;
+        font-size: 0.875rem;
+        line-height: 1;
+        cursor: grab;
+        padding: 0 2px;
+        flex-shrink: 0;
+      }
+
+      .dashboard-layout-editor .chart-row:active .chart-row-drag-handle,
+      .dashboard-layout-editor .chart-row-drag-handle:active {
+        cursor: grabbing;
+      }
+
       .dashboard-layout-editor .chart-row-label {
         flex: 1;
         font-size: 0.875rem;
         font-weight: 500;
         color: #374151;
-      }
-
-      .dashboard-layout-editor .chart-row-btn {
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #d1d5db;
-        border-radius: 4px;
-        background: #ffffff;
-        color: #6b7280;
-        cursor: pointer;
-        font-size: 0.75rem;
-        line-height: 1;
-        transition: all 0.15s;
-      }
-
-      .dashboard-layout-editor .chart-row-btn:hover {
-        background: #f3f4f6;
-        color: #374151;
-        border-color: #9ca3af;
-      }
-
-      .dashboard-layout-editor .chart-row-btn:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-      }
-
-      .dashboard-layout-editor .chart-row-btn:disabled:hover {
-        background: #ffffff;
-        color: #6b7280;
-        border-color: #d1d5db;
       }
 
       /* Save Dashboard Dialog styles */
@@ -3615,6 +3610,85 @@ div#bv-brc-page-container > div.page-content {
       .dashboard-header-btn.active:hover {
         background: var(--maage-secondary-600, #447188);
         border-color: var(--maage-secondary-600, #447188);
+      }
+
+      /* Save button area — split button with optional dropdown */
+      .dashboard-save-area {
+        position: relative;
+        display: inline-flex;
+        z-index: 1000;
+      }
+
+      .dashboard-save-btn {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+
+      .dashboard-save-area .dashboard-save-dropdown-btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: -1px;
+      }
+
+      .dashboard-save-area .dashboard-save-dropdown-btn + .dashboard-save-btn,
+      .dashboard-save-area:has(.dashboard-save-dropdown-btn:not([style*="display: none"])) .dashboard-save-btn {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .dashboard-save-primary {
+        background: var(--maage-primary-500, #4a9e6e);
+        color: #ffffff;
+        border-color: var(--maage-primary-500, #4a9e6e);
+      }
+
+      .dashboard-save-primary:hover {
+        background: var(--maage-primary-600, #3a7e58);
+        border-color: var(--maage-primary-600, #3a7e58);
+      }
+
+      .dashboard-header-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      .dashboard-save-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 4px;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        z-index: 1000;
+        min-width: 200px;
+        overflow: hidden;
+      }
+
+      .dashboard-save-menu-item {
+        display: block;
+        width: 100%;
+        padding: 10px 14px;
+        border: none;
+        background: none;
+        font-size: 0.8125rem;
+        color: #374151;
+        text-align: left;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .dashboard-save-menu-item:hover {
+        background: #f3f4f6;
+      }
+
+      .dashboard-save-menu-item:first-child {
+        border-bottom: 1px solid #e5e7eb;
       }
 
 /* =====================================================
