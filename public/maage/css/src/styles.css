@@ -968,6 +968,25 @@ div.ActionButton.fa-2x {
   height: 30px !important;
 }
 
+div.ActionButton.icon-microbetrace {
+  background-image: url('/maage/img/microbetrace-icon.svg');
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 30px !important;
+  height: 30px !important;
+  margin: 1px auto 0 auto;
+  display: block;
+}
+
+.BrowserHeader div.ActionButton.icon-microbetrace {
+  background-image: url('/maage/img/microbetrace-icon-dark.svg');
+  background-size: 28px 28px;
+  width: 28px !important;
+  height: 28px !important;
+  margin: 3px auto 0 auto;
+}
+
 div#maage-page {
   width: 100%;
 }
