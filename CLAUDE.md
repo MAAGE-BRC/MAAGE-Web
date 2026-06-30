@@ -171,3 +171,66 @@ The `lib/securityUtils.js` module provides:
 - `sanitizeText(str, maxLength)` - General text sanitization
 - `validateIntegerInRange(value, min, max)` - Numeric validation
 - `validateAllowedValue(value, allowedValues)` - Whitelist validation
+
+## MicrobeTrace Integration
+
+### Overview
+
+MicrobeTrace (CDC molecular epidemiology tool) is integrated via partner handoff. Fork at `BV-BRC-dependencies/MicrobeTrace` (dev branch), included as git submodule `microbetrace-src/`.
+
+### Build & Deploy
+
+```bash
+# After checkout or submodule update:
+git submodule update --init
+cd microbetrace-src && git checkout -- package-lock.json src/environments/version.prod.ts && cd ..
+npm run build:microbetrace
+```
+
+Requires Node.js >=22.12.0. Build output goes to `public/microbetrace/` (gitignored).
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `public/js/p3/util/microbeTraceHandoff.js` | Shared partner handoff utility (postMessage flow) |
+| `public/js/p3/widget/viewer/MicrobeTrace.js` | Workspace browser viewer widget |
+| `public/js/p3/widget/viewer/CoreGenomeMLSTResult.js` | cgMLST job result viewer |
+| `public/js/p3/widget/viewer/WholeGenomeSNPResult.js` | wgSNP job result viewer (recursive folder listing) |
+| `public/maage/config/microbetrace-default-style.json` | Default display style (colors, labels, threshold, default view) |
+| `public/maage/img/microbetrace-icon.svg` | White icon for workspace sidebar |
+| `public/maage/img/microbetrace-icon-dark.svg` | Dark icon for job result header |
+| `routes/microbetrace.js` | Express route serving MicrobeTrace static assets |
+
+### Style Configuration
+
+All MicrobeTrace display settings are in `public/maage/config/microbetrace-default-style.json`. Key widget settings:
+
+- `default-view` — startup view (e.g., "Phylogenetic Tree")
+- `node-label-variable` — 2D network node labels
+- `physics-tree-node-label-variable` — tree leaf labels
+- `link-threshold` — link visibility threshold
+- `default-distance-metric` — "snps" or "tn93"
+- `node-color-variable` — color-by field (e.g., "cluster")
+
+### Job Result Viewers
+
+- **cgMLST**: Locates `.tre` tree, `cgMLST_distance.report`, `metadata.tsv`
+- **wgSNP**: Dropdown for All/Majority/Core SNP sets. Each loads ML tree (matched by `.ml.tre` suffix + folder name), distance report, and metadata.tsv. Distance reports specify `field1: genome_id_1, field2: genome_id_2, field3: distance`
+
+### Important Technical Constraints
+
+- **Style timing**: Style applied via 5-second deferred `setTimeout` after `launchClick` to avoid being overwritten by `applyPatristicDistanceDefaults`
+- **Default view DOM override**: Must set `$('#default-view').val()` directly before `launchClick` — widget value alone is ignored
+- **No multi-view dashboard**: `pendingDashboardRestore` causes infinite loop in Golden Layout — cannot set up multiple views at startup
+- **PapaParse dynamicTyping**: Set to `false` in fork to preserve genome ID precision (e.g., `28901.36220`)
+
+### Fork Changes (BV-BRC-dependencies/MicrobeTrace)
+
+- `dynamicTyping: false` in CSV parsing (files-plugin.component.ts)
+- `.tre`/`.tree` extension recognition as Newick
+- `applyStyleFileSettings` handles link-threshold, distance-metric
+- `styleFileApplied$` subscriber calls full `applyStyleFileSettings`
+- Tree component reads leaf label from style widgets at initialization
+- Handoff metadata supports `style` and `defaultView`
+- Receiver status message: "Transferring data to MicrobeTrace"
