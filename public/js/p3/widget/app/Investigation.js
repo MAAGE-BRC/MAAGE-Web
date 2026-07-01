@@ -23,38 +23,45 @@ define([
         content: OverviewHTML
       },
       {
+        id: 'UploadSequencingData',
+        title: 'Step 1. Upload Your Sequencing Data',
+        icon: 'icon-upload',
+        description: 'Start by uploading reads or assembled genomes',
+        widgetClass: 'p3/widget/app/InvestigationUpload'
+      },
+      {
         id: 'ComprehensiveGenomeAnalysis',
-        title: 'Comprehensive Genome Analysis',
+        title: 'Step 2. Identify and Characterize Your Pathogen',
         icon: 'icon-genome',
-        description: 'Assemble and annotate genomes from raw reads',
+        description: 'Comprehensive Genome Analysis',
         widgetClass: 'p3/widget/app/ComprehensiveGenomeAnalysis'
       },
       {
         id: 'MyGenomes',
-        title: 'My Genomes',
+        title: 'Step 3. Review Related Public Isolates',
         icon: 'icon-lock3',
-        description: 'View your private genomes',
+        description: 'Find genomes and save as group',
         widgetClass: 'p3/widget/app/InvestigationMyGenomes'
       },
       {
         id: 'CoreGenomeMLST',
-        title: 'Core Genome MLST',
+        title: 'Step 4. Compare Suspected Outbreak Isolates',
         icon: 'icon-cluster',
-        description: 'Strain-level typing and cluster detection',
+        description: 'Core Genome MLST',
         widgetClass: 'p3/widget/app/CoreGenomeMLST'
       },
       {
         id: 'WholeGenomeSNPAnalysis',
-        title: 'Whole Genome SNP Analysis',
+        title: 'Step 5. Resolve Closely Related Isolates',
         icon: 'icon-selection-Sequence',
-        description: 'Identify SNPs for outbreak tracking',
+        description: 'Whole Genome SNP Analysis',
         widgetClass: 'p3/widget/app/WholeGenomeSNPAnalysis'
       },
       {
         id: 'PhylogeneticTree',
-        title: 'Phylogenetic Tree',
+        title: 'Step 6. Visualize Evolutionary Relationships',
         icon: 'icon-tree',
-        description: 'Build phylogenetic trees from selected genomes',
+        description: 'Phylogenetic Tree',
         widgetClass: 'p3/widget/app/PhylogeneticTree'
       }
     ]
