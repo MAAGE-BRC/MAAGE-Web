@@ -1,142 +1,569 @@
-<div class="p-6 sm:p-8 bg-maage-bg min-h-full">
+<div class="p-6 sm:p-10 bg-maage-bg min-h-full max-w-4xl">
+
   <!-- Page Title -->
   <div class="mb-8">
-    <h1 class="text-2xl sm:text-3xl font-heading font-semibold text-maage-text mb-3">
-      Epidemiology Investigation
+    <h1 class="text-3xl sm:text-4xl font-heading font-bold text-maage-text mb-4">
+      Epidemiology Investigation Workflow
     </h1>
-    <p class="text-base text-maage-text-muted max-w-3xl leading-relaxed">
-      The Epidemiology Investigation workflow provides a streamlined pipeline for genomic
-      surveillance and outbreak analysis. Start from raw sequencing reads or assembled contigs,
-      produce annotated genomes, identify clusters among public data, and perform in-depth
-      comparative analyses -- all within a single integrated workspace.
+    <p class="text-base text-maage-text-muted leading-relaxed">
+      The Epidemiology Investigation workflow guides you through the complete process of genomic surveillance
+      and outbreak analysis—from sequencing data to outbreak interpretation. Whether you are investigating a
+      suspected outbreak, performing routine surveillance, or comparing isolates to public datasets, MAAGE
+      provides an integrated workspace that supports every stage of the investigation.
     </p>
   </div>
 
-  <!-- Workflow Overview -->
-  <div class="mb-8 p-5 bg-maage-surface border border-maage-border rounded-lg">
-    <h2 class="text-lg font-heading font-semibold text-maage-text mb-3">
-      How It Works
+  <!-- Workflow Diagram -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-4" style="max-width:100%; overflow-x:auto;">
+    <svg viewBox="0 0 1200 400" width="100%" xmlns="http://www.w3.org/2000/svg" style="min-width:800px; font-family: system-ui, -apple-system, sans-serif;">
+      <defs>
+        <marker id="wf-arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L0,7 L7,3.5 z" fill="#adb5bd"/>
+        </marker>
+        <marker id="wf-arr-g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L0,7 L7,3.5 z" fill="#57856f"/>
+        </marker>
+        <marker id="wf-arr-r" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0,0 L0,7 L7,3.5 z" fill="#ab4e52"/>
+        </marker>
+      </defs>
+
+      <!-- Title -->
+      <text x="12" y="28" font-size="18" font-weight="700" fill="#212529">Typical Investigation Workflow</text>
+
+      <!-- ── Step 1: Upload ── color #57856f  box x=8 w=110 center=63 -->
+      <rect x="8" y="42" width="110" height="195" rx="8" fill="#f3f7f5" stroke="#57856f" stroke-width="1.5"/>
+      <circle cx="22" cy="57" r="12" fill="#57856f"/>
+      <text x="22" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">1</text>
+      <circle cx="63" cy="100" r="23" fill="#57856f"/>
+      <line x1="63" y1="108" x2="63" y2="93" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      <polyline points="55,100 63,92 71,100" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <line x1="55" y1="109" x2="71" y2="109" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <text x="63" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#57856f">Upload data</text>
+      <text x="63" y="156" text-anchor="middle" font-size="10" fill="#6c757d">(reads or contigs)</text>
+      <text x="63" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Upload samples</text>
+      <text x="63" y="189" text-anchor="middle" font-size="10" fill="#6c757d">to MAAGE workspace</text>
+
+      <!-- Arrow S1→S2 -->
+      <line x1="118" y1="135" x2="139" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+
+      <!-- ── Step 2: CGA ── color #467386  box x=140 w=110 center=195 -->
+      <rect x="140" y="42" width="110" height="195" rx="8" fill="#eef4f7" stroke="#467386" stroke-width="1.5"/>
+      <circle cx="154" cy="57" r="12" fill="#467386"/>
+      <text x="154" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">2</text>
+      <circle cx="195" cy="100" r="23" fill="#467386"/>
+      <path d="M183,89 Q195,95 207,89" fill="none" stroke="white" stroke-width="2"/>
+      <path d="M183,99 Q195,93 207,99" fill="none" stroke="white" stroke-width="2"/>
+      <path d="M183,109 Q195,103 207,109" fill="none" stroke="white" stroke-width="2"/>
+      <line x1="183" y1="89" x2="183" y2="109" stroke="white" stroke-width="1.5"/>
+      <line x1="207" y1="89" x2="207" y2="109" stroke="white" stroke-width="1.5"/>
+      <text x="195" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#467386">Characterize</text>
+      <text x="195" y="156" text-anchor="middle" font-size="10" fill="#6c757d">pathogen (CGA)</text>
+      <text x="195" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Assemble, annotate</text>
+      <text x="195" y="189" text-anchor="middle" font-size="10" fill="#6c757d">&amp; generate report</text>
+
+      <!-- Arrow S2→S3 -->
+      <line x1="250" y1="135" x2="271" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+
+      <!-- ── Step 3: Review ── color #406777  box x=272 w=110 center=327 -->
+      <rect x="272" y="42" width="110" height="195" rx="8" fill="#e8f2f6" stroke="#406777" stroke-width="2"/>
+      <circle cx="286" cy="57" r="12" fill="#406777"/>
+      <text x="286" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">3</text>
+      <circle cx="327" cy="100" r="23" fill="#406777"/>
+      <circle cx="327" cy="100" r="13" fill="none" stroke="white" stroke-width="1.8"/>
+      <ellipse cx="327" cy="100" rx="7" ry="13" fill="none" stroke="white" stroke-width="1.4"/>
+      <line x1="314" y1="100" x2="340" y2="100" stroke="white" stroke-width="1.4"/>
+      <text x="327" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#406777">Review related</text>
+      <text x="327" y="156" text-anchor="middle" font-size="10" fill="#6c757d">public isolates</text>
+      <text x="327" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Explore clusters and</text>
+      <text x="327" y="189" text-anchor="middle" font-size="10" fill="#6c757d">related genomes</text>
+
+      <!-- Arrow S3→D1 -->
+      <line x1="382" y1="135" x2="403" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+
+      <!-- ── Diamond 1 ── center (450,135) hw=47 hh=38 -->
+      <polygon points="450,97 497,135 450,173 403,135" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1.5"/>
+      <text x="450" y="123" text-anchor="middle" font-size="10" fill="#495057">Are multiple</text>
+      <text x="450" y="136" text-anchor="middle" font-size="10" fill="#495057">isolates</text>
+      <text x="450" y="149" text-anchor="middle" font-size="10" fill="#495057">related?</text>
+      <text x="502" y="130" font-size="11" font-weight="700" fill="#57856f">Yes</text>
+      <text x="454" y="188" font-size="11" font-weight="700" fill="#ab4e52">No</text>
+      <line x1="497" y1="135" x2="517" y2="135" stroke="#57856f" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
+      <line x1="450" y1="173" x2="450" y2="254" stroke="#ab4e52" stroke-width="1.5" marker-end="url(#wf-arr-r)"/>
+
+      <!-- Investigation complete 1  x=400 y=256 w=100 h=68 -->
+      <rect x="400" y="256" width="100" height="68" rx="8" fill="#f8f9fa" stroke="#c8cdd3" stroke-width="1.2"/>
+      <circle cx="450" cy="276" r="11" fill="none" stroke="#57856f" stroke-width="1.8"/>
+      <text x="450" y="281" text-anchor="middle" font-size="13" fill="#57856f">&#10003;</text>
+      <text x="450" y="300" text-anchor="middle" font-size="10" fill="#495057">Investigation</text>
+      <text x="450" y="315" text-anchor="middle" font-size="10" fill="#495057">complete</text>
+
+      <!-- ── Step 4: cgMLST ── color #847ba7  box x=518 w=110 center=573 -->
+      <rect x="518" y="42" width="110" height="195" rx="8" fill="#f3f2f9" stroke="#847ba7" stroke-width="1.5"/>
+      <circle cx="532" cy="57" r="12" fill="#847ba7"/>
+      <text x="532" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">4</text>
+      <circle cx="573" cy="100" r="23" fill="#847ba7"/>
+      <circle cx="573" cy="89" r="5" fill="white"/>
+      <circle cx="563" cy="109" r="5" fill="white"/>
+      <circle cx="583" cy="109" r="5" fill="white"/>
+      <line x1="573" y1="94" x2="565" y2="104" stroke="white" stroke-width="1.8"/>
+      <line x1="573" y1="94" x2="581" y2="104" stroke="white" stroke-width="1.8"/>
+      <line x1="568" y1="109" x2="578" y2="109" stroke="white" stroke-width="1.4"/>
+      <text x="573" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#847ba7">Core Genome</text>
+      <text x="573" y="156" text-anchor="middle" font-size="10" fill="#6c757d">MLST (cgMLST)</text>
+      <text x="573" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Compare isolates &amp;</text>
+      <text x="573" y="189" text-anchor="middle" font-size="10" fill="#6c757d">identify clusters</text>
+
+      <!-- Arrow S4→D2 -->
+      <line x1="628" y1="135" x2="649" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+
+      <!-- ── Diamond 2 ── center (696,135) hw=47 hh=38 -->
+      <polygon points="696,97 743,135 696,173 649,135" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1.5"/>
+      <text x="696" y="128" text-anchor="middle" font-size="10" fill="#495057">Need higher</text>
+      <text x="696" y="142" text-anchor="middle" font-size="10" fill="#495057">resolution?</text>
+      <text x="748" y="130" font-size="11" font-weight="700" fill="#57856f">Yes</text>
+      <text x="700" y="188" font-size="11" font-weight="700" fill="#ab4e52">No</text>
+      <line x1="743" y1="135" x2="763" y2="135" stroke="#57856f" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
+      <line x1="696" y1="173" x2="696" y2="254" stroke="#ab4e52" stroke-width="1.5" marker-end="url(#wf-arr-r)"/>
+
+      <!-- Investigation complete 2  x=646 y=256 w=100 h=68 -->
+      <rect x="646" y="256" width="100" height="68" rx="8" fill="#f8f9fa" stroke="#c8cdd3" stroke-width="1.2"/>
+      <circle cx="696" cy="276" r="11" fill="none" stroke="#57856f" stroke-width="1.8"/>
+      <text x="696" y="281" text-anchor="middle" font-size="13" fill="#57856f">&#10003;</text>
+      <text x="696" y="300" text-anchor="middle" font-size="10" fill="#495057">Investigation</text>
+      <text x="696" y="315" text-anchor="middle" font-size="10" fill="#495057">complete</text>
+
+      <!-- ── Step 5: SNP Analysis ── color #ab4e52  box x=764 w=110 center=819 -->
+      <rect x="764" y="42" width="110" height="195" rx="8" fill="#fbf3f3" stroke="#ab4e52" stroke-width="2"/>
+      <circle cx="778" cy="57" r="12" fill="#ab4e52"/>
+      <text x="778" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">5</text>
+      <circle cx="819" cy="100" r="23" fill="#ab4e52"/>
+      <circle cx="815" cy="96" r="9" fill="none" stroke="white" stroke-width="2.2"/>
+      <line x1="822" y1="103" x2="831" y2="113" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      <text x="819" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#ab4e52">Whole Genome</text>
+      <text x="819" y="156" text-anchor="middle" font-size="10" fill="#6c757d">SNP Analysis</text>
+      <text x="819" y="175" text-anchor="middle" font-size="10" fill="#6c757d">High-resolution SNP</text>
+      <text x="819" y="189" text-anchor="middle" font-size="10" fill="#6c757d">comparison</text>
+
+      <!-- Arrow S5→S6 -->
+      <line x1="874" y1="135" x2="895" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+
+      <!-- ── Step 6: Phylogenetic Tree ── color #d29c4b  box x=896 w=110 center=951 -->
+      <rect x="896" y="42" width="110" height="195" rx="8" fill="#fdf9f0" stroke="#d29c4b" stroke-width="1.5"/>
+      <circle cx="910" cy="57" r="12" fill="#d29c4b"/>
+      <text x="910" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">6</text>
+      <circle cx="951" cy="100" r="23" fill="#d29c4b"/>
+      <line x1="951" y1="114" x2="951" y2="102" stroke="white" stroke-width="2.2"/>
+      <line x1="951" y1="102" x2="940" y2="89" stroke="white" stroke-width="2.2"/>
+      <line x1="951" y1="102" x2="962" y2="89" stroke="white" stroke-width="2.2"/>
+      <circle cx="940" cy="88" r="4" fill="white"/>
+      <circle cx="962" cy="88" r="4" fill="white"/>
+      <circle cx="951" cy="115" r="3.5" fill="white"/>
+      <text x="951" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#d29c4b">Phylogenetic</text>
+      <text x="951" y="156" text-anchor="middle" font-size="10" fill="#6c757d">Tree</text>
+      <text x="951" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Visualize relationships</text>
+      <text x="951" y="189" text-anchor="middle" font-size="10" fill="#6c757d">and interpret results</text>
+
+      <!-- Arrow S6→Final -->
+      <line x1="1006" y1="135" x2="1027" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+
+      <!-- ── Final: Interpret & Report ── color #496f5d  box x=1028 w=124 center=1090 -->
+      <rect x="1028" y="42" width="124" height="195" rx="8" fill="#f0f5f2" stroke="#496f5d" stroke-width="1.5"/>
+      <circle cx="1090" cy="100" r="23" fill="#496f5d"/>
+      <rect x="1080" y="88" width="19" height="24" rx="2" fill="none" stroke="white" stroke-width="1.8"/>
+      <line x1="1083" y1="95" x2="1096" y2="95" stroke="white" stroke-width="1.4"/>
+      <line x1="1083" y1="101" x2="1096" y2="101" stroke="white" stroke-width="1.4"/>
+      <line x1="1083" y1="107" x2="1096" y2="107" stroke="white" stroke-width="1.4"/>
+      <text x="1090" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#496f5d">Interpret &amp;</text>
+      <text x="1090" y="156" text-anchor="middle" font-size="10" fill="#6c757d">report findings</text>
+      <text x="1090" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Communicate</text>
+      <text x="1090" y="189" text-anchor="middle" font-size="10" fill="#6c757d">investigation results</text>
+
+      <!-- Footer note -->
+      <circle cx="22" cy="362" r="11" fill="none" stroke="#467386" stroke-width="1.5"/>
+      <text x="22" y="367" text-anchor="middle" font-size="11" font-style="italic" fill="#467386">i</text>
+      <text x="40" y="367" font-size="11" fill="#6c757d">You can return to any step at any time. All results are stored in your workspace.</text>
+    </svg>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 1. Upload Your Sequencing Data
     </h2>
-    <div class="text-sm text-maage-text-muted leading-relaxed space-y-3">
-      <p>
-        Begin by assembling and annotating your genome with <strong>Comprehensive Genome Analysis</strong>.
-        Upload a raw read file (FASTQ) or start from assembled contigs. CGA will compute the
-        assembly, annotate the genome, and provide a user-friendly summary of your organism.
-      </p>
-      <p>
-        If your organism is supported, allele calling is automatically performed by
-        <strong>ChewBBACA</strong> followed by hierarchical clustering via
-        <strong>HierCC</strong> (Hierarchical Clustering of cgMLST) against our public genome
-        database. Use these cluster assignments to discover similar public genomes and identify
-        potential outbreak connections.
-      </p>
-      <p>
-        The assembled genome becomes the jumping-off point for deeper analysis. From here you
-        can launch any of the downstream services described below, as well as other genome-accepting
-        and comparative genome services available on the platform
-        <span class="text-maage-text-muted italic">[links to genome services and comparative services]</span>.
-      </p>
-    </div>
-  </div>
-
-  <!-- Service Cards -->
-  <h2 class="text-lg font-heading font-semibold text-maage-text mb-4">
-    Investigation Services
-  </h2>
-  <div class="flex flex-wrap gap-4">
-
-    <!-- Comprehensive Genome Analysis -->
-    <div class="w-full bg-maage-surface border-2 border-maage-primary-300 rounded-lg p-5 hover:shadow-md transition-shadow">
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-10 h-10 bg-maage-primary-100 rounded-lg flex items-center justify-center">
-          <i class="icon-genome text-maage-primary-600" style="font-size: 20px;"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <h3 class="text-base font-heading font-semibold text-maage-text">Comprehensive Genome Analysis</h3>
-            <span class="text-xs font-medium text-maage-primary-700 bg-maage-primary-100 px-2 py-0.5 rounded-full">Start Here</span>
-          </div>
-          <p class="text-sm text-maage-text-muted leading-relaxed">
-            Upload raw reads or assembled contigs to produce an annotated genome. CGA performs
-            assembly, annotation, and provides a comprehensive summary of your organism. For
-            supported organisms, allele calling (ChewBBACA) and hierarchical clustering (HierCC)
-            are run automatically against public genomes, giving you immediate cluster assignments
-            to identify related isolates.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Core Genome MLST -->
-    <div class="w-full md:w-[calc(50%-0.5rem)] bg-maage-surface border border-maage-border rounded-lg p-5 hover:shadow-md transition-shadow">
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-10 h-10 bg-maage-tertiary-100 rounded-lg flex items-center justify-center">
-          <i class="icon-cluster text-maage-tertiary-700" style="font-size: 20px;"></i>
-        </div>
-        <div>
-          <h3 class="text-base font-heading font-semibold text-maage-text mb-1">Core Genome MLST</h3>
-          <p class="text-sm text-maage-text-muted leading-relaxed">
-            Analyze a specific group of assembled and annotated genomes with ChewBBACA. Unlike
-            the automatic clustering in CGA (which compares against all public genomes), this
-            service lets you cluster only the genomes in your selected group -- mixing public
-            and private data or analyzing exclusively private genomes. Produces a report detailing
-            which genomes are similar and where they differ at the gene level. Trees are generated
-            using GrapeTree's MSTree V2 algorithm.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Whole Genome SNP Analysis -->
-    <div class="w-full md:w-[calc(50%-0.5rem)] bg-maage-surface border border-maage-border rounded-lg p-5 hover:shadow-md transition-shadow">
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-10 h-10 bg-maage-quaternary-100 rounded-lg flex items-center justify-center">
-          <i class="icon-selection-SNP text-maage-quaternary-600" style="font-size: 20px;"></i>
-        </div>
-        <div>
-          <h3 class="text-base font-heading font-semibold text-maage-text mb-1">Whole Genome SNP Analysis</h3>
-          <p class="text-sm text-maage-text-muted leading-relaxed">
-            Identify Single Nucleotide Polymorphisms (SNPs) within a group of genomes using
-            kSNP4. This service produces a report showing which genomes are similar and where
-            they differ at the SNP level, organized into three categories: <strong>All SNPs</strong>
-            identified across all genomes, <strong>Core SNPs</strong> present in every genome,
-            and <strong>Majority SNPs</strong> present in a configurable percentage threshold.
-            Compare genomes using a distance matrix and heatmap to understand shared and
-            distinguishing variants. Supports Maximum Likelihood, Neighbor Joining, and
-            Parsimony tree methods.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Phylogenetic Tree -->
-    <div class="w-full md:w-[calc(50%-0.5rem)] bg-maage-surface border border-maage-border rounded-lg p-5 hover:shadow-md transition-shadow">
-      <div class="flex items-start gap-3">
-        <div class="flex-shrink-0 w-10 h-10 bg-maage-quinary-100 rounded-lg flex items-center justify-center">
-          <i class="icon-tree text-maage-quinary-600" style="font-size: 20px;"></i>
-        </div>
-        <div>
-          <h3 class="text-base font-heading font-semibold text-maage-text mb-1">Phylogenetic Tree</h3>
-          <p class="text-sm text-maage-text-muted leading-relaxed">
-            Construct custom phylogenetic trees and map your metadata using the Codon Tree method.
-            Visualize evolutionary relationships and transmission patterns across your investigation
-            samples. Note that other services also produce trees: cgMLST generates trees via
-            GrapeTree's MSTree V2 algorithm, and Whole Genome SNP Analysis produces trees using
-            Maximum Likelihood, Neighbor Joining, and Parsimony methods.
-          </p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Getting Started Note -->
-  <div class="mt-8 p-4 bg-maage-info-100 border border-maage-info-300 rounded-lg">
-    <p class="text-sm text-maage-info-800">
-      <strong>Getting started:</strong> Select a service from the sidebar on the left to open
-      its submission form. Begin with <strong>Comprehensive Genome Analysis</strong> to assemble
-      and annotate your genome. Once your genome is ready, use the downstream services to
-      investigate clusters, identify SNPs, and build phylogenetic trees.
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Begin by uploading one or more samples to your investigation.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      MAAGE supports multiple starting points, allowing you to begin with:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Raw sequencing reads (FASTQ)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Assembled genome contigs (FASTA)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Previously analyzed genomes in your MAAGE workspace</span>
+      </li>
+    </ul>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Each uploaded sample becomes part of your investigation and can be analyzed individually or together
+      throughout the workflow.
+    </p>
+    <p class="text-base font-bold text-maage-text mb-2">Supported inputs</p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Illumina paired-end FASTQ</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Oxford Nanopore FASTQ</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Assembled genome contigs (FASTA)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Existing MAAGE genomes</span>
+      </li>
+    </ul>
+    <p class="text-base font-bold text-maage-text mb-2">Next Step</p>
+    <p class="text-base text-maage-text-muted leading-relaxed">
+      Run <strong>Comprehensive Genome Analysis</strong> to assemble (if needed), annotate, and characterize each genome.
     </p>
   </div>
+
+  <!-- Step 2 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 2. Identify and Characterize Your Pathogen
+    </h2>
+    <p class="text-base font-bold text-maage-text mb-2">Comprehensive Genome Analysis</p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Comprehensive Genome Analysis performs genome assembly (when needed), genome annotation, and generates a
+      comprehensive summary of each organism, including species identification, typing information, antimicrobial
+      resistance genes, virulence factors, and other key genomic characteristics.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      For supported organisms, MAAGE automatically performs:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>cgMLST allele calling using ChewBBACA</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>HierCC hierarchical clustering</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Comparison against the public genome database</span>
+      </li>
+    </ul>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      These analyses immediately identify closely related public isolates and provide the first indication of
+      potential outbreak connections.
+    </p>
+    <p class="text-base font-bold text-maage-text mb-2">Outcome</p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Annotated genome</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Species identification</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>MLST and serotype (when available)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>AMR gene predictions</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Virulence factors</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>cgMLST profile</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>HierCC cluster assignments</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Closest related public genomes</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 3. Review Related Public Isolates
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Once your genome has been characterized, examine its relationship to publicly available genomes.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Review the automatically assigned HierCC clusters and explore closely related public isolates to determine
+      whether your sample belongs to a known lineage, previously reported outbreak, or ongoing surveillance cluster.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Use this information to assess:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Geographic distribution</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Collection dates</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Host and source metadata</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Historical outbreak associations</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Potential epidemiological links</span>
+      </li>
+    </ul>
+    <p class="text-base text-maage-text-muted leading-relaxed italic">
+      This step often provides the first evidence that multiple cases may be connected.
+    </p>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 4. Compare Suspected Outbreak Isolates with Core Genome MLST
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      If multiple isolates appear to be related, perform a focused Core Genome MLST analysis.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Unlike the automatic HierCC comparison performed during Comprehensive Genome Analysis, this service
+      compares only the genomes you select, allowing you to analyze combinations of private and public
+      genomes or exclusively private datasets.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Core Genome MLST identifies shared and differing alleles among your selected genomes and produces an
+      interactive minimum spanning tree to visualize genetic relationships.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Use this analysis to determine:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Which isolates belong to the same outbreak</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Which isolates are unrelated</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Gene-by-gene differences</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Genetic distance between isolates</span>
+      </li>
+    </ul>
+    <p class="text-base font-bold text-maage-text mb-2">Outputs</p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Allele difference matrix</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Cluster assignments</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Minimum spanning tree (GrapeTree MSTree V2)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Pairwise genome comparisons</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 5. Resolve Closely Related Isolates with Whole Genome SNP Analysis
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      When isolates remain highly similar after cgMLST analysis, Whole Genome SNP Analysis provides
+      higher-resolution comparisons.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Using kSNP4, MAAGE identifies:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Core SNPs</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Majority SNPs</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>All SNPs</span>
+      </li>
+    </ul>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Pairwise SNP distances, SNP heatmaps, and phylogenetic trees help distinguish nearly identical isolates
+      and infer transmission events with greater confidence.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Use this analysis to:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Confirm outbreak membership</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Differentiate highly similar isolates</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Identify transmission pathways</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Measure evolutionary distance</span>
+      </li>
+    </ul>
+    <p class="text-base font-bold text-maage-text mb-2">Outputs</p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>SNP matrices</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Pairwise SNP distances</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>SNP heatmaps</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Maximum Likelihood, Neighbor Joining, and Parsimony trees</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 6. Visualize Evolutionary Relationships
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Construct phylogenetic trees to summarize the evolutionary relationships among your investigation samples.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      The Phylogenetic Tree service builds codon-based phylogenies and allows metadata to be mapped directly
+      onto the tree, making it easier to interpret transmission patterns, geographic spread, temporal trends,
+      and outbreak structure.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Although Core Genome MLST and Whole Genome SNP Analysis also generate phylogenetic trees automatically,
+      this service provides greater flexibility for building customized trees from selected genomes.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Use this step to:
+    </p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Visualize transmission networks</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Explore evolutionary relationships</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Generate publication-quality figures</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Communicate investigation findings</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Typical Workflow -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Typical Investigation Workflow
+    </h2>
+    <pre class="text-sm text-maage-text-muted font-mono leading-loose overflow-x-auto bg-maage-bg border border-maage-border rounded p-4">Upload sequencing reads or assembled genomes
+                │
+                ▼
+Identify and characterize each pathogen
+(Comprehensive Genome Analysis)
+                │
+                ▼
+Automatically compare against public genomes
+(cgMLST + HierCC)
+                │
+                ▼
+Review related isolates and outbreak clusters
+                │
+                ▼
+Compare selected isolates using Core Genome MLST
+                │
+                ▼
+Need higher resolution?
+                │
+              Yes
+                ▼
+Whole Genome SNP Analysis
+                │
+                ▼
+Build phylogenetic tree and interpret results</pre>
+  </div>
+
+  <!-- Getting Started -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-xl font-heading font-bold text-maage-text mb-3">Getting Started</h2>
+    <p class="text-base text-maage-text-muted leading-relaxed">
+      Start by uploading your sequencing data or assembled genomes. After running
+      <strong>Comprehensive Genome Analysis</strong>, MAAGE automatically annotates each genome, compares it
+      against public datasets, and identifies related isolates. You can then perform increasingly detailed
+      analyses—including Core Genome MLST, Whole Genome SNP Analysis, and phylogenetic reconstruction—to
+      investigate outbreak relationships and generate publication-ready results.
+    </p>
+  </div>
+
 </div>

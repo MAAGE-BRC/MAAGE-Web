@@ -1,11 +1,15 @@
 define([
   'dojo/_base/declare',
   'dijit/layout/BorderContainer',
-  '../GenomeGridContainer'
+  'dijit/layout/ContentPane',
+  'dojo/dom-construct',
+  '../search/GenomeSearch'
 ], function (
   declare,
   BorderContainer,
-  GenomeGridContainer
+  ContentPane,
+  domConstruct,
+  GenomeSearch
 ) {
   return declare([BorderContainer], {
     gutters: false,
@@ -15,22 +19,14 @@ define([
     postCreate: function () {
       this.inherited(arguments);
 
-      this._grid = new GenomeGridContainer({
+      this._pane = new ContentPane({
         region: 'center',
-        title: 'My Genomes',
-        visible: true,
-        enableFilterPanel: true,
-        showAutoFilterMessage: false,
-        state: {
-          search: '',
-          hashParams: {
-            filter: 'eq(public,false)',
-            defaultSort: '-date_inserted'
-          }
-        }
+        style: 'overflow: auto; padding: 0;'
       });
+      this.addChild(this._pane);
 
-      this.addChild(this._grid);
+      this._search = new GenomeSearch({});
+      domConstruct.place(this._search.domNode, this._pane.containerNode);
     },
 
     startup: function () {
@@ -38,22 +34,22 @@ define([
         return;
       }
       this.inherited(arguments);
-      if (this._grid && this._grid.startup) {
-        this._grid.startup();
+      if (this._search && this._search.startup) {
+        this._search.startup();
       }
     },
 
     resize: function () {
       this.inherited(arguments);
-      if (this._grid && this._grid.resize) {
-        this._grid.resize();
+      if (this._pane && this._pane.resize) {
+        this._pane.resize();
       }
     },
 
     destroy: function () {
-      if (this._grid && this._grid.destroyRecursive) {
-        this._grid.destroyRecursive();
-        this._grid = null;
+      if (this._search && this._search.destroyRecursive) {
+        this._search.destroyRecursive();
+        this._search = null;
       }
       this.inherited(arguments);
     }
