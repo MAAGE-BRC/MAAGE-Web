@@ -4,7 +4,14 @@ var axios = require('axios');
 var FeedParser = require('feedparser');
 var securityUtils = require('../lib/securityUtils');
 
-var WHO_RSS_FEED = 'https://www.who.int/rss-feeds/news-english.xml';
+// WHO Disease Outbreak News (DON) API — returns dated, structured outbreak
+// reports. The old general news RSS feed (news-english.xml) was press releases,
+// not outbreaks, so species filtering almost never matched.
+var WHO_DON_API = 'https://www.who.int/api/news/diseaseoutbreaknews';
+var WHO_DON_ITEM_BASE = 'https://www.who.int/emergencies/disease-outbreak-news/item/';
+
+// Only surface alerts published in the current year or the year before.
+var ALERT_MIN_YEAR = new Date().getFullYear() - 1;
 
 function parseFeed(url) {
   return new Promise(function (resolve, reject) {
@@ -41,6 +48,16 @@ function parseFeed(url) {
   });
 }
 
+function fetchJson(url) {
+  return axios.get(url, {
+    responseType: 'json',
+    timeout: 15000,
+    headers: { accept: 'application/json' }
+  }).then(function (response) {
+    return response.data;
+  });
+}
+
 function normalizeText(value, maxLength) {
   var text = securityUtils.sanitizeText(String(value || '')).replace(/\s+/g, ' ').trim();
   if (!maxLength || text.length <= maxLength) {
@@ -57,13 +74,28 @@ function normalizeDate(value) {
   return isNaN(d.getTime()) ? null : d.toISOString();
 }
 
-function buildSourceUrlMap(term) {
-  var encoded = encodeURIComponent(term);
+function buildSourceUrlMap(queryTerms) {
+  // Link buttons must reproduce the SAME query the widget ran. The widget
+  // searches all query terms (species plus an optional alternate name), so a
+  // link built from only the species under-returns compared to what is shown.
+  var terms = Array.isArray(queryTerms) ? queryTerms.filter(Boolean) : [queryTerms];
+  var primary = terms[0] || '';
+
+  // Google News honors an OR of quoted phrases, matching the merged results.
+  var googleQuery = terms.map(function (t) { return '"' + t + '"'; }).join(' OR ');
+
+  // WHO's site search is a Google Custom Search Engine. The working search URL
+  // carries the term in both the server (?q=) and the client-side CSE (#gsc.q=)
+  // parameters; wordsMode=AnyWord matches any of the words.
+  var whoEncoded = encodeURIComponent(primary);
+  var whoUrl = 'https://www.who.int/home/search-results?indexCatalogue=genericsearchindex1' +
+    '&q=' + whoEncoded + '&wordsMode=AnyWord' +
+    '#gsc.tab=0&gsc.q=' + whoEncoded + '&gsc.page=1';
+
   return {
-    who: 'https://www.who.int/emergencies/disease-outbreak-news?query=' + encoded,
-    healthmap: 'https://www.healthmap.org/en/?q=' + encoded,
-    promed: 'https://promedmail.org/?s=' + encoded,
-    googleNews: 'https://news.google.com/search?q=' + encoded + '&hl=en-US&gl=US&ceid=US%3Aen'
+    who: whoUrl,
+    promed: 'https://promedmail.org/?s=' + encodeURIComponent(primary),
+    googleNews: 'https://news.google.com/search?q=' + encodeURIComponent(googleQuery) + '&hl=en-US&gl=US&ceid=US%3Aen'
   };
 }
 
@@ -95,29 +127,32 @@ function normalizeFeedItem(source, item) {
   };
 }
 
-function normalizeHealthMapJsonItem(raw) {
-  var link = raw && (raw.url || raw.link || raw.alert_url || raw.alertURL || raw.guid);
+function normalizeWhoDonItem(raw) {
+  var urlName = raw && raw.UrlName;
+  var link = urlName ? WHO_DON_ITEM_BASE + encodeURIComponent(urlName) : null;
   if (link && !securityUtils.isValidHttpUrl(link)) {
     link = null;
   }
 
   return {
-    source: 'HealthMap',
-    title: normalizeText(raw && (raw.title || raw.headline || raw.summary), 220) || 'Untitled alert',
-    summary: normalizeText(raw && (raw.description || raw.summary || raw.snippet), 260),
+    source: 'WHO',
+    title: normalizeText(raw && raw.Title, 220) || 'Untitled alert',
+    summary: normalizeText(raw && raw.Summary, 260),
     link: link,
-    pubDate: normalizeDate(raw && (raw.pubDate || raw.date || raw.timestamp || raw.reportDate))
+    pubDate: normalizeDate(raw && (raw.PublicationDate || raw.LastModified || raw.DateCreated))
   };
 }
 
-async function fetchWhoAlerts(termLower, tokens, maxItems) {
-  var rawItems = await parseFeed(WHO_RSS_FEED);
-
-  return rawItems
-    .map(function (item) { return normalizeFeedItem('WHO', item); })
-    .filter(function (item) { return item.link && itemMatchesTerm(item, termLower, tokens); })
-    .sort(function (a, b) { return (b.pubDate || '').localeCompare(a.pubDate || ''); })
-    .slice(0, maxItems);
+// Fetch the most recent WHO Disease Outbreak News items once, then filter
+// in-memory per term (the API has no reliable full-text query parameter).
+async function fetchWhoDonItems() {
+  var url = WHO_DON_API +
+    '?$top=50' +
+    '&$orderby=' + encodeURIComponent('PublicationDate desc') +
+    '&$select=' + encodeURIComponent('Title,Summary,UrlName,PublicationDate,LastModified,DateCreated');
+  var data = await fetchJson(url);
+  var value = data && Array.isArray(data.value) ? data.value : [];
+  return value.map(normalizeWhoDonItem).filter(function (item) { return item.link; });
 }
 
 function buildGoogleNewsRssUrl(term, siteDomain, includeOutbreak) {
@@ -141,7 +176,10 @@ async function fetchGoogleNewsAlerts(term, termLower, tokens, maxItems) {
     .slice(0, maxItems);
 }
 
-async function fetchPromedAlerts(term, maxItems) {
+// ProMED has no working public feed (the site is frequently unreachable), so we
+// still rely on a site:promedmail.org Google News query. Require the search term
+// to actually appear so stale generic landing pages are not surfaced as alerts.
+async function fetchPromedAlerts(term, termLower, tokens, maxItems) {
   var rawItems = await parseFeed(buildGoogleNewsRssUrl(term, 'promedmail.org', true));
 
   return rawItems
@@ -152,40 +190,21 @@ async function fetchPromedAlerts(term, maxItems) {
       }
       return normalized;
     })
-    .filter(function (item) { return item.link; })
-    .sort(function (a, b) { return (b.pubDate || '').localeCompare(a.pubDate || ''); })
-    .slice(0, maxItems);
-}
-
-async function fetchHealthMapAlerts(term, termLower, tokens, maxItems) {
-  var rawItems = await parseFeed(buildGoogleNewsRssUrl(term, 'healthmap.org', true));
-
-  return rawItems
-    .map(function (item) { return normalizeFeedItem('HealthMap', item); })
     .filter(function (item) { return item.link && itemMatchesTerm(item, termLower, tokens); })
     .sort(function (a, b) { return (b.pubDate || '').localeCompare(a.pubDate || ''); })
     .slice(0, maxItems);
 }
 
-function summarizeAlerts(species, totals, highlights) {
+function summarizeAlerts(species, totals) {
   var total = totals.total || 0;
   if (!total) {
-    return 'No recent matching alerts found for ' + species + ' in WHO, HealthMap, ProMED, or Google News.';
+    return 'No recent matching alerts found for ' + species + ' in WHO, ProMED, or Google News.';
   }
 
-  var prefix = 'Found ' + total + ' recent alerts for ' + species +
-    ' across WHO (' + totals.WHO + '), HealthMap (' + totals.HealthMap + '), ProMED (' + totals.ProMED + '), and Google News (' + totals.GoogleNews + ').';
-
-  if (!highlights.length) {
-    return prefix;
-  }
-
-  var latest = highlights.slice(0, 2).map(function (item) {
-    var dateText = item.pubDate ? item.pubDate.substring(0, 10) : 'undated';
-    return item.source + ': ' + item.title + ' (' + dateText + ')';
-  }).join(' | ');
-
-  return prefix + ' Latest signals: ' + latest;
+  // The source names, counts, and headlines are shown in the collapsible source
+  // sections below, so the summary only reports the overall total here.
+  return 'Found ' + total + ' recent alert' + (total === 1 ? '' : 's') +
+    ' for ' + species + '.';
 }
 
 function buildTermContext(term) {
@@ -202,11 +221,22 @@ function buildTermContext(term) {
   };
 }
 
+function isWithinRecentYears(pubDate) {
+  if (!pubDate) {
+    return false;
+  }
+  var year = new Date(pubDate).getFullYear();
+  return !isNaN(year) && year >= ALERT_MIN_YEAR;
+}
+
 function mergeAlertsByUniq(items, maxItems) {
   var seen = {};
   var merged = [];
 
   items.forEach(function (item) {
+    if (!isWithinRecentYears(item.pubDate)) {
+      return;
+    }
     var key = [item.source || '', item.link || '', item.title || ''].join('|');
     if (!key || seen[key]) {
       return;
@@ -223,28 +253,12 @@ function mergeAlertsByUniq(items, maxItems) {
 }
 
 async function fetchWhoAlertsForTerms(termContexts, maxItems) {
-  var rawItems = await parseFeed(WHO_RSS_FEED);
-  var all = rawItems
-    .map(function (item) { return normalizeFeedItem('WHO', item); })
-    .filter(function (item) {
-      if (!item.link) {
-        return false;
-      }
-      return termContexts.some(function (ctx) {
-        return itemMatchesTerm(item, ctx.lower, ctx.tokens);
-      });
+  var items = await fetchWhoDonItems();
+  var all = items.filter(function (item) {
+    return termContexts.some(function (ctx) {
+      return itemMatchesTerm(item, ctx.lower, ctx.tokens);
     });
-
-  return mergeAlertsByUniq(all, maxItems);
-}
-
-async function fetchHealthMapAlertsForTerms(termContexts, maxItems) {
-  var all = [];
-  for (var i = 0; i < termContexts.length; i++) {
-    var ctx = termContexts[i];
-    var alerts = await fetchHealthMapAlerts(ctx.term, ctx.lower, ctx.tokens, maxItems);
-    all = all.concat(alerts);
-  }
+  });
 
   return mergeAlertsByUniq(all, maxItems);
 }
@@ -253,7 +267,7 @@ async function fetchPromedAlertsForTerms(termContexts, maxItems) {
   var all = [];
   for (var i = 0; i < termContexts.length; i++) {
     var ctx = termContexts[i];
-    var alerts = await fetchPromedAlerts(ctx.term, maxItems);
+    var alerts = await fetchPromedAlerts(ctx.term, ctx.lower, ctx.tokens, maxItems);
     all = all.concat(alerts);
   }
 
@@ -291,12 +305,11 @@ router.get('/alerts', async function (req, res) {
 
   var results = await Promise.allSettled([
     fetchWhoAlertsForTerms(termContexts, count),
-    fetchHealthMapAlertsForTerms(termContexts, count),
     fetchPromedAlertsForTerms(termContexts, count),
     fetchGoogleNewsAlertsForTerms(termContexts, count)
   ]);
 
-  var bySource = { WHO: [], HealthMap: [], ProMED: [], GoogleNews: [] };
+  var bySource = { WHO: [], ProMED: [], GoogleNews: [] };
   var sourceErrors = [];
 
   if (results[0].status === 'fulfilled') {
@@ -307,27 +320,20 @@ router.get('/alerts', async function (req, res) {
   }
 
   if (results[1].status === 'fulfilled') {
-    bySource.HealthMap = results[1].value;
+    bySource.ProMED = results[1].value;
   } else {
-    sourceErrors.push('HealthMap');
-    console.error('HealthMap alert retrieval failed:', results[1].reason);
+    sourceErrors.push('ProMED');
+    console.error('ProMED alert retrieval failed:', results[1].reason);
   }
 
   if (results[2].status === 'fulfilled') {
-    bySource.ProMED = results[2].value;
-  } else {
-    sourceErrors.push('ProMED');
-    console.error('ProMED alert retrieval failed:', results[2].reason);
-  }
-
-  if (results[3].status === 'fulfilled') {
-    bySource.GoogleNews = results[3].value;
+    bySource.GoogleNews = results[2].value;
   } else {
     sourceErrors.push('Google News');
-    console.error('Google News alert retrieval failed:', results[3].reason);
+    console.error('Google News alert retrieval failed:', results[2].reason);
   }
 
-  var highlights = bySource.WHO.concat(bySource.HealthMap, bySource.ProMED, bySource.GoogleNews)
+  var highlights = bySource.WHO.concat(bySource.ProMED, bySource.GoogleNews)
     .sort(function (a, b) {
       return (b.pubDate || '').localeCompare(a.pubDate || '');
     })
@@ -335,19 +341,18 @@ router.get('/alerts', async function (req, res) {
 
   var totals = {
     WHO: bySource.WHO.length,
-    HealthMap: bySource.HealthMap.length,
     ProMED: bySource.ProMED.length,
     GoogleNews: bySource.GoogleNews.length
   };
-  totals.total = totals.WHO + totals.HealthMap + totals.ProMED;
+  totals.total = totals.WHO + totals.ProMED + totals.GoogleNews;
 
   res.json({
     species: species,
     queryTerms: queryTerms,
     generatedAt: new Date().toISOString(),
-    sourceUrls: buildSourceUrlMap(species),
+    sourceUrls: buildSourceUrlMap(queryTerms),
     totals: totals,
-    summary: summarizeAlerts(species, totals, highlights),
+    summary: summarizeAlerts(species, totals),
     highlights: highlights,
     bySource: bySource,
     unavailableSources: sourceErrors
