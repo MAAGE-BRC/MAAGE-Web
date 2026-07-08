@@ -3,187 +3,205 @@
   <!-- Page Title -->
   <div class="mb-8">
     <h1 class="text-3xl sm:text-4xl font-heading font-bold text-maage-text mb-4">
-      Epidemiology Investigation Workflow
+      Bacterial Outbreak Investigation
     </h1>
     <p class="text-base text-maage-text-muted leading-relaxed">
-      The Epidemiology Investigation workflow guides you through the complete process of genomic surveillance
-      and outbreak analysis—from sequencing data to outbreak interpretation. Whether you are investigating a
-      suspected outbreak, performing routine surveillance, or comparing isolates to public datasets, MAAGE
-      provides an integrated workspace that supports every stage of the investigation.
+      The Bacterial Outbreak Investigation workflow supports genome assembly, annotation, genomic surveillance,
+      cluster detection, comparative genomics, phylogenetic analysis, antimicrobial resistance characterization,
+      and epidemiological interpretation within a unified workspace and analysis environment. Designed for routine
+      surveillance and outbreak response, it enables rapid comparison of new isolates with public genomic databases
+      to identify related cases, characterize transmission clusters, and support evidence-based public health
+      investigations.
     </p>
   </div>
 
   <!-- Workflow Diagram -->
-  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-4" style="max-width:100%; overflow-x:auto;">
-    <svg viewBox="0 0 1200 400" width="100%" xmlns="http://www.w3.org/2000/svg" style="min-width:800px; font-family: system-ui, -apple-system, sans-serif;">
+  <div class="mb-6">
+    <img src="/maage/img/bacterialinvestigationworkflow.png" alt="Bacterial Investigation Workflow diagram" style="width:100%; height:auto; display:block;"/>
+    <!--
       <defs>
-        <marker id="wf-arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0,0 L0,7 L7,3.5 z" fill="#adb5bd"/>
-        </marker>
-        <marker id="wf-arr-g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0,0 L0,7 L7,3.5 z" fill="#57856f"/>
-        </marker>
-        <marker id="wf-arr-r" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0,0 L0,7 L7,3.5 z" fill="#ab4e52"/>
+        <marker id="wf-arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L0,8 L8,4 z" fill="#94a3b8"/>
         </marker>
       </defs>
 
-      <!-- Title -->
-      <text x="12" y="28" font-size="18" font-weight="700" fill="#212529">Typical Investigation Workflow</text>
+      <!-- Outer container -->
+      <rect x="1" y="1" width="1398" height="508" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
 
-      <!-- ── Step 1: Upload ── color #57856f  box x=8 w=110 center=63 -->
-      <rect x="8" y="42" width="110" height="195" rx="8" fill="#f3f7f5" stroke="#57856f" stroke-width="1.5"/>
-      <circle cx="22" cy="57" r="12" fill="#57856f"/>
-      <text x="22" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">1</text>
-      <circle cx="63" cy="100" r="23" fill="#57856f"/>
-      <line x1="63" y1="108" x2="63" y2="93" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-      <polyline points="55,100 63,92 71,100" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-      <line x1="55" y1="109" x2="71" y2="109" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      <text x="63" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#57856f">Upload data</text>
-      <text x="63" y="156" text-anchor="middle" font-size="10" fill="#6c757d">(reads or contigs)</text>
-      <text x="63" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Upload samples</text>
-      <text x="63" y="189" text-anchor="middle" font-size="10" fill="#6c757d">to MAAGE workspace</text>
+      <!-- HEADER -->
+      <path d="M36,10 L62,19 L62,38 Q62,54 36,63 Q10,54 10,38 L10,19 Z" fill="#4f46e5" opacity="0.12"/>
+      <path d="M36,12 L60,20 L60,38 Q60,52 36,60 Q12,52 12,38 L12,20 Z" fill="none" stroke="#4f46e5" stroke-width="1.8"/>
+      <path d="M25,26 Q36,33 47,26" fill="none" stroke="#4f46e5" stroke-width="1.6"/>
+      <path d="M25,35 Q36,28 47,35" fill="none" stroke="#7c3aed" stroke-width="1.6"/>
+      <path d="M25,44 Q36,51 47,44" fill="none" stroke="#4f46e5" stroke-width="1.6"/>
+      <line x1="29" y1="26" x2="29" y2="44" stroke="#4f46e5" stroke-width="1.2" opacity="0.5"/>
+      <line x1="43" y1="26" x2="43" y2="44" stroke="#7c3aed" stroke-width="1.2" opacity="0.5"/>
+      <text x="74" y="38" font-size="28" font-weight="800" fill="#0f172a">Bacterial Investigation Workflow</text>
+      <text x="74" y="58" font-size="13" fill="#64748b">A step-by-step path from your sequencing data to outbreak interpretation.</text>
 
-      <!-- Arrow S1→S2 -->
-      <line x1="118" y1="135" x2="139" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+      <!-- MAIN FLOW AREA -->
+      <rect x="8" y="70" width="1384" height="374" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
 
-      <!-- ── Step 2: CGA ── color #467386  box x=140 w=110 center=195 -->
-      <rect x="140" y="42" width="110" height="195" rx="8" fill="#eef4f7" stroke="#467386" stroke-width="1.5"/>
-      <circle cx="154" cy="57" r="12" fill="#467386"/>
-      <text x="154" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">2</text>
-      <circle cx="195" cy="100" r="23" fill="#467386"/>
-      <path d="M183,89 Q195,95 207,89" fill="none" stroke="white" stroke-width="2"/>
-      <path d="M183,99 Q195,93 207,99" fill="none" stroke="white" stroke-width="2"/>
-      <path d="M183,109 Q195,103 207,109" fill="none" stroke="white" stroke-width="2"/>
-      <line x1="183" y1="89" x2="183" y2="109" stroke="white" stroke-width="1.5"/>
-      <line x1="207" y1="89" x2="207" y2="109" stroke="white" stroke-width="1.5"/>
-      <text x="195" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#467386">Characterize</text>
-      <text x="195" y="156" text-anchor="middle" font-size="10" fill="#6c757d">pathogen (CGA)</text>
-      <text x="195" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Assemble, annotate</text>
-      <text x="195" y="189" text-anchor="middle" font-size="10" fill="#6c757d">&amp; generate report</text>
+      <!-- STEP 1 · Upload data · cx=84 -->
+      <rect x="16" y="80" width="136" height="240" rx="10" fill="#f0fdf9" stroke="#6ee7b7" stroke-width="1.2"/>
+      <circle cx="34" cy="100" r="15" fill="#2a9d8f"/>
+      <text x="34" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="white">1</text>
+      <circle cx="84" cy="172" r="36" fill="#2a9d8f"/>
+      <path d="M68,180 C65,177 65,172 69,169 C68,162 73,157 80,158 C82,153 89,150 96,153 C101,150 108,153 108,160 C113,161 116,166 115,172 C114,177 110,179 106,179 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="84" y1="179" x2="84" y2="167" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      <polyline points="79,173 84,166 89,173" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <text x="84" y="221" text-anchor="middle" font-size="12" font-weight="700" fill="#2a9d8f">Upload data</text>
+      <text x="84" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">(reads or contigs)</text>
+      <line x1="24" y1="247" x2="144" y2="247" stroke="#a7f3d0" stroke-width="1"/>
+      <text x="84" y="262" text-anchor="middle" font-size="10" fill="#94a3b8">Add your samples</text>
+      <text x="84" y="277" text-anchor="middle" font-size="10" fill="#94a3b8">to MAAGE</text>
+      <line x1="152" y1="200" x2="171" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- Arrow S2→S3 -->
-      <line x1="250" y1="135" x2="271" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+      <!-- STEP 2 · Characterize pathogen · cx=242 -->
+      <rect x="174" y="80" width="136" height="240" rx="10" fill="#f0fdf9" stroke="#6ee7b7" stroke-width="1.2"/>
+      <circle cx="192" cy="100" r="15" fill="#2a9d8f"/>
+      <text x="192" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="white">2</text>
+      <circle cx="242" cy="172" r="36" fill="#2a9d8f"/>
+      <path d="M228,160 Q242,167 256,160" fill="none" stroke="white" stroke-width="2"/>
+      <path d="M228,169 Q242,162 256,169" fill="none" stroke="white" stroke-width="2"/>
+      <path d="M228,178 Q242,185 256,178" fill="none" stroke="white" stroke-width="2"/>
+      <path d="M228,187 Q242,180 256,187" fill="none" stroke="white" stroke-width="2"/>
+      <line x1="228" y1="160" x2="228" y2="187" stroke="white" stroke-width="1.5"/>
+      <line x1="256" y1="160" x2="256" y2="187" stroke="white" stroke-width="1.5"/>
+      <line x1="260" y1="161" x2="268" y2="161" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <line x1="264" y1="157" x2="264" y2="165" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <text x="242" y="221" text-anchor="middle" font-size="12" font-weight="700" fill="#2a9d8f">Characterize</text>
+      <text x="242" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">pathogen (CGA)</text>
+      <line x1="182" y1="247" x2="302" y2="247" stroke="#a7f3d0" stroke-width="1"/>
+      <text x="242" y="262" text-anchor="middle" font-size="10" fill="#94a3b8">Assemble, annotate</text>
+      <text x="242" y="277" text-anchor="middle" font-size="10" fill="#94a3b8">and generate summary</text>
+      <line x1="310" y1="200" x2="329" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- ── Step 3: Review ── color #406777  box x=272 w=110 center=327 -->
-      <rect x="272" y="42" width="110" height="195" rx="8" fill="#e8f2f6" stroke="#406777" stroke-width="2"/>
-      <circle cx="286" cy="57" r="12" fill="#406777"/>
-      <text x="286" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">3</text>
-      <circle cx="327" cy="100" r="23" fill="#406777"/>
-      <circle cx="327" cy="100" r="13" fill="none" stroke="white" stroke-width="1.8"/>
-      <ellipse cx="327" cy="100" rx="7" ry="13" fill="none" stroke="white" stroke-width="1.4"/>
-      <line x1="314" y1="100" x2="340" y2="100" stroke="white" stroke-width="1.4"/>
-      <text x="327" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#406777">Review related</text>
-      <text x="327" y="156" text-anchor="middle" font-size="10" fill="#6c757d">public isolates</text>
-      <text x="327" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Explore clusters and</text>
-      <text x="327" y="189" text-anchor="middle" font-size="10" fill="#6c757d">related genomes</text>
+      <!-- STEP 3 · Review related public isolates · cx=400 -->
+      <rect x="332" y="80" width="136" height="240" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+      <circle cx="350" cy="100" r="15" fill="#3b82f6"/>
+      <text x="350" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="white">3</text>
+      <circle cx="400" cy="172" r="36" fill="#3b82f6"/>
+      <circle cx="400" cy="172" r="18" fill="none" stroke="white" stroke-width="2"/>
+      <ellipse cx="400" cy="172" rx="8" ry="18" fill="none" stroke="white" stroke-width="1.5"/>
+      <line x1="382" y1="172" x2="418" y2="172" stroke="white" stroke-width="1.5"/>
+      <line x1="383" y1="164" x2="417" y2="164" stroke="white" stroke-width="1"/>
+      <line x1="383" y1="180" x2="417" y2="180" stroke="white" stroke-width="1"/>
+      <text x="400" y="221" text-anchor="middle" font-size="12" font-weight="700" fill="#3b82f6">Review related</text>
+      <text x="400" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">public isolates</text>
+      <line x1="340" y1="247" x2="460" y2="247" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="400" y="262" text-anchor="middle" font-size="10" fill="#94a3b8">Explore clusters and</text>
+      <text x="400" y="277" text-anchor="middle" font-size="10" fill="#94a3b8">related genomes</text>
+      <line x1="468" y1="200" x2="487" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- Arrow S3→D1 -->
-      <line x1="382" y1="135" x2="403" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+      <!-- DIAMOND 1 · center (545,200) hw=52 hh=62 -->
+      <polygon points="545,138 597,200 545,262 493,200" fill="white" stroke="#d1d5db" stroke-width="1.5"/>
+      <text x="545" y="188" text-anchor="middle" font-size="9.5" fill="#374151">Are multiple</text>
+      <text x="545" y="201" text-anchor="middle" font-size="9.5" fill="#374151">isolates</text>
+      <text x="545" y="214" text-anchor="middle" font-size="9.5" fill="#374151">potentially related?</text>
+      <text x="605" y="196" font-size="11" font-weight="700" fill="#16a34a">Yes</text>
+      <text x="550" y="278" font-size="11" font-weight="700" fill="#dc2626">No</text>
+      <line x1="597" y1="200" x2="617" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
+      <line x1="545" y1="262" x2="545" y2="346" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- ── Diamond 1 ── center (450,135) hw=47 hh=38 -->
-      <polygon points="450,97 497,135 450,173 403,135" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1.5"/>
-      <text x="450" y="123" text-anchor="middle" font-size="10" fill="#495057">Are multiple</text>
-      <text x="450" y="136" text-anchor="middle" font-size="10" fill="#495057">isolates</text>
-      <text x="450" y="149" text-anchor="middle" font-size="10" fill="#495057">related?</text>
-      <text x="502" y="130" font-size="11" font-weight="700" fill="#57856f">Yes</text>
-      <text x="454" y="188" font-size="11" font-weight="700" fill="#ab4e52">No</text>
-      <line x1="497" y1="135" x2="517" y2="135" stroke="#57856f" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
-      <line x1="450" y1="173" x2="450" y2="254" stroke="#ab4e52" stroke-width="1.5" marker-end="url(#wf-arr-r)"/>
+      <!-- STEP 4 · Core Genome MLST · cx=699 (purple) -->
+      <rect x="621" y="80" width="156" height="240" rx="10" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+      <circle cx="641" cy="100" r="15" fill="#7c3aed"/>
+      <text x="641" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="white">4</text>
+      <circle cx="699" cy="172" r="36" fill="#7c3aed"/>
+      <circle cx="699" cy="154" r="7" fill="white"/>
+      <circle cx="684" cy="178" r="7" fill="white"/>
+      <circle cx="714" cy="178" r="7" fill="white"/>
+      <line x1="699" y1="161" x2="690" y2="171" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="699" y1="161" x2="708" y2="171" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="688" y1="178" x2="710" y2="178" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+      <text x="699" y="221" text-anchor="middle" font-size="12" font-weight="700" fill="#7c3aed">Core Genome</text>
+      <text x="699" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">MLST (cgMLST)</text>
+      <line x1="629" y1="247" x2="769" y2="247" stroke="#ddd6fe" stroke-width="1"/>
+      <text x="699" y="262" text-anchor="middle" font-size="10" fill="#94a3b8">Compare isolates &amp;</text>
+      <text x="699" y="277" text-anchor="middle" font-size="10" fill="#94a3b8">identify clusters</text>
+      <line x1="777" y1="200" x2="794" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- Investigation complete 1  x=400 y=256 w=100 h=68 -->
-      <rect x="400" y="256" width="100" height="68" rx="8" fill="#f8f9fa" stroke="#c8cdd3" stroke-width="1.2"/>
-      <circle cx="450" cy="276" r="11" fill="none" stroke="#57856f" stroke-width="1.8"/>
-      <text x="450" y="281" text-anchor="middle" font-size="13" fill="#57856f">&#10003;</text>
-      <text x="450" y="300" text-anchor="middle" font-size="10" fill="#495057">Investigation</text>
-      <text x="450" y="315" text-anchor="middle" font-size="10" fill="#495057">complete</text>
+      <!-- DIAMOND 2 · center (850,200) hw=52 hh=62 -->
+      <polygon points="850,138 902,200 850,262 798,200" fill="white" stroke="#d1d5db" stroke-width="1.5"/>
+      <text x="850" y="194" text-anchor="middle" font-size="9.5" fill="#374151">Need higher</text>
+      <text x="850" y="208" text-anchor="middle" font-size="9.5" fill="#374151">resolution?</text>
+      <text x="910" y="196" font-size="11" font-weight="700" fill="#16a34a">Yes</text>
+      <text x="855" y="278" font-size="11" font-weight="700" fill="#dc2626">No</text>
+      <line x1="902" y1="200" x2="920" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
+      <line x1="850" y1="262" x2="850" y2="346" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- ── Step 4: cgMLST ── color #847ba7  box x=518 w=110 center=573 -->
-      <rect x="518" y="42" width="110" height="195" rx="8" fill="#f3f2f9" stroke="#847ba7" stroke-width="1.5"/>
-      <circle cx="532" cy="57" r="12" fill="#847ba7"/>
-      <text x="532" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">4</text>
-      <circle cx="573" cy="100" r="23" fill="#847ba7"/>
-      <circle cx="573" cy="89" r="5" fill="white"/>
-      <circle cx="563" cy="109" r="5" fill="white"/>
-      <circle cx="583" cy="109" r="5" fill="white"/>
-      <line x1="573" y1="94" x2="565" y2="104" stroke="white" stroke-width="1.8"/>
-      <line x1="573" y1="94" x2="581" y2="104" stroke="white" stroke-width="1.8"/>
-      <line x1="568" y1="109" x2="578" y2="109" stroke="white" stroke-width="1.4"/>
-      <text x="573" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#847ba7">Core Genome</text>
-      <text x="573" y="156" text-anchor="middle" font-size="10" fill="#6c757d">MLST (cgMLST)</text>
-      <text x="573" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Compare isolates &amp;</text>
-      <text x="573" y="189" text-anchor="middle" font-size="10" fill="#6c757d">identify clusters</text>
+      <!-- STEP 5 · Whole Genome SNP Analysis · cx=994 -->
+      <rect x="926" y="80" width="136" height="240" rx="10" fill="#f0fdf9" stroke="#6ee7b7" stroke-width="1.2"/>
+      <circle cx="944" cy="100" r="15" fill="#2a9d8f"/>
+      <text x="944" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="white">5</text>
+      <circle cx="994" cy="172" r="36" fill="#2a9d8f"/>
+      <circle cx="989" cy="168" r="14" fill="none" stroke="white" stroke-width="2.5"/>
+      <line x1="999" y1="179" x2="1009" y2="189" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      <text x="989" y="172" text-anchor="middle" font-size="7" font-weight="700" fill="white">AGGT</text>
+      <text x="994" y="221" text-anchor="middle" font-size="12" font-weight="700" fill="#2a9d8f">Whole Genome</text>
+      <text x="994" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">SNP Analysis</text>
+      <line x1="934" y1="247" x2="1054" y2="247" stroke="#a7f3d0" stroke-width="1"/>
+      <text x="994" y="262" text-anchor="middle" font-size="10" fill="#94a3b8">High-resolution</text>
+      <text x="994" y="277" text-anchor="middle" font-size="10" fill="#94a3b8">SNP comparison</text>
+      <line x1="1062" y1="200" x2="1081" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- Arrow S4→D2 -->
-      <line x1="628" y1="135" x2="649" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
+      <!-- STEP 6 · Phylogenetic Tree · cx=1152 -->
+      <rect x="1084" y="80" width="136" height="240" rx="10" fill="#f0fdf9" stroke="#6ee7b7" stroke-width="1.2"/>
+      <circle cx="1102" cy="100" r="15" fill="#2a9d8f"/>
+      <text x="1102" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="white">6</text>
+      <circle cx="1152" cy="172" r="36" fill="#2a9d8f"/>
+      <circle cx="1140" cy="160" r="4.5" fill="white"/>
+      <circle cx="1154" cy="172" r="4.5" fill="white"/>
+      <circle cx="1144" cy="183" r="4.5" fill="white"/>
+      <circle cx="1164" cy="183" r="4.5" fill="white"/>
+      <circle cx="1160" cy="160" r="4.5" fill="white"/>
+      <line x1="1140" y1="160" x2="1154" y2="172" stroke="white" stroke-width="2"/>
+      <line x1="1154" y1="172" x2="1144" y2="183" stroke="white" stroke-width="2"/>
+      <line x1="1154" y1="172" x2="1164" y2="183" stroke="white" stroke-width="2"/>
+      <line x1="1140" y1="160" x2="1160" y2="160" stroke="white" stroke-width="1.5"/>
+      <text x="1152" y="221" text-anchor="middle" font-size="12" font-weight="700" fill="#2a9d8f">Phylogenetic</text>
+      <text x="1152" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">Tree</text>
+      <line x1="1092" y1="247" x2="1212" y2="247" stroke="#a7f3d0" stroke-width="1"/>
+      <text x="1152" y="262" text-anchor="middle" font-size="10" fill="#94a3b8">Visualize relationships</text>
+      <text x="1152" y="277" text-anchor="middle" font-size="10" fill="#94a3b8">and interpret results</text>
+      <line x1="1220" y1="200" x2="1239" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#wf-arr2)"/>
 
-      <!-- ── Diamond 2 ── center (696,135) hw=47 hh=38 -->
-      <polygon points="696,97 743,135 696,173 649,135" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1.5"/>
-      <text x="696" y="128" text-anchor="middle" font-size="10" fill="#495057">Need higher</text>
-      <text x="696" y="142" text-anchor="middle" font-size="10" fill="#495057">resolution?</text>
-      <text x="748" y="130" font-size="11" font-weight="700" fill="#57856f">Yes</text>
-      <text x="700" y="188" font-size="11" font-weight="700" fill="#ab4e52">No</text>
-      <line x1="743" y1="135" x2="763" y2="135" stroke="#57856f" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
-      <line x1="696" y1="173" x2="696" y2="254" stroke="#ab4e52" stroke-width="1.5" marker-end="url(#wf-arr-r)"/>
+      <!-- STEP 7 · Interpret & report findings · cx=1310 -->
+      <rect x="1242" y="80" width="136" height="240" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+      <circle cx="1260" cy="100" r="15" fill="#3b82f6"/>
+      <text x="1260" y="105" text-anchor="middle" font-size="11" font-weight="700" fill="white">7</text>
+      <circle cx="1310" cy="172" r="36" fill="#3b82f6"/>
+      <rect x="1297" y="155" width="22" height="28" rx="3" fill="none" stroke="white" stroke-width="2"/>
+      <line x1="1301" y1="164" x2="1315" y2="164" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="1301" y1="170" x2="1315" y2="170" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="1301" y1="176" x2="1315" y2="176" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="1310" y="221" text-anchor="middle" font-size="12" font-weight="700" fill="#3b82f6">Interpret &amp;</text>
+      <text x="1310" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">report findings</text>
+      <line x1="1250" y1="247" x2="1370" y2="247" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="1310" y="262" text-anchor="middle" font-size="10" fill="#94a3b8">Communicate</text>
+      <text x="1310" y="277" text-anchor="middle" font-size="10" fill="#94a3b8">investigation results</text>
 
-      <!-- Investigation complete 2  x=646 y=256 w=100 h=68 -->
-      <rect x="646" y="256" width="100" height="68" rx="8" fill="#f8f9fa" stroke="#c8cdd3" stroke-width="1.2"/>
-      <circle cx="696" cy="276" r="11" fill="none" stroke="#57856f" stroke-width="1.8"/>
-      <text x="696" y="281" text-anchor="middle" font-size="13" fill="#57856f">&#10003;</text>
-      <text x="696" y="300" text-anchor="middle" font-size="10" fill="#495057">Investigation</text>
-      <text x="696" y="315" text-anchor="middle" font-size="10" fill="#495057">complete</text>
+      <!-- INVESTIGATION COMPLETE 1 (below Diamond 1, cx=545) -->
+      <rect x="495" y="348" width="100" height="72" rx="8" fill="white" stroke="#d1d5db" stroke-width="1.2"/>
+      <circle cx="545" cy="370" r="12" fill="none" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="545" y="375" text-anchor="middle" font-size="12" fill="#2a9d8f">&#10003;</text>
+      <text x="545" y="394" text-anchor="middle" font-size="10" fill="#374151">Investigation</text>
+      <text x="545" y="408" text-anchor="middle" font-size="10" fill="#374151">complete</text>
 
-      <!-- ── Step 5: SNP Analysis ── color #ab4e52  box x=764 w=110 center=819 -->
-      <rect x="764" y="42" width="110" height="195" rx="8" fill="#fbf3f3" stroke="#ab4e52" stroke-width="2"/>
-      <circle cx="778" cy="57" r="12" fill="#ab4e52"/>
-      <text x="778" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">5</text>
-      <circle cx="819" cy="100" r="23" fill="#ab4e52"/>
-      <circle cx="815" cy="96" r="9" fill="none" stroke="white" stroke-width="2.2"/>
-      <line x1="822" y1="103" x2="831" y2="113" stroke="white" stroke-width="3" stroke-linecap="round"/>
-      <text x="819" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#ab4e52">Whole Genome</text>
-      <text x="819" y="156" text-anchor="middle" font-size="10" fill="#6c757d">SNP Analysis</text>
-      <text x="819" y="175" text-anchor="middle" font-size="10" fill="#6c757d">High-resolution SNP</text>
-      <text x="819" y="189" text-anchor="middle" font-size="10" fill="#6c757d">comparison</text>
+      <!-- INVESTIGATION COMPLETE 2 (below Diamond 2, cx=850) -->
+      <rect x="800" y="348" width="100" height="72" rx="8" fill="white" stroke="#d1d5db" stroke-width="1.2"/>
+      <circle cx="850" cy="370" r="12" fill="none" stroke="#2a9d8f" stroke-width="2"/>
+      <text x="850" y="375" text-anchor="middle" font-size="12" fill="#2a9d8f">&#10003;</text>
+      <text x="850" y="394" text-anchor="middle" font-size="10" fill="#374151">Investigation</text>
+      <text x="850" y="408" text-anchor="middle" font-size="10" fill="#374151">complete</text>
 
-      <!-- Arrow S5→S6 -->
-      <line x1="874" y1="135" x2="895" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
-
-      <!-- ── Step 6: Phylogenetic Tree ── color #d29c4b  box x=896 w=110 center=951 -->
-      <rect x="896" y="42" width="110" height="195" rx="8" fill="#fdf9f0" stroke="#d29c4b" stroke-width="1.5"/>
-      <circle cx="910" cy="57" r="12" fill="#d29c4b"/>
-      <text x="910" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="white">6</text>
-      <circle cx="951" cy="100" r="23" fill="#d29c4b"/>
-      <line x1="951" y1="114" x2="951" y2="102" stroke="white" stroke-width="2.2"/>
-      <line x1="951" y1="102" x2="940" y2="89" stroke="white" stroke-width="2.2"/>
-      <line x1="951" y1="102" x2="962" y2="89" stroke="white" stroke-width="2.2"/>
-      <circle cx="940" cy="88" r="4" fill="white"/>
-      <circle cx="962" cy="88" r="4" fill="white"/>
-      <circle cx="951" cy="115" r="3.5" fill="white"/>
-      <text x="951" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#d29c4b">Phylogenetic</text>
-      <text x="951" y="156" text-anchor="middle" font-size="10" fill="#6c757d">Tree</text>
-      <text x="951" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Visualize relationships</text>
-      <text x="951" y="189" text-anchor="middle" font-size="10" fill="#6c757d">and interpret results</text>
-
-      <!-- Arrow S6→Final -->
-      <line x1="1006" y1="135" x2="1027" y2="135" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#wf-arr)"/>
-
-      <!-- ── Final: Interpret & Report ── color #496f5d  box x=1028 w=124 center=1090 -->
-      <rect x="1028" y="42" width="124" height="195" rx="8" fill="#f0f5f2" stroke="#496f5d" stroke-width="1.5"/>
-      <circle cx="1090" cy="100" r="23" fill="#496f5d"/>
-      <rect x="1080" y="88" width="19" height="24" rx="2" fill="none" stroke="white" stroke-width="1.8"/>
-      <line x1="1083" y1="95" x2="1096" y2="95" stroke="white" stroke-width="1.4"/>
-      <line x1="1083" y1="101" x2="1096" y2="101" stroke="white" stroke-width="1.4"/>
-      <line x1="1083" y1="107" x2="1096" y2="107" stroke="white" stroke-width="1.4"/>
-      <text x="1090" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#496f5d">Interpret &amp;</text>
-      <text x="1090" y="156" text-anchor="middle" font-size="10" fill="#6c757d">report findings</text>
-      <text x="1090" y="175" text-anchor="middle" font-size="10" fill="#6c757d">Communicate</text>
-      <text x="1090" y="189" text-anchor="middle" font-size="10" fill="#6c757d">investigation results</text>
-
-      <!-- Footer note -->
-      <circle cx="22" cy="362" r="11" fill="none" stroke="#467386" stroke-width="1.5"/>
-      <text x="22" y="367" text-anchor="middle" font-size="11" font-style="italic" fill="#467386">i</text>
-      <text x="40" y="367" font-size="11" fill="#6c757d">You can return to any step at any time. All results are stored in your workspace.</text>
-    </svg>
+      <!-- FOOTER NOTE -->
+      <rect x="8" y="452" width="1384" height="48" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <circle cx="30" cy="476" r="10" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="30" y="481" text-anchor="middle" font-size="11" font-style="italic" font-weight="600" fill="#3b82f6">i</text>
+      <text x="50" y="480" font-size="12" fill="#374151">You can return to any step at any time. All results are stored in your workspace.</text>
+    -->
   </div>
 
   <!-- Step 1 -->
@@ -522,48 +540,5 @@
     </ul>
   </div>
 
-  <!-- Typical Workflow -->
-  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
-    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
-      Typical Investigation Workflow
-    </h2>
-    <pre class="text-sm text-maage-text-muted font-mono leading-loose overflow-x-auto bg-maage-bg border border-maage-border rounded p-4">Upload sequencing reads or assembled genomes
-                │
-                ▼
-Identify and characterize each pathogen
-(Comprehensive Genome Analysis)
-                │
-                ▼
-Automatically compare against public genomes
-(cgMLST + HierCC)
-                │
-                ▼
-Review related isolates and outbreak clusters
-                │
-                ▼
-Compare selected isolates using Core Genome MLST
-                │
-                ▼
-Need higher resolution?
-                │
-              Yes
-                ▼
-Whole Genome SNP Analysis
-                │
-                ▼
-Build phylogenetic tree and interpret results</pre>
-  </div>
-
-  <!-- Getting Started -->
-  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
-    <h2 class="text-xl font-heading font-bold text-maage-text mb-3">Getting Started</h2>
-    <p class="text-base text-maage-text-muted leading-relaxed">
-      Start by uploading your sequencing data or assembled genomes. After running
-      <strong>Comprehensive Genome Analysis</strong>, MAAGE automatically annotates each genome, compares it
-      against public datasets, and identifies related isolates. You can then perform increasingly detailed
-      analyses—including Core Genome MLST, Whole Genome SNP Analysis, and phylogenetic reconstruction—to
-      investigate outbreak relationships and generate publication-ready results.
-    </p>
-  </div>
 
 </div>
