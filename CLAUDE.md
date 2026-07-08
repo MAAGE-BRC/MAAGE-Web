@@ -234,3 +234,53 @@ All MicrobeTrace display settings are in `public/maage/config/microbetrace-defau
 - Tree component reads leaf label from style widgets at initialization
 - Handoff metadata supports `style` and `defaultView`
 - Receiver status message: "Transferring data to MicrobeTrace"
+
+## Disease Outbreak Alerts
+
+The genome landing page (`/view/Genome/<id>`) shows a "Disease Outbreak Alerts"
+card that surfaces recent outbreak news for the genome's species.
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `routes/outbreaks.js` | `GET /outbreaks/alerts` — fetches, filters, and merges alerts from all sources |
+| `public/js/p3/widget/GenomeOverview.js` | `createOutbreakAlertAssessment` and the card render/reset/loading methods |
+| `public/js/p3/widget/templates/GenomeOverview.html` | Card markup (`outbreakAlert*` attach points) |
+| `public/js/p3/resources/end.css` | Card styling (`.assessment*` classes, spinner keyframes) |
+
+### Data Sources
+
+Three sources, fetched in parallel via `Promise.allSettled` (each failure is
+isolated so one down source doesn't blank the card):
+
+- **WHO** — the Disease Outbreak News (DON) API
+  (`https://www.who.int/api/news/diseaseoutbreaknews`, OData JSON). Returns
+  dated, structured outbreak reports; article links built from `UrlName`. Do
+  NOT use the general news RSS (`news-english.xml`) — it's press releases, not
+  outbreaks, so species filtering almost never matches.
+- **ProMED** — a `site:promedmail.org` Google News RSS query. The term must
+  actually match (drops stale generic landing pages). ProMED has no working
+  public feed and is often unreachable from the host.
+- **Google News** — a plain Google News RSS search for the query terms.
+
+**HealthMap was removed.** Its only reachable feed (`getAlerts.php`) exposes no
+real per-article URLs (links are `javascript:` handlers), so it could never
+link to actual articles. Don't re-add it without a source that provides real
+article URLs (the authenticated `HMapi.php` would work if a key is obtained).
+
+### Behavior Notes
+
+- **Year filter**: only alerts from the current year and the prior year are
+  shown. Enforced in `mergeAlertsByUniq` via `ALERT_MIN_YEAR` (computed once at
+  module load); items without a parseable date are dropped.
+- **Query terms**: the widget searches the species plus an optional alternate
+  name (first two words of `genome_name`). Source link buttons must reproduce
+  this SAME combined query — Google News uses an `"a" OR "b"` query, WHO uses
+  its Google Custom Search Engine URL (`?q=` + `#gsc.q=`) — or the links
+  under-return compared to what the card shows.
+- **Card UI**: collapsible per-source `<details>` sections (count in the
+  header, dated article links on expand); a CSS spinner shows while fetching
+  with the summary hidden until results arrive.
+- **XSS**: all card content is rendered with `domConstruct` + `textContent`;
+  links are only rendered as `<a>` when the URL passes an `^https?://` check.
