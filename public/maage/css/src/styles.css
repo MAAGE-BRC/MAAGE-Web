@@ -830,6 +830,23 @@ div.PerspectiveHeader > i.fa.PerspectiveIcon.icon-selection-Taxonomy {
   color: var(--maage-primary-500);
 }
 
+div.PerspectiveHeader > i.fa.PerspectiveIcon.icon-selection-Investigation {
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  color: var(--maage-primary-500);
+  display: inline-block !important;
+  width: 1em !important;
+  height: 1em !important;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1069 1024'><path fill='%236ea089' d='M66.783 66.783v200.348h-66.783v-267.13h267.13v66.783h-200.348z'/><path fill='%236ea089' d='M1001.739 66.783v200.348h66.783v-267.13h-267.13v66.783h200.348z'/><path fill='%236ea089' d='M1001.739 957.217v-200.348h66.783v267.13h-267.13v-66.783h200.348z'/><path fill='%236ea089' d='M66.783 957.217v-200.348h-66.783v267.13h267.13v-66.783h-200.348z'/><path fill='%236ea089' d='M228.397,148.109 h644.823 v163.246 h-237.821 v428.298 h237.821 v173.041 h-644.823 v-173.041 h237.821 v-428.298 h-237.821 z'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+div.PerspectiveHeader > i.fa.PerspectiveIcon.icon-selection-Investigation::before {
+  content: none !important;
+}
+
 span.PerspectiveQuery > a.navigationLink.current {
   color: #436d58;
 }

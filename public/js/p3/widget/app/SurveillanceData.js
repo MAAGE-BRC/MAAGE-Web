@@ -10,7 +10,7 @@ define([
 
   return declare([SidebarViewerBase], {
     perspectiveLabel: 'Explore Surveillance Data',
-    perspectiveIconClass: 'icon-selection-Experiment',
+    perspectiveIconClass: 'icon-selection-Investigation',
     sidebarTitle: 'Workflow Steps',
     defaultPanel: 'overview',
 
