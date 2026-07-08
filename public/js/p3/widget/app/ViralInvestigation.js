@@ -41,7 +41,7 @@ define([
         title: 'Step 3. Annotate Viral Genomes',
         icon: 'icon-genome',
         description: 'Viral Genome Annotation',
-        widgetClass: 'p3/widget/app/ViralAnnotation'
+        widgetClass: 'p3/widget/app/Annotation'
       },
       {
         id: 'MyGenomes',
@@ -62,7 +62,7 @@ define([
         title: 'Step 6. Visualize Evolutionary Relationships',
         icon: 'icon-tree',
         description: 'Phylogenetic Analysis',
-        widgetClass: 'p3/widget/app/PhylogeneticTree'
+        widgetClass: 'p3/widget/app/ViralGenomeTree'
       }
     ]
   });
