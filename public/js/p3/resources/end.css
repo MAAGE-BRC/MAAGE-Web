@@ -982,8 +982,102 @@ div.pubmed ul li {
     color: #333333;
 }
 
-.patric .GenomeOverview .assessmentLine:first-of-type {
-    margin-top: 4px;
+
+.patric .GenomeOverview .assessmentSource {
+    border-bottom: 1px solid #edf3f0;
+}
+
+.patric .GenomeOverview .assessmentSourceSummary {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color: #333333;
+    padding: 7px 12px;
+    line-height: 1.45;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.patric .GenomeOverview .assessmentSourceSummary::-webkit-details-marker {
+    display: none;
+}
+
+.patric .GenomeOverview .assessmentSourceSummary::before {
+    content: "\25B8";
+    display: inline-block;
+    margin-right: 6px;
+    color: #57856f;
+    font-size: 0.85em;
+    transition: transform .15s ease;
+}
+
+.patric .GenomeOverview .assessmentSource[open] > .assessmentSourceSummary::before {
+    transform: rotate(90deg);
+}
+
+.patric .GenomeOverview .assessmentSource.empty > .assessmentSourceSummary {
+    cursor: default;
+    color: #7a8d84;
+}
+
+.patric .GenomeOverview .assessmentSource.empty > .assessmentSourceSummary::before {
+    visibility: hidden;
+}
+
+.patric .GenomeOverview .assessmentSourceCount {
+    color: #57856f;
+    font-weight: bold;
+}
+
+.patric .GenomeOverview .assessmentSourceList {
+    margin: 0;
+    padding: 0 12px 8px 30px;
+    list-style: disc;
+}
+
+.patric .GenomeOverview .assessmentSourceItem {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95em;
+    line-height: 1.4;
+    margin: 3px 0;
+    color: #333333;
+}
+
+.patric .GenomeOverview .assessmentSourceLink {
+    color: #355647;
+}
+
+.patric .GenomeOverview .assessmentSourceLink:hover {
+    color: #2f4a3e;
+}
+
+.patric .GenomeOverview .assessmentSourceDate {
+    color: #7a8d84;
+    font-size: 0.9em;
+}
+
+.patric .GenomeOverview .assessmentLoading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    color: #7a8d84;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95em;
+}
+
+.patric .GenomeOverview .assessmentSpinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #dbe7e2;
+    border-top-color: #57856f;
+    border-radius: 50%;
+    animation: assessmentSpin 0.8s linear infinite;
+}
+
+@keyframes assessmentSpin {
+    to { transform: rotate(360deg); }
 }
 
 .patric .GenomeOverview .assessmentActions {

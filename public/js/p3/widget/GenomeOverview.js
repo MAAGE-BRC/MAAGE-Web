@@ -171,6 +171,76 @@ define([
       }, node);
     },
 
+    // Render one collapsible row per source. Each row shows the source name and
+    // its article count and, when expanded, the article titles as dated links.
+    // Rows default to collapsed to keep the card compact.
+    renderSourceSections: function (node, sources) {
+      if (!node) {
+        return;
+      }
+
+      domConstruct.empty(node);
+
+      sources.forEach(function (source) {
+        var items = Array.isArray(source.items) ? source.items : [];
+        var count = items.length;
+
+        var details = domConstruct.create('details', {
+          className: 'assessmentSource'
+        }, node);
+
+        var summary = domConstruct.create('summary', {
+          className: 'assessmentSourceSummary'
+        }, details);
+        domConstruct.create('span', {
+          className: 'assessmentAttributeName',
+          textContent: source.label
+        }, summary);
+        domConstruct.create('span', {
+          className: 'assessmentSourceCount',
+          textContent: ' (' + count + ')'
+        }, summary);
+
+        if (!count) {
+          details.setAttribute('aria-disabled', 'true');
+          domClass.add(details, 'empty');
+          return;
+        }
+
+        var list = domConstruct.create('ul', {
+          className: 'assessmentSourceList'
+        }, details);
+
+        items.forEach(function (item) {
+          var li = domConstruct.create('li', { className: 'assessmentSourceItem' }, list);
+          var dateText = item.pubDate ? (' (' + item.pubDate.substring(0, 10) + ')') : '';
+
+          // Only render a link when the URL is a valid http(s) target.
+          if (item.link && /^https?:\/\//i.test(item.link)) {
+            domConstruct.create('a', {
+              className: 'assessmentSourceLink',
+              href: item.link,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              textContent: item.title
+            }, li);
+          } else {
+            domConstruct.create('span', {
+              className: 'assessmentSourceLink',
+              textContent: item.title
+            }, li);
+          }
+
+          if (dateText) {
+            domConstruct.create('span', {
+              className: 'assessmentSourceDate',
+              textContent: dateText
+            }, li);
+          }
+        });
+      });
+    },
+
     resetOutbreakAssessment: function () {
       this.setAssessmentText(this.outbreakCgmlstNode, 'cgMLST Cluster (HC10)', 'Not available');
       this.setAssessmentText(this.outbreakClusterSizeNode, 'Cluster Size', 'Not available');
@@ -185,18 +255,32 @@ define([
     },
 
     resetOutbreakAlertAssessment: function () {
-      this.setAssessmentText(this.outbreakAlertQueryNode, 'Query Term', 'Not available');
-      this.setAssessmentText(this.outbreakAlertCoverageNode, 'Source Coverage', 'Not available');
       this.setAssessmentText(this.outbreakAlertSummaryNode, 'Summary', 'Not available');
-      this.setAssessmentText(this.outbreakAlertHeadlinesNode, 'Latest Headlines', 'Not available');
+      if (this.outbreakAlertSourcesNode) {
+        domConstruct.empty(this.outbreakAlertSourcesNode);
+      }
 
-      [this.outbreakAlertWhoLink, this.outbreakAlertHealthMapLink, this.outbreakAlertPromedLink, this.outbreakAlertGoogleNewsLink].forEach(function (linkNode) {
+      [this.outbreakAlertWhoLink, this.outbreakAlertPromedLink, this.outbreakAlertGoogleNewsLink].forEach(function (linkNode) {
         if (!linkNode) {
           return;
         }
         linkNode.removeAttribute('href');
         linkNode.className = 'assessmentAction disabled';
       });
+    },
+
+    // Show a loading spinner in the results area while alerts are fetched.
+    // The summary is hidden until results arrive.
+    setOutbreakAlertLoading: function () {
+      if (this.outbreakAlertSummaryNode) {
+        domConstruct.empty(this.outbreakAlertSummaryNode);
+      }
+      if (this.outbreakAlertSourcesNode) {
+        domConstruct.empty(this.outbreakAlertSourcesNode);
+        var wrap = domConstruct.create('div', { className: 'assessmentLoading' }, this.outbreakAlertSourcesNode);
+        domConstruct.create('span', { className: 'assessmentSpinner' }, wrap);
+        domConstruct.create('span', { className: 'assessmentLoadingText', textContent: 'Loading outbreak alerts…' }, wrap);
+      }
     },
 
     createOutbreakAlertAssessment: function (genome) {
@@ -225,8 +309,7 @@ define([
         altTerm = '';
       }
 
-      var queryTermLabel = altTerm ? (species + ' | ' + altTerm) : species;
-      this.setAssessmentText(this.outbreakAlertQueryNode, 'Query Term', queryTermLabel);
+      this.setOutbreakAlertLoading();
 
       var queryUrl = '/outbreaks/alerts?species=' + encodeURIComponent(species) + '&count=8';
       if (altTerm) {
@@ -244,37 +327,22 @@ define([
           return;
         }
 
-        var totals = data && data.totals ? data.totals : {};
-        var whoCount = Number(totals.WHO) || 0;
-        var healthMapCount = Number(totals.HealthMap) || 0;
-        var promedCount = Number(totals.ProMED) || 0;
-        var googleNewsCount = Number(totals.GoogleNews) || 0;
-        var coverage = 'WHO (' + whoCount + '), HealthMap (' + healthMapCount + '), ProMED (' + promedCount + '), Google News (' + googleNewsCount + ')';
-        this.setAssessmentText(this.outbreakAlertCoverageNode, 'Source Coverage', coverage);
-
-        if (data && data.queryTerms && data.queryTerms.length) {
-          this.setAssessmentText(this.outbreakAlertQueryNode, 'Query Term', data.queryTerms.join(' | '));
-        }
-
         this.setAssessmentText(
           this.outbreakAlertSummaryNode,
           'Summary',
           (data && data.summary) ? data.summary : ('No recent matching alerts found for ' + species + '.')
         );
 
-        var highlights = data && Array.isArray(data.highlights) ? data.highlights : [];
-        var headlineSummary = 'Not available';
-        if (highlights.length) {
-          headlineSummary = highlights.slice(0, 3).map(function (item) {
-            return item.source + ': ' + item.title;
-          }).join(' | ');
-        }
-        this.setAssessmentText(this.outbreakAlertHeadlinesNode, 'Latest Headlines', headlineSummary);
+        var bySource = (data && data.bySource) ? data.bySource : {};
+        this.renderSourceSections(this.outbreakAlertSourcesNode, [
+          { label: 'WHO', items: bySource.WHO },
+          { label: 'ProMED', items: bySource.ProMED },
+          { label: 'Google News', items: bySource.GoogleNews }
+        ]);
 
         var sourceUrls = data && data.sourceUrls ? data.sourceUrls : {};
         var linkMap = [
           { node: this.outbreakAlertWhoLink, url: sourceUrls.who },
-          { node: this.outbreakAlertHealthMapLink, url: sourceUrls.healthmap },
           { node: this.outbreakAlertPromedLink, url: sourceUrls.promed },
           { node: this.outbreakAlertGoogleNewsLink, url: sourceUrls.googleNews }
         ];
@@ -293,6 +361,9 @@ define([
         });
       }), lang.hitch(this, function (err) {
         console.error('Error retrieving disease outbreak alerts:', err);
+        if (this.outbreakAlertSourcesNode) {
+          domConstruct.empty(this.outbreakAlertSourcesNode);
+        }
         this.setAssessmentText(this.outbreakAlertSummaryNode, 'Summary', 'Unable to retrieve outbreak alerts at this time.');
       }));
     },
