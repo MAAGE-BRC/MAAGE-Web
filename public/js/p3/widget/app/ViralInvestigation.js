@@ -10,7 +10,7 @@ define([
 
   return declare([SidebarViewerBase], {
     perspectiveLabel: 'Viral Outbreak Investigation',
-    perspectiveIconClass: 'icon-selection-Experiment',
+    perspectiveIconClass: 'icon-selection-Investigation',
     sidebarTitle: 'Investigation Steps',
     defaultPanel: 'overview',
 
