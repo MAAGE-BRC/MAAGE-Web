@@ -1,6 +1,6 @@
 define([
   'dojo/_base/declare',
-  'dojo/text!./templates/InvestigationOverview.html',
+  'dojo/text!./templates/BacterialInvestigationOverview.html',
   '../viewer/SidebarViewerBase'
 ], function (
   declare,
@@ -9,7 +9,7 @@ define([
 ) {
 
   return declare([SidebarViewerBase], {
-    perspectiveLabel: 'Epidemiology Investigation',
+    perspectiveLabel: 'Bacterial Outbreak Investigation',
     perspectiveIconClass: 'icon-selection-Experiment',
     sidebarTitle: 'Investigation Steps',
     defaultPanel: 'overview',
