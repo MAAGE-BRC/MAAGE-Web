@@ -928,6 +928,217 @@ div.pubmed ul li {
     padding-right: 5px;
 }
 
+.patric .GenomeOverview .outbreakStatusHeroSection {
+    margin-top: 8px;
+}
+
+.patric .GenomeOverview .genomeMetadataCardSection {
+    margin-top: 8px;
+}
+
+.patric .GenomeOverview .amrStatusCardSection {
+    margin-top: 10px;
+}
+
+.patric .GenomeOverview .outbreakAssessmentBox {
+    border: 1px solid #dbe7e2;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 0 0 10px;
+    overflow: hidden;
+}
+
+.patric .GenomeOverview .assessmentTitle {
+    background: #57856f;
+    color: #ffffff;
+    border-bottom: 1px solid #4b735f;
+    font-family: "Didact Gothic", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+}
+
+.patric .GenomeOverview .assessmentLine {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color: #333333;
+    padding: 7px 12px;
+    line-height: 1.45;
+    border-bottom: 1px solid #edf3f0;
+}
+
+.patric .GenomeOverview .assessmentAttributeName {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: #333333;
+}
+
+.patric .GenomeOverview .assessmentAttributeValue {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    color: #333333;
+}
+
+
+.patric .GenomeOverview .assessmentSource {
+    border-bottom: 1px solid #edf3f0;
+}
+
+.patric .GenomeOverview .assessmentSourceSummary {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color: #333333;
+    padding: 7px 12px;
+    line-height: 1.45;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.patric .GenomeOverview .assessmentSourceSummary::-webkit-details-marker {
+    display: none;
+}
+
+.patric .GenomeOverview .assessmentSourceSummary::before {
+    content: "\25B8";
+    display: inline-block;
+    margin-right: 6px;
+    color: #57856f;
+    font-size: 0.85em;
+    transition: transform .15s ease;
+}
+
+.patric .GenomeOverview .assessmentSource[open] > .assessmentSourceSummary::before {
+    transform: rotate(90deg);
+}
+
+.patric .GenomeOverview .assessmentSource.empty > .assessmentSourceSummary {
+    cursor: default;
+    color: #7a8d84;
+}
+
+.patric .GenomeOverview .assessmentSource.empty > .assessmentSourceSummary::before {
+    visibility: hidden;
+}
+
+.patric .GenomeOverview .assessmentSourceCount {
+    color: #57856f;
+    font-weight: bold;
+}
+
+.patric .GenomeOverview .assessmentSourceList {
+    margin: 0;
+    padding: 0 12px 8px 30px;
+    list-style: disc;
+}
+
+.patric .GenomeOverview .assessmentSourceItem {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95em;
+    line-height: 1.4;
+    margin: 3px 0;
+    color: #333333;
+}
+
+.patric .GenomeOverview .assessmentSourceLink {
+    color: #355647;
+}
+
+.patric .GenomeOverview .assessmentSourceLink:hover {
+    color: #2f4a3e;
+}
+
+.patric .GenomeOverview .assessmentSourceDate {
+    color: #7a8d84;
+    font-size: 0.9em;
+}
+
+.patric .GenomeOverview .assessmentLoading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    color: #7a8d84;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95em;
+}
+
+.patric .GenomeOverview .assessmentSpinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #dbe7e2;
+    border-top-color: #57856f;
+    border-radius: 50%;
+    animation: assessmentSpin 0.8s linear infinite;
+}
+
+@keyframes assessmentSpin {
+    to { transform: rotate(360deg); }
+}
+
+.patric .GenomeOverview .assessmentActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 12px 0;
+}
+
+.patric .GenomeOverview .assessmentAction {
+    display: inline-block;
+    border: 1px solid #b4d0c3;
+    border-radius: 999px;
+    padding: 4px 10px;
+    color: #355647;
+    background: #ecf3f0;
+    text-decoration: none;
+    font-family: "Didact Gothic", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.25;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.patric .GenomeOverview .assessmentAction:hover {
+    background: #d6e5de;
+    border-color: #98bdac;
+    color: #2f4a3e;
+}
+
+.patric .GenomeOverview .assessmentAction.disabled {
+    opacity: 0.55;
+    background: #f4f7f6;
+    border-color: #d6dfdb;
+    color: #7a8d84;
+    cursor: default;
+    pointer-events: none;
+}
+
+.patric .GenomeOverview .amrAssessmentBox {
+    padding-bottom: 0;
+}
+
+.patric .GenomeOverview .amrAssessmentBody {
+    padding: 8px 10px 10px;
+}
+
+.patric .GenomeOverview .genomeMetadataBody {
+    padding: 8px 12px 12px;
+}
+
+@media screen and (max-width: 1200px) {
+    .patric .GenomeOverview .assessmentTitle {
+        font-size: 13px;
+    }
+
+    .patric .GenomeOverview .assessmentAction {
+        font-size: 11px;
+    }
+}
+
 .patric.claro .breadcrumb.dijitContentPane {
     padding: 8px 8px 3px 8px;
 }

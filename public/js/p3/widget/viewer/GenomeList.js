@@ -1,17 +1,19 @@
 define([
-  'dojo/_base/declare', 'dojo/_base/lang', 'dojo/topic',
+  'dojo/_base/declare', 'dojo/_base/lang', 'dojo/topic', 'dojo/on', 'dojo/dom-construct',
   './TabViewerBase', '../../util/QueryToEnglish', '../../DataAPI',
   '../GenomeListOverview', '../GenomeGridContainer',
   '../AMRPanelGridContainer', '../SequenceGridContainer',
   '../FeatureGridContainer', '../ProteinGridContainer', '../SpecialtyGeneGridContainer', '../ProteinFamiliesContainer',
-  '../PathwayGridContainer', '../ExperimentsContainer',  '../SubsystemGridContainer'
+  '../PathwayGridContainer', '../ExperimentsContainer',  '../SubsystemGridContainer',
+  '../SaveDashboardDialog'
 ], function (
-  declare, lang,Topic,
+  declare, lang, Topic, on, domConstruct,
   TabViewerBase, QueryToEnglish, DataAPI,
   GenomeListOverview, GenomeGridContainer,
   AMRPanelGridContainer, SequenceGridContainer,
   FeatureGridContainer, ProteinGridContainer, SpecialtyGeneGridContainer, ProteinFamiliesContainer,
-  PathwaysContainer, ExperimentsContainer, SubSystemsContainer
+  PathwaysContainer, ExperimentsContainer, SubSystemsContainer,
+  SaveDashboardDialog
 ) {
 
   return declare([TabViewerBase], {
@@ -123,6 +125,9 @@ define([
       this.watch('query', lang.hitch(this, 'onSetQuery'))
       this.watch('total_genomes', lang.hitch(this, 'onSetTotalGenomes'))
 
+      // Add "Save as Dashboard" button to the header query row
+      this._createSaveDashboardButton();
+
       this.overview = this.createOverviewPanel()
       this.genomes = new GenomeGridContainer({
         title: 'Genomes',
@@ -197,6 +202,71 @@ define([
       // this.viewer.addChild(this.pathways);
       // this.viewer.addChild(this.subsystems);
       // this.viewer.addChild(this.experiments);
+    },
+
+    _createSaveDashboardButton: function () {
+      // Only show the save button when logged in (workspace storage requires auth)
+      if (!window.App || !window.App.user) return;
+
+      // Find the query row in the header (created by TabViewerBase.postCreate)
+      if (!this.totalCountNode || !this.totalCountNode.parentNode) return;
+
+      var queryRow = this.totalCountNode.parentNode;
+
+      this._saveDashboardBtn = domConstruct.create('button', {
+        className: 'save-dashboard-header-btn',
+        title: 'Save current view as a dashboard',
+        style: 'margin-left: 12px; padding: 3px 10px; font-size: 0.75rem; font-weight: 500;'
+          + 'color: #2d6a4f; background: #ffffff; border: 1px solid #2d6a4f; border-radius: 4px;'
+          + 'cursor: pointer; transition: all 0.15s; vertical-align: middle;',
+        innerHTML: '<span class="fa icon-dashboard" style="margin-right: 4px;"></span>Save as Dashboard'
+      }, queryRow);
+
+      on(this._saveDashboardBtn, 'mouseover', function () {
+        this.style.background = '#2d6a4f';
+        this.style.color = '#ffffff';
+      });
+
+      on(this._saveDashboardBtn, 'mouseout', function () {
+        this.style.background = '#ffffff';
+        this.style.color = '#2d6a4f';
+      });
+
+      on(this._saveDashboardBtn, 'click', lang.hitch(this, function () {
+        var filter = this._buildDashboardFilter();
+        if (!filter) return;
+
+        var dlg = new SaveDashboardDialog({
+          filter: filter
+        });
+        dlg.show();
+      }));
+    },
+
+    _buildDashboardFilter: function () {
+      var parts = [];
+
+      if (this.state) {
+        var baseSearch = this.state.search || '';
+        var baseQuery = baseSearch.replace(/^\?/, '');
+        if (baseQuery && baseQuery !== 'keyword(*)') {
+          parts.push(baseQuery);
+        }
+
+        var hashFilter = (this.state.hashParams && this.state.hashParams.filter) || '';
+        if (hashFilter && hashFilter !== 'false') {
+          parts.push(hashFilter);
+        }
+      }
+
+      if (parts.length > 1) {
+        return 'and(' + parts.join(',') + ')';
+      } else if (parts.length === 1) {
+        return parts[0];
+      }
+
+      // Fallback
+      return (this.query || '').replace(/^\?/, '') || '';
     }
   });
 });

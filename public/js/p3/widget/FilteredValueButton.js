@@ -12,6 +12,7 @@ define([
     templateString: template,
     baseClass: 'FilteredValueButton',
     category: '',
+    displayLabel: '',
     selected: null,
 
     _setSelectedAttr: function (selected) {
@@ -42,6 +43,7 @@ define([
       } else {
         this.selectedNode.innerHTML = content.slice(0, -1).join(',&nbsp;') + '&nbsp;or&nbsp;' + content[content.length - 1];
       }
+      this.selectedNode.title = selected.join(', ');
       // this._set('selected', selected);
 
     },
@@ -63,6 +65,9 @@ define([
     },
     postCreate: function () {
       this.inherited(arguments);
+      if (this.displayLabel) {
+        this.categoryLabelNode.textContent = this.displayLabel;
+      }
     }
   });
 });

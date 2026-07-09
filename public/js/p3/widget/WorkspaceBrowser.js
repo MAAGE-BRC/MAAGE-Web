@@ -6,7 +6,7 @@ define([
   './Confirmation', './SelectionToGroup', 'dijit/Dialog', 'dijit/TooltipDialog',
   'dijit/popup', 'dijit/form/Select', './ContainerActionBar', './GroupExplore', './PerspectiveToolTip',
   'dijit/form/TextBox', './WorkspaceObjectSelector', './PermissionEditor', './ServicesTooltipDialog',
-  'dojo/promise/all', '../util/encodePath', 'dojo/when', 'dojo/request', './TsvCsvFeatures', './RerunUtility', './viewer/JobResult',
+  'dojo/promise/all', '../util/encodePath', '../util/microbeTraceHandoff', 'dojo/when', 'dojo/request', './TsvCsvFeatures', './RerunUtility', './viewer/JobResult',
   'dojo/NodeList-traverse', './app/Homology', './app/GenomeAlignment', './app/PhylogeneticTree'
 ], function (
   declare, BorderContainer, on, query,
@@ -16,7 +16,7 @@ define([
   Confirmation, SelectionToGroup, Dialog, TooltipDialog,
   popup, Select, ContainerActionBar, GroupExplore, PerspectiveToolTipDialog,
   TextBox, WSObjectSelector, PermissionEditor, ServicesTooltipDialog,
-  All, encodePath, when, request, tsvCsvFeatures, rerunUtility, JobResult, NodeList_traverse, Homology, GenomeAlignment, PhylogeneticTree
+  All, encodePath, microbeTraceHandoff, when, request, tsvCsvFeatures, rerunUtility, JobResult, NodeList_traverse, Homology, GenomeAlignment, PhylogeneticTree
 ) {
 
   var mmc = '<div class="wsActionTooltip" rel="dna">Nucleotide</div><div class="wsActionTooltip" rel="protein">Amino Acid</div>';
@@ -42,7 +42,8 @@ define([
       'experiment', 'unspecified', 'contigs', 'reads', 'model', 'txt', 'html',
       'pdf', 'string', 'json', 'csv', 'diffexp_experiment',
       'diffexp_expression', 'diffexp_mapping', 'diffexp_sample',
-      'diffexp_input_data', 'diffexp_input_metadata', 'svg', 'gif', 'png', 'jpg', 'nwk', 'phyloxml'],
+      'diffexp_input_data', 'diffexp_input_metadata', 'svg', 'gif', 'png', 'jpg', 'nwk', 'phyloxml',
+      'microbetrace', 'microbetrace_session'],
     design: 'sidebar',
     splitter: false,
     docsServiceURL: window.App.docsServiceURL,
@@ -745,7 +746,7 @@ define([
         tooltip: 'View Taxonomic Classification'
       }, function (selection) {
         var sel = selection[0],
-          path = sel.path + '.' + sel.name + '/TaxonomicReport.html';
+          path = sel.path + '.' + sel.name + '//Taxonomic-Classification-Service-BVBRC_multiqc_report.html';
         Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
       }, false);
 
@@ -1217,6 +1218,41 @@ define([
         Topic.publish('/navigate', { href: '/view/PhylogeneticTree2/?&labelSearch=' + labelSearch + '&idType=' + idType + '&labelType=' + labelType + '&wsTreeFile=' + encodePath(path[0]) + '&fileType=' + fileType });
       }, false);
 
+      // MicrobeTrace viewer action for compatible file types
+      this.actionPanel.addAction('ViewMicrobeTrace', 'icon-microbetrace', {
+        label: 'MICROBE<br>TRACE',
+        multiple: true,
+        allowMultiTypes: true,
+        max: 5,
+        validTypes: ['fasta', 'csv', 'tsv', 'nwk', 'newick', 'microbetrace', 'microbetrace_session'],
+        tooltip: 'Open in MicrobeTrace molecular epidemiology tool'
+      }, function (selection, container) {
+        function buildFilepath(obj) {
+          var p = obj.path || '';
+          var n = obj.name || '';
+          if (p.endsWith(n + '/') || p.endsWith(n)) {
+            return p.replace(/\/$/, '');
+          }
+          if (!p.endsWith('/')) {
+            p = p + '/';
+          }
+          return p + n;
+        }
+
+        var primaryPath = buildFilepath(selection[0]);
+        var href = '/view/MicrobeTrace' + encodePath(primaryPath);
+
+        if (selection.length > 1) {
+          var extras = selection.slice(1).map(function (obj) {
+            return 'extraFile=' + encodeURIComponent(buildFilepath(obj));
+          });
+          href += '?' + extras.join('&');
+        }
+
+        console.log('[MicrobeTrace] Navigating to href:', href);
+        Topic.publish('/navigate', { href: href });
+      }, false);
+
       this.browserHeader.addAction('ViewNwkXml', 'fa icon-eye fa-2x', {
         label: 'VIEW',
         multiple: false,
@@ -1290,7 +1326,110 @@ define([
           console.log('Error: could not find AssemblyReport.html output file');
         }
       }, false);
-
+      this.browserHeader.addAction(
+        "ViewCoreGenomeMLSTReport",
+        "fa icon-eye fa-2x",
+        {
+          label: "REPORT<br>&nbsp;",
+          multiple: false,
+          validTypes: ["CoreGenomeMLST"],
+          tooltip: "View Whole Core Genome MLST Report",
+        },
+        function (selection) {
+          var path;
+          selection[0].autoMeta.output_files.forEach(
+            lang.hitch(this, function (file_data) {
+              var filepath = file_data[0].split("/");
+              if (filepath[filepath.length - 1] === "cgMLST_Report.html") {
+                path = filepath.join("/");
+              }
+            })
+          );
+          if (path) {
+            Topic.publish("/navigate", { href: "/workspace" + encodePath(path) });
+          } else {
+            console.log("Error: could not find cgMLST_Report.html");
+          }
+        }
+      );
+      this.browserHeader.addAction(
+        "ViewSARS2WastewaterReport",
+        "fa icon-eye fa-2x",
+        {
+          label: "REPORT",
+          multiple: false,
+          validTypes: ["SARS2Wastewater"],
+          tooltip: "View SARS2 Wastewater  Analysis Report",
+        },
+        function (selection) {
+          var path;
+          selection[0].autoMeta.output_files.forEach(
+            lang.hitch(this, function (file_data) {
+              var filepath = file_data[0].split("/");
+              if (filepath[filepath.length - 1] === "SARS2Wastewater_report.html") {
+                path = filepath.join("/");
+              }
+            })
+          );
+          if (path) {
+            Topic.publish("/navigate", { href: "/workspace" + encodePath(path) });
+          } else {
+            console.log("Error: could not find SARS2Wastewater_report.html");
+          }
+        }
+      );
+      this.browserHeader.addAction(
+        "ViewWholeGenomeSNPAnalysisReport",
+        "fa icon-eye fa-2x",
+        {
+          label: "REPORT<br>&nbsp;",
+          multiple: false,
+          validTypes: ["WholeGenomeSNPAnalysis"],
+          tooltip: "View Whole Genome SNP Analysis Report",
+        },
+        function (selection) {
+          var path;
+          selection[0].autoMeta.output_files.forEach(
+            lang.hitch(this, function (file_data) {
+              var filepath = file_data[0].split("/");
+              if (filepath[filepath.length - 1] === "WholeGenomeSNP_Report.html") {
+                path = filepath.join("/");
+              }
+            })
+          );
+          if (path) {
+            Topic.publish("/navigate", { href: "/workspace" + encodePath(path) });
+          } else {
+            console.log("Error: could not find WholeGenomeSNP_Report.html");
+          }
+        }
+      );
+      this.browserHeader.addAction(
+        "ViewDockingReport",
+        "fa icon-eye fa-2x",
+        {
+          label: "REPORT",
+          multiple: false,
+          validTypes: ["Docking"],
+          tooltip: "View Docking Report",
+        },
+        function (selection) {
+          var path;
+          selection[0].autoMeta.output_files.forEach(
+            lang.hitch(this, function (file_data) {
+              var filepath = file_data[0].split("/");
+              if (filepath[filepath.length - 1] === "small_molecule_docking_report.html") {
+                path = filepath.join("/");
+              }
+            })
+          );
+          if (path) {
+            Topic.publish("/navigate", { href: "/workspace" + encodePath(path) });
+          } else {
+            console.log("Error: could not find small_molecule_docking_report.html");
+          }
+        }
+      );
       this.browserHeader.addAction('ViewHASubtypeNumberingReport', 'fa icon-eye fa-2x', {
         label: 'Report',
         multiple: false,
@@ -1506,6 +1645,118 @@ define([
           alert('The genome browser could not be opened. No genome id or no streamable files were found.');
           throw (err);
         }
+      }, false);
+
+      // Helper: load files and launch MicrobeTrace handoff
+      function launchMicrobeTraceWithFiles(mtFiles) {
+        if (!mtFiles.length) {
+          alert('No MicrobeTrace-compatible output files found in this job result.');
+          return;
+        }
+
+        var paths = mtFiles.map(function (f) { return f.path; });
+
+        All([
+          WorkspaceManager.getObjects(paths, false),
+          request('/maage/config/microbetrace-default-style.json', { handleAs: 'json', headers: { 'Accept': 'application/json' } })
+        ]).then(function (responses) {
+          var results = responses[0];
+          var style = responses[1];
+
+          var filesPayload = results.map(function (result, idx) {
+            var content = result.data;
+            if (typeof content === 'object' && content !== null) {
+              content = JSON.stringify(content);
+            }
+            var file = {
+              name: mtFiles[idx].name,
+              kind: mtFiles[idx].kind,
+              contents: (content || '').trim()
+            };
+            if (mtFiles[idx].options) {
+              file.options = mtFiles[idx].options;
+            }
+            return file;
+          });
+
+          microbeTraceHandoff({
+            files: filesPayload,
+            style: style
+          });
+        }).catch(function (err) {
+          console.error('[MicrobeTrace] Failed to load job result files:', err);
+          alert('Failed to load files for MicrobeTrace: ' + (err.message || err));
+        });
+      }
+
+      // SNP set selection dropdown for wgSNP jobs
+      var snpSetTT = new TooltipDialog({
+        content: '',
+        onMouseLeave: function () {
+          popup.close(snpSetTT);
+        }
+      });
+
+      on(snpSetTT.domNode, 'click', function (evt) {
+        var target = evt.target;
+        while (target && !target.attributes.rel && target !== snpSetTT.domNode) {
+          target = target.parentNode;
+        }
+        if (!target || !target.attributes || !target.attributes.rel) return;
+
+        popup.close(snpSetTT);
+        var snpSet = target.attributes.rel.value;
+        var widget = self.actionPanel.currentContainerWidget;
+        if (widget && typeof widget.getMicrobeTraceFiles === 'function') {
+          launchMicrobeTraceWithFiles(widget.getMicrobeTraceFiles(snpSet));
+        }
+      });
+
+      // MicrobeTrace action for cgMLST job results (direct launch)
+      this.browserHeader.addAction('ViewInMicrobeTrace', 'icon-microbetrace', {
+        label: 'MICROBE<br>TRACE',
+        multiple: false,
+        validTypes: ['CoreGenomeMLST'],
+        tooltip: 'Open results in MicrobeTrace molecular epidemiology tool'
+      }, function (selection) {
+        var widget = self.actionPanel.currentContainerWidget;
+        if (!widget || typeof widget.getMicrobeTraceFiles !== 'function') {
+          alert('MicrobeTrace data is not available for this job result.');
+          return;
+        }
+        launchMicrobeTraceWithFiles(widget.getMicrobeTraceFiles());
+      }, false);
+
+      // MicrobeTrace action for wgSNP job results (dropdown for SNP set selection)
+      this.browserHeader.addAction('ViewInMicrobeTraceSNP', 'icon-microbetrace', {
+        label: 'MICROBE<br>TRACE',
+        multiple: false,
+        validTypes: ['WholeGenomeSNPAnalysis'],
+        tooltip: 'Open results in MicrobeTrace - select SNP set'
+      }, function (selection) {
+        var widget = self.actionPanel.currentContainerWidget;
+        if (!widget || typeof widget.getAvailableSNPSets !== 'function') {
+          alert('MicrobeTrace data is not available for this job result.');
+          return;
+        }
+
+        var sets = widget.getAvailableSNPSets();
+        if (!sets.length) {
+          alert('No SNP sets with tree files found in this job result.');
+          return;
+        }
+
+        // Build dropdown content
+        var content = sets.map(function (s) {
+          return '<div class="wsActionTooltip" rel="' + s.id + '">' + s.label + '</div>';
+        }).join('');
+        snpSetTT.set('content', content);
+
+        popup.open({
+          popup: snpSetTT,
+          around: self.browserHeader._actions.ViewInMicrobeTraceSNP.button,
+          orient: ['below']
+        });
       }, false);
 
       this.actionPanel.addAction('ExperimentGeneList', 'fa icon-list-unordered fa-2x', {
@@ -2280,6 +2531,12 @@ define([
                 case 'Homology':
                   d = 'p3/widget/viewer/BlastJobResult';
                   break;
+                case 'CoreGenomeMLST':
+                  d = 'p3/widget/viewer/CoreGenomeMLSTResult';
+                  break;
+                case 'WholeGenomeSNPAnalysis':
+                  d = 'p3/widget/viewer/WholeGenomeSNPResult';
+                  break;
                 default:
                   console.log('Using the default JobResult viewer. A viewer could not be found for id: ' + id);
               }
@@ -2305,6 +2562,12 @@ define([
             var labelType = 'genome_name';
             var filepath = obj.path + obj.name;
             Topic.publish('/navigate', { href: '/view/PhylogeneticTree2/?&labelSearch=' + labelSearch + '&idType=' + idType + '&labelType=' + labelType + '&wsTreeFile=' + encodePath(filepath) + '&fileType=' + obj.type });
+            break;
+
+          case 'microbetrace':
+          case 'microbetrace_session':
+            panelCtor = window.App.getConstructor('p3/widget/viewer/MicrobeTrace');
+            params.data = obj;
             break;
 
           default:

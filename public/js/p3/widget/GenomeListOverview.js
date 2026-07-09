@@ -55,8 +55,8 @@ define([
 			this.inherited(arguments);
 			this.genomeStore = new GenomeStore({});
 			this.amrStore = new AMRStore({});
-			this.currentTaxonomyField = "genus"; // Default to genus
-			this.currentCgmlstField = "cgmlst_hc0"; // Default to HC0
+			this.currentTaxonomyField = "species"; // Default to species
+			this.currentCgmlstField = "cgmlst_hc5"; // Default to HC5
 
 			this.own(
 				on(this.genusBtn, "click", lang.hitch(this, function ()
@@ -1496,8 +1496,9 @@ define([
 								}
 
 								chartData.sort((a, b) => parseInt(a.name) - parseInt(b.name));
+								const recentChartData = chartData.slice(-10);
 
-								chart.updateChart(chartData);
+								chart.updateChart(recentChartData);
 
 								// Add click handler for chart bars
 								chart.chart.on('click', lang.hitch(this, function (params)

@@ -5,7 +5,7 @@ define([
   '../util/PathJoin', './SelectionToGroup', './GenomeFeatureSummary', './DataItemFormatter',
   './ExternalItemFormatter', './DownloadTooltipDialog', 'dijit/form/TextBox', 'dijit/form/Form', './Confirmation',
   './InputList', 'dijit/form/SimpleTextarea', 'dijit/form/DateTextBox', './MetaEditor',
-  '../DataAPI', './PermissionEditor', './ServicesTooltipDialog', 'dijit/popup'
+  '../DataAPI', './PermissionEditor', './ServicesTooltipDialog', 'dijit/popup', '../WorkspaceManager', 'dojo/_base/Deferred', './RerunUtility'
 ], function (
   declare, lang, on, xhr, Topic,
   domClass, domQuery, domStyle, Template, domConstruct,
@@ -13,7 +13,7 @@ define([
   PathJoin, SelectionToGroup, GenomeFeatureSummary, DataItemFormatter,
   ExternalItemFormatter, DownloadTooltipDialog, TextBox, Form, Confirmation,
   InputList, TextArea, DateTextBox, MetaEditor,
-  DataAPI, PermissionEditor, ServicesTooltipDialog, popup
+  DataAPI, PermissionEditor, ServicesTooltipDialog, popup, WorkspaceManager, Deferred, RerunUtility
 ) {
 
   return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
@@ -24,7 +24,7 @@ define([
     genome: null,
     state: null,
     context: 'bacteria',
-    bacteriSummaryWidgets: ['apSummaryWidget', 'gfSummaryWidget', 'spgSummaryWidget'],
+    bacteriSummaryWidgets: ['gfSummaryWidget', 'spgSummaryWidget'],
     virusSummaryWidgets: ['gfSummaryWidget'],
     docsServiceURL: window.App.docsServiceURL,
     tutorialLink: 'quick_references/organisms_genome/overview.html',
@@ -48,6 +48,10 @@ define([
       } else {
         domConstruct.empty(this.genomeSummaryNode);
         domConstruct.empty(this.pubmedSummaryNode);
+        this.resetOutbreakAssessment();
+        this.resetOutbreakAlertAssessment();
+        this.resetAmrAssessment();
+        this.resetVirulenceAssessment();
         domConstruct.place(domConstruct.toDom('<br><h4>Genome not found</h4>'), this.genomeSummaryNode, 'first');
         domConstruct.place(domConstruct.toDom('Not available'), this.pubmedSummaryNode, 'first');
       }
@@ -64,7 +68,12 @@ define([
         return;
       }
       this.genome = genome;
+      this._clusterGenomeIds = null;
 
+      this.createOutbreakAssessment(genome);
+      this.createOutbreakAlertAssessment(genome);
+      this.createAmrAssessment(genome);
+      this.createVirulenceAssessment(genome);
       this.createSummary(genome);
       this.createPubMed(genome);
       this.createExternalLinks(genome);
@@ -93,11 +102,941 @@ define([
       }
     },
 
+    toRqlValue: function (val) {
+      if (val === undefined || val === null || val === '') {
+        return '';
+      }
+      var str = String(val);
+      if (/^-?\d+(\.\d+)?$/.test(str)) {
+        return str;
+      }
+      return encodeURIComponent('"' + str.replace(/"/g, '\\"') + '"');
+    },
+
+    buildOutbreakFilter: function (genome) {
+      var hc10 = this.toRqlValue(genome.cgmlst_hc10);
+      var species = this.toRqlValue(genome.species);
+
+      if (!hc10 || !species) {
+        return null;
+      }
+
+      return 'and(eq(cgmlst_hc10,' + hc10 + '),eq(species,' + species + '))';
+    },
+
+    normalizeDateLabel: function (val) {
+      if (!val) {
+        return null;
+      }
+      var text = String(val);
+      if (text.length >= 10 && text.indexOf('-') > -1) {
+        return text.substring(0, 10);
+      }
+      return text;
+    },
+
+    formatDateRange: function (startDate, endDate) {
+      var start = this.normalizeDateLabel(startDate);
+      var end = this.normalizeDateLabel(endDate);
+
+      if (!start && !end) {
+        return 'Not available';
+      }
+      if (!start) {
+        return end;
+      }
+      if (!end) {
+        return start;
+      }
+      if (start === end) {
+        return start;
+      }
+      return start + ' to ' + end;
+    },
+
+    setAssessmentText: function (node, label, value) {
+      if (!node) {
+        return;
+      }
+
+      domConstruct.empty(node);
+      domConstruct.create('span', {
+        className: 'assessmentAttributeName',
+        textContent: label + ': '
+      }, node);
+
+      domConstruct.create('span', {
+        className: 'assessmentAttributeValue',
+        textContent: value || 'Not available'
+      }, node);
+    },
+
+    // Render one collapsible row per source. Each row shows the source name and
+    // its article count and, when expanded, the article titles as dated links.
+    // Rows default to collapsed to keep the card compact.
+    renderSourceSections: function (node, sources) {
+      if (!node) {
+        return;
+      }
+
+      domConstruct.empty(node);
+
+      sources.forEach(function (source) {
+        var items = Array.isArray(source.items) ? source.items : [];
+        var count = items.length;
+
+        var details = domConstruct.create('details', {
+          className: 'assessmentSource'
+        }, node);
+
+        var summary = domConstruct.create('summary', {
+          className: 'assessmentSourceSummary'
+        }, details);
+        domConstruct.create('span', {
+          className: 'assessmentAttributeName',
+          textContent: source.label
+        }, summary);
+        domConstruct.create('span', {
+          className: 'assessmentSourceCount',
+          textContent: ' (' + count + ')'
+        }, summary);
+
+        if (!count) {
+          details.setAttribute('aria-disabled', 'true');
+          domClass.add(details, 'empty');
+          return;
+        }
+
+        var list = domConstruct.create('ul', {
+          className: 'assessmentSourceList'
+        }, details);
+
+        items.forEach(function (item) {
+          var li = domConstruct.create('li', { className: 'assessmentSourceItem' }, list);
+          var dateText = item.pubDate ? (' (' + item.pubDate.substring(0, 10) + ')') : '';
+
+          // Only render a link when the URL is a valid http(s) target.
+          if (item.link && /^https?:\/\//i.test(item.link)) {
+            domConstruct.create('a', {
+              className: 'assessmentSourceLink',
+              href: item.link,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              textContent: item.title
+            }, li);
+          } else {
+            domConstruct.create('span', {
+              className: 'assessmentSourceLink',
+              textContent: item.title
+            }, li);
+          }
+
+          if (dateText) {
+            domConstruct.create('span', {
+              className: 'assessmentSourceDate',
+              textContent: dateText
+            }, li);
+          }
+        });
+      });
+    },
+
+    resetOutbreakAssessment: function () {
+      this.setAssessmentText(this.outbreakCgmlstNode, 'cgMLST Cluster (HC10)', 'Not available');
+      this.setAssessmentText(this.outbreakClusterSizeNode, 'Cluster Size', 'Not available');
+      this.setAssessmentText(this.outbreakCountriesNode, 'Countries', 'Not available');
+      this.setAssessmentText(this.outbreakStatesNode, 'US States', 'Not available');
+      this.setAssessmentText(this.outbreakDateRangeNode, 'Date Range', 'Not available');
+
+      if (this.outbreakViewClusterLink) {
+        this.outbreakViewClusterLink.removeAttribute('href');
+        this.outbreakViewClusterLink.className = 'assessmentAction disabled';
+      }
+    },
+
+    resetOutbreakAlertAssessment: function () {
+      this.setAssessmentText(this.outbreakAlertSummaryNode, 'Summary', 'Not available');
+      if (this.outbreakAlertSourcesNode) {
+        domConstruct.empty(this.outbreakAlertSourcesNode);
+      }
+
+      [this.outbreakAlertWhoLink, this.outbreakAlertPromedLink, this.outbreakAlertGoogleNewsLink].forEach(function (linkNode) {
+        if (!linkNode) {
+          return;
+        }
+        linkNode.removeAttribute('href');
+        linkNode.className = 'assessmentAction disabled';
+      });
+    },
+
+    // Show a loading spinner in the results area while alerts are fetched.
+    // The summary is hidden until results arrive.
+    setOutbreakAlertLoading: function () {
+      if (this.outbreakAlertSummaryNode) {
+        domConstruct.empty(this.outbreakAlertSummaryNode);
+      }
+      if (this.outbreakAlertSourcesNode) {
+        domConstruct.empty(this.outbreakAlertSourcesNode);
+        var wrap = domConstruct.create('div', { className: 'assessmentLoading' }, this.outbreakAlertSourcesNode);
+        domConstruct.create('span', { className: 'assessmentSpinner' }, wrap);
+        domConstruct.create('span', { className: 'assessmentLoadingText', textContent: 'Loading outbreak alerts…' }, wrap);
+      }
+    },
+
+    createOutbreakAlertAssessment: function (genome) {
+      this.resetOutbreakAlertAssessment();
+
+      if (!genome || !genome.species) {
+        return;
+      }
+
+      var species = String(genome.species).trim();
+      if (!species) {
+        return;
+      }
+
+      var altTerm = '';
+      if (genome.genome_name) {
+        var words = String(genome.genome_name).trim().split(/\s+/).filter(function (w) {
+          return !!w;
+        });
+        if (words.length >= 2) {
+          altTerm = words[0] + ' ' + words[1];
+        }
+      }
+
+      if (altTerm && altTerm.toLowerCase() === species.toLowerCase()) {
+        altTerm = '';
+      }
+
+      this.setOutbreakAlertLoading();
+
+      var queryUrl = '/outbreaks/alerts?species=' + encodeURIComponent(species) + '&count=8';
+      if (altTerm) {
+        queryUrl += '&altTerm=' + encodeURIComponent(altTerm);
+      }
+
+      xhr.get(queryUrl, {
+        headers: {
+          accept: 'application/json',
+          'X-Requested-With': null
+        },
+        handleAs: 'json'
+      }).then(lang.hitch(this, function (data) {
+        if (!this.genome || this.genome.species !== species) {
+          return;
+        }
+
+        this.setAssessmentText(
+          this.outbreakAlertSummaryNode,
+          'Summary',
+          (data && data.summary) ? data.summary : ('No recent matching alerts found for ' + species + '.')
+        );
+
+        var bySource = (data && data.bySource) ? data.bySource : {};
+        this.renderSourceSections(this.outbreakAlertSourcesNode, [
+          { label: 'WHO', items: bySource.WHO },
+          { label: 'ProMED', items: bySource.ProMED },
+          { label: 'Google News', items: bySource.GoogleNews }
+        ]);
+
+        var sourceUrls = data && data.sourceUrls ? data.sourceUrls : {};
+        var linkMap = [
+          { node: this.outbreakAlertWhoLink, url: sourceUrls.who },
+          { node: this.outbreakAlertPromedLink, url: sourceUrls.promed },
+          { node: this.outbreakAlertGoogleNewsLink, url: sourceUrls.googleNews }
+        ];
+
+        linkMap.forEach(function (entry) {
+          if (!entry.node) {
+            return;
+          }
+          if (entry.url) {
+            entry.node.href = entry.url;
+            entry.node.className = 'assessmentAction';
+          } else {
+            entry.node.removeAttribute('href');
+            entry.node.className = 'assessmentAction disabled';
+          }
+        });
+      }), lang.hitch(this, function (err) {
+        console.error('Error retrieving disease outbreak alerts:', err);
+        if (this.outbreakAlertSourcesNode) {
+          domConstruct.empty(this.outbreakAlertSourcesNode);
+        }
+        this.setAssessmentText(this.outbreakAlertSummaryNode, 'Summary', 'Unable to retrieve outbreak alerts at this time.');
+      }));
+    },
+
+    resetAmrAssessment: function () {
+      this.setAssessmentText(this.amrKnownSusceptibleNode, 'Susceptible To (Based On AST)', 'Not available');
+      this.setAssessmentText(this.amrSusceptibleNode, 'Susceptible To (Based On Computational Prediction)', 'Not available');
+      this.setAssessmentText(this.amrKnownResistantNode, 'Resistant To (Based On AST)', 'Not available');
+      this.setAssessmentText(this.amrResistantNode, 'Resistant To (Based On Computational Prediction)', 'Not available');
+      this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', 'Not available');
+      this.setAssessmentText(this.amrGenesBySourceNode, 'AMR Genes By Source', 'Not available');
+
+      if (this.amrKnownSusceptibleNode) {
+        domStyle.set(this.amrKnownSusceptibleNode, 'display', 'none');
+      }
+
+      if (this.amrKnownResistantNode) {
+        domStyle.set(this.amrKnownResistantNode, 'display', 'none');
+      }
+
+      if (this.amrPhenotypesLink) {
+        this.amrPhenotypesLink.removeAttribute('href');
+        this.amrPhenotypesLink.className = 'assessmentAction disabled';
+      }
+
+      if (this.amrGenesLink) {
+        this.amrGenesLink.removeAttribute('href');
+        this.amrGenesLink.className = 'assessmentAction disabled';
+      }
+    },
+
+    createAmrGenesByClassSummary: function (genome) {
+      this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', 'Not available');
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      var query = 'and(eq(genome_id,' + this.toRqlValue(genome.genome_id) + '),eq(property,%22Antibiotic%20Resistance%22),eq(source,%22NDARO%22))'
+        + '&limit(1)&facet((field,antibiotics_class),(mincount,1))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'sp_gene') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var facetFields = data && data.facet_counts ? data.facet_counts.facet_fields : null;
+        var classFacet = facetFields ? facetFields.antibiotics_class : null;
+
+        if (!classFacet) {
+          return;
+        }
+
+        var entries = [];
+        if (Array.isArray(classFacet)) {
+          for (var i = 0; i < classFacet.length; i += 2) {
+            var k = classFacet[i];
+            var v = classFacet[i + 1];
+            if (k && v) {
+              entries.push({ name: String(k), count: Number(v) || 0 });
+            }
+          }
+        } else {
+          Object.keys(classFacet).forEach(function (key) {
+            var count = Number(classFacet[key]) || 0;
+            if (key && count > 0) {
+              entries.push({ name: String(key), count: count });
+            }
+          });
+        }
+
+        if (!entries.length) {
+          return;
+        }
+
+        entries.sort(function (a, b) {
+          if (b.count === a.count) {
+            return a.name.localeCompare(b.name);
+          }
+          return b.count - a.count;
+        });
+
+        var summary = entries.slice(0, 6).map(function (item) {
+          return item.name + ' (' + item.count + ')';
+        }).join(', ');
+
+        if (entries.length > 6) {
+          summary += ', ...';
+        }
+
+        this.setAssessmentText(this.amrGenesByClassNode, 'AMR Genes By Class', summary);
+      }), function (err) {
+        console.error('Error retrieving AMR genes by class summary:', err);
+      });
+    },
+
+    createAmrGenesBySourceSummary: function (genome) {
+      this.setAssessmentText(this.amrGenesBySourceNode, 'AMR Genes By Source', 'Not available');
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      var query = 'and(eq(genome_id,' + this.toRqlValue(genome.genome_id) + '),eq(property,%22Antibiotic%20Resistance%22))'
+        + '&limit(1)&facet((field,source),(mincount,1))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'sp_gene') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var facetFields = data && data.facet_counts ? data.facet_counts.facet_fields : null;
+        var sourceFacet = facetFields ? facetFields.source : null;
+
+        if (!sourceFacet) {
+          return;
+        }
+
+        var entries = [];
+        if (Array.isArray(sourceFacet)) {
+          for (var i = 0; i < sourceFacet.length; i += 2) {
+            var k = sourceFacet[i];
+            var v = sourceFacet[i + 1];
+            if (k && v) {
+              entries.push({ name: String(k), count: Number(v) || 0 });
+            }
+          }
+        } else {
+          Object.keys(sourceFacet).forEach(function (key) {
+            var count = Number(sourceFacet[key]) || 0;
+            if (key && count > 0) {
+              entries.push({ name: String(key), count: count });
+            }
+          });
+        }
+
+        if (!entries.length) {
+          return;
+        }
+
+        entries.sort(function (a, b) {
+          if (b.count === a.count) {
+            return a.name.localeCompare(b.name);
+          }
+          return b.count - a.count;
+        });
+
+        var summary = entries.slice(0, 6).map(function (item) {
+          return item.name + ' (' + item.count + ')';
+        }).join(', ');
+
+        if (entries.length > 6) {
+          summary += ', ...';
+        }
+
+        this.setAssessmentText(this.amrGenesBySourceNode, 'AMR Genes By Source', summary);
+      }), function (err) {
+        console.error('Error retrieving AMR genes by source summary:', err);
+      });
+    },
+
+    createAmrAssessment: function (genome) {
+      this.resetAmrAssessment();
+      this.createAmrGenesByClassSummary(genome);
+      this.createAmrGenesBySourceSummary(genome);
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      if (this.amrPhenotypesLink) {
+        this.amrPhenotypesLink.href = '/view/Genome/' + genome.genome_id + '#view_tab=amr';
+        this.amrPhenotypesLink.className = 'assessmentAction';
+      }
+
+      if (this.amrGenesLink) {
+        this.amrGenesLink.href = '/view/Genome/' + genome.genome_id + '#view_tab=specialtyGenes&filter=eq(property,%22Antibiotic%20Resistance%22)';
+        this.amrGenesLink.className = 'assessmentAction';
+      }
+
+      var query = 'eq(genome_id,' + this.toRqlValue(genome.genome_id) + ')' +
+        '&limit(1)&facet((pivot,(resistant_phenotype,evidence,antibiotic)),(mincount,1),(method,enum))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'genome_amr') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var pivots = data && data.facet_counts && data.facet_counts.facet_pivot
+          ? data.facet_counts.facet_pivot['resistant_phenotype,evidence,antibiotic']
+          : null;
+
+        if (!pivots || !pivots.length) {
+          return;
+        }
+
+        var phenotypeData = {
+          susceptible: { computational: [], laboratory: [] },
+          resistant: { computational: [], laboratory: [] }
+        };
+
+        var addUnique = function (arr, values) {
+          var seen = {};
+          arr.forEach(function (item) {
+            seen[item] = true;
+          });
+          values.forEach(function (item) {
+            if (item && !seen[item]) {
+              seen[item] = true;
+              arr.push(item);
+            }
+          });
+        };
+
+        pivots.forEach(function (phenotype) {
+          var phenotypeValue = phenotype && phenotype.value ? String(phenotype.value).trim() : '';
+          var phenotypeKey = phenotypeValue.toLowerCase();
+          if (phenotypeKey !== 'susceptible' && phenotypeKey !== 'resistant') {
+            return;
+          }
+
+          var methods = Array.isArray(phenotype.pivot)
+            ? phenotype.pivot
+            : (phenotype.pivot ? Object.keys(phenotype.pivot).map(function (k) { return phenotype.pivot[k]; }) : []);
+
+          methods.forEach(function (method) {
+            var methodValue = method && method.value ? String(method.value).toLowerCase() : '';
+            var isComputed = (methodValue === 'computational method');
+            var isLab = (methodValue === 'laboratory method');
+            if (!isComputed && !isLab) {
+              return;
+            }
+
+            var antibioticPivots = Array.isArray(method.pivot)
+              ? method.pivot
+              : (method.pivot ? Object.keys(method.pivot).map(function (k) { return method.pivot[k]; }) : []);
+
+            var antibiotics = antibioticPivots.map(function (pv) {
+              return pv && pv.value ? String(pv.value).trim() : '';
+            }).filter(function (val) {
+              return val.length > 0;
+            });
+
+            if (!antibiotics.length) {
+              return;
+            }
+
+            var target = phenotypeData[phenotypeKey];
+            var methodBucket = isComputed ? 'computational' : 'laboratory';
+            addUnique(target[methodBucket], antibiotics);
+          });
+        });
+
+        var knownSusceptible = phenotypeData.susceptible.laboratory;
+        var knownResistant = phenotypeData.resistant.laboratory;
+        var likelySusceptible = phenotypeData.susceptible.computational;
+        var likelyResistant = phenotypeData.resistant.computational;
+
+        if (this.amrKnownSusceptibleNode) {
+          domStyle.set(this.amrKnownSusceptibleNode, 'display', knownSusceptible.length ? 'block' : 'none');
+        }
+        if (this.amrKnownResistantNode) {
+          domStyle.set(this.amrKnownResistantNode, 'display', knownResistant.length ? 'block' : 'none');
+        }
+
+        this.setAssessmentText(
+          this.amrKnownSusceptibleNode,
+          'Susceptible To (Based On AST)',
+          knownSusceptible.length ? knownSusceptible.join(', ') : 'Not available'
+        );
+        this.setAssessmentText(
+          this.amrSusceptibleNode,
+          'Susceptible To (Based On Computational Prediction)',
+          likelySusceptible.length ? likelySusceptible.join(', ') : 'Not available'
+        );
+        this.setAssessmentText(
+          this.amrKnownResistantNode,
+          'Resistant To (Based On AST)',
+          knownResistant.length ? knownResistant.join(', ') : 'Not available'
+        );
+        this.setAssessmentText(
+          this.amrResistantNode,
+          'Resistant To (Based On Computational Prediction)',
+          likelyResistant.length ? likelyResistant.join(', ') : 'Not available'
+        );
+      }), function (err) {
+        console.error('Error retrieving AMR assessment data:', err);
+      });
+    },
+
+    resetVirulenceAssessment: function () {
+      this.setAssessmentText(this.vfBySourceNode, 'Virulence Factors By Source', 'Not available');
+
+      if (this.vfGenesLink) {
+        this.vfGenesLink.removeAttribute('href');
+        this.vfGenesLink.className = 'assessmentAction disabled';
+      }
+    },
+
+    createVirulenceAssessment: function (genome) {
+      this.resetVirulenceAssessment();
+
+      if (!genome || !genome.genome_id) {
+        return;
+      }
+
+      if (this.vfGenesLink) {
+        this.vfGenesLink.href = '/view/Genome/' + genome.genome_id + '#view_tab=specialtyGenes&filter=eq(property,%22Virulence%20Factor%22)';
+        this.vfGenesLink.className = 'assessmentAction';
+      }
+
+      var query = 'and(eq(genome_id,' + this.toRqlValue(genome.genome_id) + '),eq(property,%22Virulence%20Factor%22))'
+        + '&limit(1)&facet((field,source),(mincount,1))&json(nl,map)';
+
+      xhr.post(PathJoin(this.apiServiceUrl, 'sp_gene') + '/', {
+        handleAs: 'json',
+        headers: {
+          accept: 'application/solr+json',
+          'content-type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        data: query
+      }).then(lang.hitch(this, function (data) {
+        var facetFields = data && data.facet_counts ? data.facet_counts.facet_fields : null;
+        var sourceFacet = facetFields ? facetFields.source : null;
+
+        if (!sourceFacet) {
+          return;
+        }
+
+        var entries = [];
+        if (Array.isArray(sourceFacet)) {
+          for (var i = 0; i < sourceFacet.length; i += 2) {
+            var k = sourceFacet[i];
+            var v = sourceFacet[i + 1];
+            if (k && v) {
+              entries.push({ name: String(k), count: Number(v) || 0 });
+            }
+          }
+        } else {
+          Object.keys(sourceFacet).forEach(function (key) {
+            var count = Number(sourceFacet[key]) || 0;
+            if (key && count > 0) {
+              entries.push({ name: String(key), count: count });
+            }
+          });
+        }
+
+        if (!entries.length) {
+          return;
+        }
+
+        entries.sort(function (a, b) {
+          if (b.count === a.count) {
+            return a.name.localeCompare(b.name);
+          }
+          return b.count - a.count;
+        });
+
+        var summary = entries.slice(0, 6).map(function (item) {
+          return item.name + ' (' + item.count + ')';
+        }).join(', ');
+
+        if (entries.length > 6) {
+          summary += ', ...';
+        }
+
+        this.setAssessmentText(this.vfBySourceNode, 'Virulence Factors By Source', summary);
+      }), function (err) {
+        console.error('Error retrieving virulence factors by source summary:', err);
+      });
+    },
+
+    createOutbreakAssessment: function (genome) {
+      this.resetOutbreakAssessment();
+      this._clusterGenomeIds = genome && genome.genome_id ? [genome.genome_id] : [];
+
+      if (!genome) {
+        return;
+      }
+
+      this.setAssessmentText(this.outbreakCgmlstNode, 'cgMLST Cluster (HC10)', genome.cgmlst_hc10 || 'Not available');
+
+      var fallbackCountry = genome.isolation_country || 'Not available';
+      this.setAssessmentText(this.outbreakCountriesNode, 'Countries', fallbackCountry);
+
+      var fallbackState = genome.state_province || 'Not available';
+      this.setAssessmentText(this.outbreakStatesNode, 'US States', fallbackState);
+
+      var fallbackDate = this.normalizeDateLabel(genome.collection_date) || genome.collection_year || 'Not available';
+      this.setAssessmentText(this.outbreakDateRangeNode, 'Date Range', this.formatDateRange(fallbackDate, fallbackDate));
+
+      var outbreakFilter = this.buildOutbreakFilter(genome);
+
+      if (outbreakFilter && this.outbreakViewClusterLink) {
+        this.outbreakViewClusterLink.href = '/view/GenomeList/?' + outbreakFilter + '#view_tab=genomes';
+        this.outbreakViewClusterLink.className = 'assessmentAction';
+      }
+
+      if (!outbreakFilter) {
+        return;
+      }
+
+      var query = '/?' + outbreakFilter + '&select(genome_id,state_province,isolation_country,collection_date,collection_year)&limit(25000)';
+
+      xhr.get(PathJoin(this.apiServiceUrl, 'genome') + query, {
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        handleAs: 'json'
+      }).then(lang.hitch(this, function (genomes) {
+        if (!genomes || !genomes.length) {
+          return;
+        }
+
+        this._clusterGenomeIds = genomes.map(function (g) {
+          return g.genome_id;
+        }).filter(function (id) {
+          return !!id;
+        });
+
+        this.setAssessmentText(this.outbreakClusterSizeNode, 'Cluster Size', genomes.length + ' isolates');
+
+        var stateSet = {};
+        var countrySet = {};
+        var dates = [];
+
+        genomes.forEach(function (g) {
+          var state = g.state_province;
+          if (state) {
+            stateSet[state] = true;
+          }
+
+          var country = g.isolation_country;
+          if (country) {
+            countrySet[country] = true;
+          }
+
+          var sampleDate = g.collection_date || g.collection_year;
+          if (sampleDate) {
+            dates.push(String(sampleDate));
+          }
+        });
+
+        var countries = Object.keys(countrySet).sort();
+        if (countries.length) {
+          this.setAssessmentText(this.outbreakCountriesNode, 'Countries', countries.slice(0, 5).join(', ') + (countries.length > 5 ? ', ...' : ''));
+        }
+
+        var states = Object.keys(stateSet).sort();
+        if (states.length) {
+          this.setAssessmentText(this.outbreakStatesNode, 'US States', states.slice(0, 5).join(', ') + (states.length > 5 ? ', ...' : ''));
+        }
+
+        if (dates.length) {
+          dates.sort();
+          this.setAssessmentText(this.outbreakDateRangeNode, 'Date Range', this.formatDateRange(dates[0], dates[dates.length - 1]));
+        }
+      }), function (err) {
+        console.error('Error retrieving outbreak assessment data:', err);
+      });
+    },
+
+    getClusterGenomeIds: function () {
+      var def = new Deferred();
+
+      if (this._clusterGenomeIds && this._clusterGenomeIds.length) {
+        def.resolve(this._clusterGenomeIds.slice());
+        return def;
+      }
+
+      if (!this.genome || !this.genome.genome_id) {
+        def.resolve([]);
+        return def;
+      }
+
+      var outbreakFilter = this.buildOutbreakFilter(this.genome);
+      if (!outbreakFilter) {
+        def.resolve([this.genome.genome_id]);
+        return def;
+      }
+
+      var query = '/?' + outbreakFilter + '&select(genome_id)&limit(25000)';
+      xhr.get(PathJoin(this.apiServiceUrl, 'genome') + query, {
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/rqlquery+x-www-form-urlencoded',
+          'X-Requested-With': null,
+          Authorization: (window.App.authorizationToken || '')
+        },
+        handleAs: 'json'
+      }).then(lang.hitch(this, function (genomes) {
+        var ids = [];
+        if (genomes && genomes.length) {
+          ids = genomes.map(function (g) {
+            return g.genome_id;
+          }).filter(function (id) {
+            return !!id;
+          });
+        }
+
+        if (!ids.length && this.genome && this.genome.genome_id) {
+          ids = [this.genome.genome_id];
+        }
+
+        this._clusterGenomeIds = ids.slice();
+        def.resolve(ids);
+      }), lang.hitch(this, function () {
+        def.resolve(this.genome && this.genome.genome_id ? [this.genome.genome_id] : []);
+      }));
+
+      return def;
+    },
+
+    saveTempGenomeGroup: function (genomeIds) {
+      var def = new Deferred();
+
+      if (!genomeIds || !genomeIds.length) {
+        def.resolve(null);
+        return def;
+      }
+
+      var hiddenGroupPath = WorkspaceManager.getDefaultFolder() + '/home/._tmp_groups';
+      var groupName = 'tmp_cluster_group_' + Date.now();
+      var groupPath = hiddenGroupPath + '/' + groupName;
+
+      WorkspaceManager.createFolder(hiddenGroupPath).then(function () {
+        WorkspaceManager.createGroup(groupName, 'genome_group', hiddenGroupPath, 'genome_id', genomeIds).then(function () {
+          def.resolve(groupPath);
+        }, function () {
+          def.resolve(null);
+        });
+      }, function () {
+        WorkspaceManager.createGroup(groupName, 'genome_group', hiddenGroupPath, 'genome_id', genomeIds).then(function () {
+          def.resolve(groupPath);
+        }, function () {
+          def.resolve(null);
+        });
+      });
+
+      return def;
+    },
+
+    onCopyOutbreakSummary: function () {
+      if (!this.genome || !navigator.clipboard) {
+        return;
+      }
+
+      var lines = [
+        this.outbreakCgmlstNode ? this.outbreakCgmlstNode.textContent : '',
+        this.outbreakClusterSizeNode ? this.outbreakClusterSizeNode.textContent : '',
+        this.outbreakCountriesNode ? this.outbreakCountriesNode.textContent : '',
+        this.outbreakStatesNode ? this.outbreakStatesNode.textContent : '',
+        this.outbreakDateRangeNode ? this.outbreakDateRangeNode.textContent : ''
+      ].filter(Boolean);
+
+      navigator.clipboard.writeText(lines.join('\n')).then(function () {
+        Topic.publish('/Notification', {
+          message: 'Outbreak assessment copied.',
+          type: 'message'
+        });
+      });
+    },
+
+    onRunCodonTree: function (evt) {
+      if (evt) {
+        evt.preventDefault();
+      }
+      if (!window.App.user || !window.App.user.id) {
+        Topic.publish('/login');
+        return;
+      }
+
+      if (!this.genome) {
+        return;
+      }
+
+      this.getClusterGenomeIds().then(lang.hitch(this, function (ids) {
+        this.saveTempGenomeGroup(ids).then(lang.hitch(this, function (groupPath) {
+          if (groupPath) {
+            RerunUtility.rerun(JSON.stringify({ genome_groups: [groupPath] }), 'CodonTree', window, Topic);
+            return;
+          }
+
+          Topic.publish('/Notification', {
+            message: 'Unable to create temporary cluster genome group. Opening service without prefill.',
+            type: 'warning'
+          });
+          RerunUtility.rerun(JSON.stringify({ genome_ids: ids || [] }), 'CodonTree', window, Topic);
+        }));
+      }));
+    },
+
+    onRunCoreGenomeMlST: function (evt) {
+      if (evt) {
+        evt.preventDefault();
+      }
+      if (!window.App.user || !window.App.user.id) {
+        Topic.publish('/login');
+        return;
+      }
+
+      this.getClusterGenomeIds().then(lang.hitch(this, function (ids) {
+        this.saveTempGenomeGroup(ids).then(lang.hitch(this, function (groupPath) {
+          if (groupPath) {
+            RerunUtility.rerun(JSON.stringify({
+              input_genome_group: groupPath,
+              select_genomegroup: [groupPath]
+            }), 'CoreGenomeMLST', window, Topic);
+            return;
+          }
+
+          Topic.publish('/Notification', {
+            message: 'Unable to create temporary cluster genome group. Opening cgMLST service without prefill.',
+            type: 'warning'
+          });
+          Topic.publish('/navigate', { href: '/app/CoreGenomeMLST', target: 'blank' });
+        }));
+      }));
+    },
+
+    onRunWholeGenomeSNP: function (evt) {
+      if (evt) {
+        evt.preventDefault();
+      }
+      if (!window.App.user || !window.App.user.id) {
+        Topic.publish('/login');
+        return;
+      }
+
+      this.getClusterGenomeIds().then(lang.hitch(this, function (ids) {
+        this.saveTempGenomeGroup(ids).then(lang.hitch(this, function (groupPath) {
+          if (groupPath) {
+            RerunUtility.rerun(JSON.stringify({
+              input_genome_group: groupPath,
+              select_genomegroup: [groupPath]
+            }), 'WholeGenomeSNPAnalysis', window, Topic);
+            return;
+          }
+
+          Topic.publish('/Notification', {
+            message: 'Unable to create temporary cluster genome group. Opening wgSNP service without prefill.',
+            type: 'warning'
+          });
+          Topic.publish('/navigate', { href: '/app/WholeGenomeSNPAnalysis', target: 'blank' });
+        }));
+      }));
+    },
+
     createSummary: function (genome) {
       var self = this;
       domConstruct.empty(self.genomeSummaryNode);
 
-      domConstruct.place(DataItemFormatter(genome, 'genome_data', {}), self.genomeSummaryNode, 'first');
+      domConstruct.place(DataItemFormatter(genome, 'genome_data', { hideHeader: true }), self.genomeSummaryNode, 'first');
 
       // if user owns genome, add edit button
       if (window.App.user && genome.owner == window.App.user.id) {
@@ -157,7 +1096,37 @@ define([
 
     createPubMed: function (genome) {
       domConstruct.empty(this.pubmedSummaryNode);
-      domConstruct.place(ExternalItemFormatter(genome, 'pubmed_data', {}), this.pubmedSummaryNode, 'first');
+
+      var species = genome && genome.species ? String(genome.species).trim() : '';
+      var altTerm = '';
+      if (genome && genome.genome_name) {
+        var words = String(genome.genome_name).trim().split(/\s+/).filter(function (w) {
+          return !!w;
+        });
+        if (words.length >= 2) {
+          altTerm = words[0] + ' ' + words[1];
+        }
+      }
+      if (altTerm && species && altTerm.toLowerCase() === species.toLowerCase()) {
+        altTerm = '';
+      }
+
+      var organismTerm;
+      if (species && altTerm) {
+        organismTerm = '("' + species + '" OR "' + altTerm + '")';
+      } else if (species) {
+        organismTerm = '"' + species + '"';
+      } else if (altTerm) {
+        organismTerm = '"' + altTerm + '"';
+      } else if (genome && genome.genome_name) {
+        organismTerm = '"' + String(genome.genome_name).trim() + '"';
+      } else {
+        organismTerm = '';
+      }
+
+      var term = organismTerm ? organismTerm + ' AND outbreak' : 'outbreak';
+
+      domConstruct.place(ExternalItemFormatter(term, 'pubmed_data', { retmax: 3 }), this.pubmedSummaryNode, 'first');
     },
 
     onAddGenome: function () {

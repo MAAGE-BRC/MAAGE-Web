@@ -1,0 +1,306 @@
+<div class="p-6 sm:p-10 bg-maage-bg min-h-full max-w-4xl">
+
+  <!-- Page Title -->
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-heading font-bold text-maage-text mb-4">
+      Viral Outbreak Investigation
+    </h1>
+    <p class="text-base text-maage-text-muted leading-relaxed">
+      The Viral Outbreak Investigation workflow guides you through the complete process of genomic
+      surveillance and outbreak analysis—from sequencing data to outbreak interpretation. Whether you are
+      investigating a suspected outbreak, monitoring viral evolution, or comparing isolates to public datasets,
+      MAAGE provides an integrated workspace that supports every stage of the investigation.
+    </p>
+  </div>
+
+  <!-- Workflow Diagram -->
+  <div class="mb-6">
+    <img src="/maage/img/ViralInvestigationWorkflow.png" alt="Viral Outbreak Investigation Workflow diagram" style="width:100%; height:auto; display:block;"/>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 1. Upload Your Sequencing Data
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Begin by uploading one or more viral samples to your investigation.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      MAAGE supports multiple starting points, allowing you to begin with:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Raw sequencing reads (FASTQ)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Assembled viral genome contigs (FASTA)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Previously analyzed viral genomes in your MAAGE workspace</span>
+      </li>
+    </ul>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Each uploaded sample becomes part of your investigation and can be analyzed individually or together
+      throughout the workflow.
+    </p>
+    <p class="text-base font-bold text-maage-text mb-2">Supported inputs</p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Illumina paired-end FASTQ</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Oxford Nanopore FASTQ</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Assembled viral genomes (FASTA)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Existing MAAGE genomes</span>
+      </li>
+    </ul>
+    <p class="text-base font-bold text-maage-text mb-2">Next Step</p>
+    <p class="text-base text-maage-text-muted leading-relaxed">
+      Run <strong>Viral Genome Assembly</strong> if starting from raw sequencing reads, or proceed directly to
+      <strong>Viral Genome Annotation</strong> if assembled genomes are already available.
+    </p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 2. Assemble Viral Genomes
+    </h2>
+    <p class="text-base font-bold text-maage-text mb-2">Viral Genome Assembly</p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      If starting from raw sequencing reads, assemble complete viral genomes using MAAGE's viral assembly
+      pipeline.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      The assembly workflow reconstructs high-quality viral consensus genomes and generates assembly quality
+      metrics that can be reviewed before downstream analysis.
+    </p>
+    <p class="text-base font-bold text-maage-text mb-2">Outcome</p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Consensus viral genome</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Assembly statistics</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Coverage summary</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Quality assessment</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Genome ready for annotation</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 3. Annotate Viral Genomes
+    </h2>
+    <p class="text-base font-bold text-maage-text mb-2">Viral Genome Annotation</p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Annotate assembled viral genomes to identify coding sequences, proteins, genomic features, and
+      lineage-specific characteristics.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      The annotation workflow generates a comprehensive summary of each viral genome and prepares the
+      genome for downstream comparative analyses.
+    </p>
+    <p class="text-base font-bold text-maage-text mb-2">Outcome</p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Annotated viral genome</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Predicted genes and proteins</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Functional annotations</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Genome summary</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Standardized genome ready for comparison</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 4. Review Related Public Isolates
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Once your viral genome has been assembled and annotated, examine its relationship to publicly available
+      viral genomes.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Compare your genomes against the MAAGE public database to identify closely related isolates, circulating
+      lineages, geographic distribution, and previously reported outbreak sequences.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Use this information to assess:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Closest related public genomes</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Geographic distribution</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Collection dates</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Host and source metadata</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Lineage and clade assignments (when available)</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Potential epidemiological links</span>
+      </li>
+    </ul>
+    <p class="text-base text-maage-text-muted leading-relaxed italic">
+      This step often provides the first indication that your samples may be associated with an ongoing
+      outbreak or circulating lineage.
+    </p>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 5. Compare Related Isolates with Whole Genome SNP Analysis
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      If multiple viral genomes appear to be related, perform Whole Genome SNP Analysis to compare them at
+      nucleotide resolution.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Whole Genome SNP Analysis identifies sequence differences across the selected genomes and reports
+      pairwise SNP distances to distinguish closely related isolates.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Use this analysis to:
+    </p>
+    <ul class="mb-4 space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Confirm outbreak membership</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Differentiate highly similar viral isolates</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Measure genetic distance</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Identify shared and distinguishing mutations</span>
+      </li>
+    </ul>
+    <p class="text-base font-bold text-maage-text mb-2">Outputs</p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>SNP matrix</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Pairwise SNP distances</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Core and complete SNP alignments</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Consensus sequences</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>SNP-based phylogenetic trees</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="mb-6 bg-maage-surface border border-maage-border rounded-lg p-6">
+    <h2 class="text-2xl font-heading font-bold text-maage-text mb-4">
+      Step 6. Visualize Evolutionary Relationships
+    </h2>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Construct phylogenetic trees to summarize the evolutionary relationships among your investigation
+      samples.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      The Phylogenetic Analysis service generates publication-quality trees and allows metadata to be mapped
+      directly onto the phylogeny, making it easier to interpret transmission patterns, lineage evolution,
+      geographic spread, and outbreak structure.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-4">
+      Although Whole Genome SNP Analysis also produces phylogenetic trees, this service provides greater
+      flexibility for building customized trees from selected genomes.
+    </p>
+    <p class="text-base text-maage-text-muted leading-relaxed mb-3">
+      Use this step to:
+    </p>
+    <ul class="space-y-2" style="padding-left: 2.5rem;">
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Visualize transmission networks</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Explore evolutionary relationships</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Compare viral lineages</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Generate publication-quality figures</span>
+      </li>
+      <li class="flex items-start gap-2 text-base text-maage-text-muted">
+        <span class="mt-1 text-maage-text-muted" style="font-size: 1.2em; line-height: 1;">&#8226;</span>
+        <span>Communicate investigation findings</span>
+      </li>
+    </ul>
+  </div>
+
+</div>

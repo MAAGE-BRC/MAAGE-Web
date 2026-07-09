@@ -2,7 +2,7 @@
 	<div class="mb-4 sm:mb-6">
 		<div class="flex flex-wrap gap-2 sm:gap-4">
 			<div class="chart-section w-full lg:w-[calc(25%-0.5rem)]">
-				<h3 class="chart-title">Genome List Summary</h3>
+				<h3 class="chart-title">Summary</h3>
 				<div data-dojo-attach-point="summaryNode"
 					 class="summary-container"></div>
 			</div>
@@ -27,7 +27,7 @@
 
 		<!-- Collection Year Chart (right) -->
 		<div class="chart-section w-full md:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Collection Year</h3>
+			<h3 class="chart-title">Collection Year (Last 10 Years)</h3>
 			<div data-dojo-attach-point="yearlyCountChartNode"
 				 class="chart-container"></div>
 		</div>
@@ -41,12 +41,12 @@
 				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
 					<button type="button"
 							data-dojo-attach-point="genusBtn"
-							class="taxonomy-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							class="taxonomy-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
 						Genus
 					</button>
 					<button type="button"
 							data-dojo-attach-point="speciesBtn"
-							class="taxonomy-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							class="taxonomy-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
 						Species
 					</button>
 				</div>
@@ -70,13 +70,13 @@
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0 relative">
-			<h3 class="chart-title">cgMLST HC Distribution</h3>
+			<h3 class="chart-title">cgMLST Clusters</h3>
 			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
 				 data-dojo-attach-point="cgmlstControlsContainer">
 				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
 					<button type="button"
 							data-dojo-attach-point="cgmlstHC0Btn"
-							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
 						HC0
 					</button>
 					<button type="button"
@@ -86,7 +86,7 @@
 					</button>
 					<button type="button"
 							data-dojo-attach-point="cgmlstHC5Btn"
-							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
 						HC5
 					</button>
 					<button type="button"

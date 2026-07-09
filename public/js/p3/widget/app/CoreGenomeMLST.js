@@ -38,37 +38,27 @@ define([
     textInput: false,
     startup: function () {
       var _self = this;
-
-      this.inherited(arguments);
       if (this._started) {
         return;
       }
-
-
-      // Call the startup of the base class explicitly
-      this.constructor.superclass.startup.apply(this, arguments);
-      this.inherited(arguments);
 
       if (this.requireAuth && (window.App.authorizationToken === null || window.App.authorizationToken === undefined)) {
         return;
       }
 
-      // Ensure FilteringSelect is preloaded
-        require(["dijit/form/FilteringSelect"], function(FilteringSelect) {
-        _self.inherited(arguments);
-        _self._started = true;
-        _self.defaultPath = WorkspaceManager.getDefaultFolder() || _self.activeWorkspacePath;
-        _self.output_path.set('value', _self.defaultPath);
+      this.inherited(arguments);
+      _self.defaultPath = WorkspaceManager.getDefaultFolder() || _self.activeWorkspacePath;
+      _self.output_path.set('value', _self.defaultPath);
+      _self._started = true;
 
-        // Initialize FilteringSelect manually
-        _self.initFilteringSelect();
+      // Initialize schema selector store if available.
+      _self.initFilteringSelect([]);
 
-        try {
-          _self.intakeRerunForm();
-        } catch (error) {
-          console.error(error);
-        }
-      });
+      try {
+        _self.intakeRerunForm();
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     initFilteringSelect(storeData) {
@@ -214,29 +204,58 @@ define([
     },
 
     intakeRerunForm: function () {
-      // assuming only one key
-      var service_fields = window.location.search.replace('?', '');
-      var rerun_fields = service_fields.split('=');
-      var rerun_key;
-      if (rerun_fields.length > 1) {
-        try {
-          rerun_key = rerun_fields[1];
-          var sessionStorage = window.sessionStorage;
-          if (sessionStorage.hasOwnProperty(rerun_key)) {
-            var job_data = JSON.parse(sessionStorage.getItem(rerun_key));
-            this.setStatusFormFill(job_data);
-            this.setAlphabetFormFill(job_data);
-            this.setUnalignedInputFormFill(job_data);
-            this.setReferenceFormFill(job_data);
-            // this.addSequenceFilesFormFill(job_data);
-            this.setAlignerFormFill(job_data);
-            this.form_flag = true;
-          }
-        } catch (error) {
-          console.log('Error during intakeRerunForm: ', error);
-        } finally {
-          sessionStorage.removeItem(rerun_key);
+      var rerun_key = null;
+      var sessionStorage = window.sessionStorage;
+
+      try {
+        rerun_key = new URLSearchParams(window.location.search).get('rerun_key');
+      } catch (error) {
+        console.log('Error parsing rerun key: ', error);
+      }
+
+      if (!rerun_key) {
+        return;
+      }
+
+      try {
+        var payload = sessionStorage.getItem(rerun_key);
+        if (!payload) {
+          return;
         }
+
+        var job_data = JSON.parse(payload);
+        if (typeof this.setStatusFormFill === 'function') {
+          this.setStatusFormFill(job_data);
+        }
+        if (typeof this.setAlphabetFormFill === 'function') {
+          this.setAlphabetFormFill(job_data);
+        }
+        if (typeof this.setUnalignedInputFormFill === 'function') {
+          this.setUnalignedInputFormFill(job_data);
+        }
+        if (typeof this.setReferenceFormFill === 'function') {
+          this.setReferenceFormFill(job_data);
+        }
+
+        if (job_data.input_genome_group) {
+          var genomeGroup = Array.isArray(job_data.input_genome_group) ? job_data.input_genome_group[0] : job_data.input_genome_group;
+          var applyGenomeGroupValue = lang.hitch(this, function () {
+            if (this.input_genome_group && genomeGroup) {
+              this.input_genome_group.set('value', genomeGroup);
+            }
+          });
+          applyGenomeGroupValue();
+          setTimeout(applyGenomeGroupValue, 0);
+        }
+
+        if (typeof this.setAlignerFormFill === 'function') {
+          this.setAlignerFormFill(job_data);
+        }
+        this.form_flag = true;
+      } catch (error) {
+        console.log('Error during intakeRerunForm: ', error);
+      } finally {
+        sessionStorage.removeItem(rerun_key);
       }
     },
   });

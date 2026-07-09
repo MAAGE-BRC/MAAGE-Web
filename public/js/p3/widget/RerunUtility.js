@@ -17,6 +17,7 @@ define([], function () {
         'ComparativeSystems': 'ComparativeSystems',
         'ComprehensiveGenomeAnalysis': 'ComprehensiveGenomeAnalysis',
         'ComprehensiveSARS2Analysis': 'ComprehensiveSARS2Analysis',
+        'CoreGenomeMLST': 'CoreGenomeMLST',
         'DifferentialExpression': 'Expression',
         'Docking': 'Docking',
         'FastqUtils': 'FastqUtil',
@@ -44,6 +45,7 @@ define([], function () {
         'TnSeq': 'Tnseq',
         'Variation': 'Variation',
         'ViralAssembly': 'ViralAssembly'
+        , 'WholeGenomeSNPAnalysis': 'WholeGenomeSNPAnalysis'
       };
 
       // TODO: addin modal parameter

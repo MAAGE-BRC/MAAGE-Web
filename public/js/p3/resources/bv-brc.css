@@ -706,43 +706,13 @@
   }
 }
 
-/* Special case for search bar on the header */
-@media (min-width: 768px) and (max-width: 1023px) {
-
-  #mobile-search-icon,
-  #mobile-searchbar {
-    display: none !important;
-  }
-
-  #p3header-search {
-    display: block;
-  }
+/* Always use the magnifying glass icon for search; never show the inline header search bar */
+#p3header-search {
+  display: none !important;
 }
 
-/* Show #mobile-search-icon between 1024px and 1500px */
-@media (min-width: 1024px) and (max-width: 1614px) {
-  #mobile-search-icon {
-    display: block;
-  }
-
-  #p3header-search {
-    display: none;
-  }
-}
-
-/* Hide #mobile-search-icon and mobile-searchbar above 1615px */
-@media (min-width: 1615px) {
-  #mobile-search-icon {
-    display: none !important;
-  }
-
-  #mobile-searchbar {
-    display: none !important;
-  }
-
-  #p3header-search {
-    display: block;
-  }
+#mobile-search-icon {
+  display: block;
 }
 
 /* Static Pages */
