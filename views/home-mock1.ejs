@@ -112,7 +112,7 @@
 								<!-- Tab Header -->
 								<div class="flex items-center justify-between mb-4">
 									<h2 class="text-xl font-semibold text-maage-text/90 font-poppins mock1-carousel-title" id="mock1-carousel-title">
-										Upcoming Events
+										Announcements
 									</h2>
 									<div class="flex gap-1">
 										<button class="mock1-carousel-arrow" id="mock1-carousel-prev" aria-label="Previous">
@@ -125,8 +125,39 @@
 								</div>
 
 								<div class="mock1-carousel-viewport">
+								<!-- Slide: Announcements -->
+								<div class="mock1-carousel-slide mock1-carousel-slide--active" id="mock1-slide-announcements">
+									<div class="space-y-3 flex-1">
+										<div class="hover:bg-maage-primary-50 p-2 rounded-lg">
+											<div class="flex items-center text-sm text-gray-500 mb-1">
+												<span>Coming Soon</span>
+												<span class="mx-2">&bull;</span>
+												<span>Announcement</span>
+											</div>
+											<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Public Launch of the MAAGE Platform</a></h3>
+											<p class="text-sm text-gray-600">We are excited to announce the upcoming public launch of the MAAGE platform.</p>
+										</div>
+										<div class="hover:bg-maage-primary-50 p-2 rounded-lg">
+											<div class="flex items-center text-sm text-gray-500 mb-1">
+												<span>Date: TBD</span>
+												<span class="mx-2">&bull;</span>
+												<span>Webinar</span>
+											</div>
+											<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Webinar: Introduction to MAAGE</a></h3>
+											<p class="text-sm text-gray-600">Join us for an introductory webinar covering the core features of the MAAGE platform.</p>
+										</div>
+									</div>
+									<div class="mt-4 text-center">
+										<a href="/announcements"
+											class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
+											View Announcements
+											<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+										</a>
+									</div>
+								</div>
+
 								<!-- Slide: Events -->
-								<div class="mock1-carousel-slide mock1-carousel-slide--active" id="mock1-slide-events">
+								<div class="mock1-carousel-slide" id="mock1-slide-events">
 									<div class="space-y-4 flex-1">
 										<div class="flex gap-3 bg-maage-primary-50 rounded-lg p-2">
 											<div class="bg-maage-primary-100 text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
@@ -161,37 +192,6 @@
 										</a>
 									</div>
 								</div>
-
-								<!-- Slide: Announcements -->
-								<div class="mock1-carousel-slide" id="mock1-slide-announcements">
-									<div class="space-y-3 flex-1">
-										<div class="hover:bg-maage-primary-50 p-2 rounded-lg">
-											<div class="flex items-center text-sm text-gray-500 mb-1">
-												<span>Coming Soon</span>
-												<span class="mx-2">&bull;</span>
-												<span>Announcement</span>
-											</div>
-											<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Public Launch of the MAAGE Platform</a></h3>
-											<p class="text-sm text-gray-600">We are excited to announce the upcoming public launch of the MAAGE platform.</p>
-										</div>
-										<div class="hover:bg-maage-primary-50 p-2 rounded-lg">
-											<div class="flex items-center text-sm text-gray-500 mb-1">
-												<span>Date: TBD</span>
-												<span class="mx-2">&bull;</span>
-												<span>Webinar</span>
-											</div>
-											<h3 class="font-medium mb-1"><a href="/announcements" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">Webinar: Introduction to MAAGE</a></h3>
-											<p class="text-sm text-gray-600">Join us for an introductory webinar covering the core features of the MAAGE platform.</p>
-										</div>
-									</div>
-									<div class="mt-4 text-center">
-										<a href="/announcements"
-											class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
-											View Announcements
-											<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-										</a>
-									</div>
-								</div>
 								</div><!-- /mock1-carousel-viewport -->
 
 								<!-- Dots -->
@@ -204,8 +204,8 @@
 
 						<script>
 							(function() {
-								var slides = ['mock1-slide-events', 'mock1-slide-announcements'];
-								var titles = ['Upcoming Events', 'Announcements'];
+								var slides = ['mock1-slide-announcements', 'mock1-slide-events'];
+								var titles = ['Announcements', 'Upcoming Events'];
 								var current = 0;
 
 								function show(idx) {
