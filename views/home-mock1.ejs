@@ -255,278 +255,186 @@
 							}
 						</script>
 
-						<!-- Row 2: Workflow Cards + I Have Box -->
-						<div style="grid-column: 1 / -1;">
-							<div class="mock1-row2-grid">
-								<!-- Workflow Cards -->
-								<div class="mock1-workflow-pair">
-									<!-- Workflow Card 1 -->
-									<div class="mock1-workflow-card">
-										<div class="mock1-workflow-header">
-											<span class="mock1-workflow-number">1</span>
-											<h3 class="mock1-workflow-title">Investigate a Suspected Outbreak</h3>
+					</div>
+
+					<!-- Row 3: Four Resource Panels -->
+					<div class="mt-6 mb-2 resource-panels-grid">
+
+						<!-- Panel 1: New to MAAGE? -->
+						<div class="bg-white rounded-xl shadow-md p-5 flex flex-col hover:shadow-lg transition-shadow">
+							<div class="flex items-center gap-2 mb-2">
+								<i data-lucide="crosshair" class="h-7 w-7 text-maage-secondary-700 flex-shrink-0"></i>
+								<h2 class="font-semibold text-lg font-poppins text-maage-text">New to MAAGE?</h2>
+							</div>
+							<p class="text-sm text-gray-600 mb-4 leading-relaxed">Learn how to navigate MAAGE, organize your data, and begin genomic surveillance and outbreak investigations.</p>
+							<ul class="space-y-2 flex-1">
+								<li><a href="https://www.maage-brc.org/docs/overview.html" class="resource-panel-link"><i data-lucide="book-open" class="h-4 w-4 flex-shrink-0"></i><span>Overview</span></a></li>
+								<li><a href="https://www.maage-brc.org/docs/quick_start/index.html" class="resource-panel-link"><i data-lucide="zap" class="h-4 w-4 flex-shrink-0"></i><span>Quick Start</span></a></li>
+<li><a href="https://www.maage-brc.org/docs/quick_references/index.html" class="resource-panel-link"><i data-lucide="layout-list" class="h-4 w-4 flex-shrink-0"></i><span>Quick Reference Guides</span></a></li>
+								<li><a href="https://www.maage-brc.org/docs/tutorial/index.html" class="resource-panel-link"><i data-lucide="graduation-cap" class="h-4 w-4 flex-shrink-0"></i><span>Tutorials</span></a></li>
+								<li><a href="https://www.maage-brc.org/docs/videos/index.html" class="resource-panel-link"><i data-lucide="play-circle" class="h-4 w-4 flex-shrink-0"></i><span>Instructional Videos</span></a></li>
+							</ul>
+							<div class="mt-auto pt-3 border-t border-gray-100 flex">
+								<a href="https://www.maage-brc.org/docs/overview.html" class="ml-auto text-maage-secondary-600 hover:text-maage-secondary-800 transition-colors" aria-label="Learn more">
+									<i data-lucide="arrow-right" class="h-5 w-5"></i>
+								</a>
+							</div>
+						</div>
+
+						<!-- Panel 2: Explore Existing Data -->
+						<div class="bg-white rounded-xl shadow-md p-5 flex flex-col hover:shadow-lg transition-shadow">
+							<div class="flex items-center gap-2 mb-2">
+								<i data-lucide="globe" class="h-7 w-7 text-maage-secondary-700 flex-shrink-0"></i>
+								<h2 class="font-semibold text-lg font-poppins text-maage-text">Explore Public Data</h2>
+							</div>
+							<p class="text-sm text-gray-600 mb-4 leading-relaxed">Search public genomes, features, AMR phenotypes, and specialty genes across MAAGE's curated databases.</p>
+							<ul class="space-y-2 flex-1">
+								<li><a href="/searches/TaxaSearch" class="resource-panel-link"><i data-lucide="tag" class="h-4 w-4 flex-shrink-0"></i><span>Taxa / Organisms</span></a></li>
+								<li><a href="/searches/GenomeSearch" class="resource-panel-link"><i data-lucide="dna" class="h-4 w-4 flex-shrink-0"></i><span>Genomes</span></a></li>
+								<li><a href="/searches/AMRPhenotypeSearch" class="resource-panel-link"><i data-lucide="shield" class="h-4 w-4 flex-shrink-0"></i><span>AMR Phenotypes</span></a></li>
+								<li><a href="/searches/GenomicFeatureSearch" class="resource-panel-link"><i data-lucide="layout-list" class="h-4 w-4 flex-shrink-0"></i><span>Features</span></a></li>
+								<li><a href="/searches/SpecialtyGeneSearch" class="resource-panel-link"><i data-lucide="star" class="h-4 w-4 flex-shrink-0"></i><span>Specialty Genes</span></a></li>
+							</ul>
+							<div class="mt-auto pt-3 border-t border-gray-100 flex">
+								<a href="/searches" class="ml-auto text-maage-secondary-600 hover:text-maage-secondary-800 transition-colors" aria-label="Explore data">
+									<i data-lucide="arrow-right" class="h-5 w-5"></i>
+								</a>
+							</div>
+						</div>
+
+						<!-- Panel 3: Learn Genomic Epidemiology -->
+						<div class="bg-white rounded-xl shadow-md p-5 flex flex-col hover:shadow-lg transition-shadow">
+							<div class="flex items-center gap-2 mb-2">
+								<i data-lucide="chart-pie" class="h-7 w-7 text-maage-secondary-700 flex-shrink-0"></i>
+								<h2 class="font-semibold text-lg font-poppins text-maage-text">Analyze Your Data</h2>
+							</div>
+							<p class="text-sm text-gray-600 mb-4 leading-relaxed">Run bioinformatics analyses on your genomic data using MAAGE's suite of integrated tools.</p>
+							<ul class="space-y-2 flex-1">
+								<li><a href="/app/Assembly2" class="resource-panel-link"><i data-lucide="layers" class="h-4 w-4 flex-shrink-0"></i><span>Genome Assembly</span></a></li>
+								<li><a href="/app/Annotation" class="resource-panel-link"><i data-lucide="tag" class="h-4 w-4 flex-shrink-0"></i><span>Genome Annotation</span></a></li>
+<li><a href="/app/CoreGenomeMLST" class="resource-panel-link"><i data-lucide="dna" class="h-4 w-4 flex-shrink-0"></i><span>cgMLST Analysis</span></a></li>
+								<li><a href="/app/WholeGenomeSNPAnalysis" class="resource-panel-link"><i data-lucide="git-branch" class="h-4 w-4 flex-shrink-0"></i><span>Whole-genome SNP Analysis</span></a></li>
+								<li><a href="/app/PhylogeneticTree" class="resource-panel-link"><i data-lucide="tree-deciduous" class="h-4 w-4 flex-shrink-0"></i><span>Phylogenetic Tree</span></a></li>
+							</ul>
+							<div class="mt-auto pt-3 border-t border-gray-100 flex">
+								<a href="/tools" class="ml-auto text-maage-secondary-600 hover:text-maage-secondary-800 transition-colors" aria-label="View all tools">
+									<i data-lucide="arrow-right" class="h-5 w-5"></i>
+								</a>
+							</div>
+						</div>
+
+						<!-- Panel 4: Start with what you have -->
+						<div class="bg-white rounded-xl shadow-md p-5 flex flex-col hover:shadow-lg transition-shadow">
+							<h2 class="font-semibold text-lg font-poppins text-maage-text mb-1">Getting Started</h2>
+							<p class="text-sm text-gray-600 mb-3 leading-relaxed">Start with the data you already have and choose the workflow that best matches your analysis goals.</p>
+							<div class="flex-1">
+								<div class="mock1-ihave-list">
+									<!-- FASTQ Reads -->
+									<div class="mock1-ihave-item">
+										<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
+											<div class="mock1-ihave-left">
+												<i data-lucide="file-text" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--blue"></i>
+												<span class="mock1-ihave-label">FASTQ Reads</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
+											</div>
+										</button>
+										<div class="mock1-ihave-panel">
+											<a href="/app/ComprehensiveGenomeAnalysis" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Comprehensive Genome Analysis</span>
+												<span class="mock1-ihave-service-desc">Assembly, annotation, AMR, and cgMLST in one pipeline</span>
+											</a>
+											<a href="/app/Assembly2" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Genome Assembly</span>
+												<span class="mock1-ihave-service-desc">Assemble raw reads into contigs</span>
+											</a>
+											<a href="/app/TaxonomicClassification" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Taxonomic Classification</span>
+												<span class="mock1-ihave-service-desc">Classify reads to identify organisms present</span>
+											</a>
 										</div>
-										<p class="mock1-workflow-desc">Determine if isolates are related and part of an existing cluster.</p>
-										<ul class="mock1-workflow-steps">
-											<li>
-												<a href="#" onclick="console.log('Genome Assembly and Annotation'); return false;">
-													<i data-lucide="box" class="h-4 w-4"></i>
-													<span>Genome Assembly and Annotation</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('AMR Prediction'); return false;">
-													<i data-lucide="shield-alert" class="h-4 w-4"></i>
-													<span>AMR Prediction</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('cgMLST Typing'); return false;">
-													<i data-lucide="dna" class="h-4 w-4"></i>
-													<span>cgMLST Typing</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('HierCC Assignment'); return false;">
-													<i data-lucide="git-merge" class="h-4 w-4"></i>
-													<span>HierCC Assignment</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('Cluster Detection'); return false;">
-													<i data-lucide="network" class="h-4 w-4"></i>
-													<span>Cluster Detection</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('Genome Comparison'); return false;">
-													<i data-lucide="diff" class="h-4 w-4"></i>
-													<span>Genome Comparison</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('Phylogenetic Analysis'); return false;">
-													<i data-lucide="tree-deciduous" class="h-4 w-4"></i>
-													<span>Phylogenetic Analysis</span>
-												</a>
-											</li>
-										</ul>
 									</div>
-
-									<!-- Workflow Card 2 -->
-									<div class="mock1-workflow-card">
-										<div class="mock1-workflow-header">
-											<span class="mock1-workflow-number mock1-workflow-number--teal">2</span>
-											<h3 class="mock1-workflow-title">Identify & Characterize a New Sample</h3>
+									<!-- Assembled Contigs -->
+									<div class="mock1-ihave-item">
+										<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
+											<div class="mock1-ihave-left">
+												<i data-lucide="layers" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--purple"></i>
+												<span class="mock1-ihave-label">Assembled Contigs</span>
+											</div>
+											<div class="mock1-ihave-right">
+												<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
+											</div>
+										</button>
+										<div class="mock1-ihave-panel">
+											<a href="/app/ComprehensiveGenomeAnalysis" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Comprehensive Genome Analysis</span>
+												<span class="mock1-ihave-service-desc">Annotate contigs with AMR, cgMLST, and HierCC</span>
+											</a>
+											<a href="/app/Annotation" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Genome Annotation</span>
+												<span class="mock1-ihave-service-desc">Annotate genomic features using RASTtk</span>
+											</a>
+											<a href="/app/GenomeDistance" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Similar Genome Finder</span>
+												<span class="mock1-ihave-service-desc">Find closely related genomes by Mash distance</span>
+											</a>
 										</div>
-										<p class="mock1-workflow-desc">Start with sequence data to identify the pathogen and characterize an isolate.</p>
-										<ul class="mock1-workflow-steps">
-											<li>
-												<a href="#" onclick="console.log('FASTQ Reads'); return false;">
-													<i data-lucide="file-text" class="h-4 w-4"></i>
-													<span>FASTQ Reads</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('Assembly'); return false;">
-													<i data-lucide="layers" class="h-4 w-4"></i>
-													<span>Assembly</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('Species Identification'); return false;">
-													<i data-lucide="scan-search" class="h-4 w-4"></i>
-													<span>Species Identification</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('AMR Detection'); return false;">
-													<i data-lucide="shield-alert" class="h-4 w-4"></i>
-													<span>AMR Detection</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('Serotype / Lineage'); return false;">
-													<i data-lucide="git-branch" class="h-4 w-4"></i>
-													<span>Serotype / Lineage</span>
-												</a>
-											</li>
-											<li>
-												<a href="#" onclick="console.log('MLST / cgMLST'); return false;">
-													<i data-lucide="dna" class="h-4 w-4"></i>
-													<span>MLST / cgMLST</span>
-												</a>
-											</li>
-										</ul>
 									</div>
-								</div>
-
-								<!-- I Have... Box -->
-								<div class="mock1-ihave-box">
-									<h3 class="mock1-ihave-title">I Have...</h3>
-									<div class="mock1-ihave-list">
-
-										<!-- FASTQ Reads -->
-										<div class="mock1-ihave-item">
-											<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
-												<div class="mock1-ihave-left">
-													<i data-lucide="file-text" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--blue"></i>
-													<span class="mock1-ihave-label">FASTQ Reads</span>
-												</div>
-												<div class="mock1-ihave-right">
-													<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
-												</div>
-											</button>
-											<div class="mock1-ihave-panel">
-												<a href="/app/ComprehensiveGenomeAnalysis" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Comprehensive Genome Analysis</span>
-													<span class="mock1-ihave-service-desc">Assembly, annotation, AMR, and cgMLST in one pipeline</span>
-												</a>
-												<a href="/app/Assembly2" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Genome Assembly</span>
-													<span class="mock1-ihave-service-desc">Assemble raw reads into contigs</span>
-												</a>
-												<a href="/app/MetagenomicReadMapping" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Metagenomic Read Mapping</span>
-													<span class="mock1-ihave-service-desc">Screen reads against AMR and virulence databases</span>
-												</a>
-												<a href="/app/TaxonomicClassification" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Taxonomic Classification</span>
-													<span class="mock1-ihave-service-desc">Classify reads to identify organisms present</span>
-												</a>
-												<a href="/app/ComprehensiveSARS2Analysis" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">SARS-CoV-2 Analysis</span>
-													<span class="mock1-ihave-service-desc">Assembly, annotation, and lineage for SARS-CoV-2</span>
-												</a>
+									<!-- Genome Group -->
+									<div class="mock1-ihave-item">
+										<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
+											<div class="mock1-ihave-left">
+												<i data-lucide="database" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--green"></i>
+												<span class="mock1-ihave-label">A Genome Group</span>
 											</div>
-										</div>
-
-										<!-- Assembled Genomes / Contigs -->
-										<div class="mock1-ihave-item">
-											<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
-												<div class="mock1-ihave-left">
-													<i data-lucide="layers" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--purple"></i>
-													<span class="mock1-ihave-label">Assembled Contigs</span>
-												</div>
-												<div class="mock1-ihave-right">
-													<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
-												</div>
-											</button>
-											<div class="mock1-ihave-panel">
-												<a href="/app/ComprehensiveGenomeAnalysis" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Comprehensive Genome Analysis</span>
-													<span class="mock1-ihave-service-desc">Annotate contigs with AMR, cgMLST, and HierCC</span>
-												</a>
-												<a href="/app/Annotation" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Genome Annotation</span>
-													<span class="mock1-ihave-service-desc">Annotate genomic features using RASTtk</span>
-												</a>
-												<a href="/app/GenomeDistance" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Similar Genome Finder</span>
-													<span class="mock1-ihave-service-desc">Find closely related genomes by Mash distance</span>
-												</a>
-												<a href="/app/Homology" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">BLAST</span>
-													<span class="mock1-ihave-service-desc">Search for sequence homologs across databases</span>
-												</a>
+											<div class="mock1-ihave-right">
+												<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
 											</div>
+										</button>
+										<div class="mock1-ihave-panel">
+											<a href="/app/CoreGenomeMLST" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Core Genome MLST</span>
+												<span class="mock1-ihave-service-desc">cgMLST typing and HierCC cluster assignment</span>
+											</a>
+											<a href="/app/PhylogeneticTree" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Phylogenetic Tree</span>
+												<span class="mock1-ihave-service-desc">Build a codon tree to visualize relationships</span>
+											</a>
+											<a href="/app/WholeGenomeSNPAnalysis" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Whole Genome SNP Analysis</span>
+												<span class="mock1-ihave-service-desc">Identify SNPs and estimate phylogeny</span>
+											</a>
 										</div>
-
-										<!-- Genome Group -->
-										<div class="mock1-ihave-item">
-											<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
-												<div class="mock1-ihave-left">
-													<i data-lucide="database" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--green"></i>
-													<span class="mock1-ihave-label">A Genome Group</span>
-												</div>
-												<div class="mock1-ihave-right">
-													<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
-												</div>
-											</button>
-											<div class="mock1-ihave-panel">
-												<a href="/app/CoreGenomeMLST" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Core Genome MLST</span>
-													<span class="mock1-ihave-service-desc">cgMLST typing and HierCC cluster assignment</span>
-												</a>
-												<a href="/app/PhylogeneticTree" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Phylogenetic Tree</span>
-													<span class="mock1-ihave-service-desc">Build a codon tree to visualize relationships</span>
-												</a>
-												<a href="/app/WholeGenomeSNPAnalysis" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Whole Genome SNP Analysis</span>
-													<span class="mock1-ihave-service-desc">Identify SNPs and estimate phylogeny with kSNP4</span>
-												</a>
-												<a href="/app/SeqComparison" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Proteome Comparison</span>
-													<span class="mock1-ihave-service-desc">Bidirectional BLASTP protein comparison</span>
-												</a>
-												<a href="/app/GenomeAlignment" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Genome Alignment</span>
-													<span class="mock1-ihave-service-desc">Whole genome alignment using progressiveMauve</span>
-												</a>
+									</div>
+									<!-- Feature Group -->
+									<div class="mock1-ihave-item">
+										<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
+											<div class="mock1-ihave-left">
+												<i data-lucide="list" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--teal"></i>
+												<span class="mock1-ihave-label">A Feature Group</span>
 											</div>
-										</div>
-
-										<!-- Feature Group -->
-										<div class="mock1-ihave-item">
-											<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
-												<div class="mock1-ihave-left">
-													<i data-lucide="list" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--teal"></i>
-													<span class="mock1-ihave-label">A Feature Group</span>
-												</div>
-												<div class="mock1-ihave-right">
-													<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
-												</div>
-											</button>
-											<div class="mock1-ihave-panel">
-												<a href="/app/GeneTree" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Gene / Protein Tree</span>
-													<span class="mock1-ihave-service-desc">Build a tree from selected genes or proteins</span>
-												</a>
-												<a href="/app/MSA" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">MSA and SNP Analysis</span>
-													<span class="mock1-ihave-service-desc">Multiple sequence alignment with variation analysis</span>
-												</a>
-												<a href="/app/IDMapper" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">ID Mapper</span>
-													<span class="mock1-ihave-service-desc">Map feature IDs across different databases</span>
-												</a>
+											<div class="mock1-ihave-right">
+												<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
 											</div>
+										</button>
+										<div class="mock1-ihave-panel">
+											<a href="/app/GeneTree" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">Gene / Protein Tree</span>
+												<span class="mock1-ihave-service-desc">Build a tree from selected genes or proteins</span>
+											</a>
+											<a href="/app/MSA" class="mock1-ihave-service">
+												<span class="mock1-ihave-service-name">MSA and SNP Analysis</span>
+												<span class="mock1-ihave-service-desc">Multiple sequence alignment with variation analysis</span>
+											</a>
 										</div>
-
-										<!-- Viral Sequences -->
-										<div class="mock1-ihave-item">
-											<button class="mock1-ihave-row" onclick="toggleIHavePanel(this)">
-												<div class="mock1-ihave-left">
-													<i data-lucide="dna" class="h-5 w-5 mock1-ihave-icon mock1-ihave-icon--indigo"></i>
-													<span class="mock1-ihave-label">Viral Sequences</span>
-												</div>
-												<div class="mock1-ihave-right">
-													<i data-lucide="chevron-down" class="h-4 w-4 mock1-ihave-chevron"></i>
-												</div>
-											</button>
-											<div class="mock1-ihave-panel">
-												<a href="/app/ComprehensiveSARS2Analysis" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">SARS-CoV-2 Analysis</span>
-													<span class="mock1-ihave-service-desc">Assembly, annotation, and lineage assignment</span>
-												</a>
-												<a href="/app/ViralGenomeTree" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Viral Genome Tree</span>
-													<span class="mock1-ihave-service-desc">Phylogenetic tree via whole genome alignment</span>
-												</a>
-												<a href="/app/GeneTree" class="mock1-ihave-service">
-													<span class="mock1-ihave-service-name">Gene / Protein Tree</span>
-													<span class="mock1-ihave-service-desc">Build a tree from selected viral genes</span>
-												</a>
-											</div>
-										</div>
-
 									</div>
 								</div>
 							</div>
 						</div>
 
-					</div>
+					</div><!-- /resource-panels-grid -->
+
 				</section>
 			</div>
 		</div>
@@ -865,6 +773,54 @@
 		color: #6b7280;
 		margin-top: 0.1rem;
 		line-height: 1.3;
+	}
+
+	/* Resource Panels Grid */
+	.resource-panels-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 1023px) {
+		.resource-panels-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 639px) {
+		.resource-panels-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Resource Panel Link */
+	.resource-panel-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.875rem;
+		color: #374151;
+		text-decoration: none;
+		padding: 0.3rem 0.4rem;
+		border-radius: 0.25rem;
+		transition: background 0.15s, color 0.15s;
+	}
+
+	.resource-panel-link:hover {
+		background: #f0fdf4;
+		color: #0d9488;
+		text-decoration: none;
+	}
+
+	.resource-panel-link i {
+		color: #6b7280;
+		flex-shrink: 0;
+		transition: color 0.15s;
+	}
+
+	.resource-panel-link:hover i {
+		color: #0d9488;
 	}
 
 	/* Carousel */
