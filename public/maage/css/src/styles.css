@@ -847,6 +847,23 @@ div.PerspectiveHeader > i.fa.PerspectiveIcon.icon-selection-Investigation::befor
   content: none !important;
 }
 
+div.PerspectiveHeader > i.fa.PerspectiveIcon.icon-selection-Explore {
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  color: var(--maage-primary-500);
+  display: inline-block !important;
+  width: 1em !important;
+  height: 1em !important;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1069 1024'><path fill='%236ea089' d='M66.783 66.783v200.348h-66.783v-267.13h267.13v66.783h-200.348z'/><path fill='%236ea089' d='M1001.739 66.783v200.348h66.783v-267.13h-267.13v66.783h200.348z'/><path fill='%236ea089' d='M1001.739 957.217v-200.348h66.783v267.13h-267.13v-66.783h200.348z'/><path fill='%236ea089' d='M66.783 957.217v-200.348h-66.783v267.13h267.13v-66.783h-200.348z'/><path fill='%236ea089' d='M228,148 H873 V311 H391 V440 H720 V603 H391 V750 H873 V913 H228 Z'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+div.PerspectiveHeader > i.fa.PerspectiveIcon.icon-selection-Explore::before {
+  content: none !important;
+}
+
 span.PerspectiveQuery > a.navigationLink.current {
   color: #436d58;
 }
