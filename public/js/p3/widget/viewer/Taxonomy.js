@@ -195,23 +195,22 @@ define([
         this.set('taxon_id', state.taxon_id);
 
         var s = 'eq(taxon_lineage_ids,' + state.taxon_id + ')';
-        state.search = state.search.replace(s, '');
-        if (state.search) {
-          this.filteredTaxon = QueryToEnglish(state.search.replace(s, ''));
-          var sx = [s];
-          if (state.search && state.search != s) {
-            sx.push(state.search);
-          }
-          state.search = sx.join('&').replace('&&', '&');
+        var deprecatedFilter = 'ne(genome_status,Deprecated)';
+        var searchTerms = (state.search || '').split('&').filter(function (term) {
+          return term && term !== s && term !== deprecatedFilter;
+        });
+
+        if (searchTerms.length) {
+          this.filteredTaxon = QueryToEnglish(searchTerms.join('&'));
+          state.search = [s, deprecatedFilter].concat(searchTerms).join('&');
           if (this.taxonomy) {
             // Use DOM placement instead of innerHTML to prevent XSS
             this.queryNode.textContent = '';
             domConstruct.place(this.buildHeaderContent(this.taxonomy), this.queryNode);
           }
-
         } else {
-          state.search = s;
           this.filteredTaxon = false;
+          state.search = [s, deprecatedFilter].join('&');
           if (this.taxonomy) {
             // Use DOM placement instead of innerHTML to prevent XSS
             this.queryNode.textContent = '';
