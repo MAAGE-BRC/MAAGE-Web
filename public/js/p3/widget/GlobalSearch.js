@@ -235,6 +235,8 @@ define([
       }
 
       // this.searchInput.set("value", '');
+
+      on.emit(this.domNode, 'dialogAction', { action: 'close', bubbles: true });
     },
     onInputChange: function (val) {
 
