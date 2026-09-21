@@ -87,7 +87,8 @@ define([
 
         var query = {
           rows: 25000,
-          q: 'genome_id:(' + genomeIds.join(' OR ') + ')'
+          q: 'genome_id:(' + genomeIds.join(' OR ') + ')',
+          fq: 'NOT genome_status:Deprecated'
         };
 
         // console.log("resultIds:", genomeIds, "query:", query);
