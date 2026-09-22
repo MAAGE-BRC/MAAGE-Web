@@ -110,13 +110,22 @@ define([
           }, this);
 
           // console.log(JSON.stringify(res));
-          var data = serviceResult.map(function (row) {
+          // The metadata query filters out deprecated genomes, so it can return
+          // fewer rows than the distance service did. Drop the unmatched ones
+          // rather than mixing in undefined and rendering empty cells.
+          var data = serviceResult.filter(function (row) {
+            return keyMap[row.genome_id];
+          }).map(function (row) {
             return lang.mixin({}, row, keyMap[row.genome_id]);
           });
           // console.log(data);
 
           this.setData(data);
           this._loaded = true;
+
+          if (data.length === 0) {
+            Topic.publish('GenomeDistance_UI', 'showNoResultMessage');
+          }
 
           Topic.publish(this.topicId, 'hideLoadingMask');
         }));
