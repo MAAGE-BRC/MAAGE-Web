@@ -417,7 +417,7 @@ define([
             value: 'public',
             selected: _self.path.split('/')[1] == 'public'
           }, {
-            label: 'BV-BRC Workshop',
+            label: 'MAAGE Workshop',
             value: 'workshop',
             selected: _self.path.split('/')[1] == 'public'
           }
@@ -435,7 +435,7 @@ define([
         } else if (val == 'public') {
           _self.set('path', '/public/');
         } else if (val == 'workshop') {
-          _self.set('path', '/public/ARWattam@patricbrc.org/BV-BRC Workshop')
+          _self.set('path', '/maage@bvbrc/MAAGE Workshop')
         }
       });
 
