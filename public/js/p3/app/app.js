@@ -264,6 +264,14 @@ define([
           _self.dialog.hide();
         }
 
+        if (evt.action === 'close') {
+          var mobileSearchBar = dom.byId('mobile-searchbar');
+          if (mobileSearchBar && !domClass.contains(mobileSearchBar, 'hidden')) {
+            domClass.add(mobileSearchBar, 'hidden');
+            var searchBtn = document.querySelector('.search-icon');
+            if (searchBtn) { domClass.remove(searchBtn, 'open'); }
+          }
+        }
       });
       /* istanbul ignore next */
       Topic.subscribe('/openDialog', function (msg) {

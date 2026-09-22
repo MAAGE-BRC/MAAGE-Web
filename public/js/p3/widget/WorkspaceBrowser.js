@@ -1663,18 +1663,27 @@ define([
           var results = responses[0];
           var style = responses[1];
 
-          var filesPayload = results.map(function (result, idx) {
-            var content = result.data;
+          // Results may arrive out of order when large files are fetched from Shock
+          // asynchronously. Look up each file by name rather than assuming index alignment.
+          var filesPayload = mtFiles.map(function (mtFile) {
+            var result = null;
+            for (var i = 0; i < results.length; i++) {
+              if (results[i] && results[i].metadata && results[i].metadata.name === mtFile.name) {
+                result = results[i];
+                break;
+              }
+            }
+            var content = result ? result.data : '';
             if (typeof content === 'object' && content !== null) {
               content = JSON.stringify(content);
             }
             var file = {
-              name: mtFiles[idx].name,
-              kind: mtFiles[idx].kind,
+              name: mtFile.name,
+              kind: mtFile.kind,
               contents: (content || '').trim()
             };
-            if (mtFiles[idx].options) {
-              file.options = mtFiles[idx].options;
+            if (mtFile.options) {
+              file.options = mtFile.options;
             }
             return file;
           });

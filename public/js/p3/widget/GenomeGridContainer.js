@@ -153,6 +153,17 @@ define([
         true,
         'left'
       ]
-    ])
+    ]),
+
+    onSetState: function (attr, oldState, state) {
+      var deprecatedFilter = 'ne(genome_status,Deprecated)';
+      if (state) {
+        var terms = (state.search || '').split('&').filter(function (t) {
+          return t && t !== deprecatedFilter;
+        });
+        state.search = [deprecatedFilter].concat(terms).join('&');
+      }
+      this.inherited(arguments);
+    }
   });
 });
