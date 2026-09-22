@@ -10,6 +10,17 @@ define([
 
   return declare([Memory, Stateful], {
 
+    // Index of max_hits in the Minhash.compute_genome_distance_for_{genome2,fasta2}
+    // params array: [target, max_pvalue, max_distance, max_hits, ...]
+    MAX_HITS_PARAM: 3,
+    OVER_REQUEST_FACTOR: 3,
+    MAX_HITS_CEILING: 1500,
+
+    _requestedHits: function (q) {
+      var hits = q && q.params && q.params[this.MAX_HITS_PARAM];
+      return (typeof hits === 'number' && hits > 0) ? hits : null;
+    },
+
     onSetState: function (attr, oldVal, state) {
       if (!state) {
         return;
@@ -56,6 +67,19 @@ define([
         version: '1.1',
         id: String(Math.random()).slice(2)
       });
+
+      // The distance service has no deprecated-genome filter, so some of what
+      // it returns is dropped by the metadata query below. Over-request so the
+      // filtered result can still reach the user's requested count, then trim.
+      // Remove once the service filters server-side.
+      var requestedHits = this._requestedHits(q);
+      if (requestedHits) {
+        q.params = q.params.slice();
+        q.params[this.MAX_HITS_PARAM] = Math.min(
+          requestedHits * this.OVER_REQUEST_FACTOR,
+          this.MAX_HITS_CEILING
+        );
+      }
 
       this._loadingDeferred = when(request.post(window.App.genomedistanceServiceURL, {
         headers: {
@@ -118,6 +142,13 @@ define([
           }).map(function (row) {
             return lang.mixin({}, row, keyMap[row.genome_id]);
           });
+
+          // Trim the over-requested surplus back to what the user asked for.
+          // serviceResult preserves the service's distance ordering, so this
+          // keeps the closest matches.
+          if (requestedHits && data.length > requestedHits) {
+            data = data.slice(0, requestedHits);
+          }
           // console.log(data);
 
           this.setData(data);
