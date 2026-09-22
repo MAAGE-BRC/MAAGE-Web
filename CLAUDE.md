@@ -300,3 +300,35 @@ The `path` property controls which workspace is shown. The leading path segment 
 ### MAAGE Workshop shortcut
 
 The dropdown shortcut "MAAGE Workshop" targets `/public/maage@bvbrc/MAAGE Workshop`. The `/public` prefix is required — without it the selector shows Upload/Create Folder buttons even though the workspace service will reject writes from non-owners.
+
+## Deprecated Genome Filtering
+
+Deprecated genomes are hidden from standard displays, mirroring BV-BRC. The
+filter is permanent and deliberately **not** user-removable, so it is injected
+into `state.search` rather than `defaultFilter` / `state.hashParams.filter`
+(those surface in the filter panel and can be cleared by the user).
+
+| File | Filter |
+|---|---|
+| `widget/GenomeGridContainer.js` | `onSetState` prepends `ne(genome_status,Deprecated)` |
+| `widget/viewer/Taxonomy.js` | `onSetState` injects it alongside the taxon term |
+| `store/GenomeDistanceResultMemoryStore.js` | Solr `fq: 'NOT genome_status:Deprecated'` |
+
+Note the last one uses **Solr** syntax, not RQL — that store posts with
+content-type `application/solrquery+x-www-form-urlencoded`.
+
+### Filtering a results list against a separate service
+
+Similar Genome Finder does two round-trips: the Mash distance service returns
+`[genome_id, distance, pvalue, counts]`, then a second query fetches metadata
+for those ids. The deprecated filter applies only to the **second** query, so it
+can return fewer genomes than the first reported.
+
+Rows must be dropped when the metadata lookup has no entry for an id. Merging
+with `lang.mixin({}, row, keyMap[id])` where `keyMap[id]` is `undefined`
+silently yields a row carrying only the distance fields, which renders as
+`undefined` in every metadata column. This shipped once as a regression.
+
+Consequence: a search with MAX HITS *n* can legitimately return fewer than *n*
+rows. Filtering before the distance service runs would require a service-side
+change.
