@@ -1279,6 +1279,46 @@ define([
 			);
 		},
 
+		navigateToRegionGenomes: function (type, regionName)
+		{
+			if (!regionName || !this.state || !this.state.search) return;
+
+			const fieldByType = {
+				country: "isolation_country",
+				state: "state_province",
+				county: "county"
+			};
+			const field = fieldByType[type];
+			if (!field) return;
+
+			// encodeURIComponent leaves ()' unescaped, and those are RQL syntax --
+			// a region name containing them would break out of the eq() term.
+			const encoded = encodeURIComponent(regionName)
+				.replace(/[()']/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase());
+			const term = `eq(${field},${encoded})`;
+
+			// state.search may be a single term, an and(...), or several terms
+			// joined by '&'. Only the and(...) form can be extended in place.
+			const existingQuery = this.state.search;
+			let newQuery;
+			if (existingQuery.startsWith("and(") && existingQuery.indexOf("&") === -1)
+			{
+				newQuery = existingQuery.slice(0, -1) + `,${term})`;
+			}
+			else if (existingQuery.indexOf("&") > -1)
+			{
+				newQuery = `${existingQuery}&${term}`;
+			}
+			else
+			{
+				newQuery = `and(${existingQuery},${term})`;
+			}
+
+			Topic.publish("/navigate", {
+				href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+			});
+		},
+
 		createMapChart: function ()
 		{
 			if (!this.mapChartNode || !this.state || !this.state.search) return;
@@ -1289,7 +1329,8 @@ define([
 				{
 					title: "Genome Distribution",
 					theme: "maage-echarts-theme",
-					externalControlsContainer: this.mapControlsContainer
+					externalControlsContainer: this.mapControlsContainer,
+					onRegionSelect: lang.hitch(this, "navigateToRegionGenomes")
 				},
 				lang.hitch(this, function (chart)
 				{
