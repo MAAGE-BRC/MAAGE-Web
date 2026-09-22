@@ -329,6 +329,16 @@ with `lang.mixin({}, row, keyMap[id])` where `keyMap[id]` is `undefined`
 silently yields a row carrying only the distance fields, which renders as
 `undefined` in every metadata column. This shipped once as a regression.
 
-Consequence: a search with MAX HITS *n* can legitimately return fewer than *n*
-rows. Filtering before the distance service runs would require a service-side
-change.
+Because dropping rows would otherwise make a MAX HITS *n* search return fewer
+than *n* results, the store **over-requests 3×** from the distance service
+(`OVER_REQUEST_FACTOR`, capped at `MAX_HITS_CEILING` 1500) and trims back to *n*
+after filtering. `serviceResult` preserves the service's distance ordering, so
+the trim keeps the closest matches. The service honors the larger request with
+no meaningful time penalty — cost is dominated by the sketch comparison, not the
+hit count.
+
+This is an interim measure. It covers up to ~67% deprecated hits and degrades
+gracefully beyond that (returning what survives). Remove it once the distance
+service filters server-side, along with `MAX_HITS_PARAM`, which hardcodes the
+index of `max_hits` in the `Minhash.compute_genome_distance_for_{genome2,fasta2}`
+params array.
