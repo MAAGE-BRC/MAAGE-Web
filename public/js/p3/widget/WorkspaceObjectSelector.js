@@ -435,7 +435,7 @@ define([
         } else if (val == 'public') {
           _self.set('path', '/public/');
         } else if (val == 'workshop') {
-          _self.set('path', '/maage@bvbrc/MAAGE Workshop')
+          _self.set('path', '/public/maage@bvbrc/MAAGE Workshop')
         }
       });
 
