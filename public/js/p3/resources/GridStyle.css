@@ -212,6 +212,26 @@
     background: #bfd6eb;
 }
 
+/*
+ * EXPERIMENTAL: Similar Genome Finder match-confidence shading.
+ * Set in GenomeDistanceResultGrid.confidenceClass(). The .dgrid-row
+ * qualifier raises specificity above .dgrid-row-odd so the striping does
+ * not win on alternate rows; .dgrid-selected is listed after so selecting
+ * a row still reads as selected.
+ */
+.patric .dgrid-row.sgfConfidenceHigh {
+    background: #d8f0d8;
+}
+
+.patric .dgrid-row.sgfConfidenceMedium {
+    background: #fbf3ce;
+}
+
+.patric .dgrid-row.sgfConfidenceHigh.dgrid-selected,
+.patric .dgrid-row.sgfConfidenceMedium.dgrid-selected {
+    background: #bfd6eb;
+}
+
 
 .patric .dgrid-footer {
 	font-size: 1.2em;
