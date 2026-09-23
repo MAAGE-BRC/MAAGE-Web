@@ -760,7 +760,9 @@ define([
 
 			const baseQuery = this.state.search;
 			const field = this.currentCgmlstField; // Use the current cgMLST HC field
-			const query = `${baseQuery}&facet((field,${field}),(mincount,1),(limit,10))&limit(0)`;
+			// All buckets: 'null' and the long tail both have to be counted to
+			// be reported honestly, and neither fits in a top-10 request.
+			const query = `${baseQuery}&facet((field,${field}),(mincount,1),(limit,-1))&limit(0)`;
 
 			// If we have an existing chart, destroy it
 			if (this.cgmlstChart)
@@ -788,7 +790,11 @@ define([
 						{
 							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
 							{
-								const data = this._processFacets(res.facet_counts.facet_fields[field]);
+								const processed = this._processCgmlstFacets(res.facet_counts.facet_fields[field]);
+								const data = processed.data;
+
+								const cgmlstTotal = (res.response && res.response.numFound) || 0;
+								this._setCgmlstUnassignedNote(processed, cgmlstTotal);
 
 								const option = {
 									tooltip: {
@@ -853,14 +859,17 @@ define([
 								{
 									if (params.componentType === 'series' && params.seriesType === 'pie')
 									{
-										const cgmlstValue = params.name;
-										
+										// Filter on the raw field value. The aggregated
+										// 'Other' slice has none and is not filterable.
+										const cgmlstValue = params.data && params.data.rawValue;
+										if (!cgmlstValue) { return; }
+
 										// Get the existing search query and preserve it
 										let existingQuery = this.state.search;
-										
+
 										// Properly encode the value if it contains special characters
-										const encodedValue = /[^a-zA-Z0-9_.-]/.test(cgmlstValue) 
-											? `"${cgmlstValue}"` 
+										const encodedValue = /[^a-zA-Z0-9_.-]/.test(cgmlstValue)
+											? `"${cgmlstValue}"`
 											: cgmlstValue;
 										
 										// Build the new query by appending the cgMLST filter to existing conditions
@@ -1044,12 +1053,16 @@ define([
 			);
 		},
 
-		// MLST facets need their own processing rather than _processFacets:
-		// values carry a redundant 'MLST.<scheme>.' prefix, and the unassigned
-		// ('-') bucket is typically the largest and would swamp the chart.
-		MLST_TOP_N: 10,
+		// MLST and cgMLST facets need their own processing rather than
+		// _processFacets: both have a bucket meaning "no value assigned" that is
+		// typically the largest, and a long tail that would otherwise vanish.
+		// The unassigned bucket is reported in a caption instead of charted, and
+		// the tail is aggregated into one slice.
+		CATEGORICAL_TOP_N: 10,
 
-		_processMlstFacets: function (facets)
+		// labelFor returns the display label for a raw facet value, or a falsy
+		// value to mean "this bucket is unassigned".
+		_processCategoricalFacets: function (facets, labelFor)
 		{
 			const empty = { data: [], unassigned: 0, otherCount: 0, otherTypes: 0, distinctTypes: 0 };
 			if (!facets || facets.length === 0) return empty;
@@ -1063,7 +1076,7 @@ define([
 				const count = facets[i + 1] || 0;
 				if (!raw || count <= 0) continue;
 
-				const label = formatter.mlst(raw);
+				const label = labelFor(raw);
 				if (!label)
 				{
 					unassigned += count;
@@ -1074,14 +1087,14 @@ define([
 
 			all.sort((a, b) => b.value - a.value);
 
-			const top = all.slice(0, this.MLST_TOP_N);
-			const rest = all.slice(this.MLST_TOP_N);
+			const top = all.slice(0, this.CATEGORICAL_TOP_N);
+			const rest = all.slice(this.CATEGORICAL_TOP_N);
 			const otherCount = rest.reduce((sum, d) => sum + d.value, 0);
 
 			// The tail is not a rounding error -- for C. jejuni it outweighs the
 			// top 10 combined -- so it gets its own slice rather than being
 			// dropped. No rawValue: 'Other' is not a filterable value, and the
-			// click handler checks for one before navigating.
+			// click handlers check for one before navigating.
 			if (otherCount > 0)
 			{
 				top.push({
@@ -1100,23 +1113,50 @@ define([
 			};
 		},
 
-		_setMlstUnassignedNote: function (processed, total)
+		_setCategoricalNote: function (node, processed, total, distinctLabel, unassignedLabel)
 		{
-			if (!this.mlstUnassignedNote) return;
+			if (!node) return;
 
 			const fmt = (n) => n.toLocaleString();
 			const parts = [];
 
 			if (processed.distinctTypes)
 			{
-				parts.push(`${fmt(processed.distinctTypes)} distinct sequence types`);
+				parts.push(`${fmt(processed.distinctTypes)} ${distinctLabel}`);
 			}
 			if (processed.unassigned)
 			{
-				parts.push(`${fmt(processed.unassigned)} of ${fmt(total)} genomes have no assigned ST`);
+				parts.push(`${fmt(processed.unassigned)} of ${fmt(total)} genomes ${unassignedLabel}`);
 			}
 
-			this.mlstUnassignedNote.textContent = parts.join(' · ');
+			node.textContent = parts.join(' · ');
+		},
+
+		_processMlstFacets: function (facets)
+		{
+			return this._processCategoricalFacets(facets, (raw) => formatter.mlst(raw));
+		},
+
+		_setMlstUnassignedNote: function (processed, total)
+		{
+			this._setCategoricalNote(this.mlstUnassignedNote, processed, total,
+				'distinct sequence types', 'have no assigned ST');
+		},
+
+		// cgMLST stores the literal string 'null' for genomes with no cluster
+		// assignment; it is not a cluster id and must not be charted as one.
+		_processCgmlstFacets: function (facets)
+		{
+			return this._processCategoricalFacets(facets, function (raw) {
+				const v = String(raw).trim();
+				return (v === '' || v.toLowerCase() === 'null' || v === '-') ? '' : v;
+			});
+		},
+
+		_setCgmlstUnassignedNote: function (processed, total)
+		{
+			this._setCategoricalNote(this.cgmlstUnassignedNote, processed, total,
+				'distinct clusters', 'have no assigned cluster');
 		},
 
 		createSerotypeChart: function ()
