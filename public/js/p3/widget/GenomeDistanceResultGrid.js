@@ -43,7 +43,7 @@ define([
     },
 
     // EXPERIMENTAL: shade result rows by match confidence.
-    //   green  - p < 1e-5 and distance <= 0.05
+    //   blue   - p < 1e-5 and distance <= 0.05
     //   yellow - p < 1e-5 and 0.05 < distance <= 0.15
     //   none   - distance > 0.2 or p > 0.001, and anything not matching above
     // Returns a class name, or '' for no shading.
