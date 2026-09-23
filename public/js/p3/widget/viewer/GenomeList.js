@@ -49,12 +49,21 @@ define([
       this.setActivePanelState();
     },
     onSetQuery: function (attr, oldVal, newVal) {
-      const q = newVal.split('&').filter(op => op.includes('genome(')).map(op => {
-        const part = op.replace('genome(', '')
-        return part.substring(0, part.length - 1)
-      }).join('')
+      if (!newVal) { return; }
 
-      const content = QueryToEnglish(q);
+      // Render the whole query. The previous approach pulled out just the
+      // genome(...) clause by splitting on '&' and dropping the last
+      // character, which broke as soon as anything followed the clause -- an
+      // added facet filter, say. The trailing ')' then belonged to an
+      // enclosing and(), so the result was unbalanced RQL and QueryToEnglish
+      // returned undefined. Rendering the full query also keeps terms outside
+      // genome(...) visible instead of silently dropping them.
+      // eq(genome_id,*) is the plumbing that makes the nested genome() query
+      // work; it carries no meaning for the reader.
+      const cleaned = newVal.replace(/,?eq\(genome_id,\*\)&?/g, '');
+      const content = QueryToEnglish(cleaned);
+      if (!content) { return; }
+
       this.queryNode.innerHTML = '<span class="queryModel">Genomes: </span>  ' + content;
     },
     onSetTotalGenomes: function (attr, oldVal, newVal) {
