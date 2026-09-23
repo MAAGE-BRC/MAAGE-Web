@@ -15,7 +15,15 @@ define([
 		templateString: template,
 		baseClass: "EChart",
 		chart: null,
+
+		// Held as a plain property: _WidgetBase would otherwise map `title` onto
+		// the domNode's HTML title attribute, giving every chart a second,
+		// native browser tooltip that fights with the ECharts one.
 		title: "",
+		_setTitleAttr: function (value)
+		{
+			this._set("title", value);
+		},
 
 		theme: "maage-echarts-theme",
 

@@ -478,7 +478,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
@@ -625,7 +633,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
@@ -775,7 +791,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
@@ -903,7 +927,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
