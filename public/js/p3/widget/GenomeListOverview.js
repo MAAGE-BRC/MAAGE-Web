@@ -16,7 +16,8 @@ define([
 	"./EChartAMRStackedBar",
 	"./D3Choropleth",
 	"p3/store/AMRJsonRest",
-	"./GenomeListSummary"
+	"./GenomeListSummary",
+	"./formatter"
 ], function (
 	declare,
 	lang,
@@ -35,7 +36,8 @@ define([
 	AMRStackedBar,
 	Choropleth,
 	AMRStore,
-	GenomeListSummary
+	GenomeListSummary,
+	formatter
 )
 {
 	return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
@@ -49,6 +51,7 @@ define([
 		sequencingCentersChart: null,
 		taxonomyChart: null,
 		cgmlstChart: null,
+		mlstChart: null,
 
 		postCreate: function ()
 		{
@@ -393,6 +396,7 @@ define([
 			this.createSequencingCentersChart();
 			this.createTaxonomyChart();
 			this.createCgmlstChart();
+			this.createMlstChart();
 			this.createSerotypeChart();
 			this.createSerotypeOverTimeChart();
 			this.createHostChart();
@@ -589,6 +593,11 @@ define([
 			{
 				this.taxonomyChart.destroy();
 				this.taxonomyChart = null;
+			}
+			if (this.mlstChart)
+			{
+				this.mlstChart.destroy();
+				this.mlstChart = null;
 			}
 
 			this._createChartWhenReady(
@@ -860,6 +869,186 @@ define([
 					this.cgmlstChart = chart;
 				})
 			);
+		},
+
+		createMlstChart: function ()
+		{
+			if (!this.mlstChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			// One extra facet bucket: the unassigned ('-') bucket is dropped
+			// below, so ask for 11 to still have 10 real sequence types.
+			const query = `${baseQuery}&facet((field,mlst),(mincount,1),(limit,11))&limit(0)`;
+
+			if (this.mlstChart)
+			{
+				this.mlstChart.destroy();
+				this.mlstChart = null;
+			}
+
+			this._createChartWhenReady(
+				this.mlstChartNode,
+				Doughnut,
+				{
+					title: "",
+					theme: "maage-muted"
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields.mlst)
+							{
+								const processed = this._processMlstFacets(res.facet_counts.facet_fields.mlst);
+								const data = processed.data;
+
+								// numFound, not the sum of returned buckets: the facet is
+								// limited, so its buckets cover only part of the result set.
+								const mlstTotal = (res.response && res.response.numFound) || processed.total;
+								this._setMlstUnassignedNote(processed.unassigned, mlstTotal);
+
+								const option = {
+									tooltip: {
+										trigger: "item",
+										formatter: "{b}: {c} ({d}%)"
+									},
+									legend: {
+										type: data.length > 20 ? 'scroll' : 'plain',
+										orient: 'horizontal',
+										bottom: '5%',
+										left: 'center',
+										width: '90%',
+										data: data.map((item) => item.name),
+										itemGap: 8,
+										itemWidth: 18,
+										itemHeight: 10,
+										textStyle: {
+											fontSize: 11
+										},
+										pageButtonItemGap: 5,
+										pageButtonGap: 15,
+										pageIconSize: 12,
+										pageTextStyle: {
+											fontSize: 10
+										}
+									},
+									grid: {
+										top: '10%',
+										bottom: '25%'
+									},
+									series: [
+										{
+											name: "MLST Sequence Types",
+											type: "pie",
+											radius: ["40%", "60%"],
+											center: ['50%', '40%'],
+											avoidLabelOverlap: false,
+											label: { show: false },
+											emphasis: {
+												label: { show: true, fontSize: "14", fontWeight: "bold" }
+											},
+											labelLine: { show: false },
+											data: data
+										}
+									]
+								};
+								chart.chart.setOption(option);
+
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series' && params.seriesType === 'pie')
+									{
+										// Filter on the raw field value, not the ST-NNN label.
+										const rawValue = params.data && params.data.rawValue;
+										if (!rawValue) { return; }
+
+										const encodedValue = /[^a-zA-Z0-9_.-]/.test(rawValue)
+											? `"${rawValue}"`
+											: rawValue;
+
+										let existingQuery = this.state.search;
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											newQuery = existingQuery.slice(0, -1) + `,eq(mlst,${encodedValue}))`;
+										}
+										else
+										{
+											newQuery = `and(${existingQuery},eq(mlst,${encodedValue}))`;
+										}
+
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.mlstChart = chart;
+				})
+			);
+		},
+
+		// MLST facets need their own processing rather than _processFacets:
+		// values carry a redundant 'MLST.<scheme>.' prefix, and the unassigned
+		// ('-') bucket is typically the largest and would swamp the chart.
+		_processMlstFacets: function (facets)
+		{
+			if (!facets || facets.length === 0) return { data: [], unassigned: 0 };
+
+			const data = [];
+			let unassigned = 0;
+
+			for (let i = 0; i < facets.length; i += 2)
+			{
+				const raw = facets[i];
+				const count = facets[i + 1] || 0;
+				if (!raw || count <= 0) continue;
+
+				const label = formatter.mlst(raw);
+				if (!label)
+				{
+					unassigned += count;
+					continue;
+				}
+				data.push({ name: label, value: count, rawValue: raw });
+			}
+
+			data.sort((a, b) => b.value - a.value);
+			return { data: data.slice(0, 10), unassigned: unassigned };
+		},
+
+		_setMlstUnassignedNote: function (unassigned, total)
+		{
+			if (!this.mlstUnassignedNote) return;
+
+			if (!unassigned)
+			{
+				this.mlstUnassignedNote.textContent = '';
+				return;
+			}
+
+			const fmt = (n) => n.toLocaleString();
+			this.mlstUnassignedNote.textContent =
+				`${fmt(unassigned)} of ${fmt(total)} genomes have no assigned ST`;
 		},
 
 		createSerotypeChart: function ()
@@ -1695,6 +1884,7 @@ define([
 			if (this.amrChart) this.amrChart.resize();
 			if (this.mapChart) this.mapChart.resize();
 			if (this.sequencingCentersChart) this.sequencingCentersChart.resize();
+			if (this.mlstChart) this.mlstChart.resize();
 		},
 
 		createSummaryWidget: function ()
