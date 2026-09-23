@@ -287,6 +287,17 @@ define(
       dateOnly: function (obj) {
         return dateFormatter(obj, { selector: 'date', formatLength: 'short' });
       },
+      // 'MLST.campylobacter.933' -> 'ST-933'. The scheme name is redundant in
+      // context and makes the column and chart legends unreadable. A trailing
+      // '-' means no sequence type was assigned. Anything not matching the
+      // expected shape is passed through untouched.
+      mlst: function (obj) {
+        if (typeof obj !== 'string' || !obj) { return obj; }
+        var m = obj.match(/^MLST\.[^.]+\.(.+)$/);
+        if (!m) { return obj; }
+        var st = m[1];
+        return (st === '-' || st === '') ? '' : 'ST-' + st;
+      },
       toInteger: function (obj) {
         return decimalFormatter(obj, 0);
       },

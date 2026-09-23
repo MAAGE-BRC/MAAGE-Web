@@ -16,7 +16,8 @@ define([
 	"./EChartAMRStackedBar",
 	"./D3Choropleth",
 	"p3/store/AMRJsonRest",
-	"./GenomeListSummary"
+	"./GenomeListSummary",
+	"./formatter"
 ], function (
 	declare,
 	lang,
@@ -35,7 +36,8 @@ define([
 	AMRStackedBar,
 	Choropleth,
 	AMRStore,
-	GenomeListSummary
+	GenomeListSummary,
+	formatter
 )
 {
 	return declare([WidgetBase, Templated, _WidgetsInTemplateMixin], {
@@ -49,6 +51,7 @@ define([
 		sequencingCentersChart: null,
 		taxonomyChart: null,
 		cgmlstChart: null,
+		mlstChart: null,
 
 		postCreate: function ()
 		{
@@ -393,6 +396,7 @@ define([
 			this.createSequencingCentersChart();
 			this.createTaxonomyChart();
 			this.createCgmlstChart();
+			this.createMlstChart();
 			this.createSerotypeChart();
 			this.createSerotypeOverTimeChart();
 			this.createHostChart();
@@ -465,6 +469,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {
@@ -478,7 +485,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
@@ -590,6 +605,11 @@ define([
 				this.taxonomyChart.destroy();
 				this.taxonomyChart = null;
 			}
+			if (this.mlstChart)
+			{
+				this.mlstChart.destroy();
+				this.mlstChart = null;
+			}
 
 			this._createChartWhenReady(
 				this.speciesChartNode,
@@ -612,6 +632,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {
@@ -625,7 +648,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
@@ -762,6 +793,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {
@@ -775,7 +809,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
@@ -862,6 +904,221 @@ define([
 			);
 		},
 
+		createMlstChart: function ()
+		{
+			if (!this.mlstChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			// All buckets, not just the ones charted: the tail is large (1,589
+			// further sequence types for C. jejuni, outweighing the top 10
+			// combined), and it has to be counted to be summarised honestly.
+			const query = `${baseQuery}&facet((field,mlst),(mincount,1),(limit,-1))&limit(0)`;
+
+			if (this.mlstChart)
+			{
+				this.mlstChart.destroy();
+				this.mlstChart = null;
+			}
+
+			this._createChartWhenReady(
+				this.mlstChartNode,
+				Doughnut,
+				{
+					title: "",
+					theme: "maage-muted"
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields.mlst)
+							{
+								const processed = this._processMlstFacets(res.facet_counts.facet_fields.mlst);
+								const data = processed.data;
+
+								// numFound rather than a sum over buckets: genomes with no
+								// mlst value at all are absent from the facet entirely.
+								const mlstTotal = (res.response && res.response.numFound) || 0;
+								this._setMlstUnassignedNote(processed, mlstTotal);
+
+								const option = {
+									tooltip: {
+										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
+										formatter: "{b}: {c} ({d}%)"
+									},
+									legend: {
+										type: data.length > 20 ? 'scroll' : 'plain',
+										orient: 'horizontal',
+										bottom: '5%',
+										left: 'center',
+										width: '90%',
+										data: data.map((item) => item.name),
+										itemGap: 8,
+										itemWidth: 18,
+										itemHeight: 10,
+										textStyle: {
+											fontSize: 11
+										},
+										pageButtonItemGap: 5,
+										pageButtonGap: 15,
+										pageIconSize: 12,
+										pageTextStyle: {
+											fontSize: 10
+										}
+									},
+									grid: {
+										top: '10%',
+										bottom: '25%'
+									},
+									series: [
+										{
+											name: "MLST Sequence Types",
+											type: "pie",
+											radius: ["40%", "60%"],
+											center: ['50%', '40%'],
+											avoidLabelOverlap: false,
+											label: { show: false },
+											emphasis: {
+												label: { show: true, fontSize: "14", fontWeight: "bold" }
+											},
+											labelLine: { show: false },
+											data: data
+										}
+									]
+								};
+								chart.chart.setOption(option);
+
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series' && params.seriesType === 'pie')
+									{
+										// Filter on the raw field value, not the ST-NNN label.
+										const rawValue = params.data && params.data.rawValue;
+										if (!rawValue) { return; }
+
+										const encodedValue = /[^a-zA-Z0-9_.-]/.test(rawValue)
+											? `"${rawValue}"`
+											: rawValue;
+
+										let existingQuery = this.state.search;
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											newQuery = existingQuery.slice(0, -1) + `,eq(mlst,${encodedValue}))`;
+										}
+										else
+										{
+											newQuery = `and(${existingQuery},eq(mlst,${encodedValue}))`;
+										}
+
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.mlstChart = chart;
+				})
+			);
+		},
+
+		// MLST facets need their own processing rather than _processFacets:
+		// values carry a redundant 'MLST.<scheme>.' prefix, and the unassigned
+		// ('-') bucket is typically the largest and would swamp the chart.
+		MLST_TOP_N: 10,
+
+		_processMlstFacets: function (facets)
+		{
+			const empty = { data: [], unassigned: 0, otherCount: 0, otherTypes: 0, distinctTypes: 0 };
+			if (!facets || facets.length === 0) return empty;
+
+			const all = [];
+			let unassigned = 0;
+
+			for (let i = 0; i < facets.length; i += 2)
+			{
+				const raw = facets[i];
+				const count = facets[i + 1] || 0;
+				if (!raw || count <= 0) continue;
+
+				const label = formatter.mlst(raw);
+				if (!label)
+				{
+					unassigned += count;
+					continue;
+				}
+				all.push({ name: label, value: count, rawValue: raw });
+			}
+
+			all.sort((a, b) => b.value - a.value);
+
+			const top = all.slice(0, this.MLST_TOP_N);
+			const rest = all.slice(this.MLST_TOP_N);
+			const otherCount = rest.reduce((sum, d) => sum + d.value, 0);
+
+			// The tail is not a rounding error -- for C. jejuni it outweighs the
+			// top 10 combined -- so it gets its own slice rather than being
+			// dropped. No rawValue: 'Other' is not a filterable value, and the
+			// click handler checks for one before navigating.
+			if (otherCount > 0)
+			{
+				top.push({
+					name: `Other (${rest.length.toLocaleString()} types)`,
+					value: otherCount,
+					itemStyle: { color: '#c9ccd1' }
+				});
+			}
+
+			return {
+				data: top,
+				unassigned: unassigned,
+				otherCount: otherCount,
+				otherTypes: rest.length,
+				distinctTypes: all.length
+			};
+		},
+
+		_setMlstUnassignedNote: function (processed, total)
+		{
+			if (!this.mlstUnassignedNote) return;
+
+			const fmt = (n) => n.toLocaleString();
+			const parts = [];
+
+			if (processed.distinctTypes)
+			{
+				parts.push(`${fmt(processed.distinctTypes)} distinct sequence types`);
+			}
+			if (processed.unassigned)
+			{
+				parts.push(`${fmt(processed.unassigned)} of ${fmt(total)} genomes have no assigned ST`);
+			}
+
+			this.mlstUnassignedNote.textContent = parts.join(' · ');
+		},
+
 		createSerotypeChart: function ()
 		{
 			if (!this.serotypeChartNode || !this.state || !this.state.search) return;
@@ -890,6 +1147,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {
@@ -903,7 +1163,15 @@ define([
 										itemWidth: 18,
 										itemHeight: 10,
 										textStyle: {
-											fontSize: 11
+											fontSize: 11,
+											// Long names (sequencing centers especially) otherwise
+											// render past both edges of the card.
+											width: 150,
+											overflow: 'truncate',
+											ellipsis: '…'
+										},
+										tooltip: {
+											show: true
 										},
 										pageButtonItemGap: 5,
 										pageButtonGap: 15,
@@ -1695,6 +1963,7 @@ define([
 			if (this.amrChart) this.amrChart.resize();
 			if (this.mapChart) this.mapChart.resize();
 			if (this.sequencingCentersChart) this.sequencingCentersChart.resize();
+			if (this.mlstChart) this.mlstChart.resize();
 		},
 
 		createSummaryWidget: function ()

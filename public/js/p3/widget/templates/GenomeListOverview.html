@@ -8,9 +8,11 @@
 			</div>
 
 			<div class="chart-section w-full lg:w-[calc(75%-0.5rem)] relative">
-				<h3 class="chart-title">Geographic Distribution</h3>
-				<div class="absolute top-3 right-3 toggle-buttons flex gap-2"
+				<h3 class="chart-title chart-title-with-controls">
+					<span class="chart-title-text">Geographic Distribution</span>
+					<div class="toggle-buttons flex gap-2"
 					 data-dojo-attach-point="mapControlsContainer"></div>
+				</h3>
 				<div data-dojo-attach-point="mapChartNode"
 					 class="chart-container map-chart-container"></div>
 			</div>
@@ -35,8 +37,9 @@
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0 relative">
-			<h3 class="chart-title">Taxonomic Distribution</h3>
-			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+			<h3 class="chart-title chart-title-with-controls">
+				<span class="chart-title-text">Taxonomic Distribution</span>
+				<div class="toggle-buttons flex gap-1"
 				 data-dojo-attach-point="taxonomyControlsContainer">
 				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
 					<button type="button"
@@ -51,6 +54,7 @@
 					</button>
 				</div>
 			</div>
+			</h3>
 			<div data-dojo-attach-point="speciesChartNode"
 				 class="chart-container"></div>
 		</div>
@@ -69,9 +73,10 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0 relative">
-			<h3 class="chart-title">cgMLST Clusters</h3>
-			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0 relative">
+			<h3 class="chart-title chart-title-with-controls">
+				<span class="chart-title-text">cgMLST Clusters</span>
+				<div class="toggle-buttons flex gap-1"
 				 data-dojo-attach-point="cgmlstControlsContainer">
 				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
 					<button type="button"
@@ -111,17 +116,28 @@
 					</button>
 				</div>
 			</div>
+			</h3>
 			<div data-dojo-attach-point="cgmlstChartNode"
 				 class="chart-container"></div>
 		</div>
 
-		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">MLST Sequence Types</h3>
+			<div data-dojo-attach-point="mlstChartNode"
+				 class="chart-container"></div>
+			<div data-dojo-attach-point="mlstUnassignedNote"
+				 class="chart-footnote"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
 			<h3 class="chart-title">Serotypes</h3>
 			<div data-dojo-attach-point="serotypeChartNode"
 				 class="chart-container"></div>
 		</div>
 
-		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
 			<h3 class="chart-title">Serotype Distribution (Last 10 Years)</h3>
 			<div data-dojo-attach-point="serotypeOverTimeChartNode"
 				 class="chart-container"></div>
@@ -130,8 +146,9 @@
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0 relative">
-			<h3 class="chart-title">Antimicrobial Resistance Profile</h3>
-			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+			<h3 class="chart-title chart-title-with-controls">
+				<span class="chart-title-text">Antimicrobial Resistance Profile</span>
+				<div class="toggle-buttons flex gap-1"
 				 data-dojo-attach-point="amrControlsContainer">
 				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
 					<button type="button"
@@ -158,6 +175,7 @@
 					</button>
 				</div>
 			</div>
+			</h3>
 			<div data-dojo-attach-point="amrChartNode"
 				 class="chart-container"></div>
 		</div>
