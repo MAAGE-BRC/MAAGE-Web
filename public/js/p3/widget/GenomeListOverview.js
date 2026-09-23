@@ -469,6 +469,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {
@@ -629,6 +632,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {
@@ -787,6 +793,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {
@@ -937,6 +946,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)"
 									},
 									legend: {
@@ -1103,6 +1115,9 @@ define([
 								const option = {
 									tooltip: {
 										trigger: "item",
+										// Cards use overflow:hidden, which clips a
+										// tooltip rendered inside them near an edge.
+										appendToBody: true,
 										formatter: "{b}: {c} ({d}%)",
 									},
 									legend: {

@@ -2893,6 +2893,31 @@ div#bv-brc-page-container > div.page-content {
         padding: 20px;
       }
 
+      /* Headers carrying toggle buttons (cgMLST HC levels, taxonomy
+         genus/species, AMR count/percent). The buttons used to be positioned
+         absolutely over the title, so they collided with it as the card
+         narrowed. As a flex row the title shrinks and ellipsizes while the
+         buttons keep their size, and the two can never overlap. */
+      .chart-title-with-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .chart-title-with-controls .chart-title-text {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .chart-title-with-controls .toggle-buttons {
+        flex: 0 0 auto;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
       /* Caption under a chart, e.g. the MLST unassigned-ST count. Empty
          until populated, so no padding is reserved when unused. */
       .chart-footnote {

@@ -17,6 +17,9 @@ define(["dojo/_base/declare", "./EChart"], function (declare, EChart)
 				},
 				tooltip: {
 					trigger: "axis",
+					// Chart cards use overflow:hidden, which clips a tooltip
+					// rendered inside them when it is near an edge.
+					appendToBody: true,
 					axisPointer: { type: "shadow" },
 				},
 				grid: {
