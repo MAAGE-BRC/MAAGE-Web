@@ -900,9 +900,10 @@ define([
 			if (!this.mlstChartNode || !this.state || !this.state.search) return;
 
 			const baseQuery = this.state.search;
-			// One extra facet bucket: the unassigned ('-') bucket is dropped
-			// below, so ask for 11 to still have 10 real sequence types.
-			const query = `${baseQuery}&facet((field,mlst),(mincount,1),(limit,11))&limit(0)`;
+			// All buckets, not just the ones charted: the tail is large (1,589
+			// further sequence types for C. jejuni, outweighing the top 10
+			// combined), and it has to be counted to be summarised honestly.
+			const query = `${baseQuery}&facet((field,mlst),(mincount,1),(limit,-1))&limit(0)`;
 
 			if (this.mlstChart)
 			{
@@ -929,10 +930,10 @@ define([
 								const processed = this._processMlstFacets(res.facet_counts.facet_fields.mlst);
 								const data = processed.data;
 
-								// numFound, not the sum of returned buckets: the facet is
-								// limited, so its buckets cover only part of the result set.
-								const mlstTotal = (res.response && res.response.numFound) || processed.total;
-								this._setMlstUnassignedNote(processed.unassigned, mlstTotal);
+								// numFound rather than a sum over buckets: genomes with no
+								// mlst value at all are absent from the facet entirely.
+								const mlstTotal = (res.response && res.response.numFound) || 0;
+								this._setMlstUnassignedNote(processed, mlstTotal);
 
 								const option = {
 									tooltip: {
@@ -1034,11 +1035,14 @@ define([
 		// MLST facets need their own processing rather than _processFacets:
 		// values carry a redundant 'MLST.<scheme>.' prefix, and the unassigned
 		// ('-') bucket is typically the largest and would swamp the chart.
+		MLST_TOP_N: 10,
+
 		_processMlstFacets: function (facets)
 		{
-			if (!facets || facets.length === 0) return { data: [], unassigned: 0 };
+			const empty = { data: [], unassigned: 0, otherCount: 0, otherTypes: 0, distinctTypes: 0 };
+			if (!facets || facets.length === 0) return empty;
 
-			const data = [];
+			const all = [];
 			let unassigned = 0;
 
 			for (let i = 0; i < facets.length; i += 2)
@@ -1053,26 +1057,54 @@ define([
 					unassigned += count;
 					continue;
 				}
-				data.push({ name: label, value: count, rawValue: raw });
+				all.push({ name: label, value: count, rawValue: raw });
 			}
 
-			data.sort((a, b) => b.value - a.value);
-			return { data: data.slice(0, 10), unassigned: unassigned };
+			all.sort((a, b) => b.value - a.value);
+
+			const top = all.slice(0, this.MLST_TOP_N);
+			const rest = all.slice(this.MLST_TOP_N);
+			const otherCount = rest.reduce((sum, d) => sum + d.value, 0);
+
+			// The tail is not a rounding error -- for C. jejuni it outweighs the
+			// top 10 combined -- so it gets its own slice rather than being
+			// dropped. No rawValue: 'Other' is not a filterable value, and the
+			// click handler checks for one before navigating.
+			if (otherCount > 0)
+			{
+				top.push({
+					name: `Other (${rest.length.toLocaleString()} types)`,
+					value: otherCount,
+					itemStyle: { color: '#c9ccd1' }
+				});
+			}
+
+			return {
+				data: top,
+				unassigned: unassigned,
+				otherCount: otherCount,
+				otherTypes: rest.length,
+				distinctTypes: all.length
+			};
 		},
 
-		_setMlstUnassignedNote: function (unassigned, total)
+		_setMlstUnassignedNote: function (processed, total)
 		{
 			if (!this.mlstUnassignedNote) return;
 
-			if (!unassigned)
+			const fmt = (n) => n.toLocaleString();
+			const parts = [];
+
+			if (processed.distinctTypes)
 			{
-				this.mlstUnassignedNote.textContent = '';
-				return;
+				parts.push(`${fmt(processed.distinctTypes)} distinct sequence types`);
+			}
+			if (processed.unassigned)
+			{
+				parts.push(`${fmt(processed.unassigned)} of ${fmt(total)} genomes have no assigned ST`);
 			}
 
-			const fmt = (n) => n.toLocaleString();
-			this.mlstUnassignedNote.textContent =
-				`${fmt(unassigned)} of ${fmt(total)} genomes have no assigned ST`;
+			this.mlstUnassignedNote.textContent = parts.join(' · ');
 		},
 
 		createSerotypeChart: function ()
