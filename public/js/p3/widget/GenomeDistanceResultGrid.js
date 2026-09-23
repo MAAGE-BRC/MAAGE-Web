@@ -42,6 +42,35 @@ define([
       // this.primaryKey = parent.primaryKey;
     },
 
+    // EXPERIMENTAL: shade result rows by match confidence.
+    //   blue   - p < 1e-5 and distance <= 0.05
+    //   yellow - p < 1e-5 and 0.05 < distance <= 0.15
+    //   none   - distance > 0.2 or p > 0.001, and anything not matching above
+    // Returns a class name, or '' for no shading.
+    confidenceClass: function (obj) {
+      if (!obj) { return ''; }
+
+      var distance = parseFloat(obj.distance);
+      var pvalue = parseFloat(obj.pvalue);
+      if (isNaN(distance) || isNaN(pvalue)) { return ''; }
+
+      if (distance > 0.2 || pvalue > 0.001) { return ''; }
+
+      if (pvalue < 1e-5) {
+        if (distance <= 0.05) { return 'sgfConfidenceHigh'; }
+        if (distance <= 0.15) { return 'sgfConfidenceMedium'; }
+      }
+
+      return '';
+    },
+
+    renderRow: function (obj) {
+      var row = this.inherited(arguments);
+      var cls = this.confidenceClass(obj);
+      if (cls) { domClass.add(row, cls); }
+      return row;
+    },
+
     _setState: function (state) {
       if (!state) {
         return;

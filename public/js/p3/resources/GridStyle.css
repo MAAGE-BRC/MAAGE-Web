@@ -212,6 +212,67 @@
     background: #bfd6eb;
 }
 
+/*
+ * EXPERIMENTAL: Similar Genome Finder match-confidence shading.
+ * Set in GenomeDistanceResultGrid.confidenceClass(). The .dgrid-row
+ * qualifier raises specificity above .dgrid-row-odd so the striping does
+ * not win on alternate rows; .dgrid-selected is listed after so selecting
+ * a row still reads as selected.
+ */
+.patric .dgrid-row.sgfConfidenceHigh {
+    background: #d6e9f8;
+}
+
+.patric .dgrid-row.sgfConfidenceMedium {
+    background: #fbf3ce;
+}
+
+.patric .dgrid-row.sgfConfidenceHigh.dgrid-selected,
+.patric .dgrid-row.sgfConfidenceMedium.dgrid-selected {
+    background: #bfd6eb;
+}
+
+/* Legend for the shading above. Swatches reuse the sgfConfidence* class
+ * names so the colors stay defined in exactly one place. */
+.sgfColorKey {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 18px;
+    margin: 0 0 6px 4px;
+    font-size: 12px;
+    color: #444;
+}
+
+.sgfColorKeyLabel {
+    font-weight: 600;
+}
+
+.sgfColorKeyItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sgfColorKeySwatch {
+    display: inline-block;
+    width: 22px;
+    height: 12px;
+    border: 1px solid #b0b0b0;
+}
+
+.sgfColorKeySwatch.sgfConfidenceHigh {
+    background: #d6e9f8;
+}
+
+.sgfColorKeySwatch.sgfConfidenceMedium {
+    background: #fbf3ce;
+}
+
+.sgfColorKeySwatch.sgfConfidenceNone {
+    background: #ffffff;
+}
+
 
 .patric .dgrid-footer {
 	font-size: 1.2em;

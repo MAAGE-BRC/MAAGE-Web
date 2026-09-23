@@ -180,6 +180,7 @@ define([
       //
       // _self.result.loadingMask.show();
       query('.genomedistance_result .GridContainer').style('visibility', 'visible');
+      domClass.remove(query('.sgfColorKey')[0], 'hidden');
       domClass.add(query('.service_form')[0], 'hidden');
       domClass.add(query('.appSubmissionArea')[0], 'hidden');
       domClass.add(query('.service_error')[0], 'hidden');
@@ -199,6 +200,7 @@ define([
     resubmit: function () {
       domClass.remove(query('.service_form')[0], 'hidden');
       domClass.remove(query('.appSubmissionArea')[0], 'hidden');
+      domClass.add(query('.sgfColorKey')[0], 'hidden');
       query('.reSubmitBtn').style('visibility', 'hidden');
     },
 
@@ -209,6 +211,7 @@ define([
       query('.service_message')[0].innerHTML = err;// .response.data.error.message;
 
       query('.genomedistance_result .GridContainer').style('visibility', 'hidden');
+      domClass.add(query('.sgfColorKey')[0], 'hidden');
     },
 
     showNoResultMessage: function () {
@@ -217,6 +220,7 @@ define([
       domClass.add(query('.service_message')[0], 'hidden');
 
       query('.genomedistance_result .GridContainer').style('visibility', 'hidden');
+      domClass.add(query('.sgfColorKey')[0], 'hidden');
     },
 
     hideResultGridContainer: function () {
