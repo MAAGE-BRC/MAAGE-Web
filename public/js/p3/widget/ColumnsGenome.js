@@ -130,7 +130,8 @@ define(['./formatter'], function (formatter) {
       label: 'MLST',
       field: 'mlst',
       hidden: false,
-      group: 'Type Info'
+      group: 'Type Info',
+      formatter: formatter.mlst
     },
     cgmlst_id: {
       label: 'cgMLST ID',
