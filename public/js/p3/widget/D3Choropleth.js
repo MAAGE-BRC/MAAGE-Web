@@ -12,7 +12,15 @@ define([
 	return declare([WidgetBase, TemplatedMixin], {
 		baseClass: "D3Choropleth",
 		templateString: "<div></div>",
+
+		// Held as a plain property: _WidgetBase would otherwise map `title` onto
+		// the domNode's HTML title attribute, giving the map a second, native
+		// browser tooltip that fights with the D3 one.
 		title: "",
+		_setTitleAttr: function (value)
+		{
+			this._set("title", value);
+		},
 
 		worldMapData: null,
 		usMapData: null,
@@ -569,6 +577,17 @@ define([
 				.on("mouseout", () => this._hideTooltip())
 				.on("click", (event, d) =>
 				{
+					if (this._isDrilldownClick(event))
+					{
+						const data = this._getCountryData(d);
+						if (data && data.dataKey && this.onRegionSelect)
+						{
+							event.preventDefault();
+							this._hideTooltip();
+							this.onRegionSelect("country", data.dataKey);
+						}
+						return;
+					}
 
 					const countryName = d.properties.NAME || d.properties.name || d.properties.ADMIN || d.properties.admin || "";
 
@@ -617,6 +636,18 @@ define([
 				.on("mouseout", () => this._hideTooltip())
 				.on("click", (event, d) =>
 				{
+					if (this._isDrilldownClick(event))
+					{
+						const data = this._getStateData(d);
+						if (data && data.dataKey && this.onRegionSelect)
+						{
+							event.preventDefault();
+							this._hideTooltip();
+							this.onRegionSelect("state", data.dataKey);
+						}
+						return;
+					}
+
 					const stateCode = d.id;
 					const stateName = d.properties.name;
 					if (stateCode && stateName)
@@ -680,7 +711,19 @@ define([
 				.attr("stroke-width", 0.5)
 				.style("cursor", "pointer")
 				.on("mouseover", (event, d) => this._showTooltip(event, d, "county"))
-				.on("mouseout", () => this._hideTooltip());
+				.on("mouseout", () => this._hideTooltip())
+				.on("click", (event, d) =>
+				{
+					if (!this._isDrilldownClick(event)) return;
+
+					const data = this._getCountyData(d);
+					if (data && data.dataKey && this.onRegionSelect)
+					{
+						event.preventDefault();
+						this._hideTooltip();
+						this.onRegionSelect("county", data.dataKey);
+					}
+				});
 
 			this.g.append("path")
 				.datum(this.topojson.mesh(this.usMapData, this.usMapData.objects.counties,
@@ -757,12 +800,32 @@ define([
 				content += `<div>No data available</div>`;
 			}
 
+			if (data && data.dataKey && this.onRegionSelect)
+			{
+				content += `<div style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 8px; opacity: 0.8;">`;
+				content += `${this._drilldownModifierLabel()}-click to view genomes`;
+				content += `</div>`;
+			}
+
 			const [x, y] = this.d3.pointer(event, this.mapContainer);
 			this.tooltip
 				.style("opacity", 1)
 				.html(content)
 				.style("left", (x + 15) + "px")
 				.style("top", (y - 15) + "px");
+		},
+
+		_drilldownModifierLabel: function ()
+		{
+			return navigator.platform && navigator.platform.indexOf("Mac") > -1 ? "⌘" : "Ctrl";
+		},
+
+		// True when the click should filter to a region rather than drill the map
+		// down a level. Kept separate from the plain-click handlers so normal
+		// navigation is unchanged and needs no click/dblclick debounce.
+		_isDrilldownClick: function (event)
+		{
+			return !!(event && (event.metaKey || event.ctrlKey));
 		},
 
 		_hideTooltip: function ()
@@ -838,6 +901,9 @@ define([
 			return {
 				count: count,
 				value: count,
+				// The name as it appears in the data, which can differ from the
+				// topojson label; filter queries must use this one.
+				dataKey: matchedKey,
 				genera: this._formatGenera(metadata && metadata.genera),
 				hosts: this._formatBreakdown(metadata && metadata.hosts)
 			};
@@ -871,12 +937,16 @@ define([
 			}
 
 			let count = 0;
+			let matchedKey = null;
 			if (stateLookup[stateName])
 			{
 				count = stateLookup[stateName];
+				matchedKey = stateName;
 			} else if (stateLookup[normalized])
 			{
 				count = stateLookup[normalized];
+				matchedKey = Object.keys(this.genomeData.stateData).find(s =>
+					s.toLowerCase().replace(/[^a-z]/g, "") === normalized) || stateName;
 			}
 
 			if (!count) return null;
@@ -886,6 +956,7 @@ define([
 			return {
 				count: count,
 				value: count,
+				dataKey: matchedKey,
 				genera: this._formatGenera(metadata && metadata.genera),
 				hosts: this._formatBreakdown(metadata && metadata.hosts)
 			};
@@ -908,12 +979,16 @@ define([
 			});
 
 			let count = 0;
+			let matchedKey = null;
 			if (countyLookup[countyName])
 			{
 				count = countyLookup[countyName];
+				matchedKey = countyName;
 			} else if (countyLookup[normalized])
 			{
 				count = countyLookup[normalized];
+				matchedKey = Object.keys(this.genomeData.countyData).find(c =>
+					c.toLowerCase().replace(/[^a-z]/g, "") === normalized) || countyName;
 			}
 
 			if (!count) return null;
@@ -923,6 +998,7 @@ define([
 			return {
 				count: count,
 				value: count,
+				dataKey: matchedKey,
 				genera: this._formatGenera(metadata && metadata.genera)
 			};
 		},

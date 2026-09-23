@@ -213,6 +213,51 @@ All MicrobeTrace display settings are in `public/maage/config/microbetrace-defau
 - `default-distance-metric` — "snps" or "tn93"
 - `node-color-variable` — color-by field (e.g., "cluster")
 
+#### Metadata column names are PascalCase
+
+Any style setting that names a **metadata** column must use the PascalCase form.
+Both result-generating modules pascal-case every column when writing
+`metadata.tsv` (`bvbrc_CoreGenomeMLST/service-scripts/core-genome-mlst-utils.py`
+and `bvbrc_WholeGenomeSNPAnalysis/service-scripts/whole_genome_snp_utils.py`,
+identical `to_pascal_case` implementations):
+
+| API field | metadata.tsv column |
+|---|---|
+| `genome_id` | `GenomeId` |
+| `genome_name` | `GenomeName` |
+| `isolation_source` | `IsolationSource` |
+| `state_province` | `StateProvince` |
+
+Use `GenomeName` for labels (readable organism names); `GenomeId` is the numeric
+id (e.g. `28901.36220`). Not every value in the style is a metadata column —
+`_id`, `id`, and `cluster` are MicrobeTrace built-ins and must stay lowercase.
+
+**A style naming a nonexistent column fails silently.** The tree builds its
+label dropdown from the columns actually present in the loaded data, so a
+missing field leaves the select holding a dangling value and renders no labels
+at all — no error, no fallback. If labels are blank but appear as soon as you
+pick a field in the settings panel, the style is naming a column that no longer
+exists.
+
+Caveat: wgSNP drops any column present in under 70% of rows (`genome_id` is
+always kept), so a sparse dataset can produce the same blank-label symptom even
+with a correct style.
+
+#### Updating the style file
+
+Export it from MicrobeTrace rather than hand-editing: configure the display in
+the running app, then File → Save with file type `style`, and copy the result
+over `public/maage/config/microbetrace-default-style.json` (the path is
+hardcoded in `WorkspaceBrowser.js`). The file is a verbatim dump of
+MicrobeTrace's `session.style`.
+
+No rebuild is needed — it is a static asset fetched at runtime, not bundled.
+
+Review the diff before committing: the export captures the entire session,
+including dataset-specific color/symbol tables and field selections from
+whatever data was loaded. Check the key settings listed above rather than
+trusting the export wholesale.
+
 ### Job Result Viewers
 
 - **cgMLST**: Locates `.tre` tree, `cgMLST_distance.report`, `metadata.tsv`
@@ -300,3 +345,45 @@ The `path` property controls which workspace is shown. The leading path segment 
 ### MAAGE Workshop shortcut
 
 The dropdown shortcut "MAAGE Workshop" targets `/public/maage@bvbrc/MAAGE Workshop`. The `/public` prefix is required — without it the selector shows Upload/Create Folder buttons even though the workspace service will reject writes from non-owners.
+
+## Deprecated Genome Filtering
+
+Deprecated genomes are hidden from standard displays, mirroring BV-BRC. The
+filter is permanent and deliberately **not** user-removable, so it is injected
+into `state.search` rather than `defaultFilter` / `state.hashParams.filter`
+(those surface in the filter panel and can be cleared by the user).
+
+| File | Filter |
+|---|---|
+| `widget/GenomeGridContainer.js` | `onSetState` prepends `ne(genome_status,Deprecated)` |
+| `widget/viewer/Taxonomy.js` | `onSetState` injects it alongside the taxon term |
+| `store/GenomeDistanceResultMemoryStore.js` | Solr `fq: 'NOT genome_status:Deprecated'` |
+
+Note the last one uses **Solr** syntax, not RQL — that store posts with
+content-type `application/solrquery+x-www-form-urlencoded`.
+
+### Filtering a results list against a separate service
+
+Similar Genome Finder does two round-trips: the Mash distance service returns
+`[genome_id, distance, pvalue, counts]`, then a second query fetches metadata
+for those ids. The deprecated filter applies only to the **second** query, so it
+can return fewer genomes than the first reported.
+
+Rows must be dropped when the metadata lookup has no entry for an id. Merging
+with `lang.mixin({}, row, keyMap[id])` where `keyMap[id]` is `undefined`
+silently yields a row carrying only the distance fields, which renders as
+`undefined` in every metadata column. This shipped once as a regression.
+
+Because dropping rows would otherwise make a MAX HITS *n* search return fewer
+than *n* results, the store **over-requests 3×** from the distance service
+(`OVER_REQUEST_FACTOR`, capped at `MAX_HITS_CEILING` 1500) and trims back to *n*
+after filtering. `serviceResult` preserves the service's distance ordering, so
+the trim keeps the closest matches. The service honors the larger request with
+no meaningful time penalty — cost is dominated by the sketch comparison, not the
+hit count.
+
+This is an interim measure. It covers up to ~67% deprecated hits and degrades
+gracefully beyond that (returning what survives). Remove it once the distance
+service filters server-side, along with `MAX_HITS_PARAM`, which hardcodes the
+index of `max_hits` in the `Minhash.compute_genome_distance_for_{genome2,fasta2}`
+params array.
