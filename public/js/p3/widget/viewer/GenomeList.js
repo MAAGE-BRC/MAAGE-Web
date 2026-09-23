@@ -49,12 +49,26 @@ define([
       this.setActivePanelState();
     },
     onSetQuery: function (attr, oldVal, newVal) {
-      const q = newVal.split('&').filter(op => op.includes('genome(')).map(op => {
-        const part = op.replace('genome(', '')
-        return part.substring(0, part.length - 1)
-      }).join('')
+      if (!newVal) { return; }
 
-      const content = QueryToEnglish(q);
+      // Render the whole query. The previous approach pulled out just the
+      // genome(...) clause by splitting on '&' and dropping the last
+      // character, which broke as soon as anything followed the clause -- an
+      // added facet filter, say. The trailing ')' then belonged to an
+      // enclosing and(), so the result was unbalanced RQL and QueryToEnglish
+      // returned undefined. Rendering the full query also keeps terms outside
+      // genome(...) visible instead of silently dropping them.
+      // Drop terms the user did not ask for: eq(genome_id,*) is plumbing for
+      // the nested genome() query, and the deprecated-genome filter is applied
+      // automatically to every view. Neither belongs in a summary of what was
+      // searched for.
+      const cleaned = newVal
+        .replace(/,?eq\(genome_id,\*\)&?/g, '')
+        .replace(/,?ne\(genome_status,Deprecated\)&?/g, '');
+
+      const content = QueryToEnglish(cleaned);
+      if (!content) { return; }
+
       this.queryNode.innerHTML = '<span class="queryModel">Genomes: </span>  ' + content;
     },
     onSetTotalGenomes: function (attr, oldVal, newVal) {
