@@ -2893,6 +2893,19 @@ div#bv-brc-page-container > div.page-content {
         padding: 20px;
       }
 
+      /* Caption under a chart, e.g. the MLST unassigned-ST count. Empty
+         until populated, so no padding is reserved when unused. */
+      .chart-footnote {
+        font-size: 0.75rem;
+        color: #6b7280;
+        padding: 0 20px;
+        margin: -8px 0 0 0;
+      }
+
+      .chart-footnote:empty {
+        display: none;
+      }
+
       /* Map Placeholder */
       .map-placeholder {
         min-height: 400px;
