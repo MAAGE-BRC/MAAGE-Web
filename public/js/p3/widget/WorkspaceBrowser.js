@@ -457,10 +457,17 @@ define([
         tooltip: 'Download'
       }, function (selection) {
         console.log('selection=', selection);
+        // The action can fire with nothing selected -- on a file viewer page
+        // there is no grid row to select -- so there is nothing to download.
+        if (!selection || !selection.length) {
+          return;
+        }
         // TODO: job_result folders are downloaded with their '.' prefix, making them initially hidden in the zip file
         // some users may not like that
         // criteria for single download: one file and is not a folder and is not a job_result
-        if ((selection.length == 1) & !(selection[0].autoMeta.is_folder) & !(selection[0].type === 'job_result')) {
+        // Note && rather than &: bitwise AND does not short-circuit, so a false
+        // length check still evaluated selection[0].autoMeta and threw.
+        if ((selection.length == 1) && !(selection[0].autoMeta && selection[0].autoMeta.is_folder) && !(selection[0].type === 'job_result')) {
           console.log('download one item:', selection[0].path);
           WorkspaceManager.downloadFile(selection[0].path);
         } else {
