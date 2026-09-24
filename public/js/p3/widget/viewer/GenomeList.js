@@ -58,12 +58,15 @@ define([
       // enclosing and(), so the result was unbalanced RQL and QueryToEnglish
       // returned undefined. Rendering the full query also keeps terms outside
       // genome(...) visible instead of silently dropping them.
-      // Drop terms the user did not ask for: eq(genome_id,*) is plumbing for
-      // the nested genome() query, and the deprecated-genome filter is applied
-      // automatically to every view. Neither belongs in a summary of what was
-      // searched for.
+      // Drop terms the user did not ask for. eq(genome_id,*) and eq(*,*) are
+      // both match-everything placeholders that make a nested genome() query
+      // well-formed -- eq(*,*) is what GridContainer emits when sending a
+      // selection to the genome list -- and the deprecated-genome filter is
+      // applied automatically to every view. None belongs in a summary of what
+      // was searched for; eq(*,*) in particular renders as a bare "* is *".
       const cleaned = newVal
         .replace(/,?eq\(genome_id,\*\)&?/g, '')
+        .replace(/,?eq\(\*,\*\)&?/g, '')
         .replace(/,?ne\(genome_status,Deprecated\)&?/g, '');
 
       const content = QueryToEnglish(cleaned);
