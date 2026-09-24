@@ -457,9 +457,19 @@ define([
         tooltip: 'Download'
       }, function (selection) {
         console.log('selection=', selection);
-        // The action can fire with nothing selected -- on a file viewer page
-        // there is no grid row to select -- so there is nothing to download.
+        // On a file viewer page there is no grid row to select, so `selection`
+        // arrives empty. The file being viewed is still the obvious download
+        // target, so fall back to the container widget's own path rather than
+        // doing nothing.
         if (!selection || !selection.length) {
+          var viewed = self.actionPanel && self.actionPanel.currentContainerWidget;
+          var viewedPath = viewed && (viewed.filepath ||
+            (viewed.file && viewed.file.metadata &&
+              viewed.file.metadata.path + viewed.file.metadata.name));
+          if (viewedPath && viewed.containerType === 'file') {
+            console.log('download viewed file:', viewedPath);
+            WorkspaceManager.downloadFile(viewedPath);
+          }
           return;
         }
         // TODO: job_result folders are downloaded with their '.' prefix, making them initially hidden in the zip file
