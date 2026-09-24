@@ -83,6 +83,50 @@ define([
       if (window.localStorage.hasOwnProperty('bvbrc_rerun_job')) {
         this.contextFormFill();
       }
+      this.intakeRerunForm();
+    },
+
+    // Prefill from a ?rerun_key=... handoff (e.g. the genome overview Services menu).
+    intakeRerunForm: function () {
+      var rerun_key = null;
+      var sessionStorage = window.sessionStorage;
+
+      try {
+        rerun_key = new URLSearchParams(window.location.search).get('rerun_key');
+      } catch (error) {
+        console.log('Error parsing rerun key: ', error);
+      }
+
+      if (!rerun_key) {
+        return;
+      }
+
+      try {
+        var payload = sessionStorage.getItem(rerun_key);
+        if (!payload) {
+          return;
+        }
+        var job_data = JSON.parse(payload);
+        if (job_data.genome_id) {
+          this.setGenomeIdValue(job_data.genome_id);
+        }
+      } catch (error) {
+        console.log('Error during intakeRerunForm: ', error);
+      } finally {
+        sessionStorage.removeItem(rerun_key);
+      }
+    },
+
+    // The genome selector is a FilteringSelect whose label comes back from an async
+    // reverse lookup; re-apply on the next tick so a late widget startup doesn't clear it.
+    setGenomeIdValue: function (genome_id) {
+      var applyValue = lang.hitch(this, function () {
+        if (this.genome_id) {
+          this.genome_id.set('value', genome_id);
+        }
+      });
+      applyValue();
+      setTimeout(applyValue, 0);
     },
 
     toggleAdvanced: function (flag) {
@@ -258,7 +302,7 @@ define([
 
     contextFormFill: function () {
       var params = JSON.parse(localStorage.getItem('bvbrc_rerun_job'));
-      this.genome_id.set('value', params['genome_id']);
+      this.setGenomeIdValue(params['genome_id']);
       localStorage.removeItem('bvbrc_rerun_job');
     }
   });

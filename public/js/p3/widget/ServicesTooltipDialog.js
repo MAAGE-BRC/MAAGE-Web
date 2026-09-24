@@ -61,7 +61,7 @@ define([
       switch (data_context) {
         // TODO: taxon overview case
         case 'feature':
-          domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'Homology', innerHTML: 'Blast' }, service_div);
+          domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'Homology', innerHTML: 'BLAST' }, service_div);
           domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'GeneTree', innerHTML: 'Gene Tree' }, service_div);
           domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'HASubtypeNumberingConversion', innerHTML: 'HA Subtype Numbering Conversion' }, service_div);
           if (multiple) {
@@ -73,15 +73,19 @@ define([
           break;
         case 'genome':
           if (!multiple || this.context === 'grid_container') {
-            domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'Homology', innerHTML: 'Blast' }, service_div);
+            domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'Homology', innerHTML: 'BLAST' }, service_div);
+          }
+          // Similar Genome Finder takes a single genome id, so it needs exactly one
+          // genome. The workspace context selects genome groups (paths, not ids), so
+          // it can't feed this service at all.
+          if (!multiple && this.context !== 'workspace') {
+            domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'GenomeDistance', innerHTML: 'Similar Genome Finder' }, service_div);
           }
           if (this.context !== 'genome_overview') {
             domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'CodonTree', innerHTML: 'Bacterial Tree' }, service_div);
             domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'ViralTree', innerHTML: 'Viral Tree' }, service_div);
             domConstruct.create('div', { 'class': 'serviceActionTooltip', 'rel': 'ViralMSA', innerHTML: 'Viral MSA' }, service_div);
           }
-          // TODO: fix genome distance?
-          // domConstruct.create('div', { 'class': 'wsActionTooltip', rel: 'genome_distance', innerHTML: 'Similar Genome Finder' }, tData);
           break;
         // TODO: case taxon overview
         default:
@@ -220,6 +224,22 @@ define([
           }
           RerunUtility.rerun(JSON.stringify(job_data), 'Homology', window, Topic)
         }
+      }
+      if (service === 'GenomeDistance') {
+        // Similar Genome Finder takes exactly one genome id.
+        var genome_id;
+        if (this.context === 'genome_overview') {
+          genome_id = this.data.genome.genome_id;
+        }
+        if (this.context === 'grid_container') {
+          genome_id = (data.selection || []).map(x => x.genome_id).filter(x => x)[0];
+        }
+        if (!genome_id) {
+          console.log('no genome_id available for Similar Genome Finder');
+          return;
+        }
+        RerunUtility.rerun(JSON.stringify({ genome_id: genome_id }), 'GenomeDistance', window, Topic);
+        popup.close(this);
       }
       if (service === 'CodonTree') {
         // always genome data type
