@@ -30,6 +30,7 @@ define([], function () {
         'GenomeAlignment': 'GenomeAlignment',
         'GenomeAnnotation': 'Annotation',
         'GenomeComparison': 'SeqComparison',
+        'GenomeDistance': 'GenomeDistance',
         'Homology': 'Homology',
         'MetaCATS': 'MetaCATS',
         'MetagenomeBinning': 'MetagenomicBinning',
