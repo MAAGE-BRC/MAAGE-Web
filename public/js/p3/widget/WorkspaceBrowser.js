@@ -457,10 +457,27 @@ define([
         tooltip: 'Download'
       }, function (selection) {
         console.log('selection=', selection);
+        // On a file viewer page there is no grid row to select, so `selection`
+        // arrives empty. The file being viewed is still the obvious download
+        // target, so fall back to the container widget's own path rather than
+        // doing nothing.
+        if (!selection || !selection.length) {
+          var viewed = self.actionPanel && self.actionPanel.currentContainerWidget;
+          var viewedPath = viewed && (viewed.filepath ||
+            (viewed.file && viewed.file.metadata &&
+              viewed.file.metadata.path + viewed.file.metadata.name));
+          if (viewedPath && viewed.containerType === 'file') {
+            console.log('download viewed file:', viewedPath);
+            WorkspaceManager.downloadFile(viewedPath);
+          }
+          return;
+        }
         // TODO: job_result folders are downloaded with their '.' prefix, making them initially hidden in the zip file
         // some users may not like that
         // criteria for single download: one file and is not a folder and is not a job_result
-        if ((selection.length == 1) & !(selection[0].autoMeta.is_folder) & !(selection[0].type === 'job_result')) {
+        // Note && rather than &: bitwise AND does not short-circuit, so a false
+        // length check still evaluated selection[0].autoMeta and threw.
+        if ((selection.length == 1) && !(selection[0].autoMeta && selection[0].autoMeta.is_folder) && !(selection[0].type === 'job_result')) {
           console.log('download one item:', selection[0].path);
           WorkspaceManager.downloadFile(selection[0].path);
         } else {

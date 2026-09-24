@@ -69,7 +69,20 @@ define([
       */
       // console.log('[File] viewable?:', this.viewable);
 
-      this.refresh();
+      // Fetch the signed download URL before rendering the header. Nothing
+      // populated this.url, so the download link rendered as href="null".
+      // Refresh either way, so a failure here still shows the file.
+      if (this.filepath) {
+        Deferred.when(WS.getDownloadUrls(this.filepath), function (url) {
+          _self.url = url;
+        }, function (err) {
+          console.log('[File] unable to get download url', err);
+        }).always(function () {
+          _self.refresh();
+        });
+      } else {
+        this.refresh();
+      }
     },
 
     formatFileMetaData: function (showMetaDataRows) {
@@ -77,8 +90,11 @@ define([
       if (this.file && fileMeta) {
         var content = '<div><h3 class="section-title-plain close2x pull-left"><b>' + fileMeta.type + ' file</b>: ' + fileMeta.name + '</h3>';
 
-        if (!WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
-          content += '<a href=' + this.url + '><i class="fa icon-download pull-left fa-2x"></i></a>';
+        // Only render the link once the signed URL has resolved -- otherwise
+        // the href was the literal string "null". Quote it, too: the value is
+        // a URL that can contain characters an unquoted attribute breaks on.
+        if (this.url && !WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
+          content += '<a href="' + this.url + '" title="Download"><i class="fa icon-download pull-left fa-2x"></i></a>';
         }
 
         if (showMetaDataRows) {
@@ -130,32 +146,55 @@ define([
       if (this.file && this.file.metadata) {
         if (this.viewable) {
           this.viewSubHeader.set('content', this.formatFileMetaData(false));
+
+          // Show the spinner BEFORE authorizing, not after. authorize() is a
+          // network round-trip -- a few hundred ms on a good connection, much
+          // worse on congested wifi -- and creating the spinner inside its
+          // .then() left the pane blank for that whole time.
+          const spinner = domConstruct.create("div", {
+            className: "spinner",
+            innerHTML: "Loading..."
+          });
+
+          // Style the spinner (you can customize this or use a CSS class)
+          domStyle.set(spinner, {
+            position: "absolute",
+            fontSize: "2.5em",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 10,
+            backgroundColor: "white",
+            padding: "10px",
+            borderRadius: "4px"
+          });
+          domConstruct.empty(this.viewer.containerNode);
+          domStyle.set(this.viewer.containerNode, 'overflow', 'hidden');
+          domConstruct.place(spinner, this.viewer.containerNode);
+
           // Set cookie for workspace load
           this.authorize().then(lang.hitch(this, function () {
             const docURL = window.App.workspaceDownloadAPI + "/view" + this.filepath;
-            // Create a spinner div
-            const spinner = domConstruct.create("div", {
-              className: "spinner",
-              innerHTML: "Loading..."
-            });
-
-            // Style the spinner (you can customize this or use a CSS class)
-            domStyle.set(spinner, {
-              position: "absolute",
-              fontSize: "2.5em",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 10,
-              backgroundColor: "white",
-              padding: "10px",
-              borderRadius: "4px"
-            });
             var iframe = domConstruct.create('iframe', { style: 'width:100%;height:100%' });
-            domConstruct.empty(this.viewer.containerNode);
-            domStyle.set(this.viewer.containerNode, 'overflow', 'hidden');
-            domConstruct.place(spinner, this.viewer.containerNode);
             domConstruct.place(iframe, this.viewer.containerNode);
+
+            // Small files load in a couple of hundred milliseconds, which made
+            // the spinner flash by unseen. Hold it for a minimum interval so it
+            // reads as a deliberate loading state rather than a flicker.
+            var shownAt = Date.now();
+            var MIN_SPINNER_MS = 400;
+            var spinnerCleared = false;
+            var clearSpinner = function () {
+              if (spinnerCleared) { return; }
+              spinnerCleared = true;
+              var elapsed = Date.now() - shownAt;
+              var wait = Math.max(0, MIN_SPINNER_MS - elapsed);
+              setTimeout(function () {
+                if (spinner.parentNode) {
+                  domConstruct.destroy(spinner);
+                }
+              }, wait);
+            };
 
             iframe.onload = function () {
               /*
@@ -168,14 +207,21 @@ define([
                 i++
               }
               */
-              domConstruct.destroy(spinner);
-
+              clearSpinner();
             }
+            // Without this a failed load would leave the spinner up forever.
+            iframe.onerror = clearSpinner;
             iframe.src = docURL;
 
-          }), function () {
-            console.log("Cookie auth failure");
-          });
+          }), lang.hitch(this, function (err) {
+            console.log("Cookie auth failure", err);
+            // The spinner is now shown before authorize(), so a failure here
+            // has to take it down or the pane spins forever.
+            if (spinner.parentNode) {
+              domConstruct.destroy(spinner);
+            }
+            this.viewer.set('content', "<div class='error'>Unable to load file</div>");
+          }));
         } else {
           this.viewSubHeader.set('content', this.formatFileMetaData(true));
         }
