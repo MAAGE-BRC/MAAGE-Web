@@ -69,7 +69,20 @@ define([
       */
       // console.log('[File] viewable?:', this.viewable);
 
-      this.refresh();
+      // Fetch the signed download URL before rendering the header. Nothing
+      // populated this.url, so the download link rendered as href="null".
+      // Refresh either way, so a failure here still shows the file.
+      if (this.filepath) {
+        Deferred.when(WS.getDownloadUrls(this.filepath), function (url) {
+          _self.url = url;
+        }, function (err) {
+          console.log('[File] unable to get download url', err);
+        }).always(function () {
+          _self.refresh();
+        });
+      } else {
+        this.refresh();
+      }
     },
 
     formatFileMetaData: function (showMetaDataRows) {
@@ -77,8 +90,11 @@ define([
       if (this.file && fileMeta) {
         var content = '<div><h3 class="section-title-plain close2x pull-left"><b>' + fileMeta.type + ' file</b>: ' + fileMeta.name + '</h3>';
 
-        if (!WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
-          content += '<a href=' + this.url + '><i class="fa icon-download pull-left fa-2x"></i></a>';
+        // Only render the link once the signed URL has resolved -- otherwise
+        // the href was the literal string "null". Quote it, too: the value is
+        // a URL that can contain characters an unquoted attribute breaks on.
+        if (this.url && !WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
+          content += '<a href="' + this.url + '" title="Download"><i class="fa icon-download pull-left fa-2x"></i></a>';
         }
 
         if (showMetaDataRows) {
