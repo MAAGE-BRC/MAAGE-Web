@@ -157,6 +157,24 @@ define([
             domConstruct.place(spinner, this.viewer.containerNode);
             domConstruct.place(iframe, this.viewer.containerNode);
 
+            // Small files load in a couple of hundred milliseconds, which made
+            // the spinner flash by unseen. Hold it for a minimum interval so it
+            // reads as a deliberate loading state rather than a flicker.
+            var shownAt = Date.now();
+            var MIN_SPINNER_MS = 400;
+            var spinnerCleared = false;
+            var clearSpinner = function () {
+              if (spinnerCleared) { return; }
+              spinnerCleared = true;
+              var elapsed = Date.now() - shownAt;
+              var wait = Math.max(0, MIN_SPINNER_MS - elapsed);
+              setTimeout(function () {
+                if (spinner.parentNode) {
+                  domConstruct.destroy(spinner);
+                }
+              }, wait);
+            };
+
             iframe.onload = function () {
               /*
               var nodes = iframe.contentWindow.document.getElementsByTagName("a")
@@ -168,9 +186,10 @@ define([
                 i++
               }
               */
-              domConstruct.destroy(spinner);
-
+              clearSpinner();
             }
+            // Without this a failed load would leave the spinner up forever.
+            iframe.onerror = clearSpinner;
             iframe.src = docURL;
 
           }), function () {
