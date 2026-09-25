@@ -138,6 +138,11 @@ define([
       if (this.file && this.file.metadata) {
         if (this.viewable) {
           this.viewSubHeader.set('content', this.formatFileMetaData(false));
+          // The header's height is only known once its content is in place, so
+          // the BorderContainer has to re-measure. Without this the center
+          // region keeps the height it was given before the header grew, and
+          // the two overlap.
+          this.resize();
 
           // Show the spinner BEFORE authorizing, not after. authorize() is a
           // network round-trip -- a few hundred ms on a good connection, much
@@ -236,6 +241,7 @@ define([
           }));
         } else {
           this.viewSubHeader.set('content', this.formatFileMetaData(true));
+          this.resize();
         }
       }
     }
