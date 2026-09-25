@@ -346,6 +346,52 @@ The `path` property controls which workspace is shown. The leading path segment 
 
 The dropdown shortcut "MAAGE Workshop" targets `/public/maage@bvbrc/MAAGE Workshop`. The `/public` prefix is required — without it the selector shows Upload/Create Folder buttons even though the workspace service will reject writes from non-owners.
 
+## The `/public` path prefix
+
+`/public` is a **UI-only display marker** meaning "browsing in public-workspaces
+mode." It is **not part of any real workspace path** — the Workspace service
+rejects it with `User lacks permission to /`. The object the UI shows at
+`/public/maage@bvbrc/X` actually lives at `/maage@bvbrc/X`.
+
+The prefix is **stripped on the way out** to the API and **re-added on the way
+back** to grid rows:
+
+| direction | site |
+|---|---|
+| strip (load-bearing, before the API call) | `WorkspaceBrowser.js` — `'/' + path.split('/').slice(2).join('/')` |
+| strip (Homology href) | `WorkspaceBrowser.js` — `.replace(/^\/public/, '')` |
+| strip (breadcrumbs) | `ContainerActionBar.js` — `parts[1] == 'public'` |
+| **re-add** | `WorkspaceGrid.js` (two sites) — `'/public' + row.data.path` when in public mode |
+
+"Am I in public mode?" is re-derived independently in a dozen widgets as
+`path.split('/')[1] == 'public'`; there is no shared helper.
+
+**When debugging a workspace path, do not hand-construct the `/public` form.**
+Take `metadata.path` from the service response — it is always the real,
+unprefixed path. Viewers such as `viewer/File.js` build their `filepath` that
+way, which is why they work despite the URL carrying the prefix.
+
+## Workspace file viewer (`viewer/File.js`)
+
+The fallback viewer for any workspace file type without a dedicated viewer.
+Worth knowing before changing it:
+
+- It does **not** read file bytes. It POSTs to
+  `workspaceDownloadAPI + "/set-cookie-auth"` to set a cookie, then points an
+  iframe at `workspaceDownloadAPI + "/view" + filepath`. That auth call is a
+  network round-trip, so anything gated behind it (a spinner, for instance)
+  will not appear until it returns — noticeable on slow networks.
+- The download link in the header needs `this.url`, populated from
+  `WS.getDownloadUrls()`. The green action-bar DWNLD button is a *separate*
+  path that resolves its URL at click time via `WorkspaceManager.downloadFile()`.
+  Fixing one does not fix the other.
+- On a file viewer page the action bar's `selection` is **empty** — there is no
+  grid row to select. Actions that assume a selection must fall back to
+  `actionPanel.currentContainerWidget.filepath`.
+- For PDFs, `iframe.onload` fires when the browser hands off to its PDF plugin,
+  **not** when rendering completes. There is no rendering-complete signal: the
+  plugin renders out-of-process and the frame's DOM stays empty.
+
 ## Deprecated Genome Filtering
 
 Deprecated genomes are hidden from standard displays, mirroring BV-BRC. The
