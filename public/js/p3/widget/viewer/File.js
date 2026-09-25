@@ -175,7 +175,32 @@ define([
           // Set cookie for workspace load
           this.authorize().then(lang.hitch(this, function () {
             const docURL = window.App.workspaceDownloadAPI + "/view" + this.filepath;
-            var iframe = domConstruct.create('iframe', { style: 'width:100%;height:100%' });
+
+            //
+            // The frame renders workspace files, whose content we do not
+            // control, from a SAME-ORIGIN URL (workspaceDownloadAPI is a
+            // relative path). Without a sandbox, script in a workspace HTML
+            // file runs in the app origin, where window.App.authorizationToken
+            // is a live OAuth credential readable from JS and there is no CSP
+            // backstop (app.js disables Helmet's CSP for Dojo).
+            //
+            // allow-scripts is required: job reports genuinely need it --
+            // cgMLST_Report.html is ~136KB with Plotly, jQuery and DataTables.
+            // Withholding allow-same-origin puts the document in an opaque
+            // origin, so scripts run but cannot reach parent.App, cookies or
+            // localStorage.
+            //
+            // NEVER add allow-same-origin here. Combined with allow-scripts it
+            // is equivalent to no sandbox at all, because the frame can then
+            // remove its own sandbox attribute.
+            //
+            // Set at creation, before the node is placed, so the attribute is
+            // present when the document loads.
+            //
+            var iframe = domConstruct.create('iframe', {
+              sandbox: 'allow-scripts',
+              style: 'width:100%;height:100%'
+            });
             domConstruct.place(iframe, this.viewer.containerNode);
 
             // Small files load in a couple of hundred milliseconds, which made
@@ -196,19 +221,14 @@ define([
               }, wait);
             };
 
-            iframe.onload = function () {
-              /*
-              var nodes = iframe.contentWindow.document.getElementsByTagName("a")
-              var i = 0
-              while (i < nodes.length) {
-                var n = nodes.item(i)
-                console.log("modify", n.target, n)
-                //n.target = "_parent";
-                i++
-              }
-              */
-              clearSpinner();
-            }
+            // Reading iframe.contentWindow.document from here is permanently
+            // impossible: the sandbox above withholds allow-same-origin, so the
+            // frame is in an opaque origin and any DOM access throws. A
+            // commented-out attempt to retarget the document's links lived here
+            // and has been removed. If link retargeting is needed again, the
+            // sandboxed answer is allow-top-navigation-by-user-activation --
+            // NOT allow-same-origin, which would defeat the sandbox entirely.
+            iframe.onload = clearSpinner;
             // Without this a failed load would leave the spinner up forever.
             iframe.onerror = clearSpinner;
             iframe.src = docURL;
