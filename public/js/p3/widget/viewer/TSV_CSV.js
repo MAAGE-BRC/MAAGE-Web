@@ -824,6 +824,9 @@ define([
           }
         } else {
           this.viewSubHeader.set('content', this.formatFileMetaData(true));
+          // See File.js: the BorderContainer must re-measure after the header
+          // content lands, or the center region overlaps it.
+          this.resize();
         }
       } // end if  file and metadata
     }  // end refresh
