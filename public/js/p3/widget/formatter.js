@@ -564,19 +564,34 @@ define(
 
       // takes an array of form [{label: "", value: ""} ... ]
       // or a autoLabel hash and producs a simple key/value table
+      //
+      // Labels and values are HTML-escaped. Both callers pass user-controlled
+      // data -- workspace filenames and owner ids via autoLabel('fileView'),
+      // and model organism names in viewer/Model.js -- which was previously
+      // concatenated raw into markup that the caller then parsed. A file named
+      // with an <img onerror=...> payload executed script in the app origin.
+      // Neither caller supplies values that are meant to be markup, so
+      // escaping is safe here. See CLAUDE.md section 2.
       keyValueTable: function (spec) {
+
+        var esc = function (v) {
+          if (v === null || v === undefined) { return ''; }
+          return String(v)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        };
 
         var table = ['<table class="p3basic striped" id="data-table"><tbody>'];
         if (spec instanceof Array) {
           for (var i = 0; i < spec.length; i++) {
             var row = spec[i];
-            table.push('<tr><td width="10%"><b>' + row.label + '</b></td><td>' + row.value + '</td></tr>');
+            table.push('<tr><td width="10%"><b>' + esc(row.label) + '</b></td><td>' + esc(row.value) + '</td></tr>');
           }
         } else {
           for (var item in spec) {
             // guard-for-in
             if (Object.prototype.hasOwnProperty.call(spec, item)) {
-              table.push('<tr><td width="10%"><b>' +  spec[item].label + '</b></td><td>' + spec[item].value + '</td></tr>');
+              table.push('<tr><td width="10%"><b>' +  esc(spec[item].label) + '</b></td><td>' + esc(spec[item].value) + '</td></tr>');
             }
           }
         }

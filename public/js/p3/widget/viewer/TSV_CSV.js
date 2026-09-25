@@ -5,7 +5,8 @@ define([
   'dijit/form/Button', 'dijit/form/CheckBox', 'dijit/form/Select', 'dojo/topic',
   '../TsvCsvFeatures', 'dojo/request', '../../util/PathJoin', 'dijit/popup',
   '../PerspectiveToolTip', 'dojo/promise/all', 'dojo/when',
-  '../CopyTooltipDialog', '../../util/encodePath', 'dijit/registry', 'dijit/dijit'
+  '../CopyTooltipDialog', '../../util/encodePath', 'dijit/registry', 'dijit/dijit',
+  '../../util/fileHeader'
 ], function (
   declare, on, ContentPane, domConstruct,
   TSV_CSV_GridContainer, WS, Deferred,
@@ -13,7 +14,8 @@ define([
   Button, CheckBox, Select, Topic,
   tsvCsvFeatures, request, PathJoin, popup,
   PerspectiveToolTipDialog, all, when,
-  CopyTooltipDialog, encodePath, registry, dijit
+  CopyTooltipDialog, encodePath, registry, dijit,
+  fileHeader
 ) {
 
   var copySelectionTT = new CopyTooltipDialog({});
@@ -767,18 +769,15 @@ define([
       });
     },
 
+    // Now shared with File.js via util/fileHeader. The copy that lived here had
+    // drifted: it rendered href=null before the signed URL resolved, left that
+    // href unquoted, and ignored its own showMetaDataRows argument.
     formatFileMetaData: function (showMetaDataRows) {
-      var fileMeta = this.file.metadata;
-      if (this.file && fileMeta) {
-        var content = '<div><h3 class="section-title-plain close2x pull-left"><b>' + fileMeta.type + ' file</b>: ' + fileMeta.name + '</h3>';
-
-        if (!WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
-          content += '<a href=' + this.url + '><i class="fa icon-download pull-left fa-2x"></i></a>';
-        }
-        content += '</tbody></table></div>';
-      }
-
-      return content;
+      if (!this.file || !this.file.metadata) { return ''; }
+      var opts = { meta: this.file.metadata, url: this.url };
+      return showMetaDataRows
+        ? fileHeader.buildHeaderWithMetaNode(opts)
+        : fileHeader.buildHeaderNode(opts);
     },
 
     refresh: function () {
