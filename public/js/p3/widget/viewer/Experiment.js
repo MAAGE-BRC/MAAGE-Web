@@ -59,6 +59,11 @@ define([
           content.push('Genes Mapped/Genes Total: ' + (this.experiment.geneTotal - this.experiment.genesMissed) + '/' + this.experiment.geneTotal + ' Samples: ' + this.experiment.samples + '<br>');
           content.push(this.experiment.description);
           this.viewHeader.set('content', content.join(''));
+          // This replaces a one-line placeholder with three lines, so the
+          // header grows after the BorderContainer has already sized the
+          // center region around the old height. Without a re-measure the two
+          // overlap. Same cause as the file/markdown viewers (#203, #207).
+          this.resize();
           this.viewer.renderArray(this.samples);
 
         }));
