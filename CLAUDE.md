@@ -155,8 +155,8 @@ Topic.publish('/navigate', { href: '/workspace' + encodePath(userPath) });
 
 ### 5. Sanctioned exception: sandboxed rendering of untrusted documents
 
-Some viewers must render whole documents that users supply — HTML job reports
-today, Markdown later. These cannot use `textContent`/`domConstruct`, because the
+Some viewers must render whole documents that users supply — HTML job reports and
+Markdown files. These cannot use `textContent`/`domConstruct`, because the
 point is to render markup. They are allowed to feed markup to an iframe, but
 **only** under a sandbox, and the sandbox is the security boundary rather than
 any filtering we do.
@@ -174,7 +174,13 @@ equivalent to no sandbox at all — verified in a browser: a frame with both rea
 | Viewer | Content | Sandbox | Why |
 |---|---|---|---|
 | `viewer/File.js` | HTML job reports | `allow-scripts` | Reports need JS — cgMLST_Report.html is 230 KB with jQuery, Plotly, DataTables, XLSX |
-| `viewer/Markdown.js` *(planned)* | `.md` files | *(neither flag)* | Markdown needs no script; use the strictest setting |
+| `viewer/Markdown.js` | `.md` files | *(neither flag)* | Markdown needs no script; uses the strictest setting |
+
+`Markdown.js` additionally sets a per-document CSP inside its `srcdoc`
+(`default-src 'none'; img-src data:`), which blocks all network egress from the
+frame — no beacons, no tracking pixels. It renders with `markdown-it` configured
+**`html: false`**, so raw HTML in a document is escaped to text rather than
+parsed. That third invariant is as load-bearing as the two sandbox flags.
 
 Consequences to expect, not to "fix":
 
@@ -190,6 +196,7 @@ Consequences to expect, not to "fix":
 - `public/js/p3/widget/WorkspaceBrowser.js` - Workspace navigation URLs
 - `public/js/p3/WorkspaceManager.js` - Workspace API calls
 - `public/js/p3/widget/viewer/File.js` - Sandboxed iframe for untrusted documents
+- `public/js/p3/widget/viewer/Markdown.js` - Sandboxed iframe + markdown-it html:false
 - `public/js/p3/widget/viewer/*.js` - Viewer widgets with DOM manipulation
 - `lib/securityUtils.js` - Server-side sanitization utilities
 
