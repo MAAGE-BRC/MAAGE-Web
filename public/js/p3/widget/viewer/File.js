@@ -1,11 +1,13 @@
 define([
   'dojo/_base/declare', 'dijit/layout/BorderContainer', 'dojo/on', "dojo/_base/lang",
   'dojo/dom-class', 'dijit/layout/ContentPane', 'dojo/dom-construct', 'dojo/dom-style',
-  '../formatter', '../../WorkspaceManager', 'dojo/_base/Deferred', 'dojo/dom-attr', 'dojo/_base/array'
+  '../../WorkspaceManager', 'dojo/_base/Deferred', 'dojo/dom-attr', 'dojo/_base/array',
+  '../../util/fileHeader'
 ], function (
   declare, BorderContainer, on, lang,
   domClass, ContentPane, domConstruct, domStyle,
-  formatter, WS, Deferred, domAttr, array
+  WS, Deferred, domAttr, array,
+  fileHeader
 ) {
   return declare([BorderContainer], {
     baseClass: 'FileViewer',
@@ -85,26 +87,16 @@ define([
       }
     },
 
+    // Returns a DOM node, not an HTML string. ContentPane.set('content', node)
+    // accepts a node and will not parse it, which is what keeps a filename
+    // containing markup from being executed. See util/fileHeader.js for the
+    // four problems this replaced.
     formatFileMetaData: function (showMetaDataRows) {
-      var fileMeta = this.file.metadata;
-      if (this.file && fileMeta) {
-        var content = '<div><h3 class="section-title-plain close2x pull-left"><b>' + fileMeta.type + ' file</b>: ' + fileMeta.name + '</h3>';
-
-        // Only render the link once the signed URL has resolved -- otherwise
-        // the href was the literal string "null". Quote it, too: the value is
-        // a URL that can contain characters an unquoted attribute breaks on.
-        if (this.url && !WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
-          content += '<a href="' + this.url + '" title="Download"><i class="fa icon-download pull-left fa-2x"></i></a>';
-        }
-
-        if (showMetaDataRows) {
-          var formatLabels = formatter.autoLabel('fileView', fileMeta);
-          content += formatter.keyValueTable(formatLabels);
-        }
-        content += '</tbody></table></div>';
-      }
-
-      return content;
+      if (!this.file || !this.file.metadata) { return ''; }
+      var opts = { meta: this.file.metadata, url: this.url };
+      return showMetaDataRows
+        ? fileHeader.buildHeaderWithMetaNode(opts)
+        : fileHeader.buildHeaderNode(opts);
     },
 
     authorize: function () {
