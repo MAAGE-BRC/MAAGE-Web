@@ -21,7 +21,7 @@ define([
       'diffexp_expression', 'diffexp_mapping', 'diffexp_sample', 'pdf',
       'diffexp_input_data', 'diffexp_input_metadata', 'svg', 'gif', 'png', 'jpg',
       'aligned_dna_fasta', 'aligned_protein_fasta', 'feature_dna_fasta', 'feature_protein_fasta', 'pdb',
-      'microbetrace_session'],
+      'microbetrace_session', 'md'],
 
     knownUploadTypes: {
       unspecified: {
@@ -111,6 +111,11 @@ define([
         label: 'JSON',
         formats: ['.json'],
         description: 'A json file.'
+      },
+      md: {
+        label: 'Markdown',
+        formats: ['.md', '.markdown'],
+        description: 'A Markdown (.md) text document. Rendered as formatted HTML in the workspace viewer.'
       },
       nwk: {
         label: 'Newick',
@@ -220,6 +225,7 @@ define([
       gif: { label: 'gif', value: 'gif' },
       jpg: { label: 'jpg', value: 'jpg' },
       json: { label: 'json', value: 'json' },
+      md: { label: 'md', value: 'md' },
       nwk: { label: 'nwk', value: 'nwk' },
       pdf: { label: 'pdf', value: 'pdf' },
       phyloxml: { label: 'phyloxml', value: 'phyloxml' },
