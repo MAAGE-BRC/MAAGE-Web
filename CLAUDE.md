@@ -387,3 +387,25 @@ gracefully beyond that (returning what survives). Remove it once the distance
 service filters server-side, along with `MAX_HITS_PARAM`, which hardcodes the
 index of `max_hits` in the `Minhash.compute_genome_distance_for_{genome2,fasta2}`
 params array.
+params array.
+
+## Related repo: the Workspace service
+
+The Workspace and download services live in a **separate repository**
+(`../Workspace`, `BV-BRC/Workspace`), not in MAAGE-Web. Several MAAGE-Web
+features depend on them:
+
+| MAAGE-Web code | Depends on |
+|---|---|
+| `viewer/File.js` | `WorkspaceDownload` `/set-cookie-auth` and `/view` |
+| Workspace browser DWNLD button | `Workspace.get_download_url` → `/download/{key}/{name}` |
+| `WorkspaceManager.js` | the `Workspace` JSON-RPC service |
+
+That repo has its own `CLAUDE.md` covering its runtime model and the 2026-09-24
+download stall. Two things worth knowing from here:
+
+- **The download service is single-threaded** (Twiggy, one process), unlike the
+  25-worker RPC service. Anything that blocks it blocks every download. A stall
+  that looks like "MAAGE-Web is slow" may be that service.
+- Download keys and the `bvbrc_ws_view_session` cookie are **bearer secrets**.
+  Anyone holding a download key can fetch the file without further auth.
