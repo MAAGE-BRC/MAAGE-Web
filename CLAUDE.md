@@ -153,15 +153,47 @@ Topic.publish('/navigate', { href: '/workspace' + encodePath(userPath) });
 | `/workspace` + path | `/workspace` + encodePath(path) |
 | `decodeURIComponent()` on paths | Keep paths encoded |
 
-### 5. Files with Security-Critical Code
+### 5. Sanctioned exception: sandboxed rendering of untrusted documents
+
+Some viewers must render whole documents that users supply — HTML job reports
+today, Markdown later. These cannot use `textContent`/`domConstruct`, because the
+point is to render markup. They are allowed to feed markup to an iframe, but
+**only** under a sandbox, and the sandbox is the security boundary rather than
+any filtering we do.
+
+Why this needs stating: the viewer content arrives from a **same-origin** URL
+(`workspaceDownloadAPI` is a relative path), `window.App.authorizationToken` is a
+live OAuth credential readable from page JS, and `app.js` sets
+`contentSecurityPolicy: false` — so there is no app-wide backstop. An unsandboxed
+frame means any script in a shared workspace file can steal the viewer's session.
+
+**Never add `allow-same-origin` alongside `allow-scripts`.** The two together are
+equivalent to no sandbox at all — verified in a browser: a frame with both reads
+`parent.App.authorizationToken` *and* can remove its own `sandbox` attribute.
+
+| Viewer | Content | Sandbox | Why |
+|---|---|---|---|
+| `viewer/File.js` | HTML job reports | `allow-scripts` | Reports need JS — cgMLST_Report.html is 230 KB with jQuery, Plotly, DataTables, XLSX |
+| `viewer/Markdown.js` *(planned)* | `.md` files | *(neither flag)* | Markdown needs no script; use the strictest setting |
+
+Consequences to expect, not to "fix":
+
+- `iframe.contentWindow.document` is unreadable. To retarget links, use
+  `allow-top-navigation-by-user-activation`, never `allow-same-origin`.
+- Auto-sizing a frame to its content is impossible for the same reason.
+- `allow-downloads` is safe to add if an export breaks, but add it on evidence.
+  Verified that `XLSX.writeFile` works without it.
+
+### 6. Files with Security-Critical Code
 
 - `public/js/p3/util/QueryToEnglish.js` - Query display with escapeHtml()
 - `public/js/p3/widget/WorkspaceBrowser.js` - Workspace navigation URLs
 - `public/js/p3/WorkspaceManager.js` - Workspace API calls
+- `public/js/p3/widget/viewer/File.js` - Sandboxed iframe for untrusted documents
 - `public/js/p3/widget/viewer/*.js` - Viewer widgets with DOM manipulation
 - `lib/securityUtils.js` - Server-side sanitization utilities
 
-### 6. Server-Side Security Utilities
+### 7. Server-Side Security Utilities
 
 The `lib/securityUtils.js` module provides:
 - `sanitizeEmailHeader(str)` - Prevents email header injection (CRLF attacks)
