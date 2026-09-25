@@ -1,12 +1,12 @@
 define([
-  'dojo/_base/declare', 'dijit/layout/BorderContainer', 'dojo/_base/lang',
+  'dojo/_base/declare', 'dijit/layout/BorderContainer',
   'dijit/layout/ContentPane', 'dojo/dom-construct', 'dojo/dom-style',
-  '../formatter', '../../WorkspaceManager', 'dojo/_base/Deferred',
+  '../../WorkspaceManager', 'dojo/_base/Deferred',
   'markdown-it', 'lazyload'
 ], function (
-  declare, BorderContainer, lang,
+  declare, BorderContainer,
   ContentPane, domConstruct, domStyle,
-  formatter, WS, Deferred,
+  WS, Deferred,
   MarkdownIt
 ) {
   //
@@ -188,10 +188,8 @@ define([
       this.inherited(arguments);
 
       this.viewHeader = new ContentPane({ content: '', region: 'top' });
-      this.viewSubHeader = new ContentPane({ content: '', region: 'top' });
       this.viewer = new ContentPane({ region: 'center' });
       this.addChild(this.viewHeader);
-      this.addChild(this.viewSubHeader);
       this.addChild(this.viewer);
 
       var _self = this;
@@ -208,22 +206,41 @@ define([
       }
     },
 
-    // Same header as File.js so the viewer looks native alongside the others.
-    formatFileMetaData: function (showMetaDataRows) {
-      var fileMeta = this.file.metadata;
-      var content = '';
-      if (this.file && fileMeta) {
-        content = '<div><h3 class="section-title-plain close2x pull-left"><b>' +
-          escapeHtml(fileMeta.type) + ' file</b>: ' + escapeHtml(fileMeta.name) + '</h3>';
-        if (this.url && !WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
-          content += '<a href="' + this.url + '" title="Download"><i class="fa icon-download pull-left fa-2x"></i></a>';
-        }
-        if (showMetaDataRows) {
-          content += formatter.keyValueTable(formatter.autoLabel('fileView', fileMeta));
-        }
-        content += '</tbody></table></div>';
+    // Header line: file name plus the download icon. Deliberately does NOT use
+    // File.js's formatFileMetaData:
+    //
+    //   - That helper appends a bare '</tbody></table>' even when it opened no
+    //     table, and uses `pull-left` floats on both the heading and the icon.
+    //     Rendered above a full-height iframe the stray float escapes the
+    //     subheader's flow and overlaps the document.
+    //   - Its full metadata table (showMetaDataRows) is a FALLBACK in File.js,
+    //     used only when a file cannot be displayed (File.js:246). When File.js
+    //     does render content it passes false. Showing the table here as well
+    //     as the rendered markdown is what produced the overlap.
+    //
+    // Built with domConstruct + textContent rather than string concatenation,
+    // per the XSS policy -- fileMeta.name is user-controlled.
+    buildHeader: function () {
+      var fileMeta = this.file && this.file.metadata;
+      var node = domConstruct.create('div', {
+        style: 'display:flex;align-items:center;gap:8px;padding:4px 8px;min-height:0'
+      });
+      if (!fileMeta) { return node; }
+
+      var title = domConstruct.create('span', {
+        style: 'font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'
+      }, node);
+      title.textContent = fileMeta.name;
+
+      if (this.url && !WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
+        var a = domConstruct.create('a', {
+          href: this.url,
+          title: 'Download',
+          style: 'flex:0 0 auto;line-height:1'
+        }, node);
+        domConstruct.create('i', { className: 'fa icon-download' }, a);
       }
-      return content;
+      return node;
     },
 
     refresh: function () {
@@ -233,8 +250,7 @@ define([
         return;
       }
 
-      this.viewSubHeader.set('content', this.formatFileMetaData(true));
-      this._renderToggle();
+      this._renderHeader();
 
       var meta = this.file.metadata;
       if (meta.size > MAX_RENDER_BYTES) {
@@ -260,19 +276,25 @@ define([
       });
     },
 
-    _renderToggle: function () {
+    // One compact header row: filename, download icon, and the raw/rendered
+    // toggle. Kept to a single row so the center region gets the rest of the
+    // height -- the iframe cannot size itself to its content (no
+    // allow-same-origin), so it relies on the BorderContainer for its height.
+    _renderHeader: function () {
       var _self = this;
-      var node = domConstruct.create('div', { style: 'padding:4px 8px' });
+      var node = this.buildHeader();
+
       var btn = domConstruct.create('button', {
         type: 'button',
-        textContent: this.showRaw ? 'Show rendered' : 'Show raw',
-        style: 'cursor:pointer'
+        style: 'cursor:pointer;flex:0 0 auto;margin-left:auto'
       }, node);
+      btn.textContent = this.showRaw ? 'Show rendered' : 'Show raw';
       btn.addEventListener('click', function () {
         _self.showRaw = !_self.showRaw;
-        _self._renderToggle();
+        _self._renderHeader();
         _self._display();
       });
+
       this.viewHeader.set('content', node);
     },
 
@@ -286,6 +308,7 @@ define([
                  'font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace'
         }, this.viewer.containerNode);
         pre.textContent = this.markdownSource;
+        this.resize();
         return;
       }
       this._renderToIframe(this.markdownSource);
@@ -410,6 +433,11 @@ define([
       });
       domConstruct.place(iframe, this.viewer.containerNode);
       iframe.srcdoc = doc;
+
+      // The header's height is only known after its content is set, so the
+      // BorderContainer must recompute the center region. Without this the
+      // iframe keeps a stale height and overlaps the header.
+      this.resize();
     }
   });
 });
