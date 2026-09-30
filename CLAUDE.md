@@ -410,6 +410,41 @@ Take `metadata.path` from the service response — it is always the real,
 unprefixed path. Viewers such as `viewer/File.js` build their `filepath` that
 way, which is why they work despite the URL carrying the prefix.
 
+## Viewer layout: call `resize()` after setting header content
+
+Viewers built on `BorderContainer` size the center region from the header's
+height **at layout time**. If a top-region `ContentPane` gets its content after
+that — which is the norm, since headers are populated from async workspace
+calls — the center keeps the height it was given and the two overlap.
+
+```js
+this.viewSubHeader.set('content', this.formatFileMetaData(false));
+this.resize();   // re-measure, or the center region overlaps the header
+```
+
+This shipped as a visible bug three times before it was understood as one
+pattern (`viewer/File.js`, `viewer/Markdown.js`, `viewer/TSV_CSV.js`,
+`viewer/Experiment.js`, `viewer/ExperimentGroup.js`). A sweep of the widget
+tree found no remaining cases: the `messagePanel` panes in `GridContainer.js`,
+`PathwaysContainer.js` and `ProteinFamiliesContainer.js` set content *before*
+`addChild`, so the pane is measured with its real content already present.
+
+Two things that make it easy to miss:
+
+- **It can present as wasted space rather than overlap.** If the header
+  *shrinks* — `ExperimentGroup.js` swaps two placeholder lines for one — the
+  center region is simply pushed too low. Same bug, no visual collision.
+- **A floated header can hide it.** The old `formatFileMetaData` floated its
+  heading with `pull-left` and never cleared, collapsing the header to
+  near-zero height; the missing re-layout only became visible once the floats
+  were removed.
+
+Related: an iframe in the center region **cannot** size itself to its content,
+because that needs `contentDocument.scrollHeight` and therefore
+`allow-same-origin`, which would defeat the viewer sandbox (§5). Such viewers
+depend entirely on the container's layout, which is why the `resize()` matters
+more there.
+
 ## Workspace file viewer (`viewer/File.js`)
 
 The fallback viewer for any workspace file type without a dedicated viewer.
@@ -430,6 +465,15 @@ Worth knowing before changing it:
 - For PDFs, `iframe.onload` fires when the browser hands off to its PDF plugin,
   **not** when rendering completes. There is no rendering-complete signal: the
   plugin renders out-of-process and the frame's DOM stays empty.
+- The header comes from `util/fileHeader.js`, shared with `viewer/TSV_CSV.js`
+  and `viewer/Markdown.js`. It returns a **DOM node**, not an HTML string —
+  `ContentPane.set('content', node)` accepts either, and the node form is what
+  keeps a filename containing markup from being parsed. It replaced a
+  `formatFileMetaData` that had been copy-pasted into two viewers and then
+  drifted between them.
+- `formatter.keyValueTable` escapes its labels and values. Do not "optimise"
+  that away: it renders workspace filenames and owner ids, and the caller feeds
+  its output to `innerHTML`.
 
 ## Deprecated Genome Filtering
 
