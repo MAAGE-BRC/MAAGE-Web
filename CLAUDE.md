@@ -31,6 +31,19 @@ npm run tw:build:min
 
 # Watch Tailwind CSS for changes during development
 npm run tw:watch
+
+# Build the Dojo client bundle (needs Java for the Closure compiler)
+./buildClient.sh
+
+# Same build, but failing on a regression -- what CI runs. Use this, not
+# buildClient.sh directly: see "The client build" below.
+./scripts/check-build.sh
+
+# Verify the vendor symlinks under public/js
+npm run check:links
+
+# Recreate them from public/js/links.json (also runs on npm install)
+npm run link:vendor
 ```
 
 ## Architecture
@@ -51,14 +64,112 @@ npm run tw:watch
 - **Resources**: `public/js/p3/resources/` - shared resources
 - **Router**: `public/js/p3/router.js` - client-side routing
 
-### Frontend Dependencies (Git Submodules)
+### Frontend Dependencies — three routes, deliberately
 
-The `public/js/` directory contains many git submodules including:
-- Dojo framework (`dojo`, `dijit`, `dojox`)
-- `dgrid` for data grids
-- D3.js for visualizations
-- Cytoscape (via npm) for network graphs
-- MSA viewer, phyloview, archaeopteryx for bioinformatics visualizations
+A frontend library reaches the browser by one of three paths. Knowing which
+one you are in explains most build surprises.
+
+| route | count | examples | bundled by `buildClient.sh`? |
+|---|---|---|---|
+| git submodule under `public/js/` | 21 | dojo, dijit, dojox, dgrid, d3, JBrowse | yes |
+| npm package **symlinked** into `public/js/` | 15 | cytoscape ×6, jquery, dagre, webcola, phyloxml, jbrowse | yes |
+| vendored file under `public/maage/` | — | echarts, chart.js, d3v7, gridstack, markdown-it, highlight.js | **no** — fetched at runtime |
+
+**The npm route is symlinks, not a bundler step.** `public/js/cytoscape` is a
+committed symlink (git mode `120000`) to `../../node_modules/cytoscape`,
+registered as an AMD package in `public/js/release.profile.js`. The browser
+never sees `node_modules`; `app.js` does not serve it.
+
+That set is declared in **`public/js/links.json`** and managed by two scripts:
+
+- `scripts/link-vendor.js` (`npm run link:vendor`) creates, repairs and prunes
+  links. Runs from `postinstall`.
+- `scripts/check-vendor-links.js` (`npm run check:links`) verifies and exits
+  non-zero. Runs in CI.
+
+Adding a library to `links.json` without adding it to `package.json` produces
+a link no `npm install` can ever satisfy — and **`npm ls <pkg>` reports
+`(empty)` rather than an error** for that case, which is how a dangling
+`clipboard-js` link survived unnoticed. The checker exists because npm's own
+tooling does not see this.
+
+**Choosing a route.** npm + symlink when the library is a well-behaved AMD
+module belonging in the core bundle; `public/maage/` when it is loaded lazily
+or cannot use the AMD path at all. highlight.js is a real instance of the
+latter — it ships no AMD wrapper, only a `var hljs` global, and a package name
+containing a dot breaks Dojo's resolver, so `require()` returns `undefined`.
+It is loaded via `LazyLoad` instead.
+
+**Do not assume a same-named npm package is the same project.** Checking the
+submodules against npm, 6 of 10 resolve to a *different* repository —
+`lazyload` on npm is an image lazyloader by tuupola, while this repo uses
+rbuels' script loader of that name. Substituting on a name match would be a
+supply-chain swap, not a migration.
+
+### The client build
+
+`./buildClient.sh` runs Dojo's build with the Closure compiler (needs Java).
+
+**It exits 0 even when the build reports errors.** Use
+`./scripts/check-build.sh` instead — it ratchets against a recorded
+`BASELINE_ERRORS` and fails only if the count rises, so a real regression
+blocks while pre-existing noise does not. Lower the baseline when the count
+drops; the script says so when it notices.
+
+The baseline is not zero because ~19 `error(311) missing dependency` reports
+are structural:
+
+- libraries under `public/maage/` are fetched at runtime and deliberately
+  absent from `release.profile.js`, so the builder cannot see them;
+- `heatmap/dist/*` is tagged `copyOnly` in `heatmap/app.profile.js`, so it is
+  copied verbatim rather than registered as an AMD module (the file does ship);
+- molstar and mauve_viewer are absent from this checkout.
+
+**These cannot be suppressed in place.** Severity in the Dojo builder is a
+pure function of the message id — `util/build/messages.js` maps 300–399 to
+`error` and hardcodes `amdMissingDependency` as `311` — and
+`util/build/transforms/depsScan.js` logs it unconditionally. No pragma, no
+allowlist, no profile override. Hence the ratchet.
+
+A *fixable* 311 usually means a real module that simply has no package entry
+in `release.profile.js` (this was true of `dagre`), or a `dojo/text!` with a
+leading-slash absolute path — that form resolves only against the running
+server, never the filesystem. Use the relative form.
+
+### CI
+
+`.github/workflows/verify.yml` runs on PRs to `dev` and `main`: a fast vendor-
+link job, then `npm ci` → `check:links` → `check-build.sh` with Java. The other
+four workflows only bump versions and tag — before this, **nothing was ever
+built in CI**, so build breakage reached developers and production directly.
+
+### Pending: the Dojo upgrade
+
+`dojo`, `dijit`, `dojox` and `util` are pinned at the clean upstream tag
+**1.16.3**; 1.17.3 is current. The upgrade is wanted — 1.17.0 carries
+**CVE-2021-23450** (prototype pollution in `_base/lang.js`) and
+GHSA-jxfh-8wgv-vfr2 — but is deliberately **not** bundled with the build-
+infrastructure work, so that a build failure has exactly one suspect.
+
+Two properties make it separable, both verified:
+
+- npm publishes **1.16.3 itself**, and the `dojo@1.16.3` tarball is
+  byte-identical to the submodule checkout. So submodule→npm can be landed as
+  a provable no-op, before any version change. Note `util` maps to
+  **`dojo-util`** on npm, not `util` (which is Node's shim).
+- The real risk in the bump is not the library. `util` carries a replaced
+  Closure jar (10.8 MB → 13.5 MB), and `dojo/store/Memory` changed `put` to
+  append rather than prepend — a change that passes CI and silently reorders
+  grids. `check-build.sh` catches the former; only hand testing catches the
+  latter.
+
+Pin exactly: 2.0 alphas are published to the registry (a `beta` dist-tag
+points at `2.0.0-alpha.7`), so a caret range would pull in a rewritten
+framework.
+
+**`dgrid` is not a migration candidate** despite being same-repo: npm has
+1.3.3, the tree is on 0.3.17-dev. That is a 0.3→1.x API port across ~280
+widgets, a project in its own right.
 
 ### MAAGE-Specific Assets
 
