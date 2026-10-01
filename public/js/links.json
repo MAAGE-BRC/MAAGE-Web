@@ -1,0 +1,32 @@
+{
+  "_comment": [
+    "Vendor symlinks under public/js/ that point into node_modules.",
+    "Keys are the link name; values are the link target, relative to public/js/.",
+    "",
+    "Generated and verified by scripts/link-vendor.js and",
+    "scripts/check-vendor-links.js. npm run link:vendor recreates them;",
+    "npm run check:links fails if any dangle, point at an undeclared",
+    "dependency, or exist without a manifest entry.",
+    "",
+    "Adding a frontend library here is one of three options -- see",
+    "PLAN-vendor-link-robustness.md. Libraries loaded lazily or lacking an AMD",
+    "wrapper belong under public/maage/ instead."
+  ],
+
+  "bvbrc_js_client": "../../node_modules/bvbrc_js_client",
+  "cytoscape": "../../node_modules/cytoscape",
+  "cytoscape-cola": "../../node_modules/cytoscape-cola",
+  "cytoscape-context-menus": "../../node_modules/cytoscape-context-menus",
+  "cytoscape-cose-bilkent": "../../node_modules/cytoscape-cose-bilkent",
+  "cytoscape-dagre": "../../node_modules/cytoscape-dagre",
+  "cytoscape-panzoom": "../../node_modules/cytoscape-panzoom",
+  "dagre": "../../node_modules/dagre",
+  "dagre.js": "../../node_modules/dagre/dist/dagre.min.js",
+  "flag-icon-css": "../../node_modules/flag-icons",
+  "jbrowse.repo": "../../node_modules/jbrowse",
+  "jquery": "../../node_modules/jquery",
+  "phyloxml": "../../node_modules/phyloxml",
+  "webcola": "../../node_modules/webcola",
+
+  "JBrowse": "jbrowse.repo/src/JBrowse"
+}
