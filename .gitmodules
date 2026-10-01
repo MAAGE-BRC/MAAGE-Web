@@ -44,9 +44,6 @@
 [submodule "public/js/lazyload"]
 	path = public/js/lazyload
 	url = https://github.com/rbuels/lazyload.git
-[submodule "public/js/raphael"]
-	path = public/js/raphael
-	url = https://github.com/DmitryBaranovskiy/raphael.git
 [submodule "public/js/circulus"]
 	path = public/js/circulus
 	url = https://github.com/dmachi/circulus.git
@@ -56,9 +53,6 @@
 [submodule "public/js/phyloview"]
 	path = public/js/phyloview
 	url = https://github.com/aswarren/phyloview
-[submodule "public/js/autotrack"]
-	path = public/js/autotrack
-	url = https://github.com/googleanalytics/autotrack.git
 [submodule "public/js/mauve_viewer"]
 	path = public/js/mauve_viewer
 	url = https://github.com/nconrad/mauve_viewer
