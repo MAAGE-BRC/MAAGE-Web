@@ -3,16 +3,28 @@
 #
 # buildClient.sh cannot be used as a pass/fail gate on its own: it exits 0
 # even when the build reports errors. Measured on upstream/dev at the time of
-# writing, a clean build exits 0 while reporting 21 errors and 98 warnings. A
+# writing, a clean build exits 0 while reporting 19 errors and 99 warnings. A
 # naive `./buildClient.sh` CI step would therefore go green on a broken build.
 #
-# Those 21 errors are structural rather than new. Most are error(311) "missing
-# dependency" for libraries under public/maage/ -- echarts, markdown-it, d3v7,
-# maage-themes -- which are deliberately NOT in release.profile.js because they
-# are fetched at runtime from a URL rather than bundled. The builder cannot see
-# them and says so, every time. Fixing that is a separate question (see
-# PLAN-vendor-link-robustness.md); pretending it is clean is not an option
-# either.
+# Those 19 errors are structural rather than new, and were 21 until the two
+# genuinely fixable ones were resolved. What remains falls into three groups,
+# none of which is a defect:
+#
+#   - 7 for libraries under public/maage/ (echarts, markdown-it, d3v7,
+#     maage-themes). These are deliberately absent from release.profile.js
+#     because they are fetched at runtime from a URL rather than bundled, so
+#     the builder cannot see them and says so on every run.
+#   - 6 for heatmap/dist/hotmap. heatmap/app.profile.js tags dist/* as
+#     copyOnly, so it is copied verbatim instead of registered as an AMD
+#     module -- unresolvable by design. The file does ship.
+#   - 6 for molstar, mauve_viewer and a Google Maps URL used as an AMD
+#     dependency: files absent from this checkout, and a widget that would
+#     need restructuring.
+#
+# There is no way to suppress these per-site. Severity in the Dojo builder is
+# a pure function of the message id -- build/messages.js maps 300-399 to
+# "error" and hardcodes amdMissingDependency as 311 -- and depsScan.js logs it
+# unconditionally. No pragma, no allowlist, no profile override.
 #
 # So the gate is a ratchet: compare against a recorded baseline and fail only
 # if the count goes UP. That catches a real regression -- a genuinely broken
@@ -21,7 +33,7 @@
 # noise is reduced.
 set -e
 
-BASELINE_ERRORS=21
+BASELINE_ERRORS=19
 
 LOG=$(mktemp)
 trap 'rm -f "$LOG"' EXIT

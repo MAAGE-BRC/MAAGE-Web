@@ -3,7 +3,7 @@ define([
   'dojo/dom', 'dojo/dom-class', 'dijit/_TemplatedMixin', 'dojox/dtl/_Templated', 'dojo/dom-construct', 'dojo/dom-style',  'dojo/mouse',
   'dojo/text!./templates/SurveillanceDataMap.html', './mapsInfoWindows/LocationInfoWindowSingle',
   './mapsInfoWindows/LocationInfoWindowShortList', './mapsInfoWindows/LocationInfoWindowSummary',
-  'dojo/json', 'dojo/text!/public/js/p3/resources/surveillancemap/flyaways.json', 'dijit/form/CheckBox', 'dijit/ColorPalette',
+  'dojo/json', 'dojo/text!../resources/surveillancemap/flyaways.json', 'dijit/form/CheckBox', 'dijit/ColorPalette',
   '../util/PathJoin', 'dojo/request', 'dojo/_base/lang',
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAo6Eq83tcpiWufvVpw_uuqdoRfWbFXfQ8&sensor=false&libraries=drawing'
 ], function (
