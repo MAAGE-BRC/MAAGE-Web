@@ -11,7 +11,13 @@ const defaults = {
   'sessionTTL': 2628000000,
   'workspaceServiceURL': 'https://www.bv-brc.org/services/Workspace',
   'appServiceURL': 'https://www.bv-brc.org/services/app_service',
-  appBaseURL: 'https://www.patricbrc.org',
+  // This site's own public base URL. Reaches the client as window.App.appBaseURL
+  // and is used both as the job-submission 'base_url' and as the
+  // registration_site_url the user service derives a site slug from -- so a
+  // BV-BRC URL here makes MAAGE self-report as BV-BRC. Deployments override it
+  // in p3-web.conf; note an empty string there overrides this default rather
+  // than falling back to it.
+  appBaseURL: 'https://www.maage-brc.org',
   'homologyServiceURL': 'https://www.bv-brc.org/services/homology_service',
   'genomedistanceServiceURL': 'https://www.bv-brc.org/services/minhash_service',
   'compareregionServiceURL': 'https://www.bv-brc.org/services/compare_regions',
