@@ -45,6 +45,10 @@ var profile = {
     { name: 'cytoscape-context-menus', location:'./cytoscape-context-menus' },
     { name: 'cytoscape-cola', location:'./cytoscape-cola' },
     { name: 'cytoscape-dagre', location:'./cytoscape-dagre' },
+    // cytoscape-dagre requires 'dagre'. The symlink has always been there and
+    // the module loads fine at runtime, but without a package entry the
+    // builder cannot resolve the dependency and reports error(311).
+    { name: 'dagre', location:'./dagre', main:'index' },
     { name: 'heatmap', location:'./heatmap' }
   ],
   layers: {

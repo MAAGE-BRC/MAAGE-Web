@@ -1,0 +1,103 @@
+name: Verify
+
+# Until now no workflow installed dependencies or built anything -- the four
+# existing ones only bump versions and tag. Every build or vendor-link failure
+# therefore surfaced on a developer's machine or in production, never in a PR.
+on:
+  pull_request:
+    branches: [dev, main]
+  workflow_dispatch:
+
+jobs:
+  links:
+    name: Vendor links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Deliberately no npm install here. This job gives fast feedback on the
+      # invariants that do not need node_modules: that links.json parses, that
+      # it agrees with the links actually committed, and that every target is
+      # a declared dependency -- the clipboard-js failure, where a link points
+      # at a package no npm install could ever produce.
+      #
+      # The full check (which also catches dangling targets) runs in the build
+      # job after install; before install every link is dangling by definition,
+      # so running it here would report nothing useful.
+      - name: Check manifest against committed links
+        run: |
+          node -e "
+            const vl = require('./scripts/vendor-links');
+            const manifest = vl.loadManifest();
+            const existing = vl.currentLinks();
+            const deps = vl.declaredDeps();
+            const problems = [];
+
+            for (const [name, target] of Object.entries(manifest)) {
+              const pkg = vl.packageOf(target);
+              if (pkg && !(pkg in deps)) {
+                problems.push(name + ': target package \"' + pkg + '\" is not in package.json');
+              }
+              if (!(name in existing)) {
+                problems.push(name + ': declared in links.json but not committed as a symlink');
+              } else if (!vl.sameTarget(existing[name], target)) {
+                problems.push(name + ': committed link points at ' + existing[name] + ', manifest says ' + target);
+              }
+            }
+            for (const name of Object.keys(existing)) {
+              if (!(name in manifest)) {
+                problems.push(name + ': committed symlink missing from links.json');
+              }
+            }
+
+            if (problems.length) {
+              console.error('vendor manifest problems:');
+              problems.forEach(p => console.error('  ' + p));
+              process.exit(1);
+            }
+            console.log('manifest OK (' + Object.keys(manifest).length + ' entries)');
+          "
+
+  build:
+    name: Client build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The Dojo build shells out to the Closure compiler jar in
+      # public/js/util/closureCompiler.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      # npm ci, not npm install: it respects package-lock.json. postinstall
+      # runs scripts/link-vendor.js, so the vendor links are created here.
+      - name: Install
+        run: npm ci
+
+      - name: Check vendor links
+        run: npm run check:links
+
+      # Not ./buildClient.sh directly -- it exits 0 even when the build
+      # reports errors. check-build.sh ratchets against a recorded baseline.
+      - name: Build client
+        run: ./scripts/check-build.sh
+
+      - name: Upload build report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-report
+          path: public/js/release/build-report.txt
+          if-no-files-found: ignore
