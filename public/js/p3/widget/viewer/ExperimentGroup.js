@@ -90,6 +90,10 @@ define([
           // console.log("Combined Experiments: ", d);
           this.viewer.renderArray(d);
           this.viewHeader.set('content', obj.metadata.name);
+          // Header content is swapped in asynchronously, changing its height
+          // after layout. Here it shrinks rather than grows, so the symptom is
+          // wasted space rather than overlap, but the fix is the same.
+          this.resize();
         }));
       }));
     },

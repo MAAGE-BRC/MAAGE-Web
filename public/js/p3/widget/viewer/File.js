@@ -1,11 +1,13 @@
 define([
   'dojo/_base/declare', 'dijit/layout/BorderContainer', 'dojo/on', "dojo/_base/lang",
   'dojo/dom-class', 'dijit/layout/ContentPane', 'dojo/dom-construct', 'dojo/dom-style',
-  '../formatter', '../../WorkspaceManager', 'dojo/_base/Deferred', 'dojo/dom-attr', 'dojo/_base/array'
+  '../../WorkspaceManager', 'dojo/_base/Deferred', 'dojo/dom-attr', 'dojo/_base/array',
+  '../../util/fileHeader'
 ], function (
   declare, BorderContainer, on, lang,
   domClass, ContentPane, domConstruct, domStyle,
-  formatter, WS, Deferred, domAttr, array
+  WS, Deferred, domAttr, array,
+  fileHeader
 ) {
   return declare([BorderContainer], {
     baseClass: 'FileViewer',
@@ -85,26 +87,16 @@ define([
       }
     },
 
+    // Returns a DOM node, not an HTML string. ContentPane.set('content', node)
+    // accepts a node and will not parse it, which is what keeps a filename
+    // containing markup from being executed. See util/fileHeader.js for the
+    // four problems this replaced.
     formatFileMetaData: function (showMetaDataRows) {
-      var fileMeta = this.file.metadata;
-      if (this.file && fileMeta) {
-        var content = '<div><h3 class="section-title-plain close2x pull-left"><b>' + fileMeta.type + ' file</b>: ' + fileMeta.name + '</h3>';
-
-        // Only render the link once the signed URL has resolved -- otherwise
-        // the href was the literal string "null". Quote it, too: the value is
-        // a URL that can contain characters an unquoted attribute breaks on.
-        if (this.url && !WS.forbiddenDownloadTypes.includes(fileMeta.type)) {
-          content += '<a href="' + this.url + '" title="Download"><i class="fa icon-download pull-left fa-2x"></i></a>';
-        }
-
-        if (showMetaDataRows) {
-          var formatLabels = formatter.autoLabel('fileView', fileMeta);
-          content += formatter.keyValueTable(formatLabels);
-        }
-        content += '</tbody></table></div>';
-      }
-
-      return content;
+      if (!this.file || !this.file.metadata) { return ''; }
+      var opts = { meta: this.file.metadata, url: this.url };
+      return showMetaDataRows
+        ? fileHeader.buildHeaderWithMetaNode(opts)
+        : fileHeader.buildHeaderNode(opts);
     },
 
     authorize: function () {
@@ -146,6 +138,11 @@ define([
       if (this.file && this.file.metadata) {
         if (this.viewable) {
           this.viewSubHeader.set('content', this.formatFileMetaData(false));
+          // The header's height is only known once its content is in place, so
+          // the BorderContainer has to re-measure. Without this the center
+          // region keeps the height it was given before the header grew, and
+          // the two overlap.
+          this.resize();
 
           // Show the spinner BEFORE authorizing, not after. authorize() is a
           // network round-trip -- a few hundred ms on a good connection, much
@@ -175,7 +172,32 @@ define([
           // Set cookie for workspace load
           this.authorize().then(lang.hitch(this, function () {
             const docURL = window.App.workspaceDownloadAPI + "/view" + this.filepath;
-            var iframe = domConstruct.create('iframe', { style: 'width:100%;height:100%' });
+
+            //
+            // The frame renders workspace files, whose content we do not
+            // control, from a SAME-ORIGIN URL (workspaceDownloadAPI is a
+            // relative path). Without a sandbox, script in a workspace HTML
+            // file runs in the app origin, where window.App.authorizationToken
+            // is a live OAuth credential readable from JS and there is no CSP
+            // backstop (app.js disables Helmet's CSP for Dojo).
+            //
+            // allow-scripts is required: job reports genuinely need it --
+            // cgMLST_Report.html is ~136KB with Plotly, jQuery and DataTables.
+            // Withholding allow-same-origin puts the document in an opaque
+            // origin, so scripts run but cannot reach parent.App, cookies or
+            // localStorage.
+            //
+            // NEVER add allow-same-origin here. Combined with allow-scripts it
+            // is equivalent to no sandbox at all, because the frame can then
+            // remove its own sandbox attribute.
+            //
+            // Set at creation, before the node is placed, so the attribute is
+            // present when the document loads.
+            //
+            var iframe = domConstruct.create('iframe', {
+              sandbox: 'allow-scripts',
+              style: 'width:100%;height:100%'
+            });
             domConstruct.place(iframe, this.viewer.containerNode);
 
             // Small files load in a couple of hundred milliseconds, which made
@@ -196,19 +218,14 @@ define([
               }, wait);
             };
 
-            iframe.onload = function () {
-              /*
-              var nodes = iframe.contentWindow.document.getElementsByTagName("a")
-              var i = 0
-              while (i < nodes.length) {
-                var n = nodes.item(i)
-                console.log("modify", n.target, n)
-                //n.target = "_parent";
-                i++
-              }
-              */
-              clearSpinner();
-            }
+            // Reading iframe.contentWindow.document from here is permanently
+            // impossible: the sandbox above withholds allow-same-origin, so the
+            // frame is in an opaque origin and any DOM access throws. A
+            // commented-out attempt to retarget the document's links lived here
+            // and has been removed. If link retargeting is needed again, the
+            // sandboxed answer is allow-top-navigation-by-user-activation --
+            // NOT allow-same-origin, which would defeat the sandbox entirely.
+            iframe.onload = clearSpinner;
             // Without this a failed load would leave the spinner up forever.
             iframe.onerror = clearSpinner;
             iframe.src = docURL;
@@ -224,6 +241,7 @@ define([
           }));
         } else {
           this.viewSubHeader.set('content', this.formatFileMetaData(true));
+          this.resize();
         }
       }
     }

@@ -13,6 +13,22 @@ define([
       this.path = p;
       if (this._started) {
         this.pathContainer.innerHTML = this.generatePathLinks(p);
+        // A long path wraps to another line, making this bar taller. The
+        // enclosing BorderContainer sized the centre region against the old
+        // height, so without a re-layout the breadcrumb spills over the
+        // viewer below it.
+        this._notifyResize();
+      }
+    },
+
+    // Ask the enclosing BorderContainer to re-measure. Guarded because this
+    // bar is also used outside one.
+    _notifyResize: function () {
+      var parent = this.getParent && this.getParent();
+      if (parent && parent.resize) {
+        parent.resize();
+      } else if (this.resize) {
+        this.resize();
       }
     },
 

@@ -2590,6 +2590,12 @@ define([
             Topic.publish('/navigate', { href: '/view/PhylogeneticTree2/?&labelSearch=' + labelSearch + '&idType=' + idType + '&labelType=' + labelType + '&wsTreeFile=' + encodePath(filepath) + '&fileType=' + obj.type });
             break;
 
+          case 'md':
+          case 'markdown':
+            panelCtor = window.App.getConstructor('p3/widget/viewer/Markdown');
+            params.file = { metadata: obj };
+            break;
+
           case 'microbetrace':
           case 'microbetrace_session':
             panelCtor = window.App.getConstructor('p3/widget/viewer/MicrobeTrace');
@@ -2599,6 +2605,18 @@ define([
           default:
             var tsvCsvFilename = this.tsvCsvFilename = obj.name;
             var isTsv = false;
+
+            // Markdown files uploaded before the 'md' type existed are typed
+            // txt or unspecified, so fall back to the extension. This MUST be
+            // checked before the tsv name sniff below: that sniff matches
+            // substrings like '.diff' anywhere in the name, so a file called
+            // release.diff.md would otherwise be routed to the TSV grid.
+            if (/\.(md|markdown)$/i.test(tsvCsvFilename)) {
+              panelCtor = window.App.getConstructor('p3/widget/viewer/Markdown');
+              params.file = { metadata: obj };
+              break;
+            }
+
             var keyList = Object.keys(tsvCsvFeatures);    // for older tsv files typed as txt
             keyList.forEach(function (keyName) {
               if (tsvCsvFilename.indexOf(keyName) >= 0) {

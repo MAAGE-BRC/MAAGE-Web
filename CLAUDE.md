@@ -153,15 +153,54 @@ Topic.publish('/navigate', { href: '/workspace' + encodePath(userPath) });
 | `/workspace` + path | `/workspace` + encodePath(path) |
 | `decodeURIComponent()` on paths | Keep paths encoded |
 
-### 5. Files with Security-Critical Code
+### 5. Sanctioned exception: sandboxed rendering of untrusted documents
+
+Some viewers must render whole documents that users supply — HTML job reports and
+Markdown files. These cannot use `textContent`/`domConstruct`, because the
+point is to render markup. They are allowed to feed markup to an iframe, but
+**only** under a sandbox, and the sandbox is the security boundary rather than
+any filtering we do.
+
+Why this needs stating: the viewer content arrives from a **same-origin** URL
+(`workspaceDownloadAPI` is a relative path), `window.App.authorizationToken` is a
+live OAuth credential readable from page JS, and `app.js` sets
+`contentSecurityPolicy: false` — so there is no app-wide backstop. An unsandboxed
+frame means any script in a shared workspace file can steal the viewer's session.
+
+**Never add `allow-same-origin` alongside `allow-scripts`.** The two together are
+equivalent to no sandbox at all — verified in a browser: a frame with both reads
+`parent.App.authorizationToken` *and* can remove its own `sandbox` attribute.
+
+| Viewer | Content | Sandbox | Why |
+|---|---|---|---|
+| `viewer/File.js` | HTML job reports | `allow-scripts` | Reports need JS — cgMLST_Report.html is 230 KB with jQuery, Plotly, DataTables, XLSX |
+| `viewer/Markdown.js` | `.md` files | *(neither flag)* | Markdown needs no script; uses the strictest setting |
+
+`Markdown.js` additionally sets a per-document CSP inside its `srcdoc`
+(`default-src 'none'; img-src data:`), which blocks all network egress from the
+frame — no beacons, no tracking pixels. It renders with `markdown-it` configured
+**`html: false`**, so raw HTML in a document is escaped to text rather than
+parsed. That third invariant is as load-bearing as the two sandbox flags.
+
+Consequences to expect, not to "fix":
+
+- `iframe.contentWindow.document` is unreadable. To retarget links, use
+  `allow-top-navigation-by-user-activation`, never `allow-same-origin`.
+- Auto-sizing a frame to its content is impossible for the same reason.
+- `allow-downloads` is safe to add if an export breaks, but add it on evidence.
+  Verified that `XLSX.writeFile` works without it.
+
+### 6. Files with Security-Critical Code
 
 - `public/js/p3/util/QueryToEnglish.js` - Query display with escapeHtml()
 - `public/js/p3/widget/WorkspaceBrowser.js` - Workspace navigation URLs
 - `public/js/p3/WorkspaceManager.js` - Workspace API calls
+- `public/js/p3/widget/viewer/File.js` - Sandboxed iframe for untrusted documents
+- `public/js/p3/widget/viewer/Markdown.js` - Sandboxed iframe + markdown-it html:false
 - `public/js/p3/widget/viewer/*.js` - Viewer widgets with DOM manipulation
 - `lib/securityUtils.js` - Server-side sanitization utilities
 
-### 6. Server-Side Security Utilities
+### 7. Server-Side Security Utilities
 
 The `lib/securityUtils.js` module provides:
 - `sanitizeEmailHeader(str)` - Prevents email header injection (CRLF attacks)
@@ -346,6 +385,96 @@ The `path` property controls which workspace is shown. The leading path segment 
 
 The dropdown shortcut "MAAGE Workshop" targets `/public/maage@bvbrc/MAAGE Workshop`. The `/public` prefix is required — without it the selector shows Upload/Create Folder buttons even though the workspace service will reject writes from non-owners.
 
+## The `/public` path prefix
+
+`/public` is a **UI-only display marker** meaning "browsing in public-workspaces
+mode." It is **not part of any real workspace path** — the Workspace service
+rejects it with `User lacks permission to /`. The object the UI shows at
+`/public/maage@bvbrc/X` actually lives at `/maage@bvbrc/X`.
+
+The prefix is **stripped on the way out** to the API and **re-added on the way
+back** to grid rows:
+
+| direction | site |
+|---|---|
+| strip (load-bearing, before the API call) | `WorkspaceBrowser.js` — `'/' + path.split('/').slice(2).join('/')` |
+| strip (Homology href) | `WorkspaceBrowser.js` — `.replace(/^\/public/, '')` |
+| strip (breadcrumbs) | `ContainerActionBar.js` — `parts[1] == 'public'` |
+| **re-add** | `WorkspaceGrid.js` (two sites) — `'/public' + row.data.path` when in public mode |
+
+"Am I in public mode?" is re-derived independently in a dozen widgets as
+`path.split('/')[1] == 'public'`; there is no shared helper.
+
+**When debugging a workspace path, do not hand-construct the `/public` form.**
+Take `metadata.path` from the service response — it is always the real,
+unprefixed path. Viewers such as `viewer/File.js` build their `filepath` that
+way, which is why they work despite the URL carrying the prefix.
+
+## Viewer layout: call `resize()` after setting header content
+
+Viewers built on `BorderContainer` size the center region from the header's
+height **at layout time**. If a top-region `ContentPane` gets its content after
+that — which is the norm, since headers are populated from async workspace
+calls — the center keeps the height it was given and the two overlap.
+
+```js
+this.viewSubHeader.set('content', this.formatFileMetaData(false));
+this.resize();   // re-measure, or the center region overlaps the header
+```
+
+This shipped as a visible bug three times before it was understood as one
+pattern (`viewer/File.js`, `viewer/Markdown.js`, `viewer/TSV_CSV.js`,
+`viewer/Experiment.js`, `viewer/ExperimentGroup.js`). A sweep of the widget
+tree found no remaining cases: the `messagePanel` panes in `GridContainer.js`,
+`PathwaysContainer.js` and `ProteinFamiliesContainer.js` set content *before*
+`addChild`, so the pane is measured with its real content already present.
+
+Two things that make it easy to miss:
+
+- **It can present as wasted space rather than overlap.** If the header
+  *shrinks* — `ExperimentGroup.js` swaps two placeholder lines for one — the
+  center region is simply pushed too low. Same bug, no visual collision.
+- **A floated header can hide it.** The old `formatFileMetaData` floated its
+  heading with `pull-left` and never cleared, collapsing the header to
+  near-zero height; the missing re-layout only became visible once the floats
+  were removed.
+
+Related: an iframe in the center region **cannot** size itself to its content,
+because that needs `contentDocument.scrollHeight` and therefore
+`allow-same-origin`, which would defeat the viewer sandbox (§5). Such viewers
+depend entirely on the container's layout, which is why the `resize()` matters
+more there.
+
+## Workspace file viewer (`viewer/File.js`)
+
+The fallback viewer for any workspace file type without a dedicated viewer.
+Worth knowing before changing it:
+
+- It does **not** read file bytes. It POSTs to
+  `workspaceDownloadAPI + "/set-cookie-auth"` to set a cookie, then points an
+  iframe at `workspaceDownloadAPI + "/view" + filepath`. That auth call is a
+  network round-trip, so anything gated behind it (a spinner, for instance)
+  will not appear until it returns — noticeable on slow networks.
+- The download link in the header needs `this.url`, populated from
+  `WS.getDownloadUrls()`. The green action-bar DWNLD button is a *separate*
+  path that resolves its URL at click time via `WorkspaceManager.downloadFile()`.
+  Fixing one does not fix the other.
+- On a file viewer page the action bar's `selection` is **empty** — there is no
+  grid row to select. Actions that assume a selection must fall back to
+  `actionPanel.currentContainerWidget.filepath`.
+- For PDFs, `iframe.onload` fires when the browser hands off to its PDF plugin,
+  **not** when rendering completes. There is no rendering-complete signal: the
+  plugin renders out-of-process and the frame's DOM stays empty.
+- The header comes from `util/fileHeader.js`, shared with `viewer/TSV_CSV.js`
+  and `viewer/Markdown.js`. It returns a **DOM node**, not an HTML string —
+  `ContentPane.set('content', node)` accepts either, and the node form is what
+  keeps a filename containing markup from being parsed. It replaced a
+  `formatFileMetaData` that had been copy-pasted into two viewers and then
+  drifted between them.
+- `formatter.keyValueTable` escapes its labels and values. Do not "optimise"
+  that away: it renders workspace filenames and owner ids, and the caller feeds
+  its output to `innerHTML`.
+
 ## Deprecated Genome Filtering
 
 Deprecated genomes are hidden from standard displays, mirroring BV-BRC. The
@@ -387,3 +516,25 @@ gracefully beyond that (returning what survives). Remove it once the distance
 service filters server-side, along with `MAX_HITS_PARAM`, which hardcodes the
 index of `max_hits` in the `Minhash.compute_genome_distance_for_{genome2,fasta2}`
 params array.
+params array.
+
+## Related repo: the Workspace service
+
+The Workspace and download services live in a **separate repository**
+(`../Workspace`, `BV-BRC/Workspace`), not in MAAGE-Web. Several MAAGE-Web
+features depend on them:
+
+| MAAGE-Web code | Depends on |
+|---|---|
+| `viewer/File.js` | `WorkspaceDownload` `/set-cookie-auth` and `/view` |
+| Workspace browser DWNLD button | `Workspace.get_download_url` → `/download/{key}/{name}` |
+| `WorkspaceManager.js` | the `Workspace` JSON-RPC service |
+
+That repo has its own `CLAUDE.md` covering its runtime model and the 2026-09-24
+download stall. Two things worth knowing from here:
+
+- **The download service is single-threaded** (Twiggy, one process), unlike the
+  25-worker RPC service. Anything that blocks it blocks every download. A stall
+  that looks like "MAAGE-Web is slow" may be that service.
+- Download keys and the `bvbrc_ws_view_session` cookie are **bearer secrets**.
+  Anyone holding a download key can fetch the file without further auth.

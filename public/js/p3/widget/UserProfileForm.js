@@ -225,8 +225,21 @@ define([
       var _self = this;
       this.submitButton.set('disabled', false);
       domClass.add(_self.regFormErrorsContainer, 'dijitHidden')
+      /*
+       * Declare which frontend property this registration came from. The user
+       * service derives a site slug from this origin and stores it on the
+       * record; several properties share one user service, so without it a
+       * registration can't be attributed.
+       *
+       * Mixed in here rather than added to the template as a hidden input:
+       * getValues() feeds runPatch() too, and the field is immutable
+       * server-side, so a profile update carrying it would 403.
+       */
+      var regVals = window.App.appBaseURL
+        ? lang.mixin({}, vals, { registration_site_url: window.App.appBaseURL })
+        : vals;
       var def = xhr(this.userServiceURL + '/register', {
-        data: vals,
+        data: regVals,
         method: 'post',
         headers: {
           'Accept': 'application/json'
