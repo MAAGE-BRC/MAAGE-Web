@@ -127,6 +127,8 @@ app.use(function (req, res, next) {
     compareregionServiceURL: config.get('compareregionServiceURL'),
     docsServiceURL: config.get('docsServiceURL'),
     enableDevTools: config.get('enableDevTools'),
+    outageBannerEnabled: config.get('outageBanner:enabled') || false,
+    outageBannerMessage: config.get('outageBanner:message') || '',
     accountURL: config.get('accountURL'),
     appLabel: config.get('appLabel'),
     jiraLabel: config.get('jiraLabel'),
