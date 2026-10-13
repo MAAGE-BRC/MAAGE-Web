@@ -29,6 +29,10 @@ const defaults = {
   userServiceURL: '',
   localStorageCheckInterval: 86400,
   enableDevTools: false,
+  outageBanner: {
+    enabled: false,
+    message: ''
+  },
   reportProblemEmailAddress: 'help@maage-brc.org',
   sequenceSubmissionNotificationEmailAddress: ['gbsubmit@bvbrc.org'],
   'email': {
